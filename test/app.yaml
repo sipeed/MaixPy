@@ -1,0 +1,11 @@
+id: hello_world
+name: Hello world
+name[zh]: 你好世界
+version: 1.0.0
+#icon: assets/hello.png
+author: Sipeed Ltd
+desc: Hello world example code
+desc[zh]: 你好世界样例代码
+files:
+  # assets: assets
+

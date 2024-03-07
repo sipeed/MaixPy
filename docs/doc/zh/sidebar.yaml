@@ -1,0 +1,91 @@
+items:
+-   file: README.md
+    label: 快速开始
+-   file: projects.md
+    label: 功能和项目展示
+-   file: faq.md
+    label: FAQ 常见问题
+
+-   label: 基础
+-   file: basic/os.md
+    label: 升级和烧录系统
+-   file: basic/app_usage.md
+    label: 应用使用说明
+-   file: basic/maixpy_upgrade.md
+    label: 更新 MaixPy
+-   file: basic/python.md
+    label: Python 语法
+-   file: basic/python_pkgs.md
+    label: 添加额外的 Python 包
+
+-   label: 基础图像和算法
+-   file: vision/camera.md
+    label: 摄像头使用
+-   file: vision/display.md
+    label: 屏幕使用
+-   file: vision/image_ops.md
+    label: 基本图像操作
+-   file: vision/find_blobs.md
+    label: 找色块
+-   file: vision/qrcode.md
+    label: 二维码识别
+-   file: vision/apriltag.md
+    label: AprilTag 识别
+
+-   label: AI 视觉
+-   file: vision/ai.md
+    label: AI 视觉基本知识
+-   file: vision/classify.md
+    label: AI 物体分类
+-   file: vision/yolov5.md
+    label: YOLOv5 物体检测
+-   file: vision/face_recognize.md
+    label: 人脸识别
+-   file: vision/body_key_points.md
+    label: 人体关键点检测
+-   file: vision/self_learn_classifier.md
+    label: 自学习分类器
+-   file: vision/object_track.md
+    label: 物体轨迹跟踪和计数
+-   file: vision/maixhub_train.md
+    label: MaixHub 在线训练AI模型
+
+-   label: AI 听觉
+-   file: audio/recognize.md
+    label: 语音实时识别
+
+-   label: 片上外设
+-   file: peripheral/gpio.md
+    label: GPIO 和 点灯
+-   file: peripheral/uart.md
+    label: UART 串口使用
+-   file: peripheral/pwm.md
+    label: PWM 使用
+-   file: peripheral/spi.md
+    label: SPI 使用
+-   file: peripheral/wdt.md
+    label: WDT 看门狗使用
+
+-   label: 片外模块
+-   file: modules/acc.md
+    label: 加速度计使用
+-   file: modules/tof.md
+    label: TOF 测距
+-   file: modules/thermal_cam.md
+    label: 热成像摄像头使用
+
+-   label: 进阶
+-   file: source_code/contribute.md
+    label: 贡献文档和代码
+-   file: source_code/build.md
+    label: 构建 MaixPy 源码
+-   file: source_code/faq.md
+    label: MaixPy 源码 FAQ
+-   file: source_code/add_c_module.md
+    label: 使用 C/C++ 写一个模块
+-   file: source_code/maixcdk.md
+    label: 使用 MaixCDK 开发
+-   file: pro/compile_os.md
+    label: 编译系统
+
+

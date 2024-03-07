@@ -20,14 +20,13 @@ With MaixPy you can easily use camera, screen and AI in a short code:
 from maix import camera, display, image, nn
 
 classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
-input_size = classifier.input_size()
 
-cam = camera.Camera(input_size.width, input_size.height, classifier.input_img_fmt())
+cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 dis = display.Display()
 
 while 1:
     img = cam.read()
-    res = classifier.classify_image(img)
+    res = classifier.classify(img)
     max_idx, max_prob = res[0]
     msg = f"{max_prob:5.2f}: {classifier.labels[max_idx]}"
     img.draw_text(10, 10, msg, image.COLOR_RED)

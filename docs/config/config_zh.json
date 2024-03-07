@@ -1,0 +1,150 @@
+{
+    "locale": "zh",
+    "navbar": {
+        "title": "MaixPy",
+        "logo": {
+            "alt": "MaixPy logo",
+            "url": ""
+        },
+        "home_url": "/",
+        "items": [
+            {
+                "url": "https://wiki.sipeed.com",
+                "label": "Sipeed Wiki",
+                "position": "left"
+            },
+            {
+                "url": "/doc/zh/index.html",
+                "label": "文档",
+                "position": "left"
+            },
+            {
+                "url": "/api/index.html",
+                "label": "API",
+                "position": "left"
+            },
+            {
+                "url": "/doc/zh/faq.html",
+                "label": "FAQ",
+                "position": "left"
+            },
+            {
+                "id": "language",
+                "label": "<img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;",
+                "position": "right",
+                "type": "language"
+            }
+        ]
+    },
+    "footer":{
+        "top":[
+            {
+                "label": "相关链接",
+                "items": [
+                    {
+                        "label": "Sipeed Wiki",
+                        "url": "https://wiki.sipeed.com",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "Sipeed 官网",
+                        "url": "https://www.sipeed.com",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "MaixHub",
+                        "url": "https://maixhub.com/",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "网站地图",
+                        "url": "/sitemap.xml"
+                    },
+                    {
+                        "label": "网站使用 teedoc 生成",
+                        "url": "https://github.com/neutree/teedoc",
+                        "target": "_blank"
+                    }
+                ]
+            },
+            {
+                "label": "源码",
+                "items": [
+                    {
+                        "label": "MaixPy 源码",
+                        "url": "https://github.com/sipeed/maixpy",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "MaixCDK 源码",
+                        "url": "https://github.com/sipeed/MaixCDK",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "Wiki 源码",
+                        "url": "https://github.com/sipeed/sipeed_wiki",
+                        "target": "_blank"
+                    },
+                    {
+                        "label": "开源项目",
+                        "url": "https://github.com/sipeed",
+                        "target": "_blank"
+                    }
+                ]
+            },
+            {
+                "label": "关注我们",
+                "items": [
+                    {
+                        "label": "twitter",
+                        "url": "https://twitter.com/SipeedIO",
+                        "target":"_blank"
+                    },
+                    {
+                        "label": "淘宝",
+                        "url": "https://sipeed.taobao.com/",
+                        "target":"_blank"
+                    },
+                    {
+                        "label": "github",
+                        "url": "https://github.com/sipeed",
+                        "target":"_blank"
+                    },
+                    {
+                        "label": "<a>微信公众号</a><img src='/maixpy/static/image/wechat.png'>"
+                    }
+                ]
+            },
+            {
+                "label": "联系我们",
+                "items": [
+                    {
+                        "label": "电话: +86 0755-27808509"
+                    },
+                    {
+                        "label": "商业支持: support@sipeed.com"
+                    },
+                    {
+                        "label": "地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C"
+                    },
+                    {
+                        "label": "加入我们",
+                        "url": "https://wiki.sipeed.com/join_us.html"
+                    }
+                ]
+            }
+        ],
+        "bottom": [
+            {
+                "label": "©2018-2023 深圳矽速科技有限公司",
+                "url": "https://www.sipeed.com",
+                "target": "_blank"
+            },
+            {
+                "label": "粤ICP备19015433号",
+                "url": "https://beian.miit.gov.cn/#/Integrated/index",
+                "target": "_blank"
+            }
+        ]
+    }
+}

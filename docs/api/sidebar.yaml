@@ -1,0 +1,83 @@
+items:
+-   file: README.md
+    label: Brief
+-   collapsed: false
+    items:
+    -   collapsed: false
+        file: maix/err.md
+        label: err
+    -   collapsed: false
+        file: maix/tensor.md
+        label: tensor
+    -   collapsed: false
+        file: maix/image.md
+        label: image
+    -   collapsed: false
+        file: maix/camera.md
+        label: camera
+    -   collapsed: false
+        file: maix/display.md
+        label: display
+    -   collapsed: false
+        file: maix/comm.md
+        label: comm
+    -   collapsed: false
+        file: maix/thread.md
+        label: thread
+    -   collapsed: false
+        file: maix/fs.md
+        label: fs
+    -   collapsed: false
+        file: maix/time.md
+        label: time
+    -   collapsed: false
+        file: maix/i18n.md
+        label: i18n
+    -   collapsed: false
+        file: maix/protocol.md
+        label: protocol
+    -   collapsed: false
+        file: maix/example.md
+        label: example
+    -   collapsed: false
+        file: maix/app.md
+        label: app
+    -   collapsed: false
+        file: maix/nn.md
+        items:
+        -   collapsed: false
+            file: maix/nn/F.md
+            label: F
+        label: nn
+    -   collapsed: false
+        file: maix/peripheral.md
+        items:
+        -   collapsed: false
+            file: maix/peripheral/timer.md
+            label: timer
+        -   collapsed: false
+            file: maix/peripheral/wdt.md
+            label: wdt
+        -   collapsed: false
+            file: maix/peripheral/pwm.md
+            label: pwm
+        -   collapsed: false
+            file: maix/peripheral/gpio.md
+            label: gpio
+        -   collapsed: false
+            file: maix/peripheral/spi.md
+            label: spi
+        -   collapsed: false
+            file: maix/peripheral/uart.md
+            label: uart
+        -   collapsed: false
+            file: maix/peripheral/i2c.md
+            label: i2c
+        -   collapsed: false
+            file: maix/peripheral/adc.md
+            label: adc
+        label: peripheral
+    -   collapsed: false
+        file: maix/touchscreen.md
+        label: touchscreen
+    label: maix
