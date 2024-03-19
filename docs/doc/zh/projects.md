@@ -2,7 +2,9 @@
 title: 基于 MaixPy 的功能演示和项目展示
 ---
 
-此处仅展示部分功能，更多分享可以在 [MaixHub分享](https://maixhub.com/share) 找到。
+关于 MaixPy 介绍请看 [MaixPy 官网首页](./README.md)
+
+此处展示部分功能和开发者分享的功能，更多分享可以在 [MaixHub分享](https://maixhub.com/share) 找到。
 
 TODO： 一个或者多个演示视频
 

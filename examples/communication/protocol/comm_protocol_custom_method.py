@@ -19,7 +19,7 @@ app.set_app_id(APP_ID)
 
 p = protocol.Protocol(buff_size = 1024)
 
-while 1:
+while not app.need_exit():
     send_data = None
     data = read()
     msg = p.decode(data)

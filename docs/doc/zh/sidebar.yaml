@@ -13,10 +13,16 @@ items:
     label: 应用使用说明
 -   file: basic/maixpy_upgrade.md
     label: 更新 MaixPy
+-   file: basic/maixvision.md
+    label: MaixVision 使用
 -   file: basic/python.md
     label: Python 语法
+-   file: basic/linux_basic.md
+    label: Linux 基础知识
 -   file: basic/python_pkgs.md
     label: 添加额外的 Python 包
+-   file: basic/app.md
+    label: 应用开发和商店
 
 -   label: 基础图像和算法
 -   file: vision/camera.md

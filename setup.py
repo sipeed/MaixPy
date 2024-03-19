@@ -6,7 +6,7 @@ import shutil
 
 ####################################################################
 # supported platforms
-board_names = ["m2dock", "linux", "maixcam"]
+board_names = ["linux", "maixcam"]
 platform_names = {
     # use correspond docker to compile https://github.com/pypa/manylinux
     "linux": "manylinux2014_{}".format(platform.machine().replace("-", "_").replace(".", "_").lower()),
@@ -75,8 +75,8 @@ if board:
     build_py_version = get_build_python_version()
     print("-- Build Python version: {}.{}.{}".format(build_py_version[0], build_py_version[1], build_py_version[2]))
     sys.argv += ["--python-tag", "cp{}{}".format(build_py_version[0], build_py_version[1])]
-    if board in  ["linux"]:
-        sys.argv += ["--plat-name", platform_names[board]]
+    # if board in  ["linux"]:
+    sys.argv += ["--plat-name", platform_names[board]]
 
 # generate pyi stub files
 if board == "linux":
@@ -222,10 +222,12 @@ setup(
 
 if board:
     py_tag = "cp{}{}".format(build_py_version[0], build_py_version[1])
-    for name in os.listdir("dist"):
-        if name.endswith(".whl"):
-            os.rename(os.path.join("dist", name), os.path.join("dist",
-                    "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
-            )
-            break
+    files = os.listdir("dist")
+    # 根据文件编辑时间排序，取最新的文件
+    files.sort(key=lambda x: os.path.getmtime(os.path.join("dist", x)), reverse=True)
+    name = files[0]
+    if name.endswith(".whl"):
+        os.rename(os.path.join("dist", name), os.path.join("dist",
+                "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
+        )
 

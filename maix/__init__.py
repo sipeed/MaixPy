@@ -3,6 +3,11 @@ from .version import __version__
 # import all _maix module's members to maix, e.g. maix._maix.err -> maix.err
 from ._maix import *
 from ._maix.peripheral import *
+from ._maix.peripheral.key import add_default_listener
+
+add_default_listener()
+
+del add_default_listener
 
 import sys
 new_members = []

@@ -12,7 +12,7 @@ app.set_app_id(APP_ID)
 # we can get current setting by maix.app.get_sys_config_kv("comm", "method")
 p = comm.CommProtocol(buff_size = 1024)
 
-while 1:
+while not app.need_exit():
     msg = p.get_msg()
     if msg and msg.is_req: # find message and is request
         if msg.cmd == APP_CMD_ECHO:

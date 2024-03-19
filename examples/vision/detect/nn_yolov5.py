@@ -1,11 +1,11 @@
-from maix import camera, display, image, nn
+from maix import camera, display, image, nn, app
 
 detector = nn.YOLOv5(model="/root/models/yolov5s.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
 
-while 1:
+while not app.need_exit():
     img = cam.read()
     objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
     for obj in objs:

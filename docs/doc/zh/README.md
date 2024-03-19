@@ -13,6 +13,9 @@ title: MaixPy 快速开始
         github.com/sipeed/MaixPy
     </a>
 </div>
+<br>
+
+> 关于 MaixPy 介绍请看 [MaixPy 官网首页](../../README.md)
 
 ## 获得 MaixCAM 设备
 
@@ -57,6 +60,15 @@ title: MaixPy 快速开始
 比如：
 * `hello.py`，点击`运行`按钮，就能看到 MaixVision 终端有来自设备打印的`Hello MaixPy!`了。
 * `camera_display.py`，这个例程会打开摄像头并在屏幕上显示摄像头的画面。
+```python
+from maix import camera, display, app
+
+disp = display.Display()          # 构造一个显示对象，并初始化屏幕
+cam = camera.Camera(640, 480)     # 构造一个摄像头对象，手动设置了分辨率为 640x480, 并初始化摄像头
+while not app.need_exit():        # 一直循环，直到程序退出（可以通过按下设备上方的按键退出或者 MaixVision 点击停止按钮退出）
+    img = cam.read()              # 读取摄像头画面保存到 img 变量，可以通过 print(img) 来打印 img 的详情
+    disp.show(img)                # 将 img 显示到屏幕上
+```
 * `yolov5.py` 会检测摄像头画面中的物体框出来并显示到屏幕上，支持 80 种物体的检测。
 
 其它例程可以自行尝试。

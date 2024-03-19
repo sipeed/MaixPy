@@ -71,6 +71,9 @@ items:
             file: maix/peripheral/uart.md
             label: uart
         -   collapsed: false
+            file: maix/peripheral/key.md
+            label: key
+        -   collapsed: false
             file: maix/peripheral/i2c.md
             label: i2c
         -   collapsed: false

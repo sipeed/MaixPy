@@ -1,11 +1,11 @@
-from maix import camera, display, image, nn
+from maix import camera, display, image, nn, app
 
 classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
 
 cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 dis = display.Display()
 
-while 1:
+while not app.need_exit():
     img = cam.read()
     res = classifier.classify(img)
     max_idx, max_prob = res[0]
