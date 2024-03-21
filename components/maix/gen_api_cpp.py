@@ -66,7 +66,7 @@ PYBIND11_MODULE(_maix, m) {{
                 else:
                     func_name = v["name"]
                     # if parent_type == "class":
-                    _code.append('{}.def{}("{}", static_cast<{} ({})({})>({}{}), "{}"{});'.format(
+                    _code.append('{}.def{}("{}", static_cast<{} ({})({})>({}{}), py::return_value_policy::take_ownership, "{}"{});'.format(
                                 parent_var, "_static" if v["static"] else "", k,
                                 v["ret_type"],
                                 "::".join(parent_names + ["*"]) if (parent_type == "class" and not v["static"]) else "*",
