@@ -27,6 +27,9 @@ def get_build_python_version():
         sys.exit(1)
     return version
 
+def get_python_version():
+    return [sys.version_info.major, sys.version_info.minor, sys.version_info.micro]
+
 board_config_files = {}
 for board in board_names:
     board_config_files[board] = os.path.join("configs", "config_platform_{}.mk".format(board))
@@ -71,9 +74,21 @@ if board:
             print("-- Build cpp modules failed!")
             sys.exit(1)
 
+# check python version
+build_py_version = get_build_python_version()
+print("-- Build Python version: {}.{}.{}".format(build_py_version[0], build_py_version[1], build_py_version[2]))
+py_version = get_python_version()
+print("-- Python version: {}.{}.{}".format(py_version[0], py_version[1], py_version[2]))
+if (py_version[0] != build_py_version[0]) or (py_version[1] != build_py_version[1]):
+    print("-- Python version not match build python version!")
+    print("   You can use conda to create a virtual environment with python version:")
+    print("   Download miniconda from https://docs.conda.io/en/latest/miniconda.html")
+    print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
+    print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
+    sys.exit(1)
+
+if board:
     # specific platform name for wheel package
-    build_py_version = get_build_python_version()
-    print("-- Build Python version: {}.{}.{}".format(build_py_version[0], build_py_version[1], build_py_version[2]))
     sys.argv += ["--python-tag", "cp{}{}".format(build_py_version[0], build_py_version[1])]
     # if board in  ["linux"]:
     sys.argv += ["--plat-name", platform_names[board]]
@@ -226,8 +241,31 @@ if board:
     # 根据文件编辑时间排序，取最新的文件
     files.sort(key=lambda x: os.path.getmtime(os.path.join("dist", x)), reverse=True)
     name = files[0]
-    if name.endswith(".whl"):
+    # if name.endswith(".whl"):
+    #     os.rename(os.path.join("dist", name), os.path.join("dist",
+    #             "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
+    #     )
+    if name.find("linux_riscv64") != -1:
+        # pypi not support riscv64 yet, so we have to change to py3-none-any pkg
+        # unzip to dist/temp, change dist-info/WHEEL file
+        # zip back and rename
+        import zipfile
+        with zipfile.ZipFile(os.path.join("dist", name), "r") as zip_ref:
+            zip_ref.extractall("dist/temp")
+        with open("dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__), "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        with open("dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__), "w", encoding="utf-8") as f:
+            for line in lines:
+                if line.startswith("Tag:"):
+                    f.write("Tag: py3-none-any\n")
+                else:
+                    f.write(line)
+        with zipfile.ZipFile(os.path.join("dist", name), "w") as zip_ref:
+            for root, dirs, files in os.walk("dist/temp"):
+                for file in files:
+                    zip_ref.write(os.path.join(root, file), os.path.join(root[9:], file))
+        shutil.rmtree("dist/temp")
         os.rename(os.path.join("dist", name), os.path.join("dist",
-                "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
+                "MaixPy-{}-py3-none-any.whl".format(__version__))
         )
 
