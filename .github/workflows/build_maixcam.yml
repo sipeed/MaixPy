@@ -67,7 +67,7 @@ jobs:
           user_email=`git log -1 --pretty=format:'%ae'`
           echo "== checkout gh-pages branch =="
           cd out
-          cp -r ../.github .
+          cp -r ../../.github .
           git init
           git config user.name ${user_name}
           git config user.email ${user_email}
