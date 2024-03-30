@@ -13,6 +13,9 @@ platform_names = {
     "m2dock": "linux_armv7l",
     "maixcam": "linux_riscv64",
 }
+platform_toolchain_id = {
+    "maixcam": "musl_t-hread"
+}
 ####################################################################
 
 def get_build_python_version():
@@ -69,6 +72,7 @@ if board:
             cmd = "python project.py distclean && " + cmd
         else:
             sys.argv.remove("--not-clean")
+        cmd += f" --toolchain-id {platform_toolchain_id[board]}" if board in platform_toolchain_id else ""
         ret = os.system(cmd)
         if ret != 0:
             print("-- Build cpp modules failed!")

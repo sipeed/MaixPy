@@ -28,6 +28,9 @@ items:
         file: maix/fs.md
         label: fs
     -   collapsed: false
+        file: maix/sys.md
+        label: sys
+    -   collapsed: false
         file: maix/time.md
         label: time
     -   collapsed: false

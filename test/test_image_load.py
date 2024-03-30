@@ -2,11 +2,11 @@ from maix import display, image
 from maix.err import Err
 import time
 
-img = image.load("assets/sipeed_splash.jpeg")
-img_bgr = image.load("assets/sipeed_splash.jpeg", format = image.Format.FMT_BGR888)
+img = image.load("docs/static/image/sipeed_splash.jpeg")
+img_bgr = image.load("docs/static/image/sipeed_splash.jpeg", format = image.Format.FMT_BGR888)
 
-img_rgba_jpg = image.load("assets/sipeed_splash.jpeg", format = image.Format.FMT_RGBA8888)
-img_rgba_png = image.load("assets/camera.png", format = image.Format.FMT_RGBA8888)
+img_rgba_jpg = image.load("docs/static/image/sipeed_splash.jpeg", format = image.Format.FMT_RGBA8888)
+img_rgba_png = image.load("docs/static/image/camera.png", format = image.Format.FMT_RGBA8888)
 
 screen = display.Display(device = None, width = 640, height = 480)
 screen_size = screen.size()

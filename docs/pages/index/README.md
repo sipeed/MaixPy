@@ -4,15 +4,476 @@ title: MaixPy
 id: home_page
 ---
 
+<div>
+<script src="/static/css/tailwind.css"></script>
+</div>
+
+<style>
+
+.md_page #page_content > div
+{
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+}
+
+@media (min-width: 1280px) {
+    .md_page #page_content > div
+    {
+        width: 1440px;
+        max-width: 1440px;
+    }
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 600;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+}
+
+h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: 0.67em;
+}
+
+h3 {
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+#tags > p {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+}
+#tags > p a {
+    margin: 0 0.2em;
+}
+
+#feature video, #feature img {
+    height: 15em;
+}
+
+.feature_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em;
+    border: 2px solid #EEEEEE;
+    border-radius: 0.5em;
+    overflow: hidden;
+    max-width: 20em;
+}
+
+.feature_item .feature {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.feature_item .description {
+    font-size: 0.8em;
+    font-weight: 400;
+}
+
+.feature_item video, .feature_item img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.feature_item .img_video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 
+.feature_item > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feature_item p {
+    padding: 0.5em;
+}
+
+li {
+    margin: 0.5em;
+    list-style-type: disc;
+}
+
+</style>
+
+<div class="w-full flex flex-col justify-center text-center">
+    <div class="flex justify-center">
+        <img src="/static/image/maixpy_banner.png" alt="MaixPy Banner">
+    </div>
+    <h1><span>MaixPy (v4)</span></h1>
+    <h3>快速落地 AI 视觉、听觉应用</h3>
+</div>
+
+<div id="big_btn_wrapper" class="text-center p-4">
+    <a class="btn" href="/doc/index.html">快速开始 🚀</a>
+    <a class="btn" href="/api/">API 文档 📖</a>
+    <a class="btn" target="_blank" href="https://wiki.sipeed.com/maixcam">硬件平台：MaixCAM 📷</a>
+    <a class="btn" target="_blank" href="https://github.com/sipeed/maixpy">GitHub 开源仓库 ⭐️</a>
+</div>
+
+<div class="flex justify-center" id="tags">
+
+[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers) [![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md) [![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/) ![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)
+[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
+
+
+</div>
+
+<div class="text-center">
+
+[English](./en/) | 中文
+
+</div>
+
+
+<div class="mt-16"></div>
+
+> MaixPy-v1 (Maix-I K210) 用户请查看 <a target="_blank" href="https://wiki.sipeed.com/soft/maixpy/zh/">MaixPy-v1 文档</a>。
+> MaixPy v4 不支持 Maix-I Maix-II 系列硬件，请更新到 [MaixCAM](https://wiki.sipeed.com/maixcam) 硬件平台。
+
+
+<div class="mt-6"></div>
+
+<div id="id1" class="flex flex-row justify-start flex-wrap">
 
 <div>
-    <h1><span>MaixPy (v4)</span></h1>
-    <h3>快速落地 AI 机器视觉应用</h3>
+<h2>简易的 API 设计， 10 行代码搞定 AI 图像识别：</h2>
+
+```python
+from maix import camera, display, image, nn
+
+classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
+cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
+dis = display.Display()
+
+while 1:
+    img = cam.read()
+    res = classifier.classify(img)
+    max_idx, max_prob = res[0]
+    msg = f"{max_prob:5.2f}: {classifier.labels[max_idx]}"
+    img.draw_text(10, 10, msg, image.COLOR_RED)
+    dis.show(img)
+```
+
 </div>
-<div id="big_btn_wrapper">
-    <a class="btn" href="/doc/zh/index.html">快速开始</a>
-    <a class="btn" href="/api/">API 文档</a>
+
+<video controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/classifier.mp4" type="video/mp4">
+Classifier Result video
+</video>
+
+</div> <!-- id1 -->
+
+
+<!-- div start-->
+<h2>硬件外设控制，不在话下：</h2>
+<div class="flex flex-row justify-start flex-wrap">
+<div class="mr-4">
+
+串口收发：
+
+```python
+from maix import uart
+
+ports = uart.list_ports()
+
+serial = uart.UART(ports[0], 115200)
+serial.write_str("hello world")
+print("received:", serial.read(timeout = 2000))
+```
+
 </div>
+<div>
+
+I2C 收发：
+
+```python
+from maix import i2c
+
+devices = i2c.scan()
+
+dev1 = i2c.I2C(devices[0], freq=100000)
+dev1.writeto(0x12, b'hello')
+print("received:", dev1.readfrom(0x12, 5))
+```
+
+</div>
+</div>
+<!-- div end-->
+
+## 性能强劲 MaixCAM 硬件平台
+
+![MaixCAM](/static/image/maixcam.png)
+
+<br>
+
+* **CPU**: 1GHz RISC-V(Linux)/ARM A53 + 700MHz RISC-V(RTOS) + 25~300MHz 8051(Low Power)
+> 大核 RISC-V 和 ARM A53 二选一运行，MaixPy 使用 RISC-V 核心。
+* **NPU**: 1Tops@INT8 NPU, 支持 BF16，支持 YOLOv5 YOLOv8 等。
+* **内存**: 256MB DDR3。
+* **通信**: USB2.0/WiFi6/BLE5.4。
+* **外设**: IIC/PWM/SPI/UART/WDT/GPIO/ADC
+* **多媒体**：4M 摄像头，2.3" 552x368 高清电容触摸屏，H.264/H.265/MJPEG 2K 硬件编解码。
+* **价格**: [169 元 / 249 元。](https://wiki.sipeed.com/store) （缺货时咨询店家）
+
+
+更多细节看: [MaixCAM](https://wiki.sipeed.com/maixcam)
+
+<!-- feature 介绍 -->
+
+<div id="feature">
+
+## 特性介绍
+
+以下为部分功能简介，更多请看[文档](/doc/index.html)、[应用商店](https://maixhub.com/app) 或者社区分享[MaixHub](https://maixhub.com/share)。
+
+<div class="flex flex-wrap justify-between">
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/maixvision.mp4"></video>
+            <p class="feature">Python + MaixVision IDE</p>
+            <p class="description">简单的API，带有硬件加速，包含许多库，如numpy，opencv，MaixVision IDE编程</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixcdk.png">
+            <p class="feature">C++版本</p>
+            <p class="description"><a href="https://github.com/sipeed/MaixCDK">MaixCDK</a> C++版本的SDK，与MaixPy的API相同</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/serial_module.png">
+            <p class="feature">作为串口模块</p>
+            <p class="description">其它 MCU 通过串口命令控制</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/app_store.mp4"></video>
+            <p class="feature">APP商店</p>
+            <p class="description">将您的APP分享给社区，并一键安装<a href="https://maixhub.com/app">APPs</a>。</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy-v1-square.png">
+            <p class="feature">与MaixPy-v1兼容的API</p>
+            <p class="description">快速从MaixPy-v1(K210)迁移到MaixPy-v4</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/classifier.mp4"></video>
+            <p class="feature">AI 分类</p>
+            <p class="description"></p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/detector.mp4"></video>
+            <p class="feature">AI 对象检测</p>
+            <p class="description"></p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/face_recognize.jpg">
+            <p class="feature">AI 人脸识别</p>
+            <p class="description"></p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/body_keypoint.jpg">
+            <p class="feature">AI 人体关键点检测</p>
+            <p class="description"></p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy_banner.png">
+            <p class="feature">AI 离线学习分类器</p>
+            <p class="description">无需在PC上训练，在设备上离线学习对象特征</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy_banner.png">
+            <p class="feature">AI 离线学习检测器</p>
+            <p class="description">无需在PC上训练，在设备上离线学习对象特征</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/object_track.jpg">
+            <p class="feature">AI 物体轨迹跟踪</p>
+            <p class="description"></p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy_banner.png">
+            <p class="feature">AI 监控，串流</p>
+            <p class="description">安防监控，可串流，甚至可以向直播平台 比如 Bilibili.com 直播</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/find_blobs.mp4"></video>
+            <p class="feature">查找颜色</p>
+            <p class="description">查找颜色斑点</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/line_track.mp4"></video>
+            <p class="feature">巡线</p>
+            <p class="description">小车巡线，物流搬运</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/qr_apriltag.mp4"></video>
+            <p class="feature">QR码和AprilTag</p>
+            <p class="description">识别QR码和AprilTag</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/ocr.jpg">
+            <p class="feature">OCR</p>
+            <p class="description">识别图片中的字符</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy_banner.png">
+            <p class="feature">语音识别</p>
+            <p class="description">实时连续语音识别</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video controls autoplay loop muted preload src="/static/video/desktop_monitor.mp4"></video>
+            <p class="feature">桌面监视器</p>
+            <p class="description">监视PC信息，如CPU，内存，网络等。</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/maixpy_banner.png">
+            <p class="feature">天气站</p>
+            <p class="description">监视天气信息，如温度，湿度等。</p>
+        </div>
+        <div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<!-- 比较 -->
+
+<div class="flex flex-col justify-center mt-10">
+
+## 性能对比
+
+相比上两代 Maix 系列产品，性能和体验有了很大的提升，强烈建议升级到最新的 MaixCAM 以及 MaixPy v4：
+
+| Feature | Maix-I K210 | Maix-II v831 | MaixCAM |
+| ------- | ----------- | ------------ | ------- |
+| CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** |
+| Memory | 6MB SRAM | 64MB DDR2 | **256MB DDR3** |
+| NPU | 0.25Tops@INT8<br>official says 1T but... | 0.25Tops@INT8 | **1Tops@INT8** |
+| Encoder | ✖ | 1080p@30fps | **2K@30fps** |
+| Screen | 2.4" 320x240 | 1.3" 240x240 | **2.28" 552x368** / 5" 1280x720 / 7" 1280x800 / 10“ 1280x800|
+| Camera | 30W | 200W | **500W** |
+| WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G |
+| USB    | ✖    | **USB2.0** | **USB2.0** |
+| Eth    | ✖    | 100M   | 100M |
+| SD Interface | SPI | **SDIO** | **SDIO** |
+| BLE    | ✖    | ✖      | **BLE5.4** |
+| OS     | RTOS | Tina Linux | **Linux + RTOS** |
+| Language | C / C++ / MicroPython | C / C++ / **Python3** | C / **C++ / Python3** |
+| Software | MaixPy | MaixPy3 | **MaixCDK + MaixPy v4 + opencv + numpy + ...**|
+| PC software | MaixPy IDE | MaixPy3 IDE | **MaixVision** Workstation |
+| Docs   | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+| Online AI train | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 |
+| Official APPs   | ⭐️⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+| AI classify(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
+| AI detect   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
+| Ease of use     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+
+
+</div>
+
+
+## 开源协议
+
+
+所有在本仓库中的文件都遵循 [Apache License 2.0 Sipeed Ltd.](https://github.com/sipeed/maixpy/blob/main/LICENSE) 协议，除了第三方库或者有自己的协议。
+
+## 社区
+
+* 项目分享: [maixhub.com/share](https://maixhub.com/share)
+* 讨论: [maixhub.com/discussion](https://maixhub.com/discussion)
+* QQ 群: 862340358
+* Telegram: [t.me/maixpy](https://t.me/maixpy)
+
 

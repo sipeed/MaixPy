@@ -14,7 +14,9 @@ title: 更新 MaixPy
 如果不想更新系统（因为一般系统变动不大，可以看系统的更新日志决定是否更新系统），则可以只更新 MaixPy 固件。
 
 * 在设置中设置 WiFi， 让系统联网。
-* 点击设置应用中的 `MaixPy 固件` 进行更新。
+* 点击设置应用中的 `更新 MaixPy` 进行更新。
 
 另外，可以在 [MaixPy 仓库 release 页面](https://github.com/sipeed/MaixPy/releases) 看到最新的版本信息和更新日志。
+
+> 如果你会使用终端， 也可以在终端中使用 `pip install MaixPy -U` 来更新 MaixPy。
 

@@ -1,8 +1,6 @@
 items:
 -   file: README.md
     label: 快速开始
--   file: projects.md
-    label: 功能和项目展示
 -   file: faq.md
     label: FAQ 常见问题
 
@@ -25,10 +23,10 @@ items:
     label: 应用开发和商店
 
 -   label: 基础图像和算法
--   file: vision/camera.md
-    label: 摄像头使用
 -   file: vision/display.md
     label: 屏幕使用
+-   file: vision/camera.md
+    label: 摄像头使用
 -   file: vision/image_ops.md
     label: 基本图像操作
 -   file: vision/find_blobs.md
@@ -51,20 +49,47 @@ items:
     label: 人体关键点检测
 -   file: vision/self_learn_classifier.md
     label: 自学习分类器
+-   file: vision/self_learn_detector.md
+    label: 自学习检测器
 -   file: vision/object_track.md
     label: 物体轨迹跟踪和计数
 -   file: vision/maixhub_train.md
     label: MaixHub 在线训练AI模型
+-   file: vision/ocr.md
+    label: OCR 文字识别
 
 -   label: AI 听觉
+-   file: audio/record.md
+    label: 录音
+-   file: audio/play.md
+    label: 播放音频
+-   file: audio/classifier.md
+    label: AI 声音分类器
+-   file: audio/keyword.md
+    label: 关键词识别
 -   file: audio/recognize.md
     label: 语音实时识别
+-   file: audio/synthesis.md
+    label: 语音合成
+
+-   label: 视频
+-   file: video/record.md
+    label: 录像
+-   file: video/play.md
+    label: 播放视频
+-   file: video/jpeg_streaming.md
+    label: JPEG 串流
+-   file: video/rtsp.md
+    label: RTSP 串流
+
 
 -   label: 片上外设
 -   file: peripheral/gpio.md
     label: GPIO 和 点灯
 -   file: peripheral/uart.md
     label: UART 串口使用
+-   file: peripheral/i2c.md
+    label: I2C 使用
 -   file: peripheral/pwm.md
     label: PWM 使用
 -   file: peripheral/spi.md
@@ -75,10 +100,12 @@ items:
 -   label: 片外模块
 -   file: modules/acc.md
     label: 加速度计使用
+-   file: modules/temp_hum.md
+    label: 温湿度传感器
 -   file: modules/tof.md
     label: TOF 测距
 -   file: modules/thermal_cam.md
-    label: 热成像摄像头使用
+    label: 热成像摄像头
 
 -   label: 进阶
 -   file: source_code/contribute.md

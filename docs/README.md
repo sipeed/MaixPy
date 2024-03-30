@@ -1,6 +1,8 @@
 MaixPy documentation
 ====
 
+Visit online doc: [https://wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
+
 
 ## Preview locally
 

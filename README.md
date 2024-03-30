@@ -1,26 +1,48 @@
 MaixPy
 ======
 
-English | [中文](./README_ZH.md)
+<div align="center">
 
-> New MaixPy (v4) is on the way~ And new hardware platform is coming soon~<br>
-> The code will open source here when it's ready, please stay tuned.<br>
-> If you have any suggestions, tell us in [MaixHub](https://maixhub.com/discussion/100073), or [Telegram/MaixPy](https://t.me/maixpy) or QQ group: 862340358.
->
-> Maix-I K210 series please visit [MaixPy-v1](https://github.com/sipeed/maixpy-v1).
-
+![](./docs/static/image/maixpy_banner.png)
 
 **Let's Sipeed up, Maximize AI's power!**
 
-**MaixPy (v4) provide a super easy way to develop AI vision projects with Python script**.
+**MaixPy**: Easily create AI projects with Python on edge device
 
-With MaixPy you can easily use camera, screen and AI in a short code:
+<h3>
+    <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> Quick Start </a> |
+    <a href="https://wiki.sipeed.com/maixpy/en/index.html"> Documentation </a> |
+    <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
+    <a href="https://wiki.sipeed.com/MaixCAM"> Hardware </a>
+</h3>
+
+[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
+[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)
+[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)
+![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy) 
+[![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)
+[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
+
+English | [中文](./README_ZH.md)
+
+</div>
+
+
+> New MaixPy (v4) and new hardware platform MaixCAM is coming now(2024.4)!<br>
+> If you have any suggestions, tell us on [MaixHub](https://maixhub.com/discussion/100073), or [Telegram/MaixPy](https://t.me/maixpy) or QQ group: 862340358.
+>
+> Click the **Star** in the upper right corner to let us know you like it then more features will be added.
+
+
+## Introduction
+
+With MaixPy you can easily create **AI vision project** within **10 lines of code**:
 
 ```python
 from maix import camera, display, image, nn
 
 classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
-
 cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 dis = display.Display()
 
@@ -32,66 +54,57 @@ while 1:
     img.draw_text(10, 10, msg, image.COLOR_RED)
     dis.show(img)
 ```
-> This program read image from camera, and classify what it is by mobilenetv2 model, then show the result on screen.
 
-Simply use serial port:
+Result video:
+<video controls autoplay loop muted preload src="./docs/static/video/classifier.mp4" type="video/mp4">
+Classifier Result video
+</video>
+
+Simply use **peripheral** like serial port:
 
 ```python
 from maix import uart
 
 ports = uart.list_ports()
-print("uart ports:", ports)
 
 serial = uart.UART(ports[0], 115200)
-
 serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
 
-And we provide several cool hardware platforms:
+## Hardware platform MaixCAM
 
-| Platform | Picture | Description | Price | Buy |
-| -------- | ------- | ----------- | ----- | --- |
-|  MaixCam | ![]() | - 1Tops@INT8 NPU, support BF16, support YOLOv5 YOLOv8 etc.<br>- 1GHz RISC-V(Linux) + 700MHz RISCV-V(RTOS) + 25~300MHz 8051(LowPower)<br>- 256MB DDR3<br>- USB2.0/100M Eth/WiFi6/BLE5.4/H.264/H.265/IIC/PWM/SPI/UART...<br>- 5M Camera/2K encoder/Max 1080p screen| ￥50 ~ ￥399 | To be on sale |
+And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)**:
 
-> **Maix-I K210** series is outdated, Not support MaixPy v4, use it please visit **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
+![MaixCAM](./docs/static/image/maixcam.png)
+
+| CPU | NPU | Memory |
+| --- | --- | ------- |
+| - 1GHz RISC-V(Linux)/ARM A53<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
+
+| Connecting | Peripheral | MultiMedia | Price |
+| ----------- | ----- | --- | ---- |
+|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
+
+More detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
+
+> * Big core can choose one of RISC-V and ARM A53.
+> * **Maix-I K210** series is outdated, Not support MaixPy v4, use it please visit **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
 
 
 ## Features
 
-| Feature | Description | Picture/Video |
-| ------- | ----------- | ------------- |
-| Python support | Support Python and common libs like numpy, opencv. | - |
-| Simple API | Provide simple API to access hardware, like camera, screen, NPU, etc.<br>And Simple API to create vision apps. | - |
-| Efficient AI vision | Many AI vision features with hardware acceleration.| - |
-| C++ Version | MaixCDK is a C++ version SDK, have the same API with MaixPy, it's easy to convert from one to another | - |
-| Open source | Software and hardware are open source. | - |
-| Many APPs | Provide many official APPs, like `AI recognition`, `Video streaming`, `Monitor` etc.  | - |
-| Easy to start | Use APPs even you don't know how to program. | - |
-| As module | Use this as serial module, control it by command. | - |
-| MaixVision workstation | A PC software to programming and more.| - |
-| APP Store | Share your APPs to community, and install APP in one click. | - |
-| Compatible API with MaixPy-v1 | MaixPy-v4 have a MaixPy-v1 compatible API, so you can quickly migrate your MaixPy-v1 project to MaixPy-v4. | - |
-| AI classification | Classify objects use AI | - |
-| AI object detection | Detect objects use AI | - |
-| AI face recognition | Recognize faces use AI | - |
-| AI Monitor | Security monitor, streaming video and detect objects. Even broadcast to live platforms like bilibili.com | - |
-| AI object tracking | Track objects use AI | - |
-| Find color | Find color | - |
-| Route tracking | Track route | - |
-| Face Tracking | Track face| - |
-| OCR | Recognize text and numbers | - |
-| QR code | Recognize QR code | - |
-| Desktop monitor | Monitor PC info, like CPU, memory, network, etc. | - |
-| Wether station | Monitor wether info, like temperature, humidity, etc. | - |
+Python programing, MaixVision IDE, AI vision, video streaming, voice recognize, peripheral usage etc.
+
+**Details and videos** visit official site: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
 
 
 ## Maix Ecosystem
 
-MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, etc.
+MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, even cloud platform etc.
 See the picture below:
 
-![](./assets/maix_ecosystem.png)
+![](./docs/static/image/maix_ecosystem.png)
 
 
 ## Who are using MaixPy?
@@ -113,9 +126,11 @@ See the picture below:
 
 ## Quick start
 
-Please visit [Quick Start doc](https://wiki.sipeed.com/maixpy/en/quick_start.html) to get started.
+Please visit [Quick Start doc](https://wiki.sipeed.com/maixpy/doc/en/index.html) to get started.
 
-Full Documentation: [wiki.sipeed.com/maixpy](https://wiki.sipeed.com/maixpy)
+Full Documentation: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
+
+API Documentation: [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)
 
 ## What difference between MaixPy v1, MaixPy3 and MaixPy v4?
 
@@ -125,14 +140,16 @@ Full Documentation: [wiki.sipeed.com/maixpy](https://wiki.sipeed.com/maixpy)
 
 (MaixPy v4 Will not support Maix-I K210 series, if you are using Maix-I K210 series, it's recommended to upgrade hardware platform to use this to get more features and better performance.)
 
-## Why upgrade from Maix-I K210 or Maix-II v831 ?
+## Performance comparison
+
+And why upgrade from Maix-I K210 or Maix-II v831 ?
 
 K210 and v831 are outdated, K210 have many limitations in memory, performance, NPU operators missing etc.<br>
-No matter you are using them or new comer, it's recommended to upgrade to MaixCam and MaixPy v4.<br>
+No matter you are using them or new comer, it's recommended to upgrade to MaixCAM and MaixPy v4.<br>
 
 Here's the comparison between them:
 
-| Feature | Maix-I K210 | Maix-II v831 | MaixCam |
+| Feature | Maix-I K210 | Maix-II v831 | MaixCAM |
 | ------- | ----------- | ------------ | ------- |
 | CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** |
 | Memory | 6MB SRAM | 64MB DDR2 | **256MB DDR3** |

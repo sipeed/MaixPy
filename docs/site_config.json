@@ -9,7 +9,7 @@
     "route": {
         "docs": {
             "/api/": "api",
-            "/doc/zh/": "doc/zh"
+            "/doc/": "doc/zh"
         },
         "pages": {
             "/": "pages/index"
@@ -20,7 +20,7 @@
     },
     "translate": {
         "docs": {
-            "/doc/zh/": [
+            "/doc/": [
                 {
                     "url": "/doc/en/",
                     "src": "doc/en"
@@ -48,7 +48,7 @@
                 "dark": true,
                 "show_print_page": false,
                 "env":{
-                    "main_color": "#4caf7d"
+                    "main_color": "#c33d45"
                 }
             }
         },
@@ -68,8 +68,8 @@
                     "/static/js/custom.js"
                 ],
                 "env":{
-                    "main_color": "#4caf7d",
-                    "second_color": "#0a7d43"
+                    "main_color": "#c33d45",
+                    "second_color": "#922f36"
                 }
             }
         }
