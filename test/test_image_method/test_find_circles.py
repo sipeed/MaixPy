@@ -22,8 +22,8 @@ while 1:
     circles = img.find_circles(roi, x_stride, y_stride, threshold, x_margin, y_margin, r_margin, r_min, r_max, r_step)
     for a in circles:
         img.draw_circle(a.x(), a.y(), a.r(), image.COLOR_RED, 2)
-        img.draw_text(a.x() + a.r() + 5, a.y() + a.r() + 5, "r: " + str(a.r()) + "magnitude: " + str(a.magnitude()), image.COLOR_RED)
+        img.draw_string(a.x() + a.r() + 5, a.y() + a.r() + 5, "r: " + str(a.r()) + "magnitude: " + str(a.magnitude()), image.COLOR_RED)
 
     img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_GREEN)
-    img.draw_text(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
+    img.draw_string(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
     screen.show(img)

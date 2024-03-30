@@ -14,6 +14,6 @@ while 1:
 
     img.find_edges(type, roi, threshold)
     img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_GREEN)
-    img.draw_text(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
+    img.draw_string(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
 
     screen.show(img)

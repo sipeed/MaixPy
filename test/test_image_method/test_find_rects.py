@@ -21,9 +21,9 @@ while 1:
         # rect
         rect = a.rect()
         img.draw_rect(rect[0], rect[1], rect[2], rect[3], image.COLOR_GREEN)
-        img.draw_text(rect[0] + 5, rect[1] + 5, "rect", image.COLOR_GREEN)
-        img.draw_text(rect[0] + 5, rect[1] + 20, "magnitude: " + str(a.magnitude()), image.COLOR_GREEN)
+        img.draw_string(rect[0] + 5, rect[1] + 5, "rect", image.COLOR_GREEN)
+        img.draw_string(rect[0] + 5, rect[1] + 20, "magnitude: " + str(a.magnitude()), image.COLOR_GREEN)
 
     img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_GREEN)
-    img.draw_text(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
+    img.draw_string(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
     screen.show(img)

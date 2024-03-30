@@ -27,8 +27,8 @@ while 1:
         x = int(math.cos(angle_in_radians) * rho)
         y = int(math.sin(angle_in_radians) * rho)
         img.draw_line(0, 0, x, y, image.COLOR_GREEN, 2)
-        img.draw_text(x, y, "theta: " + str(theta) + "," + "rho: " + str(rho), image.COLOR_GREEN)
+        img.draw_string(x, y, "theta: " + str(theta) + "," + "rho: " + str(rho), image.COLOR_GREEN)
 
     img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_GREEN)
-    img.draw_text(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
+    img.draw_string(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
     screen.show(img)

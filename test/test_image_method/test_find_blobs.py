@@ -35,35 +35,35 @@ while 1:
         corners = a.corners()
         for i in range(4):
             img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
-        img.draw_text(corners[0][0] + 5, corners[0][1] + 5, "corners area: " + str(a.area()), image.COLOR_RED)
+        img.draw_string(corners[0][0] + 5, corners[0][1] + 5, "corners area: " + str(a.area()), image.COLOR_RED)
 
         # mini_corners
         mini_corners = a.mini_corners()
         for i in range(4):
             img.draw_line(mini_corners[i][0], mini_corners[i][1], mini_corners[(i + 1) % 4][0], mini_corners[(i + 1) % 4][1], image.COLOR_GREEN)
-        img.draw_text(mini_corners[0][0] + 5, mini_corners[0][1] + 5, "mini_corners", image.COLOR_GREEN)
+        img.draw_string(mini_corners[0][0] + 5, mini_corners[0][1] + 5, "mini_corners", image.COLOR_GREEN)
 
         # rect
         rect = a.rect()
         img.draw_rect(rect[0], rect[1], rect[2], rect[3], image.COLOR_BLUE)
-        img.draw_text(rect[0] + 5, rect[1] + 5, "rect", image.COLOR_BLUE)
+        img.draw_string(rect[0] + 5, rect[1] + 5, "rect", image.COLOR_BLUE)
 
         # ...
-        img.draw_text(a.x() + a.w() + 5, a.y(), "(" + str(a.x()) + "," + str(a.y()) + ")", image.COLOR_GREEN)
-        img.draw_text(a.cx(), a.cy(), "(" + str(a.cx()) + "," + str(a.cy()) + ")", image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() // 2, a.y(), str(a.w()), image.COLOR_GREEN)
-        img.draw_text(a.x(), a.y() + a.h() // 2, str(a.h()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 15, str(a.rotation_deg()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 30, "code:" + str(a.code()) + ", count:" + str(a.count()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 45, "perimeter:" + str(a.perimeter()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 60, "roundness:" + str(a.roundness()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 75, "elongation:" + str(a.elongation()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 90, "area:" + str(a.area()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 105, "density:" + str(round(a.density(), 2)), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 120, "extent:" + str(round(a.extent(), 2)), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 135, "compactness:" + str(round(a.compactness(), 2)), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 150, "solidity:" + str(a.solidity()), image.COLOR_GREEN)
-        img.draw_text(a.x() + a.w() + 5, a.y() + 165, "convexity:" + str(a.convexity()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y(), "(" + str(a.x()) + "," + str(a.y()) + ")", image.COLOR_GREEN)
+        img.draw_string(a.cx(), a.cy(), "(" + str(a.cx()) + "," + str(a.cy()) + ")", image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() // 2, a.y(), str(a.w()), image.COLOR_GREEN)
+        img.draw_string(a.x(), a.y() + a.h() // 2, str(a.h()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 15, str(a.rotation_deg()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 30, "code:" + str(a.code()) + ", count:" + str(a.count()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 45, "perimeter:" + str(a.perimeter()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 60, "roundness:" + str(a.roundness()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 75, "elongation:" + str(a.elongation()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 90, "area:" + str(a.area()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 105, "density:" + str(round(a.density(), 2)), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 120, "extent:" + str(round(a.extent(), 2)), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 135, "compactness:" + str(round(a.compactness(), 2)), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 150, "solidity:" + str(a.solidity()), image.COLOR_GREEN)
+        img.draw_string(a.x() + a.w() + 5, a.y() + 165, "convexity:" + str(a.convexity()), image.COLOR_GREEN)
 
         # major axis line
         major_axis_line = a.major_axis_line()
@@ -86,5 +86,5 @@ while 1:
         y_hist_bins = a.y_hist_bins()
 
     img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_GREEN)
-    img.draw_text(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
+    img.draw_string(roi[0] + 5, roi[1] + 5, "ROI", image.COLOR_GREEN)
     screen.show(img)
