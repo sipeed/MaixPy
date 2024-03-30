@@ -9,18 +9,19 @@
     "route": {
         "docs": {
             "/api/": "api",
-            "/doc/": "doc/zh"
+            "/doc/zh/": "doc/zh"
         },
         "pages": {
             "/": "pages/index"
         },
         "assets": {
-            "/static/": "static"
+            "/static/": "static",
+            "/doc/assets/": "doc/assets"
         }
     },
     "translate": {
         "docs": {
-            "/doc/": [
+            "/doc/zh/": [
                 {
                     "url": "/doc/en/",
                     "src": "doc/en"

@@ -29,6 +29,13 @@
                 "position": "left"
             },
             {
+                "id": "github",
+                "label": "<img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;",
+                "url": "https://github.com/sipeed/maixpy",
+                "position": "right",
+                "target": "_blank"
+            },
+            {
                 "id": "language",
                 "label": "<img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;",
                 "position": "right",
@@ -103,6 +110,11 @@
                     {
                         "label": "淘宝",
                         "url": "https://sipeed.taobao.com/",
+                        "target":"_blank"
+                    },
+                    {
+                        "label": "AliExpress",
+                        "url": "https://www.aliexpress.com/store/911876460",
                         "target":"_blank"
                     },
                     {

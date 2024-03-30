@@ -2,7 +2,9 @@
 title: 更新 MaixPy
 ---
 
-有两种方法，如果第一次上手使用，可以直接使用出厂 TF 卡自带的 MaixPy 固件尝试后再考虑更新。
+有两种方法，如果第一次上手使用，为了降低难度，可以直接使用出厂 TF 卡自带的 MaixPy 固件尝试，以后再考虑更新。
+
+不过因为不知道你拿到手的是什么时候出厂的 TF 卡，所以建议都更新一下系统。
 
 ## 直接更新系统
 
@@ -11,12 +13,13 @@ title: 更新 MaixPy
 
 ## 只更新 MaixPy 固件
 
-如果不想更新系统（因为一般系统变动不大，可以看系统的更新日志决定是否更新系统），则可以只更新 MaixPy 固件。
+在 [MaixPy 仓库 release 页面](https://github.com/sipeed/MaixPy/releases) 看到最新的版本信息和更新日志，其中包含了 MaixPy 固件信息，以及对应版本使用的系统信息。
+
+如果不想更新系统（因为一般系统变动不大，可以看 MaixPy 更新日志中是否有系统改动相关，再决定是否更新系统），则可以只更新 MaixPy 固件。
 
 * 在设置中设置 WiFi， 让系统联网。
 * 点击设置应用中的 `更新 MaixPy` 进行更新。
 
-另外，可以在 [MaixPy 仓库 release 页面](https://github.com/sipeed/MaixPy/releases) 看到最新的版本信息和更新日志。
 
 > 如果你会使用终端， 也可以在终端中使用 `pip install MaixPy -U` 来更新 MaixPy。
 

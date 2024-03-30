@@ -105,7 +105,7 @@ h3 {
     padding: 0.5em;
 }
 
-li {
+#page_content li {
     margin: 0.5em;
     list-style-type: disc;
 }
@@ -121,10 +121,10 @@ li {
 </div>
 
 <div id="big_btn_wrapper" class="text-center p-4">
-    <a class="btn" href="/doc/index.html">快速开始 🚀</a>
-    <a class="btn" href="/api/">API 文档 📖</a>
+    <a class="btn" href="/doc/zh/index.html">快速开始 🚀📖</a>
+    <a class="btn" href="/api/">API 参考 📚</a>
     <a class="btn" target="_blank" href="https://wiki.sipeed.com/maixcam">硬件平台：MaixCAM 📷</a>
-    <a class="btn" target="_blank" href="https://github.com/sipeed/maixpy">GitHub 开源仓库 ⭐️</a>
+    <a class="btn" target="_blank" href="https://github.com/sipeed/maixpy">开源仓库 ⭐️</a>
 </div>
 
 <div class="flex justify-center" id="tags">
@@ -233,13 +233,15 @@ print("received:", dev1.readfrom(0x12, 5))
 
 更多细节看: [MaixCAM](https://wiki.sipeed.com/maixcam)
 
+> 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
+
 <!-- feature 介绍 -->
 
 <div id="feature">
 
 ## 特性介绍
 
-以下为部分功能简介，更多请看[文档](/doc/index.html)、[应用商店](https://maixhub.com/app) 或者社区分享[MaixHub](https://maixhub.com/share)。
+以下为部分功能简介，更多请看[文档](/doc/zh/index.html)、[应用商店](https://maixhub.com/app) 或者社区分享[MaixHub](https://maixhub.com/share)。
 
 <div class="flex flex-wrap justify-between">
     <div class="feature_item">
@@ -281,7 +283,7 @@ print("received:", dev1.readfrom(0x12, 5))
     <div class="feature_item">
         <div class="img_video">
             <img src="/static/image/maixpy-v1-square.png">
-            <p class="feature">与MaixPy-v1兼容的API</p>
+            <p class="feature">提供 MaixPy-v1 兼容 API</p>
             <p class="description">快速从MaixPy-v1(K210)迁移到MaixPy-v4</p>
         </div>
         <div>
@@ -291,7 +293,7 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <video controls autoplay loop muted preload src="/static/video/classifier.mp4"></video>
             <p class="feature">AI 分类</p>
-            <p class="description"></p>
+            <p class="description">识别物体类别</p>
         </div>
         <div>
         </div>
@@ -300,7 +302,7 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <video controls autoplay loop muted preload src="/static/video/detector.mp4"></video>
             <p class="feature">AI 对象检测</p>
-            <p class="description"></p>
+            <p class="description">识别物体类别和坐标</p>
         </div>
         <div>
         </div>
@@ -309,7 +311,7 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <img src="/static/image/face_recognize.jpg">
             <p class="feature">AI 人脸识别</p>
-            <p class="description"></p>
+            <p class="description">识别不同人脸特征</p>
         </div>
         <div>
         </div>
@@ -318,25 +320,25 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <img src="/static/image/body_keypoint.jpg">
             <p class="feature">AI 人体关键点检测</p>
-            <p class="description"></p>
+            <p class="description">姿态识别、体感游戏</p>
         </div>
         <div>
         </div>
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy_banner.png">
-            <p class="feature">AI 离线学习分类器</p>
-            <p class="description">无需在PC上训练，在设备上离线学习对象特征</p>
+            <img src="/static/image/self_learn_classifier.jpg">
+            <p class="feature">AI 自学习分类器</p>
+            <p class="description">无需在PC上训练，在设备上瞬间学习任意物体</p>
         </div>
         <div>
         </div>
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy_banner.png">
-            <p class="feature">AI 离线学习检测器</p>
-            <p class="description">无需在PC上训练，在设备上离线学习对象特征</p>
+            <img src="/static/image/self_learn_detector.jpg">
+            <p class="feature">AI 自学习检测器</p>
+            <p class="description">无需在PC上训练，在设备上瞬间学习任意物体</p>
         </div>
         <div>
         </div>
@@ -345,14 +347,14 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <img src="/static/image/object_track.jpg">
             <p class="feature">AI 物体轨迹跟踪</p>
-            <p class="description"></p>
+            <p class="description">轨迹追踪，流量统计</p>
         </div>
         <div>
         </div>
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy_banner.png">
+            <img src="/static/image/monitor.jpg">
             <p class="feature">AI 监控，串流</p>
             <p class="description">安防监控，可串流，甚至可以向直播平台 比如 Bilibili.com 直播</p>
         </div>
@@ -390,14 +392,14 @@ print("received:", dev1.readfrom(0x12, 5))
         <div class="img_video">
             <img src="/static/image/ocr.jpg">
             <p class="feature">OCR</p>
-            <p class="description">识别图片中的字符</p>
+            <p class="description">识别图片中的字符，旧物数字化</p>
         </div>
         <div>
         </div>
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy_banner.png">
+            <img src="/static/image/voice_recognize.jpg">
             <p class="feature">语音识别</p>
             <p class="description">实时连续语音识别</p>
         </div>
@@ -415,9 +417,27 @@ print("received:", dev1.readfrom(0x12, 5))
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy_banner.png">
+            <img src="/static/image/weather_station.jpg">
             <p class="feature">天气站</p>
             <p class="description">监视天气信息，如温度，湿度等。</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/thermal.jpg">
+            <p class="feature">热红外摄像头</p>
+            <p class="description">选配摄像头，温度图像获取/测量</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/static/image/hdmi_capture.jpg">
+            <p class="feature">HDMI 捕获视频</p>
+            <p class="description">选配，通过 HDMI 捕获图像，作为服务器监控（KVM）、外挂 AI、推流设备等</p>
         </div>
         <div>
         </div>

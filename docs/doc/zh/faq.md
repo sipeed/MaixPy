@@ -13,7 +13,7 @@ title: MaixPy FAQ(常见问题)
 
 ## MaixPy 目前只支持 MaixCAM 吗，用其它同款芯片的板子行不行？
 
-MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不支持，强烈不建议尝试，导致设备损坏（比如冒烟烧屏等）后果自负。
+MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不支持（包括 Sipeed 的同款芯片板子 比如 LicheeRV-Nano），强烈不建议尝试，导致设备损坏（比如冒烟烧屏等）后果自负。
 
 未来 Sipeed 出的 Maix 系列的产品都将继续得到 MaixPy 支持，目前如果 MaixCAM 有什么无法满足的需求，可以到 [MaixHub 讨论版块](https://maixhub.com/discussion) 提出需求或者发送邮件到 support@sipeed.com.
 
@@ -29,9 +29,9 @@ MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不�
 
 * 确保设备通过 Type-C 数据线连接到电脑，设备处于开机状态并且进入了功能选择界面。
 * 确保设备驱动已经安装：
-  * Windows 下可以在`设备管理器`中查看是否有 USB 虚拟网卡设备，如果有感叹号则是去动没有安装好，TODO：添加安装驱动方法。
+  * Windows 下可以在`设备管理器`中查看是否有 USB 虚拟网卡设备，如果有感叹号则是去动没有安装好，按照[快速开始](./README.md) 中的方法安装驱动即可。
   * Linux 下可以通过`ifconfig`或者`ip addr`查看是否有`usb0`设备或者`lsusb`查看所有 USB 设备。 Linux 已经自带去动，所以识别不到检查硬件连接，设备系统是否是最新，以及设备是否已经正常启动即可。
-  * Mac OS TODO：添加说明。
+  * Mac OS 同 Linux 方法。
 
 
 

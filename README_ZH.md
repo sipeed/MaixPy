@@ -57,7 +57,7 @@ while 1:
 
 效果视频:
 
-<video controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/classifier.mp4" type="video/mp4">
+<video controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
 Classifier Result video
 </video>
 

@@ -12,9 +12,23 @@ MaixPy 基于 Python 语言，提供了大量方便嵌入式应用开发的功�
 
 > 注意可能不是所有 Python 包都支持，一般只支持纯 Python 包，不支持 C 扩展包， C 扩展包可能需要你手动在电脑交叉编译（比较复杂，这里就不介绍了）。
 
-### 方法一： 在设备`设置->安装 Python 包`功能中输入包名安装
+### 方法一： 使用 Python 代码来安装
 
-在设备开机后的界面中选择`设置`->`安装 Python 包`，然后输入你需要的包名，点击`安装`按钮即可。
+在 MaixVision 中使用 Python 代码来安装你需要的包，比如：
+
+```python
+import os
+os.system("pip install 包名")
+```
+
+要更新一个包，可以使用：
+
+```python
+import os
+os.system("pip install --upgrade 包名")
+```
+
+
 
 ### 方法二： 终端使用 pip 命令安装
 

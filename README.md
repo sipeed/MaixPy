@@ -32,7 +32,7 @@ English | [中文](./README_ZH.md)
 > New MaixPy (v4) and new hardware platform MaixCAM is coming now(2024.4)!<br>
 > If you have any suggestions, tell us on [MaixHub](https://maixhub.com/discussion/100073), or [Telegram/MaixPy](https://t.me/maixpy) or QQ group: 862340358.
 >
-> Click the **Star** in the upper right corner to let us know you like it then more features will be added.
+> Click the **Star** in the upper right corner to let us know you like it to encourage us to add more features.
 
 
 ## Introduction
@@ -57,7 +57,7 @@ while 1:
 
 Result video:
 
-<video controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/classifier.mp4" type="video/mp4">
+<video controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
 Classifier Result video
 </video>
 
@@ -144,7 +144,7 @@ Here's the comparison between them:
 | Camera | 30W | 200W | **500W** |
 | WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G |
 | USB    | ✖    | **USB2.0** | **USB2.0** |
-| Eth    | ✖    | 100M   | 100M |
+| Eth    | ✖    | 100M(Optional)   | 100M(Optional) |
 | SD Interface | SPI | **SDIO** | **SDIO** |
 | BLE    | ✖    | ✖      | **BLE5.4** |
 | OS     | RTOS | Tina Linux | **Linux + RTOS** |
