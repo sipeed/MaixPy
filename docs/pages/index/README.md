@@ -215,6 +215,23 @@ print("received:", dev1.readfrom(0x12, 5))
 </div>
 <!-- div end-->
 
+<!-- start -->
+<h2>便捷的 MaixVision 工作站</h2>
+
+简化开发环境，让开发更简单快速：
+
+<video controls muted preload src="/static/video/maixvision.mp4" type="video/mp4" style="height:20em;">
+MaixVision
+</video>
+
+<h2>在线 AI 训练平台 MaixHub</h2>
+
+无需 AI 基础和昂贵的训练设备，一键训练模型，一键部署到 MaixCAM。
+
+<img style="height:20em;" src="/static/image/maixhub.jpg">
+
+<!-- end -->
+
 ## 性能强劲 MaixCAM 硬件平台
 
 ![MaixCAM](/static/image/maixcam.png)
@@ -234,6 +251,7 @@ print("received:", dev1.readfrom(0x12, 5))
 更多细节看: [MaixCAM](https://wiki.sipeed.com/maixcam)
 
 > 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
+
 
 <!-- feature 介绍 -->
 
@@ -447,10 +465,6 @@ print("received:", dev1.readfrom(0x12, 5))
 
 </div>
 
-## Maix 生态
-
-![](/static/image/maix_ecosystem.png)
-
 ## 谁在用 MaixPy？
 
 * **AI 算法工程师**： 轻松将你的 AI 模型部署到嵌入式设备。
@@ -502,6 +516,11 @@ print("received:", dev1.readfrom(0x12, 5))
 | AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
 | AI 检测   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
 | 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+
+## Maix 生态
+
+![](/static/image/maix_ecosystem.png)
+
 
 ## MaixPy v1, MaixPy3 and MaixPy v4 有什么区别？
 

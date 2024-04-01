@@ -15,7 +15,7 @@ title: MaixPy 快速开始
 </div>
 <br>
 
-> 关于 MaixPy 介绍请看 [MaixPy 官网首页](../README.md)
+> 关于 MaixPy 介绍请看 [MaixPy 官网首页](../../README.md)
 
 ## 获得 MaixCAM 设备
 

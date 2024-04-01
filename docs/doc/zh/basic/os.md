@@ -18,14 +18,13 @@ title: 升级和烧录系统
 
 ## 获得最新系统
 
+在 [MaixPy 发布页面](https://github.com/sipeed/MaixPy/releases) 找到最新的系统镜像文件，比如`maixcam_os_20240401_maixpy_v4.1.0.xz`。
 
-## 准备烧录工具
-
-
-## 烧录系统
-
-
-## 系统首次启动
+备用地址：
+* [Sourceforge](https://sourceforge.net/projects/maixpy/files/)
 
 
+## 烧录系统到 MaixCAM
+
+参考 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程。
 

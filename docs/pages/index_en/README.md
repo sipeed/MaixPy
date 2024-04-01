@@ -215,6 +215,23 @@ print("received:", dev1.readfrom(0x12, 5))
 </div>
 <!-- div end-->
 
+<!-- start -->
+<h2>MaixVision Workstation</h2>
+
+Simplify the development environment, make development easier and faster:
+
+<video controls muted preload src="/static/video/maixvision.mp4" type="video/mp4" style="height:20em;">
+MaixVision
+</video>
+
+<h2>Online AI training platform MaixHub</h2>
+
+One-click training AI model and deployment to MaixCAM even you have no AI knowledge and expensive training equipment.
+
+<img style="height:20em;" src="/static/image/maixhub.jpg">
+
+<!-- end -->
+
 ## Powerful MaixCAM hardware platform
 
 ![MaixCAM](/static/image/maixcam.png)
@@ -233,6 +250,7 @@ print("received:", dev1.readfrom(0x12, 5))
 More detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
 
 > Attention, only MaixCAM is supported, other boards with the same chip are not supported, including Sipeed's boards with the same chip, please be careful not to waste time and money by buying the wrong one.
+
 
 <!-- feature 介绍 -->
 
@@ -446,9 +464,6 @@ Below are some of the features, for more please see the [documentation](/doc/en/
 
 </div>
 
-## Maix ecosystem
-
-![](/static/image/maix_ecosystem.png)
 
 ## Who are using MaixPy?
 
@@ -499,6 +514,11 @@ Here's the comparison between them:
 | AI classify(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
 | AI detect   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
 | Ease of use     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+
+## Maix ecosystem
+
+![](/static/image/maix_ecosystem.png)
+
 
 ## What difference between MaixPy v1, MaixPy3 and MaixPy v4?
 

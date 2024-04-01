@@ -10,10 +10,10 @@ MaixPy
 **MaixPy**: 快速落地 AI 视觉、听觉应用
 
 <h3>
-    <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> 快速开始 </a> |
-    <a href="https://wiki.sipeed.com/maixpy/en/index.html"> 文档 </a> |
+    <a href="https://wiki.sipeed.com/maixpy/doc/index.html"> 快速开始 </a> |
+    <a href="https://wiki.sipeed.com/maixpy/index.html"> 文档 </a> |
     <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
-    <a href="https://wiki.sipeed.com/MaixCAM"> 硬件 </a>
+    <a href="https://wiki.sipeed.com/maixcam"> 硬件 </a>
 </h3>
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
@@ -73,6 +73,23 @@ serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
 
+我们还提供了便捷的 **[MaixVision](https://wiki.sipeed.com/maixvision)** 工作站，让开发更简单快速：
+
+<video controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
+MaixVision
+</video>
+
+以及在线 AI 训练平台 **[MaixHub](https://maixhub.com)**， 无需 AI 基础和昂贵的训练设备，一键训练模型，一键部署到 MaixCAM。
+
+![MaixHub](https://wiki.sipeed.com/maixpy/static/image/maixhub.jpg)
+
+## 功能特点
+
+Python 编程, MaixVision 工作站, AI 视觉, 视频串流, 语音识别, 外设使用 等。
+
+**细节和视频展示** 请访问官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
+
+
 ## 硬件平台 MaixCAM
 
 提供性能强劲的硬件平台 **[MaixCAM](https://wiki.sipeed.com/maixcam)**:
@@ -87,26 +104,10 @@ print("received:", serial.read(timeout = 2000))
 | ----------- | ----- | --- | ---- |
 |  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
 
-详情看 [MaixCAM](https://wiki.sipeed.com/maixcam)
+芯片寄存器级别开放，详情看 [MaixCAM](https://wiki.sipeed.com/maixcam)
 
 > * 大核在 RISC-V and ARM A53 二选一。
 > * **Maix-I K210** 已过时，MaixPy v4 不支持它, 仍要使用请访问 **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
-
-
-## 特点
-
-Python 编程, MaixVision IDE, AI 视觉, 视频串流, 语音识别, 外设使用 等。
-
-**细节和视频展示** 请访问官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
-
-
-## Maix 生态系统
-
-
-MaixPy 不仅仅是一个 Python SDK，还有一个完整的生态系统，包括硬件、软件、工具、文档、甚至云平台等。
-看下面的图片:
-
-![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
 
 
 ## 谁在用 MaixPy？
@@ -161,13 +162,13 @@ MaixPy 不仅仅是一个 Python SDK，还有一个完整的生态系统，包�
 | AI 检测   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
 | 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
 
-## What difference between MaixPy v1, MaixPy3 and MaixPy v4?
+## Maix 生态系统
 
-* MaixPy v1 use MicroPython programming language, only support Sipeed Maix-I K210 series hardware, have limited third-party packages.
-* MaixPy3 is designed for Sipeed Maix-II-Dock v831, not a long-term support version.
-* MaixPy v4 use Python programming language, so there's much package we can use directly. MaixPy v4 support new hardware platforms of Sipeed, it's a long-term support version, the future's hardware platforms will support this version. MaixPy v4 have a MaixPy-v1 compatible API, so you can quickly migrate your MaixPy v1 project to MaixPy v4.
 
-(MaixPy v4 Will not support Maix-I K210 series, if you are using Maix-I K210 series, it's recommended to upgrade hardware platform to use this to get more features and better performance.)
+MaixPy 不仅仅是一个 Python SDK，还有一个完整的生态系统，包括硬件、软件、工具、文档、甚至云平台等。
+看下面的图片:
+
+![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
 
 ## MaixPy v1, MaixPy3 and MaixPy v4 有什么区别？
 
@@ -176,6 +177,10 @@ MaixPy 不仅仅是一个 Python SDK，还有一个完整的生态系统，包�
 * MaixPy v4 使用 Python 编程语言，因此我们可以直接使用许多包。MaixPy v4 支持 Sipeed 的新硬件平台，这是一个长期支持版本，未来的硬件平台将支持这个版本。MaixPy v4 有一个 MaixPy-v1 兼容的 API，所以你可以快速将你的 MaixPy v1 项目迁移到 MaixPy v4。
 
 (MaixPy v4 不支持 Maix-I K210 系列，如果你正在使用 Maix-I K210 系列，建议升级硬件平台以使用此版本，以获得更多功能和更好的性能。)
+
+## 编译 MaixPy 源码
+
+如果你想从源代码编译 MaixPy 固件，请参考 [构建 MaixPy 源码](https://wiki.sipeed.com/maixpy/doc/zh/source_code/build.html) 页面。
 
 ## 开源协议
 

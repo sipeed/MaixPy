@@ -13,7 +13,7 @@ MaixPy
     <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> Quick Start </a> |
     <a href="https://wiki.sipeed.com/maixpy/en/index.html"> Documentation </a> |
     <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
-    <a href="https://wiki.sipeed.com/MaixCAM"> Hardware </a>
+    <a href="https://wiki.sipeed.com/maixcam"> Hardware </a>
 </h3>
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
@@ -73,6 +73,22 @@ serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
 
+We also provide a handy **[MaixVision](https://wiki.sipeed.com/en/maixvision)** workstation software to make development easier and faster:
+
+<video controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
+MaixVision
+</video>
+
+And online AI train platform **[MaixHub](https://maixhub.com)**, one click to train AI model and deploy to MaixCAM even you have no AI knowledge and expensive training equipment.
+
+![MaixHub](https://wiki.sipeed.com/maixpy/static/image/maixhub.jpg)
+
+## Features
+
+Python programing, MaixVision Workstation, AI vision, video streaming, voice recognize, peripheral usage etc.
+
+**Details and videos** visit official site: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
+
 ## Hardware platform MaixCAM
 
 And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)**:
@@ -87,25 +103,10 @@ And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.co
 | ----------- | ----- | --- | ---- |
 |  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
 
-More detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
+Chip register level open, more detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
 
 > * Big core can choose one of RISC-V and ARM A53.
 > * **Maix-I K210** series is outdated, MaixPy v4 not support it, use it please visit **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
-
-
-## Features
-
-Python programing, MaixVision IDE, AI vision, video streaming, voice recognize, peripheral usage etc.
-
-**Details and videos** visit official site: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
-
-
-## Maix Ecosystem
-
-MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, even cloud platform etc.
-See the picture below:
-
-![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
 
 
 ## Who are using MaixPy?
@@ -158,6 +159,14 @@ Here's the comparison between them:
 | AI detect   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
 | Ease of use     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
 
+## Maix Ecosystem
+
+MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, even cloud platform etc.
+See the picture below:
+
+![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
+
+
 ## What difference between MaixPy v1, MaixPy3 and MaixPy v4?
 
 * MaixPy v1 use MicroPython programming language, only support Sipeed Maix-I K210 series hardware, have limited third-party packages.
@@ -165,6 +174,11 @@ Here's the comparison between them:
 * MaixPy v4 use Python programming language, so there's much package we can use directly. MaixPy v4 support new hardware platforms of Sipeed, it's a long-term support version, the future's hardware platforms will support this version. MaixPy v4 have a MaixPy-v1 compatible API, so you can quickly migrate your MaixPy v1 project to MaixPy v4.
 
 (MaixPy v4 Will not support Maix-I K210 series, if you are using Maix-I K210 series, it's recommended to upgrade hardware platform to use this to get more features and better performance.)
+
+## Compile Source Code
+
+If you want to compile MaixPy firmware from source code, refer to [Build MaixPy source code](https://wiki.sipeed.com/maixpy/doc/en/source_code/build.html) page.
+
 
 ## License
 
