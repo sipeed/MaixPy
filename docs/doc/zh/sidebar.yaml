@@ -53,10 +53,11 @@ items:
     label: 自学习检测器
 -   file: vision/object_track.md
     label: 物体轨迹跟踪和计数
--   file: vision/maixhub_train.md
-    label: MaixHub 在线训练AI模型
 -   file: vision/ocr.md
     label: OCR 文字识别
+-   file: vision/maixhub_train.md
+    label: MaixHub 在线 AI 模型训练
+
 
 -   label: AI 听觉
 -   file: audio/record.md

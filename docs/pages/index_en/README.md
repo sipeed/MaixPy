@@ -9,14 +9,16 @@ id: home_page
 </div>
 
 <style>
-
+.md_page #page_content
+{
+    padding: 1em;
+}
 .md_page #page_content > div
 {
     width: 100%;
     max-width: 100%;
     text-align: left;
 }
-
 @media (min-width: 1280px) {
     .md_page #page_content > div
     {
@@ -24,28 +26,24 @@ id: home_page
         max-width: 1440px;
     }
 }
-
 h1 {
     font-size: 3em;
     font-weight: 600;
     margin-top: 0.67em;
     margin-bottom: 0.67em;
 }
-
 h2 {
     font-size: 1.6em;
     font-weight: 600;
     margin-top: 1em;
     margin-bottom: 0.67em;
 }
-
 h3 {
     font-size: 1.5em;
     font-weight: 400;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
-
 #tags > p {
     display: flex;
     justify-content: center;
@@ -54,11 +52,9 @@ h3 {
 #tags > p a {
     margin: 0 0.2em;
 }
-
 #feature video, #feature img {
     height: 15em;
 }
-
 .feature_item {
     display: flex;
     flex-direction: column;
@@ -70,46 +66,37 @@ h3 {
     overflow: hidden;
     max-width: 20em;
 }
-
 .feature_item .feature {
     font-size: 1.2em;
     font-weight: 600;
 }
-
 .feature_item .description {
     font-size: 0.8em;
     font-weight: 400;
 }
-
 .feature_item video, .feature_item img {
     width: 100%;
     object-fit: cover;
 }
-
 .feature_item .img_video {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
-
 .feature_item > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
-
 .feature_item p {
     padding: 0.5em;
 }
-
 #page_content li {
     margin: 0.5em;
     list-style-type: disc;
 }
-
 </style>
 
 <div class="w-full flex flex-col justify-center text-center">
@@ -120,16 +107,16 @@ h3 {
     <h3>Easily create AI projects with Python on edge device</h3>
 </div>
 
-<div id="big_btn_wrapper" class="text-center p-4">
-    <a class="btn" href="/doc/en/index.html">Quick Start 🚀📖</a>
-    <a class="btn" href="/api/">API Reference 📚</a>
-    <a class="btn" target="_blank" href="https://wiki.sipeed.com/maixcam">Hardware：MaixCAM 📷</a>
-    <a class="btn" target="_blank" href="https://github.com/sipeed/maixpy">Source Code ⭐️</a>
+<div id="big_btn_wrapper" class="flex flex-wrap justify-center items-center">
+    <a class="btn m-1" href="/doc/en/index.html">Quick Start 🚀📖</a>
+    <a class="btn m-1" href="/api/">API Reference 📚</a>
+    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">Hardware：MaixCAM 📷</a>
+    <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">Source Code ⭐️</a>
 </div>
 
 <div class="flex justify-center" id="tags">
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
+[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)[![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy)](https://github.com/sipeed/MaixPy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
 
 
 </div>
@@ -148,10 +135,8 @@ English | [中文](/)
 
 
 <div class="mt-6"></div>
-
 <div id="id1" class="flex flex-row justify-start flex-wrap">
-
-<div>
+<div class="w-full">
 <h2>Easy-to-use API, AI vision classify in 10 lines</h2>
 
 ```python
@@ -171,18 +156,17 @@ while 1:
 ```
 
 </div>
-
-<video controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/classifier.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/classifier.mp4" type="video/mp4">
 Classifier Result video
 </video>
-
 </div> <!-- id1 -->
 
 
 <!-- div start-->
+<div class="w-full">
 <h2>Hardware peripheral control:</h2>
 <div class="flex flex-row justify-start flex-wrap">
-<div class="mr-4">
+<div class="w-full mr-4">
 
 Serial send and receive:
 
@@ -197,7 +181,7 @@ print("received:", serial.read(timeout = 2000))
 ```
 
 </div>
-<div>
+<div class="w-full">
 
 I2C send and receive:
 
@@ -213,6 +197,7 @@ print("received:", dev1.readfrom(0x12, 5))
 
 </div>
 </div>
+</div>
 <!-- div end-->
 
 <!-- start -->
@@ -220,7 +205,7 @@ print("received:", dev1.readfrom(0x12, 5))
 
 Simplify the development environment, make development easier and faster:
 
-<video controls muted preload src="/static/video/maixvision.mp4" type="video/mp4" style="height:20em;">
+<video playsinline controls muted preload src="/static/video/maixvision.mp4" type="video/mp4" style="height:20em;">
 MaixVision
 </video>
 
@@ -263,7 +248,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
 <div class="flex flex-wrap justify-between">
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/maixvision.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/maixvision.mp4"></video>
             <p class="feature">Python + MaixVision IDE</p>
             <p class="description">Simple API, with hardware acceleration, including many libraries, such as numpy, opencv, MaixVision IDE programming</p>
         </div>
@@ -290,7 +275,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/app_store.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/app_store.mp4"></video>
             <p class="feature">App Store</p>
             <p class="description">Share your APP to community, and one-click install <a href="https://maixhub.com/app">APPs</a>.</p>
         </div>
@@ -308,7 +293,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/classifier.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/classifier.mp4"></video>
             <p class="feature">AI Classifier</p>
             <p class="description">Classify object type</p>
         </div>
@@ -317,7 +302,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/detector.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/detector.mp4"></video>
             <p class="feature">AI Object Detection</p>
             <p class="description">Classify object type and position</p>
         </div>
@@ -380,7 +365,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/find_blobs.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/find_blobs.mp4"></video>
             <p class="feature">Find Blobs</p>
             <p class="description">Find color blobs</p>
         </div>
@@ -389,7 +374,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/line_track.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/line_track.mp4"></video>
             <p class="feature">Line Tracking</p>
             <p class="description">Car line tracking, logistics handling</p>
         </div>
@@ -398,7 +383,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/qr_apriltag.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/qr_apriltag.mp4"></video>
             <p class="feature">QR Code and AprilTag</p>
             <p class="description">Recognize QR code and AprilTag</p>
         </div>
@@ -425,7 +410,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video controls autoplay loop muted preload src="/static/video/desktop_monitor.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/desktop_monitor.mp4"></video>
             <p class="feature">Desktop Monitor</p>
             <p class="description">Monitor PC information, such as CPU, memory, network, etc.</p>
         </div>

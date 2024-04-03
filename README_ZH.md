@@ -57,7 +57,7 @@ while 1:
 
 效果视频:
 
-<video controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
+<video playsinline controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
 Classifier Result video
 </video>
 
@@ -75,7 +75,7 @@ print("received:", serial.read(timeout = 2000))
 
 我们还提供了便捷的 **[MaixVision](https://wiki.sipeed.com/maixvision)** 工作站，让开发更简单快速：
 
-<video controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
+<video playsinline controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
 MaixVision
 </video>
 

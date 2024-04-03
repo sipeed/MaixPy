@@ -12,6 +12,11 @@ update:
 
 MaixPy 提供了`display`模块，可以将图像显示到屏幕上，同时，也可以将图像发送到 MaixVision 显示，方便调试和开发。
 
+## API 文档
+
+本文介绍常用方法，更多 API 请看 API 文档的 [display](/api/maix/display.md) 部分。
+
+
 ## 使用屏幕
 
 * 导入`display`模块：
@@ -84,8 +89,4 @@ img.draw_rectangle(10, 10, 100, 100, color=image.Color.from_rgb(255, 0, 0))
 img.draw_string(10, 10, "Hello MaixPy!", color=image.Color.from_rgb(255, 255, 255))
 img.send_to_maixvision()
 ```
-
-## 更多 API
-
-更多 API 请看 API 文档的 [display](../../../api/maix/display.md) 部分。
 
