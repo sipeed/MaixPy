@@ -44,7 +44,7 @@ title: MaixPy 快速开始
 使用方法：
 * 硬件连接： 可以给设备接上`Type-C一转二小板`，这样我们就能将设备通过串口连接到你的主控上了，比如`Arduino`、`树莓派`、`STM32`等等。
 * 打开你想用的应用，比如二维码识别，当设备扫描到二维码就会通过串口把结果发送给你的主控了。
-> 发送的串口波特率是 `115200`，数据格式是 `8N1`，协议遵循 [Maix 串口通信协议标准](https://wiki.sipeed.com/maixcdk/docs/doc/convention/protoco.md)，可以在[MaixHub APP](https://maixhub.com/app) 找到对应的应用介绍查看协议。
+> 发送的串口波特率是 `115200`，数据格式是 `8N1`，协议遵循 [Maix 串口通信协议标准](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md)，可以在[MaixHub APP](https://maixhub.com/app) 找到对应的应用介绍查看协议。
 
 ## 准备连接电脑和设备
 
