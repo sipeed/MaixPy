@@ -43,7 +43,7 @@ items:
     label: AI 物体分类
 -   file: vision/yolov5.md
     label: YOLOv5 物体检测
--   file: vision/face_recognize.md
+-   file: vision/face_recognition.md
     label: 人脸识别
 -   file: vision/body_key_points.md
     label: 人体关键点检测
@@ -57,6 +57,8 @@ items:
     label: OCR 文字识别
 -   file: vision/maixhub_train.md
     label: MaixHub 在线 AI 模型训练
+-   file: vision/customize_model.md
+    label: 自定义模型
 
 
 -   label: AI 听觉

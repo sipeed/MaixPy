@@ -66,9 +66,9 @@ Classifier Result video
 ```python
 from maix import uart
 
-ports = uart.list_ports()
+dvices = uart.list_devices()
 
-serial = uart.UART(ports[0], 115200)
+serial = uart.UART(devices[0], 115200)
 serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```

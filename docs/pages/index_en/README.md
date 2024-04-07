@@ -173,9 +173,9 @@ Serial send and receive:
 ```python
 from maix import uart
 
-ports = uart.list_ports()
+dvices = uart.list_devices()
 
-serial = uart.UART(ports[0], 115200)
+serial = uart.UART(devices[0], 115200)
 serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
@@ -188,9 +188,10 @@ I2C send and receive:
 ```python
 from maix import i2c
 
-devices = i2c.scan()
-
+devices = i2c.list_devices()
 dev1 = i2c.I2C(devices[0], freq=100000)
+slaves = dev1.scan()
+print("find slaves:", slaves)
 dev1.writeto(0x12, b'hello')
 print("received:", dev1.readfrom(0x12, 5))
 ```
