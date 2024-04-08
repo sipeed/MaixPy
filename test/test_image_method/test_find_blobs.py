@@ -22,11 +22,6 @@ while 1:
 
     blobs = img.find_blobs(thresholds, invert, roi, x_stride, y_stride, area_threshold, pixels_threshold, merge, margin, x_hist_bins_max, y_hist_bins_max)
     for a in blobs:
-        # draw corners
-        corners = a.mini_corners()
-        for i in range(4):
-            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
-
         # draw rect
         rect = a.rect()
         img.draw_rect(rect[0], rect[1], rect[2], rect[3], image.COLOR_GREEN)
