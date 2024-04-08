@@ -30,7 +30,7 @@ items:
 -   file: vision/image_ops.md
     label: 基本图像操作
 -   file: vision/find_blobs.md
-    label: 找色块
+    label: 寻找色块
 -   file: vision/qrcode.md
     label: 二维码识别
 -   file: vision/apriltag.md
