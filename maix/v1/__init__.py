@@ -1,2 +1,1 @@
-
-__all__ = ["image", "machine", "lcd", "sensor", "video"]
+__all__ = ["image", "machine", "lcd", "sensor", "video", "audio"]
