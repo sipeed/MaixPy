@@ -72,6 +72,15 @@ while not app.need_exit():
 
 > 这里用了一个`while not app.need_exit():` 是方便程序在其它地方调用`app.set_exit_flag()`方法后退出循环。
 
+## 调整背光亮度
+
+在系统的`设置`应用中可以手动调整背光亮度，如果你想在程序中调整背光亮度，可以使用`set_backlight`方法，参数就是亮度百分比，取值范围是 0-100：
+```python
+disp.set_backlight(50)
+```
+
+注意，程序退出回到应用选择界面后会自动恢复到系统设置的背光亮度。
+
 
 ## 显示到 MaixVision
 

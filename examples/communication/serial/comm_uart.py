@@ -2,7 +2,7 @@
 from maix import app, uart
 import sys
 
-ports = uart.list_ports()
+ports = uart.list_devices()
 
 if len(ports) == 0:
     print("no port found")
