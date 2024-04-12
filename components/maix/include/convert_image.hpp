@@ -61,7 +61,7 @@ namespace maix::image
         }
         else
         {
-            img = new image::Image(mat.cols, mat.rows, fmt, mat.data);
+            img = new image::Image(mat.cols, mat.rows, fmt, mat.data, -1, false);
         }
         return img;
     }
