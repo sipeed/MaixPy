@@ -142,19 +142,21 @@ def get_id():
     raise ValueError('This operation is not supported')
 
 def set_hmirror(enable):
-    raise ValueError('This operation is not supported')
+    __camera.set_vflip(enable)
 
 def set_vflip(enable):
-    raise ValueError('This operation is not supported')
+    __camera.set_vflip(enable)
 
 def set_brightness(brightness):
-    raise ValueError('This operation is not supported')
+    brightness = brightness + 3
+    val = brightness * 100 / 4
+    __camera.set_luma(int(val))
 
 def set_contrast(contrast):
-    raise ValueError('This operation is not supported')
+    __camera.set_constrast(contrast)
 
 def set_saturation(saturation):
-    raise ValueError('This operation is not supported')
+    __camera.set_saturation(saturation)
 
 def width():
     return __camera.width()
@@ -178,7 +180,7 @@ def __read_reg(addr):
     return __camera.read_reg(addr)
 
 def set_jb_quality():
-    raise ValueError('This operation is not supported')
+    raise ValueError('This operation is not supported\n')
 
 
 

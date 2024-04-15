@@ -46,7 +46,10 @@ def direction(dir):
     rotation(dir)
 
 def mirror(invert):
-    raise ValueError('This operation is not supported')
+    __disp.set_hmirror(invert)
+
+def flip(invert):
+    __disp.set_vflip(invert)
 
 def bgr_to_rgb(enable):
     raise ValueError('This operation is not supported')
@@ -54,4 +57,6 @@ def bgr_to_rgb(enable):
 def fill_rectangle(x, y, w, h, color):
     raise ValueError('This operation is not supported')
 
+def set_jb_quality():
+    raise ValueError('This operation is not supported\n')
 

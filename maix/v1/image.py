@@ -32,459 +32,6 @@ PDF417          = 13
 CODE93          = 14
 CODE128         = 15
 
-class Histogram:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def bins(self):
-        raise ValueError('This operation is not supported')
-
-    def l_bins(self):
-        raise ValueError('This operation is not supported')
-
-    def a_bins(self):
-        raise ValueError('This operation is not supported')
-
-    def b_bins(self):
-        raise ValueError('This operation is not supported')
-
-    def get_percentile(self, percentile):
-        raise ValueError('This operation is not supported')
-
-    def get_threhsold(self):
-        raise ValueError('This operation is not supported')
-
-    def get_statistics(self):
-        raise ValueError('This operation is not supported')
-
-class Statistics:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def mean(self):
-        raise ValueError('This operation is not supported')
-
-    def median(self):
-        raise ValueError('This operation is not supported')
-
-    def mode(self):
-        raise ValueError('This operation is not supported')
-
-    def stdev(self):
-        raise ValueError('This operation is not supported')
-
-    def min(self):
-        raise ValueError('This operation is not supported')
-
-    def max(self):
-        raise ValueError('This operation is not supported')
-
-    def lq(self):
-        raise ValueError('This operation is not supported')
-
-    def uq(self):
-        raise ValueError('This operation is not supported')
-
-    def l_mean(self):
-        raise ValueError('This operation is not supported')
-
-    def l_median(self):
-        raise ValueError('This operation is not supported')
-
-    def l_mode(self):
-        raise ValueError('This operation is not supported')
-
-    def l_stdev(self):
-        raise ValueError('This operation is not supported')
-
-    def l_min(self):
-        raise ValueError('This operation is not supported')
-
-    def l_max(self):
-        raise ValueError('This operation is not supported')
-
-    def l_lq(self):
-        raise ValueError('This operation is not supported')
-
-    def l_uq(self):
-        raise ValueError('This operation is not supported')
-
-    def a_mean(self):
-        raise ValueError('This operation is not supported')
-
-    def a_median(self):
-        raise ValueError('This operation is not supported')
-
-    def a_mode(self):
-        raise ValueError('This operation is not supported')
-
-    def a_stdev(self):
-        raise ValueError('This operation is not supported')
-
-    def a_min(self):
-        raise ValueError('This operation is not supported')
-
-    def a_max(self):
-        raise ValueError('This operation is not supported')
-
-    def a_lq(self):
-        raise ValueError('This operation is not supported')
-
-    def a_uq(self):
-        raise ValueError('This operation is not supported')
-
-    def b_mean(self):
-        raise ValueError('This operation is not supported')
-
-    def b_median(self):
-        raise ValueError('This operation is not supported')
-
-    def b_mode(self):
-        raise ValueError('This operation is not supported')
-
-    def b_stdev(self):
-        raise ValueError('This operation is not supported')
-
-    def b_min(self):
-        raise ValueError('This operation is not supported')
-
-    def b_max(self):
-        raise ValueError('This operation is not supported')
-
-    def b_lq(self):
-        raise ValueError('This operation is not supported')
-
-    def b_uq(self):
-        raise ValueError('This operation is not supported')
-
-class Blob:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def pixels(self):
-        raise ValueError('This operation is not supported')
-
-    def cx(self):
-        raise ValueError('This operation is not supported')
-
-    def cy(self):
-        raise ValueError('This operation is not supported')
-
-    def rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def code(self):
-        raise ValueError('This operation is not supported')
-
-    def count(self):
-        raise ValueError('This operation is not supported')
-
-    def area(self):
-        raise ValueError('This operation is not supported')
-
-    def density(self):
-        raise ValueError('This operation is not supported')
-
-class Line:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def line(self):
-        raise ValueError('This operation is not supported')
-
-    def x1(self):
-        raise ValueError('This operation is not supported')
-
-    def y1(self):
-        raise ValueError('This operation is not supported')
-
-    def x2(self):
-        raise ValueError('This operation is not supported')
-
-    def y2(self):
-        raise ValueError('This operation is not supported')
-
-    def length(self):
-        raise ValueError('This operation is not supported')
-
-    def magnitude(self):
-        raise ValueError('This operation is not supported')
-
-    def theta(self):
-        raise ValueError('This operation is not supported')
-
-    def rho(self):
-        raise ValueError('This operation is not supported')
-
-
-class Circle:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def r(self):
-        raise ValueError('This operation is not supported')
-
-    def magnitude(self):
-        raise ValueError('This operation is not supported')
-
-
-class Rect:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def corners(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def magnitude(self):
-        raise ValueError('This operation is not supported')
-
-
-class QRCode:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def corners(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def payload(self):
-        raise ValueError('This operation is not supported')
-
-    def version(self):
-        raise ValueError('This operation is not supported')
-
-    def ecc_level(self):
-        raise ValueError('This operation is not supported')
-
-    def mask(self):
-        raise ValueError('This operation is not supported')
-
-    def data_type(self):
-        raise ValueError('This operation is not supported')
-
-    def eci(self):
-        raise ValueError('This operation is not supported')
-
-    def is_numeric(self):
-        raise ValueError('This operation is not supported')
-
-    def is_alphanumeric(self):
-        raise ValueError('This operation is not supported')
-
-    def is_binary(self):
-        raise ValueError('This operation is not supported')
-
-    def is_kanji(self):
-        raise ValueError('This operation is not supported')
-
-
-class AprilTag:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def corners(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def id(self):
-        raise ValueError('This operation is not supported')
-
-    def family(self):
-        raise ValueError('This operation is not supported')
-
-    def cx(self):
-        raise ValueError('This operation is not supported')
-
-    def cy(self):
-        raise ValueError('This operation is not supported')
-
-    def rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def decision_margin(self):
-        raise ValueError('This operation is not supported')
-
-    def hamming(self):
-        raise ValueError('This operation is not supported')
-
-    def goodness(self):
-        raise ValueError('This operation is not supported')
-
-    def x_translation(self):
-        raise ValueError('This operation is not supported')
-
-    def y_translation(self):
-        raise ValueError('This operation is not supported')
-
-    def z_translation(self):
-        raise ValueError('This operation is not supported')
-
-    def x_rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def y_rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def z_rotation(self):
-        raise ValueError('This operation is not supported')
-
-class DataMatrix:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def corners(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def payload(self):
-        raise ValueError('This operation is not supported')
-
-    def rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def rows(self):
-        raise ValueError('This operation is not supported')
-
-    def columns(self):
-        raise ValueError('This operation is not supported')
-
-    def capacity(self):
-        raise ValueError('This operation is not supported')
-
-    def padding(self):
-        raise ValueError('This operation is not supported')
-
-class BarCode:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def corners(self):
-        raise ValueError('This operation is not supported')
-
-    def rect(self):
-        raise ValueError('This operation is not supported')
-
-    def x(self):
-        raise ValueError('This operation is not supported')
-
-    def y(self):
-        raise ValueError('This operation is not supported')
-
-    def w(self):
-        raise ValueError('This operation is not supported')
-
-    def h(self):
-        raise ValueError('This operation is not supported')
-
-    def payload(self):
-        raise ValueError('This operation is not supported')
-
-    def type(self):
-        raise ValueError('This operation is not supported')
-
-    def rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def quality(self):
-        raise ValueError('This operation is not supported')
-
-class Displacement:
-    def __init__(self):
-        raise ValueError('This operation is not supported')
-
-    def x_translation(self):
-        raise ValueError('This operation is not supported')
-
-    def y_translation(self):
-        raise ValueError('This operation is not supported')
-
-    def rotation(self):
-        raise ValueError('This operation is not supported')
-
-    def scale(self):
-        raise ValueError('This operation is not supported')
-
-    def response(self):
-        raise ValueError('This operation is not supported')
-
 class Image:
     def __init__(self, path=None, copy_to_fb=False, width=640, height=480, do_nothing = False):
         if do_nothing:
@@ -549,7 +96,7 @@ class Image:
 
     def to_grayscale(self, copy=False):
         img = self.__img.to_format(image.Format.FMT_GRAYSCALE)
-        if copy:
+        if copy is True:
             img_v1 = Image(do_nothing=True)
             img_v1.set_priv_img(img)
             return img_v1
@@ -559,6 +106,16 @@ class Image:
 
     def to_rgb565(self, copy=False):
         raise ValueError('This operation is not supported')
+
+    def to_rgb888(self, copy=False):
+        img = self.__img.to_format(image.Format.FMT_RGB888)
+        if copy is True:
+            img_v1 = Image(do_nothing=True)
+            img_v1.set_priv_img(img)
+            return img_v1
+        else:
+            self.__img = img
+            return self
 
     def to_rainbow(self, copy=False):
         raise ValueError('This operation is not supported')
@@ -572,13 +129,13 @@ class Image:
     def compress_for_ide(self, quality=50):
         raise ValueError('This operation is not supported')
 
-    def copy(self, roi=None, copy_to_fb=False):
+    def copy(self, roi=[], copy_to_fb=False):
         img = self.__img.copy()
         img_v1 = Image(do_nothing=True)
         img_v1.set_priv_img(img)
         return img_v1
 
-    def save(self, path, roi=None, quality=50):
+    def save(self, path, roi=[], quality=50):
         img = self.__img.save(path, quality)
         img_v1 = Image(do_nothing=True)
         img_v1.set_priv_img(img)
@@ -622,121 +179,440 @@ class Image:
             self.__img.draw_ellipse(cx, cy, rx, ry, rotation, 0, 360, img_color, thickness=thickness)
 
     def draw_circle(self, x, y, radius, color, thickness=1, fill=False):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        if fill:
+            self.__img.draw_circle(x, y, radius, img_color, thickness=-1)
+        else:
+            self.__img.draw_circle(x, y, radius, img_color, thickness=thickness)
+
 
     def draw_string(self, x, y, text, color, scale=1, x_spacing=0, y_spacing=0, mono_space=True):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        self.__img.draw_string(x, y, text, img_color, scale)
 
     def draw_cross(self, x, y, color, size=5, thickness=1):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        self.__img.draw_cross(x, y, img_color, size, thickness=thickness)
 
     def draw_arrow(self, x0, y0, x1, y1, color, thickness=1):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        self.__img.draw_arrow(x0, y0, x1, y1, img_color, thickness=thickness)
 
     def draw_image(self, image, x, y, x_scale=1.0, y_scale=1.0, mask=None, alpha=256):
-        raise ValueError('This operation is not supported')
+        img = image.get_priv_img()
+        print(x, y, img.width(), img.height())
+        self.__img.draw_image(x, y, img)
+
 
     def draw_keypoints(self, keypoints, color, size=10, thickness=1, fill=False):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        if fill:
+            self.__img.draw_keypoints(keypoints, img_color, size, thickness=-1)
+        else:
+            self.__img.draw_keypoints(keypoints, img_color, size, thickness=thickness)
 
     def flood_fill(self, x, y, seed_threshold=0.05, floating_threshold=0.05, color=(255,255,255), invert=False, clear_background=False, mask=None):
-        raise ValueError('This operation is not supported')
+        img_color = None
+        if isinstance(color, tuple) or isinstance(color, list) and len(color) > 2:
+            img_color = image.Color.from_rgb(color[0], color[1], color[2])
+        elif isinstance(color, int):
+            img_color = image.Color.from_rgb(color, color, color)
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+        self.__img.flood_fill(x, y, seed_threshold, floating_threshold, img_color, invert, clear_background, mask_img)
 
     def binary(self, thresholds, invert=False, zero=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+        self.__img.binary(thresholds, invert, zero, mask_img)
 
     def invert(self):
-        raise ValueError('This operation is not supported')
+        img = self.__img.invert()
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+        return img_v1
 
     def b_and(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_and(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def b_nand(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_nand(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def b_or(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_or(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def b_nor(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_nor(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def b_xor(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_xor(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def b_xnor(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.b_xnor(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def erode(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.erode(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def dilate(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.dilate(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def open(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.open(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def close(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.close(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def top_hat(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.top_hat(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def black_hat(self, size, threshold, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.black_hat(size, threshold, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def negate(self):
-        raise ValueError('This operation is not supported')
+        img = self.__img.negate()
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def replace(self, image, hmirror=False, vflip=False, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = None
+        if image is not None:
+            other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.replace(other_img, hmirror, vflip, mask=mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def add(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.add(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def sub(self, image, reverse=False, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.sub(other_img, reverse, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def mul(self, image, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.mul(other_img, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def div(self, image, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.div(other_img, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def min(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.min(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def max(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.max(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def difference(self, image, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.difference(other_img, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def blend(self, image, alpha=128, mask=None):
-        raise ValueError('This operation is not supported')
+        other_img = image.get_priv_img()
+
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.blend(other_img, alpha, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def histeq(self, adaptive=False, clip_limit=-1, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.histeq(adaptive, clip_limit, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def mean(self, size, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.mean(size, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def mode(self, size, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.mode(size, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def midpoint(self, size, bias=0.5, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.midpoint(size, bias, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def morph(self, size, kernel, mul=-1, add=0):
-        raise ValueError('This operation is not supported')
+        img = self.__img.morph(size, kernel, mul, add)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def gaussian(self, size, unsharp=False, mul=-1, add=0, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.gaussian(size, unsharp, mul, add, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def laplacian(self, size, sharpen=False, mul=-1, add=0, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.laplacian(size, sharpen, mul, add, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def bilateral(self, size, color_sigma=0.1, space_sigma=1, threshold=False, offset=0, invert=False, mask=None):
-        raise ValueError('This operation is not supported')
+        mask_img = None
+        if mask is not None:
+            mask_img = mask.get_priv_img()
+
+        img = self.__img.bilateral(size, color_sigma, space_sigma, threshold, offset, invert, mask_img)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def cartoon(self, size, seed_threshold=0.05, floating_threshold=0.05, mask=None):
         raise ValueError('This operation is not supported')
@@ -751,70 +627,96 @@ class Image:
         raise ValueError('This operation is not supported')
 
     def linpolar(self, reverse=False):
-        raise ValueError('This operation is not supported')
+        img = self.__img.linpolar(reverse)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def logpolar(self, reverse=False):
-        raise ValueError('This operation is not supported')
+        img = self.__img.logpolar(reverse)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def lens_corr(self, strength=1.8, zoom=1.0):
-        raise ValueError('This operation is not supported')
+        img = self.__img.lens_corr(strength, zoom)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def rotation_corr(self, x_rotation=0.0, y_rotation=0.0, z_rotation=0.0, x_translation=0.0, y_translation=0.0, zoom=1.0, fov=60.0, corners=None):
-        raise ValueError('This operation is not supported')
+        img = self.__img.rotation_corr(x_rotation, y_rotation, z_rotation, x_translation, y_translation, zoom, fov, corners)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
     def get_similarity(self, image):
         raise ValueError('This operation is not supported')
 
-    def get_histogram(self, thresholds, invert=False, roi=None, bins=None, l_bins=None, a_bins=None, b_bins=None):
+    def get_histogram(self, thresholds, invert=False, roi=[], bins=-1, l_bins=100, a_bins=256, b_bins=256):
+        return self.__img.get_histogram(thresholds, invert, roi, bins, l_bins, a_bins, b_bins, None)
+
+    def get_statistics(self, thresholds, invert=False, roi=[], bins=-1, l_bins=100, a_bins=256, b_bins=256):
+        return self.__img.get_statistics(thresholds, invert, roi, bins, l_bins, a_bins, b_bins, None)
+
+    def get_regression(self, thresholds, invert=False, roi=[], x_stride=2, y_stride=1, area_threshold=10, pixels_threshold=10, robust=False):
+        return self.__img.get_regression(thresholds, invert, roi, x_stride, y_stride, area_threshold, pixels_threshold, robust)
+
+    def find_blobs(self, thresholds, invert=False, roi=[], x_stride=2, y_stride=1, area_threshold=10, pixels_threshold=10, merge=False, margin=0, threshold_cb=None, merge_cb=None):
+        return self.__img.find_blobs(thresholds, invert, roi, x_stride, y_stride, area_threshold, pixels_threshold, merge, margin)
+
+    def find_lines(self, roi=[], x_stride=2, y_stride=1, threshold=1000, theta_margin=25, rho_margin=25):
+        return self.__img.find_lines(roi, x_stride, y_stride, threshold, theta_margin, rho_margin)
+
+    def find_line_segments(self, roi=[], merge_distance=0, max_theta_difference=15):
+        return self.__img.find_line_segments(roi, merge_distance, max_theta_difference)
+
+    def find_circles(self, roi=[], x_stride=2, y_stride=1, threshold=2000, x_margin=10, y_margin=10, r_margin=10):
+        return self.__img.find_circles(roi, x_stride, y_stride, threshold, x_margin, y_margin, r_margin)
+
+    def find_rects(self, roi=[], threshold=10000):
+        return self.__img.find_rects(roi, threshold)
+
+    def find_qrcodes(self, roi=[]):
+        return self.__img.find_qrcodes(roi)
+
+    def find_barcodes(self, roi=[]):
+        return self.__img.find_barcodes(roi)
+
+    def find_number(self, roi=[]):
         raise ValueError('This operation is not supported')
 
-    def get_statistics(self, thresholds, invert=False, roi=None, bins=None, l_bins=None, a_bins=None, b_bins=None):
+    def classify_object(self, roi=[]):
         raise ValueError('This operation is not supported')
 
-    def get_regression(self, thresholds, invert=False, roi=None, x_stride=2, y_stride=1, area_threshold=10, pixels_threshold=10, robust=False):
+    def find_features(self, cascade, threshold=0.5, scale=1.5, roi=[]):
         raise ValueError('This operation is not supported')
 
-    def find_blobs(self, thresholds, invert=False, roi=None, x_stride=2, y_stride=1, area_threshold=10, pixels_threshold=10, merge=False, margin=0, threshold_cb=None, merge_cb=None):
+    def find_eye(self, roi=[]):
         raise ValueError('This operation is not supported')
 
-    def find_lines(self, roi=None, x_stride=2, y_stride=1, threshold=1000, theta_margin=25, rho_margin=25):
+    def find_lbp(self, roi=[]):
         raise ValueError('This operation is not supported')
 
-    def find_line_segments(self, roi=None, merge_distance=0, max_theta_difference=15):
-        raise ValueError('This operation is not supported')
-
-    def find_circles(self, roi=None, x_stride=2, y_stride=1, threshold=2000, x_margin=10, y_margin=10, r_margin=10):
-        raise ValueError('This operation is not supported')
-
-    def find_rects(self, roi=None, threshold=10000):
-        raise ValueError('This operation is not supported')
-
-    def find_qrcodes(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_barcodes(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_number(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def classify_object(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_features(self, cascade, threshold=0.5, scale=1.5, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_eye(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_lbp(self, roi=None):
-        raise ValueError('This operation is not supported')
-
-    def find_keypoints(self, roi=None, threshold=20, normalized=False, scale_factor=1.5, max_keypoints=100, corner_detector=CORNER_AGAST):
+    def find_keypoints(self, roi=[], threshold=20, normalized=False, scale_factor=1.5, max_keypoints=100, corner_detector=CORNER_AGAST):
         raise ValueError('This operation is not supported')
 
     def find_edges(self, edge_type, threshold):
-        raise ValueError('This operation is not supported')
+        dst_type = None
+        if edge_type == EDGE_SIMPLE:
+            dst_type = image.EdgeDetector.EDGE_SIMPLE
+        else:
+            dst_type = image.EdgeDetector.EDGE_CANNY
+
+        img = self.__img.find_edges(dst_type, [], threshold)
+        img_v1 = Image(do_nothing=True)
+        img_v1.set_priv_img(img)
+
+        return img_v1
 
 def rgb_to_lab(rgb_tuple):
     raise ValueError('This operation is not supported')
