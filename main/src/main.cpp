@@ -29,6 +29,9 @@ int main(int argc, char* argv[])
     // Catch SIGINT signal(e.g. Ctrl + C), and set exit flag to true.
     signal(SIGINT, [](int sig){ app::set_exit_flag(true); });
 
+    // Disable kernel debug
+    util::disable_kernel_debug();
+
     // Use CATCH_EXCEPTION_RUN_RETURN to catch exception,
     // if we don't catch exception, when program throw exception, the objects will not be destructed.
     // So we catch exception here to let resources be released(call objects' destructor) before exit.
