@@ -46,6 +46,12 @@ items:
         file: maix/app.md
         label: app
     -   collapsed: false
+        file: maix/util.md
+        label: util
+    -   collapsed: false
+        file: maix/network.md
+        label: network
+    -   collapsed: false
         file: maix/nn.md
         items:
         -   collapsed: false
@@ -83,6 +89,12 @@ items:
             file: maix/peripheral/adc.md
             label: adc
         label: peripheral
+    -   collapsed: false
+        file: maix/rtsp.md
+        label: rtsp
+    -   collapsed: false
+        file: maix/video.md
+        label: video
     -   collapsed: false
         file: maix/touchscreen.md
         label: touchscreen

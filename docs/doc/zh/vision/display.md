@@ -14,7 +14,7 @@ MaixPy 提供了`display`模块，可以将图像显示到屏幕上，同时，�
 
 ## API 文档
 
-本文介绍常用方法，更多 API 请看 API 文档的 [display](/api/maix/display.md) 部分。
+本文介绍常用方法，更多 API 请看 API 文档的 [display](/api/maix/display.html) 部分。
 
 
 ## 使用屏幕

@@ -27,6 +27,10 @@ MaixPy API documentation, modules:
 |[maix.protocol](./maix/protocol.md) | maix.protocol module |
 |[maix.example](./maix/example.md) | example module, this will be maix.example module in MaixPy, maix::example namespace in MaixCDK |
 |[maix.app](./maix/app.md) | maix.app module |
+|[maix.util](./maix/util.md) | maix.util module |
+|[maix.network](./maix/network.md) | maix.network module |
 |[maix.nn](./maix/nn.md) | maix.nn module |
 |[maix.peripheral](./maix/peripheral.md) | Chip's peripheral driver |
+|[maix.rtsp](./maix/rtsp.md) | maix.rtsp module |
+|[maix.video](./maix/video.md) | maix.video module |
 |[maix.touchscreen](./maix/touchscreen.md) | maix.touchscreen module |
