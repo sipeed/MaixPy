@@ -1,29 +1,33 @@
 from .version import __version__
 
 # import all _maix module's members to maix, e.g. maix._maix.err -> maix.err
-from ._maix import *
-from ._maix.peripheral import *
 from ._maix.peripheral.key import add_default_listener
+from . import _maix
 
 add_default_listener()
 
 del add_default_listener
 
-import sys
-new_members = []
-# find all maix._maix members
-for k in sys.modules:
-    if k.startswith('maix._maix.'):
-        # add all maix._maix members to maix, then we can use `from maix import err`
-        new_members.append(("maix" + k[10:], sys.modules[k]))
-        # add all maix._maix.peripheral members to maix, then we can use `from maix import adc`
-        if k.startswith('maix._maix.peripheral.'):
-            v = ('maix' + k[21:], sys.modules[k])
-            new_members.append(v)
+import inspect
 
-# add all new members to maix
-for k, v in new_members:
-    sys.modules[k] = v
+new_members = {}
+members = inspect.getmembers(_maix)
+for m in members:
+    if m[0].startswith("__"):
+        continue
+    new_members["maix." + m[0]] = m[1]
+
+members = inspect.getmembers(_maix.peripheral)
+for m in members:
+    if m[0].startswith("__"):
+        continue
+    new_members["maix." + m[0]] = m[1]
 
 # clear all temp vars
+del m, members, inspect
+
+import sys
+for k, v in new_members.items():
+    sys.modules[k] = v
+
 del k, v, new_members

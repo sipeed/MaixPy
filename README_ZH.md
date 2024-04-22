@@ -66,7 +66,7 @@ Classifier Result video
 ```python
 from maix import uart
 
-dvices = uart.list_devices()
+devices = uart.list_devices()
 
 serial = uart.UART(devices[0], 115200)
 serial.write_str("hello world")
