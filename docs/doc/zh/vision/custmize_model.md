@@ -203,7 +203,7 @@ for image_set in sets:
 ```
  
 
-![picture 0](../assets/custmize_model8.png) 
+![picture 0](./assets/custmize_model8.png) 
 
 ### 训练模型
 
@@ -224,7 +224,7 @@ https://github.com/ultralytics/yolov5/releases/download/v7.0/yolov5s.pt
 ```
 
 
-![picture 1](../assets/custmize_model11.png) 
+![picture 1](./assets/custmize_model11.png) 
 
 - 训练（博主使用的是学校的集群进行训练）
 
@@ -233,14 +233,14 @@ https://github.com/ultralytics/yolov5/releases/download/v7.0/yolov5s.pt
 python3 train.py --weights weights/yolov5s.pt --cfg models/yolov5s.yaml --data data/safthat.yaml --epochs 150 --batch-size 16 --multi-scale --device 0 
 ```
 
-![picture 2](../assets/custmize_model9.png) 
+![picture 2](./assets/custmize_model9.png) 
 
 
 
 ```
 python3 detect.py --source /root/yolov5/data/images/000000.jpg --weights /root/yolov5/runs/train/exp13/weights/best.pt --conf-thres 0.25
 ```
-![picture 3](../assets/custmize_model10.png)  
+![picture 3](./assets/custmize_model10.png)  
 
 
 - 导出onnx模型，由于学校服务器目前去教学上课去了，他们上完课才能分配我就用电脑本机的conda环境导出
@@ -249,11 +249,11 @@ python3 detect.py --source /root/yolov5/data/images/000000.jpg --weights /root/y
 python export.py --weights yolov5s_hat.pt --include onnx --opset 16 --imgsz 224 320
 ```
 
-![picture 4](../assets/custmize_model5.png) 
+![picture 4](./assets/custmize_model5.png) 
 
 模型查看通过网址输入netron.app查看三个输出：
 
-![picture 5](../assets/custmize_model2.png) 
+![picture 5](./assets/custmize_model2.png) 
 
 下面是博主的三个输出
 ```
@@ -285,11 +285,11 @@ https://github.com/sophgo/tpu-mlir/releases/tag/v1.7
 上面网址下载
 tpu-mlir-resource.tar 和 tpu_mlir-1.7-py3-none-any.whl 
 ```
-![picture 6](../assets/custmize_model3.png)  
+![picture 6](./assets/custmize_model3.png)  
 
 为什么拉取最新版，因为我用3.1版本失败了，工具在一直更新，最好保持最新，可以看下面图片我使用3.1版本也试过
 
-![picture 7](../assets/custmize_model7.png) 
+![picture 7](./assets/custmize_model7.png) 
 
 ```
 
@@ -438,16 +438,16 @@ while not app.need_exit():
     dis.show(img)
 ```
 
-![picture 8](../assets/custmize_model4.png) 
+![picture 8](./assets/custmize_model4.png) 
 
 其中10.84.117.1就是ip地址，将cvmodel和mud上传到`/root/models/` 路径下
 
-![picture 9](../assets/custmize_model1.png) 
+![picture 9](./assets/custmize_model1.png) 
 
 打包完成后安装应用然后运行就行，也可以ide运行
 
 
-![picture 10](../assets/custmize_model6.png) 
+![picture 10](./assets/custmize_model6.png) 
 
 
 视频链接：
