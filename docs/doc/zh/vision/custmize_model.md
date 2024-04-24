@@ -1,17 +1,15 @@
 ---
-title: MaixPy 自定义 AI 模型和运行
-keywords: Linux, maixcam
+title: MaixPy 自定义（离线训练） AI 模型和运行
 update:
-    date: 2024-4-23
-    version: v1.0
-    author: dragonforward
-    content:
+    - date: 2024-4-23
+      version: v1.0
+      author: dragonforward
+      content:
         加入了YOLOv5s部署
 
 ---
 
-
-# maixcam部署yolov5s 自定义模型
+> 本文来自社区用户 dragonforward 的贡献
 
 > 本博客将向你展示零基础一步步的部署好自己的yolov5s模型（博主展示的是安全帽模型），训练就引用我自己之前写过的，已经训练好的可以跳过该部分，其中有部分不一样。
 
