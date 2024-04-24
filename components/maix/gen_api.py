@@ -31,13 +31,90 @@ def sort_headers(headers):
     headers = sorted(headers, key = lambda x: headers_priority.index(os.path.basename(x)) if os.path.basename(x) in headers_priority else len(headers_priority))
     return headers
 
+def parse_pyi(path):
+    items = {
+        "class": {},
+        "func": []
+    }
+    with open(path) as f:
+        lines = f.readlines()
+    class_item = None
+    for i, line in enumerate(lines):
+        if class_item:
+            if line[0] != " ":
+                items["class"][class_item["name"]] = class_item
+                class_item = None
+                continue
+            line = line.strip()
+            if line.startswith("def"):
+                class_item["func"].append(line.rsplit(":", 1)[0])
+
+        if line.startswith("def"):
+            items["func"].append(line.rsplit(":", 1)[0])
+        if line.startswith("class"):
+            class_item = {
+                "name": line.replace("class", "").replace(":", "").strip(),
+                "func": []
+            }
+    return items
+
+def find_func_def(items, name):
+    for item in items:
+        # def check_bool_raise(ok: bool, msg: str = '') -> None:
+        funcname = item.replace("def", "").strip().split("(")[0]
+        if funcname == name:
+            return item
+    return None
+
+def find_class_func_def(items, mc_k, name, debug):
+    item = items["class"].get(mc_k, {})
+    if debug:
+        print(items, items["class"], mc_k)
+    if not item:
+        return None
+    # {"name": "", "func": {}}
+    return find_func_def(item["func"], name)
+
+def update_py_def_from_stub_files(api_tree, stub):
+    '''
+        parse stub files, add definition to api_tree
+    '''
+    maix_pyi_root = os.path.join(stub, "maix", "_maix")
+    for k, v in api_tree["members"]["maix"]["members"].items():
+        def parse_module(pyi_path, k, v):
+            items = parse_pyi(pyi_path)
+            for m_k, m_v in v["members"].items():
+                if m_v["type"] == "func":
+                    name = m_v["name"]
+                    func_def = find_func_def(items, name)
+                    if func_def:
+                        m_v["py_def"] = func_def.replace("maix._maix", "maix")
+                elif m_v["type"] == "class":
+                    for mc_k, mc_v in m_v["members"].items():
+                        if mc_v["type"] == "func":
+                            func_def = find_class_func_def(items, m_k, mc_k, m_v["name"] == "Tensors")
+                            if func_def:
+                                mc_v["py_def"] = func_def.replace("maix._maix", "maix")
+        module_dir = os.path.join(maix_pyi_root, k)
+        if os.path.isdir(module_dir):
+            for m_k, m_v in v["members"].items():
+                path = os.path.join(maix_pyi_root, k, f"{m_k}.pyi")
+                # TODO: optimize speed
+                if os.path.exists(path):
+                    parse_module(path, m_k, m_v)
+                else:
+                    parse_module(os.path.join(maix_pyi_root, k, f"__init__.pyi"), m_k, m_v)
+        else:
+            parse_module(os.path.join(maix_pyi_root, f"{k}.pyi"), k, v)
+    return api_tree
+
 if __name__ == "__main__":
     print("-- Generate MaixPy C/C++ API")
     parser = argparse.ArgumentParser(description='Generate MaixPy C/C++ API')
     parser.add_argument('--vars', type=str, default="", help="CMake global variables file")
-    parser.add_argument('-o', '--output', type=str, default="", help="API wrapper output file")
     parser.add_argument('--sdk_path', type=str, default="", help="MaixPy SDK path")
     parser.add_argument('--doc', type=str, default="", help="API documentation output file")
+    parser.add_argument('--stub', type=str, default="stub", help="stub dir")
     args = parser.parse_args()
 
     t = time.time()
@@ -91,11 +168,7 @@ if __name__ == "__main__":
     for r in rm:
         headers.remove(r)
 
-    # generate API cpp file
-    content = generate_api_cpp(api_tree, headers)
-    with open(args.output, "w", encoding="utf-8") as f:
-        f.write(content)
-    print("-- Generate MaixPy C/C++ API done")
+    api_tree = update_py_def_from_stub_files(api_tree, args.stub)
 
     # generate API documenation according to api_tree
     print("-- Generating MaixPy API documentation")
@@ -126,8 +199,8 @@ if __name__ == "__main__":
     }
     sidebar["items"].append(doc_maix_sidebar)
     start_comment_template = '''
+> You can use `{}` to access this module with MaixPy
 > This module is generated from [MaixCDK](https://github.com/sipeed/MaixCDK)
-> You can use `{}` to access this module.
 
 '''
     top_api_keys = ["maix"]
