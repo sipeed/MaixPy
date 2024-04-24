@@ -6,6 +6,9 @@
 '''
 
 import os
+import argparse
+import time
+import sys
 
 def generate_api_cpp(api_tree, headers, out_path = None):
     content = '''
@@ -109,3 +112,83 @@ PYBIND11_MODULE(_maix, m) {{
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(content)
     return content
+
+def sort_headers(headers):
+    # read headers_priority.txt
+    headers_priority = []
+    priority_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "headers_priority.txt")
+    with open(priority_file, "r", encoding="utf-8") as f:
+        for line in f.readlines():
+            line = line.strip()
+            if line.startswith("#"):
+                continue
+            headers_priority.append(line)
+    # sort headers
+    headers = sorted(headers, key = lambda x: headers_priority.index(os.path.basename(x)) if os.path.basename(x) in headers_priority else len(headers_priority))
+    return headers
+
+if __name__ == "__main__":
+    print("-- Generate MaixPy C/C++ API")
+    parser = argparse.ArgumentParser(description='Generate MaixPy C/C++ API')
+    parser.add_argument('--vars', type=str, default="", help="CMake global variables file")
+    parser.add_argument('-o', '--output', type=str, default="", help="API wrapper output file")
+    parser.add_argument('--sdk_path', type=str, default="", help="MaixPy SDK path")
+    args = parser.parse_args()
+
+    t = time.time()
+
+    sys.path.insert(0, os.path.join(args.sdk_path, "tools"))
+    from doc_tool.gen_api import get_headers_recursive, parse_api_from_header
+    from doc_tool.gen_markdown import module_to_md
+
+    # get header files
+    headers = []
+    if args.vars:
+        with open(args.vars, "r", encoding="utf-8") as f:
+            vars = json.load(f)
+        for include_dir in vars["includes"]:
+            headers += get_headers_recursive(include_dir)
+    else: # add sdk_path/components all .h and .hpp header files, except 3rd_party components
+        except_dirs = ["3rd_party"]
+        curr_dir = os.path.dirname(os.path.abspath(__file__))
+        project_components_dir = os.path.abspath(os.path.join(curr_dir, ".."))
+        componets_dirs = [os.path.join(args.sdk_path, "components"), project_components_dir]
+        for componets_dir in componets_dirs:
+            for root, dirs, files in os.walk(componets_dir):
+                ignored = False
+                for except_dir in except_dirs:
+                    if os.path.join(componets_dir, except_dir) in root:
+                        ignored = True
+                        break
+                if ignored:
+                    continue
+                for name in files:
+                    path = os.path.join(root, name)
+                    if path.endswith(".h") or path.endswith(".hpp"):
+                        headers.append(path)
+    # check each header file to find MaixPy API
+    api_tree = {}
+    rm = []
+    all_keys = {}
+
+    headers = sort_headers(headers)
+
+    for header in headers:
+        api_tree, updated, keys = parse_api_from_header(header, api_tree, for_sdk = "maixpy")
+        if not updated:
+            rm.append(header)
+        for h, ks in all_keys.items():
+            for k in ks:
+                if k in keys:
+                    raise Exception("API {} multiple defined in {} and {}".format(k, h, header))
+        all_keys[header] = keys
+
+    for r in rm:
+        headers.remove(r)
+
+    # generate API cpp file
+    content = generate_api_cpp(api_tree, headers)
+    with open(args.output, "w", encoding="utf-8") as f:
+        f.write(content)
+    print("-- Generate MaixPy C/C++ API done")
+

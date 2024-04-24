@@ -79,7 +79,7 @@ if(EXISTS ${maixpy_wrapper_src})
     file(REMOVE ${maixpy_wrapper_src})
 endif()
 add_custom_command(OUTPUT ${maixpy_wrapper_src}
-    COMMAND ${python} -u ${CMAKE_CURRENT_SOURCE_DIR}/gen_api.py -o ${maixpy_wrapper_src} --doc ${PROJECT_PATH}/docs/api --sdk_path ${SDK_PATH}
+    COMMAND ${python} -u ${CMAKE_CURRENT_SOURCE_DIR}/gen_api_cpp.py -o ${maixpy_wrapper_src} --sdk_path ${SDK_PATH}
     COMMENT "Generating maixpy_wrapper.cpp"
     VERBATIM
     )

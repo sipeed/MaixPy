@@ -118,6 +118,15 @@ if board == "linux":
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
                 shutil.copy(os.path.join(root, name), dst)
 
+# generate api documentation
+                # COMMAND ${python} -u ${CMAKE_CURRENT_SOURCE_DIR}/gen_api.py -o ${maixpy_wrapper_src} --doc ${PROJECT_PATH}/docs/api --sdk_path ${SDK_PATH}
+maixcdk_path = os.environ.get("MAIXCDK_PATH", None)
+if not maixcdk_path:
+    raise Exception("No environment variable MAIXCDK_PATH, please set first by `export MAIXCDK_PATH=xxxxx`")
+ret = os.system(f"python -u components/maix/gen_api.py --doc docs/api --sdk_path {maixcdk_path}")
+if ret != 0:
+    raise Exception("Generate doc file failed")
+
 # requirement packages
 requirements = []
 
