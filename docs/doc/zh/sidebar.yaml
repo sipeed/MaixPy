@@ -58,7 +58,7 @@ items:
 -   file: vision/maixhub_train.md
     label: MaixHub 在线 AI 模型训练
 -   file: vision/customize_model.md
-    label: 自定义模型
+    label: 自定义（离线训练转换）模型
 
 
 -   label: AI 听觉
