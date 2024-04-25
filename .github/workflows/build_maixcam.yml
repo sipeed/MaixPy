@@ -45,10 +45,14 @@ jobs:
           git clone https://github.com/sipeed/MaixCDK --depth=1
           export MAIXCDK_PATH=`pwd`/MaixCDK
           python -m pip install -U pip setuptools
-          python -m pip install -r MaixCDK/requirments.txt
-          echo "----------------------"
-          echo "-- Build MaixPy now --"
-          echo "----------------------"
+          python -m pip install -r MaixCDK/requirements.txt
+          echo "--------------------------------"
+          echo "-- Build MaixPy for Linux now --"
+          echo "--------------------------------"
+          python setup.py bdist_wheel linux
+          echo "----------------------------------"
+          echo "-- Build MaixPy for MaixCAM now --"
+          echo "----------------------------------"
           python setup.py bdist_wheel maixcam
 
       # Runs a set of commands using the runners shell
