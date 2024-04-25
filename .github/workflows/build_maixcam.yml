@@ -42,8 +42,11 @@ jobs:
           whereis python3
           # export PATH=~/.local/bin/:$PATH
           # pull sipeed/MaixCDK repo here first
+          pwd_path=$(pwd)
+          cd ~
           git clone https://github.com/sipeed/MaixCDK --depth=1
           export MAIXCDK_PATH=`pwd`/MaixCDK
+          cd $pwd_path
           python -m pip install -U pip setuptools
           python -m pip install -r MaixCDK/requirements.txt
           echo "--------------------------------"
