@@ -1,83 +1,127 @@
 items:
 -   file: README.md
-    label: Brief
--   collapsed: false
-    items:
-    -   collapsed: false
-        file: maix/err.md
-        label: err
-    -   collapsed: false
-        file: maix/tensor.md
-        label: tensor
-    -   collapsed: false
-        file: maix/image.md
-        label: image
-    -   collapsed: false
-        file: maix/camera.md
-        label: camera
-    -   collapsed: false
-        file: maix/display.md
-        label: display
-    -   collapsed: false
-        file: maix/comm.md
-        label: comm
-    -   collapsed: false
-        file: maix/thread.md
-        label: thread
-    -   collapsed: false
-        file: maix/fs.md
-        label: fs
-    -   collapsed: false
-        file: maix/time.md
-        label: time
-    -   collapsed: false
-        file: maix/i18n.md
-        label: i18n
-    -   collapsed: false
-        file: maix/protocol.md
-        label: protocol
-    -   collapsed: false
-        file: maix/example.md
-        label: example
-    -   collapsed: false
-        file: maix/app.md
-        label: app
-    -   collapsed: false
-        file: maix/nn.md
-        items:
-        -   collapsed: false
-            file: maix/nn/F.md
-            label: F
-        label: nn
-    -   collapsed: false
-        file: maix/peripheral.md
-        items:
-        -   collapsed: false
-            file: maix/peripheral/timer.md
-            label: timer
-        -   collapsed: false
-            file: maix/peripheral/wdt.md
-            label: wdt
-        -   collapsed: false
-            file: maix/peripheral/pwm.md
-            label: pwm
-        -   collapsed: false
-            file: maix/peripheral/gpio.md
-            label: gpio
-        -   collapsed: false
-            file: maix/peripheral/spi.md
-            label: spi
-        -   collapsed: false
-            file: maix/peripheral/uart.md
-            label: uart
-        -   collapsed: false
-            file: maix/peripheral/i2c.md
-            label: i2c
-        -   collapsed: false
-            file: maix/peripheral/adc.md
-            label: adc
-        label: peripheral
-    -   collapsed: false
-        file: maix/touchscreen.md
-        label: touchscreen
-    label: maix
+    label: Quick Start
+-   file: faq.md
+    label: FAQ 
+
+-   label: Base
+-   file: basic/os.md
+    label: Burning system
+-   file: basic/app_usage.md
+    label: App uses
+-   file: basic/maixpy_upgrade.md
+    label: Update MaixPy
+-   file: basic/maixvision.md
+    label: MaixVision uses
+-   file: basic/python.md
+    label: Python syntax
+-   file: basic/linux_basic.md
+    label: Linux fundamentals
+-   file: basic/python_pkgs.md
+    label: Add python packages
+-   file: basic/app.md
+    label: Apps development
+
+-   label: Basic images and algorithms
+-   file: vision/display.md
+    label: Screen uses
+-   file: vision/camera.md
+    label: Camera uses
+-   file: vision/image_ops.md
+    label: Image control
+-   file: vision/find_blobs.md
+    label: Finding color blocks
+-   file: vision/qrcode.md
+    label: QRcode identity
+-   file: vision/apriltag.md
+    label: AprilTag identity
+
+-   label: AI Vision
+-   file: vision/ai.md
+    label: AI vision knowledge
+-   file: vision/classify.md
+    label: AI object classify
+-   file: vision/yolov5.md
+    label: YOLOv5 object detect
+-   file: vision/face_recognition.md
+    label: Face detect
+-   file: vision/body_key_points.md
+    label: Human critical point detection
+-   file: vision/self_learn_classifier.md
+    label: Self-learning classifier
+-   file: vision/self_learn_detector.md
+    label: Self-learning detector
+-   file: vision/object_track.md
+    label: Object tracking and counting
+-   file: vision/ocr.md
+    label: OCR 
+-   file: vision/maixhub_train.md
+    label: MaixHub online AI training
+-   file: vision/custmize_model.md
+    label: Custom model
+
+
+-   label: AI audio
+-   file: audio/record.md
+    label: Audio record
+-   file: audio/play.md
+    label: Play audio
+-   file: audio/classifier.md
+    label: AI voice classifier
+-   file: audio/keyword.md
+    label: Keyword recognize
+-   file: audio/recognize.md
+    label: Real-time voice recognize
+-   file: audio/synthesis.md
+    label: Speech synthesis
+
+-   label: Video
+-   file: video/record.md
+    label: Video record
+-   file: video/play.md
+    label: Play video
+-   file: video/jpeg_streaming.md
+    label: JPEG stream
+-   file: video/rtsp.md
+    label: RTSP stream
+
+
+-   label: On-chip peripherals
+-   file: peripheral/gpio.md
+    label: GPIO
+-   file: peripheral/uart.md
+    label: UART
+-   file: peripheral/i2c.md
+    label: I2C
+-   file: peripheral/pwm.md
+    label: PWM
+-   file: peripheral/spi.md
+    label: SPI
+-   file: peripheral/wdt.md
+    label: WDT watchdog
+
+-   label: Off-chip modules
+-   file: modules/acc.md
+    label: Accelerometer
+-   file: modules/temp_hum.md
+    label: Temperature and humidity
+-   file: modules/tof.md
+    label: TOF
+-   file: modules/thermal_cam.md
+    label: Thermal imaging
+
+-   label: Advanced
+-   file: source_code/contribute.md
+    label: Contribute
+-   file: source_code/build.md
+    label: Build source code
+-   file: source_code/faq.md
+    label: MaixPy Source FAQ
+-   file: source_code/add_c_module.md
+    label: Write in C/C++
+-   file: source_code/maixcdk.md
+    label: MaixCDK develop
+-   file: pro/compile_os.md
+    label: Build firmware
+
+
