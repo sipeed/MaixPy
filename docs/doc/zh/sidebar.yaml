@@ -57,7 +57,7 @@ items:
     label: OCR 文字识别
 -   file: vision/maixhub_train.md
     label: MaixHub 在线 AI 模型训练
--   file: vision/customize_model.md
+-   file: vision/custmize_model.md
     label: 自定义（离线训练转换）模型
 
 

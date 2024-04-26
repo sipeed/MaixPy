@@ -1,0 +1,47 @@
+---
+title: MaixPy FAQ (Frequently Asked Questions)
+---
+
+This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
+If you cannot find an answer on this page, you can post your question with detailed steps on the [MaixHub Discussion Forum](https://maixhub.com/discussion).
+
+## MaixVision cannot find the device?
+
+First, confirm whether the connection method is WiFi or USB cable.
+**WiFi**:
+* Ensure that WiFi is correctly connected and has obtained an IP address. You can view the `ip` in `Settings -> Device Info` or `Settings -> WiFi`.
+
+**USB Cable**:
+* Ensure that the device is connected to the computer via a Type-C data cable, and the device is powered on and has entered the function selection interface.
+* Ensure that the device driver is installed:
+  * On Windows, check if there is a USB virtual network adapter device in `Device Manager`. If there is an exclamation mark, it means the driver is not installed properly. Follow the instructions in [Quick Start](./README.md) to install the driver.
+  * On Linux, you can check if there is a `usb0` device by running `ifconfig` or `ip addr`, or check all USB devices with `lsusb`. Linux already includes the driver, so if the device is not recognized, check the hardware connection, ensure the device system is up-to-date, and ensure the device has booted up properly.
+  * On macOS, follow the same steps as Linux.
+* Additionally, check the quality of the USB cable and try using a high-quality cable.
+* Additionally, check the quality of the computer's USB port. For example, some small form factor PCs have poor EMI design on their USB ports, and connecting a good quality USB hub may allow the device to work. You can also try a different USB port or a different computer.
+
+## MaixVision camera example shows choppy video
+
+The default GC4653 camera has a maximum frame rate of 30 frames per second (FPS). Under normal circumstances, the MaixVision display should not appear choppy to the naked eye. If choppiness occurs, first consider transmission issues:
+* Check the network connection quality, such as WiFi.
+* If using a USB connection, check the USB cable quality, computer USB port quality, and try using a different computer, USB port, or USB cable for comparison.
+
+## What is the difference between MaixPy v4 and v1/v3?
+
+* MaixPy v4 uses the Python language and is the culmination of the experiences from v1 and v3, offering better supporting software and ecosystem, more features, simpler usage, and more comprehensive documentation. While the hardware has significant improvements, the pricing is even more affordable compared to the other two versions. Additionally, it provides compatibility with the K210 user experience and API, making it easier for users to migrate quickly from v1 to v4.
+* v1 used the Micropython language and had many limitations, such as limited third-party library support. Additionally, due to the hardware performance limitations of the Maix-I (K210), there was not enough memory, limited AI model support, and lack of hardware acceleration for many codecs.
+* v3 also used the Python language and was based on the Maix-II-Dock (v831) hardware. However, the hardware had limited AI model support, and the Allwinner ecosystem was not open enough, with an incomplete API. This version was only intended for use with the Maix-II-Dock (v831) and will not receive further updates.
+
+## Does MaixPy currently only support MaixCAM, or can it work with other boards using the same chipset?
+
+MaixPy currently only supports the MaixCAM series of boards. Other boards using the same chipset, including Sipeed's boards like the LicheeRV-Nano, are not supported. It is strongly recommended not to attempt using MaixPy with other boards, as it may result in device damage (such as smoke or screen burn), for which you will be solely responsible.
+
+In the future, Sipeed's Maix series of products will continue to be supported by MaixPy. If you have any needs that cannot be met by MaixCAM, you can post your requirements on the [MaixHub Discussion Forum](https://maixhub.com/discussion) or send an email to support@sipeed.com.
+
+## Can I use a camera or screen other than the officially bundled ones?
+
+It is not recommended to use cameras or screens other than the officially bundled ones, unless you have sufficient software and hardware knowledge and experience. Otherwise, it may result in device damage.
+
+The officially bundled accessories have been fine-tuned for both software and hardware, ensuring the best performance and allowing for out-of-the-box usage. Other accessories may have different interfaces, drivers, and software, requiring you to calibrate them yourself, which is an extremely complex process.
+
+However, if you are an expert, we welcome you to submit a pull request!
