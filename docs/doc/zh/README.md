@@ -40,8 +40,7 @@ title: MaixPy 快速开始
 
 ### 准备 TF 镜像卡和插入到设备
 
-如果你买的**套餐里面有 TF 卡**，里面已经有出厂镜像了，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。
-> 出厂的镜像
+如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，可以插按照[升级和烧录系统](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html)先将系统升级到最新版本。
 
 如果没买 TF 卡，则需要将系统烧录进自备的 TF 卡中，烧录方法请看[升级和烧录系统](./basic/os.md)，然后再安装到板子。
 
@@ -49,7 +48,7 @@ title: MaixPy 快速开始
 
 使用 `Type-C` 数据线连接 `MaixCAM` 设备给设备供电，等待设备开机，开机会进入功能选择界面。
 
-![maixcam](/static/image/maixcam_font.png)
+![maixcam_font](../../static/image/maixcam_font.png)
 
 如果屏幕没有显示
 * 请确认购买了配套的 TF 卡，如果确认有 TF 卡，并且已经插入到设备，可以**尝试[更新到最新的系统](./basic/os.md)**。
@@ -75,7 +74,6 @@ title: MaixPy 快速开始
 * 安装完成后可以看到更新到了最新版本，然后退出即可。
 
 如果显示`Request failed` 或者`请求失败`，请先检查网络是否已经连接，需要能连接到互联网，如果还不行，请拍照联系客服处理即可。
-
 
 ### 使用内置应用
 
@@ -189,4 +187,3 @@ while not app.need_exit():        # 一直循环，直到程序退出（可以�
 * Telegram: [MaixPy](https://t.me/maixpy)
 * MaixPy 源码问题: [MaixPy issue](https://github.com/sipeed/MaixPy/issues)
 * 商业合作或批量购买请联系 support@sipeed.com 。
-
