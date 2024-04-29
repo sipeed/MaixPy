@@ -50,6 +50,10 @@ items:
         label: util
     -   collapsed: false
         file: maix/network.md
+        items:
+        -   collapsed: false
+            file: maix/network/wifi.md
+            label: wifi
         label: network
     -   collapsed: false
         file: maix/nn.md
