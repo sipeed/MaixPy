@@ -142,21 +142,21 @@ def get_id():
     raise ValueError('This operation is not supported')
 
 def set_hmirror(enable):
-    __camera.set_vflip(enable)
+    __camera.hmirror(enable)
 
 def set_vflip(enable):
-    __camera.set_vflip(enable)
+    __camera.vflip(enable)
 
 def set_brightness(brightness):
     brightness = brightness + 3
     val = brightness * 100 / 4
-    __camera.set_luma(int(val))
+    __camera.luma(int(val))
 
 def set_contrast(contrast):
-    __camera.set_constrast(contrast)
+    __camera.constrast(contrast)
 
 def set_saturation(saturation):
-    __camera.set_saturation(saturation)
+    __camera.saturation(saturation)
 
 def width():
     return __camera.width()
