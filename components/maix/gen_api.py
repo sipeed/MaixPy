@@ -82,6 +82,9 @@ def update_py_def_from_stub_files(api_tree, stub):
     maix_pyi_root = os.path.join(stub, "maix", "_maix")
     for k, v in api_tree["members"]["maix"]["members"].items():
         def parse_module(pyi_path, k, v):
+            if not os.path.exists(pyi_path):
+                print(f"[WARN] can not find {pyi_path}, you can build for linux platform first to generate this file")
+                return
             items = parse_pyi(pyi_path)
             for m_k, m_v in v["members"].items():
                 if m_v["type"] == "func":

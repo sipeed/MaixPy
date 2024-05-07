@@ -18,7 +18,7 @@ def get_sdk_path():
 
     # 1. get SDK absolute path from MAIXCDK_PATH env
     try:
-        if os.environ[sdk_env_name] and os.path.exists(os.environ[sdk_env_name]):
+        if os.environ[sdk_env_name]:
             sdk_path = os.environ[sdk_env_name]
     except Exception:
         pass
@@ -29,9 +29,14 @@ def get_sdk_path():
         sdk_path = path
 
     # 3. check if MaixCDK path valid
-    if not sdk_path or not os.path.exists(sdk_path):
+    if not sdk_path:
         print("")
-        print("Error: can not find MaixCDK, please set MAIXCDK_PATH env to MaixCDK directory")
+        print("Error: can not find MaixCDK, please set MAIXCDK_PATH env to MaixCDK directory by `export MAIXCDK_PATH=xxxxx`")
+        print("")
+        sys.exit(1)
+    if not os.path.exists(sdk_path):
+        print("")
+        print(f"Error: MaixCDK set to {sdk_path}, but not exists!")
         print("")
         sys.exit(1)
     return os.path.abspath(sdk_path)
