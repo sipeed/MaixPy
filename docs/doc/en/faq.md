@@ -5,6 +5,8 @@ title: MaixPy FAQ (Frequently Asked Questions)
 This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
 If you cannot find an answer on this page, you can post your question with detailed steps on the [MaixHub Discussion Forum](https://maixhub.com/discussion).
 
+If you use MaixCAM, you can also refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+
 ## MaixVision cannot find the device?
 
 First, confirm whether the connection method is WiFi or USB cable.
@@ -52,3 +54,15 @@ Failure to parse the model file is generally caused by file corruption. Ensure t
 * If it was downloaded from the internet, make sure the download was not corrupted. Typically, files on the internet provide sha256sum/md5 checksums. After downloading, you can compare these values; for specific methods, please search online or ask ChatGPT.
 * If it comes from a compressed archive, ensure that the decompression process was error-free. You can decompress the archive again to make sure there were no errors in the process.
 * Ensure that the file was not damaged during the transfer to the device. You can compare the sha256sum values of the file on the device and on your computer; for specific methods, please search online or ask ChatGPT.
+
+
+## Power-on Black Screen, No Display on the Screen
+
+* Check if the TF (micro-SD) card is installed.
+* Check if the latest system image is burned onto the TF card (strongly recommended to update to the latest system image); see documentation for specific burning methods.
+* Check if the TF card is fully inserted into the TF card slot, ensuring there are no gaps and it is not loose.
+* Check if the screen and camera ribbon cables are correctly and securely connected; there should be no looseness.
+* Check if the power LED (red light) and the system operation status LED (blue light) on the board are lit. If the red light is off, consider hardware issues such as no power supply, insufficient power supply, or a damaged board.
+* Connect the board to a computer using a USB to TTL cable, open the serial port assistant on the computer, restart the board, and check the boot logs for any errors.
+> If there is no log output, try swapping the TX and RX wires. For MaixCAM, the orientation of the Type-C to serial port adapter may vary, and TX RX might be reversed, meaning it does not support reversible plugging.
+

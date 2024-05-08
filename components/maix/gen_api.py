@@ -86,16 +86,27 @@ def update_py_def_from_stub_files(api_tree, stub):
                 print(f"[WARN] can not find {pyi_path}, you can build for linux platform first to generate this file")
                 return
             items = parse_pyi(pyi_path)
-            for m_k, m_v in v["members"].items():
+            if v["type"] == "func":
+                name = v["name"]
+                func_def = find_func_def(items["func"], name)
+                if func_def:
+                    v["py_def"] = func_def.replace("maix._maix", "maix")
+            elif v["type"] == "class":
+                for mc_k, mc_v in v["members"].items():
+                    if mc_v["type"] == "func":
+                        func_def = find_class_func_def(items, k, mc_k, False)
+                        if func_def:
+                            mc_v["py_def"] = func_def.replace("maix._maix", "maix")
+            for m_k, m_v in v.get("members", {}).items():
                 if m_v["type"] == "func":
                     name = m_v["name"]
-                    func_def = find_func_def(items, name)
+                    func_def = find_func_def(items["func"], name)
                     if func_def:
                         m_v["py_def"] = func_def.replace("maix._maix", "maix")
                 elif m_v["type"] == "class":
                     for mc_k, mc_v in m_v["members"].items():
                         if mc_v["type"] == "func":
-                            func_def = find_class_func_def(items, m_k, mc_k, m_v["name"] == "Tensors")
+                            func_def = find_class_func_def(items, m_k, mc_k, False)
                             if func_def:
                                 mc_v["py_def"] = func_def.replace("maix._maix", "maix")
         module_dir = os.path.join(maix_pyi_root, k)
