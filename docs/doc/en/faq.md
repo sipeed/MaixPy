@@ -45,3 +45,10 @@ It is not recommended to use cameras or screens other than the officially bundle
 The officially bundled accessories have been fine-tuned for both software and hardware, ensuring the best performance and allowing for out-of-the-box usage. Other accessories may have different interfaces, drivers, and software, requiring you to calibrate them yourself, which is an extremely complex process.
 
 However, if you are an expert, we welcome you to submit a pull request!
+
+## Model running error: cvimodel built for xxxcv181x CANNOT run on platform cv181x.
+
+Failure to parse the model file is generally caused by file corruption. Ensure that your model file is not damaged. For example:
+* If it was downloaded from the internet, make sure the download was not corrupted. Typically, files on the internet provide sha256sum/md5 checksums. After downloading, you can compare these values; for specific methods, please search online or ask ChatGPT.
+* If it comes from a compressed archive, ensure that the decompression process was error-free. You can decompress the archive again to make sure there were no errors in the process.
+* Ensure that the file was not damaged during the transfer to the device. You can compare the sha256sum values of the file on the device and on your computer; for specific methods, please search online or ask ChatGPT.
