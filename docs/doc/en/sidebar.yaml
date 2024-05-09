@@ -31,6 +31,8 @@ items:
     label: Image control
 -   file: vision/find_blobs.md
     label: Finding color blocks
+-   file: vision/line_tracking.md
+    label: Line tracking
 -   file: vision/qrcode.md
     label: QRcode identity
 -   file: vision/apriltag.md
