@@ -31,6 +31,8 @@ items:
     label: 基本图像操作
 -   file: vision/find_blobs.md
     label: 寻找色块
+-   file: vision/line_tracking.md
+    label: 寻找直线
 -   file: vision/qrcode.md
     label: 二维码识别
 -   file: vision/apriltag.md
