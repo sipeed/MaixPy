@@ -5,14 +5,33 @@ title: MaixPy develop source code guide
 ## Get source code
 
 ```shell
+mkdir -p ~/maix
+cd ~/maix
 git clone https://github.com/sipeed/MaixPy
-cd MaixPy
 ```
+
+## Getting MaixCDK Source Code
+
+The MaixPy project depends on MaixCDK. You need to clone it first and place it in a directory on your computer (do not place it under the MaixPy directory).
+
+```shell
+cd ~/maix
+git clone https://github.com/sipeed/MaixCDK
+```
+
+Then, you need to set the environment variable MAIXCAK_PATH to specify the path to MaixCDK, which can be added in ~/.bashrc or ~/.zshrc (depending on your shell):
+
+```shell
+export MAIXCAK_PATH=~/maix/MaixCDK
+```
+
+Only after successfully setting the environment variable can MaixPy locate the MaixCDK source code.
+
 
 ## Build and pack to wheel
 
-
 ```shell
+cd ~/maix/MaixPy
 python setup.py bdist_wheel maixcam
 ```
 
@@ -22,6 +41,9 @@ python setup.py bdist_wheel maixcam
 After build success, you will find wheel file in `dist` directory, use `pip install -U MaixPy****.wheel` on your device to install or upgrade.
 
 > `python setup.py bdist_wheel maixcam --skip-build` will not execute build command and only pack wheel, so you can use `maixcdk menuconfig` and `maixcdk build` first to customize building.
+
+> Additionally, if you are debugging APIs and need to install frequently, using pip can be slow. You can compile and then copy the maix directory directly to the /usr/lib/python3.11/site-packages directory on your device to overwrite the old files.
+
 
 ## Build manually
 

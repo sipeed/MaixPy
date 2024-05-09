@@ -4,11 +4,15 @@ title: MaixVision - MaixPy Programming + Graphical Block Programming
 
 ## Introduction
 
-MaixVision is a developer programming tool specifically designed for the Maix ecosystem, supporting MaixPy programming and graphical block programming. It also supports online running, debugging, and real-time image preview, allowing the synchronization of the device display screen for easy debugging and development.
+[MaixVision](https://wiki.sipeed.com/maixvision) is a developer programming tool specifically designed for the Maix ecosystem, supporting MaixPy programming and graphical block programming. It also supports online running, debugging, and real-time image preview, allowing the synchronization of the device display screen for easy debugging and development.
 
 It also supports packaging applications and installing them on devices, making it convenient for users to generate and install applications with a single click.
 
 Additionally, it integrates some handy development tools, such as file management, threshold editors, QR code generators, and more.
+
+## Download
+
+Visit [MaixVision home page](https://wiki.sipeed.com/maixvision) to download.
 
 ## Using MaixPy Programming and Online Running
 

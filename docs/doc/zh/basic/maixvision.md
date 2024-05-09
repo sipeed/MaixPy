@@ -5,11 +5,16 @@ title: MaixVision -- MaixPy 编程 + 图形化积木编程
 
 ## 简介
 
-MaixVision 是专为 Maix 生态打造的一款开发者编程工具，支持 MaixPy 编程和图形化积木编程，同时支持在线运行和调试，以及实时预览图像，可以同步设备显示屏的图像，方便调试和开发。
+[MaixVision](https://wiki.sipeed.com/maixvision) 是专为 Maix 生态打造的一款开发者编程工具，支持 MaixPy 编程和图形化积木编程，同时支持在线运行和调试，以及实时预览图像，可以同步设备显示屏的图像，方便调试和开发。
 
 以及支持打包应用和安装应用到设备，方便用户一键生成、安装应用。
 
 同时还集成一些方便开发的小工具，比如文件管理，阈值编辑器，二维码生成等等。
+
+## 下载
+
+访问 [MaixVision 主页](https://wiki.sipeed.com/maixvision) 下载。
+
 
 ## 使用 MaixPy 编程和在线运行
 

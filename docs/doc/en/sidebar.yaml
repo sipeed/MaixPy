@@ -2,128 +2,144 @@ items:
 -   file: README.md
     label: Quick Start
 -   file: faq.md
-    label: FAQ 
+    label: FAQ
 
 -   label: Base
--   file: basic/os.md
-    label: Burning system
--   file: basic/app_usage.md
-    label: App uses
--   file: basic/maixpy_upgrade.md
-    label: Update MaixPy
--   file: basic/maixvision.md
-    label: MaixVision uses
--   file: basic/python.md
-    label: Python syntax
--   file: basic/linux_basic.md
-    label: Linux fundamentals
--   file: basic/python_pkgs.md
-    label: Add python packages
--   file: basic/app.md
-    label: Apps development
+    collapsed: false
+    items:
+    -   file: basic/os.md
+        label: Burning system
+    -   file: basic/app_usage.md
+        label: App uses
+    -   file: basic/maixpy_upgrade.md
+        label: Update MaixPy
+    -   file: basic/maixvision.md
+        label: MaixVision uses
+    -   file: basic/python.md
+        label: Python syntax
+    -   file: basic/linux_basic.md
+        label: Linux fundamentals
+    -   file: basic/python_pkgs.md
+        label: Add python packages
+    -   file: basic/app.md
+        label: Apps development
 
 -   label: Basic images and algorithms
--   file: vision/display.md
-    label: Screen uses
--   file: vision/camera.md
-    label: Camera uses
--   file: vision/image_ops.md
-    label: Image control
--   file: vision/find_blobs.md
-    label: Finding color blocks
--   file: vision/line_tracking.md
-    label: Line tracking
--   file: vision/qrcode.md
-    label: QRcode identity
--   file: vision/apriltag.md
-    label: AprilTag identity
+    items:
+    -   file: vision/display.md
+        label: Screen uses
+    -   file: vision/camera.md
+        label: Camera uses
+    -   file: vision/image_ops.md
+        label: Image control
+    -   file: vision/find_blobs.md
+        label: Finding color blocks
+    -   file: vision/line_tracking.md
+        label: Line tracking
+    -   file: vision/qrcode.md
+        label: QRcode identity
+    -   file: vision/apriltag.md
+        label: AprilTag identity
 
 -   label: AI Vision
--   file: vision/ai.md
-    label: AI vision knowledge
--   file: vision/classify.md
-    label: AI object classify
--   file: vision/yolov5.md
-    label: YOLOv5 object detect
--   file: vision/face_recognition.md
-    label: Face detect
--   file: vision/body_key_points.md
-    label: Human critical point detection
--   file: vision/self_learn_classifier.md
-    label: Self-learning classifier
--   file: vision/self_learn_detector.md
-    label: Self-learning detector
--   file: vision/object_track.md
-    label: Object tracking and counting
--   file: vision/ocr.md
-    label: OCR 
--   file: vision/maixhub_train.md
-    label: MaixHub online AI training
--   file: vision/custmize_model.md
-    label: Custom model
+    items:
+    -   file: vision/ai.md
+        label: AI vision knowledge
+    -   file: vision/classify.md
+        label: AI object classify
+    -   file: vision/yolov5.md
+        label: YOLOv5 object detect
+    -   file: vision/face_recognition.md
+        label: Face detect
+    -   file: vision/body_key_points.md
+        label: Human critical point detection
+    -   file: vision/self_learn_classifier.md
+        label: Self-learning classifier
+    -   file: vision/self_learn_detector.md
+        label: Self-learning detector
+    -   file: vision/object_track.md
+        label: Object tracking and counting
+    -   file: vision/ocr.md
+        label: OCR 
+    -   file: vision/maixhub_train.md
+        label: MaixHub online AI training
+    -   file: vision/custmize_model.md
+        label: Custom model
 
 
 -   label: AI audio
--   file: audio/record.md
-    label: Audio record
--   file: audio/play.md
-    label: Play audio
--   file: audio/classifier.md
-    label: AI voice classifier
--   file: audio/keyword.md
-    label: Keyword recognize
--   file: audio/recognize.md
-    label: Real-time voice recognize
--   file: audio/synthesis.md
-    label: Speech synthesis
+    items:
+    -   file: audio/record.md
+        label: Audio record
+    -   file: audio/play.md
+        label: Play audio
+    -   file: audio/classifier.md
+        label: AI voice classifier
+    -   file: audio/keyword.md
+        label: Keyword recognize
+    -   file: audio/recognize.md
+        label: Real-time voice recognize
+    -   file: audio/synthesis.md
+        label: Speech synthesis
 
 -   label: Video
--   file: video/record.md
-    label: Video record
--   file: video/play.md
-    label: Play video
--   file: video/jpeg_streaming.md
-    label: JPEG stream
--   file: video/rtsp.md
-    label: RTSP stream
+    items:
+    -   file: video/record.md
+        label: Video record
+    -   file: video/play.md
+        label: Play video
+    -   file: video/jpeg_streaming.md
+        label: JPEG stream
+    -   file: video/rtsp.md
+        label: RTSP stream
 
 
 -   label: On-chip peripherals
--   file: peripheral/gpio.md
-    label: GPIO
--   file: peripheral/uart.md
-    label: UART
--   file: peripheral/i2c.md
-    label: I2C
--   file: peripheral/pwm.md
-    label: PWM
--   file: peripheral/spi.md
-    label: SPI
--   file: peripheral/wdt.md
-    label: WDT watchdog
+    items:
+    -   file: peripheral/gpio.md
+        label: GPIO
+    -   file: peripheral/uart.md
+        label: UART
+    -   file: peripheral/i2c.md
+        label: I2C
+    -   file: peripheral/pwm.md
+        label: PWM
+    -   file: peripheral/spi.md
+        label: SPI
+    -   file: peripheral/wdt.md
+        label: WDT watchdog
 
 -   label: Off-chip modules
--   file: modules/acc.md
-    label: Accelerometer
--   file: modules/temp_hum.md
-    label: Temperature and humidity
--   file: modules/tof.md
-    label: TOF
--   file: modules/thermal_cam.md
-    label: Thermal imaging
+    items:
+    -   file: modules/acc.md
+        label: Accelerometer
+    -   file: modules/temp_hum.md
+        label: Temperature and humidity
+    -   file: modules/tof.md
+        label: TOF
+    -   file: modules/thermal_cam.md
+        label: Thermal imaging
+
+-   label: Porjects
+    items:
+    -   file: projects/README.md
+        label: Intro & Collection
+    -   file: projects/line_tracking_robot.md
+        label: Line tracking robot
 
 -   label: Advanced
--   file: source_code/contribute.md
-    label: Contribute
--   file: source_code/build.md
-    label: Build source code
--   file: source_code/faq.md
-    label: MaixPy Source FAQ
--   file: source_code/add_c_module.md
-    label: Write in C/C++
--   file: source_code/maixcdk.md
-    label: MaixCDK develop
--   file: pro/compile_os.md
-    label: Build firmware
+    items:
+    -   file: source_code/contribute.md
+        label: Contribute
+    -   file: source_code/build.md
+        label: Build source code
+    -   file: source_code/faq.md
+        label: MaixPy Source FAQ
+    -   file: source_code/add_c_module.md
+        label: Write in C/C++
+    -   file: source_code/maixcdk.md
+        label: MaixCDK develop
+    -   file: pro/compile_os.md
+        label: Build firmware
 
 

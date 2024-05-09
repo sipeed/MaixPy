@@ -5,21 +5,43 @@ title: MaixPy 开发源代码指南
 ## 获取源代码
 
 ```shell
+mkdir -p ~/maix
+cd ~/maix
 git clone https://github.com/sipeed/MaixPy
-cd MaixPy
 ```
+
+## 获取 MaixCDK 源码
+
+MaixPy 项目依赖于 MaixCDK，需要先克隆它，放到电脑的某个目录（勿放在 MaixPy 目录下）
+
+```shell
+cd ~/maix
+git clone https://github.com/sipeed/MaixCDK
+```
+
+然后需要设置环境变量 `MAIXCAK_PATH` 指定 MaixCDK 的路径，可以在 `~/.bashrc` 或者`~/.zshrc`（根据你使用的shell决定）添加：
+
+```shell
+export MAIXCAK_PATH=~/maix/MaixCDK
+```
+
+只有在成功设置环境变量后， MaixPy 才能找到 MaixCDK 源码。
 
 ## 构建并打包成 wheel 文件
 
 ```shell
+cd ~/maix/MaixPy
 python setup.py bdist_wheel maixcam
 ```
 
-`maixcam` 可以被替换为其他板卡配置, 请查看 [setup.py]([./configs](https://github.com/sipeed/MaixPy/blob/main/setup.py)) 中的 `platform_names` 变量。
+`maixcam` 可以被替换为其他板卡配置, 请查看 `MaixPy/platforms` 目录。
 
-构建成功后, 你会在 `dist` 目录中找到 wheel 文件, 使用 `pip install -U MaixPy****.wheel` 在你的设备上安装或升级。
+构建成功后, 你会在 `dist` 目录中找到 wheel 文件, 传输到设备（开发板），在设备终端中使用 `pip install -U MaixPy****.wheel` 在你的设备上安装或升级。
 
 > `python setup.py bdist_wheel maixcam --skip-build` 不会执行构建命令, 只会打包 wheel 文件, 因此你可以先使用 `maixcdk menuconfig` 和 `maixcdk build` 来自定义构建。
+
+> 另外如果你是在调试 API，需要频繁安装，使用 pip 安装会比较慢，可以直接编译后拷贝 `maix` 目录到设备的 `/usr/lib/python3.11/site-packages`目录下覆盖旧的文件即可。
+
 
 ## 手动构建
 

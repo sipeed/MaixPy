@@ -99,9 +99,9 @@ And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.co
 | --- | --- | ------- |
 | - 1GHz RISC-V(Linux)/ARM A53<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
 
-| Connecting | Peripheral | MultiMedia | Price |
+| Connecting | Peripheral | MultiMedia | Buy |
 | ----------- | ----- | --- | ---- |
-|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
+|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [Sipeed Official Store](https://wiki.sipeed.com/store) |
 
 Chip register level open, more detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
 
