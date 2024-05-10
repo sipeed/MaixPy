@@ -96,7 +96,21 @@ scp /path/to/your/file.py root@maixcam-xxxx.local:/root
 * **方法二**：使用 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
 
 
+## 代码提示
 
+
+代码提示依赖电脑本地的 Python 包，为了实现代码提示，我们需要在电脑中安装 Python，并且安装需要提示的 Python 包。
+
+* 安装 Python 请访问 [Python 官网](https://python.org/)安装。
+* 安装需要提示的包，比如对于 MaixPy， 你需要在电脑也安装一份 MaixPy 包，在电脑使用`pip install MaixPy`即可安装好。
+> 中国国内用户可以使用国内镜像`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple MaixPy`。
+* 重启 MaixVision 就能够看到代码提示了。
+> 如果仍然不能提示，可以手动在设置中设置 python 可执行文件的路径后重启。
+
+>! 注意在电脑安装 Python 包这里只是为了用作代码提示，实际代码运行还是在设备（开发板）上，设备上也要有对应的包才能正常运行。
+
+
+> 另外，虽然你在电脑上安装了 MaixPy 包，但是由于我们精力有限，我们不确保你能直接在电脑的 Python 导入 maix 包进行使用，请在支持的设备上运行。
 
 
 

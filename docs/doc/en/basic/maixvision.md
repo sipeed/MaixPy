@@ -86,3 +86,19 @@ scp /path/to/your/file.py root@maixcam-xxxx.local:/root
 
 * **Method 2**: Use tools like [FileZilla](https://filezilla-project.org/) to connect to the device, transfer the files to the device, choose the `SFTP` protocol, fill in the device and account information, and connect.
 
+
+
+## Code Completion
+
+Code completion depends on the Python packages installed locally on your computer. To enable code completion, you need to install Python on your computer and also the Python packages required for completion.
+
+* To install Python, visit the [Python official website](https://python.org/) for installation.
+* To install the packages required for completion, for instance, for MaixPy, you need to install the MaixPy package on your computer as well by using `pip install MaixPy`.
+* Restart MaixVision to see the code completion.
+
+> If the completion still does not work, you can manually set the path to the python executable in the settings and restart.
+
+>! Note that installing Python packages on your computer is only for code completion purposes. The actual code still runs on the device (development board), and the device must also have the corresponding packages for proper operation.
+
+> Additionally, although you have installed the MaixPy package on your computer, due to our limited resources, we do not guarantee that you will be able to directly import the maix package in Python on your computer for use. Please run it on supported devices.
+
