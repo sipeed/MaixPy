@@ -11,7 +11,7 @@ update:
     content: 添加寻找色块的详细用法
 ---
 
-阅读本文前，确保已经知晓如何开发MaixPy，详情请阅读[MaixVision -- MaixPy 编程 + 图形化积木编程](../basic/maixvision.md)
+阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
 
 ## 简介
 

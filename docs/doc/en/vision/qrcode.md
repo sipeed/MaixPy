@@ -7,7 +7,7 @@ update:
     content: Initial document
 ---
 
-Before reading this article, make sure you are familiar with how to develop with MaixPy. For details, please read [MaixVision -- MaixPy Programming + Graphical Block Programming](../basic/maixvision.md)
+Before reading this article, make sure you are familiar with how to develop with MaixCAM. For details, please read [Quick Start](../README.md).
 
 ## Introduction
 

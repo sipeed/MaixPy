@@ -7,15 +7,15 @@ update:
     content: 初版文档
 ---
 
-阅读本文前，确保已经知晓如何开发MaixPy，详情请阅读[MaixVision -- MaixPy 编程 + 图形化积木编程](../basic/maixvision.md)
+阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
 
 ## 简介
 
 在视觉应用中，在巡迹小车、巡线机器人等应用中经常需要寻找线条的功能。本文将介绍:
 
-- 如何使用MaixPy来寻找直线
+- 如何使用MaixPy来实现巡线功能
 
-- 如何使用MaixCam的默认应用程序寻找直线
+- 如何使用MaixCam的默认应用程序巡线
 
 
 ## 如何使用MaixPy来寻找直线
@@ -43,14 +43,14 @@ while 1:
     for a in lines:
         img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
         theta = a.theta()
+        rho = a.rho()
         if theta > 90:
             theta = 270 - theta
         else:
             theta = 90 - theta
-        img.draw_string(0, 0, "theta: " + str(theta), image.COLOR_BLUE)
+        img.draw_string(0, 0, "theta: " + str(theta) + ", rho: " + str(rho), image.COLOR_BLUE)
 
     disp.show(img)
-
 ```
 
 步骤：
@@ -79,22 +79,23 @@ while 1:
 4. 调用`get_regression`方法寻找摄像头图片中的直线，并画到屏幕上
 
    ```python
-   lines = img.get_regression(thresholds, pixels_threshold = 100)
+   lines = img.get_regression(thresholds, area_threshold = 100)
    for a in lines:
-       img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
-       theta = a.theta()
-       if theta > 90:
-           theta = 270 - theta
-       else:
-           theta = 90 - theta
-       img.draw_string(0, 0, "theta: " + str(theta), image.COLOR_BLUE)
+      img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
+      theta = a.theta()
+      rho = a.rho()
+      if theta > 90:
+         theta = 270 - theta
+      else:
+         theta = 90 - theta
+      img.draw_string(0, 0, "theta: " + str(theta) + ", rho: " + str(rho), image.COLOR_BLUE)
    ```
 
    - `img`是通过`cam.read()`读取到的摄像头图像，当初始化的方式为`cam = camera.Camera(320, 240)`时，`img`对象是一张分辨率为320x240的RGB图。
    - `img.get_regression`用来寻找直线， `thresholds` 是一个颜色阈值列表，每个元素是一个颜色阈值，同时找到多个阈值就传入多个，每个颜色阈值的格式为 `[L_MIN, L_MAX, A_MIN, A_MAX, B_MIN, B_MAX]`，这里的 `L`、`A`、`B` 是`LAB`颜色空间的三个通道，`L` 通道是亮度，`A` 通道是红绿通道，`B` 通道是蓝黄通道。`pixels_threshold`是一个像素面积的阈值，用来过滤一些不需要直线。
    - `for a in lines`用来遍历返回的`Line`对象， 其中`a`就是当前的`Line`对象。通常`get_regression`函数只会返回一个`Line`对象，如果需要寻找多条直线，可以尝试使用`find_line`方法
    - 使用`img.draw_line`来画出找到的线条，`a.x1(), a.y1(), a.x2(), a.y2()`分别代表直线两端的坐标
-   - 使用`img.draw_string`在左上角显示直线与x轴的夹角， `a.theta()`是直线与y轴的夹角， 这里为了方便理解转换成直线与x轴的夹角`theta`
+   - 使用`img.draw_string`在左上角显示直线与x轴的夹角， `a.theta()`是直线与y轴的夹角， 这里为了方便理解转换成直线与x轴的夹角`theta`，`a.rho()`是原点与直线的垂线的长度.
 
 5. 通过maixvision运行代码，就可以寻线啦，看看效果吧
 
