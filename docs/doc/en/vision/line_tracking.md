@@ -8,7 +8,7 @@ update:
 ---
 
 
-Before reading this article, make sure you already know how to develop MaixPy. For details, please read [MaixVision -- MaixPy Programming + Graphical Block Programming](../basic/maixvision.md).
+Before reading this article, make sure you already know how to develop MaixCAM. For details, please read [Quick Start](../README.md).
 
 ## Introduction
 
@@ -37,19 +37,20 @@ disp = display.Display()
 thresholds = [[0, 80, -120, -10, 0, 30]] # green
 # thresholds = [[0, 80, 30, 100, -120, -60]] # blue
 
-while 1.
+while 1:
     img = cam.read()
 
     lines = img.get_regression(thresholds, area_threshold = 100)
-    for a in lines.
+    for a in lines:
         img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
         theta = a.theta()
-        if theta > 90.
+        rho = a.rho()
+        if theta > 90:
             theta = 270 - theta
-        if theta > 90: theta = 270 - theta
+        else:
             theta = 90 - theta
-        img.draw_string(0, 0, ‘theta: ’ + str(theta), image.COLOR_BLUE)
-    
+        img.draw_string(0, 0, "theta: " + str(theta) + ", rho: " + str(rho), image.COLOR_BLUE)
+
     disp.show(img)
 ```
 
@@ -71,30 +72,31 @@ Steps:
 3. Get the image from the camera and display it
 
    ```python
-   while 1.
+   while 1:
        img = cam.read()
        disp.show(img)
    ```
 
 4. Call the `get_regression` method to find the straight line in the camera image and draw it to the screen
 
-   ``` python
-   lines = img.get_regression(thresholds, pixels_threshold = 100)
-   for a in lines.
-       img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
-       theta = a.theta()
-       if theta > 90.
-           theta = 270 - theta
-       if theta > 90: theta = 270 - theta
-           theta = 90 - theta
-       img.draw_string(0, 0, ‘theta: ’ + str(theta), image.COLOR_BLUE)
+   ```python
+   lines = img.get_regression(thresholds, area_threshold = 100)
+   for a in lines:
+      img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
+      theta = a.theta()
+      rho = a.rho()
+      if theta > 90:
+         theta = 270 - theta
+      else:
+         theta = 90 - theta
+      img.draw_string(0, 0, "theta: " + str(theta) + ", rho: " + str(rho), image.COLOR_BLUE)
    ```
 
    - `img` is the camera image read via `cam.read()`, when initialised as `cam = camera.Camera(320, 240)`, the `img` object is an RGB image with a resolution of 320x240.
    - `img.get_regression` is used to find straight lines, `thresholds` is a list of colour thresholds, each element is a colour threshold, multiple thresholds are passed in if multiple thresholds are found at the same time, and each colour threshold has the format `[L_MIN, L_MAX, A_MIN, A_MAX, B_MIN, B_MAX]`, where ` L`, `A`, `B` are the three channels of `LAB` colour space, `L` channel is the luminance, `A` channel is the red-green channel, `B` channel is the blue-yellow channel. `pixels_threshold` is a pixel area threshold used to filter some unwanted straight lines.
    - `for a in lines` is used to iterate through the returned `Line` objects, where `a` is the current `Line` object. Normally the `get_regression` function will only return one `Line` object, but if you need to find more than one line, try the `find_line` method.
    - Use `img.draw_line` to draw the found line, `a.x1(), a.y1(), a.x2(), a.y2()` represent the coordinates of the ends of the line.
-   - Use `img.draw_string` to show the angle between the line and the x-axis in the upper left corner, and `a.theta()` is the angle between the line and the y-axis, which is converted to `theta` for easier understanding.
+   - Use `img.draw_string` to show the angle between the line and the x-axis in the upper left corner, and `a.theta()` is the angle between the line and the y-axis, which is converted to `theta` for easier understanding, `a.rho()` is the length of the vertical line from the origin to the line.
 
 5. Run the code through the maixvision, you can find the line, look at the effect!
 

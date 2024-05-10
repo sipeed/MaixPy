@@ -10,7 +10,7 @@ update:
     version: 1.0.1
     content: Added detailed usage for finding blobs
 ---
-Before reading this article, make sure you know how to develop with MaixPy. For details, please read [MaixVision -- MaixPy Programming + Graphical Block Programming](../basic/maixvision.md).
+Before reading this article, make sure you know how to develop with MaixCAM. For details, please read [Quick Start](../README.md).
 
 ## Introduction
 
