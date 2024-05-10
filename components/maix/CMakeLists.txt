@@ -23,7 +23,7 @@ append_srcs_dir(ADD_SRCS "src")     # append source file in src dir to var ADD_S
 ###############################################
 
 ###### Add required/dependent components ######
-list(APPEND ADD_REQUIREMENTS pybind11 python3 basic nn peripheral vision comm network)
+list(APPEND ADD_REQUIREMENTS pybind11 python3 basic nn peripheral vision comm network voice)
 ###############################################
 
 ###### Add link search path for requirements/libs ######
