@@ -15,19 +15,26 @@ members = inspect.getmembers(_maix)
 for m in members:
     if m[0].startswith("__"):
         continue
-    new_members["maix." + m[0]] = m[1]
+    new_members["maix." + m[0]] = m
 
 members = inspect.getmembers(_maix.peripheral)
 for m in members:
     if m[0].startswith("__"):
         continue
-    new_members["maix." + m[0]] = m[1]
+    new_members["maix." + m[0]] = m
 
 # clear all temp vars
 del m, members, inspect
 
+__all__ = []
+
 import sys
 for k, v in new_members.items():
-    sys.modules[k] = v
+    sys.modules[k] = v[1]
+    __all__.append(v[0])
 
-del k, v, new_members
+del k, v, new_members, sys
+
+
+from ._maix import *
+from ._maix.peripheral import *
