@@ -47,13 +47,14 @@ jobs:
           git clone https://github.com/sipeed/MaixCDK --depth=1
           export MAIXCDK_PATH=`pwd`/MaixCDK
           cd $pwd_path
-          python -m pip install -U pip setuptools
+          python -m pip install -U pip setuptools wheel
           python -m pip install -r $MAIXCDK_PATH/requirements.txt
+          python -m pip install pybind11-stubgen
           echo "--------------------------------"
           echo "-- Build MaixPy for Linux now --"
           echo "--------------------------------"
           sudo apt update -y
-          sudo apt install -y libopencv-dev libopencv-contrib-dev
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev
           python setup.py bdist_wheel linux
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
