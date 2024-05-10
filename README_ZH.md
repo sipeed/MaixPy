@@ -1,4 +1,4 @@
-MaixPy
+MaixPy (v4)
 ======
 
 <div align="center">
@@ -7,7 +7,7 @@ MaixPy
 
 **Let's Sipeed up, Maximize AI's power!**
 
-**MaixPy**: 快速落地 AI 视觉、听觉应用
+**MaixPy** (v4): 快速落地 AI 视觉、听觉应用
 
 <h3>
     <a href="https://wiki.sipeed.com/maixpy/doc/index.html"> 快速开始 </a> |
