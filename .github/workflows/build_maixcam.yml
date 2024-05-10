@@ -54,7 +54,8 @@ jobs:
           echo "-- Build MaixPy for Linux now --"
           echo "--------------------------------"
           sudo apt update -y
-          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake
+          cmake --version
           python setup.py bdist_wheel linux
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"

@@ -1,4 +1,4 @@
-MaixPy
+MaixPy (v4)
 ======
 
 <div align="center">
@@ -7,7 +7,7 @@ MaixPy
 
 **Let's Sipeed up, Maximize AI's power!**
 
-**MaixPy**: Easily create AI projects with Python on edge device
+**MaixPy** (v4): Easily create AI projects with Python on edge device
 
 <h3>
     <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> Quick Start </a> |
