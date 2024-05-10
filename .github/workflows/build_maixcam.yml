@@ -59,6 +59,7 @@ jobs:
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
+          maixcdk distclean
           maixcdk build -p maixcam --verbose
           python setup.py bdist_wheel maixcam
 
