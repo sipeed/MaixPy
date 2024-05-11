@@ -2,7 +2,7 @@ from maix.v1.machine import UART
 from maix import time
 
 
-uart_A = UART("/dev/ttyUSB0", 115200)
+uart_A = UART("/dev/serial0", 115200)
 
 
 time.sleep_ms(100) # wait uart ready
