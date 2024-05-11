@@ -169,6 +169,8 @@ stub/
 projects/MaixPy/docs/api/
 MaixCDK/
 docs/api/api.json
+docs/api/sidebar.yaml
+docs/api/README.md
 docs/api/maix/
 docs/out/
 CMakeLists.txt
