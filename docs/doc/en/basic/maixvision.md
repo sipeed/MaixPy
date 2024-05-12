@@ -1,27 +1,27 @@
 ---
-title: MaixVision - MaixPy Programming + Graphical Block Programming
+title: MaixVision -- MaixPy Programming IDE + Graphical Block Programming
 ---
 
 ## Introduction
 
-[MaixVision](https://wiki.sipeed.com/maixvision) is a developer programming tool specifically designed for the Maix ecosystem, supporting MaixPy programming and graphical block programming. It also supports online running, debugging, and real-time image preview, allowing the synchronization of the device display screen for easy debugging and development.
+[MaixVision](https://wiki.sipeed.com/maixvision) is a development tool specifically designed for the Maix ecosystem, supporting MaixPy programming and graphical block programming. It allows for online operation and debugging, real-time image preview, and synchronizing images from device displays, which is convenient for debugging and development.
 
-It also supports packaging applications and installing them on devices, making it convenient for users to generate and install applications with a single click.
+It also supports packaging and installing applications on devices, allowing users to easily generate and install applications with one click.
 
-Additionally, it integrates some handy development tools, such as file management, threshold editors, QR code generators, and more.
+In addition, it integrates several handy tools for development, such as file management, threshold editor, QR code generator, and more.
 
 ## Download
 
-Visit [MaixVision home page](https://wiki.sipeed.com/maixvision) to download.
+Visit the [MaixVision homepage](https://wiki.sipeed.com/maixvision) to download.
+
 
 ## Using MaixPy Programming and Online Running
 
-By following the steps in the [Quick Start](../README.md), we can easily use MaixPy programming and run programs online.
+Follow the steps in [Quick Start](../README.md) to connect your device, and you can easily use MaixPy programming and run it online.
 
 ## Real-time Image Preview
 
-MaixPy provides a `display` module, which can display images on the screen. When calling the `show` method of the `display` module, the image will be sent to MaixVision for display in real-time, for example:
-
+MaixPy provides a `display` module that can show images on the screen. Also, when the `show` method of the `display` module is called, it sends the image to be displayed on MaixVision, for example:
 ```python
 from maix import display, camera
 
@@ -31,74 +31,84 @@ while 1:
     disp.show(cam.read())
 ```
 
-Here, we capture an image using the camera, and then display it on the screen using `disp.show()`, which will also transmit the image to MaixVision for display.
+Here we use the camera to capture an image, then display it on the screen using the `disp.show()` method, and also send it to MaixVision for display.
 
-By clicking the `Pause` button in the top right corner, the transmission of the image to MaixVision display will stop.
+When we click the 'pause' button in the top right corner, it will stop sending images to MaixVision.
 
-## Computing the Histogram of an Image
 
-In the previous step, we could see the image in real-time on MaixVision. By selecting a region with the mouse, we can view the histogram of that area below the image. Choosing different color representation methods allows us to see histograms of different color channels. This feature helps us find suitable parameters when working on image processing algorithms.
+## Code Auto Completion
 
-## Using Graphical Block Programming
+Code suggestions depend on local Python packages installed on your computer. To enable code suggestions, you need to install Python on your computer and the required Python packages.
 
-Currently in development, stay tuned for updates.
+* To install Python, visit the [Python official website](https://python.org/).
+* To install the required packages, for MaixPy, for instance, you need to install the MaixPy package on your computer using `pip install MaixPy`. If `MaixPy` gets updated, you should update it on both your computer and device. On your computer, manually execute `pip install MaixPy -U` in the terminal. For device updates, update directly in the `Settings` application.
+> Users in China can use a local mirror `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple MaixPy`.
+* Restart MaixVision to see the code suggestions.
+> If suggestions still do not appear, you can manually set the path to the Python executable in settings and restart.
+
+>! Note that installing Python packages on your computer is just for code suggestions. The actual code runs on the device (development board), and the device must also have the corresponding packages to run properly.
+
+
+> Additionally, while you have the MaixPy package installed on your computer, due to our limited resources, we cannot guarantee that you can directly use the Maix package in your computer's Python. Please run it on supported devices.
+
+
+
+## Calculating the Image Histogram
+
+In the previous step, we could see the image in real-time in MaixVision. By selecting an area with the mouse, we can view the histogram for that area at the bottom of the screen, displaying different color channels.
+
+This feature is helpful when finding suitable parameters for some image processing algorithms.
 
 ## Distinguishing Between `Device File System` and `Computer File System`
 
-An important concept to grasp here is distinguishing between the **`Computer File System`** and **`Device File System`**:
+Here we have an important concept to grasp: **distinguish between the `Device File System` and the `Computer File System`**.
+* **Computer File System**: Operates on the computer. Opening a file or project in MaixVision accesses files on the computer, and saving is automatically done to the computer's file system.
+* **Device File System**: The program sends the code to the device for execution, so the files used in the code are read from the device's file system.
 
-- **Computer File System**: This operates on the computer. Opening files or projects in MaixVision accesses files stored on the computer. Any changes are automatically saved to the computer's file system.
-- **Device File System**: When a program runs, it sends files to the device for execution. Therefore, files accessed within the code are read from the device's file system.
+A common issue is when students save a file on the computer, such as `D:\data\a.jpg`, and then use this file on the device with `img = image.load("D:\data\a.jpg")`. Naturally, the file cannot be found because the device does not have `D:\data\a.jpg`.
 
-A common issue arises when a file is saved on the computer at `D:\data\a.jpg`, and then the file is referenced on the device like `img = image.load("D:\data\a.jpg")`. This file cannot be found on the device because there is no `D:\data\a.jpg` file stored there.
+For specifics on how to send files from the computer to the device, refer to the following section.
 
-For specific instructions on transferring computer files to the device, please refer to the following section.
 
 ## Transferring Files to the Device
 
-Currently in development. In the meantime, you can use alternative tools:
+First, connect to the device, then click the button to browse the device file system, as shown below. Then you can upload files to the device or download files to the computer.
 
-Begin by knowing the device's IP address or device name, which MaixVision can search for, or check in the device's `Settings -> System Information`, where you might find something similar to `maixcam-xxxx.local` or `192.168.0.123`. The username and password are both `root`, and the file transfer protocol is `SFTP` with port number `22`.
+![maixvision_browser2](../../assets/maixvision_browser2.jpg)
 
-There are various user-friendly software options available for different operating systems:
+![maixvision_browser](../../assets/maixvision_browser.jpg)
 
-### For Windows
+.. details:: Alternatively, other tools can be used, click to expand
+    First, know the device's IP address or name, which MaixVision can find, or see in the device's `Settings->System Information`, such as `maixcam-xxxx.local` or `192.168.0.123`.
+    The username and password are `root`, using the `SFTP` protocol for file transfer, and the port number is `22`.
 
-Use tools like [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/) to connect to the device via `SFTP`. Provide the necessary device and account information to establish the connection.
+    There are many useful tools available for different systems:
 
-For further guidance, perform a quick online search.
+    ### Windows
 
-### For Linux
+    Use [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/) to connect to the device and transfer files, choosing the `SFTP` protocol and entering the device and account information to connect.
 
-Use the `scp` command in the terminal to transfer files to the device, for example:
+    Specific instructions can be searched online.
 
-```bash
-scp /path/to/your/file.py root@maixcam-xxxx.local:/root
-```
+    ### Linux
 
-### For Mac
+    In the terminal, use the `scp` command to transfer files to the device, such as:
 
-- **Method 1**: Use the `scp` command in the terminal to transfer files to the device, for example:
+    ```bash
+    scp /path/to/your/file.py root@maixcam-xxxx.local:/root
+    ```
 
-```bash
-scp /path/to/your/file.py root@maixcam-xxxx.local:/root
-```
+    ### Mac
 
-* **Method 2**: Use tools like [FileZilla](https://filezilla-project.org/) to connect to the device, transfer the files to the device, choose the `SFTP` protocol, fill in the device and account information, and connect.
+    * **Method 1**: In the terminal, use the `scp` command to transfer files to the device, such as:
+    ```bash
+    scp /path/to/your/file.py root@maixcam-xxxx.local:/root
+    ```
+
+    * **Method 2**: Use [FileZilla](https://filezilla-project.org/) or other tools to connect to the device and transfer files, choosing the `SFTP` protocol and entering the device and account information to connect.
 
 
+## Using Graphical Block Programming
 
-## Code Completion
-
-Code completion depends on the Python packages installed locally on your computer. To enable code completion, you need to install Python on your computer and also the Python packages required for completion.
-
-* To install Python, visit the [Python official website](https://python.org/) for installation.
-* To install the packages required for completion, for instance, for MaixPy, you need to install the MaixPy package on your computer as well by using `pip install MaixPy`.
-* Restart MaixVision to see the code completion.
-
-> If the completion still does not work, you can manually set the path to the python executable in the settings and restart.
-
->! Note that installing Python packages on your computer is only for code completion purposes. The actual code still runs on the device (development board), and the device must also have the corresponding packages for proper operation.
-
-> Additionally, although you have installed the MaixPy package on your computer, due to our limited resources, we do not guarantee that you will be able to directly import the maix package in Python on your computer for use. Please run it on supported devices.
+Under development, please stay tuned.
 
