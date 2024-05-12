@@ -1,5 +1,5 @@
 ---
-title: MaixVision -- MaixPy 编程 + 图形化积木编程
+title: MaixVision -- MaixPy 编程 IDE + 图形化积木编程
 ---
 
 
@@ -37,18 +37,29 @@ while 1:
 当我们点击了右上角的`暂停`按钮，就会停止发送图像到 MaixVision 显示。
 
 
+## 代码自动补全
+
+
+代码提示依赖电脑本地的 Python 包，为了实现代码提示，我们需要在电脑中安装 Python，并且安装需要提示的 Python 包。
+
+* 安装 Python 请访问 [Python 官网](https://python.org/)安装。
+* 安装需要提示的包，比如对于 MaixPy， 你需要在电脑也安装一份 MaixPy 包，在电脑使用`pip install MaixPy`即可安装好，如果`MaixPy`更新了，你也需要在电脑和设备更新到`MaixPy`，电脑手动在终端执行`pip install MaixPy -U`即可，设备更新直接在`设置`应用中更新即可。
+> 中国国内用户可以使用国内镜像`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple MaixPy`。
+* 重启 MaixVision 就能够看到代码提示了。
+> 如果仍然不能提示，可以手动在设置中设置 python 可执行文件的路径后重启。
+
+>! 注意在电脑安装 Python 包这里只是为了用作代码提示，实际代码运行还是在设备（开发板）上，设备上也要有对应的包才能正常运行。
+
+
+> 另外，虽然你在电脑上安装了 MaixPy 包，但是由于我们精力有限，我们不确保你能直接在电脑的 Python 导入 maix 包进行使用，请在支持的设备上运行。
+
+
 
 ## 计算图像的直方图
 
 在上一步中我们可以在 MaixVision 中实时看到图像，我们用鼠标框选一个区域，图像下方就能看到这个区域的直方图了，选择不同的颜色表示方法，可以看到不同的颜色通道的直方图。
 
 这个功能方便我们在做某些图像处理算法时找到一些合适的参数。
-
-
-## 使用图形化积木编程
-
-开发中，敬请期待。
-
 
 ## 区分`设备文件系统`和`电脑文件系统`
 
@@ -63,55 +74,44 @@ while 1:
 
 ## 传输文件到设备
 
+先连接设备，然后点击浏览设备文件系统的按钮，有两个入口，如下图，然后就能上传文件到设备，或者从设备下载文件到电脑了。
+
+![maixvision_browser2](../../assets/maixvision_browser2.jpg)
+
+![maixvision_browser](../../assets/maixvision_browser.jpg)
+
+
+.. details::也可以用其它工具代替，点击展开
+    先知道设备的 ip 地址或者设备名称，MaixVision 就可以搜索到, 或者在设备`设置->系统信息`中看到，比如类似 `maixcam-xxxx.local` 或者 `192.168.0.123`。
+    用户名和密码都是 `root`, 使用 `SFTP` 协议传输文件，端口号是 `22`。
+
+    然后不同系统下都有很多好用的软件：
+
+    ### Windows 下
+
+    使用 [WinSCP](https://winscp.net/eng/index.php) 或者 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
+
+    具体不懂的可以自行搜索。
+
+    ### Linux 下
+
+    终端使用 `scp` 命令传输文件到设备上，比如：
+
+    ```bash
+    scp /path/to/your/file.py root@maixcam-xxxx.local:/root
+    ```
+
+    ### Mac 下
+
+    * **方法一**：终端使用 `scp` 命令传输文件到设备上，比如：
+    ```bash
+    scp /path/to/your/file.py root@maixcam-xxxx.local:/root
+    ```
+
+    * **方法二**：使用 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
+
+
+## 使用图形化积木编程
+
 开发中，敬请期待。
-
-目前可以用其它工具代替：
-
-先知道设备的 ip 地址或者设备名称，MaixVision 就可以搜索到, 或者在设备`设置->系统信息`中看到，比如类似 `maixcam-xxxx.local` 或者 `192.168.0.123`。
-用户名和密码都是 `root`, 使用 `SFTP` 协议传输文件，端口号是 `22`。
-
-然后不同系统下都有很多好用的软件：
-
-### Windows 下
-
-使用 [WinSCP](https://winscp.net/eng/index.php) 或者 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
-
-具体不懂的可以自行搜索。
-
-### Linux 下
-
-终端使用 `scp` 命令传输文件到设备上，比如：
-
-```bash
-scp /path/to/your/file.py root@maixcam-xxxx.local:/root
-```
-
-### Mac 下
-
-* **方法一**：终端使用 `scp` 命令传输文件到设备上，比如：
-```bash
-scp /path/to/your/file.py root@maixcam-xxxx.local:/root
-```
-
-* **方法二**：使用 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
-
-
-## 代码提示
-
-
-代码提示依赖电脑本地的 Python 包，为了实现代码提示，我们需要在电脑中安装 Python，并且安装需要提示的 Python 包。
-
-* 安装 Python 请访问 [Python 官网](https://python.org/)安装。
-* 安装需要提示的包，比如对于 MaixPy， 你需要在电脑也安装一份 MaixPy 包，在电脑使用`pip install MaixPy`即可安装好。
-> 中国国内用户可以使用国内镜像`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple MaixPy`。
-* 重启 MaixVision 就能够看到代码提示了。
-> 如果仍然不能提示，可以手动在设置中设置 python 可执行文件的路径后重启。
-
->! 注意在电脑安装 Python 包这里只是为了用作代码提示，实际代码运行还是在设备（开发板）上，设备上也要有对应的包才能正常运行。
-
-
-> 另外，虽然你在电脑上安装了 MaixPy 包，但是由于我们精力有限，我们不确保你能直接在电脑的 Python 导入 maix 包进行使用，请在支持的设备上运行。
-
-
-
 

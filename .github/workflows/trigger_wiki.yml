@@ -4,11 +4,10 @@ name: trigger wiki
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ gh-pages ]
-  # pull_request:
-  #   branches: [ main ]
+  pull_request:
+    branches: [ gh-pages ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,9 +15,10 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  trigger_wiki:
+    name: trigger sipeed_wiki
     # Only run job for specific repository
-    if: github.repository == 'sipeed/MaixPy'
+    # if: github.repository == 'sipeed/MaixPy'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # strategy:
@@ -27,7 +27,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/github-script@v6
+    - name: trigger sipeed wiki request
+      uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.DISPATCH_PAT }}
         script: |

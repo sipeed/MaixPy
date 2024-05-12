@@ -60,8 +60,6 @@ jobs:
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
-          maixcdk distclean
-          maixcdk build -p maixcam --verbose
           python setup.py bdist_wheel maixcam
 
       # Runs a set of commands using the runners shell
@@ -81,13 +79,15 @@ jobs:
           echo "== checkout gh-pages branch =="
           cd out
           cp -r ../../.github .
+          git config --global init.defaultBranch gh-pages
           git init
-          git config user.name ${user_name}
+          git config user.name "${user_name}"
           git config user.email ${user_email}
           remote_addr="https://Neutree:${{ secrets.GITHUB_TOKEN }}@${remote_addr}"
           echo "-- user ${user_name}"
           echo "-- remote addr: ${remote_addr}"
           git remote add origin "${remote_addr}"
+          echo "== add web files =="
           git add -A
           git commit -m "Rebuild MaixPy doc by commit $GITHUB_REF"
           git push origin HEAD:gh-pages --force
