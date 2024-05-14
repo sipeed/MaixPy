@@ -42,4 +42,35 @@ print("received:", serial.read(timeout = 2000))
 
 更多串口的 API 请看 [UART API 文档](../../../api/maix/peripheral/uart.md)
 
+## 其它写法，以及使用其它串口
+
+```python
+
+from maix import app, uart, pinmap, time
+import sys
+
+# pinmap.set_pin_function("A16", "UART0_TX")
+# pinmap.set_pin_function("A17", "UART0_RX")
+device = "/dev/ttyS0"
+
+serial0 = uart.UART(device, 115200)
+
+serial0.write("hello 1\r\n".encode())
+serial0.write_str("hello 2\r\n")
+
+while not app.need_exit():
+    data = serial0.read()
+    if data:
+        print("Received, type: {}, len: {}, data: {}".format(type(data), len(data), data))
+        serial0.write(data)
+    time.sleep_ms(1) # sleep 1ms to make CPU free
+```
+
+这里先设置了引脚映射，特别是如果你要使用除了 UART0 以外的串口，根据图中的引脚号和 UART 使用`pinmap.set_pin_function`来设置
+
+![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+
+
+另外，这里循环里面加了一个 `sleep_ms` 是简单地释放一下 CPU，以达到程序不会占满 CPU 的效果，当然也有其它方式，这种方式最简单粗暴。
+
 
