@@ -5,12 +5,16 @@ name: trigger wiki
 # Controls when the action will run.
 on:
   push:
-    branches: [ gh-pages ]
+    branches:
+      - gh-pages
   pull_request:
-    branches: [ gh-pages ]
+    branches:
+      - gh-pages
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+permissions: write-all
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

@@ -83,7 +83,7 @@ jobs:
           git init
           git config user.name "${user_name}"
           git config user.email ${user_email}
-          remote_addr="https://Neutree:${{ secrets.GITHUB_TOKEN }}@${remote_addr}"
+          remote_addr="https://Neutree:${{ secrets.DISPATCH_PAT }}@${remote_addr}"
           echo "-- user ${user_name}"
           echo "-- remote addr: ${remote_addr}"
           git remote add origin "${remote_addr}"
