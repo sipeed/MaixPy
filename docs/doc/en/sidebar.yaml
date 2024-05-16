@@ -49,8 +49,10 @@ items:
         label: AI object classify
     -   file: vision/yolov5.md
         label: YOLOv5 object detect
+    -   file: vision/face_detection.md
+        label: Face detect and keypoints
     -   file: vision/face_recognition.md
-        label: Face detect
+        label: Face recognition
     -   file: vision/body_key_points.md
         label: Human critical point detection
     -   file: vision/self_learn_classifier.md
