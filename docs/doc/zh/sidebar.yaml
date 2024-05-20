@@ -92,7 +92,7 @@ items:
         label: 播放视频
     -   file: video/jpeg_streaming.md
         label: JPEG 串流
-    -   file: video/rtsp.md
+    -   file: video/rtsp_streaming.md
         label: RTSP 串流
 
 
