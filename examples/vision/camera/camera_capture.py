@@ -1,7 +1,7 @@
 from maix import camera, display, time, app
 
 cam = camera.Camera(512, 320)   # Manually set resolution, default is too large
-disp = display.Display()        # MaixCAM default is 522x368
+disp = display.Display()        # MaixCAM default is 552x368
 
 while not app.need_exit():
     t = time.time_ms()
