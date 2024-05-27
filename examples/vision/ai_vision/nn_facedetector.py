@@ -4,8 +4,8 @@ import math
 # download model from:
 #                     https://maixhub.com/model/zoo/377 (face_detector https://github.com/biubug6/Face-Detector-1MB-with-landmark)
 #                     https://maixhub.com/model/zoo/378 (retinafate https://github.com/biubug6/Pytorch_Retinaface)
-detector = nn.FaceDetector(model="/root/models/face_detector.mud")
-# detector = nn.Retinaface(model="/root/models/retinaface.mud")
+# detector = nn.FaceDetector(model="/root/models/face_detector.mud")
+detector = nn.Retinaface(model="/root/models/retinaface.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
