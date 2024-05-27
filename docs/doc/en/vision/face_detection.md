@@ -29,8 +29,8 @@ Next, run the code. The following line of commented code is for loading the `Ret
 from maix import camera, display, image, nn, app
 import math
 
-detector = nn.FaceDetector(model="/root/models/face_detector.mud")
-# detector = nn.Retinaface(model="/root/models/retinaface.mud")
+detector = nn.Retinaface(model="/root/models/retinaface.mud")
+# detector = nn.FaceDetector(model="/root/models/face_detector.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()

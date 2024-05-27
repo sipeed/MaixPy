@@ -23,9 +23,11 @@ MaixPy maix.nn 模块中提供了人脸识别的 API， 可以直接使用，模
 识别：
 
 ```python
-from maix import nn
+from maix import nn, camera, display, image
+import os
+import math
 
-recognizer = nn.Face_Recognizer(model="/root/models/face_recognizer.mud")
+recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud")
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
@@ -33,26 +35,35 @@ dis = display.Display()
 
 while 1:
     img = cam.read()
-    faces = recognizer.recognize(img)
+    faces = recognizer.recognize(img, 0.5, 0.45, 0.8)
     for obj in faces:
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+        radius = math.ceil(obj.w / 10)
+        img.draw_keypoints(obj.points, image.COLOR_RED, size = radius if radius < 5 else 4)
         msg = f'{recognizer.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
     dis.show(img)
 ```
 
 第一次运行这个代码会发现能检测到人脸，但是都不认识，需要我们进入添加人脸模式学习人脸才行。
+
+> 这里 `recognizer.labels[0]` 默认就是`unknown`，后面每添加一个人脸就会自动给 `labels` 增加一个。
+
 比如可以在用户按下按键的时候学习人脸：
 ```python
-faces = recognizer.detect_faces(img)
+faces = recognizer.recognize(img, 0.5, 0.45, True)
 for face in faces:
     print(face)
-    # 这里考虑到了一个画面中有多个人脸的情况
-    # 可以在这里根据 face 的坐标决定要不要添加到库里面
-    recognizer.add_face(face)
-recognizer.save_(faces)("/too/faces.bin")
+    # 这里考虑到了一个画面中有多个人脸的情况， obj.class_id 为 0 代表是没有录入的人脸
+    # 这里写你自己的逻辑
+    #   比如可以在这里根据 face 的 class_id 和坐标决定要不要添加到库里面，以及可以做用户交互逻辑，比如按下按钮才录入等
+    recognizer.add_face(face, label) # label 是要给人脸取的标签（名字）
+recognizer.save_faces("/root/faces.bin")
 ```
 
+## 完整例程
+
+这里提供一个按键录入未知人脸，以及人脸识别的例程，可以在[MaixPy 的 example 目录](https://github.com/sipeed/MaixPy/tree/main/examples) 找到`nn_face_recognize.py`。
 
 
 
