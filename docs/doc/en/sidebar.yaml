@@ -92,7 +92,7 @@ items:
         label: Play video
     -   file: video/jpeg_streaming.md
         label: JPEG stream
-    -   file: video/rtsp.md
+    -   file: video/rtsp_streaming.md
         label: RTSP stream
 
 
