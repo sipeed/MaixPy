@@ -57,6 +57,10 @@ jobs:
           sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake
           cmake --version
           python setup.py bdist_wheel linux
+          echo "--------------------------------"
+          echo "-- Test MaixPy basic for Linux now --"
+          echo "--------------------------------"
+          python test/test_basic.py
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
