@@ -2,15 +2,14 @@ from .version import __version__
 
 # import all _maix module's members to maix, e.g. maix._maix.err -> maix.err
 from ._maix.peripheral.key import add_default_listener
-from ._maix.sys import register_default_signal_handle
+from .__signal_handle__ import register_signal_handle
 from . import _maix
 
+register_signal_handle()
+del register_signal_handle
+
 add_default_listener()
-
 del add_default_listener
-
-register_default_signal_handle()
-del register_default_signal_handle
 
 import inspect
 
