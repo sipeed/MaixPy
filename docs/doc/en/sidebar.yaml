@@ -94,7 +94,8 @@ items:
         label: JPEG stream
     -   file: video/rtsp_streaming.md
         label: RTSP stream
-
+    -   file: video/rtmp_streaming.md
+        label: RTMP stream
 
 -   label: On-chip peripherals
     items:
