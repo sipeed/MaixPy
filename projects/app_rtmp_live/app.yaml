@@ -1,0 +1,12 @@
+id: rtmp_live
+name: RTMP Live
+name[zh]: RTMP 直播
+version: 1.0.0
+icon: assets/live.json
+author: Sipeed Ltd
+desc: RTMP live
+desc[zh]: RTMP 直播
+files:
+  app.yaml: app.yaml
+  assets: assets
+  README.md: README.md
