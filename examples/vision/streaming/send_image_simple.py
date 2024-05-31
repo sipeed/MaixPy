@@ -7,7 +7,8 @@ img = image.Image(640, 480, image.Format.FMT_RGB)
 img.draw_rect(60, 60, 80, 80, image.Color.from_rgb(255, 0, 0))
 
 # convert to jpeg
-jpeg = img.to_format(image.Format.FMT_JPEG) # image.Format.FMT_PNG
+jpeg = img.to_jpeg(95)
+# jpeg = img.to_format(image.Format.FMT_JPEG) # image.Format.FMT_PNG
 # get jpeg bytes
 jpeg_bytes = jpeg.to_bytes()
 
