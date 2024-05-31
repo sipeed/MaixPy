@@ -94,7 +94,8 @@ items:
         label: JPEG 串流
     -   file: video/rtsp_streaming.md
         label: RTSP 串流
-
+    -   file: video/rtmp_streaming.md
+        label: RTMP 串流
 
 -   label: 片上外设
     items:
