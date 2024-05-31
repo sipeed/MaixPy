@@ -20,7 +20,7 @@ str_rtmp_is_running3 = 'rtmp live running . .'
 str_btn_tips = 'touch to scan qrcode'
 str_no_url_tips1 = 'Get RTMP server address from live platforms'
 str_no_url_tips2 = 'Generate QRCode with server address'
-str_scan_tips1 = '1. Get RTMP server addr from live platforms'
+str_scan_tips1 = '1. Get RTMP server addr from live platform'
 str_scan_tips2 = ' format like rtmp://xxx.com/app/stream'
 str_scan_tips3 = '2. Generate QRCode with server addr, scan'
 
@@ -92,8 +92,8 @@ while not app.need_exit():
 
         if len(global_url) == 0:
             color = image.Color.from_rgb(0x6e, 0x6e, 0x6e)
-            base_img.draw_string(base_img.width()//2 - image.string_size(str_no_url_tips1, 2).width()//2, int(base_img.height() * 0.15), str_no_url_tips1, color, 1.5)
-            base_img.draw_string(base_img.width()//2 - image.string_size(str_no_url_tips2, 1.5).width()//2, int(base_img.height() * 0.15) + str_height_2 + 10, str_no_url_tips2, color, 1.5)
+            base_img.draw_string(base_img.width()//2 - image.string_size(str_no_url_tips1, 1.5).width()//2,  img_exit.height() + 15 , str_no_url_tips1, color, 1.5)
+            base_img.draw_string(base_img.width()//2 - image.string_size(str_no_url_tips2, 1.5).width()//2,  img_exit.height() + 15 + str_height_2 + 10, str_no_url_tips2, color, 1.5)
             box = [base_img.width()//2-img_scan.width()//2, base_img.height()//2-50, 100, 100]
             if touch_box(t, box):
                 base_img.draw_image(box[0], box[1], img_scan)
@@ -169,9 +169,9 @@ while not app.need_exit():
             else:
                 img.draw_image(box[0], box[1], img_exit)
 
-            img.draw_string(20, int(img.height() * 0.75), str_scan_tips1, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
-            img.draw_string(20, int(img.height() * 0.75) + str_height_2 + 10, str_scan_tips2, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
-            img.draw_string(20, int(img.height() * 0.75) + (str_height_2 + 10) * 2, str_scan_tips3, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
+            img.draw_string(0, int(img.height() - (str_height_2 * 3 + 3 * 4)), str_scan_tips1, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
+            img.draw_string(0, int(img.height() - (str_height_2 * 3 + 3 * 4)) + str_height_2 + 4, str_scan_tips2, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
+            img.draw_string(0, int(img.height()  - (str_height_2 * 3 + 3 * 4)) + str_height_2 * 2 + 4*2, str_scan_tips3, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
             disp.show(img)
             del cam
             cam = None
