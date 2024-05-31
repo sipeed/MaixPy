@@ -1,6 +1,7 @@
-from maix import nn, camera, display, image, key, time
+from maix import nn, camera, display, image, time, touchscreen, app
 import os
 import math
+
 
 recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud")
 
@@ -8,26 +9,70 @@ recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", featu
 #     recognizer.load_faces("/root/faces.bin")
 
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
-dis = display.Display()
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+back_btn_pos = (0, 0, 70, 30) # x, y, w, h
+learn_btn_pos = (0, recognizer.input_height() - 30, 60, 30)
+clear_btn_pos = (recognizer.input_width() - 60, recognizer.input_height() - 30, 60, 30)
+back_btn_disp_pos = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_btn_pos[0], back_btn_pos[1], back_btn_pos[2], back_btn_pos[3])
+learn_btn_disp_pos = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, learn_btn_pos[0], learn_btn_pos[1], learn_btn_pos[2], learn_btn_pos[3])
+clear_btn_disp_pos = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, clear_btn_pos[0], clear_btn_pos[1], clear_btn_pos[2], clear_btn_pos[3])
+pressed_flag = [False, False, False]
 
-g_pressed = False
+def draw_btns(img : image.Image):
+    img.draw_rect(back_btn_pos[0], back_btn_pos[1], back_btn_pos[2], back_btn_pos[3], image.Color.from_rgb(255, 255, 255), 2)
+    img.draw_string(back_btn_pos[0] + 4, back_btn_pos[1] + 8, "< back", image.COLOR_WHITE)
+    img.draw_rect(learn_btn_pos[0], learn_btn_pos[1], learn_btn_pos[2], learn_btn_pos[3], image.Color.from_rgb(255, 255, 255), 2)
+    img.draw_string(learn_btn_pos[0] + 4, learn_btn_pos[1] + 8, "learn", image.COLOR_WHITE)
+    img.draw_rect(clear_btn_pos[0], clear_btn_pos[1], clear_btn_pos[2], clear_btn_pos[3], image.Color.from_rgb(255, 255, 255), 2)
+    img.draw_string(clear_btn_pos[0] + 4, clear_btn_pos[1] + 8, "clear", image.COLOR_WHITE)
 
-def on_key(key_id, state):
-    global g_pressed
-    print(f"key: {key_id}, state: {state}")
-    if state == key.State.KEY_RELEASED:
-        g_pressed = True
+def is_in_button(x, y, btn_pos):
+    return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
+
+def on_touch(x, y, pressed):
+    '''
+        Return learn, clear, ret
+    '''
+    global pressed_flag
+    if pressed:
+        if is_in_button(x, y, back_btn_disp_pos):
+            pressed_flag[2] = True
+        elif is_in_button(x, y, learn_btn_disp_pos):
+            pressed_flag[0] = True
+        elif is_in_button(x, y, clear_btn_disp_pos):
+            pressed_flag[1] = True
+        else: # cancel
+            pressed_flag = [False, False, False]
+    else:
+        if pressed_flag[0]:
+            print("learn btn click")
+            pressed_flag[0] = False
+            return True, False, False
+        if pressed_flag[1]:
+            print("clear btn click")
+            pressed_flag[1] = False
+            return False, True, False
+        if pressed_flag[2]:
+            print("back btn click")
+            pressed_flag[2] = False
+            return False, False, True
+    return False, False, False
 
 # Init key will cancel the default ok button function(exit app)
-btn = key.Key(on_key)
 learn_id = 0
 last_learn_img = None
 last_learn_t = 0
 
-while 1:
+while not app.need_exit():
+    x, y, pressed = ts.read()
+    learn, clear, back = on_touch(x, y, pressed)
+    if back:
+        break
+    elif clear:
+        for i in range(len(recognizer.labels) - 1):
+            recognizer.remove_face(0)
     img = cam.read()
-    learn = g_pressed
-    g_pressed = False
     faces = recognizer.recognize(img, 0.5, 0.45, 0.8, learn, learn)
     for obj in faces:
         color = image.COLOR_RED if obj.class_id == 0 else image.COLOR_GREEN
@@ -49,6 +94,7 @@ while 1:
         img.draw_image(0, 0, last_learn_img)
     if learn:
         recognizer.save_faces("/root/faces.bin")
-    dis.show(img)
+    draw_btns(img)
+    disp.show(img)
 
 

@@ -19,10 +19,10 @@ cd ~/maix
 git clone https://github.com/sipeed/MaixCDK
 ```
 
-Then, you need to set the environment variable MAIXCAK_PATH to specify the path to MaixCDK, which can be added in ~/.bashrc or ~/.zshrc (depending on your shell):
+Then, you need to set the environment variable MAIXCDK_PATH to specify the path to MaixCDK, which can be added in ~/.bashrc or ~/.zshrc (depending on your shell):
 
 ```shell
-export MAIXCAK_PATH=~/maix/MaixCDK
+export MAIXCDK_PATH=~/maix/MaixCDK
 ```
 
 Only after successfully setting the environment variable can MaixPy locate the MaixCDK source code.

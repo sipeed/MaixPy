@@ -19,10 +19,10 @@ cd ~/maix
 git clone https://github.com/sipeed/MaixCDK
 ```
 
-然后需要设置环境变量 `MAIXCAK_PATH` 指定 MaixCDK 的路径，可以在 `~/.bashrc` 或者`~/.zshrc`（根据你使用的shell决定）添加：
+然后需要设置环境变量 `MAIXCDK_PATH` 指定 MaixCDK 的路径，可以在 `~/.bashrc` 或者`~/.zshrc`（根据你使用的shell决定）添加：
 
 ```shell
-export MAIXCAK_PATH=~/maix/MaixCDK
+export MAIXCDK_PATH=~/maix/MaixCDK
 ```
 
 只有在成功设置环境变量后， MaixPy 才能找到 MaixCDK 源码。

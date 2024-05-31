@@ -30,6 +30,8 @@ Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</
 
 **It is recommended to purchase the bundle with a `TF card`, `camera`, `2.3-inch touchscreen`, `case`, `Type-C data cable`, `Type-C one-to-two mini board`, and `4P serial port socket+cable`**, which will be convenient for later use and development. **The following tutorials assume that you already have these accessories** (including the screen).
 
+**It is highly recommended to purchase a package that includes a screen, as it greatly enhances the development experience.** If you do not need a screen for actual deployment in a production environment, you can start with a screen-included kit for initial development, and then either remove the screen or purchase a screenless version for mass production later on.
+
 If you did not purchase a TF card, you will need to **prepare** a **TF card reader** to flash the system.
 
 >! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.

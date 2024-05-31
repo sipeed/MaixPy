@@ -23,6 +23,8 @@ items:
         label: 添加额外的 Python 包
     -   file: basic/app.md
         label: 应用开发和商店
+    -   file: basic/auto_start.md
+        label: 开机自启
 
 -   label: 基础图像和算法
     items:
@@ -32,6 +34,8 @@ items:
         label: 摄像头使用
     -   file: vision/image_ops.md
         label: 基本图像操作
+    -   file: vision/touchsreen.md
+        label: 触摸屏使用
     -   file: vision/find_blobs.md
         label: 寻找色块
     -   file: vision/line_tracking.md

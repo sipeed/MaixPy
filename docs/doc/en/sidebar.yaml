@@ -23,6 +23,8 @@ items:
         label: Add python packages
     -   file: basic/app.md
         label: Apps development
+    -   file: basic/auto_start.md
+        label: Auto start
 
 -   label: Basic images and algorithms
     items:
@@ -32,6 +34,8 @@ items:
         label: Camera uses
     -   file: vision/image_ops.md
         label: Image control
+    -   file: vision/touchsreen.md
+        label: Touch screen
     -   file: vision/find_blobs.md
         label: Finding color blocks
     -   file: vision/line_tracking.md
