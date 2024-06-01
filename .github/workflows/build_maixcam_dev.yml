@@ -60,7 +60,7 @@ jobs:
           echo "--------------------------------"
           echo "-- Test MaixPy basic for Linux now --"
           echo "--------------------------------"
-          python test/test_basic.py
+          chmod +x ./run.sh && ./run.sh test/test_basic.py
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
