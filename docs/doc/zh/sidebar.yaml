@@ -34,7 +34,7 @@ items:
         label: 摄像头使用
     -   file: vision/image_ops.md
         label: 基本图像操作
-    -   file: vision/touchsreen.md
+    -   file: vision/touchscreen.md
         label: 触摸屏使用
     -   file: vision/find_blobs.md
         label: 寻找色块

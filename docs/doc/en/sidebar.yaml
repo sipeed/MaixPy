@@ -34,7 +34,7 @@ items:
         label: Camera uses
     -   file: vision/image_ops.md
         label: Image control
-    -   file: vision/touchsreen.md
+    -   file: vision/touchscreen.md
         label: Touch screen
     -   file: vision/find_blobs.md
         label: Finding color blocks
