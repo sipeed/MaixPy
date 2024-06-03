@@ -96,6 +96,8 @@ Usage:
 * Hardware connection: You can connect the device to the `Type-C one-to-two mini board`, which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.
 * Open the application you want to use, such as QR code recognition. When the device scans a QR code, it will send the result to your main controller via serial.
 > The serial baud rate is `115200`, the data format is `8N1`, and the protocol follows the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). You can find the corresponding application introduction on the [MaixHub APP](https://maixhub.com/app) to view the protocol.
+> 如果应用没有做串口输出结果，你也可以自己基于对应功能的例程，自行按照[串口使用文档](./peripheral/uart.md)添加串口输出结果。
+> If APP no serial output, you can also do it by yourself, follow function examples and [UART usage doc](./peripheral/uart.md) to add function and serial output.
 
 ## Prepare to Connect the Computer and Device
 

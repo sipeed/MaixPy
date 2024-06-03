@@ -108,6 +108,87 @@ device = "/dev/ttyS1"
 serial1 = uart.UART(device, 115200)
 ```
 
+## 使用串口协议通信
+
+基于串口，你可以按照你自己的习惯进行通信，直接发字符串结果，或者可以结合`Python`的`struct`库进行编码成二进制协议。
+
+另外 MaixPy 也内置了一个通信协议可以直接使用。
+
+这里的通信协议即：规定通信双方的以什么样的格式来传输内容，方便双方解析识别信息，是一个二进制协议，包括帧头、数据内容、校验等。
+完整的协议定义在 [Maix 串口通信协议标准](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md)。
+没有接触过通信协议可能看起来有点困难，结合下面的例子多看几遍就能理解了。
+
+
+比如我们现在有一个物体检测，我们想检测到物体后通过串口发送给其它设备（比如 STM32 单片机或者 Arduino 单片机），告诉其我们检测到了什么物体，坐标是多少。
+
+完整的例程：[MaixPy/examples/protocol/comm_protocol_yolov5.py](https://github.com/sipeed/MaixPy/tree/main/examples/protocol/comm_protocol_yolov5.py)
+
+首先我们需要检测到物体，参考 `yolov5` 检测物体的例程即可，这里我们就省略其它细节，来看检测到的结果是什么样
+```python
+while not app.need_exit():
+    img = cam.read()
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    for obj in objs:
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
+        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+    dis.show(img)
+```
+可以看到`objs`是多个检测结果，这里在屏幕上进行画框了，我们也可以在这里想办法把结果通过串口发送出去。
+这里我们不需要手动初始化串口，直接使用内置的`maix.comm, maix.protocol`模块，调用`comm.CommProtoco`会自动初始化串口，默认波特率是`115200`，串口协议的相关可以在设备`系统设置->通信协议`里面设置。
+系统设置里面可能还有其它通信方式比如`tcp`，默认是`uart`，你也可以通过`maix.app.get_sys_config_kv("comm", "method")`来获取到当前设置的是不是`uart`。
+
+```python
+from maix import comm, protocol, app
+from maix.err import Err
+import struct
+
+def encode_objs(objs):
+    '''
+        encode objs info to bytes body for protocol
+        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...
+    '''
+    body = b""
+    for obj in objs:
+        body += struct.pack("<hhHHH", obj.x, obj.y, obj.w, obj.h, obj.class_id)
+    return body
+
+APP_CMD_ECHO = 0x01
+APP_CMD_DETECT_RES = 0x02
+
+p = comm.CommProtocol(buff_size = 1024)
+
+while not app.need_exit():
+    # ...
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    if len(objs) > 0:
+        body = encode_objs(objs)
+        p.report(APP_CMD_DETECT_RES, body)
+    # ...
+```
+
+这里通过`encode_objs`函数将所有检测到的物体信息打包成`bytes`类型的数据，然后用`p.report`函数将结果发送出去。
+
+这里我们对`body`内容进行了一个简单的定义，即`2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...`，
+含义是：
+* 这张图中检测到多个物体，在`body`中按顺序排列，每个目标占用 `2+2+2+2+2 = 10` 个字节的长度，一共有`body_len / 10`个物体。
+* 第1、2个字节代表识别到的物体的左上角的 `x` 坐标，单位是像素，因为 yolov5 的结果这个坐标值有可能为负数，所以我们用一个`short`类型的值来表示，这里使用了小端编码（LE）。
+> 这里小端即数值的低字节在前，比如坐标 `x` 为 `100`, 十六进制为 `0x64`，我们用两个字节的`short`来表示就是`0x0064`，这里小端编码成 `bytes` 就是`0x64`在前， 结果就是`b'\x64\x00'`。
+* 同理，将后面的数据都依次编码，一个物体得到一个`10`字节长的`bytes`类型数据。
+* 循环将所有物体信息编码并拼接成一个`bytes`。
+
+在调用`report`函数时，底层会自动按照协议拼接上协议头、校验和等等，这是在另一端就能收到一帧完整的数据了。
+
+在另一端收到信息后也要按照协议进行解码，如果接收端也是用 MaixPy 可以直接：
+```python
+while not app.need_exit():
+    msg = p.get_msg()
+    if msg and msg.is_report and msg.cmd == APP_CMD_DETECT_RES:
+        print("receive objs:", decode_objs(msg.get_body()))
+        p.resp_ok(msg.cmd, b'1')
+```
+
+如果是其它设备比如`STM32`或者`Arduino`则可以参考 [Maix 串口通信协议标准](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md) 附录中的 C 语言函数进行编解码。
 
 
 

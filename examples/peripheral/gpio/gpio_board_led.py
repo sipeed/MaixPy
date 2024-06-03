@@ -1,7 +1,7 @@
 from maix import gpio, pinmap, time
 
 pinmap.set_pin_function("A14", "GPIOA14")
-led = gpio.GPIO("A14", gpio.Mode.OUT)
+led = gpio.GPIO("GPIOA14", gpio.Mode.OUT)
 led.value(0)
 
 while 1:
