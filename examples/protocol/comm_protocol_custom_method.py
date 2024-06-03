@@ -27,7 +27,7 @@ while not app.need_exit():
         if msg.cmd == APP_CMD_ECHO:
             resp_msg = "echo from app {}".format(app.app_id())
             send_data = msg.encode_resp_ok(resp_msg.encode())
-        elif msg.cmd == protocol.CMD.CMD_SET_UPLOAD:
+        elif msg.cmd == protocol.CMD.CMD_SET_REPORT:
             send_data = msg.encode_resp_err(Err.ERR_NOT_IMPL, "this cmd not support auto upload".encode())
     if send_data:
         send(send_data)

@@ -6,6 +6,8 @@ title: MaixPy 使用 GPIO
 
 使用 GPIO 可以控制引脚输入或者输出高低电平，用来读取信号或者输出控制信号，十分常用。
 
+**注意** `MaixCAM` 的引脚是 `3.3V` 耐受，请勿输入 `5V` 电压。
+
 
 ## MaixPy 中使用 GPIO
 
@@ -23,7 +25,7 @@ title: MaixPy 使用 GPIO
 from maix import gpio, pinmap, time
 
 pinmap.set_pin_function("A14", "GPIOA14")
-led = gpio.GPIO("A14", gpio.Mode.OUT)
+led = gpio.GPIO("GPIOA14", gpio.Mode.OUT)
 led.value(0)
 
 while 1:
@@ -43,7 +45,7 @@ while 1:
 from maix import gpio, pinmap, time
 
 pinmap.set_pin_function("A19", "GPIOA19")
-led = gpio.GPIO("A19", gpio.Mode.IN)
+led = gpio.GPIO("GPIOA19", gpio.Mode.IN)
 
 while 1:
     print(led.value())

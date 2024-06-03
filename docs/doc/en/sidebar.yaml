@@ -120,7 +120,7 @@ items:
     items:
     -   file: modules/acc.md
         label: Accelerometer
-    -   file: modules/temp_hum.md
+    -   file: modules/temp_humi.md
         label: Temperature and humidity
     -   file: modules/tof.md
         label: TOF

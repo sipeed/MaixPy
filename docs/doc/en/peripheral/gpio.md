@@ -4,6 +4,8 @@
 
 Using GPIO allows you to control pins for input or output high and low levels, which is commonly used to read signals or output control signals.
 
+**Note:** The pins on the `MaixCAM` are tolerant to `3.3V`. Do not input `5V` voltage.
+
 ## Using GPIO in MaixPy
 
 > MaixPy Firmware should > 4.1.2(not include)
@@ -20,7 +22,7 @@ For example, on MaixCAM, some pins are already occupied by other functions by de
 from maix import gpio, pinmap, time
 
 pinmap.set_pin_function("A14", "GPIOA14")
-led = gpio.GPIO("A14", gpio.Mode.OUT)
+led = gpio.GPIO("GPIOA14", gpio.Mode.OUT)
 led.value(0)
 
 while 1:
@@ -38,7 +40,7 @@ For more APIs, please refer to the [GPIO API Documentation](https://wiki.sipeed.
 from maix import gpio, pinmap, time
 
 pinmap.set_pin_function("A19", "GPIOA19")
-led = gpio.GPIO("A19", gpio.Mode.IN)
+led = gpio.GPIO("GPIOA19", gpio.Mode.IN)
 
 while 1:
     print(led.value())

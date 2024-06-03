@@ -1,12 +1,11 @@
-from maix import comm, protocol
-from maix import app
+from maix import comm, protocol, app
 from maix.err import Err, check_raise
 
-APP_ID = "my_app1"
 
 APP_CMD_ECHO = 0x01
 
-app.set_app_id(APP_ID)
+# APP_ID = "my_app1"
+# app.set_app_id(APP_ID) # for test, teperory set app id, DO NOT use it when release(pack) APP.
 
 # init communication object, will init uart or tcp server according to system config
 # we can get current setting by maix.app.get_sys_config_kv("comm", "method")
@@ -18,6 +17,6 @@ while not app.need_exit():
         if msg.cmd == APP_CMD_ECHO:
             resp_msg = "echo from app {}".format(app.app_id())
             p.resp_ok(msg.cmd, resp_msg.encode())
-        elif msg.cmd == protocol.CMD.CMD_SET_UPLOAD:
+        elif msg.cmd == protocol.CMD.CMD_SET_REPORT:
             p.resp_err(msg.cmd, Err.ERR_NOT_IMPL, "this cmd not support auto upload".encode())
 

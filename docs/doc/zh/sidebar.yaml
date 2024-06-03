@@ -120,7 +120,7 @@ items:
     items:
     -   file: modules/acc.md
         label: 加速度计使用
-    -   file: modules/temp_hum.md
+    -   file: modules/temp_humi.md
         label: 温湿度传感器
     -   file: modules/tof.md
         label: TOF 测距
