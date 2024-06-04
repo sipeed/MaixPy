@@ -1,23 +1,25 @@
 from maix import image, key, app, display
 
-g_key = 0
-g_state = 0
+class App:
+    def __init__(self):
+        self.key_obj = key.Key(self.on_key)
+        self.disp = display.Display()
+        self.key_id = 0
+        self.state = 0
 
-def on_key(key_id, state):
-    '''
-        this func called in a single thread
-    '''
-    global g_key, g_state
-    print(f"key: {key_id}, state: {state}") # key.c or key.State.KEY_RELEASED
-    g_key = key_id
-    g_state = state
+    def on_key(self, key_id, state):
+        '''
+            this func called in a single thread
+        '''
+        print(f"key: {key_id}, state: {state}") # key.c or key.State.KEY_RELEASED
+        self.key_id = key_id
+        self.state = state
 
-# Init key will cancel the default ok button function(exit app)
-key = key.Key(on_key)
-disp = display.Display()
+    def run(self):
+        while not app.need_exit():
+            img = image.Image(self.disp.width(), self.disp.height(), image.Format.FMT_RGB888)
+            msg = f"key: {self.key_id}, state: {self.state}"
+            img.draw_string(0, 10, msg, image.Color.from_rgb(255, 255, 255), 1.5)
+            self.disp.show(img)
 
-while not app.need_exit():
-    img = image.Image(disp.width(), disp.height(), image.Format.FMT_RGB888)
-    msg = f"key: {g_key}, state: {g_state}"
-    img.draw_string(0, 10, msg, image.Color.from_rgb(255, 255, 255), 1.5)
-    disp.show(img)
+App().run()
