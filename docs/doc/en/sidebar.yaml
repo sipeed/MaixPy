@@ -25,6 +25,8 @@ items:
         label: Apps development
     -   file: basic/auto_start.md
         label: Auto start
+    -   file: basic/view_src_code.md
+        label: View API source code
 
 -   label: Basic images and algorithms
     items:
@@ -44,6 +46,8 @@ items:
         label: QRcode identity
     -   file: vision/apriltag.md
         label: AprilTag identity
+    -   file: vision/opencv.md
+        label: Use OpenCV
 
 -   label: AI Vision
     items:
@@ -118,10 +122,10 @@ items:
 
 -   label: Off-chip modules
     items:
-    -   file: modules/acc.md
-        label: Accelerometer
     -   file: modules/temp_humi.md
         label: Temperature and humidity
+    -   file: modules/acc.md
+        label: Accelerometer
     -   file: modules/tof.md
         label: TOF
     -   file: modules/thermal_cam.md
