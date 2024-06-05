@@ -13,4 +13,6 @@ If the function you want to encapsulate does not depend on other functionalities
 
 ## If Your Module Needs to Depend on Other Basic APIs of MaixPy
 
-You need to learn how to compile and use [MaixCDK](https://github.com/sipeed/MaixCDK) first, because MaixPy is generated from MaixCDK APIs. Some functionalities in MaixPy are also available in MaixCDK, and then... TODO
+**Method One**: Directly Modify MaixPy Firmware， Refer to [Viewing MaixPy API Source Code](../basic/view_src_code.md) for guidance.
+
+
