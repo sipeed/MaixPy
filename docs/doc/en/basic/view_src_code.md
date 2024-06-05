@@ -6,7 +6,7 @@ title: How to Find the Source Code Corresponding to MaixPy API
 
 MaixPy is implemented based on Python, with some functions written in Python and most of the underlying code written in C/C++. This ensures efficient performance.
 
-If you have questions while using a function, you can consult this document and the API documentation. If your doubts are still unresolved, you can find the underlying implementation source code using the method described in this article. **You are also welcome to contribute to the documentation or code if you discover issues, and become a MaixPy developer!**
+If you have questions while using a function, you can consult this document and the API documentation. If your doubts are still unresolved, you can find the underlying implementation source code using the method described in this article. **You are also welcome to contribute to the documentation or code, and become a MaixPy developer!**
 
 ## Check the Documentation First
 

@@ -136,6 +136,33 @@ print(w, h)
 
 **注意**这里`scale`是放大倍数，默认是`1`，和`draw_string`应该保持一致。
 
+## 中文支持和自定义字体
+
+`image` 模块支持加载`ttf/otf`字体，默认字体只支持英文，如果要显示中文或者自定义字体可以先下载字体文件到设备上，然后加载字体。
+系统也内置了几个字体，在`/maixapp/share/font`目录下面，代码示例：
+```python
+from maix import image, display, app, time
+
+image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 32)
+print("fonts:", image.fonts())
+image.set_default_font("sourcehansans")
+
+disp = display.Display()
+
+img = image.Image(disp.width(), disp.height())
+img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0))
+
+disp.show(img)
+while not app.need_exit():
+    time.sleep(1)
+```
+加载字体文件，然后设置默认的字体，也可以不设置默认的字体，在写字的函数参数设置:
+```python
+img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0), font="sourcehansans")
+```
+
+注意 `string_size`方法也会使用设置的默认字体计算大小，也可以通过`font`参数单独设置要计算大小的字体。
+
 
 ## 画线
 
