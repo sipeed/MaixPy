@@ -134,6 +134,33 @@ print(w, h)
 
 **Note** that here, `scale` is the magnification factor, and the default is `1`. It should be consistent with `draw_string`.
 
+## Chinese support and custom fonts
+
+The `image` module supports loading `ttf/otf` fonts. The default font only supports English. If you want to display Chinese or custom fonts, you can first download the font file to the device and then load the font.
+The system also has several built-in fonts, under the `/maixapp/share/font` directory, code example:
+```python
+from maix import image, display, app, time
+
+image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 32)
+print("fonts:", image.fonts())
+image.set_default_font("sourcehansans")
+
+disp = display.Display()
+
+img = image.Image(disp.width(), disp.height())
+img.draw_string(2, 2, "Hello! Hello, world!", image.Color.from_rgba(255, 0, 0))
+
+disp.show(img)
+while not app.need_exit():
+time.sleep(1)
+```
+Load the font file, then set the default font, or you can set the default font without setting the default font, and set the parameters in the writing function:
+```python
+img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0), font="sourcehansans")
+```
+
+Note that the `string_size` method will also use the default font to calculate the size, and you can also use the `font` parameter to set the font to be calculated separately.
+
 ## Drawing Lines
 
 `image.Image` provides the `draw_line` method, which can draw lines on the image:
