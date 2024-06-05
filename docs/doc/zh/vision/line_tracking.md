@@ -115,6 +115,31 @@ while 1:
 
 本文介绍常用方法，更多 API 请看 API 文档的 [image](../../../api/maix/image.md) 部分。
 
+### 提升巡线的速度
+
+这里提供几个提升巡线速度的方法
+
+1. 选择合适的分辨率
+
+   越大的分辨率计算速度越慢，可以根据识别距离和精度的要求来选择更合适的分辨率
+
+2. 使用灰度图识别
+
+   使用灰度图识别时，算法只会处理一个通道，有更快的识别速度，在颜色单一的环境会很有用。注意此时向`get_regression`传入`thresholds`时，只有`l_min`和`l_max`有效。
+
+   获取灰度图的方法：
+
+   ```python
+   # 方法1
+   cam = camera.Camera(320, 240， image.Format.FMT_GRAYSCALE)    # MaixPy v4.2.1后支持
+   gray_img = cam.read()										# 获取灰度图
+   
+   # 方法2
+   cam = camera.Camera(320, 240)
+   img = cam.read()
+   gray_img = img.to_format(image.Format.FMT_GRAYSCALE)			# 获取灰度图
+   ```
+
 ## 如何使用MaixCam的默认应用程序寻找直线
 
 为了快速验证寻找直线的功能，可以先使用MaixCam提供的`line_tracking`应用程序来体验寻找直线的效果。

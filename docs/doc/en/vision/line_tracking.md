@@ -116,6 +116,31 @@ Here are explanations of commonly used parameters. If you cannot find parameters
 
 This article introduces commonly used methods. For more APIs, please see the [image](../../../api/maix/image.md) section of the API documentation.
 
+### Increasing the speed of line tracking
+
+Here are a few ways to increase the speed of line tracking
+
+1. Choose a suitable resolution
+
+   The larger the resolution, the slower the calculation speed, you can choose a more suitable resolution according to the recognition distance and accuracy requirements.
+
+2. Use gray scale image
+
+   When using gray scale recognition, the algorithm will only process one channel, there is a faster recognition speed, in the environment of a single color will be very useful. Note that only `l_min` and `l_max` are valid when passing `thresholds` to `get_regression` when using gray scale image recognition.
+
+   Methods for get gray scale image:
+
+   ```python
+   # Example 1
+   cam = camera.Camera(320, 240， image.Format.FMT_GRAYSCALE)    	# Support after MaixPy v4.2.1
+   gray_img = cam.read()											# get gray scale image
+   
+   # Example 2
+   cam = camera.Camera(320, 240)
+   img = cam.read()
+   gray_img = img.to_format(image.Format.FMT_GRAYSCALE)			# get gray scale image
+   ```
+
 ## How to tracking line using MaixCam's default application
 
 To quickly verify the line tracking functionality, you can use the `line_tracking` application provided by MaixCam to experience the line finding effect.
