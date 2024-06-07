@@ -106,7 +106,7 @@ def draw_net_charts(img, x, y, info, imgs):
         size_name = image.string_size(k, scale = 0.6, font = "tektur_bold")
         w = max(size0.width(), size1.width(), size_name.width())
         h = size0.height() + size1.height() + size_name.height() + 10 * 2
-        img.draw_string(x + (w - size_name.width()) // 2, y + h - size_name.height(), k, COLOR_GRAY, 0.6)
+        img.draw_string(x + (w - size_name.width()) // 2, y + h - size_name.height(), k, COLOR_GRAY, 0.6, font="sourcehansans")
         img.draw_string(x + w - size0.width(), y, speed_tx_str, COLOR_GRAY, 0.5)
         img.draw_string(x + w - size1.width(), y + size0.height() + 10, speed_rx_str, COLOR_GRAY, 0.5)
         x += w + 20
@@ -114,7 +114,7 @@ def draw_net_charts(img, x, y, info, imgs):
 
 def draw_temp(img, x, y, temp, imgs):
     img_temp = imgs["img_temp"]
-    cpu_pkg_temp = temp["cpu"][0]
+    cpu_pkg_temp = temp["cpu"][0] if len(temp["cpu"]) > 0 else -1
     img.draw_image(x, y, img_temp)
     x += img_temp.width() + 20
     temp_str = f"CPU: {cpu_pkg_temp}"
@@ -207,19 +207,19 @@ def get_pc_info_process(info):
                 info[1] = True
             else:
                 info[1] = False
-        time.sleep(0.3)
+        time.sleep(0.2)
 
 
-def main():
+def main(screen):
     # server_addr = 'http://192.168.0.105:9998'
     # server_addr = 'http://127.0.0.1:9999'
     server_addr = app.get_app_config_kv("basic", "server_addr", "http://192.168.1.123:9999")
 
-    screen = display.Display()
     ts = TouchScreen()
 
     image.load_font("tektur_bold", "assets/Tektur-Bold.ttf", size = 32)
     image.load_font("my_font", "assets/my_font.ttf", size = 32)
+    image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 24)
     print("fonts:", image.fonts())
     image.set_default_font("tektur_bold")
     imgs = {}
@@ -304,7 +304,6 @@ def main():
             gc.collect()
             scanner = None
         if pc_info[0] or pc_info[1]:
-            t = time.time()
             img = image.Image(screen.width(), screen.height(), RGBA)
             img.draw_rect(0, 0, img.width(), img.height(), COLOR_WHITE, thickness=-1)
             img.draw_image(img.width() - imgs["img_bg"].width(), img.height() - imgs["img_bg"].height(), imgs["img_bg"])
@@ -333,7 +332,6 @@ def main():
             show_img = img
             flush = True
             pc_info[0] = None
-
         if touch_status["setting"]:
             img2 = img.copy()
             draw_settings(img2, pc_info[2], imgs, touch_status, scan_img, scanner_msg)
@@ -350,4 +348,15 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    screen = display.Display()
+    try:
+        main(screen)
+    except Exception:
+        import traceback
+        e = traceback.format_exc()
+        print(e)
+        img = image.Image(screen.width(), screen.height())
+        img.draw_string(2, 2, e, image.COLOR_WHITE, font="hershey_complex_small", scale=0.6)
+        screen.show(img)
+        while not app.need_exit():
+            time.sleep(0.2)

@@ -2,7 +2,7 @@ from maix import camera, image
 
 class Scanner:
     def __init__(self, w, h):
-        self.cam = camera.Camera(w, h)
+        self.cam = camera.Camera(200, 200)
 
     def scan(self):
         img = self.cam.read()

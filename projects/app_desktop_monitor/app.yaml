@@ -1,7 +1,7 @@
 id: desktop_monitor
 name: Desktop Monitor
 name[zh]: 桌面监视器
-version: 1.0.1
+version: 1.0.2
 icon: assets/desktop_monitor.json
 author: neucrack@Sipeed Ltd
 desc: Monitoring PC info, or other info from internet or local.
