@@ -23,7 +23,7 @@ class Servos:
     def __init__(self, pwm_pin:str, dir:float, duty_min:float, duty_max:float):
         all_pins = pinmap.get_pins()
         if pwm_pin not in all_pins:
-            raise RuntimeError(f"{pwm_pin} does not exist")
+            raise RuntimeError(f"PIN: {pwm_pin} does not exist")
         pin_functions = pinmap.get_pin_functions(pwm_pin)
         pwm_num = -1
         for pin_func in pin_functions:
@@ -43,9 +43,9 @@ class Servos:
         self.pwm.duty(self.value/100*self.duty_range+self.duty_min)
         self.pwm.enable()
         
-    def __del__(self):
-        self.pwm.duty(0)
-        self.disable()
+    # def __del__(self):
+    #     self.pwm.duty(0)
+    #     self.disable()
         
     def enable(self):
         """Enable servos.
