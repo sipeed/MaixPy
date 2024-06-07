@@ -1,7 +1,7 @@
 id: face_tracking
 name: face_tracking
 name[zh]: 人脸追踪
-version: 1.0.0
+version: 1.0.1
 author: Sipeed Ltd
 icon: assets/face_tracking.json
 desc: Face tracking with MaixCAM and gimbal.
