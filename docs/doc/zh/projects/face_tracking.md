@@ -1,12 +1,22 @@
-# 人脸追踪
+---
+title: MaixPy 人脸追踪
+update:
+  - date: 2024-06-11
+    author: support@sipeed.com
+    version: 1.0.0
+    content: 初版文档
+---
+
+阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
 
 ## 简介
 
 基于 MaixCAM 和云台的人脸追踪程序。实际效果如下图所示：
 
-![](./assets/face_tracking1.jpg)
+![](../../../../projects/app_face_tracking/assets/face_tracking1.jpg)
 
-![](./assets/face_tracking2.jpg)
+
+![](../../../../projects/app_face_tracking/assets/face_tracking2.jpg)
 
 ## 如何使用例程
 
@@ -48,7 +58,7 @@
 
 * 想要退出程序按左上角的按钮即可。
 
-  ![](./assets/exit.jpg)
+  ![](../../../../projects/app_face_tracking/assets/exit.jpg)
 
 ## 常见问题
 
