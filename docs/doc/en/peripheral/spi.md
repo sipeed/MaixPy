@@ -1,10 +1,10 @@
 ---
 title: MaixPy ues SPI
 update:
-  - date: 2024-06-05
-    author: sipeed
+  - date: 2024-06-11
+    author: iawak9lkm
     version: 1.0.0
-    content: First Edition Documentation
+    content: Initial document
 ---
 
 ## SPI Introduction
@@ -57,34 +57,42 @@ This is the pinout of MaixCAM.
 
 You need to use `maix.peripheral.pinmap` to complete the pin mapping for SPI before use.
 
-**Note: The MaixCAM's SPI can only be used as an SPI master device.**
-
-**MaixCAM's SPI1 is a software SPI, its device node is `/dev/spidev4.0`, in practice you only need to pass 1 at the parameter `id` to use it, and CDK will automatically complete the mapping relationship.**
+**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The valid level of SPI0-3 hardware CS is low, and the valid level of SPI4 hardware CS is high. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API.**
 
 Using SPI with MaixPy is easy:
 
 ```python
-from maix.peripheral import spi, pinmap
+from maix import spi, pinmap
 
-pinmap.set_pin_function("A24", "SPI1_CS")
-pinmap.set_pin_function("A23", "SPI1_MISO")
-pinmap.set_pin_function("A25", "SPI1_MOSI")
-pinmap.set_pin_function("A22", "SPI1_SCK")
+pin_function = {
+    "A24": "SPI4_CS",
+    "A23": "SPI4_MISO",
+    "A25": "SPI4_MOSI",
+    "A22": "SPI4_SCK",
+    "A27": "GPIOA27"
+}
 
-s = spi.SPI(1, spi.Mode.MASTER, 400000)
+for pin, func in pin_function.items():
+    if 0 != pinmap.set_pin_function(pin, func):
+        print(f"Failed: pin{pin}, func{func}")
+        exit(-1)
+        
 
-v = list(range(0, 32))
+spidev = spi.SPI(4, spi.Mode.MASTER, 400*1000, soft_cs=True, cs="A27", cs_enable=0)
 
-r = s.write_read(v, len(v))
-if r != []:
-    print(f"spi read {len(r)} bytes")
-    print(f"read:{r}")
-if r == v:
-    print("The loopback test was successful.")
+b = bytes(range(0, 8))
+
+res = spidev.write_read(b, len(b))
+if res == b:
+    print("loopback test succeed")
 else:
-    print("The loopback test failed")
+    print("loopback test failed")
+    print(f"send:{b}\nread:{res}")
 ```
 
-Before executing the code, you need to connect the MOSI and MISO of the corresponding SPI peripheral in the code. The example uses the full-duplex transfer API `spi.write_read()` and the data received by the SPI will be equal to the data sent.
+You need to connect the `MOSI` and `MISO` of this SPI first.
+
+Configure the required pins with `pinmap` and then enable full duplex communication, the return value will be equal to the sent value.
+
 
 See the [SPI API documentation]((../../../api/maix/peripheral/spi.md)) for a more detailed description of the SPI API.

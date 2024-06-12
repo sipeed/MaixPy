@@ -1,8 +1,8 @@
 ---
 title: MaixPy SPI 串行外设接口使用介绍
 update:
-  - date: 2024-06-05
-    author: sipeed
+  - date: 2024-06-11
+    author: iawak9lkm
     version: 1.0.0
     content: 初版文档
 ---
@@ -59,33 +59,42 @@ MaixCAM 的引脚分布如下：
 
 使用前需要 `maix.peripheral.pinmap` 完成对 SPI 的管脚映射。
 
-**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。**
-
-**左侧 SPI1 为软件 SPI，实际的设备节点为 `/dev/spi4.0`，在使用 MaixCDK/MaixPy SPI API 时只需传入编号1即可使用该软件 SPI**
+**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。MaixCAM 的 SPI 暂时不支持修改硬件 CS 引脚有效电平，其中 SPI0～3 硬件 CS 的有效电平为低电平，SPI4 硬件 CS 的有效电平为高电平。如需要使用其他的 CS 有效电平，请在 SPI API 中配置软件 CS 引脚及其有效电平。**
 
 通过 MaixPy 使用 SPI 很简单：
 
 ```python
-from maix.peripheral import spi
+from maix import spi, pinmap
 
-### Note: The IO corresponding to SPI2 is multiplexed as SDIO by default, the SDIO interface is connected to the WIFI device, if it is multiplexed as SPI2, it will lead to WIFI unavailability.
-### 注意：SPI2 对应的 IO 默认被复用作 SDIO，该 SDIO 接口连接着 WIFI 设备，如果复用为 SPI2，会导致 WIFI 不可用。
-# s = spi.SPI(2, spi.Mode.MASTER, 400000)
+pin_function = {
+    "A24": "SPI4_CS",
+    "A23": "SPI4_MISO",
+    "A25": "SPI4_MOSI",
+    "A22": "SPI4_SCK",
+    "A27": "GPIOA27"
+}
 
-s = spi.SPI(1, spi.Mode.MASTER, 400000)
-v = list(range(0, 32))
+for pin, func in pin_function.items():
+    if 0 != pinmap.set_pin_function(pin, func):
+        print(f"Failed: pin{pin}, func{func}")
+        exit(-1)
+        
 
-r = s.write_read(v, len(v))
-if r != []:
-    print(f"spi read {len(r)} bytes")
-    print(f"read:{r}")
-if r == v:
-    print("The loopback test was successful.")
+spidev = spi.SPI(4, spi.Mode.MASTER, 400*1000, soft_cs=True, cs="A27", cs_enable=0)
+
+b = bytes(range(0, 8))
+
+res = spidev.write_read(b, len(b))
+if res == b:
+    print("loopback test succeed")
 else:
-    print("The loopback test failed")
+    print("loopback test failed")
+    print(f"send:{b}\nread:{res}")
 ```
 
-将对应的 SPI 设备的 MOSI 引脚和 MISO 引脚接在一起，使用全双工通信，接收的数据将会等于发送的数据。先写后读没有以上现象。
+请先连接该 SPI 的 `MOSI` 和 `MISO`。
+
+先通过 `pinmap` 配置所需的引脚，然后启用全双工通信，返回值将等于发送值。
 
 更多 SPI API 的详细说明请看 [SPI API 文档](../../../api/maix/peripheral/spi.md)
 
