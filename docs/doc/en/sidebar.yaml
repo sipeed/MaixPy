@@ -56,7 +56,7 @@ items:
     -   file: vision/classify.md
         label: AI object classify
     -   file: vision/yolov5.md
-        label: YOLOv5 object detect
+        label: YOLOv5/v8 object detect
     -   file: vision/face_detection.md
         label: Face detect and keypoints
     -   file: vision/face_recognition.md
