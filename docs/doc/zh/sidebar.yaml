@@ -56,7 +56,7 @@ items:
     -   file: vision/classify.md
         label: AI 物体分类
     -   file: vision/yolov5.md
-        label: YOLOv5 物体检测
+        label: YOLOv5/v8 物体检测
     -   file: vision/face_detection.md
         label: 人脸及关键点检测
     -   file: vision/face_recognition.md
