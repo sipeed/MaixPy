@@ -1,10 +1,10 @@
 ---
 title: MaixPy ADC Analog Signal-to-Digital Converter Usage Introduction
 update:
-  - date: 2024-06-05
-    author: sipeed
+  - date: 2024-06-11
+    author: iawak9lkm
     version: 1.0.0
-    content: First Edition Documentation
+    content: Initial document
 ---
 
 ## ADC Introduction

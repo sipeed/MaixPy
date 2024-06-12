@@ -1,8 +1,8 @@
 ---
 title: MaixPy Pinmap 管脚映射使用介绍
 update:
-  - date: 2024-06-05
-    author: sipeed
+  - date: 2024-06-11
+    author: iawak9lkm
     version: 1.0.0
     content: 初版文档
 ---

@@ -1,10 +1,10 @@
 ---
 title: MaixPy Pinmap Introduction
 update:
-  - date: 2024-06-05
-    author: sipeed
+  - date: 2024-06-11
+    author: iawak9lkm
     version: 1.0.0
-    content: First Edition Documentation.
+    content: Initial document
 ---
 
 ## Pinmap Introduction
@@ -46,7 +46,7 @@ The following diagram lists the pin numbers and their functions on the MaixCAM b
 
 ![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
-Or read the [SG2002 Chip Manual](https://cn.dl.sipeed.com/fileList/LICHEE/LicheeRV_Nano/07_Datasheet/SG2002_Preliminary_Datasheet_V1.0-alpha_CN. pdf) Pinmux section for the remaining pin numbers and functions.
+Or read the [SG2002 Chip Manual](https://cn.dl.sipeed.com/fileList/LICHEE/LicheeRV_Nano/07_Datasheet/SG2002_Preliminary_Datasheet_V1.0-alpha_CN.pdf) Pinmux section for the remaining pin numbers and functions.
 
 It's actually quite easy to use Pinmap to manage pin functions through MaixPy.
 
