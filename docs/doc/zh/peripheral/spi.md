@@ -38,12 +38,12 @@ SPI 采用主从模式(Master—Slave)架构，支持一个或多个Slave设备�
 
   极性与相位组合成了 SPI 的四种模式：
 
-  | Mode | CPOL | CPHA |
-  | ---- | ---- | ---- |
-  | 0    | 0    | 0    |
-  | 1    | 0    | 1    |
-  | 2    | 1    | 0    |
-  | 3    | 1    | 1    |
+| Mode | CPOL | CPHA |
+| ---- | ---- | ---- |
+| 0    | 0    | 0    |
+| 1    | 0    | 1    |
+| 2    | 1    | 0    |
+| 3    | 1    | 1    |
   
 * SPI 通常支持全双工和半双工通信。
 
@@ -59,7 +59,7 @@ MaixCAM 的引脚分布如下：
 
 使用前需要 `maix.peripheral.pinmap` 完成对 SPI 的管脚映射。
 
-**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。MaixCAM 的 SPI 暂时不支持修改硬件 CS 引脚有效电平，其中 SPI0～3 硬件 CS 的有效电平为低电平，SPI4 硬件 CS 的有效电平为高电平。如需要使用其他的 CS 有效电平，请在 SPI API 中配置软件 CS 引脚及其有效电平。**
+**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。MaixCAM 的 SPI 暂时不支持修改硬件 CS 引脚有效电平，所有 SPI 硬件 CS 的有效电平为高电平。如需要使用其他的 CS 有效电平，请在 SPI API 中配置软件 CS 引脚及其有效电平。SPI4 为软件模拟的 SPI，实测最大速率为 1.25MHz，使用方法与硬件 SPI 无异。**
 
 通过 MaixPy 使用 SPI 很简单：
 
@@ -70,8 +70,7 @@ pin_function = {
     "A24": "SPI4_CS",
     "A23": "SPI4_MISO",
     "A25": "SPI4_MOSI",
-    "A22": "SPI4_SCK",
-    "A27": "GPIOA27"
+    "A22": "SPI4_SCK"
 }
 
 for pin, func in pin_function.items():
@@ -80,7 +79,7 @@ for pin, func in pin_function.items():
         exit(-1)
         
 
-spidev = spi.SPI(4, spi.Mode.MASTER, 400*1000, soft_cs=True, cs="A27", cs_enable=0)
+spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
 
 b = bytes(range(0, 8))
 

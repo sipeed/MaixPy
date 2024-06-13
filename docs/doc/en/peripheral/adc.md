@@ -1,5 +1,5 @@
 ---
-title: MaixPy ADC Analog Signal-to-Digital Converter Usage Introduction
+title: Using ADC in MaixPy
 update:
   - date: 2024-06-11
     author: iawak9lkm
@@ -28,7 +28,7 @@ Using ADC with MaixPy is easy:
 from maix.peripheral import adc
 from maix import time
 
-a = adc.ADC(0, adc.RES_BIT_12, 5.0062)
+a = adc.ADC(0, adc.RES_BIT_12)
 
 raw_data = a.read()
 print(f"ADC raw data:{raw_data}")
@@ -55,7 +55,7 @@ MaixCAM's ADC peripheral has a sampling accuracy of 12 bits, which means that th
 
 The MaixCAM's ADC peripheral cannot scan at a frequency higher than 320K/s, which is the reason for the additional wait time between ADC samples in the previous example.
 
-The MaixCAM's ADC peripheral has an internal reference voltage of 1.5V, which may vary slightly in actual use.Since the typical internal reference voltage is 1.5 V, the ADC range of Soc is 0 to 1.5 V. Since the ADC range of this range is small, MaixCAM has designed a voltage divider circuit for the ADC peripheral to increase the ADC range. The reference voltage Vin_max of this voltage divider circuit is about 4.6~5.0V, typical value 4.8V, due to the error of resistor resistance in the circuit, the impedance of ADC external device, and the deviation of internal reference voltage.
+The MaixCAM's ADC peripheral has an internal reference voltage of 1.5V, which may vary slightly in actual use.Since the typical internal reference voltage is 1.5 V, the ADC range of Soc is 0 to 1.5 V. Since the ADC range of this range is small, MaixCAM has designed a voltage divider circuit for the ADC peripheral to increase the ADC range. The reference voltage Vin_max of this voltage divider circuit is about 4.6~5.0V, due to the error of resistor resistance in the circuit, the impedance of ADC external device, and the deviation of internal reference voltage. A higher precision default value has been chosen in the API, and there is generally no need to pass this parameter.
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/peripheral/adc.png)
 
