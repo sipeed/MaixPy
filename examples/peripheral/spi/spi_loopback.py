@@ -4,8 +4,7 @@ pin_function = {
     "A24": "SPI4_CS",
     "A23": "SPI4_MISO",
     "A25": "SPI4_MOSI",
-    "A22": "SPI4_SCK",
-    "A27": "GPIOA27"
+    "A22": "SPI4_SCK"
 }
 
 for pin, func in pin_function.items():
@@ -14,7 +13,7 @@ for pin, func in pin_function.items():
         exit(-1)
         
 
-spidev = spi.SPI(4, spi.Mode.MASTER, 400*1000, soft_cs=True, cs="A27", cs_enable=0)
+spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
 
 b = bytes(range(0, 8))
 

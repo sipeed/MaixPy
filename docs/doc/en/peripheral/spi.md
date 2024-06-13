@@ -1,5 +1,5 @@
 ---
-title: MaixPy ues SPI
+title: Using SPI in MaixPy
 update:
   - date: 2024-06-11
     author: iawak9lkm
@@ -38,12 +38,12 @@ In terms of communication protocols, SPI behavior is generally like this:
 
   Polarity and phase are combined to form the four modes of SPI:
 
-  | Mode | CPOL | CPHA |
-  | ---- | ---- | ---- |
-  | 0    | 0    | 0    |
-  | 1    | 0    | 1    |
-  | 2    | 1    | 0    |
-  | 3    | 1    | 1    |
+| Mode | CPOL | CPHA |
+| ---- | ---- | ---- |
+| 0    | 0    | 0    |
+| 1    | 0    | 1    |
+| 2    | 1    | 0    |
+| 3    | 1    | 1    |
 
 * SPI typically supports both full-duplex transmission and half-duplex transmission.
 
@@ -57,7 +57,7 @@ This is the pinout of MaixCAM.
 
 You need to use `maix.peripheral.pinmap` to complete the pin mapping for SPI before use.
 
-**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The valid level of SPI0-3 hardware CS is low, and the valid level of SPI4 hardware CS is high. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API.**
+**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The active level of all SPI hardware CS is high. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API. SPI4 is the software simulated SPI, the measured maximum rate is 1.25MHz, and the usage is the same as hardware SPI.**
 
 Using SPI with MaixPy is easy:
 
@@ -68,8 +68,7 @@ pin_function = {
     "A24": "SPI4_CS",
     "A23": "SPI4_MISO",
     "A25": "SPI4_MOSI",
-    "A22": "SPI4_SCK",
-    "A27": "GPIOA27"
+    "A22": "SPI4_SCK"
 }
 
 for pin, func in pin_function.items():
@@ -78,7 +77,7 @@ for pin, func in pin_function.items():
         exit(-1)
         
 
-spidev = spi.SPI(4, spi.Mode.MASTER, 400*1000, soft_cs=True, cs="A27", cs_enable=0)
+spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
 
 b = bytes(range(0, 8))
 

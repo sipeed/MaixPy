@@ -1,7 +1,7 @@
 from maix.peripheral import adc
 from maix import time
 
-a = adc.ADC(0, adc.RES_BIT_12, 5.0062)
+a = adc.ADC(0, adc.RES_BIT_12)
 
 while True:
     raw_data = a.read()
