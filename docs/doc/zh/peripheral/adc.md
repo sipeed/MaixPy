@@ -1,5 +1,5 @@
 ---
-title: MaixPy ADC 模拟信号数字转换器使用介绍
+title: MaixPy ADC 使用介绍
 update:
   - date: 2024-06-11
     author: iawak9lkm
@@ -26,7 +26,7 @@ ADC 外设一般有两个主要参数：分辨率和参考电压。
 from maix.peripheral import adc
 from maix import time
 
-a = adc.ADC(0, adc.RES_BIT_12, 5.0062)
+a = adc.ADC(0, adc.RES_BIT_12)
 
 raw_data = a.read()
 print(f"ADC raw data:{raw_data}")
@@ -53,7 +53,7 @@ MaixCAM ADC 外设采样精度为 12bit，也就是说采样输出范围为 0~40
 
 MaixCAM ADC 外设的扫描频率不能高于 320K/s，也就是上述示例中增加延时的原因。
 
-MaixCAM ADC 外设内部参考电压Vref为 1.5V，实际使用时会有些许偏差。因为内部参考电压典型值为 1.5V，所以 Soc 的 ADC 量程为 0～1.5V。该量程的 ADC 应用范围较小，故 MaixCAM 额外为 ADC 外设设计了分压电路来增大 ADC 的应用范围，该分压电路如下图所示。由于电路中电阻阻值存在误差、ADC 外设有阻抗、内部参考电压有些许偏差，该分压电路的参考电压 Vin_max 约为 4.6~5.0V，典型值 4.8V。
+MaixCAM ADC 外设内部参考电压Vref为 1.5V，实际使用时会有些许偏差。因为内部参考电压典型值为 1.5V，所以 Soc 的 ADC 量程为 0～1.5V。该量程的 ADC 应用范围较小，故 MaixCAM 额外为 ADC 外设设计了分压电路来增大 ADC 的应用范围，该分压电路如下图所示。由于电路中电阻阻值存在误差、ADC 外设有阻抗、内部参考电压有些许偏差，该分压电路的参考电压 Vin_max 约为 4.6~5.0V。API 中已经选择一个精度较高的默认值，一般情况下无需传递该参数。
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/peripheral/adc.png)
 
