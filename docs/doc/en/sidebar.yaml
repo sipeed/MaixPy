@@ -107,6 +107,8 @@ items:
 
 -   label: On-chip peripherals
     items:
+    -   file: peripheral/pinmap.md
+        label: PINMAP
     -   file: peripheral/gpio.md
         label: GPIO
     -   file: peripheral/uart.md
@@ -119,6 +121,8 @@ items:
         label: SPI
     -   file: peripheral/wdt.md
         label: WDT watchdog
+    -   file: peripheral/adc.md
+        label: ADC
 
 -   label: Off-chip modules
     items:

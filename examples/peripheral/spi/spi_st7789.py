@@ -10,7 +10,7 @@ https://item.taobao.com/item.htm?id=610352268976
 |5|SDA   |A25    |
 |6|SCL   |A22    |
 |7|VCC   |3V3    |
-|8|CS    |A27    |
+|8|CS    |A24    |
 """
 
 import sys
@@ -19,16 +19,16 @@ from PIL import ImageDraw
 import st7789
 from maix import time
 
-image_file = "maixcam-logo.jpg"
+### Select a picture.
+image_file = "xxx"
 
 disp = st7789.ST7789(
         height=135,
         rotation=0,
         port=4,
         dc="A14",
-        soft_cs="A27",
         backlight=None,             
-        spi_speed_hz=80000000,
+        spi_speed_hz=1250000,
         offset_left=40,
         offset_top=53
     )

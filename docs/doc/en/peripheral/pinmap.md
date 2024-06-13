@@ -1,5 +1,5 @@
 ---
-title: MaixPy Pinmap Introduction
+title: Using PINMAP in MaixPy
 update:
   - date: 2024-06-11
     author: iawak9lkm
