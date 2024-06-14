@@ -1,16 +1,16 @@
 ---
-title: Use OpenCV
+title: 使用 OpenCV
 ---
 
-## Introduction
+## 简介
 
-For MaixCAM, since it uses Linux and the performance can support using the Python version of OpenCV, you can use the `cv2` module directly in addition to the `maix` module.
+对于 MaixCAM，因为使用了 Linux， 并且性能基本能够支撑使用`Python`版本的`OpenCV`，所以除了使用`maix`模块，你也可以直接使用`cv2`模块。
 
-The examples in this article and more can be found in [MaixPy/examples/vision/opencv](https://github.com/sipeed/MaixPy/tree/main/examples/vision/opencv).
+本文例程以及更多可以在[MaixPy/examples/vision/opencv](https://github.com/sipeed/MaixPy/tree/main/examples/vision/opencv) 中找到。
 
-**Note that OpenCV functions are basically CPU-calculated. If you can use maix modules, try not to use OpenCV, because many maix functions are hardware-accelerated.**
+**注意 OpenCV 的函数基本都是 CPU 计算的，能使用 maix 的模块尽量不使用 OpenCV，因为 maix 有很多函数都是经过硬件加速过的。**
 
-## Load an Image
+## 加载一张图片
 
 ```python
 import cv2
@@ -20,12 +20,12 @@ img = cv2.imread(file_path)
 print(img)
 ```
 
-Since the `cv2` module is quite large, `import cv2` may take some time.
+因为`cv2`模块比较臃肿，`import cv2`可能会需要一点时间。
 
-## Display Image on Screen
 
-To display an image on the screen, convert it to a `maix.image.Image` object and then use `display` to show it:
+## 显示图像到屏幕
 
+但是由于直接使用了官方的 OpenCV，没有对接显示，所以要显示到屏幕上需要转换成`maix.image.Image`对象后再用`display`来显示：
 ```python
 from maix import display, image, time
 import cv2
@@ -42,11 +42,11 @@ while not app.need_exit():
     time.sleep(1)
 ```
 
-## Use OpenCV Functions
+## 使用 OpenCV 函数
 
-For example, edge detection:
+以边缘检测为例：
 
-Based on the code above, use the `cv2.Canny` function:
+基于上面的代码，使用`cv2.Canny`函数即可：
 
 ```python
 from maix import image, display, app, time
@@ -72,11 +72,11 @@ while not app.need_exit():
     disp.show(img_show)
 ```
 
-## Use Camera
+## 使用摄像头
 
-On a PC, we use OpenCV's `VideoCapture` class to read from the camera. For MaixCAM, OpenCV does not support this directly, so we use the `maix.camera` module to read from the camera and then use it with OpenCV.
+在 PC 上， 我们使用 `OpenCV` 的`VideoCapture`类来读取摄像头，对于 `MaixCAM`, `OpenCV` 没有适配，我们可以用`maix.camera` 模块来读取摄像头，然后给`OpenCV`使用。
 
-Convert a `maix.image.Image` object to a `numpy.ndarray` object using the `image.image2cv` function:
+通过`image.image2cv`函数将`maix.image.Image`对象转为`numpy.ndarray`对象给`OpenCV`使用：
 
 ```python
 from maix import image, display, app, time, camera
@@ -100,4 +100,3 @@ while not app.need_exit():
     img_show = image.cv2image(edged)
     disp.show(img_show)
 ```
-
