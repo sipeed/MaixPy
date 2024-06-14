@@ -141,6 +141,8 @@ items:
         label: Intro & Collection
     -   file: projects/line_tracking_robot.md
         label: Line tracking robot
+    -   file: projects/face_tracking.md
+        label: Face tracking 2-axis gimbal
 
 -   label: Advanced
     items:

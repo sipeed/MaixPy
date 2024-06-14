@@ -1,8 +1,8 @@
 ---
-title: MaixPy 人脸追踪
+title: MaixPy 2轴舵机云台人脸追踪
 update:
   - date: 2024-06-11
-    author: support@sipeed.com
+    author: iawak9lkm
     version: 1.0.0
     content: 初版文档
 ---
@@ -76,7 +76,7 @@ update:
   通常可以通过调节 PID 来使得该影响尽可能小；但是无法避免云台物理结构带来的抖动。可以尝试调节死区来减小抖动。
 
   ```python
-  target_ignore_limit = 0.08              
+  target_ignore_limit = 0.08
   # when target error < target_err_range*target_ignore_limit , set target error to 0
   ```
 
@@ -88,7 +88,7 @@ update:
 
   这是因为 MaixCAM 板子上引出的这个引脚没有 PWM 功能，请选择一个带 PWM 功能的引脚。
 
-  
+
 
 ## 如何追踪其他物体
 

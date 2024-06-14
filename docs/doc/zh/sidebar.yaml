@@ -141,6 +141,8 @@ items:
         label: 介绍和汇总
     -   file: projects/line_tracking_robot.md
         label: 小车巡线
+    -   file: projects/face_tracking.md
+        label: 人脸追踪2轴云台
 
 -   label: 进阶
     items:

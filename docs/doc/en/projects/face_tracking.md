@@ -1,8 +1,8 @@
 ---
-title: MaixPy Face Tracking
+title: MaixPy Face Tracking 2 axis servo gimbal
 update:
   - date: 2024-06-11
-    author: support@sipeed.com
+    author: iawak9lkm
     version: 1.0.0
     content: Initial documentation
 ---
@@ -76,7 +76,7 @@ Face recognition and tracking is accomplished using a gimbal consisting of two s
   You can usually make this effect as small as possible by adjusting the PID; however, there is no way to avoid the jitter caused by the physical structure of the gimbal. You can try to adjust the deadband to minimize the jitter.
 
   ```python
-  target_ignore_limit = 0.08              
+  target_ignore_limit = 0.08
   # when target error < target_err_range*target_ignore_limit , set target error to 0
   ```
 
