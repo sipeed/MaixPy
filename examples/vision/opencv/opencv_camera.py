@@ -8,9 +8,9 @@ while not app.need_exit():
     img = cam.read()
 
     # convert maix.image.Image object to numpy.ndarray object
-    t = time.time_ms()
+    t = time.ticks_ms()
     img = image.image2cv(img)
-    print("time: ", time.time_ms() - t)
+    print("time: ", time.ticks_ms() - t)
 
     # canny method
     edged = cv2.Canny(img, 180, 60)

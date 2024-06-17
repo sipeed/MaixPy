@@ -9,7 +9,7 @@ e.bind_camera(cam)
 f = open('/root/output.h265', 'wb')
 
 record_ms = 2000
-start_ms = time.time_ms()
+start_ms = time.ticks_ms()
 while not app.need_exit():
     frame = e.encode()
     img = e.capture()
@@ -18,7 +18,7 @@ while not app.need_exit():
     print(frame.size())
     f.write(frame.to_bytes(True))
 
-    if time.time_ms() - start_ms > record_ms:
+    if time.ticks_ms() - start_ms > record_ms:
         app.set_exit_flag(True)
 
 # Pack h265 to mp4

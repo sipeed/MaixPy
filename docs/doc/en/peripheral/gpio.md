@@ -16,7 +16,9 @@ First, we need to know which pins and GPIOs the device has. For MaixCAM, each pi
 
 It is important to note that pins can be used not only as GPIOs but also for other functions like PWM. Before using them, we need to set the pin function to GPIO.
 
-For example, on MaixCAM, some pins are already occupied by other functions by default, such as UART0 and WiFi (SDIO1 + A26), so it is not recommended to use them. Other pins can be used, and the A14 pin is connected to the onboard LED, which is used as a system load indicator by default. If initialized, it will automatically disable the system indicator function and can be used as a regular GPIO (note that `A14` can only be used as an output). This way, you can control the LED's on and off state.
+For example, on MaixCAM, **some pins are already occupied by other functions by default, such as UART0 and WiFi (SDIO1 + A26), so it is not recommended to use them.**
+
+Other pins can be used, and the A14 pin is connected to the onboard LED, which is used as a system load indicator by default. If initialized, it will automatically disable the system indicator function and can be used as a regular GPIO (note that `A14` can only be used as an output). This way, you can control the LED's on and off state.
 
 ```python
 from maix import gpio, pinmap, time

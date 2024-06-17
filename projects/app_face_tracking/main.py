@@ -77,7 +77,7 @@ class Target:
             int, int: If no target is found, return -1,-1.
                       If the target is found, return the coordinate values x,y of the center point of the target.
         """    
-        ltime = time.time_ms()
+        ltime = time.ticks_ms()
         img = self.cam.read()               # Reads an image frame.
         objs = self.detector.detect(img, conf_th = 0.4, iou_th = 0.45)  # Recognition.
         for obj in objs:                    # Find objects.
@@ -85,7 +85,7 @@ class Target:
             cent_x = obj.x + round(obj.w/2) # Calculate the x-coordinate of the target center point.
             cent_y = obj.y + round(obj.h/2) # Calculate the y-coordinate of the target center point.
             img.draw_rect(cent_x-1, cent_y-1, 2, 2, image.COLOR_GREEN)
-            rtime = time.time_ms()
+            rtime = time.ticks_ms()
             # print(f"find target used time:{round(rtime-ltime,2)}ms")
             self.__exit_listener(img)       # Queries whether the Exit button was pressed.
             self.disp.show(img)             # Display this image.
@@ -152,21 +152,21 @@ if __name__ == '__main__':
     
     total_uesd_time = 0
     total_fps = 0
-    t0 = time.time_ms()
+    t0 = time.ticks_ms()
     while not target.is_need_exit():
-        ltime = time.time_ms()
+        ltime = time.ticks_ms()
         
         # get target error
         err_pitch, err_roll = target.get_target_err()
         # interval limit to >= 10ms
-        if time.time_ms() - t0 < 10:
+        if time.ticks_ms() - t0 < 10:
             continue
-        t0 = time.time_ms()
+        t0 = time.ticks_ms()
         # run
         gimbal.run(err_pitch, err_roll, pitch_reverse = pitch_reverse, roll_reverse=roll_reverse)
         
         # Calculate FPS.
-        rtime = time.time_ms()
+        rtime = time.ticks_ms()
         utime = rtime-ltime
         total_uesd_time += utime
         total_fps += 1
