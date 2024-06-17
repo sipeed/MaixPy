@@ -200,8 +200,8 @@ def get_pc_info_process(info):
         print(json.dumps(info[0], ensure_ascii=False, indent = 4))
     t = 0
     while 1:
-        if time.time() - t > 1 and not info[0]:
-            t = time.time()
+        if time.ticks_s() - t > 1 and not info[0]:
+            t = time.ticks_s()
             info[0] = get_pc_info(info[2])
             if not info[0]:
                 info[1] = True

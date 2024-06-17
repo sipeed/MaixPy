@@ -7,13 +7,13 @@ v = video.Video("/root/output.h265", cam.width(), cam.height(), capture = True)
 v.bind_camera(cam)
 
 record_ms = 5000
-start_ms = time.time_ms()
+start_ms = time.ticks_ms()
 while not app.need_exit():
     v.encode()
     img = v.capture()
 
     disp.show(img)
 
-    if time.time_ms() - start_ms > record_ms:
+    if time.ticks_ms() - start_ms > record_ms:
         v.finish()
         app.set_exit_flag(True)

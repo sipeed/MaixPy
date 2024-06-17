@@ -70,11 +70,11 @@ stream.start()
 
 print("http://{}:{}".format(stream.host(), stream.port()))
 while not app.need_exit():
-    t = time.time_ms()
+    t = time.ticks_ms()
     img = cam.read()
     jpg = img.to_jpeg()
     stream.write(jpg)
-    print(f"time: {time.time_ms() - t}ms, fps: {1000 / (time.time_ms() - t)}")
+    print(f"time: {time.ticks_ms() - t}ms, fps: {1000 / (time.ticks_ms() - t)}")
 ```
 
 

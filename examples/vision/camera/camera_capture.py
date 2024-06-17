@@ -4,8 +4,8 @@ cam = camera.Camera(512, 320)   # Manually set resolution, default is too large
 disp = display.Display()        # MaixCAM default is 552x368
 
 while not app.need_exit():
-    t = time.time_ms()
+    t = time.ticks_ms()
     img = cam.read()             # Max FPS is determined by the camera hardware and driver settings
     disp.show(img)
-    print(f"time: {time.time_ms() - t}ms, fps: {1000 / (time.time_ms() - t)}")
+    print(f"time: {time.ticks_ms() - t}ms, fps: {1000 / (time.ticks_ms() - t)}")
 

@@ -41,7 +41,7 @@ global_bitrate = 1000 * 1000
 global_err_msg = ''
 base_img = image.Image(disp.width(), disp.height())
 
-run_last_ms = time.time_ms()
+run_last_ms = time.ticks_ms()
 run_cnt = 0
 def touch_box(t, box, oft = 0):
     if t[2] and t[0] + oft > box[0] and t[0] < box[0] + box[2] + oft and t[1] + oft > box[1] and t[1] < box[1] + box[3] + oft:
@@ -210,7 +210,7 @@ while not app.need_exit():
         else:
             base_img.draw_image(box[0], box[1], img_running)
 
-        curr_ms = time.time_ms()
+        curr_ms = time.ticks_ms()
         if curr_ms - run_last_ms > 500:
             run_last_ms = curr_ms
             if run_cnt == 2:

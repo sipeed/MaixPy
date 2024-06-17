@@ -88,9 +88,9 @@ while not app.need_exit():
             learn_id += 1
         if learn:
             last_learn_img = obj.face
-            last_learn_t = time.time()
+            last_learn_t = time.ticks_s()
     # show learned face on left-top
-    if last_learn_img and time.time() - last_learn_t < 5:
+    if last_learn_img and time.ticks_s() - last_learn_t < 5:
         img.draw_image(0, 0, last_learn_img)
     if learn:
         recognizer.save_faces("/root/faces.bin")

@@ -6,7 +6,7 @@ e = video.Encoder()
 f = open('/root/output.h265', 'wb')
 
 record_ms = 2000
-start_ms = time.time_ms()
+start_ms = time.ticks_ms()
 while not app.need_exit():
     img = cam.read()
     frame = e.encode(img)
@@ -14,7 +14,7 @@ while not app.need_exit():
     print(frame.size())
     f.write(frame.to_bytes(False))
 
-    if time.time_ms() - start_ms > record_ms:
+    if time.ticks_ms() - start_ms > record_ms:
         app.set_exit_flag(True)
    
 # Pack h265 to mp4

@@ -138,7 +138,7 @@ class PID:
         Returns:
             float: PID output.
         """
-        tnow = time.time_ms()
+        tnow = time.ticks_ms()
         dt = tnow - self._last_t
         output = 0
         if self._last_t == 0 or dt > 1000:
