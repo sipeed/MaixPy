@@ -11,7 +11,7 @@ for pin, func in pin_function.items():
     if 0 != pinmap.set_pin_function(pin, func):
         print(f"Failed: pin{pin}, func{func}")
         exit(-1)
-        
+
 
 spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
 
