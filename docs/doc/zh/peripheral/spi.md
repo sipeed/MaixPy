@@ -59,7 +59,7 @@ MaixCAM 的引脚分布如下：
 
 使用前需要 `maix.peripheral.pinmap` 完成对 SPI 的管脚映射。
 
-**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。MaixCAM 的 SPI 暂时不支持修改硬件 CS 引脚有效电平，所有 SPI 硬件 CS 的有效电平为高电平。如需要使用其他的 CS 有效电平，请在 SPI API 中配置软件 CS 引脚及其有效电平。SPI4 为软件模拟的 SPI，实测最大速率为 1.25MHz，使用方法与硬件 SPI 无异。**
+**注意：MaixCAM 由于其 SPI 外设的限制，只能作为 SPI 主设备使用。MaixCAM 的 SPI 暂时不支持修改硬件 CS 引脚有效电平，所有 SPI 硬件 CS 的有效电平为低电平。如需要使用其他的 CS 有效电平，请在 SPI API 中配置软件 CS 引脚及其有效电平。SPI4 为软件模拟的 SPI，实测最大速率为 1.25MHz，使用方法与硬件 SPI 无异。**
 
 通过 MaixPy 使用 SPI 很简单：
 
@@ -80,6 +80,16 @@ for pin, func in pin_function.items():
         
 
 spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
+
+### Example of full parameter passing.
+# spidev = spi.SPI(id=4,                  # SPI ID
+#                  mode=spi.Mode.MASTER,  # SPI mode
+#                  freq=1250000,          # SPI speed
+#                  polarity=0,            # CPOL 0/1, default is 0
+#                  phase=0,               # CPHA 0/1, default is 0
+#                  bits=8,                # Bits of SPI, default is 8
+#                  cs_enable=True,        # Use soft CS pin? True/False, default is False
+#                  cs='GPIOA19')          # Soft cs pin number, default is 'GPIOA19'
 
 b = bytes(range(0, 8))
 
