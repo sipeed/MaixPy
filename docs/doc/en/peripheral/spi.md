@@ -57,7 +57,7 @@ This is the pinout of MaixCAM.
 
 You need to use `maix.peripheral.pinmap` to complete the pin mapping for SPI before use.
 
-**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The active level of all SPI hardware CS is high. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API. SPI4 is the software simulated SPI, the measured maximum rate is 1.25MHz, and the usage is the same as hardware SPI.**
+**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The active level of all SPI hardware CS is low. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API. SPI4 is the software simulated SPI, the measured maximum rate is 1.25MHz, and the usage is the same as hardware SPI.**
 
 Using SPI with MaixPy is easy:
 
@@ -78,6 +78,16 @@ for pin, func in pin_function.items():
         
 
 spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
+
+### Example of full parameter passing.
+# spidev = spi.SPI(id=4,                  # SPI ID
+#                  mode=spi.Mode.MASTER,  # SPI mode
+#                  freq=1250000,          # SPI speed
+#                  polarity=0,            # CPOL 0/1, default is 0
+#                  phase=0,               # CPHA 0/1, default is 0
+#                  bits=8,                # Bits of SPI, default is 8
+#                  cs_enable=True,        # Use soft CS pin? True/False, default is False
+#                  cs='GPIOA19')          # Soft cs pin number, default is 'GPIOA19'
 
 b = bytes(range(0, 8))
 
