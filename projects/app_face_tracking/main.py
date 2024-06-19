@@ -90,7 +90,7 @@ class Target:
             self.__exit_listener(img)       # Queries whether the Exit button was pressed.
             self.disp.show(img)             # Display this image.
             return cent_x, cent_y           # Return (x, y)
-        self.__exit_listener(img)           
+        self.__exit_listener(img)
         self.disp.show(img)
         return -1, -1                       # Target not found. Return (-1, -1)
 
@@ -164,15 +164,10 @@ if __name__ == '__main__':
         t0 = time.ticks_ms()
         # run
         gimbal.run(err_pitch, err_roll, pitch_reverse = pitch_reverse, roll_reverse=roll_reverse)
-        
+
         # Calculate FPS.
         rtime = time.ticks_ms()
         utime = rtime-ltime
         total_uesd_time += utime
         total_fps += 1
         print(f"used time:{utime}ms, fps:{round(1000/(utime),2)}, avg_fps:{round(total_fps*1000/total_uesd_time, 2)}")
-        
-    
-    
-    
-    
