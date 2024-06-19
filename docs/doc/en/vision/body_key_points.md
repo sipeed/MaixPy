@@ -6,6 +6,8 @@ With MaixPy, you can easily detect the coordinates of keypoints on human joints,
 
 MaixPy implements human pose detection based on [YOLOv8-Pose](https://github.com/ultralytics/ultralytics), which can detect `17` keypoints on the human body.
 
+![](../../assets/body_keypoints.jpg)
+
 ## Usage
 
 Using MaixPy's `maix.nn.YOLOv8` class, you can easily implement this functionality:
