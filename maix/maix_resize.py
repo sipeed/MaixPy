@@ -15,6 +15,8 @@ def main_cli():
 
     from maix import image
     img = image.load(args.input)
+    if img is None:
+        raise Exception(f"load image {args.input} failed")
     fit = {
         'fill': image.Fit.FIT_FILL,
         'contain': image.Fit.FIT_CONTAIN,

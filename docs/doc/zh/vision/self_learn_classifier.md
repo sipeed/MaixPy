@@ -12,14 +12,19 @@ title: MaixPy 自学习分类器
 
 ## MaixPy 中使用自学习分类器
 
+默认镜像自带了 [自学习分类 APP](https://maixhub.com/app/30)，可以直接尝试使用熟悉使用流程。
+
+![](../../assets/self_learn_classifier.jpg)
+
 步骤：
-* 采集 n 张分类图。
-* 采集 n*m 张图，每个分类采集 m 张，顺序无所谓。
-* 启动学习。
-* 识别图像输出结果。
+* 点击`+ Class` 按钮， 采集 n 张分类(class)图，采集图时物体需要在屏幕的白色框中。
+* 点击`+ Sample`按钮，采集 m 张样本图，每个分类都采集一些，顺序无所谓，张数也比较随意，最好是在各个角度拍一点，不要差距过大。
+* 点击`Learn`按钮，启动学习，会自动根据采集的分类图和样本图进行分类学习，得到分类的特征。
+* 屏幕中央对准物体，识别图像输出结果，可以看到屏幕显示了所属的分类，以及和这个分类的相似距离，相似距离越近则越相似。
+* 此 APP 学习后的特征值会存到`/root/my_classes.bin`，所以退出应用或者重启了仍然会自动加载上一次的。
 
+简洁版本代码，完整版本请看[例程](https://github.com/sipeed/maixpy/tree/main/examples/vision/ai_vision)里面的完整代码。
 
-简洁版本代码，完整版本请看例程里面的完整代码。
 ```python
 from maix import nn, image
 
@@ -53,5 +58,20 @@ max_idx, max_score = classifier.classify(img)
 print(maix_idx, max_score)
 ```
 
+## 储存和加载学习到的特征值
+
+使用 `save` 函数进行储存，会得到一个二进制文件，里面存了物体的特征值。
+再使用时用`load`函数进行加载即可。
+
+```python
+classifier.save("/root/my_classes.bin")
+classifier.load("/root/my_classes.bin")
+```
+
+如果你给每一个分类命名了，比如存到了`labels`变量，也可以使用：
+```python
+classifier.save("/root/my_classes.bin", labels = labels)
+labels = classifier.load("/root/my_classes.bin")
+```
 
 

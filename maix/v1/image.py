@@ -42,6 +42,8 @@ class Image:
                 self.__img = image.Image(width, height)
             else:
                 self.__img = image.load(path)
+                if self.__img is None:
+                    raise Exception(f"load image {path} failed")
 
     def get_priv_img(self):
         return self.__img

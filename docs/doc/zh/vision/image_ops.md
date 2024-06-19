@@ -64,6 +64,8 @@ MaixPy 提供了`maix.image.load`方法，可以从文件系统读取图像：
 from maix import image
 
 img = image.load("/root/image.jpg")
+if img is None:
+    raise Exception(f"load image failed")
 print(img)
 ```
 
