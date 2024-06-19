@@ -9,6 +9,8 @@ title: MaixPy 检测人体关键点姿态检测
 
 MaixPy 实现了基于 [YOLOv8-Pose](https://github.com/ultralytics/ultralytics) 的人体姿态检测，可以检测到人体`17`个关键点。
 
+![](../../assets/body_keypoints.jpg)
+
 ## 使用
 
 使用 MaixPy 的 `maix.nn.YOLOv8` 类可以轻松实现：

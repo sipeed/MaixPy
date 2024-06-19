@@ -1,0 +1,10 @@
+id: human_pose
+name: Human Pose
+version: 1.0.0
+author: Sipeed Ltd
+icon: icon.json
+desc: Detect human body 17 keypoints.
+files:
+  - icon.json
+  - app.yaml
+  - main.py
