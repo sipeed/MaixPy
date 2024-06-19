@@ -64,6 +64,8 @@ MaixPy provides the `maix.image.load` method, which can read images from the fil
 from maix import image
 
 img = image.load("/root/image.jpg")
+if img is None:
+    raise Exception(f"load image failed")
 print(img)
 ```
 

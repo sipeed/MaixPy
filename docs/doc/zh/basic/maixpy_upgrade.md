@@ -20,6 +20,14 @@ title: 更新 MaixPy
 * 在设置中设置 WiFi， 让系统联网。
 * 点击设置应用中的 `更新 MaixPy` 进行更新。
 
+也可以执行 Python 代码调用系统命令来更新：
+```python
+import os
 
-> 如果你会使用终端， 也可以在终端中使用 `pip install MaixPy -U` 来更新 MaixPy。
+os.system("pip install MaixPy -U")
+```
+
+> 如果你会使用终端， 也可以直接在终端中使用 `pip install MaixPy -U` 来更新 MaixPy。
+
+另外你也可以手动下载`wheel` 文件（`.whl`格式）传输到设备（传输方法见后文[MaixVision 使用](./maixvision.md)）后通过 `pip install ******.whl` 命令来安装。
 

@@ -19,5 +19,16 @@ If you prefer not to update the system (since system changes are usually minimal
 * Set up WiFi in the settings to connect the system to the internet.
 * Click on `Update MaixPy` in the settings app to proceed with the update.
 
+
+You can also execute Python code to call system command to install:
+```python
+import os
+
+os.system("pip install MaixPy -U")
+```
+
 > If you are comfortable using the terminal, you can also update MaixPy by using `pip install MaixPy -U` in the terminal.
 
+
+
+And you can download `wheel` file (`.whl`format) manually, and send to device(transfer method see [MaixVision Usage](./maixvision.md)), then install by `pip install *****.whl` command.

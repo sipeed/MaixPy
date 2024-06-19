@@ -1,0 +1,10 @@
+id: self_learn_classifier
+name: Self Learn Classifier
+version: 1.0.1
+author: Sipeed Ltd
+icon: app.png
+desc: Learn anything on device, no PC training needed.
+files:
+  - app.png
+  - app.yaml
+  - main.py
