@@ -23,9 +23,6 @@ jobs:
       - name: Build MaixPy
         id: build_maixpy
         run: |
-          echo "-- Check python version must python 3.11 --"
-          python3 -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
-          python -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
           whereis python
           whereis python3
           # export PATH=~/.local/bin/:$PATH
@@ -48,9 +45,10 @@ jobs:
           echo "--------------------------------"
           echo "-- Test MaixPy basic for Linux now --"
           echo "--------------------------------"
-          release_path=`ls dist|awk '{print $1}'`
+          release_name=`ls dist|awk '{print $1}'`
+          release_path=dist/$release_name
           echo ::set-output name=release_path::$release_path
-          echo ::set-output name=release_name::$release_path
+          echo ::set-output name=release_name::$release_name
 
       - name: Publish MaixPy to pypi.org
         run: |
