@@ -92,8 +92,8 @@ jobs:
       - name: Upload MaixPy Doc to release assets
         uses: svenstaro/upload-release-action@v2
         with:
-          file: ${{ steps.build_doc.outputs.release_path }}
-          asset_name: ${{ steps.build_doc.outputs.release_name }}
+          file: ${{ steps.build_doc.outputs.release_doc_path }}
+          asset_name: ${{ steps.build_doc.outputs.release_doc_name }}
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
