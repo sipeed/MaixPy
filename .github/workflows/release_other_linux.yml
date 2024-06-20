@@ -47,8 +47,8 @@ jobs:
           echo "--------------------------------"
           release_name=`ls dist|awk '{print $1}'`
           release_path=dist/$release_name
-          echo ::set-output name=release_path::$release_path
-          echo ::set-output name=release_name::$release_name
+          echo "release_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_name=$release_name" >> $GITHUB_OUTPUT
 
       - name: Publish MaixPy to pypi.org
         run: |
