@@ -49,12 +49,12 @@ jobs:
           echo "-- Test MaixPy basic for Linux now --"
           echo "--------------------------------"
           chmod +x ./run.sh && ./run.sh test/test_basic.py
-          release_name=`ls dist|awk '{print $1}'`
-          release_path=dist/$release_name
-          echo ::set-output name=release_linux_path::$release_path
-          echo ::set-output name=release_linux_name::$release_name
           mkdir -p artifact
           cp dist/* artifact/
+          release_name=`ls artifact|awk '{print $1}'`
+          release_path=artifact/$release_name
+          echo ::set-output name=release_linux_path::$release_path
+          echo ::set-output name=release_linux_name::$release_name
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
@@ -65,12 +65,36 @@ jobs:
           echo ::set-output name=release_path::$release_path
           echo ::set-output name=release_name::$release_name
 
-      - name: Publish MaixPy to pypi.org
+      - name: Build doc
+        id: build_doc
         run: |
-          echo "[pypi]" > ~/.pypirc
-          echo "  username = __token__" >> ~/.pypirc
-          echo "  password = ${{ secrets.PYPI_TOKEN }}" >> ~/.pypirc
-          twine upload artifact/*.whl
+          pip3 install teedoc
+          cd docs
+          echo "== install plugins =="
+          teedoc install
+          echo "== start build =="
+          teedoc build
+          echo "== build complete =="
+          remote_addr=`git remote get-url --push origin`
+          remote_addr=`echo $remote_addr|  awk -F'://' '{print $2}'`
+          user_name=`git log -1 --pretty=format:'%an'`
+          user_email=`git log -1 --pretty=format:'%ae'`
+          echo "== checkout gh-pages branch =="
+          doc_dir=maixpy_${{ github.ref_name }}_doc
+          mv out $doc_dir
+          zip ${doc_dir}.zip -r $doc_dir
+          release_name=${doc_dir}.zip
+          release_path=$release_name
+          echo ::set-output name=release_path::$release_path
+          echo ::set-output name=release_name::$release_name
+
+      - name: Upload MaixPy Doc to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_doc.outputs.release_path }}
+          asset_name: ${{ steps.build_doc.outputs.release_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload MaixPy MaixCAM to release assets
         uses: svenstaro/upload-release-action@v2
@@ -87,4 +111,11 @@ jobs:
           asset_name: ${{ steps.build_maixpy.outputs.release_linux_name }}
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish MaixPy to pypi.org
+        run: |
+          echo "[pypi]" > ~/.pypirc
+          echo "  username = __token__" >> ~/.pypirc
+          echo "  password = ${{ secrets.PYPI_TOKEN }}" >> ~/.pypirc
+          twine upload artifact/*.whl
 
