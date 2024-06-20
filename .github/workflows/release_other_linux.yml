@@ -1,4 +1,4 @@
-name: Relase MaixPy for MaixCAM
+name: Relase MaixPy for Linux
 
 on:
   release:
