@@ -61,10 +61,19 @@ jobs:
           echo "-- Test MaixPy basic for Linux now --"
           echo "--------------------------------"
           chmod +x ./run.sh && ./run.sh test/test_basic.py
+          mkdir -p artifact
+          mv dist/* artifact/
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
           python setup.py bdist_wheel maixcam
+          mv dist/* artifact/
+
+      - name: Upload MaixPy Linux firmware as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maixpy_firmware
+          path: artifact/*.whl
 
       # Runs a set of commands using the runners shell
       - name: Push doc to github pages
