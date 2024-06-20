@@ -53,8 +53,8 @@ jobs:
           cp dist/* artifact/
           release_name=`ls artifact|awk '{print $1}'`
           release_path=artifact/$release_name
-          echo ::set-output name=release_linux_path::$release_path
-          echo ::set-output name=release_linux_name::$release_name
+          echo "release_linux_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_linux_name=$release_name" >> $GITHUB_OUTPUT
           echo "----------------------------------"
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
@@ -62,8 +62,8 @@ jobs:
           cp dist/* artifact/
           release_name=`ls dist|awk '{print $1}'`
           release_path=dist/$release_name
-          echo ::set-output name=release_path::$release_path
-          echo ::set-output name=release_name::$release_name
+          echo "release_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_name=$release_name" >> $GITHUB_OUTPUT
 
       - name: Build doc
         id: build_doc
@@ -83,10 +83,11 @@ jobs:
           doc_dir=maixpy_${{ github.ref_name }}_doc
           mv out $doc_dir
           zip ${doc_dir}.zip -r $doc_dir
+          cd ..
           release_name=${doc_dir}.zip
-          release_path=$release_name
-          echo ::set-output name=release_path::$release_path
-          echo ::set-output name=release_name::$release_name
+          release_path=docs/$release_name
+          echo "release_doc_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_doc_name=$release_name" >> $GITHUB_OUTPUT
 
       - name: Upload MaixPy Doc to release assets
         uses: svenstaro/upload-release-action@v2
