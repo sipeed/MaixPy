@@ -13,19 +13,33 @@ title: MaixPy 人脸检测和关键点检测
 
 ## MaixPy 中使用人脸检测
 
-MaixPy 官方提供了两种人脸检测模型，分别来自开源项目 [face detector 1MB with landmark](https://github.com/biubug6/Face-Detector-1MB-with-landmark) 和 [Retinafate](https://github.com/biubug6/Pytorch_Retinaface)。
+MaixPy 官方提供了三种人脸检测模型，分别来自开源项目 [face detector 1MB with landmark](https://github.com/biubug6/Face-Detector-1MB-with-landmark) 和 [Retinafate](https://github.com/biubug6/Pytorch_Retinaface) 以及 [YOLOv8-face](https://github.com/derronqi/yolov8-face)。
 
-要使用需要先下载模型，选择一个即可，两者区别不大：
-* [face detector 1MB with landmark](https://maixhub.com/model/zoo/377)
-* [Retinafate](https://maixhub.com/model/zoo/378)
+这三种模型都可以用，`YOLOv8-face` 效果比较好但是速度略微慢一些，可以自己实际测试选择使用。
 
-然后拷贝模型文件到设备，拷贝方法见 [MaixVision 使用](../basic/maixvision.md)。
-> 默认镜像里面有一个文件，可以直接使用，如果没有则需要你自己下载，而且下载的压缩包里面有多个分辨率可以选择，分辨率越高越精准但耗时更长
+使用`YOLOv8-face`：（需要 MaixPy 版本 >= 4.3.8）
 
-然后执行代码，这里有一行被注释了代码是加载`Retinafae`模型，根据你下载的模型选择使用哪一行代码
+```python
+from maix import camera, display, image, nn, app
 
-> 本功能需要 MaixPy >= 4.1.4 才能使用
+detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud")
 
+cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
+dis = display.Display()
+
+while not app.need_exit():
+    img = cam.read()
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45, keypoint_th = 0.5)
+    for obj in objs:
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
+        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+        detector.draw_pose(img, obj.points, 2, image.COLOR_RED)
+    dis.show(img)
+```
+
+另外两种模型使用方法：
+这里有一行被注释了代码是加载`Retinafae`模型，根据你下载的模型选择使用哪一行代码
 
 ```python
 from maix import camera, display, image, nn, app
@@ -48,6 +62,13 @@ while not app.need_exit():
     dis.show(img)
 
 ```
+
+## 模型下载和其它分辨率模型
+
+下载模型，下载的压缩包里面有多个分辨率可以选择，分辨率越高越精准但耗时更长：
+* [face detector 1MB with landmark](https://maixhub.com/model/zoo/377)
+* [Retinafate](https://maixhub.com/model/zoo/378)
+* [YOLOv8-face](https://maixhub.com/model/zoo/407)
 
 
 
