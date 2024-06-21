@@ -45,6 +45,15 @@ Here are some articles from the MaixHub community:
 
 If you find any good articles, feel free to modify this article and submit a PR.
 
+## Exporting YOLOv5 ONNX Model File
+
+YOLOv5 provides an export option. Execute the following command in the `yolov5` directory:
+```shell
+python export.py --weights ../yolov5s.pt --include onnx --img 224 320
+```
+This command loads the `pt` parameter file and converts it to `onnx`, while also specifying the resolution. Note that the height comes first, followed by the width. The model was trained with `640x640`, but we re-specified the resolution to improve the running speed. The resolution `320x224` is used because it is closer to the MaixCAM screen ratio for better display. You can set it according to your needs.
+
+
 ## MaixCAM MUD File
 
 When converting onnx to `mud` format model files, refer to [MaixCAM Model Conversion](../ai_model_converter/maixcam.md). You will eventually get a `mud` file and a `cvimodel` file. The content of the `mud` file is:
@@ -63,3 +72,11 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 ```
 
 Replace the parameters according to the content of your training. For example, if you train to detect digits `0-9`, then just replace `labels=0,1,2,3,4,5,6,7,8,9`, and then place the two files in the same directory and load the `mud` file when running the model.
+
+
+## Upload share on MaixHub
+
+Share your model on [MaixHub model zoo](https://maixhub.com/model/zoo?platform=maixcam) 上传并分享你的模型，可以多提供几个分辨率供大家选择。
+
+
+

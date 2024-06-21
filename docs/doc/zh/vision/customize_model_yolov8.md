@@ -41,6 +41,32 @@ YOLOv8 不光支持检测物体，还有 yolov8-pose 支持关键点检测，出
 
 如果你有觉得讲得不错的文章欢迎修改本文并提交 PR。
 
+## YOLOv8 导出 onnx 模型
+
+在 `ultralytics` 目录下创建一个`export_onnx.py` 文件
+```python
+from ultralytics import YOLO
+import sys
+
+print(sys.path)
+net_name = sys.argv[1] # yolov8n.pt yolov8n-pose.pt # https://docs.ultralytics.com/models/yolov8/#supported-tasks-and-modes
+input_width = int(sys.argv[2])
+input_height = int(sys.argv[3])
+
+# Load a model
+model = YOLO(net_name)  # load an official model
+# model = YOLO("path/to/best.pt")  # load a custom model
+
+# Predict with the model
+results = model("https://ultralytics.com/images/bus.jpg")  # predict on an image
+path = model.export(format="onnx", imgsz=[input_width, input_height])  # export the model to ONNX format
+print(path)
+
+```
+
+然后执行`python export_onnx.py yolov8n.pt 320 224` 就能导出 `onnx` 模型了，这里重新指定了输入分辨率，模型训练的时候用的`640x640`，我们重新指定了分辨率方便提升运行速度，这里使用`320x224`的原因是和 MaixCAM 的屏幕比例比较相近方便显示，具体可以根据你的需求设置就好了。
+
+
 ## 转换为 MaixCAM 支持的模型以及 mud 文件
 
 MaixPy/MaixCDK 目前支持了 YOLOv8 检测 以及 YOLOv8-pose 人体姿态关键点检测两种（2024.6.21）。
@@ -86,6 +112,8 @@ labels = person
 
 官方默认的时人体姿态关键点检测，所以`labels`只有一个 `person`，根据你检测的物体替换即可。
 
+## 上传分享到 MaixHub
 
+到 [MaixHub 模型库](https://maixhub.com/model/zoo?platform=maixcam) 上传并分享你的模型，可以多提供几个分辨率供大家选择。
 
 

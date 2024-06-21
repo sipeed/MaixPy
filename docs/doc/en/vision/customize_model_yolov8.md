@@ -36,6 +36,31 @@ Since this is a relatively common operational process, this article only provide
 
 If you find any good articles, feel free to modify this article and submit a PR.
 
+## Exporting YOLOv8 ONNX Model
+
+Create an `export_onnx.py` file in the `ultralytics` directory:
+```python
+from ultralytics import YOLO
+import sys
+
+print(sys.path)
+net_name = sys.argv[1] # yolov8n.pt yolov8n-pose.pt # https://docs.ultralytics.com/models/yolov8/#supported-tasks-and-modes
+input_width = int(sys.argv[2])
+input_height = int(sys.argv[3])
+
+# Load a model
+model = YOLO(net_name)  # load an official model
+# model = YOLO("path/to/best.pt")  # load a custom model
+
+# Predict with the model
+results = model("https://ultralytics.com/images/bus.jpg")  # predict on an image
+path = model.export(format="onnx", imgsz=[input_width, input_height])  # export the model to ONNX format
+print(path)
+```
+
+Then execute `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, the input resolution is re-specified. The model was trained with `640x640`, but we re-specified the resolution to improve the running speed. The resolution `320x224` is used because it is closer to the MaixCAM screen ratio for better display. You can set it according to your needs.
+
+
 ## Converting to MaixCAM Supported Model and MUD File
 
 MaixPy/MaixCDK currently supports both YOLOv8 detection and YOLOv8-pose human pose keypoint detection (as of 2024.6.21).
@@ -80,3 +105,11 @@ labels = person
 ```
 
 The default is human pose keypoint detection, so `labels` has only one `person`. Replace it according to the objects you are detecting.
+
+
+## Upload share on MaixHub
+
+Share your model on [MaixHub model zoo](https://maixhub.com/model/zoo?platform=maixcam) 上传并分享你的模型，可以多提供几个分辨率供大家选择。
+
+
+
