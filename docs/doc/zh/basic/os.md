@@ -19,12 +19,13 @@ title: 升级和烧录系统
 ## 获得最新系统
 
 在 [MaixPy 发布页面](https://github.com/sipeed/MaixPy/releases) 找到最新的系统镜像文件，比如`maixcam_os_20240401_maixpy_v4.1.0.xz`。
+> 中国国内用户下载速度慢可以用迅雷下载，速度可能会快一些。
 
 备用地址：
-* [Sourceforge](https://sourceforge.net/projects/maixpy/files/)
+* [Sourceforge](https://sourceforge.net/projects/maixpy/files/) （同步可能不及时，建议优先上面的方式）
 
 
 ## 烧录系统到 MaixCAM
 
-参考 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程。
+参考 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程，注意里面能满足 `USB 烧录`的条件则推荐使用 `USB 烧录`方式，USB 烧录方式不用拔 TF 卡。
 

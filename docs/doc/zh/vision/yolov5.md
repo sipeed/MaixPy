@@ -35,8 +35,9 @@ while not app.need_exit():
 
 效果视频:
 
+<div>
 <video playsinline controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/detector.mp4" type="video/mp4">
-
+</div>
 
 这里使用了摄像头拍摄图像，然后传给 `detector`进行检测，得出结果后，将结果(分类名称和位置)显示在屏幕上。
 
@@ -50,19 +51,33 @@ while not app.need_exit():
 
 默认的模型输入是`320x224`分辨率，因为这个分辨率比例和默认提供的屏幕分辨率接近，你也可以手动下载其它分辨率的模型替换：
 
-YOLOv5s: https://maixhub.com/model/zoo/365
-YOLOv8n: https://maixhub.com/model/zoo/400
+YOLOv5: [https://maixhub.com/model/zoo/365](https://maixhub.com/model/zoo/365)
+YOLOv8: [https://maixhub.com/model/zoo/400](https://maixhub.com/model/zoo/400)
 
 分辨率越大精度越高，但是运行耗时越长，根据你的应用场景选择合适的即可。
+
+## YOLOv5 和 YOLOv8 用哪个？
+
+这里提供的 `YOLOv5s` 和 `YOLOv8n` 两种模型，前者模型更大，后者速度快一点点， 前者精度略微高一点点但差别不是很大，可以实际测试根据自己的实际情况选择。
+
+另外你也可以尝试`YOLOv8s`，帧率会低一些（比如 yolov8s_320x224 比 yolov8n_320x224 慢 10ms），准确率会比前两个都高，模型可以在上面提到的模型库下载到。
 
 ## 摄像头分辨率和模型分辨率不同可以吗
 
 上面使用`detector.detect(img)`函数进行检测时，如果 `img` 的分辨率和模型分辨率不同，这个函数内部会自动调用`img.resize`将图像缩放成和模型输入分辨率相同的，`resize`默认使用`image.Fit.FIT_CONTAIN` 方法，即保持宽高比缩放，周围填充黑色的方式，检测到的坐标也会自动映射到原`img`的坐标上。
 
 
-## 在线训练自己的目标检测模型
+## MaixHub 在线训练自己的目标检测模型
 
-请到[MaixHub](https://maixhub.com) 学习并训练目标检测模型，创建项目时选择`目标检测模型`即可。
+默认提供的 80 分类检测模型，如果你需要检测特定的物体，请到[MaixHub](https://maixhub.com) 学习并训练目标检测模型，创建项目时选择`目标检测模型`即可，参考[MaixHub 在线训练文档](./maixhub_train.md)。
+
+或者到[MaixHub 模型库](https://maixhub.com/model/zoo?platform=maixcam) 找社区成员分享的模型。
+
+## 离线训练自己的目标检测模型
+
+强烈建议先使用 MaixHub 在线训练模型，此种方式难度比较大，不建议新手一来就碰这个方式。
+此种方式有些许默认你知道的知识文中不会提，遇到问题多上网搜索学习。
+请看 [离线训练YOLOv5模型](./customize_model_yolov5.md)。
 
 
 ## 附录：80分类

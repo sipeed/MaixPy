@@ -4,6 +4,8 @@ title: MaixPy Face Recognition
 
 ## Introduction to Face Recognition
 
+![face_recognize](../../assets/face_recognize.jpg)
+
 Face recognition involves identifying the location of faces in the current view and who they are.
 Thus, in addition to detecting faces, face recognition typically involves a database to store known and unknown individuals.
 

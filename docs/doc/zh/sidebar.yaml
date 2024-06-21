@@ -72,9 +72,13 @@ items:
     -   file: vision/ocr.md
         label: OCR 文字识别
     -   file: vision/maixhub_train.md
-        label: MaixHub 在线 AI 模型训练
-    -   file: vision/custmize_model.md
-        label: 自定义（离线训练转换）模型
+        label: MaixHub 在线训练 AI 模型
+    -   file: vision/customize_model_yolov5.md
+        label: 离线训练 YOLOv5 模型
+    -   file: vision/customize_model_yolov8.md
+        label: 离线训练 YOLOv8 模型
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX 模型转给 MaixCAM 用
 
 
 -   label: AI 听觉

@@ -58,11 +58,15 @@ Failure to parse the model file is generally caused by file corruption. Ensure t
 
 ## Power-on Black Screen, No Display on the Screen
 
-* Check if the TF (micro-SD) card is installed.
-* Check if the latest system image is burned onto the TF card (strongly recommended to update to the latest system image); see documentation for specific burning methods.
-* Check if the TF card is fully inserted into the TF card slot, ensuring there are no gaps and it is not loose.
-* Check if the screen and camera ribbon cables are correctly and securely connected; there should be no looseness.
-* Check if the power LED (red light) and the system operation status LED (blue light) on the board are lit. If the red light is off, consider hardware issues such as no power supply, insufficient power supply, or a damaged board.
-* Connect the board to a computer using a USB to TTL cable, open the serial port assistant on the computer, restart the board, and check the boot logs for any errors.
-> If there is no log output, try swapping the TX and RX wires. For MaixCAM, the orientation of the Type-C to serial port adapter may vary, and TX RX might be reversed, meaning it does not support reversible plugging.
+Refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+
+
+## What are the differences between Runtime, MaixPy, and system image? Which one should I upgrade?
+
+* **Runtime** is the runtime environment. Many system functions depend on it, including MaixPy. If you encounter the problem of being unable to run the program, first check and update it online.
+
+* The system image includes the basic operating system, hardware drivers, built-in applications, and MaixPy firmware, etc. It is the basic environment. It is best to keep it up to date, especially in the [Release](https://github.com/sipeed/MaixPy/releases) page. If the version update mentions that the system has been updated, it is strongly recommended to update the system, because some MaixPy functions may depend on the drivers in the system.
+> Updating the system will format all previous data. Please back up useful data in the device system before updating.
+
+* **MaixPy** is a dependent library for running the MaixPy program. If you do not need to update the system function, and the update log does not mention that the system has important updates such as drivers, you can update MaixPy alone.
 

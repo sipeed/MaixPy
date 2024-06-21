@@ -4,6 +4,8 @@ title: MaixPy 人脸识别
 
 ## 人脸识别简介
 
+![face_recognize](../../assets/face_recognize.jpg)
+
 人脸识别就是识别当前画面中的人脸的位置以及是谁。
 所以人脸识别除了要检测到人脸，一般会有一个库来保存认识的人和不认识的人。
 

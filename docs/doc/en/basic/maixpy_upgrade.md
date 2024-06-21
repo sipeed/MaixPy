@@ -6,7 +6,7 @@ There are two methods to begin with. If you are new to this and want to keep thi
 
 However, since we don't know when the TF card you received was manufactured, it is recommended to update the system.
 
-## Updating the System Directly
+## Updating the System Directly(Recommend)
 
 Follow the steps in [Upgrading and Flashing the System](./os.md) to upgrade to the latest system, which already includes the newest MaixPy firmware.
 

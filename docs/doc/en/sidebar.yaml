@@ -73,8 +73,12 @@ items:
         label: OCR 
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
-    -   file: vision/custmize_model.md
-        label: Custom model
+    -   file: vision/customize_model_yolov5.md
+        label: Offline train YOLOv5 model
+    -   file: vision/customize_model_yolov8.md
+        label: Offline train YOLOv8 model
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX model to MaixCAM's
 
 
 -   label: AI audio

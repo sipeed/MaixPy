@@ -81,6 +81,9 @@ jobs:
           user_email=`git log -1 --pretty=format:'%ae'`
           echo "== checkout gh-pages branch =="
           doc_dir=maixpy_${{ github.ref_name }}_doc
+          echo "#!/bin/bash" > out/view_doc.sh
+          echo "python3 -m http.server" >> out/view_doc.sh
+          echo "python3 -m http.server" > out/view_doc.bat
           mv out $doc_dir
           zip ${doc_dir}.zip -r $doc_dir
           cd ..

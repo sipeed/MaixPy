@@ -26,13 +26,15 @@ title: MaixPy Quick Start
 
 ## Get a MaixCAM Device
 
-Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> development board from the [Sipeed Taobao](https://item.taobao.com/item.htm?id=784724795837) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460) store.
+* **MaixCAM**: Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> development board from the [Sipeed Taobao](https://item.taobao.com/item.htm?id=784724795837) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460) store.
 
 **It is recommended to purchase the bundle with a `TF card`, `camera`, `2.3-inch touchscreen`, `case`, `Type-C data cable`, `Type-C one-to-two mini board`, and `4P serial port socket+cable`**, which will be convenient for later use and development. **The following tutorials assume that you already have these accessories** (including the screen).
 
 **It is highly recommended to purchase a package that includes a screen, as it greatly enhances the development experience.** If you do not need a screen for actual deployment in a production environment, you can start with a screen-included kit for initial development, and then either remove the screen or purchase a screenless version for mass production later on.
 
-If you did not purchase a TF card, you will need to **prepare** a **TF card reader** to flash the system.
+* **TF card reader**: To flash the system.
+
+* **USB to serial port module**: If you want to debug serial communication, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this [dual serial port to USB module](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537).
 
 >! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.
 
@@ -58,11 +60,18 @@ If the screen does not display:
 ### Connect to the Network
 
 For the first run, you need to connect to the network, as you will need it later to activate the device and use the IDE.
+If you don't have a router, you can use your phone to open a hotspot.
 
-* On the device, click `Settings`, select `WiFi`, and click the `Scan` button to start scanning for nearby `WiFi`. You can click several times to refresh the list.
-* Find your WiFi hotspot. If you don't have a router, you can use your phone as a hotspot.
-* Enter the password and click the `Connect` button to connect.
-* Wait for the `IP` address to be obtained. This may take `10` to `30` seconds. If the interface does not refresh, you can exit the `WiFi` function and re-enter to check, or you can also see the `IP` information in `Settings` -> `Device Info`.
+Click `Settings` on the device and select `WiFi`. There are two ways to connect to the `WiFi` hotspot:
+
+* Scan the WiFi sharing code:
+  * Use your phone to share the `WiFi` hotspot QR code, or go to [maixhub.com/wifi](https://maixhub.com/wifi) to generate a QR code.
+  * Click the `Scan QR code` button, the camera screen will appear, scan the QR code generated previously to connect.
+* Search for hotspots:
+  * Click the `Scan` button to start scanning the surrounding `WiFi`, you can click multiple times to refresh the list.
+  * Find your WiFi hotspot.
+  * Enter the password and click the `Connect` button to connect.
+Then wait for the `IP` address to be obtained, which may take `10` to `30` seconds. If the interface does not refresh, you can exit the `WiFi` function and re-enter to view it, or you can also see the `IP` information in `Settings` -> `Device Information`.
 
 ### Update the Runtime Libraries
 

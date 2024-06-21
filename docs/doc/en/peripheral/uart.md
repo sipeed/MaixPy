@@ -38,6 +38,18 @@ This lists all serial port devices in the system, then uses the first one, which
 
 For more serial port APIs, see [UART API Documentation](../../../api/maix/peripheral/uart.md).
 
+## Notes on using the MaixCAM serial port
+
+Some developers may ask: Why does the computer not show a serial port device after plugging in the USB?
+
+A: Because the device's USB is a virtual USB network card by default, it has no serial port function. If you want to access the device's terminal, please use ssh to connect.
+
+For MaixCAM, the `serial port 0` led out from the Type-C adapter board is directly connected to the `A16(TX)` and `A17(RX)` pins, which can be directly connected to the serial port pins of other devices such as microcontrollers;
+
+If you want to communicate with a computer, you need to use a USB to serial port board (such as [this](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)) to connect to the computer.
+
+It should be noted that **MaixCAM's `serial port 0` will print a part of the boot log when it is turned on**, and the words `serial ready` will be printed after the startup is complete. If you need to communicate with the microcontroller, you need to discard this part of the information. If there is a problem with the system startup, you can also diagnose the problem by checking the startup print of `serial port 0`.
+
 ## Sending and Receiving Data
 
 The `write_str` function is used to send strings. In Python, there are two fundamental data types, `str` and `bytes`, where the former is a string, and the latter is raw byte data, for example:

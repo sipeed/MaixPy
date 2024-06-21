@@ -24,5 +24,5 @@ Alternate link:
 
 ## Burning the System Image to MaixCAM
 
-Refer to the [MaixCAM System Flashing Guide](https://wiki.sipeed.com/hardware/zh/maixcam/os.html).
+Refer to the [MaixCAM System Burning](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) tutorial. Note that if the conditions for `USB Burning` are met, it is recommended to use the `USB Burning` method. The USB burning method does not require removing the TF card.
 
