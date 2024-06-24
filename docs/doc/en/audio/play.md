@@ -24,7 +24,49 @@ Note: If the `MaixCAM` has copper posts attached to these pins, they can be sold
 
 ### Code
 
-Method of playing a PCM file
+#### Playing a `WAV` file
+
+```python
+from maix import audio, time, app
+
+p = audio.Player("/root/output.wav")
+
+p.play()
+
+while not app.need_exit():
+    time.sleep_ms(10)
+print("play finish!")
+```
+
+Steps：
+
+
+1. Import the audio, time and app modules:
+
+   ```python
+   from maix import audio, time, app
+   ```
+
+2. Initialize the player:
+
+   ```python
+   p = audio.Player("/root/output.wav")
+   ```
+  - Note that the default sample rate is 48k, the sample format is little-endian format - signed 16-bit, and the sample channel is 1. You can also customise the parameters like this `p = audio.Player(sample_rate=48000, format=audio.Format.FMT_S16_LE, channel = 1)`. So far only tested with sample rate 48000, format `FMT_S16_LE`, and number of sampling channels 1.
+  - If it is a `.wav` file, the sample rate, sample format and sample channel are automatically obtained.
+
+3. Playing audio
+
+   ```python
+   p.play()
+   ```
+
+  - This will block until all audio data is written, but not until all audio data is actually played. If you exit the programme after calling `play()`, some of the audio data to be played may be lost.
+
+4. Done
+
+
+#### Playback with `PCM` data
 
 ```python
 from maix import audio, time, app
@@ -60,18 +102,32 @@ Steps：
 
 3. Open and playback a PCM file
 
-  ```python
-  with open('/root/output.pcm', 'rb') as f:
-      ctx = f.read()
+   ```python
+     with open('/root/output.pcm', 'rb') as f:
+         ctx = f.read()
+   
+     p.play(bytes(ctx))
+   
+     while not app.need_exit():
+       time.sleep_ms(10)
+   ```
 
-  p.play(bytes(ctx))
-
-  while not app.need_exit():
-    time.sleep_ms(10)
-  ```
   - `with open(‘xxx’,‘rb’) as f:` open file `xxx` and get file object `f`
   - `ctx = f.read()` reads the contents of the file into `ctx`
   - `p.play(bytes(ctx))` plays the audio, `p` is the opened player object, `ctx` is the `PCM` data converted to type bytes
   - `time.sleep_ms(10)` Here there is a loop to wait for the playback to complete, as the playback operation is performed asynchronously, and if the program exits early, then it may result in the audio not being played completely.
 
 4. Done
+
+### Other
+
+The `Player` and `Recorder` modules have some `bugs` to be worked out, make sure they are created before other modules (`Camera` module, `Display` module, etc.). For example:
+
+```python
+# Create Player and Recorder first.
+p = audio.Player()
+r = audio.Recorder()
+
+# Then create the Camera
+c = camera.Camera()
+```
