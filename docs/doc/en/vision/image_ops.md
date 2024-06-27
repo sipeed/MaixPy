@@ -352,8 +352,10 @@ img = image.Image(320, 240, image.Format.FMT_RGB888)
 data = img.to_bytes()
 print(type(data), len(data), img.data_size())
 
-img2 = image.Image(320, 240, image.Format.FMT_RGB888, data)
-print(img2)
+img_jpeg = image.from_bytes(320, 240, image.Format.FMT_RGB888, data)
+print(img_jpeg)
+img = img_jpeg.to_format(image.Format.FMT_RGB888)
+print(img)
 ```
 
 Here, `to_bytes` returns a new `bytes` object, which is independent memory and does not affect the original image.

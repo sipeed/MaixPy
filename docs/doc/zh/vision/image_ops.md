@@ -360,8 +360,10 @@ img = image.Image(320, 240, image.Format.FMT_RGB888)
 data = img.to_bytes()
 print(type(data), len(data), img.data_size())
 
-img2 = image.Image(320, 240, image.Format.FMT_RGB888, data)
-print(img2)
+img_jpeg = image.from_bytes(320, 240, image.Format.FMT_RGB888, data)
+print(img_jpeg)
+img = img_jpeg.to_format(image.Format.FMT_RGB888)
+print(img)
 ```
 
 这里`to_bytes`获得一个新的`bytes`对象，是独立的内存，不会影响原图。
