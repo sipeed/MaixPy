@@ -59,6 +59,19 @@ if os.path.exists("dist"):
 if "--not-clean" not in sys.argv and "--skip-build" not in sys.argv and os.path.exists("maix/dl_lib"):
     shutil.rmtree("maix/dl_lib")
 
+def print_py_version_err(build_py_version):
+    print("-- Python version not match build python version!")
+    print("   You can use conda to create a virtual environment with python version:")
+    print("   Download miniconda from https://docs.conda.io/en/latest/miniconda.html")
+    print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
+    print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
+
+# specially check for maixcam
+py_version = get_python_version()
+if board == "maixcam" and f"{py_version[0]}.{py_version[1]}" != "3.11":
+    print_py_version_err(py_version)
+    sys.exit(1)
+
 if board:
     # build CPP modules, and copy to build/lib/
     if "--skip-build" not in sys.argv:
@@ -81,14 +94,9 @@ if board:
 # check python version
 build_py_version = get_build_python_version()
 print("-- Build Python version: {}.{}.{}".format(build_py_version[0], build_py_version[1], build_py_version[2]))
-py_version = get_python_version()
 print("-- Python version: {}.{}.{}".format(py_version[0], py_version[1], py_version[2]))
 if (py_version[0] != build_py_version[0]) or (py_version[1] != build_py_version[1]):
-    print("-- Python version not match build python version!")
-    print("   You can use conda to create a virtual environment with python version:")
-    print("   Download miniconda from https://docs.conda.io/en/latest/miniconda.html")
-    print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
-    print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
+    print_py_version_err(build_py_version)
     sys.exit(1)
 
 if board:
