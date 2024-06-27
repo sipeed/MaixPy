@@ -4,7 +4,7 @@ disp = display.Display()
 
 def show(i):
     img = image.Image(disp.width(), disp.height())
-    img.draw_circle(disp.width() // 2, disp.height() //2, 50, image.COLOR_RED, thickness=-1)
+    img.draw_circle(disp.width() // 2, disp.height() //2, 50, image.COLOR_BLUE, thickness=-1)
     img.draw_string(2, 2, f"{i}%", image.COLOR_WHITE, scale=2)
     disp.show(img)
 
