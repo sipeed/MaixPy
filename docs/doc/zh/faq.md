@@ -70,3 +70,24 @@ MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不�
 > 更新系统会格式化所有之前的数据，更新前请备份好设备系统中有用的数据。
 * **MaixPy** 是运行 MaixPy 程序的依赖库，如果不需要更新系统功能，以及更新日志中没有提到系统有重要更新比如驱动，那可以单独更新 MaixPy 即可。
 
+
+## 加载 MUD 模型文件报错 *****.cvimodel not exists， load model failed
+
+* 检查设备中（注意不是电脑里面，需要传到设备里面去）是否真的存在你加载的 .mud 文件。
+* 检查你写的模型路径写错没有。
+* 如果你改过文件名，需要注意： MUD 文件是一个模型描述文件，可以用文本编辑器编辑，实际的模型文件是 .cvimodel 文件（对于MaixCAM)，.mud 文件中指定了 .cvimodel 的文件名和路径，所以如果你改动了 `.cvimodel`的文件名，那么也要修改`.mud`文件中的`model`路径，比如这里 Yolov5 模型的 mud：
+```ini
+[basic]
+type = cvimodel
+model = yolov5s_224_int8.cvimodel
+
+[extra]
+model_type = yolov5
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+```
+这里制定了 `model` 为相对这个`.mud`文件目录的 `yolov5s_224_int8.cvimodel` 文件为模型文件，如果你改了`yolov5s_224_int8.cvimodel` 为其它名，那也需要改这里。
+

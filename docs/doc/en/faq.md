@@ -70,3 +70,24 @@ Refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
 
 * **MaixPy** is a dependent library for running the MaixPy program. If you do not need to update the system function, and the update log does not mention that the system has important updates such as drivers, you can update MaixPy alone.
 
+
+## Error Loading MUD Model File: *****.cvimodel not exists, load model failed
+
+* Check if the .mud file you are trying to load really exists on the device (note, it should be on the device, not on the computer, it needs to be transferred to the device).
+* Verify that the model path you wrote is correct.
+* If you have changed the file name, note that the MUD file is a model description file and can be edited with a text editor. The actual model file is the .cvimodel file (for MaixCAM). The .mud file specifies the file name and path of the .cvimodel. Therefore, if you have changed the file name of `.cvimodel`, you also need to modify the `model` path in the `.mud` file. For example, here is the mud file for the Yolov5 model:
+```ini
+[basic]
+type = cvimodel
+model = yolov5s_224_int8.cvimodel
+
+[extra]
+model_type = yolov5
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair dryer, toothbrush
+```
+Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative to the directory of this `.mud` file. If you have changed `yolov5s_224_int8.cvimodel` to another name, you need to update it here as well.
+
