@@ -109,6 +109,19 @@ items:
     -   file: video/rtmp_streaming.md
         label: RTMP 串流
 
+-   label: 网络通信
+    items:
+    -   file: network/network_settings.md
+        label: 网络设置
+    -   file: network/http.md
+        label: http 网络通信
+    -   file: network/socket.md
+        label: socket 网络通信
+    -   file: network/websocket.md
+        label: websocket 网络通信
+    -   file: network/flask.md
+        label: Flask Web 服务器
+
 -   label: 片上外设
     items:
     -   file: peripheral/pinmap.md

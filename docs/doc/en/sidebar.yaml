@@ -109,6 +109,19 @@ items:
     -   file: video/rtmp_streaming.md
         label: RTMP stream
 
+-   label: Network
+    items:
+    -   file: network/network_settings.md
+        label: Network settings
+    -   file: network/http.md
+        label: http communication
+    -   file: network/socket.md
+        label: socket communication
+    -   file: network/websocket.md
+        label: websocket communication
+    -   file: network/flask.md
+        label: Flask Web server
+
 -   label: On-chip peripherals
     items:
     -   file: peripheral/pinmap.md
