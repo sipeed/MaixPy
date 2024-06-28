@@ -32,7 +32,30 @@ title: 应用开发和应用商店
 
 如果你只是写了比较简单的应用，没有做界面和返回按钮，默认可以按设备上的功能按键（一般是 USER 或者 FUNC 或者 OK 按钮）或者返回按钮（如果有这个按键，MaixCAM 默认没有这个按键）来退出应用。
 
+## 安装应用
 
+* **方法一**： 设备使用`应用商店`应用，从[应用商店](https://maixhub.com/app)找到应用，设备联网后，扫码安装。
+* **方法二**： 使用安装包本地安装，将安装包传输到设备文件系统，比如`/root/my_app_v1.0.0.zip`，然后执行代码，注意修改`pkg_path`变量的路径，你也可以在`MaixPy`的 `examples/tools/install_app.py`找到本代码:
+```python
+import os
+
+def install_app(pkg_path):
+    if not os.path.exists(pkg_path):
+        raise Exception(f"package {pkg_path} not found")
+    cmd = f"/maixapp/apps/app_store/app_store install {pkg_path}"
+    err_code = os.system(cmd)
+    if err_code != 0:
+        print("[ERROR] Install failed, error code:", err_code)
+    else:
+        print(f"Install {pkg_path} success")
+
+pkg_path = "/root/my_app_v1.0.0.zip"
+
+install_app(pkg_path)
+```
+* **方法三**:
+  * 如果是使用`MaixPy`开发的应用，在项目根目录（包含`app.yaml`和`main.py`）执行`maixtool deploy`会弹出一个二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
+  * 如果是使用`MaixCDK`开发的应用，在项目根目录执行`maixcdk deploy`也会出现二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
 
 ## 应用开发基本准则
 

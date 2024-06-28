@@ -8,8 +8,69 @@ title: MaixPy/MaixCAM 应用开机自启
 
 先打包安装好应用，然后在设备`设置 -> 开机自启` 设置中选择需要自动启动的应用即可，取消开机自启也是在这里设置。
 
-
 ## 设置应用开机自启方法二
+
+运行 Python 脚本设置，修改脚本中的`new_autostart_app_id` 变量为你想设置的 `app_id`， 所有已经安装了的`app_id`会在执行脚本时打印出来，可以先执行一遍找到你想设置的`app_id`，修改变量再执行一遍即可，取消自动启动设置为`None`即可。
+此脚本也可以在`MaixPy`的`examples/tools`中找到`set_autostart.py`：
+
+```python
+import configparser, os
+
+def parse_apps_info():
+    info_path = "/maixapp/apps/app.info"
+    conf = configparser.ConfigParser()
+    conf.read(info_path)
+    version = conf["basic"]["version"]
+    apps = {}
+    for id in list(conf.keys()):
+        if id in ["basic", "DEFAULT"]:
+            continue
+        apps[id] = conf[id]
+    return apps
+
+def list_apps():
+    apps = parse_apps_info()
+    print(f"APP num: {len(apps)}")
+    for i, (id, info) in enumerate(apps.items()):
+        name_zh = info.get("name[zh]", "")
+        print(f"{i + 1}. [{info['name']}] {name_zh}:")
+        print(f"    id: {id}")
+        print(f"    exec: {info['exec']}")
+        print(f"    author: {info['author']}")
+        print(f"    desc: {info['desc']}")
+        print(f"    desc_zh: {info.get('desc', 'None')}")
+        print("")
+
+
+def get_curr_autostart_app():
+    path = "/maixapp/auto_start.txt"
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            app_id = f.readline().strip()
+            return app_id
+    return None
+
+def set_autostart_app(app_id):
+    path = "/maixapp/auto_start.txt"
+    if not app_id:
+        if os.path.exists(path):
+            os.remove(path)
+        return
+    with open(path, "w") as f:
+        f.write(app_id)
+
+if __name__ == "__main__":
+    # new_autostart_app_id = "settings"   # change to app_id you want to set
+    new_autostart_app_id = None           # remove autostart
+
+    list_apps()
+    print("Before set autostart appid:", get_curr_autostart_app())
+    set_autostart_app(new_autostart_app_id)
+    print("Current autostart appid:", get_curr_autostart_app())
+
+```
+
+## 设置应用开机自启方法三
 
 你也可以通过修改设备中的 `/maixapp/auto_start.txt` 文件来设置，和传输文件的方法请看前面的文档。
 * 首先知道你需要设置的应用的 `id` 是什么。在你打包应用的时候设置的；如果不是你自己打包的应用，可以先安装到设备，查看设备`/maixapp/apps/` 目录下的文件夹名就是应用名，（也可以下载查看设备的`/maixapp/apps/app.info` 文件，`[]`中括号部分就是应用`id`）。

@@ -30,6 +30,32 @@ Using MaixPy + MaixVison makes it easy to develop, package, and install applicat
 
 If you have developed a relatively simple application without a user interface and a back button, you can exit the application by pressing the device's function button (usually labeled as USER, FUNC, or OK) or the back button (if available, MaixCAM does not have this button by default).
 
+## Installing Applications
+
+* **Method 1**: Use the `App Store` application on the device. Find the application on the [App Store](https://maixhub.com/app), connect the device to the internet, and scan the code to install.
+
+* **Method 2**: Install using a local installation package. Transfer the package to the device's file system, for example, to `/root/my_app_v1.0.0.zip`, and then run the following code. Make sure to modify the `pkg_path` variable to the correct path, you can also find this script in `MaixPy`'s `examples/tools/install_app.py`:
+```python
+import os
+
+def install_app(pkg_path):
+    if not os.path.exists(pkg_path):
+        raise Exception(f"Package {pkg_path} not found")
+    cmd = f"/maixapp/apps/app_store/app_store install {pkg_path}"
+    err_code = os.system(cmd)
+    if err_code != 0:
+        print("[ERROR] Install failed, error code:", err_code)
+    else:
+        print(f"Install {pkg_path} success")
+
+pkg_path = "/root/my_app_v1.0.0.zip"
+
+install_app(pkg_path)
+```
+
+* **Method 3**:
+  * For applications developed using `MaixPy`, run `maixtool deploy` in the project root directory (which contains `app.yaml` and `main.py`). A QR code will be displayed. Keep the device and computer on the same local network, and use the App Store on the device to scan the QR code corresponding to the local network address for online installation.
+  * For applications developed using `MaixCDK`, run `maixcdk deploy` in the project root directory. A QR code will be displayed. Keep the device and computer on the same local network, and use the App Store on the device to scan the QR code corresponding to the local network address for online installation.
 
 ## Basic Guidelines for Application Development
 
