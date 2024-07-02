@@ -128,7 +128,7 @@ while not app.need_exit():
             base_img.draw_string(0, int(base_img.height() * 0.70), "URL:", color, 2)
             base_img.draw_string(url_x, int(base_img.height() * 0.70) + str_height_2 + 10, global_url, color)
 
-        box = [20, 20, img_exit.width(), img_exit.height()]
+        box = [20, 15, img_exit.width(), img_exit.height()]
         if touch_box(t, box, 20):
             base_img.draw_image(box[0], box[1], img_exit_touch)
             need_exit = True
@@ -228,7 +228,7 @@ while not app.need_exit():
             base_img.draw_string(str_rtmp_is_running_x, int(base_img.height() * 0.7), str_rtmp_is_running3, color, 2)
         
         need_exit = False
-        box = [20, 20, img_exit.width(), img_exit.height()]
+        box = [20, 15, img_exit.width(), img_exit.height()]
         if touch_box(t, box, 20):
             base_img.draw_image(box[0], box[1], img_exit_touch)
             need_exit = True
