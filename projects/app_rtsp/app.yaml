@@ -1,0 +1,12 @@
+id: rtsp_stream
+name: RTSP Stream
+name[zh]: RTSP Stream
+version: 1.0.0
+icon: assets/app.png
+author: Sipeed Ltd
+desc: RTSP stream
+desc[zh]: RTSP 推流
+files:
+  app.yaml: app.yaml
+  assets: assets
+  README.md: README.md
