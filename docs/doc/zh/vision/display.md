@@ -88,14 +88,16 @@ disp.set_backlight(50)
 
 在调用`show`方法时，会自动压缩图像并发送到 MaixVision 显示。
 
-当然，如果你没有屏幕，或者为了节省内存不想初始化屏幕，也可以直接调用`image.Image`对象的`send_to_maixvision`方法发送图像到 MaixVision 显示。
+当然，如果你没有屏幕，或者为了节省内存不想初始化屏幕，也可以直接调用`maix.dispaly`对象的`send_to_maixvision`方法发送图像到 MaixVision 显示。
 ```python
-from maix import image
+from maix import image,display
 
 img = image.Image(320, 240)
+disp = display.Display()
+
 img.draw_rect(0, 0, img.width(), img.height(), color=image.Color.from_rgb(255, 0, 0), thickness=-1)
 img.draw_rect(10, 10, 100, 100, color=image.Color.from_rgb(255, 0, 0))
 img.draw_string(10, 10, "Hello MaixPy!", color=image.Color.from_rgb(255, 255, 255))
-img.send_to_maixvision()
+display.send_to_maixvision(img)
 ```
 
