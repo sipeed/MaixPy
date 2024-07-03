@@ -84,13 +84,17 @@ When running code in MaixVision, images can be displayed on MaixVision for easie
 
 When calling the `show` method, the image will be automatically compressed and sent to MaixVision for display.
 
-Of course, if you don't have a screen, or to save memory by not initializing the screen, you can also directly call the `send_to_maixvision` method of the `image.Image` object to send the image to MaixVision for display.
+Of course, if you don't have a screen, or to save memory by not initializing the screen, you can also directly call the `send_to_maixvision` method of the `maix.display` object to send the image to MaixVision for display.
 ```python
-from maix import image
+from maix import image,display
+
+from maix import image,display
 
 img = image.Image(320, 240)
+disp = display.Display()
+
 img.draw_rect(0, 0, img.width(), img.height(), color=image.Color.from_rgb(255, 0, 0), thickness=-1)
 img.draw_rect(10, 10, 100, 100, color=image.Color.from_rgb(255, 0, 0))
 img.draw_string(10, 10, "Hello MaixPy!", color=image.Color.from_rgb(255, 255, 255))
-img.send_to_maixvision()
+display.send_to_maixvision(img)
 ```
