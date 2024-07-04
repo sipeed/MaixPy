@@ -64,6 +64,9 @@ PYBIND11_MODULE(_maix, m) {{
                 if k == "__init__":
                     func_name = parent_name
                     _code.append('{}.def(py::init<{}>(){});'.format(parent_var, ", ".join([x[0] for x in v["args"]]), kwargs_str))
+                elif k == "__iter__":
+                    func_name = parent_name
+                    _code.append('{}.def("__iter__", []({} &c){{return py::make_iterator(c.begin(), c.end());}}, py::keep_alive<0, 1>());'.format(parent_var, "::".join(parent_names)))
                 elif k == "__del__":
                     raise Exception("not support __del__ yet")
                 else:
