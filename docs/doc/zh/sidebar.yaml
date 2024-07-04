@@ -63,6 +63,8 @@ items:
         label: 人脸识别
     -   file: vision/body_key_points.md
         label: 人体关键点检测
+    -   file: vision/segmentation.md
+        label: 图像语义分割
     -   file: vision/self_learn_classifier.md
         label: 自学习分类器
     -   file: vision/self_learn_detector.md

@@ -63,6 +63,8 @@ items:
         label: Face recognition
     -   file: vision/body_key_points.md
         label: Human critical point detection
+    -   file: vision/segmentation.md
+        label: Image semantic segmentation
     -   file: vision/self_learn_classifier.md
         label: Self-learning classifier
     -   file: vision/self_learn_detector.md
