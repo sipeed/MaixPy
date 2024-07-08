@@ -54,6 +54,7 @@ MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不�
 
 解析模型文件失败了，一般情况是模型文件损坏造成的，确保你的模型文件是没有损坏的。
 比如：
+* 用编辑器编辑了二进制文件导致文件损坏。比如用 maixvision 打开了 cvimodel 文件，由于 maixvision 的自动保存功能会破坏二进制文件，所以不要用 maixvision 等文本编辑器打开二进制文件并保存（后面 MaixVision 会修复这个问题，即去掉 maixvision 的自动保存功能）。
 * 如果是从网上下载的，保证下载没有出问题，一般网上的文件提供 sha256sum/md5 校验值，下载下来后可以对比一下，具体方法请自行搜索或者问 ChatGPT。
 * 如果是来自压缩包，请确认解压过程没有出错，可以从压缩包重新解压一遍保证中间没有出错。
 * 保证传输到设备的过程没有造成文件损坏，可以对比一下设备中的文件和电脑中的文件 sha256sum 值，具体方法请自性搜索或者问 ChatGPT。
@@ -91,3 +92,7 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 ```
 这里制定了 `model` 为相对这个`.mud`文件目录的 `yolov5s_224_int8.cvimodel` 文件为模型文件，如果你改了`yolov5s_224_int8.cvimodel` 为其它名，那也需要改这里。
 
+## MaixVision import maix 显示红色波浪线
+
+这是 MaixVision 的代码提示功能报错找不到 maix 模块。
+这里需要搞清楚一个概念： MaixVision 的代码提示依赖的是电脑本地的 Python 包，代码运行依赖的设备端的 Python 包，所以要让 MaixVision 能够提示就要在电脑上也安装 Python 和 `MaixPy` 包。具体请看[MaixVision 使用文档](./basic/maixvision.md)。

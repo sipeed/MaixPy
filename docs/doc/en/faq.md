@@ -51,6 +51,7 @@ However, if you are an expert, we welcome you to submit a pull request!
 ## Model running error: cvimodel built for xxxcv181x CANNOT run on platform cv181x.
 
 Failure to parse the model file is generally caused by file corruption. Ensure that your model file is not damaged. For example:
+* Editing a binary file with an editor caused the file to become corrupted. For example, opening a `cvimodel` file with MaixVision can corrupt the binary file due to MaixVision's auto-save feature. Therefore, do not open and save binary files with text editors like MaixVision (this issue will be fixed in a future update of MaixVision by removing the auto-save feature).
 * If it was downloaded from the internet, make sure the download was not corrupted. Typically, files on the internet provide sha256sum/md5 checksums. After downloading, you can compare these values; for specific methods, please search online or ask ChatGPT.
 * If it comes from a compressed archive, ensure that the decompression process was error-free. You can decompress the archive again to make sure there were no errors in the process.
 * Ensure that the file was not damaged during the transfer to the device. You can compare the sha256sum values of the file on the device and on your computer; for specific methods, please search online or ask ChatGPT.
@@ -91,3 +92,7 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 ```
 Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative to the directory of this `.mud` file. If you have changed `yolov5s_224_int8.cvimodel` to another name, you need to update it here as well.
 
+
+## MaixVision Shows Red Wavy Line on `import maix`
+
+This error occurs because MaixVision's code hinting feature cannot find the `maix` module. It's important to understand that MaixVision's code hinting relies on the local Python packages on your computer, while the code execution depends on the Python packages on the device. To enable MaixVision's code hinting, you need to install Python and the `MaixPy` package on your computer. For more details, refer to the [MaixVision User Documentation](./basic/maixvision.md).
