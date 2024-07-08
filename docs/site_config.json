@@ -73,6 +73,20 @@
                     "second_color": "#922f36"
                 }
             }
+        },
+        "teedoc-plugin-baidu-tongji":{
+            "from": "pypi",
+            "config": {
+                "code": "9cb07365544a53067c56c346c838181a"
+            }
+        },
+        "teedoc-plugin-thumbs-up": {
+            "from": "pypi",
+            "config": {
+                "url": "https://thumbs-up.sipeed.com",
+                "show_up_count": true,
+                "show_down_count": false
+            }
         }
     },
     "rebuild_changes_delay": 1,
