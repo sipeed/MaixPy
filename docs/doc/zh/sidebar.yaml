@@ -119,6 +119,8 @@ items:
         label: http 网络通信
     -   file: network/socket.md
         label: socket 网络通信
+    -   file: network/mqtt.md
+        label: MQTT 网络通信
     -   file: network/websocket.md
         label: websocket 网络通信
     -   file: network/flask.md

@@ -119,6 +119,8 @@ items:
         label: http communication
     -   file: network/socket.md
         label: socket communication
+    -   file: network/mqtt.md
+        label: MQTT communication
     -   file: network/websocket.md
         label: websocket communication
     -   file: network/flask.md
