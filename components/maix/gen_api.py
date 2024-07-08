@@ -14,8 +14,10 @@ import yaml
 import time
 try:
     from .gen_api_cpp import generate_api_cpp
+    from .pyi_util import parse_pyi
 except Exception:
     from gen_api_cpp import generate_api_cpp
+    from pyi_util import parse_pyi
 
 def sort_headers(headers):
     # read headers_priority.txt
@@ -30,33 +32,6 @@ def sort_headers(headers):
     # sort headers
     headers = sorted(headers, key = lambda x: headers_priority.index(os.path.basename(x)) if os.path.basename(x) in headers_priority else len(headers_priority))
     return headers
-
-def parse_pyi(path):
-    items = {
-        "class": {},
-        "func": []
-    }
-    with open(path) as f:
-        lines = f.readlines()
-    class_item = None
-    for i, line in enumerate(lines):
-        if class_item:
-            if line[0] != " ":
-                items["class"][class_item["name"]] = class_item
-                class_item = None
-                continue
-            line = line.strip()
-            if line.startswith("def"):
-                class_item["func"].append(line.rsplit(":", 1)[0])
-
-        if line.startswith("def"):
-            items["func"].append(line.rsplit(":", 1)[0])
-        if line.startswith("class"):
-            class_item = {
-                "name": line.replace("class", "").replace(":", "").strip(),
-                "func": []
-            }
-    return items
 
 def find_func_def(items, name):
     for item in items:
@@ -214,7 +189,7 @@ if __name__ == "__main__":
     sidebar["items"].append(doc_maix_sidebar)
     start_comment_template = '''
 > You can use `{}` to access this module with MaixPy
-> This module is generated from [MaixCDK](https://github.com/sipeed/MaixCDK)
+> This module is generated from [MaixPy](https://github.com/sipeed/MaixPy) and [MaixCDK](https://github.com/sipeed/MaixCDK)
 
 '''
     top_api_keys = ["maix"]
