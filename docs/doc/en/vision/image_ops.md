@@ -332,14 +332,47 @@ Note that here, the `to_format` method returns a new image object, and the origi
 You can also convert to a `numpy` array, which can then be used by libraries such as `numpy` and `opencv`:
 
 ```python
-from maix import image
+from maix import image, time, display, app
 
-img = image.Image(320, 240, image.Format.FMT_RGB888)
-img_np = image.image2cv(img)
-img2   = image.cv2image(img_np)
-print(type(img_np), img_np, img_np.shape)
-print(type(img2), img2)
+disp = display.Display()
+
+while not app.need_exit():
+    img = image.Image(320, 240, image.Format.FMT_RGB888)
+    img.draw_rect(0, 0, 100, 100, image.COLOR_RED, thickness=-1)
+    t = time.ticks_ms()
+    img_bgr = image.image2cv(img, ensure_bgr=True, copy=True)
+    img2   = image.cv2image(img_bgr, bgr=True, copy=True)
+    print("time:", time.ticks_ms() - t)
+    print(type(img_bgr), img_bgr.shape)
+    print(type(img2), img2)
+    print("")
+    disp.show(img2)
 ```
+
+The previous program is slower because each conversion involves a memory copy. Below is an optimized version for better performance. However, it is not recommended to use this unless you are aiming for extreme speed, as it is prone to errors:
+
+```python
+from maix import image, time, display, app
+
+disp = display.Display()
+
+while not app.need_exit():
+    img = image.Image(320, 240, image.Format.FMT_RGB888)
+    img.draw_rect(0, 0, 100, 100, image.COLOR_RED, thickness=-1)
+
+    t = time.ticks_ms()
+    img_rgb = image.image2cv(img, ensure_bgr=False, copy=False)
+    img2 = image.cv2image(img_rgb, bgr=False, copy=False)
+    print("time:", time.ticks_ms() - t)
+    print(type(img_rgb), img_rgb.shape)
+    print(type(img2), img2)
+
+    disp.show(img2)
+```
+
+* In `img_rgb = image.image2cv(img, ensure_bgr=False, copy=False)`, `img_rgb` directly uses the data from `img` without creating a memory copy. Note that the obtained `img_rgb` is an `RGB` image. Since OpenCV APIs assume the image is `BGR`, you need to be careful when using OpenCV APIs to process the image. If you are not sure, set `ensure_bgr` to `True`.
+* In `img2 = image.cv2image(img_rgb, bgr=False, copy=False)`, setting `copy` to `False` means `img2` directly uses the memory of `img_rgb` without creating a new memory copy, resulting in faster performance. However, be cautious because `img_rgb` must not be destroyed before `img2` finishes using it; otherwise, the program will crash.
+* Note that since memory is borrowed, modifying the converted image will also affect the original image.
 
 ## Converting between bytes Data
 
