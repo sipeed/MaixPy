@@ -69,7 +69,7 @@ def print_py_version_err(build_py_version):
 # specially check for maixcam
 py_version = get_python_version()
 if board == "maixcam" and f"{py_version[0]}.{py_version[1]}" != "3.11":
-    print_py_version_err(py_version)
+    print_py_version_err([3, 11])
     sys.exit(1)
 
 if board:
