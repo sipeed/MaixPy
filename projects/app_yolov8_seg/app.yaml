@@ -1,0 +1,10 @@
+id: yolov8_seg
+name: YOLOv8 Segmentation
+version: 1.0.0
+author: Sipeed Ltd
+icon: icon.png
+desc: Detect human body 17 keypoints.
+files:
+  - icon.png
+  - app.yaml
+  - main.py
