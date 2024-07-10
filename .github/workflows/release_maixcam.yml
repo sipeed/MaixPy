@@ -62,7 +62,7 @@ jobs:
           python setup.py bdist_wheel maixcam
           cp dist/* artifact/
           release_name=`ls dist|awk '{print $1}'`
-          release_path=dist/$release_name
+          release_path=`realpath dist/$release_name`
           echo "release_path=$release_path" >> $GITHUB_OUTPUT
           echo "release_name=$release_name" >> $GITHUB_OUTPUT
           echo "--------------------------------"
@@ -74,14 +74,11 @@ jobs:
           maixcdk_version_path="${MAIXCDK_PATH}/${maixcdk_version_name}"
           echo "maixcdk_version_path=$maixcdk_version_path" >> $GITHUB_OUTPUT
           echo "maixcdk_version_name=$maixcdk_version_name" >> $GITHUB_OUTPUT
-
-      - name: Build OS
-        id: build_os
-        run: |
+          cd $maixpy_path
           echo "--------------------------------"
           echo "--      Generate system       --"
           echo "--------------------------------"
-          cd ${maixpy_path}/tools/os
+          cd tools/os
           chmod +x gen_os.sh
           date_now=`date +"%Y-%m-%d"`
           os_version_name="maixcam-${date_now}-maixpy-${maixpy_version}"
@@ -157,8 +154,8 @@ jobs:
       - name: Upload OS to release assets
         uses: svenstaro/upload-release-action@v2
         with:
-          file: ${{ steps.build_os.outputs.os_path }}
-          asset_name: ${{ steps.build_os.outputs.os_name }}
+          file: ${{ steps.build_maixpy.outputs.os_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.os_name }}
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
