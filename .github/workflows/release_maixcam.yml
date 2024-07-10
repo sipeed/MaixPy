@@ -71,7 +71,8 @@ jobs:
           cd $MAIXCDK_PATH
           maixcdk_rev=`git rev-parse HEAD`
           maixcdk_version_name="maixcdk_version_${maixcdk_rev}.txt"
-          maixcdk_version_path="${MAIXCDK_PATH}/${maixcdk_version_name}"
+          echo "MaixPy ${maixpy_version} use MaixCDK commit ${maixcdk_rev}" > $maixcdk_version_name
+          maixcdk_version_path=`realpath "${MAIXCDK_PATH}/${maixcdk_version_name}"`
           echo "maixcdk_version_path=$maixcdk_version_path" >> $GITHUB_OUTPUT
           echo "maixcdk_version_name=$maixcdk_version_name" >> $GITHUB_OUTPUT
           cd $maixpy_path
