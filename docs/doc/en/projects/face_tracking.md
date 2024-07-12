@@ -9,6 +9,10 @@ update:
 
 Before reading this article, make sure you know how to develop with MaixCAM. For details, please read [Quick Start](../README.md).
 
+[Download](https://maixhub.com/app/31)
+
+After installation main.py is saved at /maixapp/apps/face_tracking/main.py.
+
 ## Description
 
 Face recognition and tracking is accomplished using a gimbal consisting of two servos and MaixCAM.
