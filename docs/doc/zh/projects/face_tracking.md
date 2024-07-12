@@ -9,14 +9,20 @@ update:
 
 阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
 
+[源码地址](https://github.com/sipeed/MaixPy/blob/main/projects/app_face_tracking/main.py)
+
+[APP下载地址](https://maixhub.com/app/31)
+
+安装之后main.py的保存地址：/maixapp/apps/face_tracking/main.py。
+
 ## 简介
 
 基于 MaixCAM 和云台的人脸追踪程序。实际效果如下图所示：
 
-![](../../../../projects/app_face_tracking/assets/face_tracking1.jpg)
+![](../../assets/face_tracking1.jpg)
 
 
-![](../../../../projects/app_face_tracking/assets/face_tracking2.jpg)
+![](../../assets/face_tracking2.jpg)
 
 ## 如何使用例程
 
