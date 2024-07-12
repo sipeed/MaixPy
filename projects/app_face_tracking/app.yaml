@@ -7,6 +7,7 @@ icon: assets/face_tracking.json
 desc: Face tracking with MaixCAM and gimbal.
 desc[zh]: 使用 MaixCAM 和云台进行人脸跟踪。
 files:
-  - app.yaml: app.yaml
-  - assets: assets
-  - README.md: README.md
+  - app.yaml
+  - assets
+  - README.md
+  - face_tracking
