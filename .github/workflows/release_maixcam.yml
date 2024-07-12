@@ -108,11 +108,14 @@ jobs:
           user_name=`git log -1 --pretty=format:'%an'`
           user_email=`git log -1 --pretty=format:'%ae'`
           echo "== checkout gh-pages branch =="
-          doc_dir=maixpy_${{ github.ref_name }}_doc
+          doc_dir=../maixpy_${{ github.ref_name }}_doc
           echo "#!/bin/bash" > out/view_doc.sh
-          echo "python3 -m http.server" >> out/view_doc.sh
-          echo "python3 -m http.server" > out/view_doc.bat
-          mv out $doc_dir
+          echo "python -m http.server" >> out/view_doc.sh
+          echo "python -m http.server" > out/view_doc.bat
+          mkdir ${doc_dir}/html
+          mv ./out/* ${doc_dir}/html/
+          mkdir ${doc_dir}/source
+          mv ./* ${doc_dir}/source/
           zip ${doc_dir}.zip -r $doc_dir
           cd ..
           release_name=${doc_dir}.zip
