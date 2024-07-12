@@ -61,6 +61,13 @@ Failure to parse the model file is generally caused by file corruption. Ensure t
 
 Refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
 
+## Red Screen, Initialization Display Failed, Please Check FAQ
+
+The message indicates that the display driver initialization failed.
+As of July 2024, the underlying display driver for MaixCAM is initialized together with the camera driver. Therefore, this issue is most likely caused by a failure in the camera driver initialization.
+To resolve this issue:
+* Try updating to the latest system and install the latest runtime libraries (very important!!!). The runtime libraries need to work in conjunction with the system drivers, and version mismatches may cause errors. Updating to the latest system image and installing the latest runtime libraries should generally resolve the issue.
+* Check for hardware connection issues with the camera. Ensure that the camera is properly connected and not damaged.
 
 ## What are the differences between Runtime, MaixPy, and system image? Which one should I upgrade?
 

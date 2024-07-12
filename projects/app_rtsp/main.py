@@ -1,4 +1,4 @@
-from maix import app, rtsp, camera, image, display, touchscreen
+from maix import app, rtsp, camera, image, display, touchscreen, time
 
 # init camera
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
@@ -19,6 +19,7 @@ img_exit = image.load("./assets/exit.jpg").resize(50, 50)
 img_exit_touch = image.load("./assets/exit_touch.jpg").resize(50, 50)
 img_eye_open = image.load("./assets/img_eye_open.png").resize(50, 50)
 img_eye_close = image.load("./assets/img_eye_close.png").resize(50, 50)
+img_eye_last_change = time.ticks_ms()
 
 def touch_box(t, box, oft = 0):
     if t[2] and t[0] + oft > box[0] and t[0] < box[0] + box[2] + oft and t[1] + oft > box[1] and t[1] < box[1] + box[3] + oft:
@@ -40,7 +41,8 @@ while not app.need_exit():
         img.draw_image(box[0], box[1], img_exit)
 
     box = [img.width() - img_eye_open.width() - 20, 15, img_eye_open.width(), img_eye_open.height()]
-    if touch_box(t, box, 20):        
+    if touch_box(t, box, 20) and time.ticks_ms() - img_eye_last_change > 200:
+        img_eye_last_change = time.ticks_ms()
         show_urls = not show_urls
 
     if show_urls:

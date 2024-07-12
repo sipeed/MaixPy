@@ -28,8 +28,8 @@ def main(disp):
     btns = {}
     btns["Learn"] = get_learn_btn_rect(2, cam.height(), cam.width(), cam.height(), "Learn")
     btns["< Exit"] = get_learn_btn_rect(2, btns["Learn"][3] + 10, cam.width(), cam.height(), "< Exit")
-    btns["+ Class"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - 50, cam.width(), cam.height(), "+ Class")
-    btns["+ Sample"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - btns["+ Class"][3] - 100, cam.width(), cam.height(), "+ Sample")
+    btns["+Class"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - 50, cam.width(), cam.height(), "+Class")
+    btns["+Sample"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - btns["+Class"][3] - 100, cam.width(), cam.height(), "+Sample")
     btns["Clear"] = get_learn_btn_rect(cam.width() - btns["Learn"][2], cam.height(), cam.width(), cam.height(), "Clear")
 
 
@@ -55,28 +55,36 @@ def main(disp):
         if pressed:
             if not last_pressed:
                 last_pressed = True
-                if is_in_button(x, y, btns["+ Class"]):
+                if is_in_button(x, y, btns["+Class"]):
                     classifier.add_class(crop)
                     labels.append(f"Class {len(labels) + 1}")
                     classifier.save("/root/my_classes.bin", labels=labels)
-                elif is_in_button(x, y, btns["+ Sample"]):
-                    classifier.add_sample(crop)
-                    classifier.save("/root/my_classes.bin", labels=labels)
+                elif is_in_button(x, y, btns["+Sample"]):
+                    if classifier.class_num() == 0:
+                        show_msg = "+Class first please"
+                        show_msg_t = time.ticks_s()
+                    else:
+                        classifier.add_sample(crop)
+                        classifier.save("/root/my_classes.bin", labels=labels)
                 elif is_in_button(x, y, btns["< Exit"]):
                     app.set_exit_flag(True)
                 elif is_in_button(x, y, btns["Learn"]):
-                    msg = "Learning ..."
-                    draw_string_center(img, msg)
-                    disp.show(img)
-                    epoch = classifier.learn()
-                    if epoch > 0:
-                        learn_times += 1
-                        classifier.save("/root/my_classes.bin", labels=labels)
-                        show_msg = "Learn complete"
+                    if classifier.class_num() == 0:
+                        show_msg = "+Class first please"
                         show_msg_t = time.ticks_s()
                     else:
-                        show_msg = "Already learned"
-                        show_msg_t = time.ticks_s()
+                        msg = "Learning ..."
+                        draw_string_center(img, msg)
+                        disp.show(img)
+                        epoch = classifier.learn()
+                        if epoch > 0:
+                            learn_times += 1
+                            classifier.save("/root/my_classes.bin", labels=labels)
+                            show_msg = "Learn complete"
+                            show_msg_t = time.ticks_s()
+                        else:
+                            show_msg = "Already learned"
+                            show_msg_t = time.ticks_s()
                 elif is_in_button(x, y, btns["Clear"]):
                     if os.path.exists("/root/my_classes.bin"):
                         os.remove("/root/my_classes.bin")
