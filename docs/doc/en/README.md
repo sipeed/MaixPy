@@ -105,17 +105,14 @@ Usage:
 * Hardware connection: You can connect the device to the `Type-C one-to-two mini board`, which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.
 * Open the application you want to use, such as QR code recognition. When the device scans a QR code, it will send the result to your main controller via serial.
 > The serial baud rate is `115200`, the data format is `8N1`, and the protocol follows the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). You can find the corresponding application introduction on the [MaixHub APP](https://maixhub.com/app) to view the protocol.
-> 如果应用没有做串口输出结果，你也可以自己基于对应功能的例程，自行按照[串口使用文档](./peripheral/uart.md)添加串口输出结果。
 > If APP no serial output, you can also do it by yourself, follow function examples and [UART usage doc](./peripheral/uart.md) to add function and serial output.
 
 ## Prepare to Connect the Computer and Device
 
 To allow the computer (PC) and the device (MaixCAM) to communicate later, we need to have them on the same local area network. Two methods are provided:
-* **Method 1 (strongly recommended)**: Wireless connection. The device uses WiFi to connect to the same router or WiFi hotspot as the computer. You can connect to your WiFi in the device's `Settings -> WiFi Settings`.
-* **Method 2**: Wired connection. The device connects to the computer via a USB cable, and the device will act as a virtual USB network card, allowing it to be on the same local area network as the computer via USB.
+* **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or WiFi hotspot that your computer is connected to via WiFi: In the device's `Settings -> WiFi Settings`, connect to your WiFi. (If you experience screen lag or high latency with WiFi, you can try Method 2 for a wired connection.)
 
-> Method 2 may encounter some problems due to the need for USB and drivers, so it is recommended to start with WiFi instead. You can find common issues in the [FAQ](./faq.md).
-
+* **Method 2**: Wired Connection. Connect the device to the computer using a USB cable. The device will emulate a USB network adapter, thus creating a local network between the device and the computer through the USB connection. Method 2 may encounter some issues as it requires installing a USB virtual network adapter driver. Therefore, it is recommended to start with WiFi. **The following collapsed section describes the method for installing the virtual network adapter driver**. For troubleshooting, you can also refer to the [FAQ](./faq.md) for common issues.
 
 .. details::Method 2 has different setup methods on different computer systems, click to expand
      * **Linux**: No additional setup is required. Just plug in the USB cable. Use `ifconfig` or `ip addr` to view the `usb0` network card. **Note** that the IP address you see here, e.g., `10.131.167.100`, is the computer's IP. The device's IP is the last octet changed to `1`, i.e., `10.131.167.1`.
