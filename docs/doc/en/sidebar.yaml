@@ -48,6 +48,8 @@ items:
         label: AprilTag identity
     -   file: vision/opencv.md
         label: Use OpenCV
+    -   file: gui/i18n.md
+        label: I18N (Multi language)
 
 -   label: AI Vision
     items:

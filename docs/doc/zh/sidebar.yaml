@@ -48,6 +48,8 @@ items:
         label: AprilTag 识别
     -   file: vision/opencv.md
         label: 使用 OpenCV
+    -   file: gui/i18n.md
+        label: I18N 国际化(多语言)
 
 -   label: AI 视觉
     items:
