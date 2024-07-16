@@ -15,7 +15,7 @@ Using MaixPy's `maix.nn.YOLOv8` class, you can easily implement this functionali
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -62,5 +62,10 @@ If certain parts are occluded, the corresponding values will be `-1`.
 The default model input resolution is `320x224`. If you wish to use a model with a higher resolution, you can download it from the [MaixHub Model Library](https://maixhub.com/model/zoo/401) and transfer it to your device.
 
 Higher resolutions theoretically offer better accuracy but come with a decrease in processing speed. Choose the resolution based on your use case. Additionally, if the provided resolutions do not meet your requirements, you can train your own model using the [YOLOv8-Pose](https://github.com/ultralytics/ultralytics) source code to export your own ONNX model, which can then be converted to a model supported by MaixCAM (method detailed in subsequent articles).
+
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 
 

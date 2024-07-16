@@ -14,7 +14,7 @@ MaixPy provides `YOLOv5` and `YOLOv8` models by default, which can be used direc
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv5(model="/root/models/yolov5s.mud")
+detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
 # detector = nn.YOLOv8(model="/root/models/yolov8n.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
@@ -43,6 +43,10 @@ You can switch between `YOLOv5` and `YOLOv8` by replacing them in the code. Make
 The list of 80 supported object categories can be found in the appendix.
 
 For more API usage, refer to the documentation of the [maix.nn](/api/maix/nn.html) module.
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 
 ## More Input Resolutions
 

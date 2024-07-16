@@ -1,7 +1,7 @@
 from maix import nn, image, display, app, time
 
 disp = display.Display()
-classifier = nn.SelfLearnClassifier(model="/root/models/mobilenet_v2_no_top.mud")
+classifier = nn.SelfLearnClassifier(model="/root/models/mobilenet_v2_no_top.mud", dual_buff = True)
 
 class_path = [
     "/root/1.jpg",

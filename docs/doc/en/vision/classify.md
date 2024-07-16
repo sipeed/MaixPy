@@ -13,7 +13,7 @@ MaixPy provides a pre-trained `1000` classification model based on the `imagenet
 ```python
 from maix import camera, display, image, nn
 
-classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
+classifier = nn.Classifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
 cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 dis = display.Display()
 
@@ -35,6 +35,10 @@ Classifier Result video
 Here, the camera captures an image, which is then passed to the `classifier` for recognition. The result is displayed on the screen.
 
 For more API usage, refer to the documentation for the [maix.nn](/api/maix/nn.html) module.
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 
 ## Training Your Own Classification Model
 

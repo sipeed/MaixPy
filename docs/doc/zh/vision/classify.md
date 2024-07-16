@@ -12,7 +12,7 @@ MaixPy 默认提供了 `imagenet` 数据集训练得到的 `1000`分类模型，
 ```python
 from maix import camera, display, image, nn
 
-classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
+classifier = nn.Classifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
 cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 dis = display.Display()
 
@@ -35,6 +35,10 @@ Classifier Result video
 
 更多 API 使用参考 [maix.nn](/api/maix/nn.html) 模块的文档。
 
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
 ## 训练自己的分类模型
 

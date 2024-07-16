@@ -26,7 +26,7 @@ Simplified version of the code, for the complete version, please refer to the [e
 ```python
 from maix import nn, image
 
-classifier = nn.SelfLearnClassifier(model="/root/models/mobilenetv2.mud", feature_layer=None)
+classifier = nn.SelfLearnClassifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
 
 img1 = image.load("/root/1.jpg")
 img2 = image.load("/root/2.jpg")
@@ -70,4 +70,9 @@ If you have named each classification and stored them in the `labels` variable, 
 classifier.save("/root/my_classes.bin", labels=labels)
 labels = classifier.load("/root/my_classes.bin")
 ```
+
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 

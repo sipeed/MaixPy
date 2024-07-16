@@ -21,7 +21,7 @@ Using `YOLOv8-face` (requires MaixPy version >= 4.3.8):
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -66,3 +66,7 @@ Download the models; the compressed package contains multiple resolutions to cho
 * [Face Detector 1MB with landmark](https://maixhub.com/model/zoo/377)
 * [Retinaface](https://maixhub.com/model/zoo/378)
 * [YOLOv8-face](https://maixhub.com/model/zoo/407)
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).

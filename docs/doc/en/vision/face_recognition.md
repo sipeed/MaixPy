@@ -27,7 +27,7 @@ from maix import nn, camera, display, image
 import os
 import math
 
-recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud")
+recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff = True)
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
@@ -64,4 +64,8 @@ recognizer.save_faces("/root/faces.bin")
 ## Complete Example
 
 A complete example is provided for recording unknown faces and recognizing faces with a button press. This can be found in the [MaixPy example directory](https://github.com/sipeed/MaixPy/tree/main/examples) under `nn_face_recognize.py`.
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 

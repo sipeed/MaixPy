@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用 YOLOv5 / YOLOv8 模型进行目标检测
+title: MaixPy MaixCAM 使用 YOLOv5 / YOLOv8 模型进行目标检测
 ---
 
 
@@ -17,8 +17,8 @@ MaixPy 默认提供了 `YOLOv5` 和 `YOLOv8` 模型，可以直接使用：
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv5(model="/root/models/yolov5s.mud")
-# detector = nn.YOLOv8(model="/root/models/yolov8n.mud")
+detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff=True)
+# detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -46,6 +46,11 @@ while not app.need_exit():
 模型支持的 80 种物体列表请看本文附录。
 
 更多 API 使用参考 [maix.nn](/api/maix/nn.html) 模块的文档。
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
+
 
 ## 更多输入分辨率
 

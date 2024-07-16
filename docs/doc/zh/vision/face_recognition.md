@@ -29,7 +29,7 @@ from maix import nn, camera, display, image
 import os
 import math
 
-recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud")
+recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff=True)
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
@@ -67,5 +67,9 @@ recognizer.save_faces("/root/faces.bin")
 
 这里提供一个按键录入未知人脸，以及人脸识别的例程，可以在[MaixPy 的 example 目录](https://github.com/sipeed/MaixPy/tree/main/examples) 找到`nn_face_recognize.py`。
 
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
 

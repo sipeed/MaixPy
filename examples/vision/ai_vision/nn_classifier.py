@@ -1,6 +1,6 @@
 from maix import camera, display, image, nn, app
 
-classifier = nn.Classifier(model="/root/models/mobilenetv2.mud")
+classifier = nn.Classifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
 
 cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
 disp = display.Display()

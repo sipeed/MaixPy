@@ -10,6 +10,54 @@ title: 使用 OpenCV
 
 **注意 OpenCV 的函数基本都是 CPU 计算的，能使用 maix 的模块尽量不使用 OpenCV，因为 maix 有很多函数都是经过硬件加速过的。**
 
+## maix.image.Image 对象和 Numpy/OpenCV 格式互相转换
+
+`maix.image.Image`对象可以转换成`numpy`数组，这样就能给`numpy`和`opencv`等库使用：
+
+```python
+from maix import image, time, display, app
+
+disp = display.Display()
+
+while not app.need_exit():
+    img = image.Image(320, 240, image.Format.FMT_RGB888)
+    img.draw_rect(0, 0, 100, 100, image.COLOR_RED, thickness=-1)
+    t = time.ticks_ms()
+    img_bgr = image.image2cv(img, ensure_bgr=True, copy=True)
+    img2   = image.cv2image(img_bgr, bgr=True, copy=True)
+    print("time:", time.ticks_ms() - t)
+    print(type(img_bgr), img_bgr.shape)
+    print(type(img2), img2)
+    print("")
+    disp.show(img2)
+```
+
+前面的程序因为每次转换都要拷贝一次内存，所以速度会比较慢，下面为优化速度版本，如果不是极限追求速度不建议使用，容易出错：
+
+```python
+from maix import image, time, display, app
+
+disp = display.Display()
+
+while not app.need_exit():
+    img = image.Image(320, 240, image.Format.FMT_RGB888)
+    img.draw_rect(0, 0, 100, 100, image.COLOR_RED, thickness=-1)
+
+    t = time.ticks_ms()
+    img_rgb = image.image2cv(img, ensure_bgr=False, copy=False)
+    img2 = image.cv2image(img_rgb, bgr=False, copy=False)
+    print("time:", time.ticks_ms() - t)
+    print(type(img_rgb), img_rgb.shape)
+    print(type(img2), img2)
+
+    disp.show(img2)
+```
+
+* `img_rgb = image.image2cv(img, ensure_bgr=False, copy=False)`中`img_rgb` 会直接使用 `img` 的数据，不会产生内存拷贝，注意此时得到的`img_rgb` 是 `RGB` 图，`opencv`的 API 都是认为图是 `BGR` 的，所以用`opencv`的 API 操作图像时要注意，如果你无法掌控请设置`ensure_bgr`为`True`。
+* `img2 = image.cv2image(img_rgb, bgr=False, copy=False)`中设置了`copy`为`False`，即直接使用`img_rgb`的内存，不会新拷贝一份内存，所以速度更快了，但是需要小心，在 `img2` 使用结束前`img_bgr`不能被销毁，否则程序会崩溃。
+* 注意因为借用了内存，所以更改转换后的图像也会影响到转换前的图像。
+
+
 ## 加载一张图片
 
 ```python

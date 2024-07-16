@@ -18,7 +18,7 @@ MaixPy 实现了基于 [YOLOv8-Pose](https://github.com/ultralytics/ultralytics)
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -67,5 +67,9 @@ while not app.need_exit():
 
 分辨率越大理论上精度越高但是运行速度更低，根据你的使用场景选择，另外如果提供的分辨率不满足你的要求你也可以自己到 [YOLOv8-Pose](https://github.com/ultralytics/ultralytics) 使用摸新训练源码导出自己的onnx模型，然后转换为 MaixCAM 支持的模型（方法见后面的文章）。
 
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
 

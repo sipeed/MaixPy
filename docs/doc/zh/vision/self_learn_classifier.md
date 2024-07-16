@@ -28,7 +28,7 @@ title: MaixPy 自学习分类器
 ```python
 from maix import nn, image
 
-classifier = nn.SelfLearnClassifier(model="/root/models/mobilenetv2.mud", feature_layer=None)
+classifier = nn.SelfLearnClassifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
 
 img1 = image.load("/root/1.jpg")
 img2 = image.load("/root/2.jpg")
@@ -74,4 +74,9 @@ classifier.save("/root/my_classes.bin", labels = labels)
 labels = classifier.load("/root/my_classes.bin")
 ```
 
+
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 

@@ -20,7 +20,7 @@ MaixPy 默认提供了 coco 数据集 80 种物体分类模型。
 ```python
 from maix import camera, display, image, nn, app, time
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -40,6 +40,10 @@ while not app.need_exit():
 ## 更多分辨率模型
 
 默认是 320x224 输入分辨率的模型， 更多分辨率请到 [MaixHub 模型库](https://maixhub.com/model/zoo/413) 下载。
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
 
 ## 自定义自己的物体分割模型

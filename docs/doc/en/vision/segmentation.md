@@ -19,7 +19,7 @@ The following code can also be found in the [MaixPy examples](https://github.com
 ```python
 from maix import camera, display, image, nn, app, time
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -39,6 +39,11 @@ while not app.need_exit():
 ## Models with Different Resolutions
 
 The default model uses an input resolution of 320x224. For more resolutions, download from the [MaixHub Model Library](https://maixhub.com/model/zoo/413).
+
+
+## dual_buff Dual Buffer Acceleration
+
+You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 
 ## Customize Your Own Object Segmentation Model
 

@@ -22,7 +22,7 @@ MaixPy 官方提供了三种人脸检测模型，分别来自开源项目 [face 
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud")
+detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -70,6 +70,10 @@ while not app.need_exit():
 * [Retinafate](https://maixhub.com/model/zoo/378)
 * [YOLOv8-face](https://maixhub.com/model/zoo/407)
 
+
+## dual_buff 双缓冲区加速
+
+你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
 
 
