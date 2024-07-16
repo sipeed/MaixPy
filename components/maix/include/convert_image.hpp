@@ -90,10 +90,16 @@ namespace maix::image
             if(!new_img)
                 throw err::Exception(err::ERR_NO_MEM);
             memcpy(new_img->data(), img->data(), img->data_size());
-            return py::array_t<uint8_t, py::array::c_style>({new_img->height(), new_img->width(), (int)image::fmt_size[img->format()]}, (const unsigned char*)new_img->data(), py::cast(new_img));
+            auto capsule = py::capsule(new_img, [](void* img_ptr) {
+                delete reinterpret_cast<image::Image*>(img_ptr);
+            });
+            return py::array_t<uint8_t, py::array::c_style>({new_img->height(), new_img->width(), (int)image::fmt_size[img->format()]}, (const unsigned char*)new_img->data(), capsule);
         }
         // need convert to BGR
         image::Image *new_img = img->to_format(img->format() == image::FMT_RGBA8888 ? image::FMT_BGRA8888 : image::FMT_BGR888);
-        return py::array_t<uint8_t, py::array::c_style>({new_img->height(), new_img->width(), (int)image::fmt_size[img->format()]}, (const unsigned char*)new_img->data(), py::cast(new_img));
+        auto capsule = py::capsule(new_img, [](void* img_ptr) {
+            delete reinterpret_cast<image::Image*>(img_ptr);
+        });
+        return py::array_t<uint8_t, py::array::c_style>({new_img->height(), new_img->width(), (int)image::fmt_size[img->format()]}, (const unsigned char*)new_img->data(), capsule);
     }
 } // namespace maix::image
