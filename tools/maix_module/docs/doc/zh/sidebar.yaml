@@ -1,0 +1,6 @@
+items:
+-   file: README.md
+    label: 快速开始
+-   file: faq.md
+    label: FAQ 常见问题
+

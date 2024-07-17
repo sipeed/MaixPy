@@ -19,6 +19,12 @@ except Exception:
     from gen_api_cpp import generate_api_cpp
     from pyi_util import parse_pyi
 
+curr_dir = os.path.abspath(os.path.dirname(__file__))
+module_name_path = os.path.join(curr_dir, "..", "..", "module_name.txt")
+with open(module_name_path, "r") as f:
+    module_name = f.readline().strip()
+
+
 def sort_headers(headers):
     # read headers_priority.txt
     headers_priority = []
@@ -54,8 +60,8 @@ def update_py_def_from_stub_files(api_tree, stub):
     '''
         parse stub files, add definition to api_tree
     '''
-    maix_pyi_root = os.path.join(stub, "maix", "_maix")
-    for k, v in api_tree["members"]["maix"]["members"].items():
+    maix_pyi_root = os.path.join(stub, module_name, f"_{module_name}")
+    for k, v in api_tree["members"][module_name]["members"].items():
         def parse_module(pyi_path, k, v):
             if not os.path.exists(pyi_path):
                 print(f"[WARN] can not find {pyi_path}, you can build for linux platform first to generate this file")
@@ -65,25 +71,25 @@ def update_py_def_from_stub_files(api_tree, stub):
                 name = v["name"]
                 func_def = find_func_def(items["func"], name)
                 if func_def:
-                    v["py_def"] = func_def.replace("maix._maix", "maix")
+                    v["py_def"] = func_def.replace(f"{module_name}._{module_name}", module_name)
             elif v["type"] == "class":
                 for mc_k, mc_v in v["members"].items():
                     if mc_v["type"] == "func":
                         func_def = find_class_func_def(items, k, mc_k, False)
                         if func_def:
-                            mc_v["py_def"] = func_def.replace("maix._maix", "maix")
+                            mc_v["py_def"] = func_def.replace(f"{module_name}._{module_name}", module_name)
             for m_k, m_v in v.get("members", {}).items():
                 if m_v["type"] == "func":
                     name = m_v["name"]
                     func_def = find_func_def(items["func"], name)
                     if func_def:
-                        m_v["py_def"] = func_def.replace("maix._maix", "maix")
+                        m_v["py_def"] = func_def.replace(f"{module_name}._{module_name}", module_name)
                 elif m_v["type"] == "class":
                     for mc_k, mc_v in m_v["members"].items():
                         if mc_v["type"] == "func":
                             func_def = find_class_func_def(items, m_k, mc_k, False)
                             if func_def:
-                                mc_v["py_def"] = func_def.replace("maix._maix", "maix")
+                                mc_v["py_def"] = func_def.replace(f"{module_name}._{module_name}", module_name)
         module_dir = os.path.join(maix_pyi_root, k)
         if os.path.isdir(module_dir):
             for m_k, m_v in v["members"].items():
@@ -123,7 +129,7 @@ if __name__ == "__main__":
         except_dirs = ["3rd_party"]
         curr_dir = os.path.dirname(os.path.abspath(__file__))
         project_components_dir = os.path.abspath(os.path.join(curr_dir, ".."))
-        componets_dirs = [os.path.join(args.sdk_path, "components"), project_components_dir]
+        componets_dirs = [project_components_dir]
         for componets_dir in componets_dirs:
             for root, dirs, files in os.walk(componets_dir):
                 ignored = False
@@ -145,7 +151,7 @@ if __name__ == "__main__":
     headers = sort_headers(headers)
 
     for header in headers:
-        api_tree, updated, keys = parse_api_from_header(header, api_tree, sdks = ["maixpy"])
+        api_tree, updated, keys = parse_api_from_header(header, api_tree, sdks = [module_name], module_name = module_name)
         if not updated:
             rm.append(header)
         for h, ks in all_keys.items():
@@ -177,7 +183,7 @@ if __name__ == "__main__":
         json.dump(api_tree, f, indent=4)
 
     doc_maix_sidebar = {
-        "label": "maix",
+        "label": module_name,
         "collapsed": False,
         "items": [
             # {
@@ -192,8 +198,8 @@ if __name__ == "__main__":
 > This module is generated from [MaixPy](https://github.com/sipeed/MaixPy) and [MaixCDK](https://github.com/sipeed/MaixCDK)
 
 '''
-    top_api_keys = ["maix"]
-    module_members = api_tree["members"]["maix"]["members"]
+    top_api_keys = [module_name]
+    module_members = api_tree["members"][module_name]["members"]
     def gen_modules_doc(module_members, parents):
         sidebar_items = []
         for m, v in module_members.items():
@@ -239,7 +245,7 @@ MaixPy API documentation, modules:
     readme += "| --- | --- |\n"
     for m, v in module_members.items():
         # add link to module api doc
-        readme += "|[maix.{}](./maix/{}.md) | {} |\n".format(m, m,
+        readme += "|[{}.{}](./{}/{}.md) | {} |\n".format(module_name, m, module_name, m,
                         v["doc"].replace("\n", "<br>") if type(v["doc"]) == str else v["doc"]["brief"].replace("\n", "<br>")
                     )
     with open(readme_path, "w", encoding="utf-8") as f:

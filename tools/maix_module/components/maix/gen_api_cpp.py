@@ -3,12 +3,19 @@
     @license Apache 2.0
     @author Neucrack@Sipeed
     @date 2023.10.23
+          2024.7.17 neucrack add custom module name support
 '''
 
 import os
 import argparse
 import time
 import sys
+import json
+
+curr_dir = os.path.abspath(os.path.dirname(__file__))
+module_name_path = os.path.join(curr_dir, "..", "..", "module_name.txt")
+with open(module_name_path, "r") as f:
+    module_name = f.readline().strip()
 
 def generate_api_cpp(api_tree, headers, out_path = None):
     content = '''
@@ -21,23 +28,24 @@ def generate_api_cpp(api_tree, headers, out_path = None):
 #include <pybind11/functional.h>
 #include <pybind11/chrono.h>
 
+#include "maix_basic.hpp"
+#include "maix_peripheral.hpp"
+
 {}
-
-#include "maixpy.hpp"
-
 
 using namespace maix;
 using namespace maix::peripheral;
+using namespace {};
 
 namespace py = pybind11;
 
 
-PYBIND11_MODULE(_maix, m) {{
+PYBIND11_MODULE(_{}, m) {{
     {}
 }}
 '''
     code = []
-    maix = api_tree["members"]["maix"]
+    maix = api_tree["members"][module_name]
     code.append('m.doc() = "{}";'.format(maix["doc"]))
     def gen_members(members, _code, parent_var, parent_name, parent_type, parent_names):
         for k, v in members.items():
@@ -101,14 +109,14 @@ PYBIND11_MODULE(_maix, m) {{
                 _code.append(';')
 
 
-    gen_members(maix["members"], code, parent_var="m", parent_name="maix", parent_type="module", parent_names=[])
+    gen_members(maix["members"], code, parent_var="m", parent_name=module_name, parent_type="module", parent_names=[])
 
     code = "\n    ".join(code)
     headers_final = []
     for h in headers:
         headers_final.append('#include "{}"'.format(os.path.basename(h)))
     header_str = "\n".join(headers_final)
-    content = content.format(header_str, code)
+    content = content.format(header_str, module_name, module_name, code)
     if out_path:
         if os.path.dirname(out_path):
             os.makedirs(os.path.dirname(out_path), exist_ok=True)
@@ -155,7 +163,7 @@ if __name__ == "__main__":
         except_dirs = ["3rd_party"]
         curr_dir = os.path.dirname(os.path.abspath(__file__))
         project_components_dir = os.path.abspath(os.path.join(curr_dir, ".."))
-        componets_dirs = [os.path.join(args.sdk_path, "components"), project_components_dir]
+        componets_dirs = [project_components_dir]
         for componets_dir in componets_dirs:
             for root, dirs, files in os.walk(componets_dir):
                 ignored = False
@@ -177,7 +185,7 @@ if __name__ == "__main__":
     headers = sort_headers(headers)
 
     for header in headers:
-        api_tree, updated, keys = parse_api_from_header(header, api_tree, sdks = ["maixpy"])
+        api_tree, updated, keys = parse_api_from_header(header, api_tree, sdks = [module_name], module_name = module_name)
         if not updated:
             rm.append(header)
         for h, ks in all_keys.items():
