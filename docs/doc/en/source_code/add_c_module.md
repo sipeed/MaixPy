@@ -20,6 +20,7 @@ Directly modify the MaixPy firmware and then compile it. Refer to [View MaixPy A
 * Follow [Compiling MaixPy Source Code](./build.md) to get the `dist/***.whl` installation package.
 * Send the `.whl` package from the `dist` directory to the device, then run the code `import os; os.system("pip install /root/xxxxx.whl")` (replace the path accordingly).
 * If installing the `.whl` package is too slow during debugging, you can use `maixcdk build` to compile and then use `scp -r maix_xxx root@10.228.104.1:/usr/lib/python3.11/site-packages` to directly copy it to the device system to overwrite the package. Adjust the package name and device IP as needed.
+* Once you have finished debugging and feel that the features you added are valuable, consider merging them into the official repository. You can learn how to do this by searching for keywords like "github submit PR" on search engines.
 
 Modifying the code:
 As described in [View MaixPy API Source Code](../basic/view_src_code.md), you can view and modify the source code, add C++ functions, and include comments. After compiling, you can call them in MaixPy. It's very simple.
@@ -54,6 +55,7 @@ Create a MaixPy module project based on an engineering template. This method is 
 * Run `setup.py bdist_wheel maixcam` to build the package for `MaixCAM`. Note that the code prompt file (pyi file) can only be generated when building for the `linux` platform. Therefore, before releasing, first build for the `linux` platform to generate the code prompt file, then execute this command to generate the package for the `MaixCAM` platform.
 * Send the `.whl` package from the `dist` directory to the device, then run `import os; os.system("pip install /root/xxxxx.whl")` (replace the path accordingly).
 * If installing the `.whl` package is too slow during debugging, you can use `maixcdk build` to compile and then use `scp -r maix_xxx root@10.228.104.1:/usr/lib/python3.11/site-packages` to directly copy it to the device system to overwrite the package. Adjust the package name and device IP as needed.
+* Once you have debugged your code, consider open-sourcing it on [github.com](https://github.com) and uploading it to [pypi.org](https://pypi.org). You can refer to the official documentation or search for tutorials on how to upload. Generally, you need to run `pip install twine` and then `twine upload dist/maix_xxx***.whl`. After completing this, feel free to share your achievements on [maixhub.com/share](https://maixhub.com/share)!
 
 Modifying the code:
 As described in [View MaixPy API Source Code](../basic/view_src_code.md), add source files in the `components/maix/include` and `components/maix/src` directories, add C++ functions, and include comments. After compiling, you can call them directly. It's very simple.

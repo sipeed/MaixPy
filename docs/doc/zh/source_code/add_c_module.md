@@ -21,6 +21,7 @@ title: 给 MaixPy 添加一个 C/C++ 模块
 * 按照[编译 MaixPy 源码](./build.md) 通过即可获得`dist/***.whl`安装包。
 * 将`dist`目录下的`.whl`包发送到设备，然后使用运行代码`import os;os.system("pip install /root/xxxxx.whl")`即可（替换路径）。
 * 如果调试的时候觉得安装 `.whl` 包太慢了，可以使用`maixcdk build` 编译，然后使用`scp -r maix_xxx root@10.228.104.1:/usr/lib/python3.11/site-packages`直接拷贝到设备系统种覆盖包，这里需要根据你的包名和设备 ip 替换一下。
+* 当你调试好后如果觉得自己填加的功能不错，可以考虑合并到官方的仓库，具体方法可以搜索引擎搜索"github 提交 PR"相关关键词学习。
 
 修改代码：
 正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，增加 C++ 函数，并且填加注释，然后编译后 MaixPy 中就能调用了，非常简单。
@@ -56,6 +57,7 @@ namespace maix::test
 * 执行`setup.py bdist_wheel maixcam` 就可以为`MaixCAM` 构建软件包了。需要注意的是，构建过程种的代码提示文件(pyi文件)只能在给`linux` 平台构建的时候生成，所以在正式发布的时候需要先执行上一步的`linux`平台构建生成代码提示文件，然后再执行本步的命令生成`MaixCAM`平台的软件包。
 * 将`dist`目录下的`.whl`包发送到设备，然后使用运行代码`import os;os.system("pip install /root/xxxxx.whl")`即可（替换路径）。
 * 如果调试的时候觉得安装 `.whl` 包太慢了，可以使用`maixcdk build` 编译，然后使用`scp -r maix_xxx root@10.228.104.1:/usr/lib/python3.11/site-packages`直接拷贝到设备系统种覆盖包，这里需要根据你的包名和设备 ip 替换一下。
+* 当你调试好代码后，可以考虑将代码开源到[github.com](https://github.com)，并且上传到[pypi.org](https://pypi.org)（具体上传方法可以看官方文档或者搜索教程，大概就是`pip install twine`然后 `twine upload dist/maix_xxx***.whl`就可以了。），写好后欢迎到[maixhub.com/share](https://maixhub.com/share)来分享告诉大家你的成果！
 
 修改代码：
 正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，在`components/maix/include` 和 `components/maix/src` 下增加源文件，增加 C++ 函数，并且填加注释，然后编译后就直接能调用了，非常简单。
