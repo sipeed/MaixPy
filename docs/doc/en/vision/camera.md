@@ -49,6 +49,31 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP) # set to output NV21 im
 Note: You need to disable MaixVision's online browsing function if you set a very high resolution (e.g. `2560x1440`), otherwise the code may run abnormally due to lack of memory.
 You can also get greyscale images
 
+## Setting the frame rate of the camera
+
+Currently the camera supports `2560x1440 30FPS` and `1280x720 60FPS` configurations, the corresponding configurations are loaded by the `width`, `height`, and `fps` parameters passed when creating the `Camera` object.
+
+### Setting the frame rate to 30 fps
+
+``` Python
+from maix import camera
+cam = camera.Camera(640, 480) # Default frame rate is 30fps.
+```
+
+### Set the frame rate to 60 fps
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480, fps=60) # set frame rate to 60 fps
+```
+
+Notes:
+
+1. if `Camera` is passed in a size larger than `1280x720`, for example written as `camera.Camera(1920, 1080, fps=60)`, then the `fps` parameter will be invalidated, and the frame rate will remain at `30fps`.
+2. In `1080x720 60FPS` configuration the frame will be centred and cropped, so the field of view is smaller compared to `2560x1440 30FPS`.
+
+TODO: Support `1920x1080 60FPS` configuration to increase the viewing angle at high resolution!
+
 ## Skipping Initial Frames
 
 During the brief initialization period of the camera, the image acquisition may not be stable, resulting in strange images. You can use the `skip_frames` function to skip the initial few frames:
@@ -93,7 +118,10 @@ cam.gain(100)
 
 ### Setting the white balance
 
-TODO
+```python
+cam = camera.Camera()
+cam.awb_mode(1)     # 0,turn on white balance;1,turn off white balance
+```
 
 ### Setting brightness, contrast and saturation
 

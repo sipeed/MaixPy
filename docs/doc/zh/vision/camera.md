@@ -54,6 +54,31 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# 设置输出NV21图�
 
 注意：如果设置了很高的分辨率（例如`2560x1440`）时需要关闭MaixVision的在线浏览功能，否则可能会因为内存不足导致代码运行异常。
 
+## 设置摄像头的帧率
+
+目前摄像头支持`2560x1440 30FPS`和`1280x720 60FPS`两种配置，目前摄像头支持`2560x1440 30FPS`和`1280x720 60FPS`两种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来加载对应的配置。
+
+### 设置帧率为30帧
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480)			# 默认帧率为30fps
+```
+
+### 设置帧率为60帧
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480, fps=60)	# 设置帧率为60帧
+```
+
+注意：
+
+1. 如果`Camera`传入的尺寸大于`1280x720`，例如写成`camera.Camera(1920, 1080, fps=60)`，此时`fps`参数将会失效，帧率将保持在`30fps`。
+2. 在`1080x720 60FPS`配置下画面会居中裁剪，因此相对于`2560x1440 30FPS`的视角更小。
+
+TODO：支持`1920x1080 60FPS`配置以增加在高分辨率下的视角
+
 ## 跳过 开头的帧
 
 摄像头初始化的一小段时间，可能图像采集还没稳定出现奇怪的画面，可以通过`skip_frames`函数跳过开头的几帧：
@@ -98,7 +123,10 @@ cam.gain(100)
 
 ### 设置白平衡
 
-TODO
+```python
+cam = camera.Camera()
+cam.awb_mode(1)			# 0,开启白平衡;1,关闭白平衡
+```
 
 ### 设置亮度、对比度和饱和度
 
