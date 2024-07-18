@@ -139,7 +139,7 @@ def is_exit(x, y, touch):
 
     real_x = exit_img_x + upper_canvas_x
     real_y = exit_img_y + upper_canvas_y
-    if x > real_x and x < real_x + exit_img.width() and y > real_y and y < real_y + exit_img.height():
+    if x > real_x and x < real_x + exit_img.width() + 20 and y > real_y and y < real_y + exit_img.height() + 20:
         return True
     else:
         return False
