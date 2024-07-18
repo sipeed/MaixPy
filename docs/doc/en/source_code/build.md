@@ -38,7 +38,7 @@ python setup.py bdist_wheel maixcam
 `maixcam` Can be replaced with other board config, see [setup.py]([./configs](https://github.com/sipeed/MaixPy/blob/main/setup.py)) 's `platform_names` variable.
 
 
-After build success, you will find wheel file in `dist` directory, use `pip install -U MaixPy****.wheel` on your device to install or upgrade.
+After build success, you will find wheel file in `dist` directory, use `pip install -U MaixPy****.whl` on your device to install or upgrade.
 
 > `python setup.py bdist_wheel maixcam --skip-build` will not execute build command and only pack wheel, so you can use `maixcdk menuconfig` and `maixcdk build` first to customize building.
 
@@ -67,7 +67,7 @@ cd test
 
 * If cross compile for borad:
   * The fastest way is copy `maix` dir to device's `/usr/lib/python3.11/site-packages/` directory, then run script on device.
-  * Or pack wheel and install on device by `pip install -U MaixPy****.wheel`, then run script on device.
+  * Or pack wheel and install on device by `pip install -U MaixPy****.whl`, then run script on device.
 
 ## Preview documentation locally
 

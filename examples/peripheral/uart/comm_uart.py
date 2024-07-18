@@ -10,9 +10,13 @@ device = "/dev/ttyS0"
 
 serial0 = uart.UART(device, 115200)
 
+
+print("send hello 1")
 serial0.write("hello 1\r\n".encode())
+print("send hello 2")
 serial0.write_str("hello 2\r\n")
 
+print("now wait receive data:")
 while not app.need_exit():
     data = serial0.read()
     if data:

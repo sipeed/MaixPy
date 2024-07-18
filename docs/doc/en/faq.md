@@ -103,3 +103,10 @@ Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative 
 ## MaixVision Shows Red Wavy Line on `import maix`
 
 This error occurs because MaixVision's code hinting feature cannot find the `maix` module. It's important to understand that MaixVision's code hinting relies on the local Python packages on your computer, while the code execution depends on the Python packages on the device. To enable MaixVision's code hinting, you need to install Python and the `MaixPy` package on your computer. For more details, refer to the [MaixVision User Documentation](./basic/maixvision.md).
+
+
+## MaixCAM starts very slowly, even exceeding 1 minute, or the screen flickers
+
+This is mostly due to insufficient power supply. MaixCAM requires a voltage of around 5V and a current between 150mA and 500mA. If you encounter this issue, you can use a USB to TTL module to connect MaixCAM's serial port to a computer. You may see a message like `Card did not respond to voltage select! : -110`, indicating insufficient power supply. Simply switch to a more stable power supply to resolve the problem.
+
+For MaixCAM, it draws 400mA during startup, 250mA in standby mode with the screen on, and 400mA~500mA when running AI models at full speed. Therefore, ensuring a stable power supply is very important!

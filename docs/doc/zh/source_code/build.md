@@ -36,7 +36,7 @@ python setup.py bdist_wheel maixcam
 
 `maixcam` 可以被替换为其他板卡配置, 请查看 `MaixPy/platforms` 目录。
 
-构建成功后, 你会在 `dist` 目录中找到 wheel 文件, 传输到设备（开发板），在设备终端中使用 `pip install -U MaixPy****.wheel` 在你的设备上安装或升级。
+构建成功后, 你会在 `dist` 目录中找到 wheel 文件, 传输到设备（开发板），在设备终端中使用 `pip install -U MaixPy****.whl` 在你的设备上安装或升级。
 
 > `python setup.py bdist_wheel maixcam --skip-build` 不会执行构建命令, 只会打包 wheel 文件, 因此你可以先使用 `maixcdk menuconfig` 和 `maixcdk build` 来自定义构建。
 
@@ -65,7 +65,7 @@ cd test
 
 * 如果为板卡交叉编译:
   * 最快的方式是将 `maix` 目录复制到设备的 `/usr/lib/python3.11/site-packages/` 目录, 然后在设备上运行脚本。
-  * 或者打包 wheel 文件并在设备上使用 `pip install -U MaixPy****.wheel` 安装, 然后在设备上运行脚本。
+  * 或者打包 wheel 文件并在设备上使用 `pip install -U MaixPy****.whl` 安装, 然后在设备上运行脚本。
 
 ## 本地预览文档
 

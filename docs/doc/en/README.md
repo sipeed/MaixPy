@@ -32,6 +32,8 @@ title: MaixPy Quick Start
 
 **It is highly recommended to purchase a package that includes a screen, as it greatly enhances the development experience.** If you do not need a screen for actual deployment in a production environment, you can start with a screen-included kit for initial development, and then either remove the screen or purchase a screenless version for mass production later on.
 
+* **Power Supply**: A stable power supply is crucial. MaixCAM requires a steady `5V 500mA` power supply. Insufficient power can result in failure to boot or crashes during operation. This is especially true for some computer USB ports, which may provide unstable power.
+
 * **TF card reader**: To flash the system.
 
 * **USB to serial port module**: If you want to debug serial communication, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this [dual serial port to USB module](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537).
@@ -42,7 +44,7 @@ title: MaixPy Quick Start
 
 ### Prepare the TF Image Card and Insert it into the Device
 
-If the package you purchased includes a TF card, it already contains the factory image. If the TF card was not installed in the device at the factory, you will first need to carefully open the case (be careful not to tear the ribbon cables inside) and then insert the TF card. Additionally, since the firmware from the factory may be outdated, you can follow the instructions on [Upgrading and Flashing the System](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html) to upgrade the system to the latest version.
+If the package you purchased includes a TF card, it already contains the factory image. If the TF card was not installed in the device at the factory, you will first need to carefully open the case (be careful not to tear the ribbon cables inside) and then insert the TF card. Additionally, since the firmware from the factory may be outdated, it is highly recommended to follow the instructions on [Upgrading and Flashing the System](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html) to upgrade the system to the latest version.
 
 If you did not purchase a TF card, you need to flash the system onto a self-provided TF card. Please refer to [Upgrading and Flashing the System](./basic/os.md) for the flashing method, and then install it on the board.
 
@@ -180,6 +182,11 @@ To allow the computer (PC) and the device (MaixCAM) to communicate later, we nee
  Up to this point, you've experienced the usage and development workflow. Next, you can learn about `MaixPy` syntax and related features. Please follow the left sidebar to learn. If you have any questions about using the API, you can look it up in the [API documentation](/api/).
 
  It's best to learn with a specific purpose in mind, such as working on an interesting small project. This way, the learning effect will be better. You can share your projects and experiences on the [MaixHub Share Plaza](https://maixhub.com/share) and receive cash rewards!
+
+
+## Frequently Asked Questions (FAQ)
+
+If you encounter any problems, please check the [FAQ](./faq.md) first. If you cannot find a solution there, you can ask in the forums or groups below, or submit a source code issue on [MaixPy issue](https://github.com/sipeed/MaixPy/issues).
 
  ## Share and Discuss
 
