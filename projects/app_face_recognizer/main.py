@@ -5,6 +5,7 @@ pressed_flag = [False, False, False]
 learn_id = 0
 
 def main(disp):
+    global pressed_flag, learn_id
     recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud")
 
     # if os.path.exists("/root/faces.bin"):
