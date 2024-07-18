@@ -90,12 +90,15 @@ jobs:
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name
           os_filename=${os_version_name}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
+          sha256sum $os_file_path > ${maixpy_path}/files_sha256sum.txt
+          sha256sum $release_path >> ${maixpy_path}/files_sha256sum.txt
           echo "os_path=$os_filepath" >> $GITHUB_OUTPUT
           echo "os_name=$os_filename" >> $GITHUB_OUTPUT
 
       - name: Build doc
         id: build_doc
         run: |
+          maixpy_path=$(pwd)
           pip3 install teedoc
           cd docs
           echo "== install plugins =="
@@ -120,14 +123,25 @@ jobs:
           cd ..
           release_name=${doc_dir}.zip
           release_path=docs/$release_name
+          sha256sum $release_path >> ${maixpy_path}/files_sha256sum.txt
           echo "release_doc_path=$release_path" >> $GITHUB_OUTPUT
           echo "release_doc_name=$release_name" >> $GITHUB_OUTPUT
+          echo "sha256sum_path=${maixpy_path}/files_sha256sum.txt" >> $GITHUB_OUTPUT
+          echo "sha256sum_name=files_sha256sum.txt" >> $GITHUB_OUTPUT
 
       - name: Upload MaixPy Doc to release assets
         uses: svenstaro/upload-release-action@v2
         with:
           file: ${{ steps.build_doc.outputs.release_doc_path }}
           asset_name: ${{ steps.build_doc.outputs.release_doc_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload sha256sum file to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_doc.outputs.sha256sum_path }}
+          asset_name: ${{ steps.build_doc.outputs.sha256sum_name }}
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
