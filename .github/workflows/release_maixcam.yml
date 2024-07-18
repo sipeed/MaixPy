@@ -90,8 +90,8 @@ jobs:
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name
           os_filename=${os_version_name}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
-          sha256sum $os_file_path > ${maixpy_path}/files_sha256sum.txt
-          sha256sum $release_path >> ${maixpy_path}/files_sha256sum.txt
+          sha256sum $os_filepath > ${maixpy_path}/sha256sum_files.txt
+          sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
           echo "os_path=$os_filepath" >> $GITHUB_OUTPUT
           echo "os_name=$os_filename" >> $GITHUB_OUTPUT
 
@@ -111,7 +111,8 @@ jobs:
           user_name=`git log -1 --pretty=format:'%an'`
           user_email=`git log -1 --pretty=format:'%ae'`
           echo "== checkout gh-pages branch =="
-          doc_dir=../maixpy_${{ github.ref_name }}_doc
+          doc_dirname=maixpy_${{ github.ref_name }}_doc
+          doc_dir=${maixpy_path}/$doc_dirname
           echo "#!/bin/bash" > out/view_doc.sh
           echo "python -m http.server" >> out/view_doc.sh
           echo "python -m http.server" > out/view_doc.bat
@@ -119,15 +120,15 @@ jobs:
           mv ./out/* ${doc_dir}/html/
           mkdir -p ${doc_dir}/source
           mv ./* ${doc_dir}/source/
-          zip ${doc_dir}.zip -r $doc_dir
-          cd ..
-          release_name=${doc_dir}.zip
-          release_path=docs/$release_name
-          sha256sum $release_path >> ${maixpy_path}/files_sha256sum.txt
+          cd ${maixpy_path}
+          zip ${doc_dirname}.zip -r $doc_dirname
+          release_name=${doc_dirname}.zip
+          release_path=${maixpy_path}/$release_name
+          sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
           echo "release_doc_path=$release_path" >> $GITHUB_OUTPUT
           echo "release_doc_name=$release_name" >> $GITHUB_OUTPUT
-          echo "sha256sum_path=${maixpy_path}/files_sha256sum.txt" >> $GITHUB_OUTPUT
-          echo "sha256sum_name=files_sha256sum.txt" >> $GITHUB_OUTPUT
+          echo "sha256sum_path=${maixpy_path}/sha256sum_files.txt" >> $GITHUB_OUTPUT
+          echo "sha256sum_name=sha256sum_files.txt" >> $GITHUB_OUTPUT
 
       - name: Upload MaixPy Doc to release assets
         uses: svenstaro/upload-release-action@v2
