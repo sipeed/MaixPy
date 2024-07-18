@@ -112,9 +112,9 @@ jobs:
           echo "#!/bin/bash" > out/view_doc.sh
           echo "python -m http.server" >> out/view_doc.sh
           echo "python -m http.server" > out/view_doc.bat
-          mkdir ${doc_dir}/html
+          mkdir -p ${doc_dir}/html
           mv ./out/* ${doc_dir}/html/
-          mkdir ${doc_dir}/source
+          mkdir -p ${doc_dir}/source
           mv ./* ${doc_dir}/source/
           zip ${doc_dir}.zip -r $doc_dir
           cd ..
