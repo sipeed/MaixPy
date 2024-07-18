@@ -75,6 +75,25 @@ Notes:
 
 1. if `Camera` is passed in a size larger than `1280x720`, for example written as `camera.Camera(1920, 1080, fps=60)`, then the `fps` parameter will be invalidated, and the frame rate will remain at `30fps`.
 2. A `60fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
+3. Note that due to the fact that `60fps‘ and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
+
+## Image correction
+
+In case of distortion such as fisheye, you can use the `lens_corr` function under the `Image` object to correct the distortion of the image. In general, you just need to increase or decrease the value of `strength` to adjust the image to the right effect.
+
+``python
+from maix import camera, display
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+while not app.need_exit():: t = time.
+    t = time.ticks_ms()
+    img = cam.read()
+    img = img.lens_corr(strength=1.5) # Adjust the strength value until the image is no longer distorted.
+    disp = display.Display()
+``
+
+TODO: Support for hardware distortion correction
 
 ## Skipping Initial Frames
 

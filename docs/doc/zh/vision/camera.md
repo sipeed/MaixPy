@@ -80,6 +80,25 @@ cam = camera.Camera(640, 480)                  # 分辨率低于或等于1280x72
 
 1. 如果`Camera`传入的尺寸大于`1280x720`，例如写成`camera.Camera(1920, 1080, fps=60)`，此时`fps`参数将会失效，帧率将保持在`30fps`。
 2. `60fps`与`30fps`的画面相比会有几个像素的偏移，在对视角有严格要求的应用下需要注意修正偏移。
+3. 需要注意由于`60fps`和`30fps`共用了`isp`配置，在某些环境下两种帧率下的画面画质会存在一些偏差。
+
+## 图像矫正
+
+对于画面存在鱼眼等畸变的情况，可以使用`Image`对象下的`lens_corr`函数对图片进行畸变矫正。一般情况只需要调大和调小`strength`的值来将画面调整到合适效果即可。
+
+```python
+from maix import camera, display
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+while not app.need_exit():
+    t = time.ticks_ms()
+    img = cam.read() 
+    img = img.lens_corr(strength=1.5)	# 调整strength的值直到画面不再畸变
+    disp = display.Display()
+```
+
+TODO：支持硬件畸变矫正
 
 ## 跳过 开头的帧
 
