@@ -51,7 +51,7 @@ You can also get greyscale images
 
 ## Setting the frame rate of the camera
 
-Currently the camera supports `30fps` and `60fps` configurations, the frame rate is selected by the `width`, `height`, `fps` parameters passed when creating the `Camera` object, currently the maximum supported resolution is `1280x720` under `60fps`, and the maximum supported resolution is `2560x1440` under `30fps`.
+Currently the camera supports `30fps`, `60fps` and `80fps` configurations, the frame rate is selected by the `width`, `height`, `fps` parameters passed when creating the `Camera` object, currently the maximum supported resolution is `1280x720` under `60/80fps`, and the maximum supported resolution is `2560x1440` under `30fps`.
 
 ### Setting the frame rate to 30 fps
 
@@ -67,15 +67,22 @@ cam = camera.Camera(1920, 1280) # Frame rate is set to 30 fps when resolution is
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=60) # Set frame rate to 60 fps
+```
+
+### Set the frame rate to 80 fps
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480, fps=80) # Set frame rate to 60 fps
 # or
-cam = camera.Camera(640, 480) # Set frame rate to 60fps if resolution is less than or equal to 1280x720
+cam = camera.Camera(640, 480) # Set frame rate to 80fps if resolution is less than or equal to 1280x720
 ```
 
 Notes:
 
 1. if `Camera` is passed in a size larger than `1280x720`, for example written as `camera.Camera(1920, 1080, fps=60)`, then the `fps` parameter will be invalidated, and the frame rate will remain at `30fps`.
-2. A `60fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
-3. Note that due to the fact that `60fps‘ and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
+2. A `60/80fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
+3. Note that due to the fact that `60/80fps` and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
 
 ## Image correction
 

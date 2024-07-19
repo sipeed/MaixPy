@@ -56,7 +56,7 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# 设置输出NV21图�
 
 ## 设置摄像头的帧率
 
-目前摄像头支持`30fps`和`60fps`两种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来选择帧率，目前`60fps`下最大支持分辨率`1280x720`， `30fps`下最大支持分辨率`2560x1440`。
+目前摄像头支持`30fps`、`60fps`和`80fps`三种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来选择帧率，目前`60/80fps`下最大支持分辨率`1280x720`， `30fps`下最大支持分辨率`2560x1440`。
 
 ### 设置帧率为30帧
 
@@ -64,7 +64,7 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# 设置输出NV21图�
 from maix import camera
 cam = camera.Camera(640, 480, fps=30)			# 设置帧率为30帧
 # or
-cam = camera.Camera(1920, 1280)                  # 分辨率高于1280x720时帧率会设置为30帧
+cam = camera.Camera(1920, 1280)             # 分辨率高于1280x720时帧率会设置为30帧
 ```
 
 ### 设置帧率为60帧
@@ -72,15 +72,22 @@ cam = camera.Camera(1920, 1280)                  # 分辨率高于1280x720时帧
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=60)	        # 设置帧率为60帧
+```
+
+### 设置帧率为80帧
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480, fps=80)	        # 设置帧率为80帧
 # or
-cam = camera.Camera(640, 480)                  # 分辨率低于或等于1280x720时帧率会设置为60fps
+cam = camera.Camera(640, 480)                  # 分辨率低于或等于1280x720时帧率会设置为80fps
 ```
 
 注意：
 
 1. 如果`Camera`传入的尺寸大于`1280x720`，例如写成`camera.Camera(1920, 1080, fps=60)`，此时`fps`参数将会失效，帧率将保持在`30fps`。
-2. `60fps`与`30fps`的画面相比会有几个像素的偏移，在对视角有严格要求的应用下需要注意修正偏移。
-3. 需要注意由于`60fps`和`30fps`共用了`isp`配置，在某些环境下两种帧率下的画面画质会存在一些偏差。
+2. `60/80fps`与`30fps`的画面相比会有几个像素的偏移，在对视角有严格要求的应用下需要注意修正偏移。
+3. 需要注意由于`60/80fps`和`30fps`共用了`isp`配置，在某些环境下两种帧率下的画面画质会存在一些偏差。
 
 ## 图像矫正
 
