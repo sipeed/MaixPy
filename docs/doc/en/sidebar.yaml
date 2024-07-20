@@ -10,11 +10,11 @@ items:
     -   file: basic/os.md
         label: Burning system
     -   file: basic/app_usage.md
-        label: App uses
+        label: App usage
     -   file: basic/maixpy_upgrade.md
         label: Update MaixPy
     -   file: basic/maixvision.md
-        label: MaixVision uses
+        label: MaixVision usage
     -   file: basic/python.md
         label: Python syntax
     -   file: basic/linux_basic.md
@@ -22,7 +22,7 @@ items:
     -   file: basic/python_pkgs.md
         label: Add python packages
     -   file: basic/app.md
-        label: Apps development
+        label: App development
     -   file: basic/auto_start.md
         label: Auto start
     -   file: basic/view_src_code.md
@@ -31,9 +31,9 @@ items:
 -   label: Basic images and algorithms
     items:
     -   file: vision/display.md
-        label: Screen uses
+        label: Screen usage
     -   file: vision/camera.md
-        label: Camera uses
+        label: Camera usage
     -   file: vision/image_ops.md
         label: Image control
     -   file: vision/touchscreen.md
@@ -47,7 +47,7 @@ items:
     -   file: vision/apriltag.md
         label: AprilTag identity
     -   file: vision/opencv.md
-        label: Use OpenCV
+        label: OpenCV usage
     -   file: gui/i18n.md
         label: I18N (Multi language)
 
@@ -56,11 +56,11 @@ items:
     -   file: vision/ai.md
         label: AI vision knowledge
     -   file: vision/classify.md
-        label: AI object classify
+        label: AI object classification
     -   file: vision/yolov5.md
-        label: YOLOv5/v8 object detect
+        label: YOLOv5/v8 object detection
     -   file: vision/face_detection.md
-        label: Face detect and keypoints
+        label: Face and keypoints detection
     -   file: vision/face_recognition.md
         label: Face recognition
     -   file: vision/body_key_points.md
@@ -78,9 +78,9 @@ items:
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md
-        label: Offline train YOLOv5 model
+        label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
-        label: Offline train YOLOv8 model
+        label: YOLOv8 model offline training
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
 
@@ -88,30 +88,30 @@ items:
 -   label: AI audio
     items:
     -   file: audio/record.md
-        label: Audio record
+        label: Audio recording
     -   file: audio/play.md
-        label: Play audio
+        label: Playing audio
     -   file: audio/classifier.md
         label: AI voice classifier
     -   file: audio/keyword.md
-        label: Keyword recognize
+        label: Keyword recognition
     -   file: audio/recognize.md
-        label: Real-time voice recognize
+        label: Real-time voice recognition
     -   file: audio/synthesis.md
         label: Speech synthesis
 
 -   label: Video
     items:
     -   file: video/record.md
-        label: Video record
+        label: Video recording
     -   file: video/play.md
-        label: Play video
+        label: Playing video
     -   file: video/jpeg_streaming.md
-        label: JPEG stream
+        label: JPEG streaming
     -   file: video/rtsp_streaming.md
-        label: RTSP stream
+        label: RTSP streaming
     -   file: video/rtmp_streaming.md
-        label: RTMP stream
+        label: RTMP streaming
 
 -   label: Network
     items:
@@ -158,7 +158,7 @@ items:
     -   file: modules/thermal_cam.md
         label: Thermal imaging
 
--   label: Porjects
+-   label: Projects
     items:
     -   file: projects/README.md
         label: Intro & Collection
@@ -178,7 +178,7 @@ items:
     -   file: source_code/add_c_module.md
         label: Write in C/C++
     -   file: source_code/maixcdk.md
-        label: MaixCDK develop
+        label: MaixCDK development
     -   file: pro/compile_os.md
         label: Build firmware
 

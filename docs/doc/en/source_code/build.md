@@ -65,7 +65,7 @@ cd test
 ./run.sh examples/hello_maix.py
 ```
 
-* If cross compile for borad:
+* If cross compile for board:
   * The fastest way is copy `maix` dir to device's `/usr/lib/python3.11/site-packages/` directory, then run script on device.
   * Or pack wheel and install on device by `pip install -U MaixPy****.whl`, then run script on device.
 

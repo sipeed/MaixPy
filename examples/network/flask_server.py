@@ -1,5 +1,5 @@
 from flask import Flask, request, send_file
-import maix # we not use it but we import it to listening key event to exit this program
+import maix # we do not use it but we import it to listening key event to exit this program
 
 app = Flask(__name__)
 
