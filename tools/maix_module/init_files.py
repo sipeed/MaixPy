@@ -80,7 +80,7 @@ write_component_dir()
 def write_test_dir():
     if os.path.exists("README.md"):
         return
-    content = f"MaixPy moudle {module_name}\n====\n\nTODO: Add readme\n"
+    content = f"MaixPy module {module_name}\n====\n\nTODO: Add readme\n"
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(content)
     content = f"MaixPy 模块 {module_name}\n====\n\nTODO: 增加 readme\n"

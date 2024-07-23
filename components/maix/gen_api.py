@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     api_tree = update_py_def_from_stub_files(api_tree, args.stub)
 
-    # generate API documenation according to api_tree
+    # generate API documentation according to api_tree
     print("-- Generating MaixPy API documentation")
     doc_out_dir = args.doc
     api_json_path = os.path.join(doc_out_dir, "api.json")

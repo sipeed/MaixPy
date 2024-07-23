@@ -431,7 +431,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
         <div class="img_video">
             <img src="/static/image/thermal.jpg">
             <p class="feature">Thermal Camera</p>
-            <p class="description">Optional camera, temprature image capture/measure</p>
+            <p class="description">Optional camera, temperature image capture/measure</p>
         </div>
         <div>
         </div>
@@ -455,7 +455,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
 
 * **AI Algorithm Engineer** who want to deploy your AI model to embedded devices.
 > MaixPy provide easy-to-use API to access NPU, and docs to help you develop your AI model.
-* **STEM** teacher who want to teach AI and embeded to students.
+* **STEM** teacher who want to teach AI and embedded devices to students.
 > MaixPy provide easy-to-use API, PC tools, online AI train service ... Let you focus on teaching AI, not the hardware and complicated software usage.
 * **Maker** who want to make some cool projects but don't want to learn complicated hardware and software.
 > MaixPy provide Python API, so all you need is learn basic Python syntax, and MaixPy's API is so easy to use, you can make your project even in a few minutes.

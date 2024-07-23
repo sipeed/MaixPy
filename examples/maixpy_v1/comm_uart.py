@@ -14,7 +14,7 @@ while True:
       read_data = uart_A.read()
       print("recv = ", read_data) # recv =  b'hello world'
     break
-  time.sleep_ms(10) # ohter event
+  time.sleep_ms(10) # other event
 
 print("deinit")
 uart_A.deinit()

@@ -113,7 +113,7 @@ Chip register level open, more detalils: [MaixCAM](https://wiki.sipeed.com/maixc
 
 * **AI Algorithm Engineer** who want to deploy your AI model to embedded devices.
 > MaixPy provide easy-to-use API to access NPU, and docs to help you develop your AI model.
-* **STEM** teacher who want to teach AI and embeded to students.
+* **STEM** teacher who wants to teach AI and embedded devices to students.
 > MaixPy provide easy-to-use API, PC tools, online AI train service ... Let you focus on teaching AI, not the hardware and complicated software usage.
 * **Maker** who want to make some cool projects but don't want to learn complicated hardware and software.
 > MaixPy provide Python API, so all you need is learn basic Python syntax, and MaixPy's API is so easy to use, you can make your project even in a few minutes.
