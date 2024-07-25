@@ -35,7 +35,7 @@ update:
 介绍了那么多，其实通过 MaixPy 使用 Pinmap 来管理引脚功能很简单：
 
 ```python
-from maix.peripheral import pinmap
+from maix import pinmap
 
 print(pinmap.get_pins())
 

@@ -79,7 +79,15 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker pull sophgo/tpuc_dev:latest
 ```
 
-> 在中国国内可能无法拉取或者速度慢，可以设置国内的镜像，可自行搜索或者参考[docker 设置代理，以及国内加速镜像设置](https://neucrack.com/p/286)。
+如果docker拉取失败，可以通过以下方式进行下载：
+```shell
+wget https://sophon-file.sophon.cn/sophon-prod-s3/drive/24/06/14/12/sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+docker load -i sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+```
+这个方法参考[tpu-mlir官方docker环境配置](https://github.com/sophgo/tpu-mlir/blob/master/README_cn.md)。
+
+此外你也可以设置国内的镜像，可自行搜索或者参考[docker 设置代理，以及国内加速镜像设置](https://neucrack.com/p/286)。
+
 
 ### 运行容器
 
