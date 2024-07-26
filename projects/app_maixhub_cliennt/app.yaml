@@ -1,0 +1,32 @@
+id: maixhub
+name: MaixHub Client
+version: 1.0.0
+author: Sipeed
+icon: app.png
+desc: MaixHub client to collect image or deploy AI model etc.
+files:
+  - maixhub/assets/btn.wav
+  - maixhub/assets/deployment.png
+  - maixhub/assets/exit.png
+  - maixhub/assets/language.png
+  - maixhub/assets/resolution.png
+  - maixhub/assets/test.jpg
+  - maixhub/assets/upload.png
+  - maixhub/assets/wifi.png
+  - maixhub/demos/__init__.py
+  - maixhub/demos/classifier.py
+  - maixhub/demos/yolov5.py
+  - maixhub/widgets/list.py
+  - maixhub/__init__.py
+  - maixhub/board.py
+  - maixhub/data_collect.py
+  - maixhub/params.py
+  - maixhub/trans.py
+  - maixhub/ui.py
+  - maixhub/utils.py
+  - app.png
+  - app.yaml
+  - LICENSE
+  - main.py
+  - run.py
+  - setup.py
