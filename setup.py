@@ -131,7 +131,7 @@ if board == "linux":
 maixcdk_path = os.path.abspath(os.environ.get("MAIXCDK_PATH", None))
 maixpy_path = os.path.abspath(os.getcwd())
 if maixcdk_path.startswith(maixpy_path):
-    raise Exception("DO NOT put MaixCDK in MaixPy folder, please put MaixCDK in other place and set MAIXCDK_PATH environmenet variable by `export MAIXCDK_PATH=xxxxx`")
+    raise Exception("DO NOT put MaixCDK in MaixPy folder, please put MaixCDK in other place and set MAIXCDK_PATH environment variable by `export MAIXCDK_PATH=xxxxx`")
 if not maixcdk_path:
     raise Exception("No environment variable MAIXCDK_PATH, please set first by `export MAIXCDK_PATH=xxxxx`")
 ret = os.system(f"python -u components/maix/gen_api.py --doc docs/api --sdk_path {maixcdk_path}")

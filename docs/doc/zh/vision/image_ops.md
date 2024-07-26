@@ -136,7 +136,7 @@ img.draw_string(10, 10, "Hello MaixPy", image.Color.from_rgb(255, 0, 0), scale=2
 获取字体的宽度和高度：
 
 ```python
-w, h = img.string_size("Hello MaixPy", scale=2)
+w, h = image.string_size("Hello MaixPy", scale=2)
 print(w, h)
 ```
 
