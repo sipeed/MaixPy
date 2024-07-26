@@ -3,6 +3,6 @@
 
 version_major = 4
 version_minor = 4
-version_patch = 12
+version_patch = 13
 
 __version__ = "{}.{}.{}".format(version_major, version_minor, version_patch)
