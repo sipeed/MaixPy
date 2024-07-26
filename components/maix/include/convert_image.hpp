@@ -28,7 +28,7 @@ namespace maix::image
         if(info.ndim == 3)
         {
             log::debug("ndim: %ld, shape: %ld %ld %ld\n", info.ndim, info.shape[0], info.shape[1], info.shape[2]);
-            if (info.shape[2] != 3 && info.shape[2] != 4)
+            if (info.shape[2] != 3 && info.shape[2] != 4 && info.shape[2] != 1)
                 throw std::runtime_error("Number of channels must be 3 or 4");
             mat = cv::Mat(info.shape[0], info.shape[1], CV_8UC(info.shape[2]), info.ptr);
         }
