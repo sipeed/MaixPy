@@ -70,7 +70,8 @@ def load_saved_models(models_dir):
                         "name": os.path.splitext(os.path.basename(model_path))[0],
                         "path": os.path.abspath(model_path),
                         "model_type": model_type,
-                        "is_dir": True
+                        "is_dir": True,
+                        "dir": os.path.dirname(os.path.abspath(model_path))
                     }
                     models.append(model)
             elif os.path.splitext(path)[1] == ".mud":

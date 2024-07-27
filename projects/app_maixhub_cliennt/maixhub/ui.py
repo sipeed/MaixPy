@@ -504,14 +504,19 @@ def frame_deploy(cam_size, dis_size):
                     print(f"Load model {model_dir} failed")
                     err_msg = tr("Load model failed")
                     continue
-                cam.set_resolution(demo.input_size()[0], demo.input_size()[1])
+                del cam
+                cam = camera.Camera(demo.input_size()[0], demo.input_size()[1])
+                # cam.set_resolution(demo.input_size()[0], demo.input_size()[1])
                 model_init = True
                 continue
             demo.loop(img, dis_img, clicked and idx == 1)
             draw_frame(dis_img, dis_size, tr("back"))
             if clicked and idx == 0:
                 print("exit run")
-                break
+                del cam
+                cam = camera.Camera(cam_size[0], cam_size[1])
+                status = "scan"
+                saved_models_info = None
         elif status == "view_model":
             if not saved_models_info:
                 names = [tr("back")]
@@ -546,11 +551,12 @@ def frame_deploy(cam_size, dis_size):
                         status = "run"
                         model_init = False
                         model_dir = saved_models_info[slected_idx]["path"]
+                        ui_model_sub_list = None
                         print("now run", model_dir)
                     elif item == tr("delete"):
                         model_dir = saved_models_info[slected_idx]["path"]
                         if saved_models_info[slected_idx]["is_dir"]:
-                            remove_dir(model_dir)
+                            remove_dir(saved_models_info[slected_idx]["dir"])
                         else:
                             remove_mud_model(model_dir)
                         ui_model_list.remove(slected_idx + 1)
