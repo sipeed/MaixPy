@@ -56,6 +56,10 @@ def find_qipan():
     while mode == 1:
         img = cam.read()
         check_mode_switch(img, disp.width(), disp.height())
+
+        # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
+        # img = img.lens_corr(strength=1.5)
+
         img_cv = image.image2cv(img, False, False)
         gray = cv2.cvtColor(img_cv, cv2.COLOR_RGB2GRAY)
 
@@ -202,6 +206,10 @@ def find_qizi():
     while mode == 2:
         img = cam.read()
         check_mode_switch(img, disp.width(), disp.height())
+
+        # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
+        # img = img.lens_corr(strength=1.5)
+
         blobs = img.find_blobs(thresholds, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
         for b in blobs:
             corners = b.mini_corners()
