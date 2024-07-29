@@ -72,6 +72,8 @@ cam = camera.Camera(1920, 1280)             # 分辨率高于1280x720时帧率�
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=60)	        # 设置帧率为60帧
+# or
+cam = camera.Camera(640, 480)                  # 分辨率低于或等于1280x720时帧率会设置为80fps
 ```
 
 ### 设置帧率为80帧
@@ -79,8 +81,6 @@ cam = camera.Camera(640, 480, fps=60)	        # 设置帧率为60帧
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=80)	        # 设置帧率为80帧
-# or
-cam = camera.Camera(640, 480)                  # 分辨率低于或等于1280x720时帧率会设置为80fps
 ```
 
 注意：

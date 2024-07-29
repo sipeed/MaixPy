@@ -94,49 +94,51 @@ Here are explanations of commonly used parameters. If you cannot find parameters
 
 This article introduces commonly used methods. For more APIs, please see the [image](../../../api/maix/image.md) section of the API documentation.
 
-## Using the Find Blobs App
+## Setting Thresholds Offline
 
-To quickly verify the find blobs functionality, you can first use the find blobs application provided by MaixCam to experience the effect of finding color blobs.
+To quickly verify the function of find blobs, you can first use the find blobs application provided by MaixCam to experience the effect of finding color blobs.
 
-### Usage
-Open the device, select the `Find Blobs` app, then select the color to be recognized from the bottom options or customize a color, and you can recognize the corresponding color. At the same time, the serial port will also output the recognized coordinates and color information.
+### Demo
+Turn on the device, select `Find Blobs` application, then select the colour you want to identify, or customize the colour, then you can identify the corresponding colour, the `setting bar` at the bottom will show the `threshold range`, and the serial port will also output the coordinates and colour information of the identified coordinates.
 
 <video src="/static/video/find_blobs.mp4" controls="controls" width="100%" height="auto"></video>
 
-### Detailed Explanation
+[source code address](https://github.com/sipeed/MaixCDK/tree/main/projects/app_find_blobs)
 
-The app interface is as follows:
+### Quick use
+
+#### Using the default threshold
+
+The find blobs app provides four configurations, `red`, `green`, `blue` and `user`, where `red`, `green` and `blue` are used to find `red`, `green` and `blue` colour blocks, and `user` customized thresholds are saved when the app is exited, and the next time the app is opened the thresholds from the last debugging are loaded. For quick experience, you can switch to the corresponding configuration by `clicking` the `button` at the bottom of the interface, the app interface is referenced below:
 
 ![](../../../static/image/find_blobs_app.jpg)
 
-#### Using Default Configuration
+#### Quick Debug Thresholds
 
-The find blobs app provides four default configurations: `red`, `green`, `blue`, and `user`. `red`, `green`, and `blue` are used to `find red, green, and blue color blobs`, respectively, while `user` is mainly provided for `user-defined color blob finding`. The method for customizing configurations is described below. For a quick experience, you can switch to the corresponding configuration by `clicking` the `buttons` at the bottom of the interface.
+Method of operation:
 
-#### Finding Custom Color Blobs
+1. Aim the `camera` at the `object` you need to `find`, `click` on the `target` on the screen, then the `left` side will show the `rectangle` of the corresponding colour of the object, and the LAB value of the object's colour.
+2. Click on the rectangular box, the system will `automatically set' the LAB threshold, then the screen will draw the edge of the object.
 
-The app provides two ways to find custom color blobs: using adaptive LAB thresholds and manually setting LAB thresholds.
+The advantage of this method is that it is easy and quick to set the threshold and find the corresponding colour block. The disadvantage is that it is not precise enough, you can fine tuning it manually in the next step.
 
-##### 1. Finding Color Blobs with Adaptive LAB Thresholds
+#### Manually fine tune the threshold
 
-Steps:
+Method of operation:
 
-1. `Click` the `options icon` in the bottom-left corner to enter configuration mode.
-2. Point the `camera` at the `object` you need to `find`, `click` on the `target object` on the screen, and the `left side` will display a `rectangular frame` of the object's color and show the LAB values of that color.
-3. Click on the appearing `rectangular frame`, and the system will `automatically set` the LAB thresholds. At this point, the image will outline the edges of the object.
+1. `Click` on the `Options icon` in the lower left corner to enter configuration mode
 
-##### 2. Manually Setting LAB Thresholds to Find Color Blobs
+2. Aim the `camera` at the `object` you need to `find`, `click` on the `target object` on the screen, at this time the `left` side will show the `rectangular box` of the corresponding colour of the object, and display the `LAB value` of the object's colour.
 
-Manual setting allows for more precise targeting of the desired color blobs.
+3. Click on the lower option `L Min, L Max, A Min, A Max, B Min, B Max`, and a slider will appear on the right to set the value of this option. These values correspond to the minimum and maximum values of the L, A and B channels of the LAB colour format.
 
-Steps:
+4. Referring to the `LAB value` of the object colour calculated in step 2, adjust `L Min, L Max, A Min, A Max, B Min, B Max` to the appropriate value to identify the corresponding colour block.
 
-1. `Click` the `options icon` in the bottom-left corner to enter configuration mode.
-2. Point the `camera` at the `object` you need to `find`, `click` on the `target object` on the screen, and the `left side` will display a `rectangular frame` of the object's color and show the `LAB values` of that color.
-3. Click on the bottom options `L Min`, `L Max`, `A Min`, `A Max`, `B Min`, `B Max`. After clicking, a slider will appear on the right side to set the value for that option. These values correspond to the minimum and maximum values of the L, A, and B channels in the LAB color format, respectively.
-4. Referring to the `LAB values` of the object color calculated in step 2, adjust `L Min`, `L Max`, `A Min`, `A Max`, `B Min`, `B Max` to appropriate values to identify the corresponding color blobs. For example, if `LAB = (20, 50, 80)`, since `L=20`, to accommodate a certain range, set `L Min=10` and `L Max=30`. Similarly, since `A=50`, set `A Min=40` and `A Max=60`. Since `B=80`, set `B Min=70` and `B Max=90`.
+   For example, `LAB=(20, 50, 80)`, since `L=20`, in order to fit a certain range, let `L Min=10`, `L Max=30`; similarly, since `A=50`, let `A Min=40`, `A Max=60`; since `B=80`, let `B Min=70`, `B Max=90`.
 
-#### Getting Detection Data via Serial Protocol
+This method can be more precise to find the right threshold, with the `Quick Debug Threshold` method, it is easy to find the desired threshold.
+
+#### Get recognition results via serial protocol
 
 The find blobs app supports reporting information about detected color blobs via the serial port (default baud rate is 115200).
 

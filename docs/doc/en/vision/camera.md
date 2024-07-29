@@ -67,6 +67,8 @@ cam = camera.Camera(1920, 1280) # Frame rate is set to 30 fps when resolution is
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=60) # Set frame rate to 60 fps
+# or
+cam = camera.Camera(640, 480) # Set frame rate to 60fps if resolution is less than or equal to 1280x720
 ```
 
 ### Set the frame rate to 80 fps
@@ -74,8 +76,6 @@ cam = camera.Camera(640, 480, fps=60) # Set frame rate to 60 fps
 ```python
 from maix import camera
 cam = camera.Camera(640, 480, fps=80) # Set frame rate to 60 fps
-# or
-cam = camera.Camera(640, 480) # Set frame rate to 80fps if resolution is less than or equal to 1280x720
 ```
 
 Notes:
