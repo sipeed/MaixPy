@@ -215,7 +215,6 @@ def find_qizi():
             elif b.code() == 4:
                 enclosing_circle = b.enclosing_circle()
                 img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_RED, 2)
-            corners = b.corners()
 
         disp.show(img)
 

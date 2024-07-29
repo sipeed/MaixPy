@@ -1,0 +1,10 @@
+id: tic_tac_toe
+name: Tic-Tac-Toe
+version: 1.0.0
+author: Sipeed
+icon: assets/tic-tac-toe.png
+desc: Tic-Tac-Toe recognize demo
+files:
+  - assets
+  - app.yaml
+  - main.py
