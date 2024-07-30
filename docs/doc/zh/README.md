@@ -25,6 +25,13 @@ title: MaixPy 快速开始
 
 > 关于 MaixPy 介绍请看 [MaixPy 官网首页](../../README.md)
 
+## 写在前面
+
+请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
+也可以参考 **[视频上手教程](https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.788&vd_source=6c974e13f53439d17d6a092a499df304)**。
+**左边目录**请仔细查看，基础部分一定要耐心阅读完，其它功能在左边目录查找。
+
+
 ## 获得 MaixCAM 设备
 
 * **MaixCAM**：在 [Sipeed 淘宝](https://item.taobao.com/item.htm?id=784724795837) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460) 店铺购买 <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> 。
@@ -46,7 +53,7 @@ title: MaixPy 快速开始
 
 ### 准备 TF 镜像卡和插入到设备
 
-如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，**强烈建议**按照[升级和烧录系统](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html)先将系统升级到最新版本。
+如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，**强烈建议**按照[升级和烧录系统](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html)先将系统升级到最新版本，否则可能会遇到某些应用 和 API 无法使用的问题。
 
 如果没买 TF 卡，则需要将系统烧录进自备的 TF 卡中，烧录方法请看[升级和烧录系统](./basic/os.md)，然后再安装到板子。
 
