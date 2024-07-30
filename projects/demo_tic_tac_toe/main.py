@@ -9,10 +9,9 @@ from types import CellType
 from maix import camera, display, image, time, app, touchscreen
 import cv2
 import numpy as np
-from collections import deque
+import gc
 
 # 80 fps or 60fps
-cam = camera.Camera(320, 320, fps=80)
 disp = display.Display()
 ts = touchscreen.TouchScreen()
 
@@ -80,10 +79,11 @@ def find_grid_centers(corners):
             cy = (transformed_points[i * 4 + j][1] + transformed_points[i * 4 + j + 1][1] + 
                   transformed_points[(i + 1) * 4 + j][1] + transformed_points[(i + 1) * 4 + j + 1][1]) / 4
             centers.append((int(cx), int(cy)))
-    
+
     return centers
 
 def find_qipan():
+    cam = camera.Camera(320, 320, fps=60) # fps can set to 80
     area_threshold = 80
     pixels_threshold = 50
     thresholds = [[0, 80, 0, 80, 30, 80]]        # red
@@ -92,7 +92,6 @@ def find_qipan():
     while mode == 1 or mode == 2:
         find_center_method = mode  # 1：根据4个角确定格子中心, 2：使用找色块确定格子中心
         img = cam.read()
-        check_mode_switch(img, disp.width(), disp.height())
 
         # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
         # img = img.lens_corr(strength=1.5)
@@ -121,7 +120,7 @@ def find_qipan():
         # img.draw_image(0, img.height() - img_tmp.height(), img_tmp)
         #    整张图显示
         # disp.show(image.cv2image(binary, False, False))
-        
+
         # 查找轮廓
         contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) > 0:
@@ -228,22 +227,27 @@ def find_qipan():
                         cv2.circle(img_cv, (x, y), 2, (0, 255, 0), -1)
                         img.draw_string(x, y, f"{i + 1}", image.COLOR_WHITE, scale=2, thickness=-1)
 
+        check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
+    del cam
+    gc.collect()
 
 def find_qizi():
     area_threshold = 300
     pixels_threshold = 300
     thresholds = []
     threshold_red = [40, 60, 33, 53, -10, 10]
-    threshold_black = [0, 40, -128, 127, -128, 127]
+    threshold_black = [0, 20, -128, 127, -128, 127]
     threshold_white = [60, 100, -11, 21, -43, -13]
     thresholds.append(threshold_red)
     thresholds.append(threshold_black)
     thresholds.append(threshold_white)
 
+    cam = camera.Camera(320, 320, fps = 60) # fps can set to 80
+    # cam.constrast(100)
+    # cam.saturation(0)
     while mode == 3:
         img = cam.read()
-        check_mode_switch(img, disp.width(), disp.height())
 
         # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
         # img = img.lens_corr(strength=1.5)
@@ -262,7 +266,10 @@ def find_qizi():
                 enclosing_circle = b.enclosing_circle()
                 img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_RED, 2)
 
+        check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
+    del cam
+    gc.collect()
 
 def main():
     while not app.need_exit():
