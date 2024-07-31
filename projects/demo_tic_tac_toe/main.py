@@ -10,6 +10,7 @@ from maix import camera, display, image, time, app, touchscreen
 import cv2
 import numpy as np
 import gc
+from utils import rgb888_to_lab
 
 # 80 fps or 60fps
 disp = display.Display()
@@ -233,61 +234,93 @@ def find_qipan():
     del cam
     gc.collect()
 
+def blob_is_valid(b):
+    is_valid = True
+    if b.area() > 3000: # 认为面积大于3000时无效,受距离影响
+        is_valid = False
+    if b.w() > 55 or b.h() > 55: # 过滤过大的宽高
+        is_valid = False
+    return is_valid
+
 def find_qizi():
-    debug = True
-    black_area_max_th = 6000
+    cam = camera.Camera(320, 320, fps = 60) # fps can set to 80
     area_threshold = 300
     pixels_threshold = 300
-    threshold_red = [[40, 60, 33, 53, -10, 10]]
-    threshold_black = [[0, 20, -128, 127, -128, 127]]
-    threshold_white = [[60, 100, -11, 21, -43, -13]]
-
-    cam = camera.Camera(320, 320, fps = 60) # fps can set to 80
-    # cam.constrast(50)
-    # cam.saturation(0)
+    last_pointer = [0, 0]
+    last_string = ""
+    # 1. 点击触摸屏获取棋子的LAB值，根据LAB值获取一个合适的阈值
+    # 2. 在white_thresholds（白棋阈值）或white_thresholds（黑棋阈值）中增加、或者合并新的阈值。阈值越多执行越慢，也可以自行编写逻辑记录上次的阈值来提高速度
+    # 3. 设置area_threshold和pixels_threshold过滤一些较小的色块
+    # 4. 自定义blob_is_valid来添加其他过滤规则
+    # 5. 添加roi来过滤不需要检测的部分，降低环境复杂程度
+    # 注意：环境太暗时无法识别黑棋有可能是因为棋子离黑线过近，棋子的影子和黑线连在一起被认为时一个色块，导致该棋子被过滤了。建议保证室内有均匀的光线
+    white_thresholds = [[63,96,-13,17,8,56], [60,94,-16,14,-25,23]]
+    black_thresholds = [[9,45,-15,18,-20,19], [16,46,3,33,3,33], [14,44,-16,25,-13,36], [0,33,-15,16,-19,13]]
+    white_blobs = None
+    black_blobs = None
+    roi = [5, 5, cam.width() - 10, cam.height() - 10] # 配置roi范围
     while mode == 3:
         img = cam.read()
+        # 检测黑/白棋子
+        for threshold in black_thresholds:
+            black_blobs = img.find_blobs([threshold], roi = roi, area_threshold = area_threshold, pixels_threshold = pixels_threshold)
+            valid_cnt = 0
+            # 检查有效数量大于等于5,则认为阈值有效,否则使用下一个阈值
+            for b in black_blobs:
+                if blob_is_valid(b):
+                    valid_cnt += 1
+            if valid_cnt >= 5:
+                break
 
-        # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
-        # img = img.lens_corr(strength=1.5)
+        for threshold in white_thresholds:
+            white_blobs = img.find_blobs([threshold], area_threshold = area_threshold, pixels_threshold = pixels_threshold)
+            valid_cnt = 0
+            # 检查有效数量大于等于5,则认为阈值有效,否则使用下一个阈值
+            for b in white_blobs:
+                if blob_is_valid(b):
+                    valid_cnt += 1
+            if valid_cnt >= 5:
+                break
 
-        blobs = img.find_blobs(threshold_red, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
-        for b in blobs:
-            corners = b.mini_corners()
-            for i in range(4):
-                img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_YELLOW, 2)
-        blobs = img.find_blobs(threshold_black, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
-        for b in blobs:
-            corners = b.mini_corners()
-            if b.area() < black_area_max_th:      # 过滤掉棋盘，认为area大于800时是棋盘，根据实际值调节
-                enclosing_circle = b.enclosing_circle()
-                img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_GREEN, 2)
-            else:
-                print("black area:", b.area())
-        blobs = img.find_blobs(threshold_white, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
-        for b in blobs:
-            corners = b.mini_corners()
-            enclosing_circle = b.enclosing_circle()
-            img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_RED, 2)
+        # 检测完成后打印黑/白棋子位置，在这里做逻辑处理
+        if black_blobs:
+            for b in black_blobs:
+                if blob_is_valid(b):
+                    corners = b.mini_corners()
+                    for i in range(4):
+                        img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN, 2)
 
-        if debug:
-            # 左下画红色二值化图
-            binary = img.binary(threshold_red, copy=True)
-            binary1 = binary.resize(img.width() // 4, img.height() // 4)
+        if white_blobs:
+            for b in white_blobs:
+                if blob_is_valid(b):
+                    corners = b.mini_corners()
+                    for i in range(4):
+                        img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_BLUE, 2)
 
-            # 右下画黑色二值化图
-            binary = img.binary(threshold_black, copy=True)
-            binary2 = binary.resize(img.width() // 4, img.height() // 4)
-            
+        # 点击屏幕，获取当前lab值，并给出一个预测值。TODO:坐标映射有BUG，以屏幕绿点位置为准
+        t = ts.read()
+        x, y, touch = t[0], t[1], t[2]
+        if touch:
+            cam_w = cam.width()
+            cam_h = cam.height()
+            disp_w = disp.width()
+            disp_h = disp.height()
+            x += ((cam_w - img.width()) / 2)
+            y += ((cam_h - img.height()) / 2)
+            real_x = int(x * cam_w / disp_w)
+            real_y = int(y * cam_h / disp_h)
+            last_pointer[0] = real_x
+            last_pointer[1] = real_y
+            rgb = img.get_pixel(real_x, real_y, True)
+            l, a, b = rgb888_to_lab(rgb[0], rgb[1], rgb[2])
+            last_string = f"l:{l}, a:{a}, b:{b}, try [{max(l-15, 0)},{min(l+15, 100)},{max(a-15, -128)},{min(a+15, 127)},{max(b-15, -128)},{min(b+15, 127)}]"
+            print(last_string)
+        img.draw_circle(last_pointer[0], last_pointer[1], 3, image.COLOR_GREEN, -1)
+        img.draw_string(0, 10, last_string, image.COLOR_RED)
 
-            # 右上画白色二值化图
-            binary = img.binary(threshold_white, copy=True)
-            binary3 = binary.resize(img.width() // 4, img.height() // 4)
-
-            img.draw_image(0, img.height() - binary1.height(), binary1)
-            img.draw_image(img.width() - binary2.width(), img.height() - binary2.height(), binary2)
-            img.draw_image(img.width() - binary3.width(), 0, binary3)
-
+        # 画出roi区域
+        img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_YELLOW, 2)
+        disp.show(img)
         check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
     del cam
