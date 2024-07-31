@@ -15,7 +15,7 @@ import gc
 disp = display.Display()
 ts = touchscreen.TouchScreen()
 
-mode = 1
+mode = 3
 
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
@@ -168,18 +168,17 @@ def find_qipan():
                     # img.flood_fill(corners[0][0] + 5, corners[0][1] - 5, 0.5, 0.05, image.COLOR_BLUE)
 
                 centers = []
+                outer_rect = [corners[:,0].min(), corners[:,1].min(), corners[:,0].max() - corners[:,0].min(), corners[:,1].max() - corners[:,1].min()]
                 # 找格子中心点方法一：直接根据顶点计算
                 if find_center_method == 1:
                     # 根据顶点找出中心点
                     centers  = find_grid_centers(corners)
                 # 找格子中心点方法二： 找色块的方式来确定中心点
                 elif find_center_method == 2:                # 上面出来的结果已经是 点从左上顺时针
-                    roi = [corners[:,0].min(), corners[:,1].min(), corners[:,0].max() - corners[:,0].min(), corners[:,1].max() - corners[:,1].min()]
-                    img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_WHITE)
-                    blobs = img.find_blobs(thresholds, roi=roi, x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
+                    blobs = img.find_blobs(thresholds, roi=outer_rect, x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
                     for b in blobs:
                         centers.append((b.cx(), b.cy()))
-                                    # 对找到的中心点进行编号, y + x 最大就是右下角，最小就是左上角， y-x 最大就是左下角，y-x 最小就是右上角，其它几个点根据在旁边两个点中间判断
+                    # 因为此方法找到的中心点坐标是乱序的，对找到的中心点进行编号, y + x 最大就是右下角，最小就是左上角， y-x 最大就是左下角，y-x 最小就是右上角，其它几个点根据在旁边两个点中间判断
                     if len(centers) == 9:
                         centers = np.array(centers)
                         rect = np.zeros((9, 2), dtype="int")
@@ -219,6 +218,8 @@ def find_qipan():
                 else:
                     raise Exception("find_center_method value error")
 
+                # 画外围框，可以方便安装时正面对齐
+                img.draw_rect(outer_rect[0], outer_rect[1], outer_rect[2], outer_rect[3], image.COLOR_WHITE)
                 # 画出中心点
                 # 写编号
                 if len(centers) == 9:
@@ -233,18 +234,16 @@ def find_qipan():
     gc.collect()
 
 def find_qizi():
+    debug = True
+    black_area_max_th = 6000
     area_threshold = 300
     pixels_threshold = 300
-    thresholds = []
-    threshold_red = [40, 60, 33, 53, -10, 10]
-    threshold_black = [0, 20, -128, 127, -128, 127]
-    threshold_white = [60, 100, -11, 21, -43, -13]
-    thresholds.append(threshold_red)
-    thresholds.append(threshold_black)
-    thresholds.append(threshold_white)
+    threshold_red = [[40, 60, 33, 53, -10, 10]]
+    threshold_black = [[0, 20, -128, 127, -128, 127]]
+    threshold_white = [[60, 100, -11, 21, -43, -13]]
 
     cam = camera.Camera(320, 320, fps = 60) # fps can set to 80
-    # cam.constrast(100)
+    # cam.constrast(50)
     # cam.saturation(0)
     while mode == 3:
         img = cam.read()
@@ -252,19 +251,47 @@ def find_qizi():
         # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
         # img = img.lens_corr(strength=1.5)
 
-        blobs = img.find_blobs(thresholds, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
+        img_cv = image.image2cv(img, False, False)
+        # gray = cv2.cvtColor(img_cv, cv2.COLOR_RGB2GRAY)
+        # 高斯模糊去噪声
+        blurred = cv2.GaussianBlur(img_cv, (5, 5), 0)
+
+        blobs = img.find_blobs(threshold_red, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
         for b in blobs:
             corners = b.mini_corners()
-            if b.code() == 1:
-                for i in range(4):
-                    img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_YELLOW, 2)
-            elif b.code() == 2:
-                if b.area() < 800:      # 过滤掉棋盘，认为area大于800时是棋盘，根据实际值调节
-                    enclosing_circle = b.enclosing_circle()
-                    img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_GREEN, 2)
-            elif b.code() == 4:
+            for i in range(4):
+                img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_YELLOW, 2)
+        blobs = img.find_blobs(threshold_black, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
+        for b in blobs:
+            corners = b.mini_corners()
+            if b.area() < black_area_max_th:      # 过滤掉棋盘，认为area大于800时是棋盘，根据实际值调节
                 enclosing_circle = b.enclosing_circle()
-                img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_RED, 2)
+                img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_GREEN, 2)
+            else:
+                print("black area:", b.area())
+        blobs = img.find_blobs(threshold_white, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
+        for b in blobs:
+            corners = b.mini_corners()
+            enclosing_circle = b.enclosing_circle()
+            img.draw_circle(enclosing_circle[0], enclosing_circle[1], enclosing_circle[2], image.COLOR_RED, 2)
+
+        if debug:
+            # 左下画红色二值化图
+            binary = img.binary(threshold_red, copy=True)
+            binary1 = binary.resize(img.width() // 4, img.height() // 4)
+
+            # 右下画黑色二值化图
+            binary = img.binary(threshold_black, copy=True)
+            binary2 = binary.resize(img.width() // 4, img.height() // 4)
+            
+
+            # 右上画白色二值化图
+            binary = img.binary(threshold_white, copy=True)
+            binary3 = binary.resize(img.width() // 4, img.height() // 4)
+
+            img.draw_image(0, img.height() - binary1.height(), binary1)
+            img.draw_image(img.width() - binary2.width(), img.height() - binary2.height(), binary2)
+            img.draw_image(img.width() - binary3.width(), 0, binary3)
 
         check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
