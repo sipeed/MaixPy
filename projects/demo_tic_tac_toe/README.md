@@ -1,7 +1,13 @@
 2024 电赛三子棋 棋盘识别和棋子识别程序
 ====
 
-视频演示： [bilibili](https://www.bilibili.com/video/BV1q2vKebEUd/?vd_source=6c974e13f53439d17d6a092a499df304#reply234394879360)
+视频演示：
+* **[检测棋盘和传统算法检测棋子](https://www.bilibili.com/video/BV1q2vKebEUd/?vd_source=6c974e13f53439d17d6a092a499df304#reply234394879360)**
+* **[AI检测棋子](https://www.bilibili.com/video/BV11pvseZEZw/?vd_source=6c974e13f53439d17d6a092a499df304)**
+
+检测棋盘和传统算法检测棋子的代码在本目录，
+AI 检测棋子在[MaixHub 模型库](https://maixhub.com/model/zoo/428) 下载模型，按照其使用说明使用即可。
+
 
 本例程 识别棋子 和 识别棋盘 是分开识别的，可以根据你的情况修改，点击按钮可以切换识别棋子和棋盘模式。
 
@@ -21,5 +27,9 @@
 效果：
 
 ![](./assets/result.jpg)
+
+![](./assets/maixcam_yolov5_tic_tac_toe.jpg)
+
+
 
 
