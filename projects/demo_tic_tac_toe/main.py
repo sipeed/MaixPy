@@ -43,7 +43,7 @@ def check_mode_switch(img : image.Image, disp_w, disp_h):
     clicked, idx, rect = key_clicked(btn_rects_disp)
     if clicked:
         mode += 1
-        if mode > 3:
+        if mode > 4:
             mode = 1
     img.draw_string(2, 5, f"mode{mode}", color=image.COLOR_WHITE, scale=1.3)
     img.draw_rect(btns[0][0], btns[0][1], btns[0][2], btns[0][3], image.COLOR_WHITE, 2)
@@ -320,7 +320,71 @@ def find_qizi():
 
         # 画出roi区域
         img.draw_rect(roi[0], roi[1], roi[2], roi[3], image.COLOR_YELLOW, 2)
+        check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
+    del cam
+    gc.collect()
+
+
+def find_qizi_auto_threshold():
+    cam = camera.Camera(320, 240)
+    cam.saturation(0)
+    cam.constrast(100)
+
+    threshold_white = [0, 0]
+    threshold_black = [0, 0]
+    tmp_threshold = []
+    while mode == 4:
+        t = time.ticks_ms()
+        img = cam.read()             # Max FPS is determined by the camera hardware and driver settings
+
+        # 通过直方图找到合适的阈值
+        hist = img.get_histogram([[0,100]])
+        tmp_threshold = []
+        l_min = 0
+        l_max = 0
+        last_idx = 0
+        is_first = True
+        for idx, value in enumerate(hist.bins()):
+            if value > 0.01:
+                # print(idx, value)
+                if is_first:
+                    l_min = idx
+                    is_first = False
+
+                if idx - last_idx >= 10:
+                    tmp_threshold.append([l_min, l_max])
+                    l_min = idx
+                    last_idx = idx
+                    continue
+                else:
+                    l_max = idx
+                    last_idx = idx
+        if l_min >= l_max:
+            tmp_threshold.append([l_min, 100])
+        else:
+            tmp_threshold.append([l_min, l_max])
+
+        # 更新黑白棋阈值
+        if len(tmp_threshold) > 0:
+            threshold_black = [max(tmp_threshold[0][0] - 10, 0), min(tmp_threshold[0][1] + 10, 100)]
+        if len(tmp_threshold) > 2:
+            threshold_white = [max(tmp_threshold[2][0] - 10, 0), min(tmp_threshold[2][1] + 10, 100)]
+
+        # 寻找黑白棋
+        blobs = img.find_blobs([threshold_black], area_threshold=300, pixels_threshold=300)
+        for b in blobs:
+            if b.area() < 2000:
+                corners = b.mini_corners()
+                for i in range(4):
+                    img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_BLUE, 2)
+
+        blobs = img.find_blobs([threshold_white], area_threshold=300, pixels_threshold=300)
+        for b in blobs:
+            corners = b.mini_corners()
+            for i in range(4):
+                img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED, 2)
+
         check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
     del cam
@@ -330,6 +394,7 @@ def main():
     while not app.need_exit():
         find_qipan()
         find_qizi()
+        find_qizi_auto_threshold()
 
 if __name__ == '__main__':
     try:
