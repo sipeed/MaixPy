@@ -15,7 +15,7 @@ import gc
 disp = display.Display()
 ts = touchscreen.TouchScreen()
 
-mode = 3
+mode = 1
 
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
@@ -250,11 +250,6 @@ def find_qizi():
 
         # 软件畸变矫正，速度比较慢，建议直接买无畸变摄像头（Sipeed 官方淘宝点询问）
         # img = img.lens_corr(strength=1.5)
-
-        img_cv = image.image2cv(img, False, False)
-        # gray = cv2.cvtColor(img_cv, cv2.COLOR_RGB2GRAY)
-        # 高斯模糊去噪声
-        blurred = cv2.GaussianBlur(img_cv, (5, 5), 0)
 
         blobs = img.find_blobs(threshold_red, roi=[1,1,img.width()-1, img.height()-1], x_stride=2, y_stride=1, area_threshold=area_threshold, pixels_threshold=pixels_threshold)
         for b in blobs:

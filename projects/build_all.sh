@@ -26,7 +26,7 @@ rm -rf apps/
 
 for dir in */; do
   if [ -d "$dir" ]; then
-    if [[ "${dir}x" != "apps/x" ]]; then
+    if [[ $dir == app* && $dir != apps* ]]; then
       echo "----- build ${dir} -----"
       build_start "${dir%/}"
       echo "----- build ${dir} done -----"
