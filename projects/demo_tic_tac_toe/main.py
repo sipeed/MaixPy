@@ -331,9 +331,10 @@ def find_qizi_auto_threshold():
     cam.saturation(0)
     cam.constrast(100)
 
+    last_pointer = [0, 0]
+    last_string = ""
     threshold_white = [0, 0]
     threshold_black = [0, 0]
-    tmp_threshold = []
     while mode == 4:
         t = time.ticks_ms()
         img = cam.read()             # Max FPS is determined by the camera hardware and driver settings
@@ -367,9 +368,9 @@ def find_qizi_auto_threshold():
 
         # 更新黑白棋阈值
         if len(tmp_threshold) > 0:
-            threshold_black = [max(tmp_threshold[0][0] - 10, 0), min(tmp_threshold[0][1] + 10, 100)]
+            threshold_black = [max(tmp_threshold[0][0] - 15, 0), min(tmp_threshold[0][1] + 15, 100)]
         if len(tmp_threshold) > 2:
-            threshold_white = [max(tmp_threshold[2][0] - 10, 0), min(tmp_threshold[2][1] + 10, 100)]
+            threshold_white = [max(tmp_threshold[2][0] - 15, 0), min(tmp_threshold[2][1] + 15, 100)]
 
         # 寻找黑白棋
         blobs = img.find_blobs([threshold_black], area_threshold=300, pixels_threshold=300)
@@ -384,6 +385,27 @@ def find_qizi_auto_threshold():
             corners = b.mini_corners()
             for i in range(4):
                 img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED, 2)
+
+        # 点击屏幕，获取当前lab值，并给出一个预测值。TODO:坐标映射有BUG，以屏幕绿点位置为准
+        t = ts.read()
+        x, y, touch = t[0], t[1], t[2]
+        if touch:
+            cam_w = cam.width()
+            cam_h = cam.height()
+            disp_w = disp.width()
+            disp_h = disp.height()
+            x += ((cam_w - img.width()) / 2)
+            y += ((cam_h - img.height()) / 2)
+            real_x = int(x * cam_w / disp_w)
+            real_y = int(y * cam_h / disp_h)
+            last_pointer[0] = real_x
+            last_pointer[1] = real_y
+            rgb = img.get_pixel(real_x, real_y, True)
+            l, a, b = rgb888_to_lab(rgb[0], rgb[1], rgb[2])
+            last_string = f"l:{l}, a:{a}, b:{b}, try [{max(l-15, 0)},{min(l+15, 100)},{max(a-15, -128)},{min(a+15, 127)},{max(b-15, -128)},{min(b+15, 127)}]"
+            print(last_string)
+        img.draw_circle(last_pointer[0], last_pointer[1], 3, image.COLOR_GREEN, -1)
+        img.draw_string(0, 10, last_string, image.COLOR_RED)
 
         check_mode_switch(img, disp.width(), disp.height())
         disp.show(img)
