@@ -1,0 +1,5392 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.nn - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.nn</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/nn.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.nn module</p>
+<blockquote>
+<p>You can use <code>maix.nn</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<table>
+<thead>
+<tr>
+  <th>module</th>
+  <th>brief</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="./nn/F.html"  >F</a></td>
+  <td>maix.nn.F module</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h2 id="Class">Class</h2>
+<h3 id="Classifier">Classifier</h3>
+<p>Classifier</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Classifier
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Construct a new Classifier object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: MUD model path, if empty, will not load model, you can call load() later.<br>if not empty, will load model and will raise err::Exception if load failed.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Classifier(const string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file, model format is .mud,\nMUD file should contain [extra] section, have key-values:\n- model_type: classifier\n- input_type: rgb or bgr\n- mean: 123.675, 116.28, 103.53\n- scale: 0.017124753831663668, 0.01750700280112045, 0.017429193899782137\n- labels: imagenet_classes.txt</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: MUD model path<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, if load failed, return error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="classify">classify</h4>
+
+<pre class="language-python"><code class="language-python">def classify(self, img: maix.image.Image, softmax: bool = True, fit: maix.image.Fit = ...) -&gt; list[tuple[int, float]]
+</code></pre>
+<p>Forward image to model, get result. Only for image input, use classify_raw for tensor input.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: image, format should match model input_type， or will raise err.Exception<br><strong>softmax</strong>: if true, will do softmax to result, or will return raw value<br><strong>fit</strong>: image resize fit mode, default Fit.FIT_COVER, see image.Fit.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If error occurred, will raise err::Exception, you can find reason in log, mostly caused by args error or hardware error.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>result, a list of (label, score). If in dual_buff mode, value can be one element list and score is zero when not ready. In C++, you need to delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::pair&lt;int, float&gt;&gt; *classify(image::Image &amp;img, bool softmax = true, image::Fit fit = image::FIT_COVER)
+</code></pre>
+</blockquote>
+<h4 id="classify_raw">classify_raw</h4>
+
+<pre class="language-python"><code class="language-python">def classify_raw(self, data: maix.tensor.Tensor, softmax: bool = True) -&gt; list[tuple[int, float]]
+</code></pre>
+<p>Forward tensor data to model, get result</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: tensor data, format should match model input_type， or will raise err.Excetion<br><strong>softmax</strong>: if true, will do softmax to result, or will return raw value<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If error occurred, will raise err::Exception, you can find reason in log, mostly caused by args error or hardware error.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>result, a list of (label, score). In C++, you need to delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::pair&lt;int, float&gt;&gt; *classify_raw(tensor::Tensor &amp;data, bool softmax = true)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="input_shape">input_shape</h4>
+
+<pre class="language-python"><code class="language-python">def input_shape(self) -&gt; list[int]
+</code></pre>
+<p>Get input shape, if have multiple input, only return first input shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input shape, list type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; input_shape()
+</code></pre>
+</blockquote>
+<h4 id="labels">labels</h4>
+<p>Labels list</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;string&gt; labels
+</code></pre>
+</blockquote>
+<h4 id="label_path">label_path</h4>
+<p>Label file path</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string label_path
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+<h3 id="YOLOv5">YOLOv5</h3>
+<p>YOLOv5 class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class YOLOv5
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Constructor of YOLOv5 class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: model path, default empty, you can load model later by load function.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If model arg is not empty and load failed, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">YOLOv5(const string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: Model path want to load<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="detect">detect</h4>
+
+<pre class="language-python"><code class="language-python">def detect(self, img: maix.image.Image, conf_th: float = 0.5, iou_th: float = 0.45, fit: maix.image.Fit = ...) -&gt; list[...]
+</code></pre>
+<p>Detect objects from image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Image want to detect, if image's size not match model input's, will auto resize with fit method.<br><strong>conf_th</strong>: Confidence threshold, default 0.5.<br><strong>iou_th</strong>: IoU threshold, default 0.45.<br><strong>fit</strong>: Resize method, default image.Fit.FIT_CONTAIN.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If image format not match model input format, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object list. In C++, you should delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::Object&gt; *detect(image::Image &amp;img, float conf_th = 0.5, float iou_th = 0.45, maix::image::Fit fit = maix::image::FIT_CONTAIN)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="labels">labels</h4>
+<p>Labels list</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;string&gt; labels
+</code></pre>
+</blockquote>
+<h4 id="label_path">label_path</h4>
+<p>Label file path</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string label_path
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+<h4 id="anchors">anchors</h4>
+<p>Get anchors</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; anchors
+</code></pre>
+</blockquote>
+<h3 id="YOLOv8">YOLOv8</h3>
+<p>YOLOv8 class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class YOLOv8
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Constructor of YOLOv8 class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: model path, default empty, you can load model later by load function.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If model arg is not empty and load failed, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">YOLOv8(const string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: Model path want to load<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="detect">detect</h4>
+
+<pre class="language-python"><code class="language-python">def detect(self, img: maix.image.Image, conf_th: float = 0.5, iou_th: float = 0.45, fit: maix.image.Fit = ..., keypoint_th: float = 0.5) -&gt; ...
+</code></pre>
+<p>Detect objects from image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Image want to detect, if image's size not match model input's, will auto resize with fit method.<br><strong>conf_th</strong>: Confidence threshold, default 0.5.<br><strong>iou_th</strong>: IoU threshold, default 0.45.<br><strong>fit</strong>: Resize method, default image.Fit.FIT_CONTAIN.<br><strong>keypoint_th</strong>: keypoint threshold, default 0.5, only for yolov8-pose model.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If image format not match model input format, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object list. In C++, you should delete it after use.<br>If model is yolov8-pose, object's points have value, and if points' value &lt; 0 means that point is invalid(conf &lt; keypoint_th).</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">nn::Objects *detect(image::Image &amp;img, float conf_th = 0.5, float iou_th = 0.45, maix::image::Fit fit = maix::image::FIT_CONTAIN, float keypoint_th = 0.5)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="draw_pose">draw_pose</h4>
+
+<pre class="language-python"><code class="language-python">def draw_pose(self, img: maix.image.Image, points: list[int], radius: int = 4, color: maix.image.Color = ..., body: bool = True) -&gt; None
+</code></pre>
+<p>Draw pose keypoints on image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: image object, maix.image.Image type.<br><strong>points</strong>: keypoits, int list type, [x, y, x, y ...]<br><strong>radius</strong>: radius of points.<br><strong>color</strong>: color of points.<br><strong>body</strong>: true, if points' length is 17*2 and body is ture, will draw lines as human body, if set to false won't draw lines, default true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void draw_pose(image::Image &amp;img, std::vector&lt;int&gt; points, int radius = 4, image::Color color = image::COLOR_RED, bool body = true)
+</code></pre>
+</blockquote>
+<h4 id="draw_seg_mask">draw_seg_mask</h4>
+
+<pre class="language-python"><code class="language-python">def draw_seg_mask(self, img: maix.image.Image, x: int, y: int, seg_mask: maix.image.Image, threshold: int = 127) -&gt; None
+</code></pre>
+<p>Draw segmentation on image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: image object, maix.image.Image type.<br><strong>seg_mask</strong>: segmentation mask image by detect method, a grayscale image<br><strong>threshold</strong>: only mask's value &gt; threshold will be draw on image, value from 0 to 255.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void draw_seg_mask(image::Image &amp;img, int x, int y, image::Image &amp;seg_mask, int threshold = 127)
+</code></pre>
+</blockquote>
+<h4 id="labels">labels</h4>
+<p>Labels list</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;string&gt; labels
+</code></pre>
+</blockquote>
+<h4 id="label_path">label_path</h4>
+<p>Label file path</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string label_path
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+<h3 id="SelfLearnClassifier">SelfLearnClassifier</h3>
+<p>SelfLearnClassifier</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class SelfLearnClassifier
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Construct a new SelfLearnClassifier object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: MUD model path, if empty, will not load model, you can call load_model() later.<br>if not empty, will load model and will raise err::Exception if load failed.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">SelfLearnClassifier(const std::string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load_model">load_model</h4>
+
+<pre class="language-python"><code class="language-python">def load_model(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file, model format is .mud,\nMUD file should contain [extra] section, have key-values:\n- model_type: classifier_no_top\n- input_type: rgb or bgr\n- mean: 123.675, 116.28, 103.53\n- scale: 0.017124753831663668, 0.01750700280112045, 0.017429193899782137</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: MUD model path<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, if load failed, return error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load_model(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="classify">classify</h4>
+
+<pre class="language-python"><code class="language-python">def classify(self, img: maix.image.Image, fit: maix.image.Fit = ...) -&gt; list[tuple[int, float]]
+</code></pre>
+<p>Classify image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: image, format should match model input_type， or will raise err.Exception<br><strong>fit</strong>: image resize fit mode, default Fit.FIT_COVER, see image.Fit.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If error occurred, will raise err::Exception, you can find reason in log, mostly caused by args error or hardware error.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>result, a list of (idx, distance), smaller distance means more similar. In C++, you need to delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::pair&lt;int, float&gt;&gt; *classify(image::Image &amp;img, image::Fit fit = image::FIT_COVER)
+</code></pre>
+</blockquote>
+<h4 id="add_class">add_class</h4>
+
+<pre class="language-python"><code class="language-python">def add_class(self, img: maix.image.Image, fit: maix.image.Fit = ...) -&gt; None
+</code></pre>
+<p>Add a class to recognize</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Add a image as a new class<br><strong>fit</strong>: image resize fit mode, default Fit.FIT_COVER, see image.Fit.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void add_class(image::Image &amp;img, image::Fit fit = image::FIT_COVER)
+</code></pre>
+</blockquote>
+<h4 id="class_num">class_num</h4>
+
+<pre class="language-python"><code class="language-python">def class_num(self) -&gt; int
+</code></pre>
+<p>Get class number</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int class_num()
+</code></pre>
+</blockquote>
+<h4 id="rm_class">rm_class</h4>
+
+<pre class="language-python"><code class="language-python">def rm_class(self, idx: int) -&gt; maix.err.Err
+</code></pre>
+<p>Remove a class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>idx</strong>: index, value from 0 to class_num();<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err rm_class(int idx)
+</code></pre>
+</blockquote>
+<h4 id="add_sample">add_sample</h4>
+
+<pre class="language-python"><code class="language-python">def add_sample(self, img: maix.image.Image, fit: maix.image.Fit = ...) -&gt; None
+</code></pre>
+<p>Add sample, you should call learn method after add some samples to learn classes.\nSample image can be any of classes we already added.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Add a image as a new sample.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void add_sample(image::Image &amp;img, image::Fit fit = image::FIT_COVER)
+</code></pre>
+</blockquote>
+<h4 id="rm_sample">rm_sample</h4>
+
+<pre class="language-python"><code class="language-python">def rm_sample(self, idx: int) -&gt; maix.err.Err
+</code></pre>
+<p>Remove a sample</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>idx</strong>: index, value from 0 to sample_num();<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err rm_sample(int idx)
+</code></pre>
+</blockquote>
+<h4 id="sample_num">sample_num</h4>
+
+<pre class="language-python"><code class="language-python">def sample_num(self) -&gt; int
+</code></pre>
+<p>Get sample number</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int sample_num()
+</code></pre>
+</blockquote>
+<h4 id="learn">learn</h4>
+
+<pre class="language-python"><code class="language-python">def learn(self) -&gt; int
+</code></pre>
+<p>Start auto learn class features from classes image and samples.\nYou should call this method after you add some samples.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>learn epoch(times), 0 means learn nothing.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int learn()
+</code></pre>
+</blockquote>
+<h4 id="clear">clear</h4>
+
+<pre class="language-python"><code class="language-python">def clear(self) -&gt; None
+</code></pre>
+<p>Clear all class and samples</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void clear()
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format, only for image input</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="input_shape">input_shape</h4>
+
+<pre class="language-python"><code class="language-python">def input_shape(self) -&gt; list[int]
+</code></pre>
+<p>Get input shape, if have multiple input, only return first input shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input shape, list type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; input_shape()
+</code></pre>
+</blockquote>
+<h4 id="save">save</h4>
+
+<pre class="language-python"><code class="language-python">def save(self, path: str, labels: list[str] = []) -&gt; maix.err.Err
+</code></pre>
+<p>Save features and labels to a binary file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: file path to save, e.g. /root/my_classes.bin<br><strong>labels</strong>: class labels, can be None, or length must equal to class num, or will return err::Err<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>maix.err.Err if labels exists but length not equal to class num, or save file failed, or class num is 0.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err save(const std::string &amp;path, const std::vector&lt;std::string&gt; &amp;labels = std::vector&lt;std::string&gt;())
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, path: str) -&gt; list[str]
+</code></pre>
+<p>Load features info from binary file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: feature info binary file path, e.g. /root/my_classes.bin<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::string&gt; load(const std::string &amp;path)
+</code></pre>
+</blockquote>
+<h4 id="labels">labels</h4>
+<p>Labels list</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;string&gt; labels
+</code></pre>
+</blockquote>
+<h4 id="label_path">label_path</h4>
+<p>Label file path</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string label_path
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+<h3 id="Object">Object</h3>
+<p>Object for detect result</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Object
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, x: int = 0, y: int = 0, w: int = 0, h: int = 0, class_id: int = 0, score: float = 0, points: list[int] = []) -&gt; None
+</code></pre>
+<p>Constructor of Object for detect result</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>x</strong>: left top x<br><strong>y</strong>: left top y<br><strong>w</strong>: width<br><strong>h</strong>: height<br><strong>class_id</strong>: class id<br><strong>score</strong>: score<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Object(int x = 0, int y = 0, int w = 0, int h = 0, int class_id = 0, float score = 0, std::vector&lt;int&gt; points = std::vector&lt;int&gt;())
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>Object info to string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object info string</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string to_str()
+</code></pre>
+</blockquote>
+<h4 id="x">x</h4>
+<p>Object left top coordinate x</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int x
+</code></pre>
+</blockquote>
+<h4 id="y">y</h4>
+<p>Object left top coordinate y</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int y
+</code></pre>
+</blockquote>
+<h4 id="w">w</h4>
+<p>Object width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int w
+</code></pre>
+</blockquote>
+<h4 id="h">h</h4>
+<p>Object height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int h
+</code></pre>
+</blockquote>
+<h4 id="class_id">class_id</h4>
+<p>Object class id</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int class_id
+</code></pre>
+</blockquote>
+<h4 id="score">score</h4>
+<p>Object score</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float score
+</code></pre>
+</blockquote>
+<h4 id="points">points</h4>
+<p>keypoints</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; points
+</code></pre>
+</blockquote>
+<h4 id="seg_mask">seg_mask</h4>
+<p>segmentation mask, uint8 list type, shape is h * w but flattened to one dimension, value fron 0 to 255.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>For efficiency, it's a pointer in C++, use this carefully!</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *seg_mask
+</code></pre>
+</blockquote>
+<h3 id="ObjectFloat">ObjectFloat</h3>
+<p>Object for detect result</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class ObjectFloat
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, x: float = 0, y: float = 0, w: float = 0, h: float = 0, class_id: float = 0, score: float = 0, points: list[float] = []) -&gt; None
+</code></pre>
+<p>Constructor of Object for detect result</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>x</strong>: left top x<br><strong>y</strong>: left top y<br><strong>w</strong>: width<br><strong>h</strong>: height<br><strong>class_id</strong>: class id<br><strong>score</strong>: score<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">ObjectFloat(float x = 0, float y = 0, float w = 0, float h = 0, float class_id = 0, float score = 0, std::vector&lt;float&gt; points = std::vector&lt;float&gt;())
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>Object info to string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object info string</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string to_str()
+</code></pre>
+</blockquote>
+<h4 id="x">x</h4>
+<p>Object left top coordinate x</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float x
+</code></pre>
+</blockquote>
+<h4 id="y">y</h4>
+<p>Object left top coordinate y</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float y
+</code></pre>
+</blockquote>
+<h4 id="w">w</h4>
+<p>Object width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float w
+</code></pre>
+</blockquote>
+<h4 id="h">h</h4>
+<p>Object height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float h
+</code></pre>
+</blockquote>
+<h4 id="class_id">class_id</h4>
+<p>Object class id</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float class_id
+</code></pre>
+</blockquote>
+<h4 id="score">score</h4>
+<p>Object score</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float score
+</code></pre>
+</blockquote>
+<h4 id="points">points</h4>
+<p>keypoints</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; points
+</code></pre>
+</blockquote>
+<h3 id="Objects">Objects</h3>
+<p>Objects Class for detect result</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Objects
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self) -&gt; None
+</code></pre>
+<p>Constructor of Objects class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Objects()
+</code></pre>
+</blockquote>
+<h4 id="add">add</h4>
+
+<pre class="language-python"><code class="language-python">def add(self, x: int = 0, y: int = 0, w: int = 0, h: int = 0, class_id: int = 0, score: float = 0, points: list[int] = []) -&gt; Object
+</code></pre>
+<p>Add object to objects</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">nn::Object *add(int x = 0, int y = 0, int w = 0, int h = 0, int class_id = 0, float score = 0, std::vector&lt;int&gt; points = std::vector&lt;int&gt;())
+</code></pre>
+</blockquote>
+<h4 id="remove">remove</h4>
+
+<pre class="language-python"><code class="language-python">def remove(self, idx: int) -&gt; maix.err.Err
+</code></pre>
+<p>Remove object form objects</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err remove(int idx)
+</code></pre>
+</blockquote>
+<h4 id="at">at</h4>
+
+<pre class="language-python"><code class="language-python">def at(self, idx: int) -&gt; Object
+</code></pre>
+<p>Get object item</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">nn::Object *at(int idx)
+</code></pre>
+</blockquote>
+<h4 id="__item__">__item__</h4>
+
+<pre class="language-python"><code class="language-python">def __item__(self, idx: int) -&gt; Object
+</code></pre>
+<p>Get object item</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">nn::Object *operator[](int idx)
+</code></pre>
+</blockquote>
+<h4 id="__len__">__len__</h4>
+
+<pre class="language-python"><code class="language-python">def __len__(self) -&gt; int
+</code></pre>
+<p>Get size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">size_t size()
+</code></pre>
+</blockquote>
+<h4 id="__iter__">__iter__</h4>
+
+<pre class="language-python"><code class="language-python">def __iter__(self) -&gt; typing.Iterator
+</code></pre>
+<p>Begin</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;Object*&gt;::iterator begin()
+</code></pre>
+</blockquote>
+<h3 id="Retinaface">Retinaface</h3>
+<p>Retinaface class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Retinaface
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Constructor of Retinaface class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: model path, default empty, you can load model later by load function.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If model arg is not empty and load failed, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Retinaface(const string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: Model path want to load<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="detect">detect</h4>
+
+<pre class="language-python"><code class="language-python">def detect(self, img: maix.image.Image, conf_th: float = 0.4, iou_th: float = 0.45, fit: maix.image.Fit = ...) -&gt; list[Object]
+</code></pre>
+<p>Detect objects from image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Image want to detect, if image's size not match model input's, will auto resize with fit method.<br><strong>conf_th</strong>: Confidence threshold, default 0.4.<br><strong>iou_th</strong>: IoU threshold, default 0.45.<br><strong>fit</strong>: Resize method, default image.Fit.FIT_CONTAIN.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If image format not match model input format, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object list. In C++, you should delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::Object&gt; *detect(image::Image &amp;img, float conf_th = 0.4, float iou_th = 0.45, maix::image::Fit fit = maix::image::FIT_CONTAIN)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+<h3 id="MUD">MUD</h3>
+<p>MUD(model universal describe file) class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class MUD
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model_path: str = None) -&gt; None
+</code></pre>
+<p>MUD constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model_path</strong>: direction [in], model file path, model format can be MUD(model universal describe file) file.<br>If model_path set, will load model from file, load failed will raise err.Exception.<br>If model_path not set, you can load model later by load function.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">MUD(const char *model_path = nullptr)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model_path: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model_path</strong>: direction [in], model file path, model format can be MUD(model universal describe file) file.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, if load success, return err::ERR_NONE</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const std::string &amp;model_path)
+</code></pre>
+</blockquote>
+<h4 id="type">type</h4>
+<p>Model type, string type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string type
+</code></pre>
+</blockquote>
+<h4 id="items">items</h4>
+<p>Model config items, different model type has different config items</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::map&lt;std::string, std::map&lt;std::string, std::string&gt;&gt; items
+</code></pre>
+</blockquote>
+<h3 id="LayerInfo">LayerInfo</h3>
+<p>NN model layer info</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class LayerInfo
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, name: str = '', dtype: maix.tensor.DType = ..., shape: list[int] = []) -&gt; None
+</code></pre>
+<p>LayerInfo constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>name</strong>: direction [in], layer name<br><strong>dtype</strong>: direction [in], layer data type<br><strong>shape</strong>: direction [in], layer shape<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">LayerInfo(const std::string &amp;name =  &quot;&quot;, tensor::DType dtype = tensor::DType::FLOAT32, std::vector&lt;int&gt; shape = std::vector&lt;int&gt;())
+</code></pre>
+</blockquote>
+<h4 id="name">name</h4>
+<p>Layer name</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string   name
+</code></pre>
+</blockquote>
+<h4 id="dtype">dtype</h4>
+<p>Layer data type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If model is quantized, this is the real quantized data type like int8 float16,<br>in most scene, inputs and outputs we actually use float32 in API like forward.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::DType dtype
+</code></pre>
+</blockquote>
+<h4 id="shape">shape</h4>
+<p>Layer shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; shape
+</code></pre>
+</blockquote>
+<h4 id="shape_int">shape_int</h4>
+
+<pre class="language-python"><code class="language-python">def shape_int(self) -&gt; int
+</code></pre>
+<p>Shape as one int type, multiply all dims of shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int shape_int()
+</code></pre>
+</blockquote>
+<h4 id="to_str">to_str</h4>
+
+<pre class="language-python"><code class="language-python">def to_str(self) -&gt; str
+</code></pre>
+<p>To string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string to_str()
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>To string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string __str__()
+</code></pre>
+</blockquote>
+<h3 id="NN">NN</h3>
+<p>Neural network class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class NN
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Neural network constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: direction [in], model file path, model format can be MUD(model universal describe file) file.<br>If model_path set, will load model from file, load failed will raise err.Exception.<br>If model_path not set, you can load model later by load function.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">NN(const std::string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: direction [in], model file path, model format can be MUD(model universal describe file) file.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, if load success, return err::ERR_NONE</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const std::string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="loaded">loaded</h4>
+
+<pre class="language-python"><code class="language-python">def loaded(self) -&gt; bool
+</code></pre>
+<p>Is model loaded</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if model loaded, else false</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool loaded()
+</code></pre>
+</blockquote>
+<h4 id="set_dual_buff">set_dual_buff</h4>
+
+<pre class="language-python"><code class="language-python">def set_dual_buff(self, enable: bool) -&gt; None
+</code></pre>
+<p>Enable dual buff or disable dual buff</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>enable</strong>: true to enable, false to disable<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_dual_buff(bool enable)
+</code></pre>
+</blockquote>
+<h4 id="inputs_info">inputs_info</h4>
+
+<pre class="language-python"><code class="language-python">def inputs_info(self) -&gt; list[LayerInfo]
+</code></pre>
+<p>Get model input layer info</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input layer info</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::LayerInfo&gt; inputs_info()
+</code></pre>
+</blockquote>
+<h4 id="outputs_info">outputs_info</h4>
+
+<pre class="language-python"><code class="language-python">def outputs_info(self) -&gt; list[LayerInfo]
+</code></pre>
+<p>Get model output layer info</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>output layer info</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::LayerInfo&gt; outputs_info()
+</code></pre>
+</blockquote>
+<h4 id="extra_info">extra_info</h4>
+
+<pre class="language-python"><code class="language-python">def extra_info(self) -&gt; dict[str, str]
+</code></pre>
+<p>Get model extra info define in MUD file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>extra info, dict type, key-value object, attention: key and value are all string type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::map&lt;std::string, std::string&gt; extra_info()
+</code></pre>
+</blockquote>
+<h4 id="forward">forward</h4>
+
+<pre class="language-python"><code class="language-python">def forward(self, inputs: maix.tensor.Tensors, copy_result: bool = True, dual_buff_wait: bool = False) -&gt; maix.tensor.Tensors
+</code></pre>
+<p>forward run model, get output of model,\nthis is specially for MaixPy, not efficient, but easy to use in MaixPy</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>input</strong>: direction [in], input tensor<br><strong>copy_result</strong>: If set true, will copy result to a new variable; else will use a internal memory, you can only use it until to the next forward.<br>Default true to avoid problems, you can set it to false manually to make speed faster.<br><strong>dual_buff_wait</strong>: bool type, only for dual_buff mode, if true, will inference this image and wait for result, default false.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>output tensor. In C++, you should manually delete tensors in return value and return value.<br>If dual_buff mode, it can be NULL(None in MaixPy) means not ready.</td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>if error ocurrs like no memory or arg error, will raise err.Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensors *forward(tensor::Tensors &amp;inputs, bool copy_result = true, bool dual_buff_wait = false)
+</code></pre>
+</blockquote>
+<h4 id="forward_image">forward_image</h4>
+
+<pre class="language-python"><code class="language-python">def forward_image(self, img: maix.image.Image, mean: list[float] = [], scale: list[float] = [], fit: maix.image.Fit = ..., copy_result: bool = True, dual_buff_wait: bool = False) -&gt; maix.tensor.Tensors
+</code></pre>
+<p>forward model, param is image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: input image<br><strong>mean</strong>: mean value, a list type, e.g. [0.485, 0.456, 0.406], default is empty list means not normalize.<br><strong>scale</strong>: scale value, a list type, e.g. [1/0.229, 1/0.224, 1/0.225], default is empty list means not normalize.<br><strong>fit</strong>: fit mode, if the image size of input not equal to model's input, it will auto resize use this fit method,<br>default is image.Fit.FIT_FILL for easy coordinate calculation, but for more accurate result, use image.Fit.FIT_CONTAIN is better.<br><strong>copy_result</strong>: If set true, will copy result to a new variable; else will use a internal memory, you can only use it until to the next forward.<br>Default true to avoid problems, you can set it to false manually to make speed faster.<br><strong>dual_buff_wait</strong>: bool type, only for dual_buff mode, if true, will inference this image and wait for result, default false.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>output tensor. In C++, you should manually delete tensors in return value and return value.<br>If dual_buff mode, it can be NULL(None in MaixPy) means not ready.</td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If error occurs, like arg error or alloc memory failed, will raise err.Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensors *forward_image(image::Image &amp;img, std::vector&lt;float&gt; mean = std::vector&lt;float&gt;(), std::vector&lt;float&gt; scale = std::vector&lt;float&gt;(), image::Fit fit = image::Fit::FIT_FILL, bool copy_result = true, bool dual_buff_wait = false)
+</code></pre>
+</blockquote>
+<h3 id="FaceObject">FaceObject</h3>
+<p>Face object</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class FaceObject
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, x: int = 0, y: int = 0, w: int = 0, h: int = 0, class_id: int = 0, score: float = 0, points: list[int] = [], feature: list[float] = [], face: maix.image.Image = ...) -&gt; None
+</code></pre>
+<p>Constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">FaceObject(int x = 0, int y = 0, int w = 0, int h = 0, int class_id = 0, float score = 0, std::vector&lt;int&gt; points = std::vector&lt;int&gt;(), std::vector&lt;float&gt; feature = std::vector&lt;float&gt;(), image::Image face = image::Image())
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>FaceObject info to string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>FaceObject info string</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string to_str()
+</code></pre>
+</blockquote>
+<h4 id="x">x</h4>
+<p>FaceObject left top coordinate x</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int x
+</code></pre>
+</blockquote>
+<h4 id="y">y</h4>
+<p>FaceObject left top coordinate y</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int y
+</code></pre>
+</blockquote>
+<h4 id="w">w</h4>
+<p>FaceObject width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int w
+</code></pre>
+</blockquote>
+<h4 id="h">h</h4>
+<p>FaceObject height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int h
+</code></pre>
+</blockquote>
+<h4 id="class_id">class_id</h4>
+<p>FaceObject class id</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int class_id
+</code></pre>
+</blockquote>
+<h4 id="score">score</h4>
+<p>FaceObject score</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float score
+</code></pre>
+</blockquote>
+<h4 id="points">points</h4>
+<p>keypoints</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; points
+</code></pre>
+</blockquote>
+<h4 id="feature">feature</h4>
+<p>feature, float list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; feature
+</code></pre>
+</blockquote>
+<h4 id="face">face</h4>
+<p>face image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image face
+</code></pre>
+</blockquote>
+<h3 id="FaceRecognizer">FaceRecognizer</h3>
+<p>FaceRecognizer class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class FaceRecognizer
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, detect_model: str = '', feature_model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Constructor of FaceRecognizer class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>detect_model</strong>: face detect model path, default empty, you can load model later by load function.<br><strong>feature_model</strong>: feature extract model<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If model arg is not empty and load failed, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">FaceRecognizer(const string &amp;detect_model = &quot;&quot;, const string &amp;feature_model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, detect_model: str, feature_model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>detect_model</strong>: face detect model path, default empty, you can load model later by load function.<br><strong>feature_model</strong>: feature extract model<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;detect_model, const string &amp;feature_model)
+</code></pre>
+</blockquote>
+<h4 id="recognize">recognize</h4>
+
+<pre class="language-python"><code class="language-python">def recognize(self, img: maix.image.Image, conf_th: float = 0.5, iou_th: float = 0.45, compare_th: float = 0.8, get_feature: bool = False, get_face: bool = False, fit: maix.image.Fit = ...) -&gt; list[FaceObject]
+</code></pre>
+<p>Detect objects from image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Image want to detect, if image's size not match model input's, will auto resize with fit method.<br><strong>conf_th</strong>: Detect confidence threshold, default 0.5.<br><strong>iou_th</strong>: Detect IoU threshold, default 0.45.<br><strong>compare_th</strong>: Compare two face score threshold, default 0.8, if two faces' score &lt; this value, will see this face fas unknown.<br><strong>get_feature</strong>: return feature or not, if true will copy features to result, if false will not copy feature to result to save time and memory.<br><strong>get_face</strong>: return face image or not, if true result object's face attribute will valid, or face sttribute is empty. Get face image will alloc memory and copy image, so will lead to slower speed.<br><strong>fit</strong>: Resize method, default image.Fit.FIT_CONTAIN.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If image format not match model input format, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>FaceObject list. In C++, you should delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::FaceObject&gt; *recognize(image::Image &amp;img, float conf_th = 0.5, float iou_th = 0.45, float compare_th = 0.8, bool get_feature = false, bool get_face = false, maix::image::Fit fit = maix::image::FIT_CONTAIN)
+</code></pre>
+</blockquote>
+<h4 id="add_face">add_face</h4>
+
+<pre class="language-python"><code class="language-python">def add_face(self, face: FaceObject, label: str) -&gt; maix.err.Err
+</code></pre>
+<p>Add face to lib</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>face</strong>: face object, find by recognize<br><strong>label</strong>: face label(name)<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err add_face(nn::FaceObject *face, const std::string &amp;label)
+</code></pre>
+</blockquote>
+<h4 id="remove_face">remove_face</h4>
+
+<pre class="language-python"><code class="language-python">def remove_face(self, idx: int = -1, label: str = '') -&gt; maix.err.Err
+</code></pre>
+<p>remove face from lib</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>idx</strong>: index of face in lib, default -1 means use label, idx and label must have one, idx have high priotiry.<br><strong>label</strong>: which face to remove, default to empty string mean use idx, idx and label must have one, idx have high priotiry.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err remove_face(int idx = -1, const std::string &amp;label = &quot;&quot;)
+</code></pre>
+</blockquote>
+<h4 id="save_faces">save_faces</h4>
+
+<pre class="language-python"><code class="language-python">def save_faces(self, path: str) -&gt; maix.err.Err
+</code></pre>
+<p>Save faces info to a file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: where to save, string type.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err.Err type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err save_faces(const std::string &amp;path)
+</code></pre>
+</blockquote>
+<h4 id="load_faces">load_faces</h4>
+
+<pre class="language-python"><code class="language-python">def load_faces(self, path: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load faces info from a file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: from where to load, string type.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load_faces(const std::string &amp;path)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="mean_detector">mean_detector</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean_detector
+</code></pre>
+</blockquote>
+<h4 id="scale_detector">scale_detector</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale_detector
+</code></pre>
+</blockquote>
+<h4 id="mean_feature">mean_feature</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean_feature
+</code></pre>
+</blockquote>
+<h4 id="scale_feature">scale_feature</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale_feature
+</code></pre>
+</blockquote>
+<h4 id="labels">labels</h4>
+<p>labels, list type, first is &quot;unknown&quot;</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::string&gt; labels
+</code></pre>
+</blockquote>
+<h4 id="features">features</h4>
+<p>features</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::vector&lt;float&gt;&gt; features
+</code></pre>
+</blockquote>
+<h3 id="FaceDetector">FaceDetector</h3>
+<p>FaceDetector class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class FaceDetector
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, model: str = '', dual_buff: bool = True) -&gt; None
+</code></pre>
+<p>Constructor of FaceDetector class</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: model path, default empty, you can load model later by load function.<br><strong>dual_buff</strong>: direction [in], prepare dual input output buffer to accelarate forward, that is, when NPU is forwarding we not wait and prepare the next input buff.<br>If you want to ensure every time forward output the input's result, set this arg to false please.<br>Default true to ensure speed.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If model arg is not empty and load failed, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">FaceDetector(const string &amp;model = &quot;&quot;, bool dual_buff = true)
+</code></pre>
+</blockquote>
+<h4 id="load">load</h4>
+
+<pre class="language-python"><code class="language-python">def load(self, model: str) -&gt; maix.err.Err
+</code></pre>
+<p>Load model from file</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>model</strong>: Model path want to load<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err load(const string &amp;model)
+</code></pre>
+</blockquote>
+<h4 id="detect">detect</h4>
+
+<pre class="language-python"><code class="language-python">def detect(self, img: maix.image.Image, conf_th: float = 0.5, iou_th: float = 0.45, fit: maix.image.Fit = ...) -&gt; list[Object]
+</code></pre>
+<p>Detect objects from image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: Image want to detect, if image's size not match model input's, will auto resize with fit method.<br><strong>conf_th</strong>: Confidence threshold, default 0.5.<br><strong>iou_th</strong>: IoU threshold, default 0.45.<br><strong>fit</strong>: Resize method, default image.Fit.FIT_CONTAIN.<br></td>
+</tr>
+<tr>
+  <td><strong>throw</strong></td>
+  <td>If image format not match model input format, will throw err::Exception.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Object list. In C++, you should delete it after use.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;nn::Object&gt; *detect(image::Image &amp;img, float conf_th = 0.5, float iou_th = 0.45, maix::image::Fit fit = maix::image::FIT_CONTAIN)
+</code></pre>
+</blockquote>
+<h4 id="input_size">input_size</h4>
+
+<pre class="language-python"><code class="language-python">def input_size(self) -&gt; maix.image.Size
+</code></pre>
+<p>Get model input size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Size input_size()
+</code></pre>
+</blockquote>
+<h4 id="input_width">input_width</h4>
+
+<pre class="language-python"><code class="language-python">def input_width(self) -&gt; int
+</code></pre>
+<p>Get model input width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_width()
+</code></pre>
+</blockquote>
+<h4 id="input_height">input_height</h4>
+
+<pre class="language-python"><code class="language-python">def input_height(self) -&gt; int
+</code></pre>
+<p>Get model input height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>model input size of height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int input_height()
+</code></pre>
+</blockquote>
+<h4 id="input_format">input_format</h4>
+
+<pre class="language-python"><code class="language-python">def input_format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get input image format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>input image format, image::Format type.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format input_format()
+</code></pre>
+</blockquote>
+<h4 id="mean">mean</h4>
+<p>Get mean value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; mean
+</code></pre>
+</blockquote>
+<h4 id="scale">scale</h4>
+<p>Get scale value, list type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;float&gt; scale
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/audio.html">
+                            <span class="icon"></span>
+                            <span class="label">audio</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/nn/F.html">
+                            <span class="label">F</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
