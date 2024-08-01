@@ -65,6 +65,13 @@ namespace PYBIND11_NAMESPACE
                 delete src;
                 return data;
             }
+
+            static handle cast(maix::Bytes &src, return_value_policy /* policy */, handle /* parent */)
+            {
+                handle data = PyBytes_FromStringAndSize((char *)src.data, src.data_len);
+                // TODO: Is there a more efficient way(like borrow src and auto delete src when data or parent deleted)?
+                return data;
+            }
         };
     }
 } // namespace PYBIND11_NAMESPACE::detail
