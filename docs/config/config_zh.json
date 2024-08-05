@@ -158,5 +158,29 @@
                 "target": "_blank"
             }
         ]
-    }
+    },
+    "plugins": {
+        "teedoc-plugin-search":{
+            "config": {
+                "search_hint": "搜索",
+                "input_hint": "输入关键词，多关键词空格隔开",
+                "loading_hint": "正在加载，请稍候。。。",
+                "download_err_hint": "下载文件失败，请刷新重试或检查网络",
+                "other_docs_result_hint": "来自其它文档的结果",
+                "curr_doc_result_hint": "当前文档搜索结果"
+            }
+        },
+        "teedoc-plugin-thumbs-up": {
+            "config": {
+                "label_up": "有帮助",
+                "label_down": "待改进",
+                "msg_already_voted": "您已经投过票了",
+                "msg_thanks": "感谢您的反馈",
+                "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）",
+                "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字",
+                "msg_error": "请求点赞服务器出现错误!"
+            }
+        }
+    },
+    "show_source": "<span id='editPage'>编辑本页</span>"
 }
