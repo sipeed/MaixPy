@@ -9,11 +9,9 @@ update:
 
 阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
 
-[源码地址](https://github.com/sipeed/MaixPy/blob/main/projects/app_face_tracking/main.py)
+[源码地址](https://github.com/sipeed/MaixPy/blob/main/projects/app_face_tracking)
 
 [APP下载地址](https://maixhub.com/app/31)
-
-安装之后main.py的保存地址：/maixapp/apps/face_tracking/main.py。
 
 ## 简介
 
@@ -61,6 +59,12 @@ update:
   ```
 
 * 最后执行代码即可。
+
+  如果您是从 MaixHub 上安装的应用,在启动器中点击 face_tracking 即可执行本程序。
+
+  如果您是从 Github 上获取的源码, 您可以在 [MaixVision](https://wiki.sipeed.com/maixvision) 中导入该工程的文件夹执行整个工程即可。 MaixVision详情请参考 [MaixVision说明](https://wiki.sipeed.com/maixpy/doc/zh/basic/maixvision.html)。
+
+  当然您也可以将整个工程文件夹通过您喜欢的方式拷贝到我们的 MaixCAM 上, 然后用 python 执行。
 
 * 想要退出程序按左上角的按钮即可。
 

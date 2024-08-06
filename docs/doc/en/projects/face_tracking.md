@@ -9,11 +9,9 @@ update:
 
 Before reading this article, make sure you know how to develop with MaixCAM. For details, please read [Quick Start](../README.md).
 
-[Source Code](https://github.com/sipeed/MaixPy/blob/main/projects/app_face_tracking/main.py)
+[Source Code](https://github.com/sipeed/MaixPy/blob/main/projects/app_face_tracking)
 
 [Download APP](https://maixhub.com/app/31)
-
-After installation main.py is saved at /maixapp/apps/face_tracking/main.py.
 
 ## Description
 
@@ -61,6 +59,12 @@ Face recognition and tracking is accomplished using a gimbal consisting of two s
   ```
 
 * Just execute the code at the end.
+
+  If you installed the application from MaixHub, click face_tracking in the launcher to execute the program.
+
+  If you got the source code from Github, you can import the project folder in [MaixVision](https://wiki.sipeed.com/maixvision) and execute the whole project. Please refer to [MaixVision Description](https://wiki.sipeed.com/maixpy/doc/zh/basic/maixvision.html) for more information about MaixVision.
+
+  Of course, you can also copy the whole project folder to our MaixCAM in your favorite way and execute it with python.
 
 * If you want to exit the program, just press the button in the upper left corner.
 
