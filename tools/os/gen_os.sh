@@ -16,11 +16,12 @@ set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh base_os_filepath maixpy_whl_filepath builtin_files_dir_path os_version_str"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps]"
     echo ""
 }
 
-if [ "$#" -ne 4 ]; then
+param_count=$#
+if [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ]; then
     usage
     exit 1
 fi
@@ -29,6 +30,13 @@ base_os_path=$1
 whl_path=$2
 builtin_files_dir_path=$3
 os_version_str=$4
+skip_build_apps=0
+
+# 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
+if [ "x$5" != "x" ]; then
+    skip_build_apps=1
+fi
+
 
 # 0. 确保环境变量 MAIXCDK_PATH 存在，以及当前目录在 MaixPy/tools 目录下
 if [ -z "$MAIXCDK_PATH" ]; then
@@ -71,16 +79,20 @@ cp -r tmp/maixpy_whl/* tmp/sys_builtin_files/usr/lib/python3.11/site-packages
 
 # 3. 打包 MaixPy 写的应用（MaixPy/projects 目录下执行 build_all.sh)，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
 cd ../../projects
-chmod +x ./build_all.sh
-./build_all.sh
+if [ $skip_build_apps == 0 ]; then
+    chmod +x ./build_all.sh
+    ./build_all.sh
+fi
 cd -
 mkdir -p tmp/sys_builtin_files/maixapp/apps
 cp -r ../../projects/apps/* tmp/sys_builtin_files/maixapp/apps
 
 # 4. 打包 MaixCDK 写的应用，进入 $MAIXCDK_PATH/projects， 执行 build_all.sh，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
 cd "$MAIXCDK_PATH/projects"
-chmod +x ./build_all.sh
-./build_all.sh
+if [ $skip_build_apps == 0 ]; then
+    chmod +x ./build_all.sh
+    ./build_all.sh
+fi
 cd -
 cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
 
