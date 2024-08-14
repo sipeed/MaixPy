@@ -5,8 +5,10 @@ from maix import time
 
 lcd.init()
 
-img = image.Image("test.jpg")
-img.midpoint(2, bias = 0.5)
+# difference
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img2 = image.Image("/maixapp/share/icon/maixhub.png")
+img.difference(img2)
 lcd.display(img)
 time.sleep(1)
 

@@ -3,10 +3,10 @@
 from maix.v1 import lcd, image
 from maix import time
 
-img = image.Image("test.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
 
 lcd.init()
-lcd.mirror(1)
+# lcd.mirror(1)
 lcd.display(img)
 
 # lcd.clear()

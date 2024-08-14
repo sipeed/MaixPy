@@ -5,9 +5,8 @@ from maix import time
 
 lcd.init()
 
-# difference
-img = image.Image("test.jpg")
-img.mode(2)
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img.histeq()
 lcd.display(img)
 time.sleep(1)
 

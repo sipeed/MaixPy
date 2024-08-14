@@ -5,14 +5,11 @@ from maix import time
 
 lcd.init()
 
-img = image.Image("test.jpg")
-img.mean_pool(2, 2)
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img2 = image.Image("/maixapp/share/icon/maixhub.png")
+img.blend(img2, alpha=128)
 lcd.display(img)
 time.sleep(1)
-
-img = image.Image("test.jpg")
-img.midpoint_pool(3, 3)
-lcd.display(img)
 
 while True:
     time.sleep(1)

@@ -6,15 +6,15 @@ from maix import time
 lcd.init()
 
 # min
-img = image.Image("test.jpg")
-img2 = image.Image("test2.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img2 = image.Image("/maixapp/share/icon/maixhub.png")
 img.min(img2)
 lcd.display(img)
 time.sleep(1)
 
 # max
-img = image.Image("test.jpg")
-img2 = image.Image("test2.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img2 = image.Image("/maixapp/share/icon/maixhub.png")
 img.max(img2)
 lcd.display(img)
 time.sleep(1)

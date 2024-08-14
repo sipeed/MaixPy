@@ -4,8 +4,8 @@ from maix.v1 import lcd, image
 from maix import time
 
 lcd.init()
-img = image.Image("test.jpg")
-img.binary([[0, 50]])
+
+img = image.Image("/maixapp/share/icon/maixvision.png")
 lcd.display(img)
 
 while True:

@@ -6,7 +6,7 @@ from maix import time
 lcd.init()
 
 # negate
-img = image.Image("test.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
 img.negate()
 lcd.display(img)
 time.sleep(1)

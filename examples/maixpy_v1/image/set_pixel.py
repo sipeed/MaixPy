@@ -2,7 +2,7 @@
 
 from maix.v1 import image
 
-img = image.Image("test.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
 
 # get old pixels
 old_pixel = img.get_pixel(20, 50, True)

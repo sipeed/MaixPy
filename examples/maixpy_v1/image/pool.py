@@ -5,17 +5,14 @@ from maix import time
 
 lcd.init()
 
-# linpolar
-img = image.Image("test.jpg")
-img.linpolar()
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img.mean_pool(2, 2)
 lcd.display(img)
 time.sleep(1)
 
-# logpolar
-img = image.Image("test.jpg")
-img.logpolar()
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img.midpoint_pool(3, 3)
 lcd.display(img)
-time.sleep(1)
 
 while True:
     time.sleep(1)

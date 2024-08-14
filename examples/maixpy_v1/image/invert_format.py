@@ -6,7 +6,7 @@ from maix import time
 from maix import image as maix_img
 
 lcd.init()
-img = image.Image("test.jpg")
+img = image.Image("/maixapp/share/icon/maixvision.png")
 
 print('invert format to grayscale')
 img.to_grayscale()

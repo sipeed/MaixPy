@@ -7,8 +7,8 @@ size = 1
 kernel = [-1, -2, -1, -2, 6, -2, -1, -2, -1]
 
 lcd.init()
-img = image.Image("test.jpg")
-img.gaussian(2, mul = 1 / 8, add = 200)
+img = image.Image("/maixapp/share/icon/maixvision.png")
+img.bilateral(2, color_sigma = 0.1, space_sigma = 1)
 lcd.display(img)
 
 while True:
