@@ -57,6 +57,7 @@ rm -rf tmp/$os_version_str.img.xz
 sync
 
 # 1. 检查参数 文件或者文件夹是否存在，然后拷贝一份 builtin_files_dir_path 到 tmp，不要影响原目录，检查 base os file 是不是 xz, 如果是解压到临时目录 tmp，并改名为 os_version_str.img，不是则拷贝一份到 tmp 目录下 os_version_str.img
+echo "copy builtin files"
 if [ ! -e "$base_os_path" ]; then
     echo "Error: Base OS file does not exist."
     exit 1
@@ -72,12 +73,14 @@ else
 fi
 
 # 2. 解压 MaixPy whl 包到临时目录 tmp，并拷贝解压后的所有文件和目录到 tmp/sys_builtin_files/usr/lib/python3.11/site-packages 目录
+echo "copy MaixPy files"
 mkdir -p tmp/maixpy_whl
 unzip "$whl_path" -d tmp/maixpy_whl
 mkdir -p tmp/sys_builtin_files/usr/lib/python3.11/site-packages
 cp -r tmp/maixpy_whl/* tmp/sys_builtin_files/usr/lib/python3.11/site-packages
 
 # 3. 打包 MaixPy 写的应用（MaixPy/projects 目录下执行 build_all.sh)，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
+echo "pack and copy MaixPy projects"
 cd ../../projects
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
@@ -88,6 +91,7 @@ mkdir -p tmp/sys_builtin_files/maixapp/apps
 cp -r ../../projects/apps/* tmp/sys_builtin_files/maixapp/apps
 
 # 4. 打包 MaixCDK 写的应用，进入 $MAIXCDK_PATH/projects， 执行 build_all.sh，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
+echo "pack and copy MaixCDK projects"
 cd "$MAIXCDK_PATH/projects"
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh

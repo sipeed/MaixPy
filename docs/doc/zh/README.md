@@ -5,7 +5,7 @@ title: MaixPy 快速开始
 
 <div style="font-size: 1.2em;border: 2px solid green; border-color:#c33d45;padding:1em; text-align:center; background: #c33d45; color: white">
     <div>
-    <span>MaixPy 唯一官网:</span>
+    <span>MaixPy 教程文档:</span>
     <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy">
         wiki.sipeed.com/maixpy
     </a>
@@ -14,6 +14,24 @@ title: MaixPy 快速开始
     <span>MaixPy 例程和源码:</span>
     <a target="_blank" style="color: #ffe0e0" href="https://github.com/sipeed/MaixPy">
         github.com/sipeed/MaixPy
+    </a>
+    <br>
+    <div style="height:0.4em"></div>
+    <span>MaixCAM 硬件资料:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixcam">
+        wiki.sipeed.com/maixcam
+    </a>
+    <br>
+    <div style="height:0.4em"></div>
+    <span>MaixPy API 文档:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/api/index.html">
+        wiki.sipeed.com/maixpy/api/
+    </a>
+    <br>
+    <div style="height:0.4em"></div>
+    <span>MaixPy 视频和教程:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5">
+        B站搜 MaixCAM 或 MaixPy
     </a>
     </div>
     <div style="padding: 1em 0 0 0">
@@ -30,6 +48,7 @@ title: MaixPy 快速开始
 请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
 也可以参考 **[视频上手教程](https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.788&vd_source=6c974e13f53439d17d6a092a499df304)**。
 **左边目录**请仔细查看，基础部分一定要耐心阅读完，其它功能在左边目录查找。
+本文档是`MaixPy v4 教程文档`，注意与 [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html)（k210系列）区别开，勿错看文档。
 
 
 ## 获得 MaixCAM 设备
@@ -123,21 +142,20 @@ Classifier Result video
 
 为了后面电脑（PC）能和 设备（MaixCAM）通信，我们要让它们在同一个局域网内，提供了两种方式：
 * **方法一 (强烈推荐)**：无线连接， 设备使用 WiFi 连接到电脑连接的同一个路由器或者 WiFi 热点下： 在设备的`设置 -> WiFi 设置`中连接到你的 WiFi 即可。（WiFi 如果出现画面卡顿或者延迟高的问题可以尝试下面的方法二使用有线连接。）
-* **方法二**：有线连接， 设备通过 USB 线连接到电脑，设备会虚拟成一个 USB 网卡，这样和电脑就通过 USB 在同一局域网了。方法二因为要安装 USB 虚拟网卡驱动，可能会遇到一些问题，所以推荐直接用 WiFi 开始，**下面折叠部分是安装虚拟网卡驱动方法**，遇到问题也可以在 [FAQ](./faq.md) 中找常见问题。
-.. details::方案二在不同电脑系统中有不同设置方法，点击展开
-    * **Linux**: 无需额外设置，插上 USB 线即可， 使用 `ifconfig` 或者 `ip addr` 查看到 `usb0` 网卡，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
-    * **Windows**: 可以先确认`网络适配器`里面是否多了一个 RNDIS 设备，如果有就直接能用。否则需要手动安装 RNDIS 网卡驱动：
-      * 打开电脑的`设备管理器`。
-      * 然后在`其它设备`里面找个一个带问号的 RNDIS 设备，右键选择`更新驱动程序`。
-      * 选择`浏览计算机以查找驱动程序`，然后选择`让我从计算机上的可用驱动程序列表中选择`。
-      * 选择`网络适配器`，然后点击`下一步`。
-      * 左边选择`Microsoft`，右边选择`远程 NDIS 兼容设备`，然后点击`下一步`, 选择`是`。
-      * 装好后的效果
-      ![RNDIS](../../static/image/rndis_windows.jpg)
-    * **MacOS**: 无需额外设置，插上 USB 线即可， 使用 `ifconfig` 或者 `ip addr` 查看到 `usb0` 网卡，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
+* **方法二**：有线连接， 设备通过 USB 线连接到电脑，设备会虚拟成一个 USB 网卡，这样和电脑就通过 USB 在同一局域网了。推荐先用 WiFi 开始是因为有线虽然传输稳定但是可能会遇到线缆不良，接触不良，驱动等问题，遇到问题也可以在 [FAQ](./faq.md) 中找常见问题。
+.. details::方法二在不同电脑系统中驱动安装方法：
+    :open: true
+    默认会有两种 USB 虚拟网卡驱动（NCM 和 RNDIS驱动），以满足不同系统的需求，你也可以在设备端`设置`应用 -> `USB设置` 里面关掉不用的虚拟网卡：
+    * **Windows**: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动有一个能用就行。
+      * 打开任务管理器 -> 性能，可以看到一个虚拟的以太网，并且可以看到 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。如果是 Win11 则会看到两个虚拟网卡，随便选择一个 IP 使用即可。
+      * 另外也可以打开电脑的 `设备管理器`（搜索栏搜索`设备管理器`）， RNDIS 和 NCM 驱动被正确安装的效果：
+        ![RNDIS ok](../../static/image/rndis_windows.jpg) ![NCM ok](../../static/image/windows_ncm_ok.png)
+    * **Linux**: 无需额外设置，插上 USB 线即可。 使用 `ifconfig` 或者 `ip addr` 查看到 `usb0` 和 `usb1` 网卡，两个 IP 都可以使用，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
+    * **MacOS**: 在`系统设置`->`网络`里面查看到 `usb` 网卡，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
 
 ## 开发环境准备
 
+* 首先保证上一步电脑和设备已经在同一个局域网中了。
 * 下载 [MaixVision](https://wiki.sipeed.com/maixvision) 并安装。
 * 使用 Type-C 连接设备和电脑，打开 MaixVision，点击左下角的`“连接”`按钮，会自动搜索设备，稍等一下就能看到设备，点击设备有点的连接按钮以连接设备。
 

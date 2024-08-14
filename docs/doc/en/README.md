@@ -4,15 +4,27 @@ title: MaixPy Quick Start
 
 <div style="font-size: 1.2em;border: 2px solid green; border-color:#c33d45;padding:1em; text-align:center; background: #c33d45; color: white">
     <div>
-    <span>The only official website for MaixPy:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy">
-        wiki.sipeed.com/maixpy
+    <span>MaixPy Docs and tutorial:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/en/">
+        wiki.sipeed.com/maixpy/en/
     </a>
     <br>
     <div style="height:0.4em"></div>
     <span>MaixPy examples and source code:</span>
     <a target="_blank" style="color: #ffe0e0" href="https://github.com/sipeed/MaixPy">
         github.com/sipeed/MaixPy
+    </a>
+    <br>
+    <div style="height:0.4em"></div>
+    <span>MaixCAM Hardware Docs:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixcam">
+        wiki.sipeed.com/maixcam
+    </a>
+    <br>
+    <div style="height:0.4em"></div>
+    <span>MaixPy API Docs:</span>
+    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/api/index.html">
+        wiki.sipeed.com/maixpy/api/
     </a>
     </div>
     <div style="padding: 1em 0 0 0">
@@ -109,30 +121,31 @@ Usage:
 > The serial baud rate is `115200`, the data format is `8N1`, and the protocol follows the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). You can find the corresponding application introduction on the [MaixHub APP](https://maixhub.com/app) to view the protocol.
 > If APP no serial output, you can also do it by yourself, follow function examples and [UART usage doc](./peripheral/uart.md) to add function and serial output.
 
-## Prepare to Connect the Computer and Device
+## Preparing to Connect Computer and Device
 
-To allow the computer (PC) and the device (MaixCAM) to communicate later, we need to have them on the same local area network. Two methods are provided:
-* **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or WiFi hotspot that your computer is connected to via WiFi: In the device's `Settings -> WiFi Settings`, connect to your WiFi. (If you experience screen lag or high latency with WiFi, you can try Method 2 for a wired connection.)
+To enable communication between the computer (PC) and the device (MaixCAM), we need to ensure they are on the same local area network. There are two methods to achieve this:
 
-* **Method 2**: Wired Connection. Connect the device to the computer using a USB cable. The device will emulate a USB network adapter, thus creating a local network between the device and the computer through the USB connection. Method 2 may encounter some issues as it requires installing a USB virtual network adapter driver. Therefore, it is recommended to start with WiFi. **The following collapsed section describes the method for installing the virtual network adapter driver**. For troubleshooting, you can also refer to the [FAQ](./faq.md) for common issues.
+* **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or Wi-Fi hotspot that the computer is connected to via Wi-Fi. Go to the device's `Settings -> WiFi Settings` and connect to your Wi-Fi. (If you experience screen lag or high latency with Wi-Fi, you can try Method 2 for a wired connection.)
 
-.. details::Method 2 has different setup methods on different computer systems, click to expand
-     * **Linux**: No additional setup is required. Just plug in the USB cable. Use `ifconfig` or `ip addr` to view the `usb0` network card. **Note** that the IP address you see here, e.g., `10.131.167.100`, is the computer's IP. The device's IP is the last octet changed to `1`, i.e., `10.131.167.1`.
-     * **Windows**: You can first confirm if a RNDIS device has been added in the `Network Adapters`. If so, you can use it directly. Otherwise, you need to manually install the RNDIS network card driver:
-       * Open the computer's `Device Manager`.
-       * Then find a RNDIS device with a question mark under `Other Devices`, right-click and select `Update Driver Software`.
-       * Select `Browse my computer for driver software`.
-       * Select `Let me pick from a list of available drivers on my computer`.
-       * Select `Network Adapters`, then click `Next`.
-       * On the left, select `Microsoft`, on the right, select `Remote NDIS Compatible Device`, then click `Next`, and select `Yes`.
-       * After installation, the effect is as follows:
-         ![RNDIS](../../static/image/rndis_windows.jpg)
-     * **MacOS**: No additional setup is required. Just plug in the USB cable. Use `ifconfig` or `ip addr` to view the `usb0` network card. **Note** that the IP address you see here, e.g., `10.131.167.100`, is the computer's IP. The device's IP is the last octet changed to `1`, i.e., `10.131.167.1`.
+Here is the translation:
 
- ## Prepare the Development Environment
+* **Method Two**: Wired Connection. The device connects to the computer via a USB cable, and the device will emulate as a USB network adapter. This way, the device and the computer will be on the same local network through the USB connection. It is recommended to start with WiFi because although a wired connection offers stable transmission, it may encounter issues such as faulty cables, poor connection, or driver problems. If you encounter any issues, you can refer to the common problems in the [FAQ](./faq.md).
 
- * Download and install [MaixVision](https://wiki.sipeed.com/maixvision).
- * Connect the device and computer with a Type-C cable, open MaixVision, and click the `"Connect"` button in the bottom left corner. It will automatically search for devices. After a short wait, you will see the device, and you can click the connect button next to it to connect to the device.
+.. details::Method Two: Driver Installation on Different Computer Systems:
+    :open: true
+    By default, there are two types of USB virtual network adapter drivers (NCM and RNDIS drivers) to meet the needs of different systems. You can also disable the unused virtual network adapter on the device under `Settings` -> `USB Settings`:
+    * **Windows**: All Windows systems will automatically install the RNDIS driver, while only Windows 11 will automatically install the NCM driver. As long as one of the drivers works, it is sufficient.
+      * Open Task Manager -> Performance, and you should see a virtual Ethernet with an IP address such as `10.131.167.100`, which is the computer's IP address. The device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`. If you are using Windows 11, you will see two virtual network adapters; you can use either IP address.
+      * Additionally, you can open `Device Manager` (search for `Device Manager` in the search bar). The RNDIS and NCM drivers should be correctly installed, as shown below:
+        ![RNDIS ok](../../static/image/rndis_windows.jpg) ![NCM ok](../../static/image/windows_ncm_ok.png)
+    * **Linux**: No additional setup is required. Simply plug in the USB cable. Use `ifconfig` or `ip addr` to see the `usb0` and `usb1` network interfaces, and either IP address can be used. **Note**: The IP address you see, such as `10.131.167.100`, is the computer's IP address, and the device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`.
+    * **MacOS**: Check for the `usb` network adapter under `System Settings` -> `Network`. **Note**: The IP address you see, such as `10.131.167.100`, is the computer's IP address, and the device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`.
+
+## Preparing the Development Environment
+
+* First, ensure that the computer and the device are on the same local network as per the previous step.
+* Download and install [MaixVision](https://wiki.sipeed.com/maixvision).
+* Connect the device and the computer using a Type-C cable. Open MaixVision, click the `“Connect”` button in the lower left corner, and it will automatically search for the device. Wait for a moment until the device appears, then click the connection button next to the device to connect.
 
  If **no device is detected**, you can also manually enter the device's IP address in the **device**'s `Settings -> Device Info`. You can also find solutions in the [FAQ](./faq.md).
 

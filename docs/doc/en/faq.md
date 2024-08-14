@@ -67,6 +67,7 @@ The message indicates that the display driver initialization failed.
 As of July 2024, the underlying display driver for MaixCAM is initialized together with the camera driver. Therefore, this issue is most likely caused by a failure in the camera driver initialization.
 To resolve this issue:
 * Try updating to the latest system and install the latest runtime libraries (very important!!!). The runtime libraries need to work in conjunction with the system drivers, and version mismatches may cause errors. Updating to the latest system image and installing the latest runtime libraries should generally resolve the issue.
+* Maybe multiple process try to occupy driver, easiest way is reboot.
 * Check for hardware connection issues with the camera. Ensure that the camera is properly connected and not damaged.
 
 ## What are the differences between Runtime, MaixPy, and system image? Which one should I upgrade?
@@ -110,3 +111,10 @@ This error occurs because MaixVision's code hinting feature cannot find the `mai
 This is mostly due to insufficient power supply. MaixCAM requires a voltage of around 5V and a current between 150mA and 500mA. If you encounter this issue, you can use a USB to TTL module to connect MaixCAM's serial port to a computer. You may see a message like `Card did not respond to voltage select! : -110`, indicating insufficient power supply. Simply switch to a more stable power supply to resolve the problem.
 
 For MaixCAM, it draws 400mA during startup, 250mA in standby mode with the screen on, and 400mA~500mA when running AI models at full speed. Therefore, ensuring a stable power supply is very important!
+
+
+## MaixVision Program Stuck on "start running ..."
+
+When the MaixVision log output window prints the message `start running ...`, it indicates that the program has been sent to the device and has begun executing. What gets printed afterward depends on your program. For instance, if you call `print("hello")`, it will print `hello`. If your program doesn't include any print statements, then there will be no logs displayed.
+
+So, the program isn't actually stuck; it's just that your program hasn't output anything, so no logs are shown. You can try adding `print("xxx")` in your code to generate output, which is the simplest way to debug your program.
