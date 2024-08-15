@@ -1,5 +1,5 @@
 ---
-title: Using ADC in MaixPy
+title: Using ADC in MaixCAM MaixPy
 update:
   - date: 2024-06-11
     author: iawak9lkm

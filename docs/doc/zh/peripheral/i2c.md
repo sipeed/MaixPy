@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用 I2C
+title: MaixCAM MaixPy 使用 I2C
 ---
 
 > 注意需要 MaixPy 镜像和固件 >= 4.2.1

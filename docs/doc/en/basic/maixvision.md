@@ -1,5 +1,5 @@
 ---
-title: MaixVision -- MaixPy Programming IDE + Graphical Block Programming
+title: MaixVision -- MaixCAM MaixPy Programming IDE + Graphical Block Programming
 ---
 
 ## Introduction

@@ -1,5 +1,5 @@
 ---
-title: Using AI Models for Object Classification in MaixPy
+title: Using AI Models for Object Classification in MaixCAM MaixPy
 ---
 
 ## Object Classification Concept

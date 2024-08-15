@@ -1,5 +1,5 @@
 ---
-title: 升级和烧录系统
+title: MaixCAM MaixPy 升级和烧录系统
 ---
 
 ## 介绍
@@ -27,5 +27,5 @@ title: 升级和烧录系统
 
 ## 烧录系统到 MaixCAM
 
-参考 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程，注意里面能满足 `USB 烧录`的条件则推荐使用 `USB 烧录`方式，USB 烧录方式不用拔 TF 卡。
+参考 硬件文档中的 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程，注意里面能满足 `USB 烧录`的条件则推荐使用 `USB 烧录`方式，USB 烧录方式不用拔 TF 卡。
 

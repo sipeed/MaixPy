@@ -1,5 +1,5 @@
 ---
-title: MaixPy Screen Usage
+title: MaixCAM MaixPy Screen Usage
 update:
 
   - date: 2024-03-31

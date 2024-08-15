@@ -1,5 +1,5 @@
 ---
-title: MaixPy 寻找色块
+title: MaixCAM MaixPy 寻找色块
 update:
   - date: 2024-04-03
     author: neucrack

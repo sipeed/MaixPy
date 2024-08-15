@@ -1,5 +1,5 @@
 ---
-title: Convert ONNX Model to a Format Usable by MaixCAM (MUD)
+title: Convert ONNX Model to a Format Usable by MaixCAM / MaixPy (MUD)
 ---
 
 ## Introduction

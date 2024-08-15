@@ -1,5 +1,5 @@
 ---
-title: MaixPy 录音
+title: MaixCAM MaixPy 录音
 update:
   - date: 2024-05-20
     author: lxowalle

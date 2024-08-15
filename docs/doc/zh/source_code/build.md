@@ -1,5 +1,5 @@
 ---
-title: MaixPy 开发源代码指南
+title: MaixCAM MaixPy 开发源代码指南
 ---
 
 ## 获取源代码

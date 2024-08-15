@@ -1,5 +1,5 @@
 ---
-title: MaixPy 2轴舵机云台人脸追踪
+title: MaixCAM MaixPy 2轴舵机云台人脸追踪
 update:
   - date: 2024-06-11
     author: iawak9lkm

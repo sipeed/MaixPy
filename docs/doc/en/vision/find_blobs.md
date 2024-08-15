@@ -1,5 +1,5 @@
 ---
-title: MaixPy Find Blobs
+title: MaixCAM MaixPy Find Blobs
 update:
   - date: 2024-04-03
     author: neucrack

@@ -1,5 +1,5 @@
 ---
-title: AI 视觉基本知识
+title: MaixCAM MaixPy AI 视觉基本知识
 update:
   - date: 2024-04-03
     author: neucrack

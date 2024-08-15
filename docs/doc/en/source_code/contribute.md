@@ -1,5 +1,5 @@
 ---
-title: Contributing to MaixPy Documentation Modification and Code Contribution
+title: Contributing to MaixCAM MaixPy Documentation Modification and Code Contribution
 ---
 
 ## Contributing to MaixPy Documentation Modification

@@ -1,5 +1,5 @@
 ---
-title: 更新 MaixPy
+title: MaixCAM 更新 MaixPy
 ---
 
 有两种方法，如果第一次上手使用，为了降低难度，可以直接使用出厂 TF 卡自带的 MaixPy 固件尝试，以后再考虑更新。

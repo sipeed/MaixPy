@@ -1,5 +1,5 @@
 ---
-title: MaixPy 视频流 RTSP 推流
+title: MaixCAM MaixPy 视频流 RTSP 推流
 update:
   - date: 2024-05-20
     author: lxowalle

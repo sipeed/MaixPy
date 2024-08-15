@@ -1,5 +1,5 @@
 ---
-title: MaixPy 人脸检测和关键点检测
+title: MaixCAM MaixPy 人脸检测和关键点检测
 ---
 
 ## 简介

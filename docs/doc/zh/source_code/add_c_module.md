@@ -1,5 +1,5 @@
 ---
-title: 给 MaixPy 添加一个 C/C++ 模块
+title: 给 MaixCAM MaixPy 添加一个 C/C++ 模块
 ---
 
 ## 简介

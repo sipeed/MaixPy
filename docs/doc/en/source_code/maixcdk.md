@@ -1,5 +1,5 @@
 ---
-title: Switching to MaixCDK for C/C++ Application Development
+title: MaixCAM Switching to MaixCDK for C/C++ Application Development
 ---
 
 In addition to developing with MaixPy, there is also a corresponding C/C++ SDK available, called [MaixCDK](https://github.com/sipeed/MaixCDK).

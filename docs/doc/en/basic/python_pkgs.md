@@ -1,5 +1,5 @@
 ---
-title: Add extra Python packages.
+title: MaixCAM MaixPy Add extra Python packages.
 ---
 
 ## Introduction

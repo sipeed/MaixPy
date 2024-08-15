@@ -1,5 +1,5 @@
 ---
-title: MaixPy 图像基础操作
+title: MaixCAM MaixPy 图像基础操作
 update:
   - date: 2024-04-03
     author: neucrack

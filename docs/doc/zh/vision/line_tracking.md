@@ -1,5 +1,5 @@
 ---
-title: MaixPy 寻找直线
+title: MaixCAM MaixPy 寻找直线
 update:
   - date: 2024-05-09
     author: lxowalle

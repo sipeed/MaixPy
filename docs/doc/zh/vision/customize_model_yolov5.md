@@ -1,5 +1,5 @@
 ---
-title: 为 MaixPy 离线训练 YOLOv5 模型，自定义检测物体
+title: 为 MaixCAM MaixPy 离线训练 YOLOv5 模型，自定义检测物体
 update:
     - date: 2024-6-20
       version: v1.0

@@ -1,81 +1,51 @@
 ---
-title: Building the System for MaixCAM
+title: Compiling a System for MaixCAM MaixPy
 ---
 
-## Customizing and Compiling the System
+## Why Customize the System?
 
-You can download the latest system suitable for MaixCAM from [https://github.com/sipeed/MaixPy/releases](https://github.com/sipeed/MaixPy/releases).
+Typically, you can download the latest system for MaixCAM directly from [this link](https://github.com/sipeed/MaixPy/releases). However, there are some scenarios where you might need to customize the system:
 
-For the latest base system, download it from [https://github.com/sipeed/LicheeRV-Nano-Build/releases](https://github.com/sipeed/LicheeRV-Nano-Build/releases). Please note that this system cannot be directly flashed to MaixCAM as it may damage the screen.
+* For example, if you are mass-producing 1,000 products and want each to have your own application that automatically starts on boot, without configuring each one individually, you can modify the `builtin_files` and package a system. Once this system is flashed onto the boards, they will all include your custom files, eliminating the need to copy them again after booting.
+* If the official system does not include the software packages or drivers you need, you can compile your own system and select the packages you want to include.
 
-For system source code and compilation instructions, refer to [https://github.com/sipeed/LicheeRV-Nano-Build](https://github.com/sipeed/LicheeRV-Nano-Build). It is recommended to use the Docker compilation method mentioned in the README to avoid compilation issues (note that the compiled system cannot be directly flashed to MaixCAM as it may damage the screen).
+## Obtaining the Base System
+
+The principle is to use a system from [this link](https://github.com/sipeed/LicheeRV-Nano-Build/releases) as the base (note that this system cannot be directly flashed onto MaixCAM as it may damage the screen), then copy the MaixCAM-specific files into the base system and repackage it into a system usable by MaixCAM.
+
+If you don't need to customize the base system, you can directly download the latest system image from [here](https://github.com/sipeed/LicheeRV-Nano-Build/releases).
+
+If the base system doesn't meet your requirements, such as needing to add or remove some software packages and drivers, follow the instructions in the [LicheeRV-Nano-Build repository](https://github.com/sipeed/LicheeRV-Nano-Build) README to compile the system. It's recommended to use Docker for compilation to avoid environment issues and to use `bash` instead of `zsh`.
+
+Remember, the compiled system should not be flashed directly onto MaixCAM, as it might damage the screen.
 
 ## Copying Files for MaixCAM
 
-After compilation, you will get an img file. For MaixCAM, additional files need to be added to this img file. Download the [compressed package](https://github.com/sipeed/MaixPy/releases/download/v4.3.2/sys_builtin_files_2024.6.19.tar.xz), extract it, and save the script from the appendix as `update_img.sh`. Copy the `img` file, then execute `./update_img.sh path_to_sys_builtin_files path_to_copied_img`. This `img` can now be used for flashing to MaixCAM.
+Prepare the following:
 
-However, note that the compressed package is of version `v4.3.2` and not the latest version. Adjust its contents according to your needs. Additionally, MaixPy is in the `usr/lib` directory, which can also be manually updated.
+* The base system, which is a `.img` or `.img.xz` file.
+* Additional files for MaixCAM can be downloaded from the [MaixPy release page](https://github.com/sipeed/MaixPy/releases). Download the latest `builtin_files.tar.xz`.
+> If you need to add custom files to the system, you can extract the files and add them to the appropriate directory. For example, if you want a `cat.jpg` file to be in the `/root` directory after flashing, simply place `cat.jpg` in the `root` directory.
+* Download or clone the MaixPy source code locally.
+* Compile MaixPy to obtain the `.whl` installation package, or you can download the latest installation package from the [MaixPy release page](https://github.com/sipeed/MaixPy/releases).
 
-## Appendix `update_img.sh`:
+In the `MaixPy/tools/os` directory, run the following command:
 
 ```shell
-#!/bin/sh
-
-set -e
-
-source_dir=$1
-img_file=$2
-mount_root=img_root
-
-img_file=$(readlink -f "$img_file")
-THISDIR=$(dirname $(realpath $0))
-
-if [ -z $img_file ]
-then
-    echo "usage: $0 new_rootfs_dir image_file"
-fi
-
-if [ ! -e $mount_root ]
-then
-    mkdir -pv $mount_root
-fi
-
-set -eux
-
-PART=2
-
-PART_OFFSET=$(partx -s $img_file | head -n 3 | tail -n 1 | awk '{print $2}')
-PART_OFFSET=$((PART_OFFSET * 512)) # sector size is 512
-
-echo "PART: $PART"
-echo "PART OFFSET: $PART_OFFSET"
-
-# some old version fuse2fs not support offset
-$THISDIR/fuse2fs -o fakeroot -o offset=$PART_OFFSET $img_file $mount_root
-
-# copy root files
-echo "copy root files now"
-find $source_dir -mindepth 1 -maxdepth 1 -type d ! -name "boot" -exec cp -r {} $mount_root \;
-sync
-echo "copy root files done"
-
-# umount
-umount $mount_root
-
-echo "copy boot files now"
-# Change to source directory
-cd "$source_dir/boot" || exit
-
-# Iterate through all files in the source directory
-for file in *; do
-    # Check if the file is a regular file
-    if [ -f "$file" ]; then
-        # Copy individual file to the target directory
-        mcopy -o -i "$img_file@@1s" "$file" ::/
-        echo "Copied $file to $img_file boot partition"
-    fi
-done
-
-sync
-echo "copy boot files done"
+./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps]
 ```
+
+Here’s what each parameter means:
+* **base_os_filepath**: The path to the base system, in `.img` or `.img.xz` format.
+* **maixpy_whl_filepath**: The MaixPy package, in `.whl` format.
+* **builtin_files_dir_path**: The custom files for MaixCAM, which can be downloaded from the MaixPy release page.
+* **os_version_str**: The system version, which should follow a format like `maixcam-2024-08-16-maixpy-v4.4.21`.
+* **skip_build_apps**: Skip compiling built-in applications. Set to 1 to skip, otherwise it will compile and copy apps from MaixCDK and MaixPy into the system.
+
+Example command:
+
+```shell
+./gen_os.sh '/home/xxx/.../LicheeRV-Nano-Build/install/soc_sg2002_licheervnano_sd/images/2024-08-13-14-43-0de38f.img' ../../dist/MaixPy-4.4.21-py3-none-any.whl '/home/xxx/.../sys_builtin_files' maixcam-2024-08-15-maixpy-v4.4.21
+```
+
+After waiting for the built-in apps to compile and copy, you should find a `maixcam-2024-08-15-maixpy-v4.4.21.img.xz` system image in the `MaixPy/tools/os/tmp` directory.

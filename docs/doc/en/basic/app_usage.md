@@ -1,5 +1,5 @@
 ---
-title: Application User Guide
+title: MaixCAM MaixPy Application User Guide
 ---
 
 After powering on, it will automatically enter the application selection interface, where various built-in applications are available in the [MaixHub App Store](https://maixhub.com/app). Here you can find descriptions and instructions for using each corresponding application.

@@ -1,5 +1,5 @@
 ---
-title: MaixPy Basic Image Operations
+title: MaixCAM MaixPy Basic Image Operations
 update:
 
 - date: 2024-04-03

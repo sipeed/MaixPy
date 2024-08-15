@@ -1,5 +1,5 @@
 ---
-title: MaixPy Line Tracking
+title: MaixCAM MaixPy Line Tracking
 update:
   - date: 2024-05-09
     author: lxowalle

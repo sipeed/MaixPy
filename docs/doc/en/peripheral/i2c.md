@@ -1,5 +1,5 @@
 ---
-title: Using I2C with MaixPy
+title: Using I2C with MaixCAM MaixPy
 ---
 
 > Note: Requires MaixPy image and firmware >= 4.2.1

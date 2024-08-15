@@ -1,5 +1,5 @@
 ---
-title: Using MaixHub to Train AI Models for MaixPy
+title: Using MaixHub to Train AI Models for MaixCAM MaixPy
 update:
   - date: 2024-04-03
     author: neucrack

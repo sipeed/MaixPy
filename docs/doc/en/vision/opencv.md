@@ -1,6 +1,5 @@
-
 ---
-title: Use OpenCV
+title: MaixCAM MaixPy Use OpenCV
 ---
 
 ## Introduction

@@ -1,5 +1,5 @@
 ---
-title: MaixPy 视频流 JPEG 推流 / 发送图片到服务器
+title: MaixCAM MaixPy 视频流 JPEG 推流 / 发送图片到服务器
 update:
   - date: 2024-04-03
     author: neucrack

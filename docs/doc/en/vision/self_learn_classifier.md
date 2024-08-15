@@ -1,5 +1,5 @@
 ---
-title: MaixPy Self-Learning Classifier
+title: MaixCAM MaixPy Self-Learning Classifier
 ---
 
 ## Introduction to MaixPy Self-Learning Classifier

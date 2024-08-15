@@ -1,5 +1,5 @@
 ---
-title: MaixVision -- MaixPy 编程 IDE + 图形化积木编程
+title: MaixVision -- MaixCAM MaixPy 编程 IDE + 图形化积木编程
 ---
 
 

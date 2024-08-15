@@ -1,5 +1,5 @@
 ---
-title: MaixPy/MaixCAM 应用开机自启
+title: MaixCAM MaixPy 应用开机自启
 ---
 
 打包安装好的应用可以设置开机自动启动，这样开机就不会显示应用菜单，直接进入指定的应用。

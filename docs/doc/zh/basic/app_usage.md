@@ -1,5 +1,5 @@
 ---
-title: 应用使用说明
+title: MaixCAM MaixPy 应用使用说明
 ---
 
 开机后会自动进入应用选择界面，内置各种应用均发布在 [MaixHub 应用商店](https://maixhub.com/app)， 可以在这里找到对应应用的介绍和使用说明。

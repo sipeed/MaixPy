@@ -1,5 +1,5 @@
 ---
-title: Using SPI in MaixPy
+title: Using SPI in MaixCAM MaixPy
 update:
   - date: 2024-06-11
     author: iawak9lkm

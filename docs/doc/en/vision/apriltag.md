@@ -1,5 +1,5 @@
 ---
-title: MaixPy Apriltag Recognition
+title: MaixCAM MaixPy Apriltag Recognition
 update:
   - date: 2024-04-03
     author: lxowalle

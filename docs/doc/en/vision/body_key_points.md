@@ -1,4 +1,4 @@
-# Title: MaixPy Human Keypoint Pose Detection
+# MaixCAM MaixPy Human Keypoint Pose Detection
 
 ## Introduction
 

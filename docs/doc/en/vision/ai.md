@@ -1,5 +1,5 @@
 ---
-title: Basic Knowledge of AI Vision
+title: MaixCAM MaixPy Basic Knowledge of AI Vision
 update:
   - date: 2024-04-03
     author: neucrack

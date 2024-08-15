@@ -1,5 +1,5 @@
 ---
-title: MaixPy 检测人体关键点姿态检测
+title: MaixCAM MaixPy 检测人体关键点姿态检测
 ---
 
 

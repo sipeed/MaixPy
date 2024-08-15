@@ -1,5 +1,5 @@
 ---
-title: Reading Temperature and Humidity Sensors with MaixPy
+title: Reading Temperature and Humidity Sensors with MaixCAM MaixPy
 ---
 
 ## Introduction

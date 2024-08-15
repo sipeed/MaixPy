@@ -1,4 +1,4 @@
-# Using PWM in MaixPy
+# Using PWM in MaixCAM MaixPy
 
 ## Introduction
 

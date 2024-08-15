@@ -1,5 +1,5 @@
 ---
-title: MaixPy ADC 使用介绍
+title: MaixCAM MaixPy ADC 使用介绍
 update:
   - date: 2024-06-11
     author: iawak9lkm

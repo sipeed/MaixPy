@@ -1,5 +1,5 @@
 ---
-title: MaixPy Face Recognition
+title: MaixCAM MaixPy Face Recognition
 ---
 
 ## Introduction to Face Recognition

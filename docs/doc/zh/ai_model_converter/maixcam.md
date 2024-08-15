@@ -1,5 +1,5 @@
 ---
-title: 将 ONNX 模型转换为 MaixCAM 可以使用的模型（MUD）
+title: 将 ONNX 模型转换为 MaixCAM MaixPy 可以使用的模型（MUD）
 ---
 
 ## 简介

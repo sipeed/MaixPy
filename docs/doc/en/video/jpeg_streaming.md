@@ -1,5 +1,5 @@
 ---
-title: MaixPy Video Stream JPEG Streaming / Sending Images to Server
+title: MaixCAM MaixPy Video Stream JPEG Streaming / Sending Images to Server
 update:
   - date: 2024-04-03
     author: neucrack

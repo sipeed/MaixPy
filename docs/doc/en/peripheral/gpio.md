@@ -1,4 +1,4 @@
-# MaixPy Using GPIO
+# MaixCAM MaixPy Using GPIO
 
 ## Introduction
 

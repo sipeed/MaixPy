@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用看门狗定时器
+title: MaixCAM MaixPy 使用看门狗定时器
 ---
 
 ## 简介

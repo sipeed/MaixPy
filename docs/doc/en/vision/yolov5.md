@@ -1,5 +1,5 @@
 ---
-title: Using YOLOv5 / YOLOv8 Models for Object Detection in MaixPy
+title: Using YOLOv5 / YOLOv8 Models for Object Detection in MaixCAM MaixPy
 ---
 
 ## Concept of Object Detection

@@ -1,5 +1,5 @@
 ---
-title: Practical Projects with MaixPy, Introduction and Collection
+title: Practical Projects with MaixCAM MaixPy, Introduction and Collection
 ---
 
 ## Introduction

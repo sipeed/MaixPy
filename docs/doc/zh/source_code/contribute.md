@@ -1,5 +1,5 @@
 ---
-title: 参与 MaixPy 文档修改和贡献代码
+title: 参与 MaixCAM MaixPy 文档修改和贡献代码
 ---
 
 ## 参与 MaixPy 文档修改

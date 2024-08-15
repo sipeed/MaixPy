@@ -1,5 +1,5 @@
 ---
-title: Adding a C/C++ Module to MaixPy
+title: Adding a C/C++ Module to MaixCAM MaixPy
 ---
 
 ## Introduction

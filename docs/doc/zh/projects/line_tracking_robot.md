@@ -1,5 +1,5 @@
 ---
-title: MaixPy 小车巡线
+title: MaixCAM MaixPy 小车巡线
 update:
   - date: 2024-05-09
     author: lxowalle

@@ -1,5 +1,5 @@
 ---
-title: MaixPy QR Code Recognition
+title: MaixCAM MaixPy QR Code Recognition
 update:
   - date: 2024-04-03
     author: lxowalle

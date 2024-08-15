@@ -1,6 +1,6 @@
 
 ---
-title: MaixPy 快速开始
+title: MaixCAM MaixPy 快速开始
 ---
 
 <div style="font-size: 1.2em;border: 2px solid green; border-color:#c33d45;padding:1em; text-align:center; background: #c33d45; color: white">

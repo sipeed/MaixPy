@@ -1,5 +1,5 @@
 ---
-title: MaixPy 人脸识别
+title: MaixCAM MaixPy 人脸识别
 ---
 
 ## 人脸识别简介

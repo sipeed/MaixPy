@@ -1,5 +1,5 @@
 ---
-title: Offline Training of YOLOv8 Model for Custom Object and Keypoint Detection with MaixPy
+title: Offline Training of YOLOv8 Model for Custom Object and Keypoint Detection with MaixCAM MaixPy
 update:
     - date: 2024-6-21
       version: v1.0

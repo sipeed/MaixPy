@@ -1,4 +1,4 @@
-MaixPy Source Code FAQ
+MaixCAM MaixPy Source Code FAQ
 ===
 
 ## subprocess.CalledProcessError: Command '('lsb_release', '-a')' returned non-zero exit status 1.

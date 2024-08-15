@@ -1,5 +1,5 @@
 ---
-title: MaixPy Self-Learning Detector
+title: MaixCAM MaixPy Self-Learning Detector
 ---
 
 ## MaixPy Self-Learning Detector

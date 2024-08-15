@@ -1,4 +1,4 @@
-# Using Watchdog Timer in MaixPy
+# Using Watchdog Timer in MaixCAM MaixPy
 
 ## Introduction
 

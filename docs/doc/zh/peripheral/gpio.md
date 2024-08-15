@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用 GPIO
+title: MaixCAM MaixPy 使用 GPIO
 ---
 
 ## 简介

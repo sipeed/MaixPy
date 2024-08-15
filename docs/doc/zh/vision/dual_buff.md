@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 模型运行 dual_buff 模式介绍
+title: MaixCAM MaixPy MaixCAM 模型运行 dual_buff 模式介绍
 ---
 
 ## 简介

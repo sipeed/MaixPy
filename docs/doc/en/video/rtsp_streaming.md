@@ -1,5 +1,5 @@
 ---
-title: MaixPy Video Streaming RTSP Push Streaming
+title: MaixCAM MaixPy Video Streaming RTSP Push Streaming
 update:
   - date: 2024-05-20
     author: lxowalle

@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用 PWM
+title: MaixCAM MaixPy 使用 PWM
 ---
 
 

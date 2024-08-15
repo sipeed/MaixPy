@@ -1,5 +1,5 @@
 ---
-title: MaixPy 二维码识别
+title: MaixCAM MaixPy 二维码识别
 update:
   - date: 2024-04-03
     author: lxowalle

@@ -1,5 +1,5 @@
 ---
-title: 添加额外的 Python 软件包
+title: MaixCAM MaixPy 添加额外的 Python 软件包
 ---
 
 ## 简介

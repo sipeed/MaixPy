@@ -1,5 +1,5 @@
 ---
-title: Update MaixPy.
+title: MaixCAM Update MaixPy.
 ---
 
 There are two methods to begin with. If you are new to this and want to keep things simple, you can try using the pre-installed MaixPy firmware on the TF card that comes with the device. You can consider updating it later.

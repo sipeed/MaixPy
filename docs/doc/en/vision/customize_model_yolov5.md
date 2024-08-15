@@ -1,5 +1,5 @@
 ---
-title: Offline Training of YOLOv5 Model for Custom Object Detection with MaixPy
+title: Offline Training of YOLOv5 Model for Custom Object Detection with MaixCAM MaixPy
 update:
     - date: 2024-6-20
       version: v1.0

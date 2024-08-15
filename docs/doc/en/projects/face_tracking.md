@@ -1,5 +1,5 @@
 ---
-title: MaixPy Face Tracking 2 axis servo gimbal
+title: MaixCAM MaixPy Face Tracking 2 axis servo gimbal
 update:
   - date: 2024-06-11
     author: iawak9lkm

@@ -1,5 +1,5 @@
 ---
-title: 使用 MaixHub 在线训练 AI 模型给 MaixPy 使用
+title: MaixCAM MaixPy 使用 MaixHub 在线训练 AI 模型给 MaixPy 使用
 update:
   - date: 2024-04-03
     author: neucrack

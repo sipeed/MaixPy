@@ -1,5 +1,5 @@
 ---
-title: MaixPy 项目实战 介绍和汇总
+title: MaixCAM MaixPy 项目实战 介绍和汇总
 ---
 
 ## 简介

@@ -1,5 +1,5 @@
 ---
-title: 切换到 MaixCDK 使用 C/C++ 开发应用
+title: MaixCAM 切换到 MaixCDK 使用 C/C++ 开发应用
 ---
 
 除了使用 MaixPy 开发，还有对应的 C/C++ SDK 可以使用，项目名称为 [MaixCDK](https://github.com/sipeed/MaixCDK)。

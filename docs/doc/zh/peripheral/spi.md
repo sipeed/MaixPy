@@ -1,5 +1,5 @@
 ---
-title: MaixPy SPI 串行外设接口使用介绍
+title: MaixCAM MaixPy SPI 串行外设接口使用介绍
 update:
   - date: 2024-06-11
     author: iawak9lkm

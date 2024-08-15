@@ -1,5 +1,5 @@
 ---
-title: MaixPy Camera Usage
+title: MaixCAM MaixPy Camera Usage
 update:
   - date: 2024-04-03
     author: neucrack

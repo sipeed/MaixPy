@@ -1,5 +1,5 @@
 ---
-title: MaixPy 使用 AI 模型进行物体分类
+title: MaixCAM MaixPy 使用 AI 模型进行物体分类
 ---
 
 ## 物体分类概念

@@ -1,5 +1,5 @@
 ---
-title: App development and app stores
+title: MaixCAM MaixPy App development and app stores
 ---
 
 ## Introduction to Application Ecosystem

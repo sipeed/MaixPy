@@ -1,5 +1,5 @@
 ---
-title: MaixPy Line Tracking Robot (/Car)
+title: MaixCAM MaixPy Line Tracking Robot (/Car)
 update:
   - date: 2024-05-09
     author: lxowalle

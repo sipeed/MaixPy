@@ -1,11 +1,11 @@
 ---
-title: MaixPy FAQ (Frequently Asked Questions)
+title: MaixCAM MaixPy FAQ (Frequently Asked Questions)
 ---
 
 This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
 If you cannot find an answer on this page, you can post your question with detailed steps on the [MaixHub Discussion Forum](https://maixhub.com/discussion).
 
-If you use MaixCAM, you can also refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+If you use MaixCAM, you can also refer to [MaixCAM Hardware Documentation FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
 
 ## MaixVision cannot find the device?
 

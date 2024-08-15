@@ -1,5 +1,5 @@
 ---
-title: MaixPy 自学习检测器
+title: MaixCAM MaixPy 自学习检测器
 ---
 
 
