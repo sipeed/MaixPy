@@ -1,7 +1,6 @@
-import time
 import json
 from datetime import datetime
-from maix import image, display, app
+from maix import image, display, app, time
 from maix.touchscreen import TouchScreen
 from threading import Thread
 from desktop_monitor.util import get_pc_info
