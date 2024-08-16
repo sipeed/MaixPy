@@ -46,9 +46,10 @@ title: MaixCAM MaixPy 快速开始
 ## 写在前面
 
 请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
-也可以参考 **[视频上手教程](https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.788&vd_source=6c974e13f53439d17d6a092a499df304)**。
 **左边目录**请仔细查看，基础部分一定要耐心阅读完，其它功能在左边目录查找。
 本文档是`MaixPy v4 教程文档`，注意与 [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html)（k210系列）区别开，勿错看文档。
+也可以参考下面的视频上手教程，**注意视频内容有更正在评论区和弹幕会补充，以最新的文档为准**，更多视频教程可以到 B 站搜索 MaixCAM。
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112865415531014&bvid=BV1vcvweCEEe&cid=500001630687957&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="min-height:20em; width: 90%"></iframe>
 
 
 ## 获得 MaixCAM 设备
@@ -117,7 +118,7 @@ title: MaixCAM MaixPy 快速开始
 
 内置了很多应用，比如 找色块，AI 检测器，巡线等等，找色块举例：
 
-<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/find_blobs.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/find_blobs.mp4" type="video/mp4" style="width:95%">
 Classifier Result video
 </video>
 
