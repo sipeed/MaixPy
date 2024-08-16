@@ -40,7 +40,7 @@ Here’s what each parameter means:
 * **maixpy_whl_filepath**: The MaixPy package, in `.whl` format.
 * **builtin_files_dir_path**: The custom files for MaixCAM, which can be downloaded from the MaixPy release page.
 * **os_version_str**: The system version, which should follow a format like `maixcam-2024-08-16-maixpy-v4.4.21`.
-* **skip_build_apps**: Skip compiling built-in applications. Set to 1 to skip, otherwise it will compile and copy apps from MaixCDK and MaixPy into the system.
+* **skip_build_apps**: Skip compiling built-in applications, optional arg. Set to 1 to skip, no this arg it will compile and copy apps from MaixCDK and MaixPy into the system.
 
 Example command:
 

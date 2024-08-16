@@ -38,7 +38,7 @@ title: 为 MaixCAM 编译系统
 * **maixpy_whl_filepath**： MaixPy 软件包， whl 格式。
 * **builtin_files_dir_path**： MaixCAM 自定义文件， 可以在 MaixPy release 下载到最新的。
 * **os_version_str**: 系统版本，格式要满足类似 `maixcam-2024-08-16-maixpy-v4.4.21` 的规范。
-* **skip_build_apps**: 跳过编译内置应用，传 1 则会跳过，否则会将 MaixCDK 和 MaixPy 中的应用都编译并拷贝到系统中。
+* **skip_build_apps**: 跳过编译内置应用，可选参数，传 1 则会跳过，不传这个参数会将 MaixCDK 和 MaixPy 中的应用都编译并拷贝到系统中。
 
 举例：
 ```shell

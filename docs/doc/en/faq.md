@@ -118,3 +118,10 @@ For MaixCAM, it draws 400mA during startup, 250mA in standby mode with the scree
 When the MaixVision log output window prints the message `start running ...`, it indicates that the program has been sent to the device and has begun executing. What gets printed afterward depends on your program. For instance, if you call `print("hello")`, it will print `hello`. If your program doesn't include any print statements, then there will be no logs displayed.
 
 So, the program isn't actually stuck; it's just that your program hasn't output anything, so no logs are shown. You can try adding `print("xxx")` in your code to generate output, which is the simplest way to debug your program.
+
+## Why Does the Hardware Have 256MB of Memory, But Only 128MB is Available in the System?
+
+The remaining memory is reserved for low-level drivers and the kernel, which are used for operating the camera, display, hardware encoding/decoding, NPU, and other drivers. You can check the memory used by these drivers (known as ION memory in CVITEK systems) by running `cat /sys/kernel/debug/ion/cvi_carveout_heap_dump/summary`. For other memory usage, you can run `cat /proc/meminfo`.
+
+If you want to adjust the memory allocation, you would need to compile the system yourself and modify the `ION_SIZE` in the `memmap.py` file located in the `LicheeRV-Nano-Build/build/boards/sg200x/sg2002_licheervnano_sd/` directory(refer to [customize system doc](./pro/compile_os.md)).
+

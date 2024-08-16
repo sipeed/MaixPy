@@ -116,3 +116,10 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 MaixVision 的日志输出窗口在开始启动程序是会打印一句`start running ...`代表程序开始发送到设备并开始执行，
 后面再打印（输出）什么取决于你的程序，比如你调用了`print("hello")` 则会打印`hello`，如果你的程序没有任何打印那就不会有任何日志。。。
 所以实际上不是卡住了，而是你的程序就没有输出过任何东西，自然也就不会显示任何日志了，可以尝试在自己的程序中加`print("xxx")`来打印，这也是我们调试程序最简单的方法。
+
+
+## 为什么硬件有 256MB 内存，在系统里只能用 128MB 内存呢？
+
+因为其它内存给底层驱动和内核预留了，用于摄像头、屏幕、硬件编解码、NPU 等驱动使用，可以通过 `cat /sys/kernel/debug/ion/cvi_carveout_heap_dump/summary` 看到驱动使用的内存（算能特有，叫 ION 内存），以及其它内存可以通过`cat /proc/meminfo`看到，如果你想调整内存分配，需要自己编译系统，修改系统的`LicheeRV-Nano-Buildbuild/boards/sg200x/sg2002_licheervnano_sd/memmap.py` 文件中的 `ION_SIZE` 来调整（看[定制系统文档](./pro/compile_os.md)）。
+
+
