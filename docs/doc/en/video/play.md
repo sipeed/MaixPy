@@ -1,0 +1,78 @@
+---
+title: MaixPy Playback Video
+update:
+  - date: 2024-08-19
+    author: lxowalle
+    version: 1.0.0
+    content: Initial document
+---
+
+## Introduction
+
+This document provides instructions for using the Play Video feature.
+
+`MaixPy` supports playing `h264`, `mp4` and `flv` video formats, note that currently only `avc` encoded `mp4` and `flv` files are supported.
+
+## Play `MP4` video
+
+An example of playing an `mp4` video, the path to the video file is `/root/output.mp4`.
+
+```python
+from maix import video, display, app
+
+disp = display.Display()
+d = video.Decoder('/root/output.mp4')
+print(f'resolution: {d.width()}x{d.height()} bitrate: {d.bitrate()} fps: {d.fps()}')
+d.seek(0)
+while not app.need_exit():
+    img = d.decode_video()
+    if not img:
+        d.seek(0)
+        continue
+    print(d.last_pts())
+    disp.show(img)
+```
+
+Steps:
+
+1. Import the module and initialise the camera
+
+   ```python
+   from maix import video, display, app
+   disp = display.Display()
+   ```
+
+   - `disp = display.Display()` is used to initialise the display to show the decoded image
+
+
+2. Initialise the `Decoder` module
+
+   ```python
+   d = video.Decoder('/root/output.mp4')
+   ```
+
+   - `d = video.Decoder(‘/root/output.mp4’)` is used to initialise the decoder and set the path to the video file that needs to be played. If you need to play `flv` files, you can fill in the path of the file with `flv` suffix, such as `{your_file_path}.flv`, if you need to play `h264` files, you can fill in the path of the file with `h264` suffix, such as `{your_file_path}.h264`
+
+3. Set the decoding location
+
+   ```python
+   d.seek(0)
+   ```
+
+   - can be used to set the position of the video to be played, in seconds.
+
+4. Get the decoded image
+
+   ```python
+   img = d.decode_video()
+   ```
+
+   - Each call returns an image frame and saves it to `img`. Currently decoding can only support outputting images in `NV21` format
+
+5. Display the decoded image
+
+   ```python
+   disp.show(img)
+   ```
+
+6. Done, see [API documentation](https://wiki.sipeed.com/maixpy/api/maix/video.html) for more usage of `Decoder`.
