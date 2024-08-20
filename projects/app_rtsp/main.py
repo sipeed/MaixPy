@@ -1,12 +1,12 @@
 from maix import app, rtsp, camera, image, display, touchscreen, time
 
-# init camera
-cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
-cam2 = cam.add_channel(552, 368)
-
 # init display
 disp = display.Display()
 ts = touchscreen.TouchScreen()
+
+# init camera
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+cam2 = cam.add_channel(disp.width(), disp.height())
 
 # init rtsp server
 server = rtsp.Rtsp()
