@@ -1,11 +1,19 @@
-from maix import camera, display, time, app
+from maix import camera, display, app, time
 
-cam = camera.Camera(512, 320)   # Manually set resolution, default is too large
-disp = display.Display()        # MaixCAM default is 552x368
+cam = camera.Camera(512, 320)   # Manually set resolution
+                                # | 手动设置分辨率
+disp = display.Display()        # MaixCAM default is 522x368
+                                # | MaixCAM 默认是 522x368
 
 while not app.need_exit():
-    t = time.ticks_ms()
-    img = cam.read()             # Max FPS is determined by the camera hardware and driver settings
-    disp.show(img)
-    print(f"time: {time.ticks_ms() - t}ms, fps: {1000 / (time.ticks_ms() - t)}")
+    # time.fps_start()          # Manually set fps calculation start point, comment here mean last time fps() call is start
+                                # | 动设置帧率（FPS）计算开始点，这里注释了表示上一次 fps 函数即是开始
+    img = cam.read()            # Get one frame from camera, img is maix.image.Image type object
+                                # | 从摄像头获取一帧图像，img 是 maix.image.Image 类型的对象
+    disp.show(img)              # Show image to screen
+                                # | 将图像显示到屏幕
+    fps = time.fps()            # Calculate FPS between last time fps() call and this time call.
+                                # | 计算两次 fps 函数调用之间的帧率
+    print(f"time: {1000/fps:.02f}ms, fps: {fps:.02f}") # print FPS in console
+                                                       # | 在终端打印帧率（FPS）
 
