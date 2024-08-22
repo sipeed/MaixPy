@@ -72,12 +72,17 @@ PYBIND11_MODULE(_maix, m) {{
                 else:
                     func_name = v["name"]
                     # if parent_type == "class":
-                    _code.append('{}.def{}("{}", static_cast<{} ({})({})>({}{}), py::return_value_policy::take_ownership, "{}"{});'.format(
+                    if v["ret_type"].endswith("&"):
+                        ret_policy = "reference"
+                    else:
+                        ret_policy = "take_ownership"
+                    _code.append('{}.def{}("{}", static_cast<{} ({})({})>({}{}), py::return_value_policy::{}, "{}"{});'.format(
                                 parent_var, "_static" if v["static"] else "", k,
                                 v["ret_type"],
                                 "::".join(parent_names + ["*"]) if (parent_type == "class" and not v["static"]) else "*",
                                 ", ".join([x[0] for x in v["args"]]),
                                 "&{}::".format("::".join(parent_names)) if len(parent_names) > 0  else "", func_name,
+                                ret_policy,
                                 doc, kwargs_str))
                     # else:
                     #     _code.append('{}.def{}("{}", {}{}, "{}"{});'.format(parent_var, "_static" if v["static"] else "",k,
