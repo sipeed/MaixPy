@@ -9,11 +9,11 @@ namespace py = pybind11;
 namespace maix::tensor
 {
     /**
-     * OpenCV Mat(numpy array object) to Image object
-     * @param array numpy array object, must be a 3-dim or 2-dim continuous array with shape hwc or hw
+     * float32 type numpy ndarray object to tensor.Tensor object.
+     * @param array numpy array object.
      * @param copy if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.
-     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return img of this func, or will cause program crash.
-     * @return Image object
+     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.
+     * @return tensor.Tensor object.
      * @maixpy maix.tensor.tensor_from_numpy_float32
      */
     tensor::Tensor *tensor_from_numpy_float32(py::array_t<float, py::array::c_style> array, bool copy = true)
@@ -35,11 +35,11 @@ namespace maix::tensor
     }
 
     /**
-     * OpenCV Mat(numpy array object) to Image object
-     * @param array numpy array object, must be a 3-dim or 2-dim continuous array with shape hwc or hw
+     * uint8 type numpy ndarray object to tensor.Tensor object.
+     * @param array numpy array object.
      * @param copy if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.
-     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return img of this func, or will cause program crash.
-     * @return Image object
+     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.
+     * @return tensor.Tensor object.
      * @maixpy maix.tensor.tensor_from_numpy_uint8
      */
     tensor::Tensor *tensor_from_numpy_uint8(py::array_t<uint8_t, py::array::c_style> array, bool copy = true)
@@ -61,11 +61,11 @@ namespace maix::tensor
     }
 
     /**
-     * OpenCV Mat(numpy array object) to Image object
-     * @param array numpy array object, must be a 3-dim or 2-dim continuous array with shape hwc or hw
+     * int8 type numpy ndarray object to tensor.Tensor object.
+     * @param array numpy array object.
      * @param copy if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.
-     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return img of this func, or will cause program crash.
-     * @return Image object
+     *        Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.
+     * @return tensor.Tensor object.
      * @maixpy maix.tensor.tensor_from_numpy_int8
      */
     tensor::Tensor *tensor_from_numpy_int8(py::array_t<int8_t, py::array::c_style> array, bool copy = true)
@@ -87,12 +87,10 @@ namespace maix::tensor
     }
 
     /**
-     * Image object to OpenCV Mat(numpy array object)
-     * @param img Image object, maix.image.Image type.
-     * @param ensure_bgr auto convert to BGR888 or BGRA8888 if img format is not BGR or BGRA, if set to false, will not auto convert and directly use img's data, default true.
-     * @param copy Whether alloc new image and copy data or not, if ensure_bgr and img is not bgr or bgra format, always copy,
-     *        if not copy, array object will directly use img's data buffer, will faster but change array will affect img's data, default true.
-     * @attention take care of ensure_bgr and copy param.
+     * tensor.Tensor object to float32 type numpy ndarray object.
+     * @param t tensor.Tensor object.
+     * @param copy Whether alloc new Tensor and copy data or not,
+     *        if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.
      * @return numpy array object
      * @maixpy maix.tensor.tensor_to_numpy_float32
      */
@@ -110,13 +108,11 @@ namespace maix::tensor
         return py::array_t<float, py::array::c_style>(new_t->shape(), (float*)new_t->data(), capsule);
     }
 
-        /**
-     * Image object to OpenCV Mat(numpy array object)
-     * @param img Image object, maix.image.Image type.
-     * @param ensure_bgr auto convert to BGR888 or BGRA8888 if img format is not BGR or BGRA, if set to false, will not auto convert and directly use img's data, default true.
-     * @param copy Whether alloc new image and copy data or not, if ensure_bgr and img is not bgr or bgra format, always copy,
-     *        if not copy, array object will directly use img's data buffer, will faster but change array will affect img's data, default true.
-     * @attention take care of ensure_bgr and copy param.
+    /**
+     * tensor.Tensor object to int8 type numpy ndarray object.
+     * @param t tensor.Tensor object.
+     * @param copy Whether alloc new Tensor and copy data or not,
+     *        if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.
      * @return numpy array object
      * @maixpy maix.tensor.tensor_to_numpy_uint8
      */
@@ -135,13 +131,11 @@ namespace maix::tensor
     }
 
 
-        /**
-     * Image object to OpenCV Mat(numpy array object)
-     * @param img Image object, maix.image.Image type.
-     * @param ensure_bgr auto convert to BGR888 or BGRA8888 if img format is not BGR or BGRA, if set to false, will not auto convert and directly use img's data, default true.
-     * @param copy Whether alloc new image and copy data or not, if ensure_bgr and img is not bgr or bgra format, always copy,
-     *        if not copy, array object will directly use img's data buffer, will faster but change array will affect img's data, default true.
-     * @attention take care of ensure_bgr and copy param.
+    /**
+     * tensor.Tensor object to int8 type numpy ndarray object.
+     * @param t tensor.Tensor object.
+     * @param copy Whether alloc new Tensor and copy data or not,
+     *        if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.
      * @return numpy array object
      * @maixpy maix.tensor.tensor_to_numpy_int8
      */
