@@ -76,6 +76,7 @@ def main(disp, ts):
                 port += 1
                 img = image.Image(disp.width(), disp.height())
                 draw_msg(img, tr, port)
+                img.draw_image(0, 0, img_back)
                 disp.show(img)
                 th = threading.Thread(target=start_http_server, args=(port,))
                 th.daemon = True
