@@ -28,6 +28,13 @@ title: MaixCAM MaixPy FAQ(常见问题)
 * 检查网络连接质量，比如 WiFi。
 * 如果用的 USB 连接，检查 USB 线质量， 电脑 USB 口质量，可以尝试换台电脑或者 USB 口 或者 USB 线缆尝试对比。
 
+## 此产品适合量产吗
+
+答案：适合。
+* 软件上使用 Python 即可稳定运行，方便开发也可靠。
+* 软件上另外支持和 MaixPy 相同 API 的 C++ SDK（MaixCDK），满足高效率和稳定要求。
+* 硬件上提供各种形式的 PCB 和外壳，核心板和整板都有，芯片供货稳定，如果有量产需求可以联系 support@sipeed.com 咨询。
+* 量大价更优。
 
 ## MaixPy v4 和 v1 v3 有什么区别？
 
@@ -121,5 +128,14 @@ MaixVision 的日志输出窗口在开始启动程序是会打印一句`start ru
 ## 为什么硬件有 256MB 内存，在系统里只能用 128MB 内存呢？
 
 因为其它内存给底层驱动和内核预留了，用于摄像头、屏幕、硬件编解码、NPU 等驱动使用，可以通过 `cat /sys/kernel/debug/ion/cvi_carveout_heap_dump/summary` 看到驱动使用的内存（算能特有，叫 ION 内存），以及其它内存可以通过`cat /proc/meminfo`看到，如果你想调整内存分配，需要自己编译系统，修改系统的`LicheeRV-Nano-Buildbuild/boards/sg200x/sg2002_licheervnano_sd/memmap.py` 文件中的 `ION_SIZE` 来调整（看[定制系统文档](./pro/compile_os.md)）。
+
+
+## 为什么无法安装运行库，提示错误 请求失败!
+
+* 请保证设备已经成功连接到互联网，可以换一个手机热点试试。
+* 确保系统镜像是烧录的最新的。
+* 如果提示 DNS 解析失败，可能时网络 DNS 设置问题，可以换一个手机热点试试，或者手动修改 `/boot/resolv.conf`(只修改这个文件需要重启) 和 `/etc/resolv.conf`（修改了这个文件不用重启，重启就是把前者拷贝覆盖到这个文件）中的 DNS 服务器设置。
+* 确保你是从 Sipeed 购买的正版 MaixCAM。
+* 咨询客服，带上系统版本可以 device_key （可以连接上 MaixVision 点击断开连接按钮后看到，有屏幕的也可以在`系统设置->系统信息`中看到）
 
 

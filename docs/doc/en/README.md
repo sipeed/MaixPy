@@ -52,6 +52,9 @@ title: MaixCAM MaixPy Quick Start
 
 >! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.
 
+If you use screenless version, please refer to the [Quick Start (Screenless Version)](./README_no_screen.md) document.
+
+
 ## Getting Started
 
 ### Prepare the TF Image Card and Insert it into the Device

@@ -125,3 +125,11 @@ The remaining memory is reserved for low-level drivers and the kernel, which are
 
 If you want to adjust the memory allocation, you would need to compile the system yourself and modify the `ION_SIZE` in the `memmap.py` file located in the `LicheeRV-Nano-Build/build/boards/sg200x/sg2002_licheervnano_sd/` directory(refer to [customize system doc](./pro/compile_os.md)).
 
+## Why Am I Unable to Install the Runtime Library, and an Error "Request Failed" Is Displayed?
+
+* Ensure that the device is successfully connected to the internet. You can try connecting to a different mobile hotspot.
+* Verify that the system image you flashed is the latest version.
+* If you see an error related to DNS resolution failure, it might be due to DNS settings issues on your network. You can try connecting to a different mobile hotspot or manually modify the DNS server settings in `/boot/resolv.conf` (modifying this file requires a reboot) and `/etc/resolv.conf` (modifying this file does not require a reboot, but rebooting will overwrite it with the contents of the former).
+* Make sure you have purchased a genuine MaixCAM from Sipeed.
+* Contact customer service, providing the system version and device_key (which can be found after disconnecting from MaixVision or, if you have a screen, in `System Settings -> System Information`).
+
