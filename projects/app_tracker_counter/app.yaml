@@ -1,0 +1,10 @@
+id: tracker_counter
+name: Tracker Counter
+version: 1.0.0
+author: Sipeed Ltd
+icon: icon.png
+desc: track objects and count movement
+files:
+  - icon.png
+  - app.yaml
+  - main.py
