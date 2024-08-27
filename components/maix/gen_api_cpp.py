@@ -53,7 +53,7 @@ PYBIND11_MODULE(_maix, m) {{
                 _code.append('auto {} = {}.def_submodule("{}", "{}");'.format(sub_m_name, parent_var, k, doc))
                 gen_members(v["members"], _code, sub_m_name, k, v["type"], parent_names + [k])
             elif v["type"] == "class":
-                sub_obj_name = "class_{}".format(k)
+                sub_obj_name = "class_{}_{}".format("_".join(parent_names), k)
                 v_names = parent_names + [k]
                 _code.append('auto {} = py::class_<{}>({}, "{}");'.format(sub_obj_name, "::".join(v_names), parent_var, k))
                 gen_members(v["members"], _code, sub_obj_name, k, v["type"], parent_names + [k])
