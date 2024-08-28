@@ -132,9 +132,10 @@ def main(disp):
     show_detect = False        # show detect
     valid_class_id = [0]       # we used classes index in detect model, empty means all class.
 
-    # Any object detector
-    detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
-    # detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
+    # Any object detector, detect more stable the track will more stable
+    detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
+    # detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
+
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
     tracker0 = tracker.ByteTracker(max_lost_buff_time, track_thresh, high_thresh, match_thresh, max_history_num)
 

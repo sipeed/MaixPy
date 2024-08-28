@@ -103,9 +103,9 @@ max_history_num = 5       # max tack's position history length.
 show_detect = False        # show detect
 valid_class_id = [0]       # we used classes index in detect model。
 
-# Any object detector
-detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
-# detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
+# Any object detector, detect more stable the track will more stable
+detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
+# detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
 
 disp = display.Display()
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())

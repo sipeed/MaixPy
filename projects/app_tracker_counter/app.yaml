@@ -1,6 +1,6 @@
 id: tracker_counter
 name: Tracker Counter
-version: 1.0.0
+version: 1.0.1
 author: Sipeed Ltd
 icon: icon.png
 desc: track objects and count movement
