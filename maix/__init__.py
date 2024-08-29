@@ -2,6 +2,7 @@ from .version import __version__
 
 # import all _maix module's members to maix, e.g. maix._maix.err -> maix.err
 from ._maix.peripheral.key import add_default_listener
+from ._maix.comm import add_default_comm_listener
 from .__signal_handle__ import register_signal_handle
 from ._maix.util import register_atexit
 from . import __maix_time__
@@ -17,6 +18,9 @@ del register_atexit
 
 add_default_listener()
 del add_default_listener
+
+add_default_comm_listener()
+del add_default_comm_listener
 
 import inspect
 
