@@ -263,7 +263,7 @@ MaixVision
         <div class="img_video">
             <img src="/static/image/maixcdk.png">
             <p class="feature">C++版本</p>
-            <p class="description"><a href="https://github.com/sipeed/MaixCDK">MaixCDK</a> C++版本的SDK，与MaixPy的API相同</p>
+            <p class="description"><a href="https://github.com/sipeed/MaixCDK">MaixCDK</a> C++版本的SDK，与MaixPy的API相同, 商业友好</p>
         </div>
         <div>
         </div>
@@ -444,6 +444,15 @@ MaixVision
             <img src="/static/image/hdmi_capture.jpg">
             <p class="feature">HDMI 捕获视频</p>
             <p class="description">选配，通过 HDMI 捕获图像，作为服务器监控（KVM）、外挂 AI、推流设备等</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/video_play.mp4"></video>
+            <p class="feature">大屏视频播放</p>
+            <p class="description">多种规格屏幕选择(2.3" 2.4" 5" 7"等), 硬件解码支持</p>
         </div>
         <div>
         </div>

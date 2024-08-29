@@ -446,6 +446,15 @@ Below are some of the features, for more please see the [documentation](/doc/en/
         <div>
         </div>
     </div>
+        <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/video_play.mp4"></video>
+            <p class="feature">Big Screen Video Play</p>
+            <p class="description">Many screen size choices(2.3" 2.4" 5" 7" etc.), hardware decode support</p>
+        </div>
+        <div>
+        </div>
+    </div>
 
 </div>
 
