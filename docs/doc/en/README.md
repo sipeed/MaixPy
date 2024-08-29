@@ -2,35 +2,38 @@
 title: MaixCAM MaixPy Quick Start
 ---
 
-<div style="font-size: 1.2em;border: 2px solid green; border-color:#c33d45;padding:1em; text-align:center; background: #c33d45; color: white">
-    <div>
-    <span>MaixPy Docs and tutorial:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/en/">
-        wiki.sipeed.com/maixpy/en/
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixPy examples and source code:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://github.com/sipeed/MaixPy">
-        github.com/sipeed/MaixPy
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixCAM Hardware Docs:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixcam">
-        wiki.sipeed.com/maixcam
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixPy API Docs:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/api/index.html">
-        wiki.sipeed.com/maixpy/api/
-    </a>
-    </div>
-    <div style="padding: 1em 0 0 0">
-      <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #a80202" href="https://item.taobao.com/item.htm?id=784724795837">Taobao</a>
-      <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #a80202" href="https://www.aliexpress.com/store/911876460">AliExpress</a>
-    </div>
+<style>
+    #head_links table {
+        width: 100%;
+        display: table;
+    }
+
+    @media screen and (max-width: 900px){
+      #head_links th, #head_links td {
+          /* padding: 8px; */
+          font-size: 0.9em;
+          padding: 0.1em 0.05em;
+      }
+    }
+</style>
+
+<div id="head_links">
+
+| Resource Summary           | Link                                                                                      |
+| :-------------------------:| :-------------------------------------------------------------------------------------:|
+|  MaixPy Tutorial Documentation 📖 | [wiki.sipeed.com/maixpy/en/](https://wiki.sipeed.com/maixpy/en/)                                   |
+| MaixPy Examples and Source Code <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"> | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
+|  MaixCAM Hardware Documentation 📷 | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam)                                 |
+|  MaixPy API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
+| MaixHub App Store 📦      | [maixhub.com/app](https://maixhub.com/app)                                                 |
+| MaixHub Sharing Square 🎲 | [maixhub.com/share](https://maixhub.com/share)                                             |
+
+</div>
+<div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
+  <div style="padding: 1em 0 0 0">
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://item.taobao.com/item.htm?id=784724795837">Taobao</a>
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://www.aliexpress.com/store/911876460">AliExpress</a>
+  </div>
 </div>
 <br>
 
@@ -51,6 +54,8 @@ title: MaixCAM MaixPy Quick Start
 * **USB to serial port module**: If you want to debug serial communication, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this [dual serial port to USB module](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537).
 
 >! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.
+
+## For no screen devies
 
 If you use screenless version, please refer to the [Quick Start (Screenless Version)](./README_no_screen.md) document.
 
@@ -137,10 +142,10 @@ Here is the translation:
 .. details::Method Two: Driver Installation on Different Computer Systems:
     :open: true
     By default, there are two types of USB virtual network adapter drivers (NCM and RNDIS drivers) to meet the needs of different systems. You can also disable the unused virtual network adapter on the device under `Settings` -> `USB Settings`:
-    * **Windows**: All Windows systems will automatically install the RNDIS driver, while only Windows 11 will automatically install the NCM driver. As long as one of the drivers works, it is sufficient.
+    * **Windows**: All Windows systems will automatically install the RNDIS driver, while only Windows 11 will automatically install the NCM driver. As long as **one of the drivers works**, it is sufficient.
       * Open Task Manager -> Performance, and you should see a virtual Ethernet with an IP address such as `10.131.167.100`, which is the computer's IP address. The device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`. If you are using Windows 11, you will see two virtual network adapters; you can use either IP address.
       * Additionally, you can open `Device Manager` (search for `Device Manager` in the search bar). The RNDIS and NCM drivers should be correctly installed, as shown below:
-        ![RNDIS ok](../../static/image/rndis_windows.jpg) ![NCM ok](../../static/image/windows_ncm_ok.png)
+        ![RNDIS ok](../../static/image/windows_rndis_ok.png) ![NCM ok](../../static/image/windows_ncm_ok.png)
     * **Linux**: No additional setup is required. Simply plug in the USB cable. Use `ifconfig` or `ip addr` to see the `usb0` and `usb1` network interfaces, and either IP address can be used. **Note**: The IP address you see, such as `10.131.167.100`, is the computer's IP address, and the device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`.
     * **MacOS**: Check for the `usb` network adapter under `System Settings` -> `Network`. **Note**: The IP address you see, such as `10.131.167.100`, is the computer's IP address, and the device's IP address is the same but with the last digit changed to `1`, i.e., `10.131.167.1`.
 

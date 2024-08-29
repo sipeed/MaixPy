@@ -53,7 +53,7 @@ In terms of communication protocols, SPI behavior is generally like this:
 
 This is the pinout of MaixCAM.
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 You need to use `maix.peripheral.pinmap` to complete the pin mapping for SPI before use.
 

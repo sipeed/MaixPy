@@ -55,7 +55,7 @@ SPI 是非常常见的通信接口，通过 SPI 接口，SoC 能控制各式各�
 
 MaixCAM 的引脚分布如下：
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 使用前需要 `maix.peripheral.pinmap` 完成对 SPI 的管脚映射。
 

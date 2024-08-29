@@ -15,7 +15,7 @@ title: MaixCAM MaixPy 使用 GPIO
 
 首先我们需要知道设备有哪些引脚和 GPIO，对于 MaixCAM 每个引脚都对应了一个 GPIO 控制器，如图：
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 需要注意的是，引脚除了作为 GPIO 使用，还能用作其它功能比如 PWM 使用，使用前我们需要设置一下引脚的功能为 GPIO。
 

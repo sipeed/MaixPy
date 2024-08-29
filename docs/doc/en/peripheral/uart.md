@@ -172,7 +172,7 @@ If you use the callback function method to receive data, do not use the `read` f
 
 Each pin may correspond to different peripheral functions, which is also known as pin multiplexing. As shown below, each pin corresponds to different functions. For example, pin `A17` (silkscreen identification on the board) corresponds to `GPIOA17`, `UART0_RX`, and `PWM5` functions. The default function is `UART0_RX`.
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 By default, you can directly use `UART0` as shown above. For other serial port pins, they are not set to the serial peripheral function by default, so you need to set the mapping to use other serial ports. Use `pinmap.set_pin_function` to set it.
 

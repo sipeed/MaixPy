@@ -28,7 +28,7 @@ update:
 ## MaixPy 中使用Pinmap
 
 对于 MaixCAM 板子上各个引脚的编号及其功能，可以参考下图：
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 或是阅读 [SG2002芯片手册](https://cn.dl.sipeed.com/fileList/LICHEE/LicheeRV_Nano/07_Datasheet/SG2002_Preliminary_Datasheet_V1.0-alpha_CN.pdf) Pinmux 章节了解剩余的引脚的编号及功能。
 

@@ -46,11 +46,12 @@ h3 {
 }
 #tags > p {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 1em;
 }
 #tags > p a {
-    margin: 0 0.2em;
+    margin: 0.2em 0.2em;
 }
 #feature video, #feature img {
     height: 15em;
@@ -112,12 +113,12 @@ h3 {
     <a class="btn m-1" href="/api/">API Reference 📚</a>
     <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">Hardware：MaixCAM 📷</a>
     <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">Source Code ⭐️</a>
+    <a class="btn m-1" target="_blank" href="https://maixhub.com/app">APP Store 📦</a>
 </div>
 
-<div class="flex justify-center" id="tags">
+<div id="tags">
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)[![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy)](https://github.com/sipeed/MaixPy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
-
+[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)[![GitHub downloads](https://img.shields.io/github/downloads/sipeed/maixpy/total?label=GitHub%20downloads)](https://github.com/sipeed/MaixPy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
 
 </div>
 

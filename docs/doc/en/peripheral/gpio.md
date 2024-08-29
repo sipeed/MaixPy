@@ -12,7 +12,7 @@ Using GPIO allows you to control pins for input or output high and low levels, w
 
 First, we need to know which pins and GPIOs the device has. For MaixCAM, each pin corresponds to a GPIO controller, as shown in the figure:
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 It is important to note that pins can be used not only as GPIOs but also for other functions like PWM. Before using them, we need to set the pin function to GPIO.
 

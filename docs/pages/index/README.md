@@ -46,11 +46,12 @@ h3 {
 }
 #tags > p {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 1em;
 }
 #tags > p a {
-    margin: 0 0.2em;
+    margin: 0.2em 0.2em;
 }
 #feature video, #feature img {
     height: 15em;
@@ -111,13 +112,13 @@ h3 {
     <a class="btn m-1" href="/doc/zh/index.html">快速开始 🚀📖</a>
     <a class="btn m-1" href="/api/">API 参考 📚</a>
     <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">硬件平台：MaixCAM 📷</a>
-    <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">开源仓库 ⭐️</a>
+    <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">开源代码 ⭐️</a>
+    <a class="btn m-1" target="_blank" href="https://maixhub.com/app">应用商店 📦</a>
 </div>
 
-<div class="flex justify-center" id="tags">
+<div id="tags">
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)[![GitHub repo size](https://img.shields.io/github/repo-size/sipeed/maixpy)](https://github.com/sipeed/MaixPy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
-
+[![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy)[![Apache 2.0](https://img.shields.io/badge/license-Apache%20v2.0-orange.svg)]("https://github.com/sipeed/MaixPy/blob/main/LICENSE.md)[![PyPI](https://img.shields.io/pypi/v/maixpy.svg)](https://pypi.python.org/pypi/maixpy/)[![PyPI - Downloads](https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads)](https://pypi.org/project/maixpy/)[![GitHub downloads](https://img.shields.io/github/downloads/sipeed/maixpy/total?label=GitHub%20downloads)](https://github.com/sipeed/MaixPy) [![Build MaixCAM](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml)[![Trigger wiki](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg)](https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml)
 
 </div>
 
@@ -232,12 +233,12 @@ MaixVision
 * **通信**: USB2.0/WiFi6/BLE5.4。
 * **外设**: IIC/PWM/SPI/UART/WDT/GPIO/ADC
 * **多媒体**：4M 摄像头，2.3" 552x368 高清电容触摸屏，H.264/H.265/MJPEG 2K 硬件编解码。
-* **价格**: [169 元 / 249 元。](https://wiki.sipeed.com/store) （缺货时咨询店家）
+* **购买**: 有各种版本硬件提供, 详情查看[商城](https://wiki.sipeed.com/store) （缺货时咨询店家）
 
 
-更多细节看: [MaixCAM](https://wiki.sipeed.com/maixcam)
+更多硬件细节看: [MaixCAM 硬件文档](https://wiki.sipeed.com/maixcam)
 
-> 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
+> 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费, 量大优惠,批量可咨询商家或者发送邮件到 support@sipeed.com
 
 
 <!-- feature 介绍 -->
@@ -350,7 +351,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/object_track.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/tracker.mp4"></video>
             <p class="feature">AI 物体轨迹跟踪</p>
             <p class="description">轨迹追踪，流量统计</p>
         </div>

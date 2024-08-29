@@ -45,7 +45,7 @@ print(f"ADC vol:{vol}")
 
 MaixCAM 引出一个连接 ADC 的 IO，为 GPIO B3，如下图所示：
 
-![](http://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 
 该 IO 默认为 ADC， 无需额外进行配置。
 

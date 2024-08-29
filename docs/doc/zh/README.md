@@ -3,41 +3,39 @@
 title: MaixCAM MaixPy 快速开始
 ---
 
-<div style="font-size: 1.2em;border: 2px solid green; border-color:#c33d45;padding:1em; text-align:center; background: #c33d45; color: white">
-    <div>
-    <span>MaixPy 教程文档:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy">
-        wiki.sipeed.com/maixpy
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixPy 例程和源码:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://github.com/sipeed/MaixPy">
-        github.com/sipeed/MaixPy
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixCAM 硬件资料:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixcam">
-        wiki.sipeed.com/maixcam
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixPy API 文档:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://wiki.sipeed.com/maixpy/api/index.html">
-        wiki.sipeed.com/maixpy/api/
-    </a>
-    <br>
-    <div style="height:0.4em"></div>
-    <span>MaixPy 视频和教程:</span>
-    <a target="_blank" style="color: #ffe0e0" href="https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5">
-        B站搜 MaixCAM 或 MaixPy
-    </a>
-    </div>
-    <div style="padding: 1em 0 0 0">
-      <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #a80202" href="https://item.taobao.com/item.htm?id=784724795837">淘宝</a>
-      <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #a80202" href="https://www.aliexpress.com/store/911876460">速卖通</a>
-    </div>
+<style>
+    #head_links table {
+        width: 100%;
+        display: table;
+    }
+
+    @media screen and (max-width: 900px){
+      #head_links th, #head_links td {
+          /* padding: 8px; */
+          font-size: 0.9em;
+          padding: 0.1em 0.05em;
+      }
+    }
+</style>
+
+<div id="head_links">
+
+| 资源汇总                    | 链接                                                                                      |
+| :-------------------------: | :-------------------------------------------------------------------------------------:|
+|  MaixPy 教程文档 📖         | [wiki.sipeed.com/maixpy](https://wiki.sipeed.com/maixpy)                                   |
+| MaixPy 例程和源码 <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;">           | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
+|  MaixCAM 硬件资料 📷        | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam)                                 |
+|  MaixPy API 文档 📚        | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
+| MaixPy 视频和教程 💿        | [B站搜 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5) |
+| MaixHub 应用商店 📦     | [maixhub.com/app](https://maixhub.com/app)                                                 |
+| MaixHub 分享广场 🎲       | [maixhub.com/share](https://maixhub.com/share)                                             |
+
+</div>
+<div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
+  <div style="padding: 1em 0 0 0">
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://item.taobao.com/item.htm?id=784724795837">淘宝</a>
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://www.aliexpress.com/store/911876460">速卖通</a>
+  </div>
 </div>
 <br>
 
@@ -67,6 +65,9 @@ title: MaixCAM MaixPy 快速开始
 * **USB转串口模块**: 如果你想要调试串口通信，建议备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个[双串口转USB模块](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)。
 
 >! 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
+
+
+## 使用无屏幕版本
 
 如果你使用的是无屏幕版本，请看[快速开始（无屏幕版本）](./README_no_screen.md)文档。
 
@@ -149,10 +150,10 @@ Classifier Result video
 .. details::方法二在不同电脑系统中驱动安装方法：
     :open: true
     默认会有两种 USB 虚拟网卡驱动（NCM 和 RNDIS驱动），以满足不同系统的需求，你也可以在设备端`设置`应用 -> `USB设置` 里面关掉不用的虚拟网卡：
-    * **Windows**: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动有一个能用就行。
+    * **Windows**: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动**有一个能用就行**。
       * 打开任务管理器 -> 性能，可以看到一个虚拟的以太网，并且可以看到 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。如果是 Win11 则会看到两个虚拟网卡，随便选择一个 IP 使用即可。
       * 另外也可以打开电脑的 `设备管理器`（搜索栏搜索`设备管理器`）， RNDIS 和 NCM 驱动被正确安装的效果：
-        ![RNDIS ok](../../static/image/rndis_windows.jpg) ![NCM ok](../../static/image/windows_ncm_ok.png)
+        ![RNDIS ok](../../static/image/windows_rndis_ok.png) ![NCM ok](../../static/image/windows_ncm_ok.png)
     * **Linux**: 无需额外设置，插上 USB 线即可。 使用 `ifconfig` 或者 `ip addr` 查看到 `usb0` 和 `usb1` 网卡，两个 IP 都可以使用，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
     * **MacOS**: 在`系统设置`->`网络`里面查看到 `usb` 网卡，**注意** 这里看到的 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。
 
