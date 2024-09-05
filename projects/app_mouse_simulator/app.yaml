@@ -2,7 +2,7 @@ id: mouse
 name: Mouse Simulator
 version: 1.0.0
 author: Sipeed Ltd
-icon: app.png
+icon: icon.png
 desc: Simulate using a mouse to control the mouse
 files:
   - app.yaml
