@@ -148,6 +148,8 @@ items:
         label: WDT watchdog
     -   file: peripheral/adc.md
         label: ADC
+    -   file: peripheral/hid.md
+        label: HID
 
 -   label: Off-chip modules
     items:

@@ -148,6 +148,8 @@ items:
         label: WDT 看门狗使用
     -   file: peripheral/adc.md
         label: ADC 使用
+    -   file: peripheral/hid.md
+        label: HID Device 使用
 
 -   label: 片外模块
     items:
