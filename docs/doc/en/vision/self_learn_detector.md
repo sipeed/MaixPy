@@ -25,7 +25,7 @@ pos = tracker.track(img)
 ```
 Note that this uses a built-in model located in the system at `/root/models`. You can also download the model from the [MaixHub model library](https://maixhub.com/model/zoo/437).
 
-For more detailed code, refer to [MaixPy/examples/vision/self_learn_tracker.py](https://github.com/sipeed/MaixPy/tree/main/examples/vision/self_learn_tracker.py).
+For more detailed code, refer to [MaixPy/examples/vision/ai_vision/nn_self_learn_tracker.py](https://github.com/sipeed/MaixPy/blob/main/examples/vision/ai_vision/nn_self_learn_tracker.py).
 
 ## Other Self-Learning Tracking Algorithms
 

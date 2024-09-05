@@ -28,7 +28,7 @@ pos = tracker.track(img)
 ```
 注意这里使用了内置的模型，在系统`/root/models`下已经内置了，你也可以在[MaixHub 模型库](https://maixhub.com/model/zoo/437)下载到模型。
 
-具体详细代码请看[MaixPy/examples/vision/self_learn_tracker.py](https://github.com/sipeed/MaixPy/tree/main/examples/vision/self_learn_tracker.py)
+具体详细代码请看[MaixPy/examples/vision/ai_vision/nn_self_learn_tracker.py](https://github.com/sipeed/MaixPy/blob/main/examples/vision/ai_vision/nn_self_learn_tracker.py)
 
 
 ## 其它自学习跟踪算法
