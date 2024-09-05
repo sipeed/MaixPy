@@ -9,7 +9,7 @@ MaixPy currently supports the use of keyboards, mice, and touchscreens, and the 
 
 ## Preparation
 
-> MaixPy firmware version should be > 4.1.22 (not included).
+> MaixPy firmware version should be > 4.4.22 (not included).
 
 You must enable the HID device before operating HID, there are two ways:
 1. Open the `Settings` application that comes with MaixCAM, click `USB Settings` in turn -> tick the required HID devices, such as `Keyboard`, `Mouse`, `Touchscreen`, and then click `Confirm` , then restart MaixCAM.
