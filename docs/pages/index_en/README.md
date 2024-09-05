@@ -340,7 +340,7 @@ Below are some of the features, for more please see the [documentation](/doc/en/
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/self_learn_detector.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/self_learn_tracker.mp4"></video>
             <p class="feature">AI Self Learning Detector</p>
             <p class="description">No need to train on PC, learning any object on device in a flash</p>
         </div>

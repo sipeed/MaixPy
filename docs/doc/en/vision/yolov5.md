@@ -33,7 +33,7 @@ while not app.need_exit():
 Video demonstration:
 
 <div>
-<video playsinline controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/detector.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload src="/static/video/detector.mp4" type="video/mp4">
 </div>
 
 Here, the camera captures an image, which is then passed to the `detector` for detection. The results (classification names and positions) are displayed on the screen.

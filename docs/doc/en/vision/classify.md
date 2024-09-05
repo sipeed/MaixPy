@@ -28,7 +28,7 @@ while 1:
 
 Result video:
 
-<video playsinline controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/classifier.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload src="/static/video/classifier.mp4" type="video/mp4">
 Classifier Result video
 </video>
 

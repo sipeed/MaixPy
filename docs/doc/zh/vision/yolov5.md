@@ -36,7 +36,7 @@ while not app.need_exit():
 效果视频:
 
 <div>
-<video playsinline controls autoplay loop muted preload src="https://wiki.sipeed.com/maixpy/static/video/detector.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload src="/static/video/detector.mp4" type="video/mp4">
 </div>
 
 这里使用了摄像头拍摄图像，然后传给 `detector`进行检测，得出结果后，将结果(分类名称和位置)显示在屏幕上。
