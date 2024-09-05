@@ -5,6 +5,10 @@ update:
     author: neucrack
     version: 1.0.0
     content: 初版文档
+  - 日期： 2024-08-21
+    作者： YWJ
+    版本： 1.0.1
+    内容： 修正文档部分bug,增加部分内容
 ---
 
 
@@ -23,7 +27,7 @@ update:
 TODO：如何切换摄像头，比如 GC4653 和 OS04A10 之间的切换。
 
 
-## 从摄像头获取图像
+## 获取摄像头的图像信息
 
 使用 MaixPy 轻松获取：
 ```python
@@ -94,7 +98,7 @@ cam = camera.Camera(640, 480, fps=80)	        # 设置帧率为80帧
 对于画面存在鱼眼等畸变的情况，可以使用`Image`对象下的`lens_corr`函数对图片进行畸变矫正。一般情况只需要调大和调小`strength`的值来将画面调整到合适效果即可。
 
 ```python
-from maix import camera, display
+from maix import camera, display,app,time
 
 cam = camera.Camera(320, 240)
 disp = display.Display()
@@ -102,7 +106,8 @@ while not app.need_exit():
     t = time.ticks_ms()
     img = cam.read() 
     img = img.lens_corr(strength=1.5)	# 调整strength的值直到画面不再畸变
-    disp = display.Display()
+    disp.show(img)
+
 ```
 
 TODO：支持硬件畸变矫正
@@ -115,7 +120,7 @@ cam = camera.Camera(640, 480)
 cam.skip_frames(30)           # 跳过开头的30帧
 ```
 
-## 显示图像
+## 显示摄像头获取的图像
 
 MaixPy 提供了`display`模块，可以方便的显示图像：
 ```python
@@ -164,6 +169,16 @@ cam.luma(50)		    # 设置亮度，范围[0, 100]
 cam.constrast(50)		# 设置对比度，范围[0, 100]
 cam.saturation(50)		# 设置饱和度，范围[0, 100]
 ```
+### 更改图片长宽
 
+```python
+cam = camera.Camera(width=640, height=480)
+```
+或
+
+```python
+cam = camera.Camera()
+cam.set_resolution(width=640, height=480)
+```
 
 
