@@ -5,10 +5,10 @@ update:
     author: neucrack
     version: 1.0.0
     content: 初版文档
-  - 日期： 2024-08-21
-    作者： YWJ
-    版本： 1.0.1
-    内容： 修正文档部分bug,增加部分内容
+  - date: 2024-08-21
+    author: YWJ
+    version: 1.0.1
+    content: 修正文档部分bug,增加部分内容
 ---
 
 
