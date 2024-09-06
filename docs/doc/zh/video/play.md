@@ -26,12 +26,14 @@ d = video.Decoder('/root/output.mp4')
 print(f'resolution: {d.width()}x{d.height()} bitrate: {d.bitrate()} fps: {d.fps()}')
 d.seek(0)
 while not app.need_exit():
-    img = d.decode_video()
-    if not img:
+    ctx = d.decode_video()
+    if not ctx:
         d.seek(0)
         continue
-    print(d.last_pts())
+
+    img = ctx.image()
     disp.show(img)
+    print(f'need wait : {ctx.duration_us()} us')
 ```
 
 步骤：
@@ -65,15 +67,18 @@ while not app.need_exit():
 4. 获取解码后的图像
 
    ```python
-   img = d.decode_video()
+   ctx = d.decode_video()
+   img = ctx.image()
    ```
 
-   - 每次调用都会返回一帧图像，并保存到`img`。目前解码后只能支持输出`NV21`格式的图像
+   - 每次调用都会返回一帧图像的上下文`ctx`，通过`ctx.image()`获取`img`。目前解码后只能支持输出`NV21`格式的图像
 
 5. 显示解码后的图像
 
    ```python
    disp.show(img)
    ```
+
+   - 显示图像时使用`ctx.duration_us()`可以获取每帧图像的时长，单位是微秒
 
 6. 完成，更多`Decoder`的用法请看[API文档](https://wiki.sipeed.com/maixpy/api/maix/video.html)

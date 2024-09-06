@@ -25,12 +25,14 @@ d = video.Decoder('/root/output.mp4')
 print(f'resolution: {d.width()}x{d.height()} bitrate: {d.bitrate()} fps: {d.fps()}')
 d.seek(0)
 while not app.need_exit():
-    img = d.decode_video()
-    if not img:
+    ctx = d.decode_video()
+    if not ctx:
         d.seek(0)
         continue
-    print(d.last_pts())
+
+    img = ctx.image()
     disp.show(img)
+    print(f'need wait : {ctx.duration_us()} us')
 ```
 
 Steps:
@@ -64,15 +66,18 @@ Steps:
 4. Get the decoded image
 
    ```python
-   img = d.decode_video()
+   ctx = d.decode_video()
+   img = ctx.image()
    ```
 
-   - Each call returns an image frame and saves it to `img`. Currently decoding can only support outputting images in `NV21` format
+   - Each call returns a frame context, and you can obtain img through `ctx.image()`. Currently the decoded output only supports the NV21 format.
 
 5. Display the decoded image
 
    ```python
    disp.show(img)
    ```
+
+   - When displaying images, `ctx.duration_us()` can be used to get the duration of each frame in microseconds.
 
 6. Done, see [API documentation](https://wiki.sipeed.com/maixpy/api/maix/video.html) for more usage of `Decoder`.
