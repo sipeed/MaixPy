@@ -132,7 +132,7 @@ h3 {
 <div class="mt-16"></div>
 
 > MaixPy-v1 (Maix-I K210) 用户请查看 <a target="_blank" href="https://wiki.sipeed.com/soft/maixpy/zh/">MaixPy-v1 文档</a>。 MaixPy v4 不支持 Maix-I Maix-II 系列硬件，请更新到 [MaixCAM](https://wiki.sipeed.com/maixcam) 硬件平台。
-> 喜欢 MaixPy 请到 GitHub 给 [ MaixPy 源码](https://github.com/sipeed/MaixPy) 点个 Star ⭐️ 以鼓励我们开发更多功能。
+> 喜欢 MaixPy 请给 [ MaixPy 项目](https://github.com/sipeed/MaixPy) 点个 Star ⭐️ 以鼓励我们开发更多功能。
 
 
 <div class="mt-6"></div>

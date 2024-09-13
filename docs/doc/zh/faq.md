@@ -2,10 +2,11 @@
 title: MaixCAM MaixPy FAQ(常见问题)
 ---
 
-此页面列出了 MaixPy 相关的常见问题和解决方案，如果你遇到了问题，请先在这里找寻答案。
-如果这个页面找不到答案，可以到 [MaixHub 讨论版块](https://maixhub.com/discussion) 将问题的详细步骤发贴提问。
-
-如果你使用的是 MaixCAM, 也可以参考 [MaixCAM 硬件文档 FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+>! 此页面列出了 MaixPy 相关的常见问题和解决方案，如果你遇到了问题，请先在这里找寻答案。
+> 另外还有其它途径：
+> * [MaixHub 讨论版块](https://maixhub.com/discussion): 交流讨论，支持红包打赏。
+> * [MaixPy issue](https://github.com/sipeed/MaixPy/issues?q=): 源码相关问题。
+> * [MaixCAM 硬件 FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html): MaixCAM 硬件常见问题。
 
 ## MaixVision 无法搜索到设备？
 
@@ -69,6 +70,19 @@ MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不�
 ## 上电启动黑屏，屏幕无显示
 
 请看 [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+
+## 通过 USB 连接了电脑和 MaixCAM 为什么电脑没有出现串口？
+
+MaixCAM 的 USB 口是芯片的 USB2.0 接口，不是 USB 转串口接口，所以插上电脑不会出现串口，这是正常现象。
+没有 USB 转串口怎么通信呢？
+默认 USB 会模拟出 USB 网卡，所以当你将 USB 插上电脑时会出现虚拟网卡，按照 [快速开始](./README.md) 中的说明可以使用 MaixVision 与 MaixCAM 通信实现代码运行、图像预览、文件管理等功能。
+另外，因为 USB 模拟了网卡，所以你也可以用通用的 SSH 软件连接 MaixCAM，实现通信。
+或者你也可以连接 WiFi 和电脑在同一个局域网下通信。
+
+如果你要使用串口，分为两种情况：
+1. 串口和电脑通信：需要自行购买任意一款 USB 转串口模块来连接电脑的 USB 和板子的串口（对于MaixCAM 是 UART0 的 A16(TX) 和 A17(RX) 引脚，或者连接 MaixCAM 套餐送的 USB 转接板引出的两个 TX RX 引脚，也是 A16 A17 引脚，是等效的）
+2. 串口和其它 MCU/SOC 通信: 直接连接 MaixCAM 的 A16(TX)和 A17(RX) 到 单片机的 RX 和 TX 引脚即可。
+
 
 ## 红色屏幕，提示初始化显示失败，请查看FAQ
 
@@ -137,5 +151,4 @@ MaixVision 的日志输出窗口在开始启动程序是会打印一句`start ru
 * 如果提示 DNS 解析失败，可能时网络 DNS 设置问题，可以换一个手机热点试试，或者手动修改 `/boot/resolv.conf`(只修改这个文件需要重启) 和 `/etc/resolv.conf`（修改了这个文件不用重启，重启就是把前者拷贝覆盖到这个文件）中的 DNS 服务器设置。
 * 确保你是从 Sipeed 购买的正版 MaixCAM。
 * 咨询客服，带上系统版本可以 device_key （可以连接上 MaixVision 点击断开连接按钮后看到，有屏幕的也可以在`系统设置->系统信息`中看到）
-
 

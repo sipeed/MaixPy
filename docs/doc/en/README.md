@@ -38,6 +38,14 @@ title: MaixCAM MaixPy Quick Start
 <br>
 
 > For an introduction to MaixPy, please see the [MaixPy official website homepage](../../README.md)
+> Please give the [MaixPy project](https://github.com/sipeed/MaixPy) a Star ⭐️ to encourage us to develop more features if you like MaixPy.
+
+## Before Start
+
+* Please **carefully** follow the steps outlined in this document. Do not skip any sections, and compare your actions accordingly.
+* **Pay close attention** to the table of contents on the left. Be sure to read through the basic sections thoroughly and patiently.
+* **Before asking questions**, first search the documentation in the left-hand table of contents and review the [FAQ](./faq.md).
+* This document is the `MaixPy v4 Tutorial`. Be mindful not to confuse it with the [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html) (K210 series), and ensure you are referring to the correct documentation.
 
 ## Get a MaixCAM Device
 
@@ -49,9 +57,9 @@ title: MaixCAM MaixPy Quick Start
 
 * **Power Supply**: A stable power supply is crucial. MaixCAM requires a steady `5V 500mA` power supply. Insufficient power can result in failure to boot or crashes during operation. This is especially true for some computer USB ports, which may provide unstable power.
 
-* **TF card reader**: To flash the system.
+* **TF Card Reader**: Used for flashing the system, essential.
 
-* **USB to serial port module**: If you want to debug serial communication, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this [dual serial port to USB module](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537).
+* **USB to serial port module**: If you want to debug serial communication with PC, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this [dual serial port to USB module](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537).
 
 >! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.
 
@@ -122,6 +130,7 @@ Please explore other applications on your own. More applications will be updated
 > If you want to use the device as the main controller (or if you don't understand what a serial module is), you can skip this step.
 
 The built-in applications can be used directly as serial modules, such as `Find Blobs`, `Find Faces`, `Find QR Codes`, etc.
+Note that the serial port can only directly connect to other microcontrollers. **If you want to communicate with a computer via a serial port, you must provide a USB-to-serial module yourself.**
 
 Usage:
 * Hardware connection: You can connect the device to the `Type-C one-to-two mini board`, which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.

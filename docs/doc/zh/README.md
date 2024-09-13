@@ -40,13 +40,15 @@ title: MaixCAM MaixPy 快速开始
 <br>
 
 > 关于 MaixPy 介绍请看 [MaixPy 官网首页](../../README.md)
+> 喜欢 MaixPy 请给 [ MaixPy 项目](https://github.com/sipeed/MaixPy) 点个 Star ⭐️ 以鼓励我们开发更多功能。
 
 ## 写在前面
 
-请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
-**左边目录**请仔细查看，基础部分一定要耐心阅读完，其它功能在左边目录查找。
-本文档是`MaixPy v4 教程文档`，注意与 [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html)（k210系列）区别开，勿错看文档。
-也可以参考下面的视频上手教程，**注意视频内容有更正在评论区和弹幕会补充，以最新的文档为准**，更多视频教程可以到 B 站搜索 MaixCAM。
+* 请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
+* **左边目录**请仔细查看，基础部分一定要耐心阅读完。
+* **提问前**先在左边目录仔细查找文档，以及看[FAQ](./faq.md)。
+* 本文档是`MaixPy v4 教程文档`，注意与 [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html)（k210系列）区别开，勿错看文档。
+* 也可以参考下面的视频上手教程，注意视频内容有更正在**评论区和弹幕会补充，以最新的文档为准**，更多视频教程可以到 B 站搜索 MaixCAM。
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112865415531014&bvid=BV1vcvweCEEe&cid=500001630687957&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="min-height:20em; width: 90%"></iframe>
 
 
@@ -60,9 +62,9 @@ title: MaixCAM MaixPy 快速开始
 
 * **电源**： 一个稳定的供电方式，MaixCAM 需要 `5v 500mA` 的稳定供电，如果供电不足可能会导致无法开机，或者运行过程中死机等情况。特别是有些电脑的 USB 口供电可能不稳定。
 
-* **TF 读卡器**: 建议备一个用来烧录系统。
+* **TF 读卡器**: 用来烧录系统，必备。
 
-* **USB转串口模块**: 如果你想要调试串口通信，建议备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个[双串口转USB模块](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)。
+* **USB转串口模块**: 如果你想要电脑和 MaixCAM 之间串口通信，需要备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个[双串口转USB模块](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)。
 
 >! 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
 
@@ -135,6 +137,7 @@ Classifier Result video
 > 如果是想把设备当成主控使用（或者你还不懂什么是串口模块）可以跳过这一步。
 
 内置的各种应用可以直接当成串口模块使用，比如`找色块`、`找人脸`、`找二维码`等等，
+注意这里串口仅能直接和其它单片机连接，**如果要和电脑串口通信请自备一个 USB 转串口模块**。
 
 使用方法：
 * 硬件连接： 可以给设备接上`Type-C一转二小板`，这样我们就能将设备通过串口连接到你的主控上了，比如`Arduino`、`树莓派`、`STM32`等等。

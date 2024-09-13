@@ -2,10 +2,11 @@
 title: MaixCAM MaixPy FAQ (Frequently Asked Questions)
 ---
 
-This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
-If you cannot find an answer on this page, you can post your question with detailed steps on the [MaixHub Discussion Forum](https://maixhub.com/discussion).
-
-If you use MaixCAM, you can also refer to [MaixCAM Hardware Documentation FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+>! This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
+> Additionally, there are other resources:
+> * [MaixHub Discussion Forum](https://maixhub.com/discussion): A platform for discussions, with support for tip rewards.
+> * [MaixPy Issues](https://github.com/sipeed/MaixPy/issues?q=): For source code-related issues.
+> * [MaixCAM Hardware FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html): Frequently asked questions about MaixCAM hardware.
 
 ## MaixVision cannot find the device?
 
@@ -60,6 +61,22 @@ Failure to parse the model file is generally caused by file corruption. Ensure t
 ## Power-on Black Screen, No Display on the Screen
 
 Refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+
+## Why doesn’t the computer detect a serial port when connecting via USB to MaixCAM?
+
+The USB port on the MaixCAM is a USB 2.0 interface of the chip, not a USB-to-serial interface, so it is normal for no serial port to appear when connected to a computer. 
+
+How do you communicate without a USB-to-serial connection?
+By default, the USB will simulate a USB network card. When you connect the USB to your computer, a virtual network card will appear. According to the instructions in the [Quick Start Guide](./README.md), you can use MaixVision to communicate with MaixCAM to run code, preview images, manage files, and other functions.
+
+Additionally, since the USB simulates a network card, you can also use standard SSH software to connect to MaixCAM for communication. Alternatively, you can connect via WiFi and communicate within the same local network.
+
+If you need to use the serial port, there are two situations:
+
+1. **Serial communication with a computer**: You need to purchase any USB-to-serial module to connect the computer's USB port with the board's serial port (for MaixCAM, it's the UART0 pins A16 (TX) and A17 (RX), or you can use the TX and RX pins on the USB adapter board that comes with the MaixCAM package, which are also the A16 and A17 pins and are functionally equivalent).
+
+2. **Serial communication with another MCU/SOC**: Directly connect MaixCAM's A16 (TX) and A17 (RX) to the MCU's RX and TX pins.
+
 
 ## Red Screen, Initialization Display Failed, Please Check FAQ
 

@@ -184,6 +184,6 @@ items:
     -   file: source_code/maixcdk.md
         label: MaixCDK development
     -   file: pro/compile_os.md
-        label: Build firmware
+        label: Build OS
 
 
