@@ -4,7 +4,7 @@ set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} -Wall -fPIC -Wl,-rpath=$ORIGIN/dl_lib)
 
 
 ###### set CXX(cpp) flags ######
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -Wall -std=c++11 -fPIC -Wl,-rpath=$ORIGIN/dl_lib)
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -Wall  -std=c++2a -fPIC -Wl,-rpath=$ORIGIN/dl_lib)
 ################################
 
 # set(LINK_FLAGS -Wl,-EL) # (default little endian)
@@ -13,7 +13,7 @@ set(CMAKE_C_LINK_FLAGS ${CMAKE_C_LINK_FLAGS}
                         -Wl,-rpath=$ORIGIN/dl_lib
                         )
 set(CMAKE_CXX_LINK_FLAGS ${CMAKE_CXX_LINK_FLAGS} ${CMAKE_C_LINK_FLAGS}
-                        -std=c++11
+                        -std=c++2a
                         )
 # set(CMAKE_EXE_LINKER_FLAGS  ${CMAKE_EXE_LINKER_FLAGS}
 #                             ${LINK_FLAGS}
