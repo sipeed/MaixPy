@@ -1,0 +1,12 @@
+id: ocr
+name: OCR
+name[zh]: 文字识别
+version: 1.0.0
+icon: icon.png
+author: neucrack@Sipeed Ltd
+desc: Recognize text on camera
+desc[zh]: 识别来自摄像头的文字
+files:
+  - icon.png
+  - app.yaml
+  - main.py

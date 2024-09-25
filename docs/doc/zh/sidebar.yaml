@@ -172,6 +172,7 @@ items:
         label: 人脸追踪2轴云台
 
 -   label: 进阶
+    collapsed: false
     items:
     -   file: source_code/contribute.md
         label: 贡献文档和代码

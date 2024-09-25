@@ -172,6 +172,7 @@ items:
         label: Face tracking 2-axis gimbal
 
 -   label: Advanced
+    collapsed: false
     items:
     -   file: source_code/contribute.md
         label: Contribute
