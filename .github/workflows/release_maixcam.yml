@@ -90,10 +90,22 @@ jobs:
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name
           os_filename=${os_version_name}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
-          sha256sum $os_filepath > ${maixpy_path}/sha256sum_files.txt
           sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
+          sha256sum $os_filepath > ${maixpy_path}/sha256sum_files.txt
           echo "os_path=$os_filepath" >> $GITHUB_OUTPUT
           echo "os_name=$os_filename" >> $GITHUB_OUTPUT
+          echo "-------------------------------------"
+          echo "-- Generate system for MaixCAM-Pro --"
+          echo "-------------------------------------"
+          os_version_name_pro="maixcam-pro-${date_now}-maixpy-${maixpy_version}"
+          cp -f "${builtin_files_dir}/boot/maixcam_pro_logo.jpeg" "${builtin_files_dir}/boot/logo.jpeg"
+          sed -i 's/^panel=.*/panel=st7701_lct024bsi20/' "${builtin_files_dir}/boot/uEnv.txt"
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name_pro 1
+          os_filename=${os_version_name_pro}.img.xz
+          os_filepath=`pwd`/tmp/$os_filename
+          sha256sum $os_filepath >> ${maixpy_path}/sha256sum_files.txt
+          echo "os_pro_path=$os_filepath" >> $GITHUB_OUTPUT
+          echo "os_pro_name=$os_filename" >> $GITHUB_OUTPUT
 
       - name: Build doc
         id: build_doc
@@ -170,11 +182,19 @@ jobs:
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload OS to release assets
+      - name: Upload MaixCAM OS to release assets
         uses: svenstaro/upload-release-action@v2
         with:
           file: ${{ steps.build_maixpy.outputs.os_path }}
           asset_name: ${{ steps.build_maixpy.outputs.os_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixCAM-Pro OS to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.os_pro_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.os_pro_name }}
           tag: ${{ github.ref }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
