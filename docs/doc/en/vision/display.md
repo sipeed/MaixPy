@@ -98,3 +98,30 @@ img.draw_rect(10, 10, 100, 100, color=image.Color.from_rgb(255, 0, 0))
 img.draw_string(10, 10, "Hello MaixPy!", color=image.Color.from_rgb(255, 255, 255))
 display.send_to_maixvision(img)
 ```
+
+## Replacing with Other Screen Models
+
+If you wish to switch to a screen of a different size, you can consult and purchase from the [store](https://wiki.sipeed.com/store).
+
+For MaixCAM, the following four screen options are currently supported:
+* 2.3-inch 552x368 resolution capacitive touch screen: The default screen that comes with MaixCAM.
+* 2.4-inch 640x480 resolution capacitive touch screen: The default screen that comes with MaixCAM-Pro.
+* 5-inch 854x480 resolution non-touch screen: Note that this is a non-touch screen, similar in size to a mobile phone screen.
+* 7-inch 1280x800 resolution capacitive touch screen: A large 7-inch screen, suitable for scenarios requiring a fixed screen display.
+
+The image refresh time difference between different screens is about 1-5 milliseconds, which is not significant; the main difference lies in the image resolution, which affects image processing time.
+
+When replacing the screen, you must also **modify the configuration file**; otherwise, mismatched refresh timing could **cause screen burn-in** (leaving a ghost image on the screen). It’s important to follow the steps strictly as outlined below. If screen burn-in occurs, don’t panic; powering off and leaving it overnight usually resolves the issue.
+
+* Follow the system burning documentation to burn the system. Once completed, a USB drive will appear.
+* Open the USB drive, and you will see a `uEnv.txt` file.
+* Edit the `uEnv.txt` file, modifying the `pannel` key value as follows:
+  * 2.3-inch (MaixCAM default screen): `st7701_hd228001c31`.
+  * 2.4-inch (MaixCAM-Pro default screen): `st7701_lct024bsi20`.
+  * 5-inch: `st7701_dxq5d0019_V0`, with the earlier (2023) test screen being `st7701_dxq5d0019b480854`.
+  * 7-inch: `mtd700920b`, with the earlier (2023) test screen being `zct2133v1`.
+* Save the `uEnv.txt` file, and **click to eject the USB drive**—do not just disconnect the power, or the file may be lost.
+* Press the board's `reset` button, or power cycle to restart.
+
+The above method is the safest, ensuring the screen model is set correctly before powering on. If you have already burned the system, you can also modify the system’s `/boot/uEnv.txt` file and then reboot.
+

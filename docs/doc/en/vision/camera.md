@@ -17,9 +17,13 @@ This article introduces common methods. For more API usage, refer to the documen
 
 ## Camera Switching
 
-Different cameras use different drivers, and the correct driver needs to be selected in the system.
+Currently supported cameras:
+* **GC4653**: M12 universal lens, 1/3" sensor, clear image quality, 4MP.
+* **OS04A10**: M12 universal lens, 1/1.8" large sensor, ultra-clear image quality, 4MP.
+* **OV2685**: Does not support lens replacement, lowest image quality, and lowest cost; generally not recommended for use.
+* **SC035HGS**: Monochrome global shutter camera, 0.3MP black-and-white, suitable for capturing high-speed objects.
 
-TODO: How to switch between cameras, such as between GC4653 and OS04A10.
+The system will automatically switch; simply replace the hardware to use.
 
 ## Getting Images from the Camera
 
@@ -83,6 +87,7 @@ Notes:
 1. if `Camera` is passed in a size larger than `1280x720`, for example written as `camera.Camera(1920, 1080, fps=60)`, then the `fps` parameter will be invalidated, and the frame rate will remain at `30fps`.
 2. A `60/80fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
 3. Note that due to the fact that `60/80fps` and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
+4. The camera's performance depends on the system. Some systems may not support setting the camera to 80fps, which can result in strange patterns appearing on the screen. In such cases, please switch back to the normal 60fps setting.
 
 ## Image correction
 
@@ -100,7 +105,7 @@ while not app.need_exit():: t = time.
     disp = display.Display()
 ``
 
-TODO: Support for hardware distortion correction
+Note that since the correction is done through software, it takes some time. Alternatively, you can use a distortion-free lens (inquire with the vendor) to solve the issue from a hardware perspective.
 
 ## Skipping Initial Frames
 
