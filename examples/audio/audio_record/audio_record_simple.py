@@ -1,6 +1,6 @@
 from maix import audio
 
-r = audio.Recorder("/root/output.pcm")
+r = audio.Recorder("/root/output.wav")
 r.volume(24)
 print("sample_rate:{} format:{} channel:{}".format(r.sample_rate(), r.format(), r.channel()))
 
