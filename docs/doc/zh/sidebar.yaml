@@ -157,6 +157,10 @@ items:
         label: 温湿度传感器
     -   file: modules/acc.md
         label: 加速度计使用
+    -   file: modules/rtc.md
+        label: RTC 时钟模块使用
+    -   file: modules/tmc2209.md
+        label: 步进电机 TMC2209
     -   file: modules/tof.md
         label: TOF 测距
     -   file: modules/thermal_cam.md

@@ -157,6 +157,10 @@ items:
         label: Temperature and humidity
     -   file: modules/acc.md
         label: Accelerometer
+    -   file: modules/rtc.md
+        label: RTC usage
+    -   file: modules/tmc2209.md
+        label: Stepper motor TMC2209
     -   file: modules/tof.md
         label: TOF
     -   file: modules/thermal_cam.md

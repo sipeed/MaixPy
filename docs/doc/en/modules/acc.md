@@ -1,8 +1,8 @@
 ---
-title: MaixCAM MaixPy 读取加速度计和姿态解算
+title: Reading the Accelerometer and Attitude Calculation with MaixCAM MaixPy
 ---
 
-对于 MaixCAM-Pro，板载了一个 6 轴加速度计，可以******
+The MaixCAM-Pro is equipped with a 6-axis accelerometer (three-axis gyroscope and three-axis accelerometer). For more information, please refer to the [qmi8658 Usage Documentation](./qmi8658.md).
 
-TODO:
+> MaixCAM does not have an onboard accelerometer, but you can connect one externally using an IIC driver.
 
