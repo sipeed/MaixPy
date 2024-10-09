@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Real-time voice recognition
+title: MaixCAM MaixPy Continuous Chinese digit recognition
 update:
   - date: 2024-10-08
     author: 916BGAI
@@ -15,7 +15,7 @@ update:
 
 [`Maix-Speech`](https://github.com/sipeed/Maix-Speech) is an offline speech library specifically designed for embedded environments. It features deep optimization of speech recognition algorithms, achieving a significant lead in memory usage while maintaining excellent WER. For more details on the principles, please refer to the open-source project.
 
-## Continuous Large Vocabulary Speech Recognition
+## Continuous Chinese digit recognition
 
 ```python
 from maix import app, nn
@@ -23,14 +23,10 @@ from maix import app, nn
 speech = nn.Speech("/root/models/am_3332_192_int8.mud")
 speech.init(nn.SpeechDevice.DEVICE_MIC, "hw:0,0")
 
-def callback(data: tuple[str, str], len: int):
+def callback(data: str, len: int):
     print(data)
 
-lmS_path = "/root/models/lmS/"
-
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.digit(640, callback)
 
 while not app.need_exit():
     frames = speech.run(1)
@@ -88,18 +84,14 @@ speech.devive(nn.SpeechDevice.DEVICE_WAV, "path/next.wav")
 4. Set up the decoder
 
 ```python
-def callback(data: tuple[str, str], len: int):
+def callback(data: str, len: int):
     print(data)
 
-lmS_path = "/root/models/lmS/"
-
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.digit(640, callback)
 ```
-- Users can register several decoders (or none), which decode the results from the acoustic model and execute the corresponding user callback. Here, a `lvcsr` decoder is registered to output continuous speech recognition results (for fewer than 1024 Chinese characters). For other decoder usages, please refer to the sections on continuous Chinese numeral recognition and keyword recognition.
+- Users can register several decoders (or none), which decode the results from the acoustic model and execute the corresponding user callback. Here, a `digit` decoder is registered to output the Chinese digit recognition results from the last 4 seconds. The returned recognition results are in string format and support `0123456789 .(dot) S(ten) B(hundred) Q(thousand) W(thousand)`. For other decoder usages, please refer to the sections on Real-time voice recognition and keyword recognition.
 
-- When setting up the `lvcsr` decoder, you need to specify the paths for the `sfst` file, the `sym` file (output symbol table), the path for `phones.bin` (phonetic table), and the path for `words.bin` (dictionary). Lastly, a callback function must be set to handle the decoded data.
+- When setting the `digit` decoder, you need to specify a `blank` value; exceeding this value (in ms) will insert a `_` in the output results to indicate idle silence.
 
 - After registering the decoder, use the `speech.deinit()` method to clear the initialization.
 
@@ -118,9 +110,8 @@ while not app.need_exit():
 
 ### Recognition Results
 
-If the above program runs successfully, speaking into the onboard microphone will yield real-time speech recognition results, such as:
+If the above program runs successfully, speaking into the onboard microphone will yield continuous Chinese digit recognition results, such as:
 
 ```shell
-### SIL to clear decoder!
-('今天天气 怎么样 ', 'jin1 tian1 tian1 qi4 zen3 me yang4 ')
+_0123456789
 ```

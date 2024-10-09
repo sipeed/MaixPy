@@ -93,12 +93,12 @@ items:
         label: 录音
     -   file: audio/play.md
         label: 播放音频
-    -   file: audio/classifier.md
-        label: AI 声音分类器
-    -   file: audio/keyword.md
-        label: 关键词识别
     -   file: audio/recognize.md
         label: 语音实时识别
+    -   file: audio/digit.md
+        label: 连续中文数字识别
+    -   file: audio/keyword.md
+        label: 关键词识别
     -   file: audio/synthesis.md
         label: 语音合成
 
