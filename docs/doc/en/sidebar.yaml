@@ -93,12 +93,12 @@ items:
         label: Audio recording
     -   file: audio/play.md
         label: Playing audio
-    -   file: audio/classifier.md
-        label: AI voice classifier
-    -   file: audio/keyword.md
-        label: Keyword recognition
     -   file: audio/recognize.md
         label: Real-time voice recognition
+    -   file: audio/digit.md
+        label: Continuous Chinese digit recognition
+    -   file: audio/keyword.md
+        label: Keyword recognition
     -   file: audio/synthesis.md
         label: Speech synthesis
 

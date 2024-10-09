@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 语音实时识别
+title: MaixCAM MaixPy 连续中文数字识别
 update:
   - date: 2024-10-08
     author: 916BGAI
@@ -15,7 +15,7 @@ update:
 
 [`Maix-Speech`](https://github.com/sipeed/Maix-Speech) 是专为嵌入式环境设计的离线语音库，其针对语音识别算法进行了深度优化，在内存占用上达到了数量级上的领先，并且保持了优良的WER。如果想了解原理可查看该开源项目。
 
-## 连续大词汇量语音识别
+## 连续中文数字识别
 
 ```python
 from maix import app, nn
@@ -23,14 +23,10 @@ from maix import app, nn
 speech = nn.Speech("/root/models/am_3332_192_int8.mud")
 speech.init(nn.SpeechDevice.DEVICE_MIC, "hw:0,0")
 
-def callback(data: tuple[str, str], len: int):
+def callback(data: str, len: int):
     print(data)
 
-lmS_path = "/root/models/lmS/"
-
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.digit(640, callback)
 
 while not app.need_exit():
     frames = speech.run(1)
@@ -88,18 +84,14 @@ speech.devive(nn.SpeechDevice.DEVICE_WAV, "path/next.wav")
 4. 设置解码器
 
 ```python
-def callback(data: tuple[str, str], len: int):
+def callback(data: str, len: int):
     print(data)
 
-lmS_path = "/root/models/lmS/"
-
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.digit(640, callback)
 ```
-- 用户可以注册若干个解码器（也可以不注册），解码器的作用是解码声学模型的结果，并执行对应的用户回调。这里注册了一个 `lvcsr` 解码器用于输出连续语音识别结果（小于1024个汉字结果）。对于其他解码器的使用可以查看连续中文数字识别和关键词识别部分
+- 用户可以注册若干个解码器（也可以不注册），解码器的作用是解码声学模型的结果，并执行对应的用户回调。这里注册了一个 `digit` 解码器用于输出最近4s内的中文数字识别结果。返回的识别结果为字符串形式，支持 `0123456789 .(点) S(十) B(百) Q(千) W(万)`。对于其他解码器的使用可以查看语音实时识别和关键词识别部分
 
-- 设置 `lvcsr` 解码器时需要设置 `sfst` 文件路径，`sym` 文件路径（输出符号表），`phones.bin` 的路径（拼音表），和 `words.bin` 的路径（词典表）。最后还要设置一个回调函数用于处理解码出的数据。
+- 设置 `digit` 解码器时需要设置 `blank` 值，超过该值（ms）则在输出结果里插入一个 `_` 表示空闲静音
 
 - 在注册完解码器后需要使用 `speech.deinit()` 方法清除初始化
 
@@ -118,9 +110,8 @@ while not app.need_exit():
 
 ### 识别结果
 
-如果上述程序运行正常，对板载麦克风说话，会得到实时语言识别结果，如：
+如果上述程序运行正常，对板载麦克风说话，会得到连续中文数字识别结果，如：
 
 ```shell
-### SIL to clear decoder!
-('今天天气 怎么样 ', 'jin1 tian1 tian1 qi4 zen3 me yang4 ')
+_0123456789
 ```

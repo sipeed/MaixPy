@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 语音实时识别
+title: MaixCAM MaixPy 关键词识别
 update:
   - date: 2024-10-08
     author: 916BGAI
@@ -15,7 +15,7 @@ update:
 
 [`Maix-Speech`](https://github.com/sipeed/Maix-Speech) 是专为嵌入式环境设计的离线语音库，其针对语音识别算法进行了深度优化，在内存占用上达到了数量级上的领先，并且保持了优良的WER。如果想了解原理可查看该开源项目。
 
-## 连续大词汇量语音识别
+## 关键词识别
 
 ```python
 from maix import app, nn
@@ -23,14 +23,17 @@ from maix import app, nn
 speech = nn.Speech("/root/models/am_3332_192_int8.mud")
 speech.init(nn.SpeechDevice.DEVICE_MIC, "hw:0,0")
 
-def callback(data: tuple[str, str], len: int):
-    print(data)
+kw_tbl = ['xiao3 ai4 tong2 xue2',
+          'ni3 hao3',
+          'tian1 qi4 zen3 me yang4']
+kw_gate = [0.1, 0.1, 0.1]
 
-lmS_path = "/root/models/lmS/"
+def callback(data:list[float], len: int):
+    for i in range(len):
+        print(f"\tkw{i}: {data[i]:.3f};", end=' ')
+    print("\n")
 
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.kws(kw_tbl, kw_gate, callback, True)
 
 while not app.need_exit():
     frames = speech.run(1)
@@ -88,18 +91,28 @@ speech.devive(nn.SpeechDevice.DEVICE_WAV, "path/next.wav")
 4. 设置解码器
 
 ```python
-def callback(data: tuple[str, str], len: int):
-    print(data)
+kw_tbl = ['xiao3 ai4 tong2 xue2',
+          'ni3 hao3',
+          'tian1 qi4 zen3 me yang4']
+kw_gate = [0.1, 0.1, 0.1]
 
-lmS_path = "/root/models/lmS/"
+def callback(data:list[float], len: int):
+    for i in range(len):
+        print(f"\tkw{i}: {data[i]:.3f};", end=' ')
+    print("\n")
 
-speech.lvcsr(lmS_path + "lg_6m.sfst", lmS_path + "lg_6m.sym", \
-             lmS_path + "phones.bin", lmS_path + "words_utf.bin", \
-             callback)
+speech.kws(kw_tbl, kw_gate, callback, True)
 ```
-- 用户可以注册若干个解码器（也可以不注册），解码器的作用是解码声学模型的结果，并执行对应的用户回调。这里注册了一个 `lvcsr` 解码器用于输出连续语音识别结果（小于1024个汉字结果）。对于其他解码器的使用可以查看连续中文数字识别和关键词识别部分
+- 用户可以注册若干个解码器（也可以不注册），解码器的作用是解码声学模型的结果，并执行对应的用户回调。这里注册了一个 `kws` 解码器用于输出最近一帧所有注册的关键词的概率列表，用户可以观察概率值，自行设定阈值进行唤醒。对于其他解码器的使用可以查看语音实时识别和连续中文数字识别部分
 
-- 设置 `lvcsr` 解码器时需要设置 `sfst` 文件路径，`sym` 文件路径（输出符号表），`phones.bin` 的路径（拼音表），和 `words.bin` 的路径（词典表）。最后还要设置一个回调函数用于处理解码出的数据。
+- 设置 `kws` 解码器时需要设置 `关键词列表`，以拼音间隔空格填写，`关键词概率门限表`，按顺序排列输入即可，是否进行 `自动近音处理`，设置为 `True` 则会自动将不同声调的拼音作为近音词来合计概率。最后还要设置一个回调函数用于处理解码出的数据。
+
+- 用户还可以使用 `speech.similar` 方法手工注册近音词，每个拼音可以注册最多 `10` 个近音词。（注意，使用该接口注册近音词会覆盖使能 `自动近音处理` 里自动生成的近音表）
+
+```python
+similar_char = ['zhen3', 'zheng3']
+speech.similar('zen3', similar_char)
+```
 
 - 在注册完解码器后需要使用 `speech.deinit()` 方法清除初始化
 
@@ -118,9 +131,16 @@ while not app.need_exit():
 
 ### 识别结果
 
-如果上述程序运行正常，对板载麦克风说话，会得到实时语言识别结果，如：
+如果上述程序运行正常，对板载麦克风说话，会得到关键词识别结果，如：
 
 ```shell
-### SIL to clear decoder!
-('今天天气 怎么样 ', 'jin1 tian1 tian1 qi4 zen3 me yang4 ')
+kws log 2.048s, len 24
+decoder_kws_init get 3 kws
+  00, xiao3 ai4 tong2 xue2
+  01, ni3 hao3
+  02, tian1 qi4 zen3 me yang4
+find shared memory(491520),  saved:491520
+    kw0: 0.959; 	kw1: 0.000; 	kw2: 0.000;     # 小爱同学
+    kw0: 0.000; 	kw1: 0.930; 	kw2: 0.000;     # 你好
+    kw0: 0.000; 	kw1: 0.000; 	kw2: 0.961;     # 天气怎么样
 ```
