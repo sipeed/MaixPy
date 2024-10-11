@@ -52,7 +52,7 @@ print("record finish!")
 
      - 注意默认的采样率是48k，采样格式为小端格式-有符号16位，采样通道为1。你也可以像这样自定义参数`p = audio.Recorder(sample_rate=48000, format=audio.Format.FMT_S16_LE, channel = 1)`。目前只测试过采样率48000，`FMT_S16_LE`格式，和采样通道数为1
 
-     - `r.volume(12)`用来设置音量，音量范围为[0,24]
+     - `r.volume(12)`用来设置音量，音量范围为[0,100]
 
 3. 开始录制
 

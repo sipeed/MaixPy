@@ -52,7 +52,7 @@ Steps：
 
     - Note that the default sample rate is 48k, the sample format is little-endian format - signed 16-bit, and the sample channel is 1. You can also customise the parameters like this `r = audio.Recorder(sample_rate=48000, format=audio.Format.FMT_S16_LE, channel = 1)`. So far only tested with sample rate 48000, format `FMT_S16_LE`, and number of sampling channels 1.
 
-     - `r.volume(12)` is used to set the volume, the volume range is [0,24]
+     - `r.volume(12)` is used to set the volume, the volume range is [0,100]
 
 3. Start recording
 
