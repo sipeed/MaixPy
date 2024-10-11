@@ -1,85 +1,92 @@
 ---
-title: Using YOLOv5 / YOLOv8 Models for Object Detection in MaixCAM MaixPy
+title: MaixPy MaixCAM Using YOLOv5 / YOLOv8 / YOLO11 for Object Detection
 ---
 
-## Concept of Object Detection
+## Object Detection Concept
 
-Object detection refers to identifying the location and category of objects in images or videos, such as detecting apples, airplanes, etc., and marking their positions. Unlike classification, object detection includes positional information, so the result is generally a rectangle marking the object's position.
+Object detection refers to detecting the position and category of objects in images or videos, such as identifying apples or airplanes in a picture and marking their locations.
 
-## Using Object Detection in MaixPy
+Unlike classification, object detection includes positional information. Therefore, the result of object detection is generally a rectangular box that marks the location of the object.
 
-MaixPy provides `YOLOv5` and `YOLOv8` models by default, which can be used directly:
+## Object Detection in MaixPy
+
+MaixPy provides `YOLOv5`, `YOLOv8`, and `YOLO11` models by default, which can be used directly:
 > YOLOv8 requires MaixPy >= 4.3.0.
+> YOLO11 requires MaixPy >= 4.7.0.
 
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
-# detector = nn.YOLOv8(model="/root/models/yolov8n.mud")
+detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff=True)
+# detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff=True)
+# detector = nn.YOLO11(model="/root/models/yolo11n.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
 
 while not app.need_exit():
     img = cam.read()
-    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    objs = detector.detect(img, conf_th=0.5, iou_th=0.45)
     for obj in objs:
-        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color=image.COLOR_RED)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
-        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+        img.draw_string(obj.x, obj.y, msg, color=image.COLOR_RED)
     dis.show(img)
 ```
 
-Video demonstration:
+Example video:
 
 <div>
 <video playsinline controls autoplay loop muted preload src="/static/video/detector.mp4" type="video/mp4">
 </div>
 
-Here, the camera captures an image, which is then passed to the `detector` for detection. The results (classification names and positions) are displayed on the screen.
+Here, the camera captures an image, passes it to the `detector` for detection, and then displays the results (classification name and location) on the screen.
 
-You can switch between `YOLOv5` and `YOLOv8` by replacing them in the code. Make sure to update the model file path accordingly.
+You can switch between `YOLO11`, `YOLOv5`, and `YOLOv8` simply by replacing the corresponding line and modifying the model file path.
 
-The list of 80 supported object categories can be found in the appendix.
+For the list of 80 objects supported by the model, see the appendix of this document.
 
-For more API usage, refer to the documentation of the [maix.nn](/api/maix/nn.html) module.
+For more API usage, refer to the documentation for the [maix.nn](/api/maix/nn.html) module.
 
-## dual_buff Dual Buffer Acceleration
+## dual_buff for Double Buffering Acceleration
 
-You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
+You may notice that the model initialization uses `dual_buff` (default value is `True`). Enabling the `dual_buff` parameter can improve efficiency and increase the frame rate. For more details and usage considerations, see the [dual_buff Introduction](./dual_buff.md).
 
 ## More Input Resolutions
 
-The default model input resolution is `320x224`, which closely matches the provided screen resolution. You can manually download models with other resolutions if needed:
+The default model input resolution is `320x224`, which closely matches the aspect ratio of the default screen. You can also download other model resolutions:
 
 YOLOv5: [https://maixhub.com/model/zoo/365](https://maixhub.com/model/zoo/365)
 YOLOv8: [https://maixhub.com/model/zoo/400](https://maixhub.com/model/zoo/400)
+YOLO11: [https://maixhub.com/model/zoo/453](https://maixhub.com/model/zoo/453)
 
-Higher resolutions increase accuracy but also require more processing time. Choose the appropriate resolution based on your application.
+Higher resolutions provide more accuracy, but take longer to process. Choose the appropriate resolution based on your application.
 
-## Which to Use: YOLOv5 or YOLOv8?
+## Which Model to Use: YOLOv5, YOLOv8, or YOLO11?
 
-We provide `YOLOv5s` and `YOLOv8n` models. The former is larger and more accurate, while the latter is slightly faster but with marginally lower accuracy. You can test both to see which suits your needs better.
+We provide three models: `YOLOv5s`, `YOLOv8n`, and `YOLO11n`. The `YOLOv5s` model is larger, while `YOLOv8n` and `YOLO11n` are slightly faster. According to official data, the accuracy is `YOLO11n > YOLOv8n > YOLOv5s`. You can test them to decide which works best for your situation.
 
-You can also try `YOLOv8s`, which offers higher accuracy but lower frame rates(e.g. yolov8s_320x224 slower than yolov8n_320x224 about 10ms）. Models can be downloaded from the mentioned model library.
+Additionally, you may try `YOLOv8s` or `YOLO11s`, which will have a lower frame rate (e.g., `yolov8s_320x224` is 10ms slower than `yolov8n_320x224`), but offer higher accuracy. You can download these models from the model library mentioned above or export them yourself from the official `YOLO` repository.
 
-## Can Camera Resolution and Model Resolution Differ?
+## Different Resolutions for Camera and Model
 
-When using the `detector.detect(img)` function, if `img` resolution differs from the model's resolution, the function will automatically call `img.resize` to adjust the image to the model's input resolution. The `resize` method uses `image.Fit.FIT_CONTAIN` by default, maintaining the aspect ratio and padding with black. The detected coordinates will map back to the original `img` coordinates.
+If the resolution of `img` is different from the model's resolution when using the `detector.detect(img)` function, the function will automatically call `img.resize` to adjust the image to the model's input resolution. The default `resize` method is `image.Fit.FIT_CONTAIN`, which scales while maintaining the aspect ratio and fills the surrounding areas with black. The detected coordinates will also be automatically mapped back to the original `img`.
 
 ## Training Your Own Object Detection Model on MaixHub
 
-If the default 80-class model doesn't meet your needs, visit [MaixHub](https://maixhub.com) to learn and train your object detection model. Select `Object Detection Model` when creating a project. Refer to [MaixHub online train doc](./maixhub_train.md).
+If you need to detect specific objects beyond the 80 categories provided, visit [MaixHub](https://maixhub.com) to learn and train an object detection model. Select "Object Detection Model" when creating a project. Refer to the [MaixHub Online Training Documentation](./maixhub_train.md).
 
-Alternatively, check out the models shared by community members in the [MaixHub Model Library](https://maixhub.com/model/zoo?platform=maixcam).
+Alternatively, you can find models shared by community members at the [MaixHub Model Library](https://maixhub.com/model/zoo?platform=maixcam).
 
-## Offline Training of Your Own Object Detection Model
+## Training Your Own Object Detection Model Offline
 
-We strongly recommend using MaixHub for online training. Offline training is more complex and not suggested for beginners. This method assumes some pre-existing knowledge not covered in this document. For more details, see [Offline Training YOLOv5 Model](./customize_model_yolov5.md).
+We strongly recommend starting with MaixHub for online training, as the offline method is much more difficult and is not suitable for beginners. Some knowledge may not be explicitly covered here, so be prepared to do further research.
 
-## Appendix: 80 Categories
+Refer to [Training a Custom YOLOv5 Model](./customize_model_yolov5.md) or [Training a Custom YOLOv8/YOLO11 Model Offline](./customize_model_yolov8.md).
 
-The 80 object categories from the COCO dataset are:
+## Appendix: 80 Classes
+
+The 80 objects in the COCO dataset are:
 
 ```txt
 person
@@ -160,6 +167,7 @@ clock
 vase
 scissors
 teddy bear
-hair drier
+hair dryer
 toothbrush
 ```
+

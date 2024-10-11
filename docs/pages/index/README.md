@@ -228,7 +228,7 @@ MaixVision
 
 * **CPU**: 1GHz RISC-V(Linux)/ARM A53 + 700MHz RISC-V(RTOS) + 25~300MHz 8051(Low Power)
 > 大核 RISC-V 和 ARM A53 二选一运行，MaixPy 使用 RISC-V 核心。
-* **NPU**: 1Tops@INT8 NPU, 支持 BF16，支持 YOLOv5 YOLOv8 等。
+* **NPU**: 1Tops@INT8 NPU, 支持 BF16，支持 YOLOv5 YOLOv8 YOLO11 等。
 * **内存**: 256MB DDR3。
 * **通信**: USB2.0/WiFi6/BLE5.4。
 * **外设**: IIC/PWM/SPI/UART/WDT/GPIO/ADC
@@ -511,7 +511,7 @@ MaixVision
 | 在线 AI 训练 | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 |
 | 官方应用   | ⭐️⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
 | AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
-| AI 检测   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps**|
+| AI 检测   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps<br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**|
 | 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
 
 ## Maix 生态

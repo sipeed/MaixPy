@@ -60,7 +60,7 @@ items:
     -   file: vision/classify.md
         label: AI object classification
     -   file: vision/yolov5.md
-        label: YOLOv5/v8 object detection
+        label: YOLO11/v8/v5 object detection
     -   file: vision/face_detection.md
         label: Face and keypoints detection
     -   file: vision/face_recognition.md
@@ -82,7 +82,7 @@ items:
     -   file: vision/customize_model_yolov5.md
         label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
-        label: YOLOv8 model offline training
+        label: YOLO11/v8 model offline training
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
 

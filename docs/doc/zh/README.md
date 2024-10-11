@@ -190,7 +190,7 @@ while not app.need_exit():        # 一直循环，直到程序退出（可以�
     img = cam.read()              # 读取摄像头画面保存到 img 变量，可以通过 print(img) 来打印 img 的详情
     disp.show(img)                # 将 img 显示到屏幕上
 ```
-* `yolov5.py` 会检测摄像头画面中的物体框出来并显示到屏幕上，支持 80 种物体的检测，具体请看[YOLOv5 物体检测](./vision/yolov5.md)。
+* `yolov5.py` 会检测摄像头画面中的物体框出来并显示到屏幕上，支持 80 种物体的检测，具体请看[YOLOv5/YOLOv8/YOLO11 物体检测](./vision/yolov5.md)。
 
 其它例程可以自行尝试。
 

@@ -1,44 +1,50 @@
 ---
-title: Offline Training of YOLOv8 Model for Custom Object and Keypoint Detection with MaixCAM MaixPy
+title: Offline Training for YOLO11/YOLOv8 Models on MaixCAM MaixPy to Customize Object and Keypoint Detection
 update:
-    - date: 2024-6-21
-      version: v1.0
-      author: neucrack
-      content:
-        Documentation written
+  - date: 2024-06-21
+    version: v1.0
+    author: neucrack
+    content: Document creation
+  - date: 2024-10-10
+    version: v2.0
+    author: neucrack
+    content: Added YOLO11 support
 ---
 
 ## Introduction
 
-The default official model provides detection for 80 types of objects. If this does not meet your needs, you can train your own detection objects by setting up a training environment on your computer or server.
+The default official model provides detection for 80 different objects. If this doesn't meet your needs, you can train your own model to detect custom objects, which can be done on your own computer or server by setting up a training environment.
 
-YOLOv8 supports not only object detection but also keypoint detection with yolov8-pose. Besides the official human keypoints, you can create your own keypoint dataset to train and detect specified objects and keypoints.
+YOLOv8 / YOLO11 not only supports object detection but also supports keypoint detection with YOLOv8-pose / YOLO11-pose. Apart from the official human keypoints, you can also create your own keypoint dataset to train models for detecting specific objects and keypoints.
 
-**Note:** This article explains how to customize training, but some basic knowledge is assumed. If you do not have this knowledge, please learn it yourself:
-* This article will not explain how to install the training environment. Please search and install it yourself (Pytorch environment installation) and test it.
-* This article will not explain the basic concepts of machine learning or basic Linux usage knowledge.
+Since YOLOv8 and YOLO11 mainly modify the internal network while the preprocessing and post-processing remain the same, the training and conversion steps for YOLOv8 and YOLO11 are identical, except for the output node names.
 
-If you think there is something in this article that needs improvement, feel free to click `Edit this article` in the upper right corner to contribute and submit a documentation PR.
+**Note:** This article explains how to train a custom model but assumes some basic knowledge. If you do not have this background, please learn it independently:
+* This article will not cover how to set up the training environment; please search for how to install and test a PyTorch environment.
+* This article will not cover basic machine learning concepts or Linux-related knowledge.
 
-## Process and Goals of this Article
+If you think there are parts of this article that need improvement, please click on `Edit this article` at the top right and submit a PR to contribute to the documentation.
 
-To use our model on MaixPy (MaixCAM), the following process is required:
-* Set up the training environment (this is not covered in this article, please search for Pytorch training environment setup).
-* Pull the [yolov8](https://github.com/ultralytics/ultralytics) source code to your local machine.
-* Prepare the dataset and format it as required by the yolov5 project.
-* Train the model to get an `onnx` model file, which is the final output file of this article.
-* Convert the `onnx` model to a `MUD` file supported by MaixPy, which is detailed in [MaixCAM Model Conversion](../ai_model_converter/maixcam.md).
+## Process and Article Goal
+
+To ensure our model can be used on MaixPy (MaixCAM), it must go through the following steps:
+* Set up the training environment (not covered in this article, please search for how to set up a PyTorch training environment).
+* Clone the [YOLO11/YOLOv8](https://github.com/ultralytics/ultralytics) source code locally.
+* Prepare the dataset and format it according to the YOLO11 / YOLOv8 project requirements.
+* Train the model to obtain an `onnx` model file, which is the final output of this article.
+* Convert the `onnx` model into a `MUD` file supported by MaixPy, as described in the [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) article.
 * Use MaixPy to load and run the model.
 
 ## Reference Articles
 
-Since this is a relatively common operational process, this article only provides an overview. For specific details, you can refer to the **[YOLOv8 official code and documentation](https://github.com/ultralytics/ultralytics)** (**recommended**), and search for training tutorials to ultimately export the onnx file.
+Since this process is quite general, this article only provides an overview. For specific details, please refer to the **[YOLO11 / YOLOv8 official code and documentation](https://github.com/ultralytics/ultralytics)** (**recommended**) and search for training tutorials to eventually export an ONNX file.
 
-If you find any good articles, feel free to modify this article and submit a PR.
+If you come across good articles, feel free to edit this one and submit a PR.
 
-## Exporting YOLOv8 ONNX Model
+## Exporting YOLO11 / YOLOv8 ONNX Models
 
 Create an `export_onnx.py` file in the `ultralytics` directory:
+
 ```python
 from ultralytics import YOLO
 import sys
@@ -54,26 +60,33 @@ model = YOLO(net_name)  # load an official model
 
 # Predict with the model
 results = model("https://ultralytics.com/images/bus.jpg")  # predict on an image
-path = model.export(format="onnx", imgsz=[input_width, input_height])  # export the model to ONNX format
+path = model.export(format="onnx", imgsz=[input_height, input_width])  # export the model to ONNX format
 print(path)
 ```
 
-Then execute `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, the input resolution is re-specified. The model was trained with `640x640`, but we re-specified the resolution to improve the running speed. The resolution `320x224` is used because it is closer to the MaixCAM screen ratio for better display. You can set it according to your needs.
+Then run `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, we have redefined the input resolution. The model was originally trained with `640x640`, but we use `320x224` to improve the processing speed and match the MaixCAM's screen aspect ratio for convenient display. You can set the resolution according to your own needs.
 
+## Converting to a Model Supported by MaixCAM and MUD File
 
-## Converting to MaixCAM Supported Model and MUD File
+MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 for object detection, YOLOv8-pose / YOLO11-pose for keypoint detection, and YOLOv8-seg / YOLO11-seg for segmentation (as of 2024-10-10).
 
-MaixPy/MaixCDK currently supports both YOLOv8 detection and YOLOv8-pose human pose keypoint detection (as of 2024.6.21).
+Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) to convert the model.
 
-Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) for model conversion.
+Pay attention to the model output node selection:
+* Object detection:
+  * YOLOv8 extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` from ONNX as outputs.
+  * YOLO11 extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`.
+* Keypoint detection:
+  * YOLOv8-pose extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0` as outputs.
+  * YOLO11-pose extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0`.
+* Image segmentation:
+  * YOLOv8-seg extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`.
+  * YOLO11-seg extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`.
 
-Note the choice of model output nodes:
-* For YOLOv8, extract `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` outputs from the onnx.
-* For keypoint detection (yolov8-pose), extract `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0` outputs from the onnx.
+![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg)
 
-![YOLOv8 Output 1](../../assets/yolov8_out1.jpg) ![YOLOv8 Output 2](../../assets/yolov8_out2.jpg)
+For object detection, the MUD file would be as follows (replace `yolo11` for YOLO11):
 
-For object detection, the mud file is:
 ```ini
 [basic]
 type = cvimodel
@@ -84,12 +97,13 @@ model_type = yolov8
 input_type = rgb
 mean = 0, 0, 0
 scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair dryer, toothbrush
 ```
 
-Replace `labels` according to your training objects.
+Replace `labels` according to the objects you trained.
 
-For keypoint detection (yolov8-pose), the mud file is:
+For keypoint detection (yolov8-pose), the MUD file would be (replace `yolo11` for YOLO11):
+
 ```ini
 [basic]
 type = cvimodel
@@ -104,12 +118,24 @@ scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 labels = person
 ```
 
-The default is human pose keypoint detection, so `labels` has only one `person`. Replace it according to the objects you are detecting.
+The default model is for human pose detection, so `labels` only contains `person`. Replace it according to your detected objects.
 
+For image segmentation (yolov8-seg), the MUD file would be (replace `yolo11` for YOLO11):
 
-## Upload share on MaixHub
+```ini
+[basic]
+type = cvimodel
+model = yolo11n-seg_320x224_int8.cvimodel
 
-Share your model on [MaixHub model zoo](https://maixhub.com/model/zoo?platform=maixcam) 上传并分享你的模型，可以多提供几个分辨率供大家选择。
+[extra]
+model_type = yolov8
+input_type = rgb
+type = seg
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair dryer, toothbrush
+```
 
+## Upload and Share on MaixHub
 
-
+Visit the [MaixHub Model Library](https://maixhub.com/model/zoo?platform=maixcam) to upload and share your model. Consider providing multiple resolutions for others to choose from.

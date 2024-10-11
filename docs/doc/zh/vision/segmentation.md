@@ -11,9 +11,12 @@ title: MaixCAM MaixPy 图像语义分割
 
 ## MaixPy 使用图像语义分割
 
+MaixPy 内置了 `YOLOv8-seg` 和 `YOLO11-seg` 来进行对象检测和图像分割。
+
 MaixPy 默认提供了 coco 数据集 80 种物体分类模型。
 
-> MaixPy 版本必须 >= 4.4.0
+> 使用 YOLOv8 MaixPy 版本必须 >= 4.4.0
+> 使用 YOLO11 MaixPy 版本必须 >= 4.7.0
 
 代码如下，也可以在 [MaixPy examples](https://github.com/sipeed/maixpy/tree/main/examples/) 中找到。
 
@@ -21,6 +24,7 @@ MaixPy 默认提供了 coco 数据集 80 种物体分类模型。
 from maix import camera, display, image, nn, app, time
 
 detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud", dual_buff = True)
+# detector = nn.YOLO11(model="/root/models/yolo11n_seg.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
@@ -37,9 +41,14 @@ while not app.need_exit():
     dis.show(img)
 ```
 
+> 这里切换 YOLOv8 和 YOLO11 只需要修改上面代码种注释的部分即可。
+
+
 ## 更多分辨率模型
 
-默认是 320x224 输入分辨率的模型， 更多分辨率请到 [MaixHub 模型库](https://maixhub.com/model/zoo/413) 下载。
+默认是 320x224 输入分辨率的模型， 更多分辨率请到 MaixHub 模型库 下载：
+* YOLOv8-seg: [[MaixHub 模型库](https://maixhub.com/model/zoo/413)](https://maixhub.com/model/zoo/413)
+* YOLO11-seg: [[MaixHub 模型库](https://maixhub.com/model/zoo/455)](https://maixhub.com/model/zoo/455)
 
 ## dual_buff 双缓冲区加速
 
@@ -48,5 +57,5 @@ while not app.need_exit():
 
 ## 自定义自己的物体分割模型
 
-上面提供的是 coco 数据集 80 分类的模型，如果不满足你的要求，你也可以自己训练特定的物体检测和分割模型，按照 [离线训练YOLOv8](./customize_model_yolov8.md) 所述使用 YOLOv8 官方的分格模型训练方法进行训练，然后转换成 MaixCAM 支持的模型格式即可。
+上面提供的是 coco 数据集 80 分类的模型，如果不满足你的要求，你也可以自己训练特定的物体检测和分割模型，按照 [离线训练YOLOv8/YOLO11](./customize_model_yolov8.md) 所述使用 YOLOv8/YOLO11 官方的分格模型训练方法进行训练，然后转换成 MaixCAM 支持的模型格式即可。
 

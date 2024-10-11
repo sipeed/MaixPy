@@ -1,28 +1,31 @@
-# MaixCAM MaixPy Human Keypoint Pose Detection
+---
+title: MaixCAM MaixPy Human Pose Keypoint Detection
+---
 
 ## Introduction
 
-With MaixPy, you can easily detect the coordinates of keypoints on human joints, useful for applications like posture detection, such as sitting posture analysis, or input for motion-sensing games.
+Using MaixPy, you can easily detect the coordinates of keypoints on human joints, which can be used for posture detection, such as monitoring sitting posture or providing input for motion-based games.
 
-MaixPy implements human pose detection based on [YOLOv8-Pose](https://github.com/ultralytics/ultralytics), which can detect `17` keypoints on the human body.
+MaixPy implements human pose detection based on [YOLOv8-Pose / YOLO11-Pose](https://github.com/ultralytics/ultralytics), capable of detecting `17` keypoints on the human body.
 
 ![](../../assets/body_keypoints.jpg)
 
 ## Usage
 
-Using MaixPy's `maix.nn.YOLOv8` class, you can easily implement this functionality:
+You can easily implement this using the `maix.nn.YOLOv8` or `maix.nn.YOLO11` classes in MaixPy:
 
 ```python
 from maix import camera, display, image, nn, app
 
 detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff=True)
+# detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 dis = display.Display()
 
 while not app.need_exit():
     img = cam.read()
-    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45, keypoint_th = 0.5)
+    objs = detector.detect(img, conf_th=0.5, iou_th=0.45, keypoint_th=0.5)
     for obj in objs:
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color=image.COLOR_RED)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
@@ -31,9 +34,9 @@ while not app.need_exit():
     dis.show(img)
 ```
 
-And you can also find code in [MaixPy/examples/vision](https://github.com/sipeed/MaixPy/tree/main/examples/vision/ai_vision) directory.
+You can also find the code in the [MaixPy/examples/vision](https://github.com/sipeed/MaixPy/tree/main/examples/vision/ai_vision) directory.
 
-As you can see, by using `YOLOv8-Pose`, we directly utilize the `YOLOv8` class. The only difference from the `YOLOv8` object detection model is the model file, and the `detect` function returns an additional `points` value, which is a list of `17` integer coordinates arranged in sequence. For example, the first value is the x-coordinate of the nose, the second value is the y-coordinate of the nose, and so on, in the following order:
+Since `YOLOv8-Pose` is used here, the `YOLOv8` class is also used, with the only difference being the model file compared to `YOLOv8` object detection. The same applies to `YOLO11`. The `detect` function returns an additional `points` value, which is a list of `int` containing `17` keypoints. The points are arranged in order; for example, the first value is the x-coordinate of the nose, the second value is the y-coordinate of the nose, and so on:
 
 ```python
 1. Nose
@@ -55,17 +58,16 @@ As you can see, by using `YOLOv8-Pose`, we directly utilize the `YOLOv8` class. 
 17. Right Ankle
 ```
 
-If certain parts are occluded, the corresponding values will be `-1`.
+If any of these parts are occluded, the value will be `-1`.
 
-## Higher Input Resolution Models
+## Models with More Resolutions
 
-The default model input resolution is `320x224`. If you wish to use a model with a higher resolution, you can download it from the [MaixHub Model Library](https://maixhub.com/model/zoo/401) and transfer it to your device.
+The default model input resolution is `320x224`. If you want to use models with higher resolution, you can download and transfer them from the MaixHub model library:
+* YOLOv8-Pose: [https://maixhub.com/model/zoo/401](https://maixhub.com/model/zoo/401)
+* YOLO11-Pose: [https://maixhub.com/model/zoo/454](https://maixhub.com/model/zoo/454)
 
-Higher resolutions theoretically offer better accuracy but come with a decrease in processing speed. Choose the resolution based on your use case. Additionally, if the provided resolutions do not meet your requirements, you can train your own model using the [YOLOv8-Pose](https://github.com/ultralytics/ultralytics) source code to export your own ONNX model, which can then be converted to a model supported by MaixCAM (method detailed in subsequent articles).
+Higher resolution generally provides better accuracy but at the cost of lower processing speed. Choose the model based on your application needs. If the provided resolution does not meet your requirements, you can train your own model using the source code from [YOLOv8-Pose / YOLO11-Pose](https://github.com/ultralytics/ultralytics) and export your own ONNX model, then convert it to a format supported by MaixCAM (methods are covered in later articles).
 
+## dual_buff for Double Buffering Acceleration
 
-## dual_buff Dual Buffer Acceleration
-
-You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
-
-
+You may notice that `dual_buff` is used for model initialization (default value is `True`). Enabling the `dual_buff` parameter can improve efficiency and increase the frame rate. For more details and considerations, refer to the [dual_buff Introduction](./dual_buff.md).
