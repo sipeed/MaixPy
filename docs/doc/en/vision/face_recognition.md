@@ -69,3 +69,8 @@ A complete example is provided for recording unknown faces and recognizing faces
 
 You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
 
+
+## Replacing Other Default Recognition Models
+
+The current recognition model (used to distinguish different individuals) is based on the MobileNetV2 model. If its accuracy does not meet your requirements, you can replace it with another model, such as the [Insight Face ResNet50](https://maixhub.com/model/zoo/462) model. Of course, you can also train your own model or find other pre-trained models and convert them into a format supported by MaixCAM. For the conversion method, refer to the [MaixCAM Model Conversion Documentation](../ai_model_converter/maixcam.md), and you can write the mud file based on existing examples.
+

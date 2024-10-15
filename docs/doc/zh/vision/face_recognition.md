@@ -72,4 +72,8 @@ recognizer.save_faces("/root/faces.bin")
 
 你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
 
+## 更换其它默认识别模型
+
+这里识别模型（区分不同人）用了 mobilenetv2 模型，如果不满足精度要求，可以更换成其它模型，比如[insight face resnet50](https://maixhub.com/model/zoo/462) 模型，当然你也可以自己训练或者找其它训练好的模型转换成 MaixCAM 支持的模型即可，转换方法看[MaixCAM 模型转换文档](../ai_model_converter/maixcam.md)， mud 文件参考以有的文件写即可。
+
 
