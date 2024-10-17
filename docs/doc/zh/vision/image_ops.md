@@ -156,7 +156,7 @@ image.set_default_font("sourcehansans")
 disp = display.Display()
 
 img = image.Image(disp.width(), disp.height())
-img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0))
+img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0, 0.8))
 
 disp.show(img)
 while not app.need_exit():
@@ -164,7 +164,7 @@ while not app.need_exit():
 ```
 加载字体文件，然后设置默认的字体，也可以不设置默认的字体，在写字的函数参数设置:
 ```python
-img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0), font="sourcehansans")
+img.draw_string(2, 2, "你好！Hello, world!", image.Color.from_rgba(255, 0, 0, 0.8), font="sourcehansans")
 ```
 
 注意 `string_size`方法也会使用设置的默认字体计算大小，也可以通过`font`参数单独设置要计算大小的字体。
