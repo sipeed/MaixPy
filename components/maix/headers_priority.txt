@@ -11,3 +11,6 @@ maix_image_color.hpp
 maix_image.hpp
 maix_camera.hpp
 maix_display.hpp
+maix_imu.hpp
+maix_qmi8658.hpp
+
