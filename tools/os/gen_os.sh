@@ -16,12 +16,14 @@ set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps] [board_name]"
+    echo "skip_build_apps can be 0 or 1"
+    echo "board_name can be maixcam or maixcam-pro"
     echo ""
 }
 
 param_count=$#
-if [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ]; then
+if [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ] && [ "$param_count" -ne 6 ]; then
     usage
     exit 1
 fi
@@ -31,10 +33,23 @@ whl_path=$2
 builtin_files_dir_path=$3
 os_version_str=$4
 skip_build_apps=0
+board_name=maixcam
 
 # 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
-if [ "x$5" != "x" ]; then
+if [ "x$5" == "x1" ]; then
     skip_build_apps=1
+elif [ "x$5" != "x0" ]; then
+    echo "skip_build_apps arg should be 0 or 1"
+    exit 1
+fi
+
+if [ "x$6" == "xmaixcam" ]; then
+    board_name=maixcam
+elif [ "x$6" == "xmaixcam-pro" ]; then
+    board_name=maixcam-pro
+else
+    echo "board_name arg should be maixcam or maixcam-pro"
+    exit 1
 fi
 
 
@@ -112,7 +127,13 @@ echo "$os_version_str" > tmp/sys_builtin_files/boot/ver
 mkdir -p tmp/sys_builtin_files/usr/lib
 cp "$MAIXCDK_PATH/components/maixcam_lib/lib/libmaixcam_lib.so" tmp/sys_builtin_files/usr/lib
 
-# 8. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
+# 8. 不同板型拷贝
+if [ $board_name == "maixcam-pro" ]; then
+    cp -f "tmp/sys_builtin_files/boot/maixcam_pro_logo.jpeg" "tmp/sys_builtin_files/boot/logo.jpeg"
+    sed -i 's/^panel=.*/panel=st7701_lct024bsi20/' "tmp/sys_builtin_files/boot/uEnv.txt"
+fi
+
+# 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
 ./update_img.sh tmp/sys_builtin_files "tmp/$os_version_str.img"
 
 # 9. xz 压缩镜像

@@ -98,9 +98,7 @@ jobs:
           echo "-- Generate system for MaixCAM-Pro --"
           echo "-------------------------------------"
           os_version_name_pro="maixcam-pro-${date_now}-maixpy-${maixpy_version}"
-          cp -f "${builtin_files_dir}/boot/maixcam_pro_logo.jpeg" "${builtin_files_dir}/boot/logo.jpeg"
-          sed -i 's/^panel=.*/panel=st7701_lct024bsi20/' "${builtin_files_dir}/boot/uEnv.txt"
-          ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name_pro 1
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name_pro 1 maixcam-pro
           os_filename=${os_version_name_pro}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
           sha256sum $os_filepath >> ${maixpy_path}/sha256sum_files.txt
