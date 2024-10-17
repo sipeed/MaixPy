@@ -152,3 +152,12 @@ MaixVision 的日志输出窗口在开始启动程序是会打印一句`start ru
 * 确保你是从 Sipeed 购买的正版 MaixCAM。
 * 咨询客服，带上系统版本可以 device_key （可以连接上 MaixVision 点击断开连接按钮后看到，有屏幕的也可以在`系统设置->系统信息`中看到）
 
+## 编译报错: type not registered yet?
+
+```
+from ._maix.peripheral.key import add_default_listener
+ImportError: arg(): could not convert default argument into a Python object (type not registered yet?). #define
+```
+
+显示有对象没有定义成 python 对象，在 MaixPy 中一般是由于自动扫描API生成时的顺序问题造成的，比如在`a.hpp`中有一个`@maixpy`声明的`API`， 在`b.hpp` 中有另一个`API`而且参数使用了`a.hpp`中的定义，那么可以说`b.hpp`需要依赖`a.hpp`，但目前`MaixPy`的编译脚本不会做依赖关系扫描，所以需要在`MaixPy`项目中的`components/maix/headers_priority.txt`文件中手动指定一下，`a.hpp`在`b.hpp`前面扫描就可以了。
+

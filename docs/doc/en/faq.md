@@ -150,3 +150,15 @@ If you want to adjust the memory allocation, you would need to compile the syste
 * Make sure you have purchased a genuine MaixCAM from Sipeed.
 * Contact customer service, providing the system version and device_key (which can be found after disconnecting from MaixVision or, if you have a screen, in `System Settings -> System Information`).
 
+
+Translation:
+
+## Compile error: type not registered yet?
+
+```
+from ._maix.peripheral.key import add_default_listener
+ImportError: arg(): could not convert default argument into a Python object (type not registered yet?). #define
+```
+
+The error indicates that an object has not been defined as a Python object. In MaixPy, this is usually caused by an issue with the order of automatic API generation. For example, if there is an API declared with `@maixpy` in `a.hpp`, and another API in `b.hpp` that uses a definition from `a.hpp` as a parameter, then `b.hpp` depends on `a.hpp`. However, the current MaixPy compilation script does not perform dependency scanning. To resolve this, you need to manually specify the scan order in the `components/maix/headers_priority.txt` file in the MaixPy project, ensuring that `a.hpp` is scanned before `b.hpp`.
+
