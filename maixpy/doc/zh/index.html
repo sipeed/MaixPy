@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy 快速开始 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/index.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/os.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app_usage.html"><span class="label">应用使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixpy_upgrade.html"><span class="label">更新 MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录音</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">HID Device 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy 快速开始</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/README.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <style>
+    #head_links table {
+        width: 100%;
+        display: table;
+    }
+
+    @media screen and (max-width: 900px){
+      #head_links th, #head_links td {
+          /* padding: 8px; */
+          font-size: 0.9em;
+          padding: 0.1em 0.05em;
+      }
+    }
+</style>
+<div id="head_links">
+<table>
+<thead>
+<tr>
+  <th style="text-align:center">资源汇总</th>
+  <th style="text-align:center">链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style="text-align:center">MaixPy 教程文档 📖</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixpy"  target="_blank">wiki.sipeed.com/maixpy</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixPy 例程和源码 <img src="/maixpy/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"></td>
+  <td style="text-align:center"><a href="https://github.com/sipeed/MaixPy"  target="_blank">github.com/sipeed/MaixPy</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixCAM 硬件资料 📷</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixcam"  target="_blank">wiki.sipeed.com/maixcam</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixPy API 文档 📚</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixpy/api/index.html"  target="_blank">wiki.sipeed.com/maixpy/api/</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixPy 视频和教程 💿</td>
+  <td style="text-align:center"><a href="https://search.bilibili.com/all?keyword=maixcam&amp;from_source=webtop_search&amp;spm_id_from=333.1007&amp;search_source=5"  target="_blank">B站搜 MaixCAM 或 MaixPy</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixHub 应用商店 📦</td>
+  <td style="text-align:center"><a href="https://maixhub.com/app"  target="_blank">maixhub.com/app</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixHub 分享广场 🎲</td>
+  <td style="text-align:center"><a href="https://maixhub.com/share"  target="_blank">maixhub.com/share</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
+  <div style="padding: 1em 0 0 0">
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://item.taobao.com/item.htm?id=784724795837">淘宝</a>
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://www.aliexpress.com/store/911876460">速卖通</a>
+  </div>
+</div>
+<br>
+<blockquote>
+<p>关于 MaixPy 介绍请看 <a href="../../index.html"  >MaixPy 官网首页</a><br />
+喜欢 MaixPy 请给 <a href="https://github.com/sipeed/MaixPy"  target="_blank"> MaixPy 项目</a> 点个 Star ⭐️ 以鼓励我们开发更多功能。</p>
+</blockquote>
+<h2 id="%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</h2>
+<ul>
+<li>请<strong>仔细</strong>阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。</li>
+<li><strong>左边目录</strong>请仔细查看，基础部分一定要耐心阅读完。</li>
+<li><strong>提问前</strong>先在左边目录仔细查找文档，以及看<a href="./faq.html"  >FAQ</a>。</li>
+<li>本文档是<code>MaixPy v4 教程文档</code>，注意与 <a href="https://wiki.sipeed.com/soft/maixpy/zh/index.html"  target="_blank">MaixPy-v1</a>（k210系列）区别开，勿错看文档。</li>
+<li>也可以参考下面的视频上手教程，注意视频内容有更正在<strong>评论区和弹幕会补充，以最新的文档为准</strong>，更多视频教程可以到 B 站搜索 MaixCAM。</li>
+</ul>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112865415531014&bvid=BV1vcvweCEEe&cid=500001630687957&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="min-height:20em; width: 90%"></iframe>
+<h2 id="%E8%8E%B7%E5%BE%97-MaixCAM-%E8%AE%BE%E5%A4%87">获得 MaixCAM 设备</h2>
+<ul>
+<li><strong>MaixCAM</strong>：在 <a href="https://item.taobao.com/item.htm?id=784724795837"  target="_blank">Sipeed 淘宝</a> 或者 <a href="https://www.aliexpress.com/store/911876460"  target="_blank">Sipeed 速卖通</a> 店铺购买 <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> 。</li>
+</ul>
+<p><strong>建议购买带 <code>TF 卡</code>、<code>摄像头</code>、<code>2.3寸触摸屏</code>、<code>外壳</code>、<code>Type-C 数据线</code>、 <code>Type-C一转二小板</code>、<code>4P串口座子+线</code>的套餐</strong>，方便后续使用和开发，<strong>后面的教程都默认你已经有了这些配件</strong>（包括屏幕）。</p>
+<p><strong>强烈建议买带屏幕的套餐，会大大提升开发体验</strong>，如果你实际部署到生产环境不需要屏幕，可以先用带屏幕的入门和开发，最后再去掉屏幕或者购买不带屏幕的量产。</p>
+<ul>
+<li><p><strong>电源</strong>： 一个稳定的供电方式，MaixCAM 需要 <code>5v 500mA</code> 的稳定供电，如果供电不足可能会导致无法开机，或者运行过程中死机等情况。特别是有些电脑的 USB 口供电可能不稳定。</p>
+</li>
+<li><p><strong>TF 读卡器</strong>: 用来烧录系统，必备。</p>
+</li>
+<li><p><strong>USB转串口模块</strong>: 如果你想要电脑和 MaixCAM 之间串口通信，需要备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&amp;id=610365562537"  target="_blank">双串口转USB模块</a>。</p>
+</li>
+</ul>
+<blockquote class="spoiler warning">
+<p> 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。</p>
+</blockquote>
+<h2 id="%E4%BD%BF%E7%94%A8%E6%97%A0%E5%B1%8F%E5%B9%95%E7%89%88%E6%9C%AC">使用无屏幕版本</h2>
+<p>如果你使用的是无屏幕版本，请看<a href="./README_no_screen.html"  >快速开始（无屏幕版本）</a>文档。</p>
+<h2 id="%E4%B8%8A%E6%89%8B%E9%85%8D%E7%BD%AE">上手配置</h2>
+<h3 id="%E5%87%86%E5%A4%87-TF-%E9%95%9C%E5%83%8F%E5%8D%A1%E5%92%8C%E6%8F%92%E5%85%A5%E5%88%B0%E8%AE%BE%E5%A4%87">准备 TF 镜像卡和插入到设备</h3>
+<p>如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，<strong>务必</strong>按照<a href="https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html"  target="_blank">升级和烧录系统</a>先将系统升级到最新版本，否则可能会遇到某些应用 和 API 无法使用的问题。</p>
+<p>如果没买 TF 卡，则需要将系统烧录进自备的 TF 卡中，烧录方法请看<a href="./basic/os.html"  >升级和烧录系统</a>，然后再安装到板子。</p>
+<h3 id="%E4%B8%8A%E7%94%B5%E5%BC%80%E6%9C%BA">上电开机</h3>
+<p>使用 <code>Type-C</code> 数据线连接 <code>MaixCAM</code> 设备给设备供电，等待设备开机，开机会进入功能选择界面。</p>
+<p><img src="../../static/image/maixcam_font.png" alt="maixcam_font" /></p>
+<p>如果屏幕没有显示</p>
+<ul>
+<li>请确认购买了配套的 TF 卡，如果确认有 TF 卡，并且已经插入到设备，可以<strong>尝试<a href="./basic/os.html"  >更新到最新的系统</a></strong>。</li>
+<li>如果你没有购买 TF 卡套餐，你需要按照<a href="./basic/os.html"  >升级和烧录系统</a>的方法烧录最新的系统到 TF 卡。</li>
+<li>另外请确认屏幕和摄像头的排线没有松动，屏幕的排线在拆开外壳时很容易脱落，需要注意。</li>
+</ul>
+<h3 id="%E8%81%94%E7%BD%91">联网</h3>
+<p>首次运行需要连接网络，后面会激活设备和使用 IDE 会用到。<br />
+如果没有路由器可以用手机开一个热点。</p>
+<p>设备上点击 <code>设置</code>(<code>Settings</code>)，选择<code>WiFi</code>，有两种方法连接 <code>WiFi</code> 热点：</p>
+<ul>
+<li>扫描 WiFi 分享码：<ul>
+<li>使用手机分享<code>WiFi</code>热点二维码，或者到<a href="https://maixhub.com/wifi"  target="_blank">maixhub.com/wifi</a> 生成一个二维码。</li>
+<li>点击<code>扫描二维码</code>按钮，会出现摄像头的画面，扫描前面生成的二维码进行连接。</li>
+</ul>
+</li>
+<li>搜索热点：<ul>
+<li>点击 <code>扫描</code> 按钮开始扫描周围 <code>WiFi</code>， 可以多次点击刷新列表。</li>
+<li>找到你的 WiFi 热点。</li>
+<li>输入密码点击<code>连接</code>按钮进行连接。</li>
+</ul>
+</li>
+</ul>
+<p>然后等待获取到 <code>IP</code> 地址，这可能需要 <code>10</code> 到 <code>30</code> 秒，如果界面没有刷新可以退出<code>WiFi</code>功能重新进入查看，或者在<code>设置</code> -&gt; <code>设备信息</code> 中也可以看到 <code>IP</code> 信息。</p>
+<h3 id="%E5%8D%87%E7%BA%A7%E8%BF%90%E8%A1%8C%E5%BA%93">升级运行库</h3>
+<p><strong>这一步很重要 ！！！</strong> 这一步如果不做好，其它应用和功能可能无法运行（比如闪退等）。</p>
+<ul>
+<li>首先保证上一步连接 WiFi 已经完成，并且获取到 IP 地址能访问公网。</li>
+<li>设备上点击 <code>设置</code>(<code>Settings</code>)，选择<code>安装运行库</code>。</li>
+<li>安装完成后可以看到更新到了最新版本，然后退出即可。</li>
+</ul>
+<p>如果显示<code>Request failed</code> 或者<code>请求失败</code>，请先检查网络是否已经连接，需要能连接到互联网，如果还不行，请拍照联系客服处理即可。</p>
+<h3 id="%E4%BD%BF%E7%94%A8%E5%86%85%E7%BD%AE%E5%BA%94%E7%94%A8">使用内置应用</h3>
+<p>内置了很多应用，比如 找色块，AI 检测器，巡线等等，找色块举例：</p>
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/maixpy/static/video/find_blobs.mp4" type="video/mp4" style="width:95%">
+Classifier Result video
+</video>
+<p>其它的请自行摸索，以后还会更新更多应用，使用文档以及应用更新请看 <a href="https://maixhub.com/app"  target="_blank">MaixHub 应用商店</a> 。</p>
+<p><strong>注意：应用只包含了 MaixPy 能实现的一部分功能，使用 MaixPy 能创造更多功能</strong>。</p>
+<h2 id="%E4%BD%9C%E4%B8%BA%E4%B8%B2%E5%8F%A3%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8">作为串口模块使用</h2>
+<blockquote>
+<p>如果是想把设备当成主控使用（或者你还不懂什么是串口模块）可以跳过这一步。</p>
+</blockquote>
+<p>内置的各种应用可以直接当成串口模块使用，比如<code>找色块</code>、<code>找人脸</code>、<code>找二维码</code>等等，<br />
+注意这里串口仅能直接和其它单片机连接，<strong>如果要和电脑串口通信请自备一个 USB 转串口模块</strong>。</p>
+<p>使用方法：</p>
+<ul>
+<li>硬件连接： 可以给设备接上<code>Type-C一转二小板</code>，这样我们就能将设备通过串口连接到你的主控上了，比如<code>Arduino</code>、<code>树莓派</code>、<code>STM32</code>等等。</li>
+<li>打开你想用的应用，比如二维码识别，当设备扫描到二维码就会通过串口把结果发送给你的主控了。</li>
+</ul>
+<blockquote>
+<p>发送的串口波特率是 <code>115200</code>，数据格式是 <code>8N1</code>，协议遵循 <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix 串口通信协议标准</a>，可以在<a href="https://maixhub.com/app"  target="_blank">MaixHub APP</a> 找到对应的应用介绍查看协议。<br />
+如果应用没有做串口输出结果，你也可以自己基于对应功能的例程，自行按照<a href="./peripheral/uart.html"  >串口使用文档</a>添加串口输出结果。</p>
+</blockquote>
+<h2 id="%E5%87%86%E5%A4%87%E8%BF%9E%E6%8E%A5%E7%94%B5%E8%84%91%E5%92%8C%E8%AE%BE%E5%A4%87">准备连接电脑和设备</h2>
+<p>为了后面电脑（PC）能和 设备（MaixCAM）通信，我们要让它们在同一个局域网内，提供了两种方式：</p>
+<ul>
+<li><strong>方法一 (强烈推荐)</strong>：无线连接， 设备使用 WiFi 连接到电脑连接的同一个路由器或者 WiFi 热点下： 在设备的<code>设置 -&gt; WiFi 设置</code>中连接到你的 WiFi 即可。（WiFi 如果出现画面卡顿或者延迟高的问题可以尝试下面的方法二使用有线连接。）</li>
+<li><strong>方法二</strong>：有线连接， 设备通过 USB 线连接到电脑，设备会虚拟成一个 USB 网卡，这样和电脑就通过 USB 在同一局域网了。推荐先用 WiFi 开始是因为有线虽然传输稳定但是可能会遇到线缆不良，接触不良，驱动等问题，遇到问题也可以在 <a href="./faq.html"  >FAQ</a> 中找常见问题。</li>
+</ul>
+<details open>
+<summary>方法二在不同电脑系统中驱动安装方法：</summary>
+<div class="details-content"><p>默认会有两种 USB 虚拟网卡驱动（NCM 和 RNDIS驱动），以满足不同系统的需求，你也可以在设备端<code>设置</code>应用 -&gt; <code>USB设置</code> 里面关掉不用的虚拟网卡：</p>
+<ul>
+<li><strong>Windows</strong>: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动<strong>有一个能用就行</strong>。<ul>
+<li>打开任务管理器 -&gt; 性能，可以看到一个虚拟的以太网，并且可以看到 ip 比如 <code>10.131.167.100</code> 是电脑的 ip, 设备的 ip 是最后一位改为<code>1</code> 即 <code>10.131.167.1</code>。如果是 Win11 则会看到两个虚拟网卡，随便选择一个 IP 使用即可。</li>
+<li>另外也可以打开电脑的 <code>设备管理器</code>（搜索栏搜索<code>设备管理器</code>）， RNDIS 和 NCM 驱动被正确安装的效果：<br />
+<img src="../../static/image/windows_rndis_ok.png" alt="RNDIS ok" /> <img src="../../static/image/windows_ncm_ok.png" alt="NCM ok" /></li>
+</ul>
+</li>
+<li><strong>Linux</strong>: 无需额外设置，插上 USB 线即可。 使用 <code>ifconfig</code> 或者 <code>ip addr</code> 查看到 <code>usb0</code> 和 <code>usb1</code> 网卡，两个 IP 都可以使用，<strong>注意</strong> 这里看到的 ip 比如 <code>10.131.167.100</code> 是电脑的 ip, 设备的 ip 是最后一位改为<code>1</code> 即 <code>10.131.167.1</code>。</li>
+<li><strong>MacOS</strong>: 在<code>系统设置</code>-&gt;<code>网络</code>里面查看到 <code>usb</code> 网卡，<strong>注意</strong> 这里看到的 ip 比如 <code>10.131.167.100</code> 是电脑的 ip, 设备的 ip 是最后一位改为<code>1</code> 即 <code>10.131.167.1</code>。</li>
+</ul>
+</div>
+</details>
+<h2 id="%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">开发环境准备</h2>
+<ul>
+<li>首先保证上一步电脑和设备已经在同一个局域网中了。</li>
+<li>下载 <a href="https://wiki.sipeed.com/maixvision"  target="_blank">MaixVision</a> 并安装。</li>
+<li>使用 Type-C 连接设备和电脑，打开 MaixVision，点击左下角的<code>“连接”</code>按钮，会自动搜索设备，稍等一下就能看到设备，点击设备有点的连接按钮以连接设备。</li>
+</ul>
+<p>如果<strong>没有扫描到设备</strong>，你也可以在<strong>设备</strong>的 <code>设置 -&gt; 设备信息</code> 中查看设备的 IP 地址手动输入， 也可以在 <a href="./faq.html"  >FAQ</a> 中找到解决方法。</p>
+<p><strong>连接成功后，设备的功能选择界面会消失，屏幕会黑屏，释放了所有硬件资源，如果仍然有画面显示，可以断开连接重连。</strong></p>
+<p>这里有 MaixVision 的使用示例视频:</p>
+<p><video style="width:100%" controls muted preload src="/maixpy/static/video/maixvision.mp4"></video></p>
+<h2 id="%E8%BF%90%E8%A1%8C%E4%BE%8B%E7%A8%8B">运行例程</h2>
+<p>点击 MaixVision 左侧的<code>示例代码</code>，选择一个例程，点击左下角<code>运行</code>按钮将代码发送到设备上运行。</p>
+<p>比如：</p>
+<ul>
+<li><code>hello_maix.py</code>，点击<code>运行</code>按钮，就能看到 MaixVision 终端有来自设备打印的消息，以及右上角出现了图像。</li>
+<li><code>camera_display.py</code>，这个例程会打开摄像头并在屏幕上显示摄像头的画面。</li>
+</ul>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, app
+
+disp = display.Display()          # 构造一个显示对象，并初始化屏幕
+cam = camera.Camera(640, 480)     # 构造一个摄像头对象，手动设置了分辨率为 640x480, 并初始化摄像头
+while not app.need_exit():        # 一直循环，直到程序退出（可以通过按下设备的功能按键退出或者 MaixVision 点击停止按钮退出）
+    img = cam.read()              # 读取摄像头画面保存到 img 变量，可以通过 print(img) 来打印 img 的详情
+    disp.show(img)                # 将 img 显示到屏幕上
+</code></pre>
+<ul>
+<li><code>yolov5.py</code> 会检测摄像头画面中的物体框出来并显示到屏幕上，支持 80 种物体的检测，具体请看<a href="./vision/yolov5.html"  >YOLOv5/YOLOv8/YOLO11 物体检测</a>。</li>
+</ul>
+<p>其它例程可以自行尝试。</p>
+<blockquote>
+<p>如果你使用相机例程遇到了图像显示卡顿，可能是网络不通畅，或者 USB 线质量或者主机 USB 质量太差造成，可以更换连接方式或者更换线缆、主机 USB 口或者电脑等。</p>
+</blockquote>
+<h2 id="%E5%AE%89%E8%A3%85%E5%BA%94%E7%94%A8%E5%88%B0%E8%AE%BE%E5%A4%87">安装应用到设备</h2>
+<p>上面是在设备中运行代码，<code>MaixVision</code> 断开后代码就会停止运行，如果想让代码出现在开机菜单中，可以打包成应用安装到设备上。</p>
+<p>点击 <code>MaixVision</code> 左下侧的安装应用按钮，填写应用信息，会将应用安装到设备上，然后在设备上就能看到应用了。<br />
+也可以选择打包应用，将你的应用分享到<a href="https://maixhub.com/app"  target="_blank">MaixHub 应用商店</a>。</p>
+<blockquote>
+<p>默认例程没有显式编写退出功能，进入应用后按下设备的功能按键即可退出应用。（对于 MaixCAM 是 user 键）</p>
+</blockquote>
+<p>如果想让程序开机自启动，可以在 <code>设置 -&gt; 开机启动</code> 中设置。</p>
+<h2 id="%E4%B8%8B%E4%B8%80%E6%AD%A5">下一步</h2>
+<p>看到这里，如果你觉得不错，<strong>请务必来 <a href="https://github.com/sipeed/MaixPy"  target="_blank">github</a> 给 MaixPy 开源项目点一个 star（需要先登录 github）, 你的 star 和认同是我们不断维护和添加新功能的动力！</strong></p>
+<p>到这里你已经体验了一遍使用和开发流程了，接下来可以学习 <code>MaixPy</code> 语法和功能相关的内容，请按照左边的目录进行学习，如果遇到 <code>API</code> 使用问题，可以在<a href="/maixpy/api/"  >API 文档</a>中查找。</p>
+<p>学习前最好带着自己学习的目的学，比如做一个有趣的小项目，这样学习效果会更好，项目和经验都可以分享到<a href="https://maixhub.com/share"  target="_blank">MaixHub 分享广场</a>，会获得现金奖励哦！</p>
+<h2 id="%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-FAQ">常见问题 FAQ</h2>
+<p>遇到问题可以优先在 <a href="./faq.html"  >FAQ</a> 里面找，找不到再在下面的论坛或者群询问，或者在 <a href="https://github.com/sipeed/MaixPy/issues"  target="_blank">MaixPy issue</a> 提交源码问题。</p>
+<h2 id="%E5%88%86%E4%BA%AB%E4%BA%A4%E6%B5%81">分享交流</h2>
+<ul>
+<li><strong><a href="https://maixhub.com/share"  target="_blank">MaixHub 项目和经验分享</a></strong> ：分享你的项目和经验，获得现金打赏，获得官方打赏的基本要求：<ul>
+<li><strong>可复现型</strong>：较为完整的项目制作复现过程。</li>
+<li><strong>炫耀型</strong>：无详细的项目复现过程，但是项目展示效果吸引人。</li>
+<li>Bug 解决经验型：解决了某个难题的过程和具体解决方法分享。</li>
+</ul>
+</li>
+<li><a href="https://maixhub.com/discussion/maixpy"  target="_blank">MaixPy 官方论坛</a>（提问和交流）</li>
+<li>QQ 群： （建议在 QQ 群提问前先发个帖，方便群友快速了解你需要了什么问题，复现过程是怎样的）<ul>
+<li>MaixPy (v4) AI 视觉交流大群: 862340358</li>
+</ul>
+</li>
+<li>Telegram: <a href="https://t.me/maixpy"  target="_blank">MaixPy</a></li>
+<li>MaixPy 源码问题: <a href="https://github.com/sipeed/MaixPy/issues"  target="_blank">MaixPy issue</a></li>
+<li>商业合作或批量购买请联系 support@sipeed.com 。</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/README_no_screen.html">
+                            <span class="label">快速开始（无屏幕版）</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

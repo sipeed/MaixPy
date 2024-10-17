@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>将 ONNX 模型转换为 MaixCAM MaixPy 可以使用的模型（MUD） - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/ai_model_converter/maixcam.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/ai_model_converter/maixcam.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/os.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app_usage.html"><span class="label">应用使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixpy_upgrade.html"><span class="label">更新 MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录音</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">HID Device 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>将 ONNX 模型转换为 MaixCAM MaixPy 可以使用的模型（MUD）</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/ai_model_converter/maixcam.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>电脑上训练的模型不能直接给 MaixCAM 使用，因为 MaixCAM 的硬件性能有限，一般我们需要将模型进行<code>INT8</code>量化以减少计算量，并且转换为 MaixCAM 支持的模型格式。</p>
+<p>本文介绍如何将 ONNX 模型转换为 MaixCAM 能使用的模型（MUD模型）。</p>
+<h2 id="MaixCAM-%E6%94%AF%E6%8C%81%E7%9A%84%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">MaixCAM 支持的模型文件格式</h2>
+<p>MUD（模型统一描述文件， model universal description file）是 MaixPy 支持的一种模型描述文件，用来统一不同平台的模型文件，方便 MaixPy 代码跨平台，本身是一个 <code>ini</code>格式的文本文件，可以使用文本编辑器编辑。<br />
+一般 MUD 文件会伴随一个或者多个实际的模型文件，比如对于 MaixCAM， 实际的模型文件是<code>.cvimodel</code>格式， MUD 文件则是对它做了一些描述说明。</p>
+<p>这里以 <code>YOLOv8</code> 模型文件举例，一共两个文件<code>yolov8n.mud</code>和<code>yolov8n.cvimodel</code>，前者内容：</p>
+
+<pre class="language-ini"><code class="language-ini">[basic]
+type = cvimodel
+model = yolov8n.cvimodel
+
+[extra]
+model_type = yolov8
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+</code></pre>
+<p>可以看到， 指定了模型类别为<code>cvimodel</code>, 模型路径为相对<code>mud</code>文件的路径下的<code>yolov8n.cvimodel</code>文件；<br />
+以及一些需要用到的信息，比如预处理<code>mean</code>和<code>scale</code>，这里需要和训练的时候对模型输入的数据的预处理方法一致，<code>labels</code>则是检测对象的 80 种分类。</p>
+<p>实际用这个模型的时候将两个文件放在同一个目录下即可。</p>
+<h2 id="%E5%87%86%E5%A4%87-ONNX-%E6%A8%A1%E5%9E%8B">准备 ONNX 模型</h2>
+<p>准备好你的 onnx 模型， 然后在<a href="https://netron.app/"  target="_blank">https://netron.app/</a> 查看你的模型，确保你的模型使用的算子在转换工具的支持列表中，转换工具的支持列表可以在<a href="https://developer.sophgo.com/thread/473.html"  target="_blank">算能 TPU SDK</a>的 <strong>CVITEK_TPU_SDK开发指南.pdf</strong> 中看到列表。</p>
+<h2 id="%E6%89%BE%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E9%87%8F%E5%8C%96%E8%BE%93%E5%87%BA%E8%8A%82%E7%82%B9">找出合适的量化输出节点</h2>
+<p>一般模型都有后处理节点，这部分是 CPU 进行运算的，我们将它们剥离出来，它们会影响到量化效果，可能会导致量化失败。</p>
+<p>这里以<code>YOLOv5 举例</code>，</p>
+<p><img src="../../assets/yolov5s_onnx.jpg" alt="" /></p>
+<p>可以看到这里有三个<code>conv</code>，后面的计算均由 CPU 进行，我们量化时就采取这几个<code>conv</code>的输出作为模型的最后输出，在这里输出名分别叫<code>/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0</code>。</p>
+<h2 id="%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%8E%AF%E5%A2%83">安装模型转换环境</h2>
+<p>模型转换使用算能的<a href="https://github.com/sophgo/tpu-mlir"  target="_blank">https://github.com/sophgo/tpu-mlir</a>，要安装它我们直接在 docker 环境中安装，防止我们电脑的环境不匹配，如果你没用过 docker，可以简单理解成它类似虚拟机。</p>
+<h3 id="%E5%AE%89%E8%A3%85-docker">安装 docker</h3>
+<p>参考<a href="https://docs.docker.com/engine/install/ubuntu/"  target="_blank">docker 安装官方文档</a>安装即可。</p>
+<p>比如：</p>
+
+<pre class="language-shell"><code class="language-shell"># 安装docker依赖的基础软件
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+# 添加官方来源
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;
+# 安装 docker
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre>
+<h3 id="%E6%8B%89%E5%8F%96-docker-%E9%95%9C%E5%83%8F">拉取 docker 镜像</h3>
+
+<pre class="language-shell"><code class="language-shell">docker pull sophgo/tpuc_dev:latest
+</code></pre>
+<p>如果docker拉取失败，可以通过以下方式进行下载：</p>
+
+<pre class="language-shell"><code class="language-shell">wget https://sophon-file.sophon.cn/sophon-prod-s3/drive/24/06/14/12/sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+docker load -i sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+</code></pre>
+<p>这个方法参考<a href="https://github.com/sophgo/tpu-mlir/blob/master/README_cn.md"  target="_blank">tpu-mlir官方docker环境配置</a>。</p>
+<p>此外你也可以设置国内的镜像，可自行搜索或者参考<a href="https://neucrack.com/p/286"  target="_blank">docker 设置代理，以及国内加速镜像设置</a>。</p>
+<h3 id="%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8">运行容器</h3>
+
+<pre class="language-shell"><code class="language-shell">docker run --privileged --name tpu-env -v /home/$USER/data:/home/$USER/data -it sophgo/tpuc_dev
+</code></pre>
+<p>这就起了一个容器，名叫<code>tpu-env</code>，并且把本机的<code>~/data</code>目录挂载到了容器的<code>~/data</code>，这样就实现了文件共享，并且和宿主机路径一致。</p>
+<p>下次启动容器用<code>docker start tpu-env &amp;&amp; docker attach tpu-env</code>即可。</p>
+<h3 id="%E5%AE%89%E8%A3%85-tpu-mlir">安装 tpu-mlir</h3>
+<p>先到<a href="https://github.com/sophgo/tpu-mlir/releases"  target="_blank">github</a>下载 <code>whl</code> 文件，放到<code>~/data</code>目录下。<br />
+在容器中执行命令安装：</p>
+
+<pre class="language-shell"><code class="language-shell">pip install tpu_mlir*.whl # 这里就是下载文件的名字
+</code></pre>
+<p>执行<code>model_transform.py</code> 会有打印帮助信息就算是安装成功了。</p>
+<h2 id="%E7%BC%96%E5%86%99%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC">编写转换脚本</h2>
+<p>转换模型主要就两个命令，<code>model_transform.py</code> 和 <code>model_deploy.py</code>，主要麻烦的是参数，所以我们写一个脚本<code>convert_yolov5_to_cvimodel.sh</code>存下来方便修改。</p>
+
+<pre class="language-shell"><code class="language-shell">#!/bin/bash
+
+set -e
+
+net_name=yolov5s
+input_w=640
+input_h=640
+
+# mean: 0, 0, 0
+# std: 255, 255, 255
+
+# mean
+# 1/std
+
+# mean: 0, 0, 0
+# scale: 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+
+mkdir -p workspace
+cd workspace
+
+# convert to mlir
+model_transform.py \
+--model_name ${net_name} \
+--model_def ../${net_name}.onnx \
+--input_shapes [[1,3,${input_h},${input_w}]] \
+--mean &quot;0,0,0&quot; \
+--scale &quot;0.00392156862745098,0.00392156862745098,0.00392156862745098&quot; \
+--keep_aspect_ratio \
+--pixel_format rgb \
+--channel_format nchw \
+--output_names &quot;/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0&quot; \
+--test_input ../dog.jpg \
+--test_result ${net_name}_top_outputs.npz \
+--tolerance 0.99,0.99 \
+--mlir ${net_name}.mlir
+
+# export bf16 model
+#   not use --quant_input, use float32 for easy coding
+model_deploy.py \
+--mlir ${net_name}.mlir \
+--quantize BF16 \
+--processor cv181x \
+--test_input ${net_name}_in_f32.npz \
+--test_reference ${net_name}_top_outputs.npz \
+--model ${net_name}_bf16.cvimodel
+
+echo &quot;calibrate for int8 model&quot;
+# export int8 model
+run_calibration.py ${net_name}.mlir \
+--dataset ../images \
+--input_num 200 \
+-o ${net_name}_cali_table
+
+echo &quot;convert to int8 model&quot;
+# export int8 model
+#    add --quant_input, use int8 for faster processing in maix.nn.NN.forward_image
+model_deploy.py \
+--mlir ${net_name}.mlir \
+--quantize INT8 \
+--quant_input \
+--calibration_table ${net_name}_cali_table \
+--processor cv181x \
+--test_input ${net_name}_in_f32.npz \
+--test_reference ${net_name}_top_outputs.npz \
+--tolerance 0.9,0.6 \
+--model ${net_name}_int8.cvimodel
+</code></pre>
+<p>可以看到，这里有几个比较重要的参数：</p>
+<ul>
+<li><code>output_names</code> 就是我们前面说到的输出节点的输出名。</li>
+<li><code>mean, scale</code> 就是训练时使用的预处理方法，比如 <code>YOLOv5</code> 官方代码的预处理是把图像 RGB 3个通道分别 <code>-mean</code>再除以<code>std</code>，并且默认<code>mean</code></li>
+</ul>
+<p>为<code>0</code>， <code>std</code>为<code>255</code>，即将图像的值归一，这里<code>scale</code>就是<code>1/std</code>。你的模型需要根据实际的预处理方法修改。</p>
+<ul>
+<li><code>test_input</code> 就是转换时用来测试的图像，这里是<code>../dog.jpg</code>，所以实际模型转换时我们需要在此脚本所在同目录放一张<code>dog.jpg</code>的图，你的模型根据你的实际情况替换图像。</li>
+<li><code>tolerance</code> 就是量化前后允许的误差，如果转换模型时报错提示值小于设置的这个值，说明转出来的模型可能相比 onnx 模型误差较大，如果你能够容忍，可以适当调小这个阈值让模型转换通过，不过大多数时候都是因为模型结构导致的，需要优化模型，以及仔细看后处理，把能去除的后处理去除了。</li>
+<li><code>quantize</code> 即量化的数据类型，在 MaixCAM 上我们一般用 INT8 模型，这里我们虽然也顺便转换了一个 BF16 模型，BF16 模型的好处时精度高，不过运行速率比较慢，能转成 INT8 就推荐先用 INT8,实在不能转换的或者精度要求高速度要求不高的再考虑 BF16。</li>
+<li><code>dataset</code> 表示用来量化的数据集，也是放在转换脚本同目录下，比如这里是<code>images</code>文件夹，里面放数据即可，对于 YOLOv5 来说就是图片，从 coco 数据集中复制一部分典型场景的图片过来即可。 用<code>--input_num</code> 可以指定实际使用图片的数量（小于等于 images 目录下实际的图片）。</li>
+</ul>
+<h2 id="%E6%89%A7%E8%A1%8C%E8%BD%AC%E6%8D%A2%E8%84%9A%E6%9C%AC">执行转换脚本</h2>
+<p>直接执行<code>chmod +x convert_yolov5_to_cvimodelsh &amp;&amp; ./convert_yolov5_to_cvimodel.sh</code> 等待转换完成。</p>
+<p>如果出错了，请仔细看上一步的说明，是不是参数有问题，或者输出层选择得不合理等。</p>
+<p>然后就能在<code>workspace</code>文件夹下看到有<code>**_int8.cvimodel</code> 文件了。</p>
+<h2 id="%E7%BC%96%E5%86%99%3Ccode%3Emud%3C/code%3E%E6%96%87%E4%BB%B6">编写<code>mud</code>文件</h2>
+<p>根据你的模型情况修改<code>mud</code>文件，对于 YOLOv5 就如下，修改成你训练的<code>labels</code>就好了。</p>
+
+<pre class="language-ini"><code class="language-ini">[basic]
+type = cvimodel
+model = yolov5s.cvimodel
+
+[extra]
+model_type = yolov5
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+</code></pre>
+<p>这里<code>basic</code>部分指定了模型文件类别和模型文件路径，是必要的参数，有了这个参数就能用<code>MaixPy</code>或者<code>MaixCDK</code>中的<code>maix.nn.NN</code>类来加载并运行模型了。</p>
+<p><code>extra</code>则根据不同模型的需求设计不同参数。<br />
+比如这里对<code>YOLOv5</code>设计了这些参数，主要是 预处理、后处理、标签等参数。<br />
+对于 <code>MaixPy</code> 已经支持了的模型可以直接下载其模型复制修改。<br />
+也可以看具体的代码，比如<a href="https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp#L73-L223"  target="_blank">YOLOv5 的源码</a>，可以看到源码使用了哪些参数。</p>
+<p>比如你用<code>YOLOv5</code>训练了检测数字<code>0~9</code>的模型，那么需要将<code>labels</code>改成<code>0,1,2,3,4,5,6,7,8,9</code>，其它参数如果你没改训练代码保持即可。</p>
+<p>如果你需要移植 <code>MaixPy</code> 没有支持的模型，则可以根据模型的预处理和后处理情况定义 <code>extra</code>, 然后编写对应的解码类。如果你不想用C++修改 MaixPy 源码，你也可以用MaixPy 的<code>maix.nn.NN</code>类加载模型，然后用 <code>forward</code> 或者 <code>forward_image</code> 方法或者原始输出，在 Python 层面写后处理也可以，只是运行效率比较低不太推荐。</p>
+<h2 id="%E7%BC%96%E5%86%99%E5%90%8E%E5%A4%84%E7%90%86%E4%BB%A3%E7%A0%81">编写后处理代码</h2>
+<p>如上一步所说，如果是按照已经支持的模型的<code>mud</code>文件修改好，那直接调用<code>MaixPy</code>或者<code>MaixCDK</code>对应的代码加载即可。<br />
+如果支持新模型，设计好 <code>mud</code> 文件后，你需要实际编写预处理和后处理，有两种方法：</p>
+<ul>
+<li>一：MaixPy 用 <code>maix.nn.NN</code>加载模型，然后<code>forward</code>或者<code>forward_image</code>函数运行模型，获得输出，然后用 Python 函数编写后处理得到最终结果。</li>
+<li>二：在<code>MaixCDK</code>中，可以参考<a href="https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp"  target="_blank">YOLOv5 的源码</a>, 新增一个<code>hpp</code>文件，增加一个处理你的模型的类，并且修改所有函数和类的<code>@maixpy</code>注释，编写好了编译<code>MaixPy</code>项目，即可在<code>MaixPy</code>中调用新增的类来运行模型了。</li>
+</ul>
+<p>支持了新模型后还可以将源码提交（Pull Request）到主<code>MaixPy</code>仓库中，成为<code>MaixPy</code>项目的一员，为社区做贡献，也可以到 <a href="https://maixhub.com/share"  target="_blank">MaixHub 分享</a> 分享你新支持的模型，根据质量可以获得最少 <code>30元</code> 最高 <code>2000元</code> 的打赏！</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/vision/customize_model_yolov8.html">
+                            <span class="icon"></span>
+                            <span class="label">离线训练 YOLO11/YOLOv8 模型</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/audio/record.html">
+                            <span class="label">录音</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy UART 串口使用介绍 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/peripheral/uart.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/peripheral/uart.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/os.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app_usage.html"><span class="label">应用使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixpy_upgrade.html"><span class="label">更新 MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录音</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">片上外设</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">HID Device 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy UART 串口使用介绍</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/peripheral/uart.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E4%B8%B2%E5%8F%A3%E7%AE%80%E4%BB%8B">串口简介</h2>
+<p>串口是一种通信方式，包含了硬件和通信协议的定义。</p>
+<ul>
+<li>硬件包括：<ul>
+<li>3 个引脚： <code>GND</code>， <code>RX</code>， <code>TX</code>，通信双发<strong>交叉连接</strong> <code>RX</code> <code>TX</code>， 即一方 <code>TX</code> 发送到另一方的 <code>RX</code>， 双方 <code>GND</code> 连接到一起。</li>
+<li>控制器，一般在芯片内部，也叫 <code>UART</code> 外设，一般一个芯片有一个或者多个 <code>UART</code> 控制器，每个控制器有相对应的引脚。</li>
+</ul>
+</li>
+<li>串口通信协议： 为了让双方能顺利通信，规定了一套协议，即以什么样的时序通信，具体可以自行学习，常见的参数有 波特率 校验位等，波特率是我们用得最多的参数。</li>
+</ul>
+<p>通过板子的串口，可以和其它单片机或者 SOC 进行数据通信，比如可以在 MaixCAM 上实现人体检测功能，检测到坐标后通过串口发送给 STM32/Arduino 单片机。</p>
+<h2 id="MaixPy-%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%B8%B2%E5%8F%A3">MaixPy 中使用串口</h2>
+<p>对于 MaixCAM 默认从 USB 口引出了一个串口，可以插上配套的 Type-C 转接小板，就能直接使用上面的串口引脚，<br />
+也可以不用转接板，直接使用板子上的 <code>A16(TX)</code> 和 <code>A17(RX)</code>引脚, 和 USB 口引出的是同样的引脚，是等效的。</p>
+<p>对于 MaixCAM 使用 USB 引出的串口时需要<strong>注意</strong>，Typc-C 正插和反插，转接小板上的 <code>RX</code> 和 <code>TX</code>会交换(默认 <strong>Type-C 母口朝前</strong>和丝印符合)，所以当你发现无法通信时，有可能就是 RX TX 反了，可以尝试将 Type-C 翻转一面插再看看通信是否正常。这个算是设计缺陷，不过一般也不会经常拔插所以适应一下也能接受。</p>
+<p>将两个通信的板子双方连接好后（通信双发交叉连接 RX TX， 即一方 TX 发送到另一方的 RX， 双方 GND 连接到一起），就可以使用软件了。</p>
+<p>通过 MaixPy 使用串口很简单：</p>
+
+<pre class="language-python"><code class="language-python">from maix import uart
+
+device = &quot;/dev/ttyS0&quot;
+# ports = uart.list_devices() # 列出当前可用的串口
+
+serial = uart.UART(device, 115200)
+serial.write_str(&quot;hello world&quot;)
+print(&quot;received:&quot;, serial.read(timeout = 2000))
+</code></pre>
+<p>这里使用了第一个串口<code>/dev/ttyS0</code>，也就是上面说的 <code>Type-C</code> 出 引出的串口。</p>
+<p>更多串口的 API 在 <a href="../../../api/maix/peripheral/uart.html"  >UART API 文档</a>。</p>
+<h2 id="MaixCAM-%E4%B8%B2%E5%8F%A3%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9">MaixCAM 串口使用注意点</h2>
+<h3 id="TX-%E5%BC%95%E8%84%9A%E6%B3%A8%E6%84%8F%E7%82%B9">TX 引脚注意点</h3>
+<p>MaixCAM 的 <code>TX</code>(<code>UART0</code>) 引脚在开机时<strong>不能是被拉低</strong>的状态，不然会导致无法开机，是芯片的特性，如果你在做 <code>3.3v</code> 转 <code>5v</code> 的电平转换电路要十分注意不要默认拉低请保持浮空（可以考虑使用电平转换芯片）。</p>
+<p>以及如果你发现无法开机，也可以先检查一下 <code>TX</code> 是否被拉低了。</p>
+<h2 id="%E4%B8%B2%E5%8F%A3%E8%BF%9E%E6%8E%A5%E7%94%B5%E8%84%91">串口连接电脑</h2>
+<p>有开发者可能会问：为什么插上 USB 电脑没出现串口设备？<br />
+答： 因为设备的 USB 默认是 虚拟 USB 网卡，没有串口功能，如果要访问设备的终端，请使用 ssh 连接。</p>
+<p>对于 MaixCAM, 从 Type-C 转接板引出的<code>串口0</code>直连到 <code>A16(TX)</code>和 <code>A17(RX)</code>引脚，可以直接接到其它设备比如单片机的串口引脚；<br />
+如果要和电脑通信，需要使用 USB 转串口小板(比如<a href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&amp;id=610365562537"  target="_blank">这个</a>)连接到电脑。</p>
+<h2 id="%E5%BC%80%E6%9C%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA">开机日志输出</h2>
+<p>需要注意的是， <strong>MaixCAM 的<code>串口0</code> 在开机时会打印一部分开机日志</strong>， 启动完毕后会打印<code>serial ready</code>字样，如果和单片机通信需要注意丢弃这部分信息，如果出现系统启动出现问题也可以通过查看<code>串口0</code>的开机打印来诊断问题。</p>
+<h2 id="%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE">发送数据</h2>
+<p>主要有两个函数<code>write_str</code>和<code>write</code>函数。</p>
+<p><code>write_str</code>函数来发送字符串，<code>write</code>用来发送字节流，即<code>str</code>和<code>bytes</code>类型，两者可以互相转换，比如:</p>
+<ul>
+<li><code>&quot;A&quot;</code> 调用<code>encode()</code>方法变成<code>b&quot;A&quot;</code>，反过来<code>b&quot;A&quot;</code>调用<code>decode()</code>方法变成<code>&quot;A&quot;</code>。</li>
+<li><code>str</code> 没法显示一些不可见字符比如 ASCII 码中的值<code>0</code>，在字符串中也是<code>\0</code>一般作为结束符，在<code>bytes</code>类型中就可以用<code>b&quot;\x00&quot;</code>来储存。</li>
+<li>对于非 ASCII 编码的字符串更有用，比如<code>UTF-8</code>编码中中文<code>好</code>是由三个字节<code>\xe5\xa5\xbd</code>来表示的，我们可以通过<code>&quot;好&quot;.encode(&quot;utf-8&quot;)</code>得到<code>b&quot;\xe5\xa5\xbd&quot;</code>，也可以通过<code>b'\xe5\xa5\xbd'.decode(&quot;utf-8)</code>得到<code>&quot;好&quot;</code>。</li>
+</ul>
+<p>所以如果我们需要发送字节数据，则用<code>write()</code>方法发送即可, 比如:</p>
+
+<pre class="language-python"><code class="language-python">bytes_content = b'\x01\x02\x03'
+serial.write(bytes_content)
+</code></pre>
+<p>所以对于 <code>str</code> 类型，也可以不用<code>write_str</code>，而是使用<code>serial.write(str_content.encode())</code> 来发送。</p>
+<p>如果你有其它类型的数据，想将它们变成一个<strong>字符串发送</strong>，可以使用<code>Python 字符串格式化</code>来创建一个字符串，比如：<br />
+想发送<code>I have xxx apple</code>，这里<code>xxx</code> 想用一个整型变量，则：</p>
+
+<pre class="language-python"><code class="language-python">num = 10
+content = &quot;I have {} apple&quot;.format(num)
+content2 = f&quot;I have {num} apple&quot;
+content3 = &quot;I have {:04d} apple&quot;.format(num)
+content4 = f&quot;I have {num:d} apple&quot;
+print(content)
+print(content2)
+print(content3)
+print(content4)
+print(type(content))
+serial.write_str(content)
+</code></pre>
+<p>另外你也可以把数据编码成<strong>二进制流数据发送</strong>，比如前 4 个字节是十六进制的 <code>AABBCCDD</code>，中间发送一个 <code>int</code> 类型的数值，最后再加一个<code>0xFF</code>结尾，使用<code>struct.pack</code>来进行编码（看不懂可以看后文的介绍）：</p>
+
+<pre class="language-python"><code class="language-python">from struct import pack
+num = 10
+bytes_content = b'\xAA\xBB\xCC\xDD'
+bytes_content += pack(&quot;&lt;i&quot;, num)
+bytes_content += b'\xFF'
+print(bytes_content, type(bytes_content))
+serial.write(bytes_content)
+</code></pre>
+<p>这里 <code>pack(&quot;&lt;i&quot;, num)</code> 把 <code>num</code>编码为<code>int</code>类型即<code>4字节</code>的有符号数，<code>&lt;</code>符号意思是小端编码，低位在前，这里<code>num = 10</code>，十六进制 <code>4 字节</code>表示就是<code>0x0000000A</code>，小端就是把低字节<code>0x0A</code>放在前面，得到一个<code>b'\x0A\x00\x00\x00'</code>的字节类型数据。</p>
+<blockquote>
+<p>这里只举例使用<code>i</code>编码<code>int</code>类型的数据，还有其它类型比如<code>B</code>表示<code>unsigned char</code>等等，更多的<code>struct.pack</code>格式化用法可以自行搜索<code>python struct pack</code>。</p>
+</blockquote>
+<p>这样最终发送的就是<code>AA BB CC DD 0A 00 00 00 FF</code>二进制数据了。</p>
+<h2 id="%E6%8E%A5%E6%94%B6">接收</h2>
+<p>使用<code>read</code>方法进行读取数据，直接：</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    data = serial.read()
+    if data:
+        print(data)
+    time.sleep_ms(1)
+</code></pre>
+<p>同样，<code>read</code>方法获得的数据也是<code>bytes</code>类型，这里<code>read</code>会读取对方一次性发送的一串数据，如果没有数据就是<code>b''</code>即空字节。<br />
+这里用了<code>time.sleep_ms(1)</code>进行睡眠了<code>1ms</code>，用来释放 CPU，不让这个线程占用所有 CPU 资源，而且<code>1ms</code>不影响我们程序的效率，特别是在多线程时有用。</p>
+<p>另外<code>read</code>函数有两个参数：</p>
+<ul>
+<li><code>len</code>：代表想接收的最大长度，默认<code>-1</code>代表缓冲区有多少就返回多少，传<code>&gt;0</code>的值则代表最多返回这个长度的数据。</li>
+<li><code>timeout</code>：<ul>
+<li>默认 <code>0</code> 代表从缓冲区读取数据立马返回数据，如果<code>len</code>为 <code>-1</code>则返回所有数据，如果指定了<code>len</code>则返回长度不超过<code>len</code> 的数据。</li>
+<li><code>&lt;0</code> 代表一直等待直到接收到了数据才返回，如果<code>len</code>为 <code>-1</code>则等待到接收到数据才返回（一串连续接收到的数据，即阻塞式读取所有数据），如果指定了<code>len</code>则等待接收数量达到<code>len</code>才返回。</li>
+<li><code>&gt;0</code> 代表无论有没有接收到数据，超过这个时间就会返回。</li>
+</ul>
+</li>
+</ul>
+<p>看起来有点复杂，常见的参数组合：</p>
+<ul>
+<li><code>read()</code>: 即<code>read(-1, 0)</code>，从缓冲区读取收到的数据，通常是对方一次性发来的一串数据，等到对方没有发送（一个字符的发送时间内没有再发）就立刻返回。</li>
+<li><code>read(len = -1, timeout = -1)</code>: 阻塞式读取一串数据，等到对方发送了数据并且一个字符的发送时间内没有再发才返回。</li>
+<li><code>read(len = 10, timeout = 1000)</code>: 阻塞式读取 10 个字符，读取到 10 个字符或者 超过 1000ms 还没收到就返回已经收到的数据。</li>
+</ul>
+<h2 id="%E8%AE%BE%E7%BD%AE%E6%8E%A5%E6%94%B6%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0">设置接收回调函数</h2>
+<p>在 MCU 开发中，串口收到数据通常会有中断事件发生， MaixPy 已经在底层处理好了中断，开发者无需再处理中断。<br />
+如果你想在接收到数据时调用一个回调函数，可以用<code>set_received_callback</code>设置回调函数：</p>
+
+<pre class="language-python"><code class="language-python">
+from maix import uart, app, time
+
+def on_received(serial : uart.UART, data : bytes):
+    print(&quot;received:&quot;, data)
+    # send back
+    serial.write(data)
+
+device = &quot;/dev/ttyS0&quot;
+
+serial = uart.UART(device, 115200)
+serial.set_received_callback(on_received)
+
+serial0.write_str(&quot;hello\r\n&quot;)
+print(&quot;sent hello&quot;)
+print(&quot;wait data&quot;)
+
+while not app.need_exit():
+    time.sleep_ms(100) # sleep to make CPU free
+</code></pre>
+<p>在接收到数据后会在<strong>另外一个线程</strong>里调用设置的回调函数，因为是在另外的线程里调用的，所以不像中断函数要尽快退出函数，你可以在回调函数里处理一些事务再退出也是可以的，注意多线程常见问题。</p>
+<p>使用回调函数的方式接收数据请不要再使用<code>read</code>函数读取，否则会读取出错。</p>
+<h2 id="%E4%BD%BF%E7%94%A8%E5%85%B6%E5%AE%83%E4%B8%B2%E5%8F%A3">使用其它串口</h2>
+<p>每个引脚可能可以对应不同的外设功能，这也叫引脚复用，如下图，每个引脚对应了不同功能，比如<code>A17</code>引脚(板子的丝引标识)对应了<code>GPIOA17</code> <code>UART0_RX</code> <code>PWM5</code> 这三种功能，默认是<code>UART0_RX</code>。</p>
+<p><img src="https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg" alt="" /></p>
+<p>默认我们就能像上面直接使用<code>UART0</code>，对于其它串口的引脚默认都不是串口外设功能，所以要使用其它串口，需要先设置一下映射，使用<code>pinmap.set_pin_function</code>来设置。</p>
+<p>这里以使用<code>UART1</code> 为例，先设置引脚映射选择引脚功能为串口，然后设备编号使用<code>/dev/ttyS1</code>，注意<code>uart.list_devices()</code> 默认不会返回需要手动映射的串口，所以直接手动传参就可以了：</p>
+
+<pre class="language-python"><code class="language-python">from maix import app, uart, pinmap, time
+
+pinmap.set_pin_function(&quot;A18&quot;, &quot;UART1_RX&quot;)
+pinmap.set_pin_function(&quot;A19&quot;, &quot;UART1_TX&quot;)
+
+device = &quot;/dev/ttyS1&quot;
+
+serial1 = uart.UART(device, 115200)
+</code></pre>
+<h2 id="%E5%BA%94%E7%94%A8%E5%B1%82%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE">应用层通信协议</h2>
+<h3 id="%E6%A6%82%E5%BF%B5%E5%92%8C%E5%AD%97%E7%AC%A6%E5%8D%8F%E8%AE%AE">概念和字符协议</h3>
+<p>串口只是规定了保证硬件通信的时序，为了让接收方知道发送方发送的字符流的含义，我们一般会规定一个应用通信协议。<br />
+比如发送放需要发送一个坐标，包含了<code>x, y</code>两个整型值，为了让接收方能理解我们发送的字节流的含义，我们规定：</p>
+<ul>
+<li><strong>帧头</strong>：当我开始发送<code>$</code>符号时，就代表我要开始发送有效的数据啦。</li>
+</ul>
+<blockquote>
+<p><strong>内容</strong>：设计一个开头符号的原因是串口是流式传输，比如发送两次<code>12345</code>有可能在某个时刻接收到了<code>12345123</code>这样的数据，第二帧的<code>45</code>还没有接收到，我们可以根据起始和结尾符号来判断一个完整的数据帧。</p>
+</blockquote>
+<ul>
+<li>x， y 的取值范围是 0~65535， 即两个字节的无符号短整型(<code>unsinged short</code>)，我会先发 x 再发 y，用逗号隔开，比如<code>10,20</code>。</li>
+<li><strong>帧尾</strong>：最后我会再发一个<code>*</code>标记来代表我这次数据发送完成了。</li>
+</ul>
+<p>这样发送一次数据就类似<code>$10,20*</code>这样一个字符串，对方如果用 C 语言接收和解析：</p>
+
+<pre class="language-c"><code class="language-c">// 1. 接收数据
+// 2. 根据帧头帧尾判断是否接收完毕了，并将完整的一帧数据存到 buff 数组里面
+// 3. 解析一帧数据
+uint16_t x, y;
+sscanf(buff, &quot;$%d,%d*&quot;, &amp;x, &amp;y);
+</code></pre>
+<p>这样我们就制定了最简单的字符通信协议，具有一定的可靠性。<br />
+但是由于我们串口一般用的参数是<code>115200 8 N 1</code>，这里的<code>N</code>就是无奇偶校验，我们可以在自己的协议里面加一个<strong>校验值</strong>放在末尾，比如：</p>
+<ul>
+<li>这里我们规定 x,y 后还有一个校验值，取值范围是 0 到 255，它的值为前面所有字符加起来的和对 255 取余。</li>
+<li>这里以 <code>$10,20</code>举例，在<code>Python</code>只需要使用<code>sum</code>函数就可以<code>sum(b'$10,20') % 255 --&gt; 20</code>，最终发送<code>$10,20,20*</code>。</li>
+<li>接收放接收到数据后读取到校验值<code>20</code>，然后自己也同样的方式计算一遍<code>$10,20</code>的校验值，如果也是<code>20</code>说明数据传输没有发生错误，如果不相同我们则可以认为数据传输过程中发生了错误，可以丢弃等下一个数据包。</li>
+</ul>
+<p>比如在 MaixPy 中，我们需要编码一个字符协议，直接使用 <code>Python 的字符串格式化</code>功能即可：</p>
+
+<pre class="language-python"><code class="language-python">x = 10
+y = 20
+content = &quot;${},{}*&quot;.format(x, y)
+print(content)
+</code></pre>
+<h3 id="%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE">二进制通信协议</h3>
+<p>上面的字符协议有个很明显的特征，我们都是用可见字符的方式在传输数据，传输数据时有点就是简单，人眼能直接看懂；<br />
+缺点就是占用字符数量不固定，数据量比较大，比如<code>$10,20*</code>和<code>$1000,2000*</code>，同样的格式，数值不同长度不同，这里<code>1000</code>用了 4 个字符也就是4个字节，我们都知道一个无符号短整型（<code>uint16</code>）类型的数据只需要两个字节就能表示<code>0~65535</code>的取值范围，用这种表示方法可以少传输数据。<br />
+我们也知道可见字符可以通过<code>ASCII</code>码表转换成二进制表示形式，比如<code>$1000</code>查找<code>ASCII码表</code>换成二进制表示就是<code>0x24 0x31 0x30 0x30 0x30</code>一共 5 个字节，也就是我们实际传输数据的时候传输的二进制内容，如果现在我们用二进制的方式直接编码<code>1000</code>，即<code>0x03E8</code>，就可以直接发送<code>0x24 0x03 0xE8</code>，最终只需要发送 3 个字节，减少了通信开销。</p>
+<p>另外这里<code>0x03E8</code>两个字节低位是<code>0xE8</code>，先发送低位<code>0xE8</code>我们称之为小端编码，反之则是大端编码，两个皆可，双方规定一致即可。</p>
+<p>在 MaixPy 中，要将一个数值转换成 bytes 类型也很简单，使用<code>struct.pack</code>函数即可，比如这里的<code>0x03E8</code>也就是十进制的<code>1000</code>，我们用</p>
+
+<pre class="language-python"><code class="language-python">from struct import pack
+b = pack(&quot;&lt;H&quot;, 1000)
+print(b)
+</code></pre>
+<p>这里<code>&lt;H</code>表示小端编码，<code>H</code>表示一个 <code>uint16</code>类型的数据，最终得到<code>b'\xe8\x03'</code>的 bytes 类型数据。</p>
+<p>同样的，二进制协议也可以有 帧头，数据内容，校验值，帧尾等，也可以不要帧尾，而是设计一个帧长的字段，看个人喜好即可。</p>
+<h3 id="MaixPy-MaixPy-%E5%86%85%E7%BD%AE%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE">MaixPy MaixPy 内置通信协议</h3>
+<p>另外 MaixPy 也内置了一个通信协议可以直接使用。</p>
+<p>这里的通信协议即：规定通信双方的以什么样的格式来传输内容，方便双方解析识别信息，是一个二进制协议，包括帧头、数据内容、校验等。<br />
+完整的协议定义在 <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix 串口通信协议标准</a>。<br />
+没有接触过通信协议可能看起来有点困难，结合下面的例子多看几遍就能理解了。</p>
+<p>比如我们现在有一个物体检测，我们想检测到物体后通过串口发送给其它设备（比如 STM32 单片机或者 Arduino 单片机），告诉其我们检测到了什么物体，坐标是多少。</p>
+<p>完整的例程：<a href="https://github.com/sipeed/MaixPy/tree/main/examples/protocol/comm_protocol_yolov5.py"  target="_blank">MaixPy/examples/protocol/comm_protocol_yolov5.py</a></p>
+<p>首先我们需要检测到物体，参考 <code>yolov5</code> 检测物体的例程即可，这里我们就省略其它细节，来看检测到的结果是什么样</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    img = cam.read()
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    for obj in objs:
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
+        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+    dis.show(img)
+</code></pre>
+<p>可以看到<code>objs</code>是多个检测结果，这里在屏幕上进行画框了，我们也可以在这里想办法把结果通过串口发送出去。<br />
+这里我们不需要手动初始化串口，直接使用内置的<code>maix.comm, maix.protocol</code>模块，调用<code>comm.CommProtoco</code>会自动初始化串口，默认波特率是<code>115200</code>，串口协议的相关可以在设备<code>系统设置-&gt;通信协议</code>里面设置。<br />
+系统设置里面可能还有其它通信方式比如<code>tcp</code>，默认是<code>uart</code>，你也可以通过<code>maix.app.get_sys_config_kv(&quot;comm&quot;, &quot;method&quot;)</code>来获取到当前设置的是不是<code>uart</code>。</p>
+
+<pre class="language-python"><code class="language-python">from maix import comm, protocol, app
+from maix.err import Err
+import struct
+
+def encode_objs(objs):
+    '''
+        encode objs info to bytes body for protocol
+        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...
+    '''
+    body = b&quot;&quot;
+    for obj in objs:
+        body += struct.pack(&quot;&lt;hhHHH&quot;, obj.x, obj.y, obj.w, obj.h, obj.class_id)
+    return body
+
+APP_CMD_ECHO = 0x01        # 自定义命令 1, 测试用，这里没用到，保留
+APP_CMD_DETECT_RES = 0x02  # 自定义命令 2, 发送检测到的物体信息
+                           # 可以根据自己的应用自定义更多的命令
+
+p = comm.CommProtocol(buff_size = 1024)
+
+while not app.need_exit():
+    # ...
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    if len(objs) &gt; 0:
+        body = encode_objs(objs)
+        p.report(APP_CMD_DETECT_RES, body)
+    # ...
+</code></pre>
+<p>这里通过<code>encode_objs</code>函数将所有检测到的物体信息打包成<code>bytes</code>类型的数据，然后用<code>p.report</code>函数将结果发送出去。</p>
+<p>这里我们对<code>body</code>内容进行了一个简单的定义，即<code>2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...</code>，<br />
+含义是：</p>
+<ul>
+<li>这张图中检测到多个物体，在<code>body</code>中按顺序排列，每个目标占用 <code>2+2+2+2+2 = 10</code> 个字节的长度，一共有<code>body_len / 10</code>个物体。</li>
+<li>第1、2个字节代表识别到的物体的左上角的 <code>x</code> 坐标，单位是像素，因为 yolov5 的结果这个坐标值有可能为负数，所以我们用一个<code>short</code>类型的值来表示，这里使用了小端编码（LE）。</li>
+</ul>
+<blockquote>
+<p>这里小端即数值的低字节在前，比如坐标 <code>x</code> 为 <code>100</code>, 十六进制为 <code>0x64</code>，我们用两个字节的<code>short</code>来表示就是<code>0x0064</code>，这里小端编码成 <code>bytes</code> 就是<code>0x64</code>在前， 结果就是<code>b'\x64\x00'</code>。</p>
+</blockquote>
+<ul>
+<li>同理，将后面的数据都依次编码，一个物体得到一个<code>10</code>字节长的<code>bytes</code>类型数据。</li>
+<li>循环将所有物体信息编码并拼接成一个<code>bytes</code>。</li>
+</ul>
+<p>在调用<code>report</code>函数时，底层会自动按照协议拼接上协议头、校验和等等，这是在另一端就能收到一帧完整的数据了。</p>
+<p>在另一端收到信息后也要按照协议进行解码，如果接收端也是用 MaixPy 可以直接：</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    msg = p.get_msg()
+    if msg and msg.is_report and msg.cmd == APP_CMD_DETECT_RES:
+        print(&quot;receive objs:&quot;, decode_objs(msg.get_body()))
+        p.resp_ok(msg.cmd, b'1')
+</code></pre>
+<p>如果是其它设备比如<code>STM32</code>或者<code>Arduino</code>则可以参考 <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix 串口通信协议标准</a> 附录中的 C 语言函数进行编解码。</p>
+<h2 id="%E5%85%B6%E5%AE%83%E6%95%99%E7%A8%8B">其它教程</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.337.search-card.all.click"  target="_blank">【MaixPy/MaixCAM】视觉利器 -- MaixCAM 入门教程二</a> 看串口讲解部分</li>
+<li><a href="https://www.bilibili.com/video/BV175vWe5EfV/?spm_id_from=333.337.search-card.all.click&amp;vd_source=6c974e13f53439d17d6a092a499df304"  target="_blank">视觉模块和STM32如何进行串口通信</a></li>
+<li><a href="https://blog.csdn.net/ButterflyBoy0/article/details/140577441"  target="_blank">[MaixCam]使用心得二：UART串口通信</a></li>
+<li>更多请自行互联网搜索</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/peripheral/gpio.html">
+                            <span class="icon"></span>
+                            <span class="label">GPIO 和 点灯</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/peripheral/i2c.html">
+                            <span class="label">I2C 使用</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

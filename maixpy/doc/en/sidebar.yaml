@@ -1,0 +1,194 @@
+items:
+-   file: README.md
+    label: Quick Start
+-   file: README_no_screen.md
+    label: Quick Start(no screen)
+-   file: faq.md
+    label: FAQ
+
+-   label: Base
+    collapsed: false
+    items:
+    -   file: basic/os.md
+        label: Burning system
+    -   file: basic/app_usage.md
+        label: App usage
+    -   file: basic/maixpy_upgrade.md
+        label: Update MaixPy
+    -   file: basic/maixvision.md
+        label: MaixVision usage
+    -   file: basic/python.md
+        label: Python syntax
+    -   file: basic/linux_basic.md
+        label: Linux fundamentals
+    -   file: basic/python_pkgs.md
+        label: Add python packages
+    -   file: basic/app.md
+        label: App development
+    -   file: basic/auto_start.md
+        label: Auto start
+    -   file: basic/view_src_code.md
+        label: View API source code
+
+-   label: Basic images and algorithms
+    items:
+    -   file: vision/display.md
+        label: Screen usage
+    -   file: vision/camera.md
+        label: Camera usage
+    -   file: vision/image_ops.md
+        label: Image control
+    -   file: vision/touchscreen.md
+        label: Touch screen
+    -   file: vision/find_blobs.md
+        label: Finding color blocks
+    -   file: vision/line_tracking.md
+        label: Line tracking
+    -   file: vision/qrcode.md
+        label: QRcode identity
+    -   file: vision/apriltag.md
+        label: AprilTag identity
+    -   file: vision/opencv.md
+        label: OpenCV usage
+    -   file: gui/i18n.md
+        label: I18N (Multi language)
+
+-   label: AI Vision
+    items:
+    -   file: vision/ai.md
+        label: AI vision knowledge
+    -   file: vision/classify.md
+        label: AI object classification
+    -   file: vision/yolov5.md
+        label: YOLO11/v8/v5 object detection
+    -   file: vision/face_detection.md
+        label: Face and keypoints detection
+    -   file: vision/face_recognition.md
+        label: Face recognition
+    -   file: vision/body_key_points.md
+        label: Human critical point detection
+    -   file: vision/segmentation.md
+        label: Image semantic segmentation
+    -   file: vision/self_learn_classifier.md
+        label: Self-learning classifier
+    -   file: vision/self_learn_detector.md
+        label: Self-learning detector
+    -   file: vision/object_track.md
+        label: Object tracking and counting
+    -   file: vision/ocr.md
+        label: OCR 
+    -   file: vision/maixhub_train.md
+        label: MaixHub online AI training
+    -   file: vision/customize_model_yolov5.md
+        label: YOLOv5 model offline training
+    -   file: vision/customize_model_yolov8.md
+        label: YOLO11/v8 model offline training
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX model to MaixCAM's
+
+
+-   label: AI audio
+    items:
+    -   file: audio/record.md
+        label: Audio recording
+    -   file: audio/play.md
+        label: Playing audio
+    -   file: audio/recognize.md
+        label: Real-time voice recognition
+    -   file: audio/digit.md
+        label: Continuous Chinese digit recognition
+    -   file: audio/keyword.md
+        label: Keyword recognition
+    -   file: audio/synthesis.md
+        label: Speech synthesis
+
+-   label: Video
+    items:
+    -   file: video/record.md
+        label: Video recording
+    -   file: video/play.md
+        label: Playing video
+    -   file: video/jpeg_streaming.md
+        label: JPEG streaming
+    -   file: video/rtsp_streaming.md
+        label: RTSP streaming
+    -   file: video/rtmp_streaming.md
+        label: RTMP streaming
+
+-   label: Network
+    items:
+    -   file: network/network_settings.md
+        label: Network settings
+    -   file: network/http.md
+        label: http communication
+    -   file: network/socket.md
+        label: socket communication
+    -   file: network/mqtt.md
+        label: MQTT communication
+    -   file: network/websocket.md
+        label: websocket communication
+    -   file: network/flask.md
+        label: Flask Web server
+
+-   label: On-chip peripherals
+    items:
+    -   file: peripheral/pinmap.md
+        label: PINMAP
+    -   file: peripheral/gpio.md
+        label: GPIO
+    -   file: peripheral/uart.md
+        label: UART
+    -   file: peripheral/i2c.md
+        label: I2C
+    -   file: peripheral/pwm.md
+        label: PWM
+    -   file: peripheral/spi.md
+        label: SPI
+    -   file: peripheral/wdt.md
+        label: WDT watchdog
+    -   file: peripheral/adc.md
+        label: ADC
+    -   file: peripheral/hid.md
+        label: HID
+
+-   label: Off-chip modules
+    items:
+    -   file: modules/temp_humi.md
+        label: Temperature and humidity
+    -   file: modules/acc.md
+        label: Accelerometer
+    -   file: modules/rtc.md
+        label: RTC usage
+    -   file: modules/tmc2209.md
+        label: Stepper motor TMC2209
+    -   file: modules/tof.md
+        label: TOF
+    -   file: modules/thermal_cam.md
+        label: Thermal imaging
+
+-   label: Projects
+    items:
+    -   file: projects/README.md
+        label: Intro & Collection
+    -   file: projects/line_tracking_robot.md
+        label: Line tracking robot
+    -   file: projects/face_tracking.md
+        label: Face tracking 2-axis gimbal
+
+-   label: Advanced
+    collapsed: false
+    items:
+    -   file: source_code/contribute.md
+        label: Contribute
+    -   file: source_code/build.md
+        label: Build source code
+    -   file: source_code/faq.md
+        label: MaixPy Source FAQ
+    -   file: source_code/add_c_module.md
+        label: Write in C/C++
+    -   file: source_code/maixcdk.md
+        label: MaixCDK development
+    -   file: pro/compile_os.md
+        label: Build OS
+
+
