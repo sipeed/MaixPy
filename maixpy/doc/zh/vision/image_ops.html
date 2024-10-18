@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy 图像基础操作 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2024-07-08", "update": [{"date": "2024-07-08", "author": "neucrack", "version": "1.1.0", "content": "优化 cv 和 image 转换文档"}, {"date": "2024-04-03", "author": "neucrack", "version": "1.0.0", "content": "初版文档"}], "ts": 1720396800, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/vision/image_ops.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/vision/image_ops.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/os.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app_usage.html"><span class="label">应用使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixpy_upgrade.html"><span class="label">更新 MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录音</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">HID Device 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy 图像基础操作</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2024-07-08">
+                                    2024-07-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/vision/image_ops.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2024-07-08</td>
+                                                    <td>1.1.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        优化 cv 和 image 转换文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2024-04-03</td>
+                                                    <td>1.0.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        初版文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>视觉应用中图像占据非常重要的位置，不管是图片还是视频，因为视频本质上就是一帧帧的图像，所以图像处理是视觉应用的基础。</p>
+<h2 id="API-%E6%96%87%E6%A1%A3">API 文档</h2>
+<p>本文介绍常用方法， 更多 API 参考 <a href="/maixpy/api/maix/image.html"  >maix.image</a> 模块的文档。</p>
+<h2 id="%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F">图像格式</h2>
+<p>MaixPy 提供基础图像模块<code>image</code>，里面最重要的就是<code>image.Image</code>类，用于图像的创建以及各种图像基础操作，以及图像加载和保存等。</p>
+<p>图像格式有很多，一般我们用<code>image.Format.FMT_RGB888</code> 或者 <code>image.Format.FMT_RGBA8888</code> 或者 <code>image.Format.FMT_GRAYSCALE</code>或者<code>image.Format.FMT_BGR888</code>等。</p>
+<p>大家知道 <code>RGB</code> 三色可以合成任意颜色，所以一般情况下我们使用 <code>image.Format.FMT_RGB888</code>就足够， <code>RGB888</code> 在内存中是 <code>RGB packed</code> 排列，即在内存中的排列：<br />
+<code>像素1_红色, 像素1_绿色, 像素1_蓝色, 像素2_红色, 像素2_绿色, 像素2_蓝色, ...</code> 依次排列。</p>
+<h2 id="%E5%88%9B%E5%BB%BA%E5%9B%BE%E5%83%8F">创建图像</h2>
+<p>创建图像很简单，只需要指定图像的宽度和高度以及图像格式即可：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+print(img)
+print(img.width(), img.height(), img.format())
+</code></pre>
+<p><code>320</code> 是图像的宽度，<code>240</code> 是图像的高度，<code>image.Format.FMT_RGB888</code> 是图像的格式，格式参数可以省略，默认是<code>image.Format.FMT_RGB888</code>。</p>
+<p>这里通过<code>img.width()</code>、<code>img.height()</code>、<code>img.format()</code>可以获取图像的宽度、高度和格式。</p>
+<h2 id="%E6%98%BE%E7%A4%BA%E5%88%B0%E5%B1%8F%E5%B9%95">显示到屏幕</h2>
+<p>MaixPy 提供了<code>maix.display.Display</code>类，可以方便的显示图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, display
+
+disp = display.Display()
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+disp.show(img)
+</code></pre>
+<p>注意这里因为没有图像数据，所以显示的是黑色的图像，修改画面看后文。</p>
+<h2 id="%E4%BB%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AF%BB%E5%8F%96%E5%9B%BE%E5%83%8F">从文件系统读取图像</h2>
+<p>MaixPy 提供了<code>maix.image.load</code>方法，可以从文件系统读取图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.load(&quot;/root/image.jpg&quot;)
+if img is None:
+    raise Exception(f&quot;load image failed&quot;)
+print(img)
+</code></pre>
+<p>注意这里<code>/root/image.jpg</code> 是提前传输到了板子上的，方法可以看前面的教程。<br />
+可以支持 <code>jpg</code> 和 <code>png</code> 格式的图像。</p>
+<h2 id="%E4%BF%9D%E5%AD%98%E5%9B%BE%E5%83%8F%E5%88%B0%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">保存图像到文件系统</h2>
+<p>MaixPy 的<code>maix.image.Image</code>提供了<code>save</code>方法，可以保存图像到文件系统：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+
+# do something with img
+img.save(&quot;/root/image.jpg&quot;)
+</code></pre>
+<h2 id="%E7%94%BB%E6%A1%86">画框</h2>
+<p><code>image.Image</code>提供了<code>draw_rect</code>方法，可以在图像上画框：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_rect(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>这里的参数依次是：<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>, <code>color</code>，<code>x</code> 和 <code>y</code> 是框的左上角坐标，<code>w</code> 和 <code>h</code> 是框的宽度和高度，<code>color</code> 是框的颜色，可以使用<code>image.Color.from_rgb</code>方法创建颜色。<br />
+可以用<code>thickness</code>指定框的线宽，默认是<code>1</code>，</p>
+<p>也可以画实心框，传参 <code>thickness=-1</code> 即可：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_rect(10, 10, 100, 100, (255, 0, 0), thickness=-1)
+</code></pre>
+<h2 id="%E5%86%99%E5%AD%97%E7%AC%A6%E4%B8%B2">写字符串</h2>
+<p><code>image.Image</code>提供了<code>draw_string</code>方法，可以在图像上写字：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_string(10, 10, &quot;Hello MaixPy&quot;, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>这里的参数依次是：<code>x</code>, <code>y</code>, <code>text</code>, <code>color</code>，<code>x</code> 和 <code>y</code> 是文字的左上角坐标，<code>text</code> 是要写的文字，<code>color</code> 是文字的颜色，可以使用<code>image.Color.from_rgb</code>方法创建颜色。</p>
+<p>还可以放大字体，传参 <code>scale</code> 即可：</p>
+
+<pre class="language-python"><code class="language-python">img.draw_string(10, 10, &quot;Hello MaixPy&quot;, image.Color.from_rgb(255, 0, 0), scale=2)
+</code></pre>
+<p>获取字体的宽度和高度：</p>
+
+<pre class="language-python"><code class="language-python">w, h = image.string_size(&quot;Hello MaixPy&quot;, scale=2)
+print(w, h)
+</code></pre>
+<p><strong>注意</strong>这里<code>scale</code>是放大倍数，默认是<code>1</code>，和<code>draw_string</code>应该保持一致。</p>
+<h2 id="%E4%B8%AD%E6%96%87%E6%94%AF%E6%8C%81%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93">中文支持和自定义字体</h2>
+<p><code>image</code> 模块支持加载<code>ttf/otf</code>字体，默认字体只支持英文，如果要显示中文或者自定义字体可以先下载字体文件到设备上，然后加载字体。<br />
+系统也内置了几个字体，在<code>/maixapp/share/font</code>目录下面，代码示例：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, display, app, time
+
+image.load_font(&quot;sourcehansans&quot;, &quot;/maixapp/share/font/SourceHanSansCN-Regular.otf&quot;, size = 32)
+print(&quot;fonts:&quot;, image.fonts())
+image.set_default_font(&quot;sourcehansans&quot;)
+
+disp = display.Display()
+
+img = image.Image(disp.width(), disp.height())
+img.draw_string(2, 2, &quot;你好！Hello, world!&quot;, image.Color.from_rgba(255, 0, 0, 0.8))
+
+disp.show(img)
+while not app.need_exit():
+    time.sleep(1)
+</code></pre>
+<p>加载字体文件，然后设置默认的字体，也可以不设置默认的字体，在写字的函数参数设置:</p>
+
+<pre class="language-python"><code class="language-python">img.draw_string(2, 2, &quot;你好！Hello, world!&quot;, image.Color.from_rgba(255, 0, 0, 0.8), font=&quot;sourcehansans&quot;)
+</code></pre>
+<p>注意 <code>string_size</code>方法也会使用设置的默认字体计算大小，也可以通过<code>font</code>参数单独设置要计算大小的字体。</p>
+<h2 id="%E7%94%BB%E7%BA%BF">画线</h2>
+<p><code>image.Image</code>提供了<code>draw_line</code>方法，可以在图像上画线：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_line(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>这里的参数依次是：<code>x1</code>, <code>y1</code>, <code>x2</code>, <code>y2</code>, <code>color</code>，<code>x1</code> 和 <code>y1</code> 是线的起点坐标，<code>x2</code> 和 <code>y2</code> 是线的终点坐标，<code>color</code> 是线的颜色，可以使用<code>image.Color.from_rgb</code>方法创建颜色。</p>
+<h2 id="%E7%94%BB%E5%9C%86">画圆</h2>
+<p><code>image.Image</code>提供了<code>draw_circle</code>方法，可以在图像上画圆：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_circle(100, 100, 50, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>这里的参数依次是：<code>x</code>, <code>y</code>, <code>r</code>, <code>color</code>，<code>x</code> 和 <code>y</code> 是圆心坐标，<code>r</code> 是半径，<code>color</code> 是圆的颜色，可以使用<code>image.Color.from_rgb</code>方法创建颜色。</p>
+<h2 id="%E7%BC%A9%E6%94%BE%E5%9B%BE%E5%83%8F">缩放图像</h2>
+<p><code>image.Image</code>提供了<code>resize</code>方法，可以缩放图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.resize(160, 120)
+print(img, img_new)
+</code></pre>
+<p>注意这里<code>resize</code>方法返回一个新的图像对象，原图像不变。</p>
+<h2 id="%E5%89%AA%E8%A3%81%E5%9B%BE%E5%83%8F">剪裁图像</h2>
+<p><code>image.Image</code>提供了<code>crop</code>方法，可以剪裁图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.crop(10, 10, 100, 100)
+print(img, img_new)
+</code></pre>
+<p>注意这里<code>crop</code>方法返回一个新的图像对象，原图像不变。</p>
+<h2 id="%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F">旋转图像</h2>
+<p><code>image.Image</code>提供了<code>rotate</code>方法，可以旋转图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.rotate(90)
+print(img, img_new)
+</code></pre>
+<p>注意这里<code>rotate</code>方法返回一个新的图像对象，原图像不变。</p>
+<h2 id="%E6%8B%B7%E8%B4%9D%E5%9B%BE%E5%83%8F">拷贝图像</h2>
+<p><code>image.Image</code>提供了<code>copy</code>方法，可以拷贝一份独立的图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.copy()
+print(img, img_new)
+</code></pre>
+<h2 id="%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2">仿射变换</h2>
+<p><code>image.Image</code>提供了<code>affine</code>方法，可以进行仿射变换，即提供当前图中三个及以上的点坐标，以及目标图中对应的点坐标，可以自动进行图像的旋转、缩放、平移等操作变换到目标图像：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.affine([(10, 10), (100, 10), (10, 100)], [(10, 10), (100, 20), (20, 100)])
+print(img, img_new)
+</code></pre>
+<p>更多参数和用法请参考 API 文档。</p>
+<h2 id="%E7%94%BB%E5%85%B3%E9%94%AE%E7%82%B9">画关键点</h2>
+<p><code>image.Image</code>提供了<code>draw_keypoints</code>方法，可以在图像上画关键点：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+
+keypoints = [10, 10, 100, 10, 10, 100]
+img.draw_keypoints(keypoints, image.Color.from_rgb(255, 0, 0), size=10, thickness=1, fill=False)
+</code></pre>
+<p>在坐标<code>(10, 10)</code>、<code>(100, 10)</code>、<code>(10, 100)</code>画三个红色的关键点，关键点的大小是<code>10</code>，线宽是<code>1</code>，不填充。</p>
+<h2 id="%E7%94%BB%E5%8D%81%E5%AD%97">画十字</h2>
+<p><code>image.Image</code>提供了<code>draw_cross</code>方法，可以在图像上画十字：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_cross(100, 100, image.Color.from_rgb(255, 0, 0), size=5, thickness=1)
+</code></pre>
+<p>在坐标<code>(100, 100)</code>画一个红色的十字，十字的延长大小是<code>5</code>，所以线段长度为<code>2 * size + thickness</code>, 线宽是<code>1</code>。</p>
+<h2 id="%E7%94%BB%E7%AE%AD%E5%A4%B4">画箭头</h2>
+<p><code>image.Image</code>提供了<code>draw_arrow</code>方法，可以在图像上画箭头：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_arrow(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0), thickness=1)
+</code></pre>
+<p>在坐标<code>(10, 10)</code>画一个红色的箭头，箭头的终点是<code>(100, 100)</code>，线宽是<code>1</code>。</p>
+<h2 id="%E7%94%BB%E5%9B%BE">画图</h2>
+<p><code>image.Image</code>提供了<code>draw_image</code>方法，可以在图像上画图：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img2 = image.Image(100, 100, image.Format.FMT_RGB888)
+img2.draw_rect(10, 10, 90, 90, image.Color.from_rgb(255, 0, 0))
+img.draw_image(10, 10, img2)
+</code></pre>
+<h2 id="%E8%BD%AC%E6%8D%A2%E6%A0%BC%E5%BC%8F">转换格式</h2>
+<p><code>image.Image</code>提供了<code>to_format</code>方法，可以转换图像格式：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.to_format(image.Format.FMT_BGR888)
+print(img, img_new)
+img_jpg = img.to_format(image.Format.FMT_JPEG)
+print(img, img_new)
+</code></pre>
+<p>注意这里<code>to_format</code>方法返回一个新的图像对象，原图像不变。</p>
+<h2 id="maix.image.Image-%E5%AF%B9%E8%B1%A1%E5%92%8C-Numpy/OpenCV-%E6%A0%BC%E5%BC%8F%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2">maix.image.Image 对象和 Numpy/OpenCV 格式互相转换</h2>
+<p>见<a href="./opencv.html"  >MaixPy 使用 OpenCV 文档</a></p>
+<h2 id="%E5%92%8C-bytes-%E6%95%B0%E6%8D%AE%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2">和 bytes 数据互相转换</h2>
+<p><code>image.Image</code>提供了<code>to_bytes</code>方法，可以转换图像为<code>bytes</code>数据：</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+data = img.to_bytes()
+print(type(data), len(data), img.data_size())
+
+img_jpeg = image.from_bytes(320, 240, image.Format.FMT_RGB888, data)
+print(img_jpeg)
+img = img_jpeg.to_format(image.Format.FMT_RGB888)
+print(img)
+</code></pre>
+<p>这里<code>to_bytes</code>获得一个新的<code>bytes</code>对象，是独立的内存，不会影响原图。<br />
+<code>image.Image</code>构造函数中传入<code>data</code>参数可以直接从<code>bytes</code>数据构造图像对象，注意新的图像也是独立的内存，不会影响到<code>data</code>。</p>
+<p>因为涉及到内存拷贝，所以这个方法比较耗时，不建议频繁使用。</p>
+<blockquote>
+<p>如果你想用不拷贝的方式优化程序（不建议轻易使用，写不好代码会导致程序容易崩溃，），请看 API 文档。</p>
+</blockquote>
+<h2 id="%E6%9B%B4%E5%A4%9A%E5%9F%BA%E7%A1%80-API-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">更多基础 API 使用方法</h2>
+<p>更多 API 使用方法请参考 <a href="/maixpy/api/maix/image.html"  >maix.image</a> 模块的文档。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/vision/camera.html">
+                            <span class="icon"></span>
+                            <span class="label">摄像头使用</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/vision/touchscreen.html">
+                            <span class="label">触摸屏使用</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

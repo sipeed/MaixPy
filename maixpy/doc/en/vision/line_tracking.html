@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy Line Tracking - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2024-05-09", "update": [{"date": "2024-05-09", "author": "lxowalle", "version": "1.0.0", "content": "Initial document"}], "ts": 1715212800, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/vision/line_tracking.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/vision/line_tracking.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/README_no_screen.html"><span class="label">Quick Start(no screen)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/os.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app_usage.html"><span class="label">App usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixpy_upgrade.html"><span class="label">Update MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO11/v8/v5 object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online AI training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov5.html"><span class="label">YOLOv5 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov8.html"><span class="label">YOLO11/v8 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">ONNX model to MaixCAM's</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/acc.html"><span class="label">Accelerometer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy Line Tracking</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="Last modify date: 2024-05-09">
+                                    2024-05-09
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/vision/line_tracking.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>Update history</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Version</th>
+                                                <th>Author</th>
+                                                <th>Update content</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2024-05-09</td>
+                                                    <td>1.0.0</td>
+                                                    <td>lxowalle</td>
+                                                    <td>
+                                                    
+                                                        Initial document
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>Before reading this article, make sure you already know how to develop MaixCAM. For details, please read <a href="../index.html"  >Quick Start</a>.</p>
+<h2 id="Introduction">Introduction</h2>
+<p>In vision applications, the function of tracking line is often required in applications such as line-following robot. In this article, we will describe:</p>
+<ul>
+<li><p>How to use MaixPy to tracking line.</p>
+</li>
+<li><p>How to tracking line using MaixCam's default application</p>
+</li>
+</ul>
+<h2 id="How-to-use-MaixPy-to-tracking-line">How to use MaixPy to tracking line</h2>
+<p>The <code>maix.image.Image</code> module in MaixPy provides the <code>get_regression</code> method, which can conveniently tracking line.</p>
+<h3 id="Code-example">Code example</h3>
+<p>A simple example of finding and drawing a line.</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, image
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+
+# thresholds = [[0, 80, 40, 80, 10, 80]] # red
+thresholds = [[0, 80, -120, -10, 0, 30]] # green
+# thresholds = [[0, 80, 30, 100, -120, -60]] # blue
+
+while 1:
+    img = cam.read()
+
+    lines = img.get_regression(thresholds, area_threshold = 100)
+    for a in lines:
+        img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
+        theta = a.theta()
+        rho = a.rho()
+        if theta &gt; 90:
+            theta = 270 - theta
+        else:
+            theta = 90 - theta
+        img.draw_string(0, 0, &quot;theta: &quot; + str(theta) + &quot;, rho: &quot; + str(rho), image.COLOR_BLUE)
+
+    disp.show(img)
+</code></pre>
+<p>Steps:</p>
+<ol>
+<li><p>import image, camera, display modules</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, camera, display
+</code></pre>
+</li>
+<li><p>Initialize camera and display</p>
+
+<pre class="language-python"><code class="language-python">cam = camera.Camera(320, 240) # Initialise camera, output resolution 320x240 in RGB format.
+disp = display.Display()
+</code></pre>
+</li>
+<li><p>Get the image from the camera and display it</p>
+
+<pre class="language-python"><code class="language-python">while 1:
+    img = cam.read()
+    disp.show(img)
+</code></pre>
+</li>
+<li><p>Call the <code>get_regression</code> method to find the straight line in the camera image and draw it to the screen</p>
+
+<pre class="language-python"><code class="language-python">lines = img.get_regression(thresholds, area_threshold = 100)
+for a in lines:
+   img.draw_line(a.x1(), a.y1(), a.x2(), a.y2(), image.COLOR_GREEN, 2)
+   theta = a.theta()
+   rho = a.rho()
+   if theta &gt; 90:
+      theta = 270 - theta
+   else:
+      theta = 90 - theta
+   img.draw_string(0, 0, &quot;theta: &quot; + str(theta) + &quot;, rho: &quot; + str(rho), image.COLOR_BLUE)
+</code></pre>
+<ul>
+<li><code>img</code> is the camera image read via <code>cam.read()</code>, when initialised as <code>cam = camera.Camera(320, 240)</code>, the <code>img</code> object is an RGB image with a resolution of 320x240.</li>
+<li><code>img.get_regression</code> is used to find straight lines, <code>thresholds</code> is a list of colour thresholds, each element is a colour threshold, multiple thresholds are passed in if multiple thresholds are found at the same time, and each colour threshold has the format <code>[L_MIN, L_MAX, A_MIN, A_MAX, B_MIN, B_MAX]</code>, where <code>L</code>, <code>A</code>, <code>B</code> are the three channels of <code>LAB</code> colour space, <code>L</code> channel is the luminance, <code>A</code> channel is the red-green channel, <code>B</code> channel is the blue-yellow channel. <code>pixels_threshold</code> is a pixel area threshold used to filter some unwanted straight lines.</li>
+<li><code>for a in lines</code> is used to iterate through the returned <code>Line</code> objects, where <code>a</code> is the current <code>Line</code> object. Normally the <code>get_regression</code> function will only return one <code>Line</code> object, but if you need to find more than one line, try the <code>find_line</code> method.</li>
+<li>Use <code>img.draw_line</code> to draw the found line, <code>a.x1(), a.y1(), a.x2(), a.y2()</code> represent the coordinates of the ends of the line.</li>
+<li>Use <code>img.draw_string</code> to show the angle between the line and the x-axis in the upper left corner, and <code>a.theta()</code> is the angle between the line and the y-axis, which is converted to <code>theta</code> for easier understanding, <code>a.rho()</code> is the length of the vertical line from the origin to the line.</li>
+</ul>
+</li>
+<li><p>Run the code through the maixvision, you can find the line, look at the effect!</p>
+<p><img src="../../../static/image/line_tracking_demo.jpg" alt="image-20240509110204007" /></p>
+</li>
+</ol>
+<h3 id="Common-Parameter-Explanations">Common Parameter Explanations</h3>
+<p>Here are explanations of commonly used parameters. If you cannot find parameters that can implement your application, you may need to consider using other algorithms or extending the required functionality based on the current algorithm's results.</p>
+<table>
+<thead>
+<tr>
+  <th>Parameter</th>
+  <th>Description</th>
+  <th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>thresholds</td>
+  <td>Thresholds based on the LAB color space, thresholds=[[l_min, l_max, a_min, a_max, b_min, b_max]], representing:<br/>Brightness range [l_min, l_max]<br/>Green to red component range [a_min, a_max]<br/>Blue to yellow component range [b_min, b_max]<br/>Multiple thresholds can be set simultaneously</td>
+  <td>Set two thresholds to detect red and green<br/><code>img.find_blobs(thresholds=[[0, 80, 40, 80, 10, 80], [0, 80, -120, -10, 0, 30]])</code><br/>Red threshold is [0, 80, 40, 80, 10, 80]<br/>Green threshold is [0, 80, -120, -10, 0, 30]</td>
+</tr>
+<tr>
+  <td>invert</td>
+  <td>Enable threshold inversion, when enabled, the passed thresholds are inverted. Default is False.</td>
+  <td>Enable threshold inversion<br/><code>img.find_blobs(invert=True)</code></td>
+</tr>
+<tr>
+  <td>roi</td>
+  <td>Set the rectangular region for the algorithm to compute, roi=[x, y, w, h], where x and y represent the coordinates of the top-left corner of the rectangle, and w and h represent the width and height of the rectangle, respectively. The default is the entire image.</td>
+  <td>Compute the region at (50, 50) with a width and height of 100<br/><code>img.find_blobs(roi=[50, 50, 100, 100])</code></td>
+</tr>
+<tr>
+  <td>area_threshold</td>
+  <td>Filter out blobs with a pixel area smaller than area_threshold, in units of pixels. The default is 10. This parameter can be used to filter out some useless small blobs.</td>
+  <td>Filter out blobs with an area smaller than 1000<br/><code>img.find_blobs(area_threshold=1000)</code></td>
+</tr>
+<tr>
+  <td>pixels_threshold</td>
+  <td>Filter out blobs with fewer valid pixels than pixels_threshold. The default is 10. This parameter can be used to filter out some useless small blobs.</td>
+  <td>Filter out blobs with fewer than 1000 valid pixels<br/><code>img.find_blobs(pixels_threshold=1000)</code></td>
+</tr>
+</tbody>
+</table>
+<p>This article introduces commonly used methods. For more APIs, please see the <a href="../../../api/maix/image.html"  >image</a> section of the API documentation.</p>
+<h3 id="Increasing-the-speed-of-line-tracking">Increasing the speed of line tracking</h3>
+<p>Here are a few ways to increase the speed of line tracking</p>
+<ol>
+<li><p>Choose a suitable resolution</p>
+<p>The larger the resolution, the slower the calculation speed, you can choose a more suitable resolution according to the recognition distance and accuracy requirements.</p>
+</li>
+<li><p>Use gray scale image</p>
+<p>When using gray scale recognition, the algorithm will only process one channel, there is a faster recognition speed, in the environment of a single color will be very useful. Note that only <code>l_min</code> and <code>l_max</code> are valid when passing <code>thresholds</code> to <code>get_regression</code> when using gray scale image recognition.</p>
+<p>Methods for get gray scale image:</p>
+
+<pre class="language-python"><code class="language-python"># Example 1
+cam = camera.Camera(320, 240， image.Format.FMT_GRAYSCALE)    	# Support after MaixPy v4.2.1
+gray_img = cam.read()											# get gray scale image
+
+# Example 2
+cam = camera.Camera(320, 240)
+img = cam.read()
+gray_img = img.to_format(image.Format.FMT_GRAYSCALE)			# get gray scale image
+</code></pre>
+</li>
+</ol>
+<h2 id="How-to-tracking-line-using-MaixCam%27s-default-application">How to tracking line using MaixCam's default application</h2>
+<p>To quickly verify the line tracking functionality, you can use the <code>line_tracking</code> application provided by MaixCam to experience the line finding effect.</p>
+<h3 id="How-to-use-it">How to use it</h3>
+<ol>
+<li>Select and open the <code>Line tracking</code> application.</li>
+<li>Click on the line in the screen that needs to be identified and the colour of the line will be displayed on the left hand side</li>
+<li>Click on the colour to be detected on the left (the colour below L A B in the screen)</li>
+<li>The line will be identified and the coordinates and angle of the line will be output from the serial port.</li>
+</ol>
+<h3 id="Demo">Demo</h3>
+<p><video src="/maixpy/static/video/line_tracking_app.mp4" controls="controls" width="100%" height="auto"></video></p>
+<h3 id="Advanced-operations">Advanced operations</h3>
+<h4 id="Manual-adjustment-of-LAB-threshold-to-tracking-line">Manual adjustment of LAB threshold to tracking line</h4>
+<p>The application provides manual setting of LAB threshold to tracking line accurately.</p>
+<p>Steps:</p>
+<ol>
+<li><code>Click</code> the <code>options icon</code> in the bottom-left corner to enter configuration mode.</li>
+<li>Point the <code>camera</code> at the <code>object</code> you need to <code>find</code>, <code>click</code> on the <code>target object</code> on the screen, and the <code>left side</code> will display a <code>rectangular frame</code> of the object's color and show the <code>LAB values</code> of that color.</li>
+<li>Click on the bottom options <code>L Min</code>, <code>L Max</code>, <code>A Min</code>, <code>A Max</code>, <code>B Min</code>, <code>B Max</code>. After clicking, a slider will appear on the right side to set the value for that option. These values correspond to the minimum and maximum values of the L, A, and B channels in the LAB color format, respectively.</li>
+<li>Referring to the <code>LAB values</code> of the object color calculated in step 2, adjust <code>L Min</code>, <code>L Max</code>, <code>A Min</code>, <code>A Max</code>, <code>B Min</code>, <code>B Max</code> to appropriate values to identify the corresponding color blobs. For example, if <code>LAB = (20, 50, 80)</code>, since <code>L=20</code>, to accommodate a certain range, set <code>L Min=10</code> and <code>L Max=30</code>. Similarly, since <code>A=50</code>, set <code>A Min=40</code> and <code>A Max=60</code>. Since <code>B=80</code>, set <code>B Min=70</code> and <code>B Max=90</code>.</li>
+</ol>
+<h4 id="Getting-Detection-Data-via-Serial-Protocol">Getting Detection Data via Serial Protocol</h4>
+<p>The line tracking application supports reporting detected straight line information via the serial port (default baud rate is 115200).</p>
+<p>Since only one report message is sent, we can illustrate the content of the report message with an example.</p>
+<p>For instance, if the report message is:</p>
+
+<pre class="language-shell"><code class="language-shell">AA CA AC BB 0E 00 00 00 00 E1 09 FC 01 01 00 E9 01 6F 01 57 00 C1 C6
+</code></pre>
+<ul>
+<li><p><code>AA CA AC BB</code>: Protocol header, fixed content</p>
+</li>
+<li><p><code>0E 00 00 00</code>: Data length, the total length excluding the protocol header and data length, here means the length is 14.</p>
+</li>
+<li><p><code>E1</code>: Flag bit, used to identify the serial message flag</p>
+</li>
+<li><p><code>09</code>: Command type, for the line tracking application, this value is fixed at 0x09.</p>
+</li>
+<li><p><code>FC 01 01 00 E9 01 6F 01 57 00</code>: The coordinates and angle information for both ends of  line, with each value represented as a 2-byte value in little-end format. <code>FC 01</code> and <code>01 00</code> indicate that the coordinates of the first endpoint are (508, 1), <code>E9 01</code> and <code>6F 01</code> indicate that the coordinates of the second endpoint are (489, 367), and <code>57 00</code> indicates that the angle of the line to the x-axis is 87 degrees</p>
+</li>
+<li><p><code>C1 C6</code>: CRC checksum value, used to verify if the frame data has errors during transmission.</p>
+</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/vision/find_blobs.html">
+                            <span class="icon"></span>
+                            <span class="label">Finding color blocks</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/vision/qrcode.html">
+                            <span class="label">QRcode identity</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

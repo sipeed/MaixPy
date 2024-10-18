@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy Quick Start - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/index.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/index.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/README_no_screen.html"><span class="label">Quick Start(no screen)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/os.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app_usage.html"><span class="label">App usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixpy_upgrade.html"><span class="label">Update MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO11/v8/v5 object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online AI training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov5.html"><span class="label">YOLOv5 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov8.html"><span class="label">YOLO11/v8 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">ONNX model to MaixCAM's</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/acc.html"><span class="label">Accelerometer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy Quick Start</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/README.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <style>
+    #head_links table {
+        width: 100%;
+        display: table;
+    }
+
+    @media screen and (max-width: 900px){
+      #head_links th, #head_links td {
+          /* padding: 8px; */
+          font-size: 0.9em;
+          padding: 0.1em 0.05em;
+      }
+    }
+</style>
+<div id="head_links">
+<table>
+<thead>
+<tr>
+  <th style="text-align:center">Resource Summary</th>
+  <th style="text-align:center">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td style="text-align:center">MaixPy Tutorial Documentation 📖</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixpy/en/"  target="_blank">wiki.sipeed.com/maixpy/en/</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixPy Examples and Source Code <img src="/maixpy/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"></td>
+  <td style="text-align:center"><a href="https://github.com/sipeed/MaixPy"  target="_blank">github.com/sipeed/MaixPy</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixCAM Hardware Documentation 📷</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixcam"  target="_blank">wiki.sipeed.com/maixcam</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixPy API Documentation 📚</td>
+  <td style="text-align:center"><a href="https://wiki.sipeed.com/maixpy/api/index.html"  target="_blank">wiki.sipeed.com/maixpy/api/</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixHub App Store 📦</td>
+  <td style="text-align:center"><a href="https://maixhub.com/app"  target="_blank">maixhub.com/app</a></td>
+</tr>
+<tr>
+  <td style="text-align:center">MaixHub Sharing Square 🎲</td>
+  <td style="text-align:center"><a href="https://maixhub.com/share"  target="_blank">maixhub.com/share</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
+  <div style="padding: 1em 0 0 0">
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://item.taobao.com/item.htm?id=784724795837">Taobao</a>
+    <a target="_blank" style="color: white; font-size: 0.9em; border-radius: 0.3em; padding: 0.5em; background-color: #c33d45" href="https://www.aliexpress.com/store/911876460">AliExpress</a>
+  </div>
+</div>
+<br>
+<blockquote>
+<p>For an introduction to MaixPy, please see the <a href="../../index.html"  >MaixPy official website homepage</a><br />
+Please give the <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy project</a> a Star ⭐️ to encourage us to develop more features if you like MaixPy.</p>
+</blockquote>
+<h2 id="Before-Start">Before Start</h2>
+<ul>
+<li>Please <strong>carefully</strong> follow the steps outlined in this document. Do not skip any sections, and compare your actions accordingly.</li>
+<li><strong>Pay close attention</strong> to the table of contents on the left. Be sure to read through the basic sections thoroughly and patiently.</li>
+<li><strong>Before asking questions</strong>, first search the documentation in the left-hand table of contents and review the <a href="./faq.html"  >FAQ</a>.</li>
+<li>This document is the <code>MaixPy v4 Tutorial</code>. Be mindful not to confuse it with the <a href="https://wiki.sipeed.com/soft/maixpy/zh/index.html"  target="_blank">MaixPy-v1</a> (K210 series), and ensure you are referring to the correct documentation.</li>
+</ul>
+<h2 id="Get-a-MaixCAM-Device">Get a MaixCAM Device</h2>
+<ul>
+<li><strong>MaixCAM</strong>: Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> development board from the <a href="https://item.taobao.com/item.htm?id=784724795837"  target="_blank">Sipeed Taobao</a> or <a href="https://www.aliexpress.com/store/911876460"  target="_blank">Sipeed AliExpress</a> store.</li>
+</ul>
+<p><strong>It is recommended to purchase the bundle with a <code>TF card</code>, <code>camera</code>, <code>2.3-inch touchscreen</code>, <code>case</code>, <code>Type-C data cable</code>, <code>Type-C one-to-two mini board</code>, and <code>4P serial port socket+cable</code></strong>, which will be convenient for later use and development. <strong>The following tutorials assume that you already have these accessories</strong> (including the screen).</p>
+<p><strong>It is highly recommended to purchase a package that includes a screen, as it greatly enhances the development experience.</strong> If you do not need a screen for actual deployment in a production environment, you can start with a screen-included kit for initial development, and then either remove the screen or purchase a screenless version for mass production later on.</p>
+<ul>
+<li><p><strong>Power Supply</strong>: A stable power supply is crucial. MaixCAM requires a steady <code>5V 500mA</code> power supply. Insufficient power can result in failure to boot or crashes during operation. This is especially true for some computer USB ports, which may provide unstable power.</p>
+</li>
+<li><p><strong>TF Card Reader</strong>: Used for flashing the system, essential.</p>
+</li>
+<li><p><strong>USB to serial port module</strong>: If you want to debug serial communication with PC, it is recommended to prepare one. You can buy any one from Taobao or buy them together at Sipeed store, such as this <a href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&amp;id=610365562537"  target="_blank">dual serial port to USB module</a>.</p>
+</li>
+</ul>
+<blockquote class="spoiler warning">
+<p> Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.</p>
+</blockquote>
+<h2 id="For-no-screen-devies">For no screen devies</h2>
+<p>If you use screenless version, please refer to the <a href="./README_no_screen.html"  >Quick Start (Screenless Version)</a> document.</p>
+<h2 id="Getting-Started">Getting Started</h2>
+<h3 id="Prepare-the-TF-Image-Card-and-Insert-it-into-the-Device">Prepare the TF Image Card and Insert it into the Device</h3>
+<p>If the package you purchased includes a TF card, it already contains the factory image. If the TF card was not installed in the device at the factory, you will first need to carefully open the case (be careful not to tear the ribbon cables inside) and then insert the TF card. Additionally, since the firmware from the factory may be outdated, it is highly recommended to follow the instructions on <a href="https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html"  target="_blank">Upgrading and Flashing the System</a> to upgrade the system to the latest version.</p>
+<p>If you did not purchase a TF card, you need to flash the system onto a self-provided TF card. Please refer to <a href="./basic/os.html"  >Upgrading and Flashing the System</a> for the flashing method, and then install it on the board.</p>
+<h3 id="Power-On">Power On</h3>
+<p>Use a <code>Type-C</code> data cable to connect the <code>MaixCAM</code> device and power it on. Wait for the device to boot up and enter the function selection interface.</p>
+<p><img src="../../static/image/maixcam_font.png" alt="maixcam_font" /></p>
+<p>If the screen does not display:</p>
+<ul>
+<li>Please confirm that you purchased the bundled TF card. If you confirm that you have a TF card and it is inserted into the device, you can try <a href="./basic/os.html"  >updating to the latest system</a>.</li>
+<li>If you did not purchase the TF card bundle, you need to follow the instructions in <a href="./basic/os.html"  >Upgrading and Flashing the System</a> to flash the latest system onto the TF card.</li>
+<li>Also, ensure that the screen and camera cables are not loose. The screen cable can easily come off when opening the case, so be careful.</li>
+</ul>
+<h3 id="Connect-to-the-Network">Connect to the Network</h3>
+<p>For the first run, you need to connect to the network, as you will need it later to activate the device and use the IDE.<br />
+If you don't have a router, you can use your phone to open a hotspot.</p>
+<p>Click <code>Settings</code> on the device and select <code>WiFi</code>. There are two ways to connect to the <code>WiFi</code> hotspot:</p>
+<ul>
+<li>Scan the WiFi sharing code:<ul>
+<li>Use your phone to share the <code>WiFi</code> hotspot QR code, or go to <a href="https://maixhub.com/wifi"  target="_blank">maixhub.com/wifi</a> to generate a QR code.</li>
+<li>Click the <code>Scan QR code</code> button, the camera screen will appear, scan the QR code generated previously to connect.</li>
+</ul>
+</li>
+<li>Search for hotspots:<ul>
+<li>Click the <code>Scan</code> button to start scanning the surrounding <code>WiFi</code>, you can click multiple times to refresh the list.</li>
+<li>Find your WiFi hotspot.</li>
+<li>Enter the password and click the <code>Connect</code> button to connect.</li>
+</ul>
+</li>
+</ul>
+<p>Then wait for the <code>IP</code> address to be obtained, which may take <code>10</code> to <code>30</code> seconds. If the interface does not refresh, you can exit the <code>WiFi</code> function and re-enter to view it, or you can also see the <code>IP</code> information in <code>Settings</code> -&gt; <code>Device Information</code>.</p>
+<h3 id="Update-the-Runtime-Libraries">Update the Runtime Libraries</h3>
+<p><strong>This step is very important!!!</strong> If this step is not done properly, other applications and functions may not work (e.g., they may crash).</p>
+<ul>
+<li>First, ensure that you have completed the previous step of connecting to WiFi and have obtained an IP address to access the internet.</li>
+<li>On the device, click <code>Settings</code>, and select <code>Install Runtime Libraries</code>.</li>
+<li>After the installation is complete, you will see that it has been updated to the latest version. Then exit.</li>
+</ul>
+<p>If it shows <code>Request failed</code> or <code>请求失败</code> (Request failed), please first check if the network is connected. You need to be able to connect to the internet. If it still doesn't work, please take a photo and contact customer service for assistance.</p>
+<h3 id="Use-Built-in-Applications">Use Built-in Applications</h3>
+<p>Many applications are built-in, such as Find Blobs, AI Detector, Line Follower, etc. For example, Find Blobs:</p>
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/maixpy/static/video/find_blobs.mp4" type="video/mp4">
+Classifier Result video
+</video>
+<p>Please explore other applications on your own. More applications will be updated in the future. For usage documentation and application updates, please see the <a href="https://maixhub.com/app"  target="_blank">MaixHub App Store</a>.</p>
+<p><strong>Note: The applications only include a part of the functionality that MaixPy can achieve. Using MaixPy, you can create even more features.</strong></p>
+<h2 id="Use-as-a-Serial-Module">Use as a Serial Module</h2>
+<blockquote>
+<p>If you want to use the device as the main controller (or if you don't understand what a serial module is), you can skip this step.</p>
+</blockquote>
+<p>The built-in applications can be used directly as serial modules, such as <code>Find Blobs</code>, <code>Find Faces</code>, <code>Find QR Codes</code>, etc.<br />
+Note that the serial port can only directly connect to other microcontrollers. <strong>If you want to communicate with a computer via a serial port, you must provide a USB-to-serial module yourself.</strong></p>
+<p>Usage:</p>
+<ul>
+<li>Hardware connection: You can connect the device to the <code>Type-C one-to-two mini board</code>, which allows you to connect the device via serial to your main controller, such as <code>Arduino</code>, <code>Raspberry Pi</code>, <code>STM32</code>, etc.</li>
+<li>Open the application you want to use, such as QR code recognition. When the device scans a QR code, it will send the result to your main controller via serial.</li>
+</ul>
+<blockquote>
+<p>The serial baud rate is <code>115200</code>, the data format is <code>8N1</code>, and the protocol follows the <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix Serial Communication Protocol Standard</a>. You can find the corresponding application introduction on the <a href="https://maixhub.com/app"  target="_blank">MaixHub APP</a> to view the protocol.<br />
+If APP no serial output, you can also do it by yourself, follow function examples and <a href="./peripheral/uart.html"  >UART usage doc</a> to add function and serial output.</p>
+</blockquote>
+<h2 id="Preparing-to-Connect-Computer-and-Device">Preparing to Connect Computer and Device</h2>
+<p>To enable communication between the computer (PC) and the device (MaixCAM), we need to ensure they are on the same local area network. There are two methods to achieve this:</p>
+<ul>
+<li><strong>Method 1 (Highly Recommended)</strong>: Wireless Connection. Connect the device to the same router or Wi-Fi hotspot that the computer is connected to via Wi-Fi. Go to the device's <code>Settings -&gt; WiFi Settings</code> and connect to your Wi-Fi. (If you experience screen lag or high latency with Wi-Fi, you can try Method 2 for a wired connection.)</li>
+</ul>
+<p>Here is the translation:</p>
+<ul>
+<li><strong>Method Two</strong>: Wired Connection. The device connects to the computer via a USB cable, and the device will emulate as a USB network adapter. This way, the device and the computer will be on the same local network through the USB connection. It is recommended to start with WiFi because although a wired connection offers stable transmission, it may encounter issues such as faulty cables, poor connection, or driver problems. If you encounter any issues, you can refer to the common problems in the <a href="./faq.html"  >FAQ</a>.</li>
+</ul>
+<details open>
+<summary>Method Two: Driver Installation on Different Computer Systems:</summary>
+<div class="details-content"><p>By default, there are two types of USB virtual network adapter drivers (NCM and RNDIS drivers) to meet the needs of different systems. You can also disable the unused virtual network adapter on the device under <code>Settings</code> -&gt; <code>USB Settings</code>:</p>
+<ul>
+<li><strong>Windows</strong>: All Windows systems will automatically install the RNDIS driver, while only Windows 11 will automatically install the NCM driver. As long as <strong>one of the drivers works</strong>, it is sufficient.<ul>
+<li>Open Task Manager -&gt; Performance, and you should see a virtual Ethernet with an IP address such as <code>10.131.167.100</code>, which is the computer's IP address. The device's IP address is the same but with the last digit changed to <code>1</code>, i.e., <code>10.131.167.1</code>. If you are using Windows 11, you will see two virtual network adapters; you can use either IP address.</li>
+<li>Additionally, you can open <code>Device Manager</code> (search for <code>Device Manager</code> in the search bar). The RNDIS and NCM drivers should be correctly installed, as shown below:<br />
+<img src="../../static/image/windows_rndis_ok.png" alt="RNDIS ok" /> <img src="../../static/image/windows_ncm_ok.png" alt="NCM ok" /></li>
+</ul>
+</li>
+<li><strong>Linux</strong>: No additional setup is required. Simply plug in the USB cable. Use <code>ifconfig</code> or <code>ip addr</code> to see the <code>usb0</code> and <code>usb1</code> network interfaces, and either IP address can be used. <strong>Note</strong>: The IP address you see, such as <code>10.131.167.100</code>, is the computer's IP address, and the device's IP address is the same but with the last digit changed to <code>1</code>, i.e., <code>10.131.167.1</code>.</li>
+<li><strong>MacOS</strong>: Check for the <code>usb</code> network adapter under <code>System Settings</code> -&gt; <code>Network</code>. <strong>Note</strong>: The IP address you see, such as <code>10.131.167.100</code>, is the computer's IP address, and the device's IP address is the same but with the last digit changed to <code>1</code>, i.e., <code>10.131.167.1</code>.</li>
+</ul>
+</div>
+</details>
+<h2 id="Preparing-the-Development-Environment">Preparing the Development Environment</h2>
+<ul>
+<li>First, ensure that the computer and the device are on the same local network as per the previous step.</li>
+<li>Download and install <a href="https://wiki.sipeed.com/maixvision"  target="_blank">MaixVision</a>.</li>
+<li>Connect the device and the computer using a Type-C cable. Open MaixVision, click the <code>“Connect”</code> button in the lower left corner, and it will automatically search for the device. Wait for a moment until the device appears, then click the connection button next to the device to connect.</li>
+</ul>
+<p>If <strong>no device is detected</strong>, you can also manually enter the device's IP address in the <strong>device</strong>'s <code>Settings -&gt; Device Info</code>. You can also find solutions in the <a href="./faq.html"  >FAQ</a>.</p>
+<p><strong>After a successful connection, the function selection interface on the device will disappear, and the screen will turn black, releasing all hardware resources. If there is still an image displayed, you can disconnect and reconnect.</strong></p>
+<p>Here is a video example of using MaixVision:</p>
+<p><video style="width:100%" controls muted preload src="/maixpy/static/video/maixvision.mp4"></video></p>
+<h2 id="Run-Examples">Run Examples</h2>
+<p>Click <code>Example Code</code> on the left side of MaixVision, select an example, and click the <code>Run</code> button in the bottom left to send the code to the device for execution.</p>
+<p>For example:</p>
+<ul>
+<li><code>hello_maix.py</code>: Click the <code>Run</code> button, and you will see messages printed from the device in the MaixVision terminal, as well as an image in the upper right corner.</li>
+<li><code>camera_display.py</code>: This example will open the camera and display the camera view on the screen.</li>
+</ul>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, app
+
+disp = display.Display()          # Construct a display object and initialize the screen
+cam = camera.Camera(640, 480)     # Construct a camera object, manually set the resolution to 640x480, and initialize the camera
+while not app.need_exit():        # Keep looping until the program exits (you can exit by pressing the function key on the device or clicking the stop button in MaixVision)
+    img = cam.read()              # Read the camera view and save it to the variable img, you can print(img) to print the details of img
+    disp.show(img)                # Display img on the screen
+</code></pre>
+<ul>
+<li><code>yolov5.py</code> will detect objects in the camera view, draw bounding boxes around them, and display them on the screen. It supports detection of 80 object types. For more details, please see <a href="./vision/yolov5.html"  >YOLOv5 Object Detection</a>.</li>
+</ul>
+<p>You can try other examples on your own.</p>
+<blockquote>
+<p>If you encounter image display stuttering when using the camera examples, it may be due to poor network connectivity, or the quality of the USB cable or the host's USB being too poor. You can try changing the connection method or replacing the cable, host USB port, or computer.</p>
+</blockquote>
+<h2 id="Install-Applications-on-the-Device">Install Applications on the Device</h2>
+<p>The above examples run code on the device, but the code will stop running when <code>MaixVision</code> is disconnected. If you want the code to appear in the boot menu, you can package it as an application and install it on the device.</p>
+<p>Click the <code>Install App</code> button in the bottom left corner of <code>MaixVision</code>, fill in the application information, and the application will be installed on the device. Then you will be able to see the application on the device.<br />
+ You can also choose to package the application and share your application to the <a href="https://maixhub.com/app"  target="_blank">MaixHub App Store</a>.</p>
+<blockquote>
+<p>The default examples do not explicitly write an exit function, so you can exit the application by pressing the function key on the device. (For MaixCAM, it is the user key.)</p>
+</blockquote>
+<p>If you want the program to start automatically on boot, you can set it in <code>Settings -&gt; Boot Startup</code>.</p>
+<h2 id="Next-Steps">Next Steps</h2>
+<p>If you like what you've seen so far, <strong>please be sure to give the MaixPy open-source project a star on <a href="https://github.com/sipeed/MaixPy"  target="_blank">GitHub</a> (you need to log in to GitHub first). Your star and recognition is the motivation for us to continue maintaining and adding new features!</strong></p>
+<p>Up to this point, you've experienced the usage and development workflow. Next, you can learn about <code>MaixPy</code> syntax and related features. Please follow the left sidebar to learn. If you have any questions about using the API, you can look it up in the <a href="/maixpy/api/"  >API documentation</a>.</p>
+<p>It's best to learn with a specific purpose in mind, such as working on an interesting small project. This way, the learning effect will be better. You can share your projects and experiences on the <a href="https://maixhub.com/share"  target="_blank">MaixHub Share Plaza</a> and receive cash rewards!</p>
+<h2 id="Frequently-Asked-Questions-%28FAQ%29">Frequently Asked Questions (FAQ)</h2>
+<p>If you encounter any problems, please check the <a href="./faq.html"  >FAQ</a> first. If you cannot find a solution there, you can ask in the forums or groups below, or submit a source code issue on <a href="https://github.com/sipeed/MaixPy/issues"  target="_blank">MaixPy issue</a>.</p>
+<h2 id="Share-and-Discuss">Share and Discuss</h2>
+<ul>
+<li><strong><a href="https://maixhub.com/share"  target="_blank">MaixHub Project and Experience Sharing</a></strong>: Share your projects and experiences, and receive cash rewards. The basic requirements for receiving official rewards are:<ul>
+<li><strong>Reproducible</strong>: A relatively complete process for reproducing the project.</li>
+<li><strong>Showcase</strong>: No detailed project reproduction process, but an attractive project demonstration.</li>
+<li><strong>Bug-solving experience</strong>: Sharing the process and specific solution for resolving a particular issue.</li>
+</ul>
+</li>
+<li><a href="https://maixhub.com/discussion/maixpy"  target="_blank">MaixPy Official Forum</a> (for asking questions and discussion)</li>
+<li>Telegram: <a href="https://t.me/maixpy"  target="_blank">MaixPy</a></li>
+<li>MaixPy Source Code Issues: <a href="https://github.com/sipeed/MaixPy/issues"  target="_blank">MaixPy issue</a></li>
+<li>For business cooperation or bulk purchases, please contact support@sipeed.com.</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/README_no_screen.html">
+                            <span class="label">Quick Start(no screen)</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

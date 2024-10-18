@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>Introduction to Using MaixCAM MaixPy UART Serial Port - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/peripheral/uart.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/peripheral/uart.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/README_no_screen.html"><span class="label">Quick Start(no screen)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/os.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app_usage.html"><span class="label">App usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixpy_upgrade.html"><span class="label">Update MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO11/v8/v5 object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online AI training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov5.html"><span class="label">YOLOv5 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov8.html"><span class="label">YOLO11/v8 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">ONNX model to MaixCAM's</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/acc.html"><span class="label">Accelerometer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>Introduction to Using MaixCAM MaixPy UART Serial Port</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/peripheral/uart.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="Introduction-to-Serial-Ports">Introduction to Serial Ports</h2>
+<p>A serial port is a communication method that includes the definitions of both hardware and communication protocols.</p>
+<ul>
+<li>Hardware includes:<ul>
+<li>3 pins: <code>GND</code>, <code>RX</code>, <code>TX</code>, with cross-connection for communication. <code>RX</code> and <code>TX</code> should be cross-connected, meaning one side's <code>TX</code> should connect to the other side's <code>RX</code>, and both sides' <code>GND</code> should be connected together.</li>
+<li>Controller, usually inside the chip, also known as the <code>UART</code> peripheral. Generally, a chip can have one or more <code>UART</code> controllers, each with corresponding pins.</li>
+</ul>
+</li>
+<li>Serial communication protocol: To ensure smooth communication between both parties, a set of protocols is established, specifying how communication should occur, including common parameters like baud rate and parity bit. Baud rate is the most commonly used parameter.</li>
+</ul>
+<p>Using the serial port of the board, you can communicate data with other microcontrollers or SOCs. For example, human detection can be implemented on MaixCAM, and the detected coordinates can be sent to STM32/Arduino microcontrollers via the serial port.</p>
+<h2 id="Using-Serial-Port-in-MaixPy">Using Serial Port in MaixPy</h2>
+<p>MaixCAM's default configuration exposes a serial port through the USB port. By plugging in the Type-C adapter board, you can directly use the serial port pins. Alternatively, you can use the <code>A16(TX)</code> and <code>A17(RX)</code> pins directly on the board, which are equivalent to those exposed via the USB port.</p>
+<p>When using the serial port exposed through USB on MaixCAM, note that the <code>RX</code> and <code>TX</code> pins on the Type-C adapter board will swap between regular and reverse insertions (assuming the <strong>Type-C female port is facing forward</strong> and matching the silk screen). If communication fails, try flipping the Type-C connection to see if it resolves the issue. Although this is a design flaw, frequent plug/unplug operations are rare, so adapting to it is acceptable.</p>
+<p>After connecting the two communicating boards (cross-connecting <code>RX</code> and <code>TX</code> and connecting both <code>GND</code>), you can use software for communication.</p>
+<p>Using the serial port with MaixPy is simple:</p>
+
+<pre class="language-python"><code class="language-python">from maix import uart
+
+device = &quot;/dev/ttyS0&quot;
+# ports = uart.list_devices() # List available serial ports
+
+serial = uart.UART(device, 115200)
+serial.write_str(&quot;hello world&quot;)
+print(&quot;received:&quot;, serial.read(timeout = 2000))
+</code></pre>
+<p>Here, we use the first serial port <code>/dev/ttyS0</code>, which is the serial port exposed via <code>Type-C</code> mentioned above.</p>
+<p>More serial port APIs can be found in the <a href="../../../api/maix/peripheral/uart.html"  >UART API documentation</a>.</p>
+<h2 id="MaixCAM-Serial-Port-Usage-Notes">MaixCAM Serial Port Usage Notes</h2>
+<h3 id="TX-Pin-Notes">TX Pin Notes</h3>
+<p>MaixCAM's <code>TX</code> (<code>UART0</code>) pin must not be in a pulled-down state during boot-up, or the device will fail to start. This is a characteristic of the chip. If you are designing a 3.3v to 5v level-shifting circuit, be sure not to default it to a pulled-down state and keep it floating (consider using a level-shifting chip).</p>
+<p>If the device fails to boot, also check whether the <code>TX</code> pin is pulled down.</p>
+<h2 id="Connecting-to-a-Computer-via-Serial-Port">Connecting to a Computer via Serial Port</h2>
+<p>Developers may ask: Why doesn't the serial port device appear on the computer when the USB is plugged in? The answer is that the USB on the device defaults to a virtual USB network card without serial port functionality. To access the device's terminal, use SSH connection.</p>
+<p>For MaixCAM, the <code>serial port 0</code> from the Type-C adapter board is directly connected to the <code>A16(TX)</code> and <code>A17(RX)</code> pins. It can be connected directly to other devices, such as microcontrollers' serial port pins. To communicate with a computer, use a USB-to-serial converter board (such as <a href="https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&amp;id=610365562537"  target="_blank">this one</a>).</p>
+<h2 id="Boot-Log-Output">Boot Log Output</h2>
+<p>It is important to note that <strong>MaixCAM's <code>serial port 0</code> will output some boot logs during startup</strong>. After startup, the message <code>serial ready</code> will be printed. When communicating with a microcontroller, discard this information. If there are system startup issues, the boot log from <code>serial port 0</code> can help diagnose the problem.</p>
+<h2 id="Sending-Data">Sending Data</h2>
+<p>There are mainly two functions for sending data: <code>write_str</code> and <code>write</code>.</p>
+<p>The <code>write_str</code> function is used to send strings, while <code>write</code> is used to send byte streams, i.e., <code>str</code> and <code>bytes</code> types, which can be converted to each other. For example:</p>
+<ul>
+<li><code>&quot;A&quot;</code> can be converted to <code>b&quot;A&quot;</code> using the <code>encode()</code> method, and vice versa, <code>b&quot;A&quot;</code> can be converted back to <code>&quot;A&quot;</code> using the <code>decode()</code> method.</li>
+<li><code>str</code> cannot display some invisible characters, such as the ASCII value <code>0</code>, which is generally <code>\0</code> in strings and serves as a terminator. In <code>bytes</code> type, it can be stored as <code>b&quot;\x00&quot;</code>.</li>
+<li>This is more useful for non-ASCII encoded strings. For example, the Chinese character <code>好</code> in <code>UTF-8</code> encoding is represented by three bytes <code>\xe5\xa5\xbd</code>. We can use <code>&quot;好&quot;.encode(&quot;utf-8&quot;)</code> to get <code>b&quot;\xe5\xa5\xbd&quot;</code>, and <code>b'\xe5\xa5\xbd'.decode(&quot;utf-8)</code> to get <code>&quot;好&quot;</code>.</li>
+</ul>
+<p>So if we need to send byte data, we can use the <code>write()</code> method to send it. For example:</p>
+
+<pre class="language-python"><code class="language-python">bytes_content = b'\x01\x02\x03'
+serial.write(bytes_content)
+</code></pre>
+<p>Therefore, for the <code>str</code> type, you can use <code>serial.write(str_content.encode())</code> instead of <code>write_str</code> to send it.</p>
+<p>If you have other data types that you want to convert into a <strong>string to send</strong>, you can use <code>Python string formatting</code> to create a string. For example, to send <code>I have xxx apple</code>, where <code>xxx</code> is an integer variable, you can do:</p>
+
+<pre class="language-python"><code class="language-python">num = 10
+content = &quot;I have {} apple&quot;.format(num)
+content2 = f&quot;I have {num} apple&quot;
+content3 = &quot;I have {:04d} apple&quot;.format(num)
+content4 = f&quot;I have {num:d} apple&quot;
+print(content)
+print(content2)
+print(content3)
+print(content4)
+print(type(content))
+serial.write_str(content)
+</code></pre>
+<p>Additionally, you can encode the data into a <strong>binary stream to send</strong>. For example, the first 4 bytes are hexadecimal <code>AABBCCDD</code>, followed by an <code>int</code> type value, and finally a <code>0xFF</code> at the end. You can use <code>struct.pack</code> to encode it (if this is unclear, you can read the explanation later):</p>
+
+<pre class="language-python"><code class="language-python">from struct import pack
+num = 10
+bytes_content = b'\xAA\xBB\xCC\xDD'
+bytes_content += pack(&quot;&lt;i&quot;, num)
+bytes_content += b'\xFF'
+print(bytes_content, type(bytes_content))
+serial.write(bytes_content)
+</code></pre>
+<p>Here, <code>pack(&quot;&lt;i&quot;, num)</code> encodes <code>num</code> as an <code>int</code> type, which is a 4-byte signed integer. The <code>&lt;</code> symbol indicates little-endian encoding, with the low byte first. Here, <code>num = 10</code>, the 4-byte hexadecimal representation is <code>0x0000000A</code>, and little-endian encoding puts the low byte <code>0x0A</code> first, resulting in <code>b'\x0A\x00\x00\x00'</code>.</p>
+<blockquote>
+<p>Here, we use <code>i</code> to encode <code>int</code> type data as an example. Other types, such as <code>B</code> for <code>unsigned char</code>, etc., can also be used. More <code>struct.pack</code> formatting options can be searched online with <code>python struct pack</code>.</p>
+</blockquote>
+<p>In this way, the final data sent is <code>AA BB CC DD 0A 00 00 00 FF</code> as binary data.</p>
+<h2 id="Receiving-Data">Receiving Data</h2>
+<p>Use the <code>read</code> method to read data directly:</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    data = serial.read()
+    if data:
+        print(data)
+    time.sleep_ms(1)
+</code></pre>
+<p>Similarly, the data obtained by the <code>read</code> method is also of the <code>bytes</code> type. Here, <code>read</code> reads a batch of data sent by the other party. If there is no data, it returns <code>b''</code>, which is an empty byte.</p>
+<p>Here, <code>time.sleep_ms(1)</code> is used to sleep for <code>1ms</code>, which frees up the CPU so that this thread does not occupy all CPU resources. <code>1ms</code> does not affect the program's efficiency, especially in multithreading.</p>
+<p>In addition, the <code>read</code> function has two parameters:</p>
+<ul>
+<li><code>len</code>: Represents the maximum length you want to receive. The default is <code>-1</code>, meaning it will return as much as there is in the buffer. If you pass a value <code>&gt;0</code>, it means it will return data up to that length.</li>
+<li><code>timeout</code>:<ul>
+<li>The default <code>0</code> means it will return immediately with whatever data is in the buffer. If <code>len</code> is <code>-1</code>, it returns all data; if a length is specified, it returns data not exceeding that length.</li>
+<li><code>&lt;0</code> means it waits until data is received before returning. If `</li>
+</ul>
+</li>
+</ul>
+<p>len<code>is</code>-1<code>, it waits until data is received and returns (blocking read for all data); if a length is specified, it waits until it reaches</code>len` before returning.</p>
+<ul>
+<li><code>&gt;0</code> means it will return after this time, regardless of whether data is received.</li>
+</ul>
+<p>It may seem complex, but here are some common parameter combinations:</p>
+<ul>
+<li><code>read()</code>: Which is <code>read(-1, 0)</code>, reads the data received in the buffer, usually a batch of data sent by the other party. It returns immediately when the other party has stopped sending (within one character's sending time).</li>
+<li><code>read(len = -1, timeout = -1)</code>: Blocking read for a batch of data, waits for the other party to send data and returns only when there is no more data within one character's sending time.</li>
+<li><code>read(len = 10, timeout = 1000)</code>: Blocking read for 10 characters, returns when 10 characters are read or 1000ms has passed without receiving any data.</li>
+</ul>
+<h2 id="Setting-a-Callback-Function-for-Receiving-Data">Setting a Callback Function for Receiving Data</h2>
+<p>In MCU development, a serial port interrupt event usually occurs when data is received. MaixPy has already handled the interrupt at the bottom layer, so developers don't need to handle the interrupt themselves. If you want to call a callback function upon receiving data, you can use <code>set_received_callback</code> to set the callback function:</p>
+
+<pre class="language-python"><code class="language-python">
+from maix import uart, app, time
+
+def on_received(serial : uart.UART, data : bytes):
+    print(&quot;received:&quot;, data)
+    # send back
+    serial.write(data)
+
+device = &quot;/dev/ttyS0&quot;
+
+serial = uart.UART(device, 115200)
+serial.set_received_callback(on_received)
+
+serial0.write_str(&quot;hello\r\n&quot;)
+print(&quot;sent hello&quot;)
+print(&quot;wait data&quot;)
+
+while not app.need_exit():
+    time.sleep_ms(100) # sleep to make CPU free
+</code></pre>
+<p>When data is received, the set callback function will be called in <strong>another thread</strong>. Since it's called in another thread, unlike an interrupt function, you don't have to exit the function quickly. You can handle some tasks in the callback function before exiting, but be aware of common multithreading issues.</p>
+<p>If you use the callback function method to receive data, do not use the <code>read</code> function to read it, or it will read incorrectly.</p>
+<h2 id="Using-Other-Serial-Ports">Using Other Serial Ports</h2>
+<p>Each pin may correspond to different peripheral functions, which is also known as pin multiplexing. As shown below, each pin corresponds to different functions. For example, pin <code>A17</code> (silkscreen identification on the board) corresponds to <code>GPIOA17</code>, <code>UART0_RX</code>, and <code>PWM5</code> functions. The default function is <code>UART0_RX</code>.</p>
+<p><img src="https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg" alt="" /></p>
+<p>By default, you can directly use <code>UART0</code> as shown above. For other serial port pins, they are not set to the serial peripheral function by default, so you need to set the mapping to use other serial ports. Use <code>pinmap.set_pin_function</code> to set it.</p>
+<p>Let's take <code>UART1</code> as an example. First, set the pin mapping to choose the serial port function, then use the device number <code>/dev/ttyS1</code>. Note that <code>uart.list_devices()</code> will not return manually mapped serial ports by default, so you can directly pass the parameters manually:</p>
+
+<pre class="language-python"><code class="language-python">from maix import app, uart, pinmap, time
+
+pinmap.set_pin_function(&quot;A18&quot;, &quot;UART1_RX&quot;)
+pinmap.set_pin_function(&quot;A19&quot;, &quot;UART1_TX&quot;)
+
+device = &quot;/dev/ttyS1&quot;
+
+serial1 = uart.UART(device, 115200)
+</code></pre>
+<h2 id="Application-Layer-Communication-Protocol">Application Layer Communication Protocol</h2>
+<h3 id="Concept-and-Character-Protocol">Concept and Character Protocol</h3>
+<p>Serial ports only define the hardware communication timing. To let the receiver understand the meaning of the character stream sent by the sender, an application communication protocol is usually established. For example, if the sender needs to send coordinates containing two integer values <code>x, y</code>, the following protocol is established:</p>
+<ul>
+<li><strong>Frame Header</strong>: When I start sending the <code>$</code> symbol, it means I'm about to start sending valid data.</li>
+</ul>
+<blockquote>
+<p><strong>Content</strong>: Designing a start symbol is because serial communication is stream-based. For example, sending <code>12345</code> twice may result in receiving <code>12345123</code> at some moment. The <code>45</code> from the second frame has not been received. We can determine a complete data frame based on start and end symbols.</p>
+</blockquote>
+<ul>
+<li>The value range of <code>x, y</code> is 0~65535, i.e., an unsigned short integer (<code>unsigned short</code>). I'll first send <code>x</code> then <code>y</code>, separated by a comma, such as <code>10,20</code>.</li>
+<li><strong>Frame Tail</strong>: Finally, I'll send a <code>*</code> to indicate that I've finished sending this data.</li>
+</ul>
+<p>In this way, sending a data packet looks like <code>$10,20*</code> as a string. The other party can receive and parse it using C language:</p>
+
+<pre class="language-c"><code class="language-c">// 1. Receive data
+// 2. Determine if the reception is complete based on the frame header and tail, and store the complete frame data in the buff array
+// 3. Parse a frame of data
+uint16_t x, y;
+sscanf(buff, &quot;$%d,%d*&quot;, &amp;x, &amp;y);
+</code></pre>
+<p>Thus, we have defined a simple character communication protocol with a certain degree of reliability. However, since we usually use parameters like <code>115200 8 N 1</code> for serial ports, where <code>N</code> means no parity check, we can add a <strong>checksum</strong> to our protocol at the end. For example:</p>
+<ul>
+<li>Here, we add a checksum value after <code>x, y</code>, ranging from 0 to 255. It is the sum of all previous characters modulo 255.</li>
+<li>Taking <code>$10,20</code> as an example, in <code>Python</code>, you can simply use the <code>sum</code> function: <code>sum(b'$10,20') % 255 --&gt; 20</code>, and send <code>$10,20,20*</code>.</li>
+<li>The receiver reads the checksum <code>20</code>, calculates it in the same way as <code>$10,20</code>, and if it is also <code>20</code>, it means no transmission error occurred. Otherwise, we assume a transmission error and discard the packet to wait for the next one.</li>
+</ul>
+<p>In MaixPy, encoding a character protocol can be done using Python's string formatting feature:</p>
+
+<pre class="language-python"><code class="language-python">x = 10
+y = 20
+content = &quot;${},{}*&quot;.format(x, y)
+print(content)
+</code></pre>
+<h3 id="Binary-Communication-Protocol">Binary Communication Protocol</h3>
+<p>The character protocol above has a clear characteristic of using visible characters to transmit data. The advantage is simplicity and human readability. However, it uses an inconsistent number of characters and larger data volumes. For example, <code>$10,20*</code> and <code>$1000,2000*</code> have varying lengths, with <code>1000</code> using 4 characters, which means 4 bytes. We know an unsigned short integer (<code>uint16</code>) can represent values ranging from <code>0~65535</code> using only two bytes. This reduces the transmission data.</p>
+<p>We also know visible characters can be converted to binary via ASCII tables, such as <code>$1000</code> being <code>0x24 0x31 0x30 0x30 0x30</code> in binary, requiring 5 bytes. If we directly encode <code>1000</code> in binary as <code>0x03E8</code>, we can send <code>0x24 0x03 0xE8</code> in just 3 bytes, reducing communication overhead.</p>
+<p>Additionally, <code>0x03E8</code> is a 2-byte representation with <code>0xE8</code> as the low byte, transmitted first in little-endian encoding. The opposite is big-endian encoding. Both are fine as long as both parties agree on one.</p>
+<p>In MaixPy, converting a number to bytes is simple with <code>struct.pack</code>. For example, <code>0x03E8</code> (decimal <code>1000</code>):</p>
+
+<pre class="language-python"><code class="language-python">from struct import pack
+b = pack(&quot;&lt;H&quot;, 1000)
+print(b)
+</code></pre>
+<p>Here, <code>&lt;H</code> indicates little-endian encoding, with <code>H</code> denoting a <code>uint16</code> data type, resulting in <code>b'\xe8\x03'</code> as bytes.</p>
+<p>Similarly, binary protocols can have a frame header, data content, checksum, frame tail, or a frame length field instead of a frame tail, based on preference.</p>
+<h3 id="Built-in-MaixPy-Communication-Protocol">Built-in MaixPy Communication Protocol</h3>
+<p>MaixPy also includes a built-in communication protocol.</p>
+<p>This communication protocol defines the format for communication between parties, making it easier to parse and recognize information. It's a binary protocol that includes a frame header, data content, and checksum. The complete protocol is defined in the <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix Serial Communication Protocol Standard</a>. Those unfamiliar with communication protocols may find it challenging at first, but reviewing the example below multiple times can help with understanding.</p>
+<p>For instance, if we have object detection, and we want to send the detected objects' information, such as coordinates, to another device (like STM32 or Arduino microcontrollers) via serial port:</p>
+<p>Complete example: <a href="https://github.com/sipeed/MaixPy/tree/main/examples/protocol/comm_protocol_yolov5.py"  target="_blank">MaixPy/examples/protocol/comm_protocol_yolov5.py</a>.</p>
+<p>First, we need to detect objects. Refer to the <code>yolov5</code> object detection example. Here, we omit other details and focus on the detection results:</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    img = cam.read()
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    for obj in objs:
+        img.draw_rect(obj.x, obj.y, obj.w, obj
+
+.h, color = image.COLOR_RED)
+        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
+        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+    dis.show(img)
+</code></pre>
+<p>You can see <code>objs</code> are multiple detection results. Here, we're drawing boxes on the screen, and we can find a way to send these results via the serial port.</p>
+<p>We don't need to manually initialize the serial port, just use the built-in <code>maix.comm, maix.protocol</code> modules. Calling <code>comm.CommProtoco</code> will automatically initialize the serial port, with a default baud rate of <code>115200</code>. The serial port protocol can be set in the device's <code>System Settings-&gt;Communication Protocol</code>.</p>
+<p>The system settings may have other communication methods, such as <code>tcp</code>, with <code>uart</code> as the default. You can also use <code>maix.app.get_sys_config_kv(&quot;comm&quot;, &quot;method&quot;)</code> to check if <code>uart</code> is currently set.</p>
+
+<pre class="language-python"><code class="language-python">from maix import comm, protocol, app
+from maix.err import Err
+import struct
+
+def encode_objs(objs):
+    '''
+        encode objs info to bytes body for protocol
+        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...
+    '''
+    body = b&quot;&quot;
+    for obj in objs:
+        body += struct.pack(&quot;&lt;hhHHH&quot;, obj.x, obj.y, obj.w, obj.h, obj.class_id)
+    return body
+
+APP_CMD_ECHO = 0x01        # Custom command 1, for testing, not used here, reserved
+APP_CMD_DETECT_RES = 0x02  # Custom command 2, send detected object information
+                           # You can define more commands based on your application
+
+p = comm.CommProtocol(buff_size = 1024)
+
+while not app.need_exit():
+    # ...
+    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
+    if len(objs) &gt; 0:
+        body = encode_objs(objs)
+        p.report(APP_CMD_DETECT_RES, body)
+    # ...
+</code></pre>
+<p>Here, the <code>encode_objs</code> function packages all detected object information into <code>bytes</code> type data, and the <code>p.report</code> function sends the result.</p>
+<p>The content of <code>body</code> is simply defined as <code>2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...</code>, meaning:</p>
+<ul>
+<li>In this image, multiple objects are detected and arranged in order in <code>body</code>. Each target takes up <code>2+2+2+2+2 = 10</code> bytes, with <code>body_len / 10</code> objects in total.</li>
+<li>The 1st and 2nd bytes represent the <code>x</code> coordinate of the top-left corner of the detected object, in pixels. Since the yolov5 result can have negative values for this coordinate, we use a <code>short</code> type to represent it, with little-endian encoding (LE).</li>
+</ul>
+<blockquote>
+<p>Little-endian here means the low byte is in front. For example, if the <code>x</code> coordinate is <code>100</code>, hexadecimal <code>0x64</code>, we use a two-byte <code>short</code> to represent it as <code>0x0064</code>. Little-endian encoding puts <code>0x64</code> first, resulting in <code>b'\x64\x00'</code>.</p>
+</blockquote>
+<ul>
+<li>Similarly, encode the subsequent data in sequence, resulting in <code>10</code> bytes of <code>bytes</code> type data for each object.</li>
+<li>Iterate through and encode all object information into a single <code>bytes</code> string.</li>
+</ul>
+<p>When calling the <code>report</code> function, the protocol header, checksum, etc., are automatically added according to the protocol, allowing the other end to receive a complete data frame.</p>
+<p>On the other end, data should be decoded according to the protocol. If the receiving end is also using MaixPy, you can directly do:</p>
+
+<pre class="language-python"><code class="language-python">while not app.need_exit():
+    msg = p.get_msg()
+    if msg and msg.is_report and msg.cmd == APP_CMD_DETECT_RES:
+        print(&quot;receive objs:&quot;, decode_objs(msg.get_body()))
+        p.resp_ok(msg.cmd, b'1')
+</code></pre>
+<p>If the other device is something like <code>STM32</code> or <code>Arduino</code>, you can refer to the C language functions in the appendix of the <a href="https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md"  target="_blank">Maix Serial Communication Protocol Standard</a> for encoding and decoding.</p>
+<h2 id="Other-Tutorials">Other Tutorials</h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.337.search-card.all.click"  target="_blank">【MaixPy/MaixCAM】Visual Tool -- MaixCAM Beginner Tutorial 2</a> Watch the serial port explanation section</li>
+<li><a href="https://www.bilibili.com/video/BV175vWe5EfV/?spm_id_from=333.337.search-card.all.click&amp;vd_source=6c974e13f53439d17d6a092a499df304"  target="_blank">How to Communicate via Serial Port between Visual Module and STM32</a></li>
+<li><a href="https://blog.csdn.net/ButterflyBoy0/article/details/140577441"  target="_blank">[MaixCam] Experience 2: UART Serial Communication</a></li>
+<li>For more, search online for resources.</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/peripheral/gpio.html">
+                            <span class="icon"></span>
+                            <span class="label">GPIO</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/peripheral/i2c.html">
+                            <span class="label">I2C</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy Basic Image Operations - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2024-04-03", "update": [{"date": "2024-04-03", "author": "neucrack", "version": "1.0.0", "content": "Initial document"}], "ts": 1712102400, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/vision/image_ops.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/vision/image_ops.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/README_no_screen.html"><span class="label">Quick Start(no screen)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/os.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app_usage.html"><span class="label">App usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixpy_upgrade.html"><span class="label">Update MaixPy</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO11/v8/v5 object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online AI training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov5.html"><span class="label">YOLOv5 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov8.html"><span class="label">YOLO11/v8 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">ONNX model to MaixCAM's</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/acc.html"><span class="label">Accelerometer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy Basic Image Operations</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="Last modify date: 2024-04-03">
+                                    2024-04-03
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/vision/image_ops.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>Update history</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Version</th>
+                                                <th>Author</th>
+                                                <th>Update content</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2024-04-03</td>
+                                                    <td>1.0.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        Initial document
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="Introduction">Introduction</h2>
+<p>Images play a very important role in visual applications. Whether it's a picture or a video, since a video is essentially a series of frames, image processing is the foundation of visual applications.</p>
+<h2 id="API-Documentation">API Documentation</h2>
+<p>This document introduces common methods. For more APIs, refer to the documentation of the maix.image module.</p>
+<h2 id="Image-Formats">Image Formats</h2>
+<p>MaixPy provides a basic image module <code>image</code>, where the most important part is the <code>image.Image</code> class, which is used for image creation and various basic image operations, as well as image loading and saving.</p>
+<p>There are many image formats, and we generally use <code>image.Format.FMT_RGB888</code> or <code>image.Format.FMT_RGBA8888</code> or <code>image.Format.FMT_GRAYSCALE</code> or <code>image.Format.FMT_BGR888</code>, etc.</p>
+<p>We all know that the three colors <code>RGB</code> can synthesize any color, so in most cases, we use <code>image.Format.FMT_RGB888</code>, which is sufficient. <code>RGB888</code> is <code>RGB packed</code> in memory, i.e., the arrangement in memory is:<br />
+<code>pixel1_red, pixel1_green, pixel1_blue, pixel2_red, pixel2_green, pixel2_blue, ...</code> arranged in sequence.</p>
+<h2 id="Creating-an-Image">Creating an Image</h2>
+<p>Creating an image is very simple, you only need to specify the width and height of the image, and the image format:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+print(img)
+print(img.width(), img.height(), img.format())
+</code></pre>
+<p><code>320</code> is the width of the image, <code>240</code> is the height of the image, and <code>image.Format.FMT_RGB888</code> is the format of the image. The format parameter can be omitted, and the default is <code>image.Format.FMT_RGB888</code>.</p>
+<p>Here, you can get the width, height, and format of the image using <code>img.width()</code>, <code>img.height()</code>, and <code>img.format()</code>.</p>
+<h2 id="Displaying-on-the-Screen">Displaying on the Screen</h2>
+<p>MaixPy provides the <code>maix.display.Display</code> class, which can conveniently display images:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image, display
+
+disp = display.Display()
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+disp.show(img)
+</code></pre>
+<p>Note that here, since there is no image data, a black image is displayed. See the following sections for how to modify the image.</p>
+<h2 id="Reading-Images-from-the-File-System">Reading Images from the File System</h2>
+<p>MaixPy provides the <code>maix.image.load</code> method, which can read images from the file system:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.load(&quot;/root/image.jpg&quot;)
+if img is None:
+    raise Exception(f&quot;load image failed&quot;)
+print(img)
+</code></pre>
+<p>Note that here, <code>/root/image.jpg</code> has been transferred to the board in advance. You can refer to the previous tutorials for the method.<br />
+It supports <code>jpg</code> and <code>png</code> image formats.</p>
+<h2 id="Saving-Images-to-the-File-System">Saving Images to the File System</h2>
+<p>MaixPy's <code>maix.image.Image</code> provides the <code>save</code> method, which can save images to the file system:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+
+# do something with img
+img.save(&quot;/root/image.jpg&quot;)
+</code></pre>
+<h2 id="Drawing-Rectangles">Drawing Rectangles</h2>
+<p><code>image.Image</code> provides the <code>draw_rect</code> method, which can draw rectangles on the image:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_rect(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>Here, the parameters are: <code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>, <code>color</code>. <code>x</code> and <code>y</code> are the coordinates of the top-left corner of the rectangle, <code>w</code> and <code>h</code> are the width and height of the rectangle, and <code>color</code> is the color of the rectangle, which can be created using the <code>image.Color.from_rgb</code> method.<br />
+You can specify the line width of the rectangle using <code>thickness</code>, which defaults to <code>1</code>.</p>
+<p>You can also draw a solid rectangle by passing <code>thickness=-1</code>:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_rect(10, 10, 100, 100, (255, 0, 0), thickness=-1)
+</code></pre>
+<h2 id="Writing-Strings">Writing Strings</h2>
+<p><code>image.Image</code> provides the <code>draw_string</code> method, which can write text on the image:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_string(10, 10, &quot;Hello MaixPy&quot;, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>Here, the parameters are: <code>x</code>, <code>y</code>, <code>text</code>, <code>color</code>. <code>x</code> and <code>y</code> are the coordinates of the top-left corner of the text, <code>text</code> is the text to be written, and <code>color</code> is the color of the text, which can be created using the <code>image.Color.from_rgb</code> method.</p>
+<p>You can also enlarge the font by passing the <code>scale</code> parameter:</p>
+
+<pre class="language-none"><code class="language-none">img.draw_string(10, 10, &quot;Hello MaixPy&quot;, image.Color.from_rgb(255, 0, 0), scale=2)
+</code></pre>
+<p>Get the width and height of the font:</p>
+
+<pre class="language-none"><code class="language-none">w, h = img.string_size(&quot;Hello MaixPy&quot;, scale=2)
+print(w, h)
+</code></pre>
+<p><strong>Note</strong> that here, <code>scale</code> is the magnification factor, and the default is <code>1</code>. It should be consistent with <code>draw_string</code>.</p>
+<h2 id="Chinese-support-and-custom-fonts">Chinese support and custom fonts</h2>
+<p>The <code>image</code> module supports loading <code>ttf/otf</code> fonts. The default font only supports English. If you want to display Chinese or custom fonts, you can first download the font file to the device and then load the font.<br />
+The system also has several built-in fonts, under the <code>/maixapp/share/font</code> directory, code example:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, display, app, time
+
+image.load_font(&quot;sourcehansans&quot;, &quot;/maixapp/share/font/SourceHanSansCN-Regular.otf&quot;, size = 32)
+print(&quot;fonts:&quot;, image.fonts())
+image.set_default_font(&quot;sourcehansans&quot;)
+
+disp = display.Display()
+
+img = image.Image(disp.width(), disp.height())
+img.draw_string(2, 2, &quot;Hello! Hello, world!&quot;, image.Color.from_rgba(255, 0, 0))
+
+disp.show(img)
+while not app.need_exit():
+time.sleep(1)
+</code></pre>
+<p>Load the font file, then set the default font, or you can set the default font without setting the default font, and set the parameters in the writing function:</p>
+
+<pre class="language-python"><code class="language-python">img.draw_string(2, 2, &quot;你好！Hello, world!&quot;, image.Color.from_rgba(255, 0, 0), font=&quot;sourcehansans&quot;)
+</code></pre>
+<p>Note that the <code>string_size</code> method will also use the default font to calculate the size, and you can also use the <code>font</code> parameter to set the font to be calculated separately.</p>
+<h2 id="Drawing-Lines">Drawing Lines</h2>
+<p><code>image.Image</code> provides the <code>draw_line</code> method, which can draw lines on the image:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_line(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>Here, the parameters are: <code>x1</code>, <code>y1</code>, <code>x2</code>, <code>y2</code>, <code>color</code>. <code>x1</code> and <code>y1</code> are the coordinates of the starting point of the line, <code>x2</code> and <code>y2</code> are the coordinates of the end point of the line, and <code>color</code> is the color of the line, which can be created using the <code>image.Color.from_rgb</code> method.</p>
+<h2 id="Drawing-Circles">Drawing Circles</h2>
+<p><code>image.Image</code> provides the <code>draw_circle</code> method, which can draw circles on the image:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_circle(100, 100, 50, image.Color.from_rgb(255, 0, 0))
+</code></pre>
+<p>Here, the parameters are: <code>x</code>, <code>y</code>, <code>r</code>, <code>color</code>. <code>x</code> and <code>y</code> are the coordinates of the center of the circle, <code>r</code> is the radius, and <code>color</code> is the color of the circle, which can be created using the <code>image.Color.from_rgb</code> method.</p>
+<h2 id="Resizing-Images">Resizing Images</h2>
+<p><code>image.Image</code> provides the <code>resize</code> method, which can resize images:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.resize(160, 120)
+print(img, img_new)
+</code></pre>
+<p>Note that here, the <code>resize</code> method returns a new image object, and the original image remains unchanged.</p>
+<h2 id="Cropping-Images">Cropping Images</h2>
+<p><code>image.Image</code> provides the <code>crop</code> method, which can crop images:</p>
+
+<pre class="language-none"><code class="language-none">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.crop(10, 10, 100, 100)
+print(img, img_new)
+</code></pre>
+<p>Note that here, the <code>crop</code> method returns a new image object, and the original image remains unchanged.</p>
+<h2 id="Rotating-Images">Rotating Images</h2>
+<p><code>image.Image</code> provides the <code>rotate</code> method, which can rotate images:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.rotate(90)
+print(img, img_new)
+</code></pre>
+<p>Note that here, the <code>rotate</code> method returns a new image object, and the original image remains unchanged.</p>
+<h2 id="Copying-Images">Copying Images</h2>
+<p><code>image.Image</code> provides the <code>copy</code> method, which can copy an independent image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888) 
+img_new = img.copy()
+print(img, img_new)
+</code></pre>
+<h2 id="Affine-Transformations">Affine Transformations</h2>
+<p><code>image.Image</code> provides the <code>affine</code> method, which can perform affine transformations. By providing the coordinates of three or more points in the current image and the corresponding coordinates in the target image, you can automatically perform operations such as rotation, scaling, and translation on the image to transform it into the target image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.affine([(10, 10), (100, 10), (10, 100)], [(10, 10), (100, 20), (20, 100)])
+print(img, img_new)
+</code></pre>
+<p>For more parameters and usage, please refer to the API documentation.</p>
+<h2 id="Drawing-Keypoints">Drawing Keypoints</h2>
+<p><code>image.Image</code> provides the <code>draw_keypoints</code> method, which can draw keypoints on the image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+
+keypoints = [10, 10, 100, 10, 10, 100]
+img.draw_keypoints(keypoints, image.Color.from_rgb(255, 0, 0), size=10, thickness=1, fill=False)
+</code></pre>
+<p>This draws three red keypoints at the coordinates <code>(10, 10)</code>, <code>(100, 10)</code>, and <code>(10, 100)</code>. The size of the keypoints is <code>10</code>, the line width is <code>1</code>, and they are not filled.</p>
+<h2 id="Drawing-Crosses">Drawing Crosses</h2>
+<p><code>image.Image</code> provides the <code>draw_cross</code> method, which can draw crosses on the image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_cross(100, 100, image.Color.from_rgb(255, 0, 0), size=5, thickness=1)
+</code></pre>
+<p>This draws a red cross at the coordinate <code>(100, 100)</code>. The extension size of the cross is <code>5</code>, so the length of the line segment is <code>2 * size + thickness</code>, and the line width is <code>1</code>.</p>
+<h2 id="Drawing-Arrows">Drawing Arrows</h2>
+<p><code>image.Image</code> provides the <code>draw_arrow</code> method, which can draw arrows on the image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img.draw_arrow(10, 10, 100, 100, image.Color.from_rgb(255, 0, 0), thickness=1)
+</code></pre>
+<p>This draws a red arrow starting from the coordinate <code>(10, 10)</code>, with the end point at <code>(100, 100)</code>, and a line width of <code>1</code>.</p>
+<h2 id="Drawing-Images">Drawing Images</h2>
+<p><code>image.Image</code> provides the <code>draw_image</code> method, which can draw images on the image:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img2 = image.Image(100, 100, image.Format.FMT_RGB888)
+img2.draw_rect(10, 10, 90, 90, image.Color.from_rgb(255, 0, 0))
+img.draw_image(10, 10, img2)
+</code></pre>
+<h2 id="Converting-Formats">Converting Formats</h2>
+<p><code>image.Image</code> provides the <code>to_format</code> method, which can convert image formats:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+img_new = img.to_format(image.Format.FMT_BGR888)
+print(img, img_new)
+img_jpg = img.to_format(image.Format.FMT_JPEG)
+print(img, img_new)
+</code></pre>
+<p>Note that here, the <code>to_format</code> method returns a new image object, and the original image remains unchanged.</p>
+<h2 id="Converting-between-Numpy/OpenCV-and-maix.image.Image-Formats">Converting between Numpy/OpenCV and maix.image.Image Formats</h2>
+<p>Refer to <a href="./opencv.html"  >MaixPy use OpenCV documentation</a></p>
+<h2 id="Converting-between-bytes-Data">Converting between bytes Data</h2>
+<p><code>image.Image</code> provides the <code>to_bytes</code> method, which can convert an image to <code>bytes</code> data:</p>
+
+<pre class="language-python"><code class="language-python">from maix import image
+
+img = image.Image(320, 240, image.Format.FMT_RGB888)
+data = img.to_bytes()
+print(type(data), len(data), img.data_size())
+
+img_jpeg = image.from_bytes(320, 240, image.Format.FMT_RGB888, data)
+print(img_jpeg)
+img = img_jpeg.to_format(image.Format.FMT_RGB888)
+print(img)
+</code></pre>
+<p>Here, <code>to_bytes</code> returns a new <code>bytes</code> object, which is independent memory and does not affect the original image.<br />
+The <code>image.Image</code> constructor can directly construct an image object from <code>bytes</code> data by passing the <code>data</code> parameter. Note that the new image is also independent memory and does not affect <code>data</code>.</p>
+<p>Since memory copying is involved, this method is relatively time-consuming and should not be used frequently.</p>
+<blockquote>
+<p>If you want to optimize your program without copying (not recommended for casual use, as poorly written code can easily cause crashes), please refer to the API documentation.</p>
+</blockquote>
+<h2 id="More-Basic-API-Usage">More Basic API Usage</h2>
+<p>For more API usage, please refer to the documentation of the maix.image module.</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/vision/camera.html">
+                            <span class="icon"></span>
+                            <span class="label">Camera usage</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/vision/touchscreen.html">
+                            <span class="label">Touch screen</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
