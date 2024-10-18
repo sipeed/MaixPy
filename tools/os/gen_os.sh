@@ -36,20 +36,24 @@ skip_build_apps=0
 board_name=maixcam
 
 # 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
-if [ "x$5" == "x1" ]; then
-    skip_build_apps=1
-elif [ "x$5" != "x0" ]; then
-    echo "skip_build_apps arg should be 0 or 1"
-    exit 1
+if [ -n "$5" ]; then
+    if [ "x$5" == "x1" ]; then
+        skip_build_apps=1
+    elif [ "x$5" != "x0" ]; then
+        echo "skip_build_apps arg should be 0 or 1"
+        exit 1
+    fi
 fi
 
-if [ "x$6" == "xmaixcam" ]; then
-    board_name=maixcam
-elif [ "x$6" == "xmaixcam-pro" ]; then
-    board_name=maixcam-pro
-else
-    echo "board_name arg should be maixcam or maixcam-pro"
-    exit 1
+if [ -n "$6" ]; then
+    if [ "x$6" == "xmaixcam" ]; then
+        board_name=maixcam
+    elif [ "x$6" == "xmaixcam-pro" ]; then
+        board_name=maixcam-pro
+    else
+        echo "board_name arg should be maixcam or maixcam-pro"
+        exit 1
+    fi
 fi
 
 
