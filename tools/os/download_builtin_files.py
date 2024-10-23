@@ -74,6 +74,8 @@ def get_builtin_files(file_path = "", unzip_path=""):
     print(f"-- download os builtin files {filename} from url: {url}")
     if not file_path:
         file_path = os.path.join(curr_dir, "tmp", filename)
+    if os.path.splitext(filename)[1] not in [".xz"]:
+        raise Exception(f"builtin files only support tar.xz or .xz file, but now {filename}")
     download_file(url, file_path)
     if unzip_path:
         unzip(file_path, unzip_path)
