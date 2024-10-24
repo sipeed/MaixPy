@@ -15,7 +15,10 @@ Using the serial port of the board, you can communicate data with other microcon
 
 ## Using Serial Port in MaixPy
 
-MaixCAM's default configuration exposes a serial port through the USB port. By plugging in the Type-C adapter board, you can directly use the serial port pins. Alternatively, you can use the `A16(TX)` and `A17(RX)` pins directly on the board, which are equivalent to those exposed via the USB port.
+MaixCAM's default configuration exposes a serial port through the USB port. By plugging in the Type-C adapter board, you can directly use the serial port pins. Alternatively, you can use the `A16(TX)` and `A17(RX)` pins directly on the board, which are equivalent to those exposed via the USB port, refer to IO interface image:
+
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 When using the serial port exposed through USB on MaixCAM, note that the `RX` and `TX` pins on the Type-C adapter board will swap between regular and reverse insertions (assuming the **Type-C female port is facing forward** and matching the silk screen). If communication fails, try flipping the Type-C connection to see if it resolves the issue. Although this is a design flaw, frequent plug/unplug operations are rare, so adapting to it is acceptable.
 
@@ -173,6 +176,7 @@ If you use the callback function method to receive data, do not use the `read` f
 Each pin may correspond to different peripheral functions, which is also known as pin multiplexing. As shown below, each pin corresponds to different functions. For example, pin `A17` (silkscreen identification on the board) corresponds to `GPIOA17`, `UART0_RX`, and `PWM5` functions. The default function is `UART0_RX`.
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 By default, you can directly use `UART0` as shown above. For other serial port pins, they are not set to the serial peripheral function by default, so you need to set the mapping to use other serial ports. Use `pinmap.set_pin_function` to set it.
 

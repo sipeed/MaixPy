@@ -131,21 +131,51 @@ from maix import image, display, app, time, camera
 import cv2
 
 disp = display.Display()
-cam = camera.Camera(320, 240)
+cam = camera.Camera(320, 240, image.Format.FMT_BGR888)
 
 while not app.need_exit():
     img = cam.read()
 
     # convert maix.image.Image object to numpy.ndarray object
     t = time.ticks_ms()
-    img = image.image2cv(img)
+    img = image.image2cv(img, ensure_bgr=False, copy=False)
     print("time: ", time.ticks_ms() - t)
 
     # canny method
     edged = cv2.Canny(img, 180, 60)
 
     # show by maix.display
-    img_show = image.cv2image(edged)
+    img_show = image.cv2image(edged, bgr=True, copy=False)
     disp.show(img_show)
+```
+
+
+## Read USB camera
+
+First, in the development board settings, select `USB Mode` under `USB Settings` and set it to `HOST` mode. If there is no screen available, you can use the `examples/tools/maixcam_switch_usb_mode.py` script to set it.
+
+```python
+from maix import image, display, app
+import cv2
+import sys
+
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+# cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
+
+disp = display.Display()
+
+if not cap.isOpened():
+    print("无法打开摄像头")
+    sys.exit(1)
+print("开始读取")
+while not app.need_exit():
+    ret, frame = cap.read()
+    if not ret:
+        print("无法读取帧")
+        break
+    img = image.cv2image(frame, bgr=True, copy=False)
+    disp.show(img)
 ```
 

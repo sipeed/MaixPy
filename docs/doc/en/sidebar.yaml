@@ -11,8 +11,8 @@ items:
     items:
     -   file: basic/os.md
         label: Burning system
-    -   file: basic/app_usage.md
-        label: App usage
+    -   file: basic/app.md
+        label: App Usage and Development
     -   file: basic/maixpy_upgrade.md
         label: Update MaixPy
     -   file: basic/maixvision.md
@@ -23,8 +23,6 @@ items:
         label: Linux fundamentals
     -   file: basic/python_pkgs.md
         label: Add python packages
-    -   file: basic/app.md
-        label: App development
     -   file: basic/auto_start.md
         label: Auto start
     -   file: basic/view_src_code.md

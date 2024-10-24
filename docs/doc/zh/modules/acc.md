@@ -10,7 +10,7 @@ title: MaixCAM MaixPy 读取加速度计和姿态解算
 
 ## MaixPy 中使用 IMU
 
-Using IMU module to read data from the QMI8658.
+使用 IMU 模块从 QMI8658 读取数据.
 
 示例代码:
 

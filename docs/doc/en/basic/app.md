@@ -2,6 +2,21 @@
 title: MaixCAM MaixPy App development and app stores
 ---
 
+## Where to Find Applications
+
+After powering on, the device will automatically enter the application selection interface. All built-in applications are available on the [MaixHub App Store](https://maixhub.com/app), where you can find corresponding app descriptions and usage instructions.
+
+## Where to Find Source Code
+
+You can find the source code links (if available) on the app pages in the App Store. The source code for official integrated applications is located in the [MaixPy/projects](https://github.com/sipeed/MaixPy/tree/main/projects) directory or the [MaixCDK/projects](https://github.com/sipeed/MaixCDK/tree/main/projects) directory.
+
+## Installing Applications
+
+Frequently used settings include `Settings -> Language` and `Settings -> WiFi`.
+
+The `App Store` application can be used to upgrade and install apps. Once connected to a WiFi network with internet access, you can scan to install apps from the [MaixHub App Store](https://maixhub.com/app).
+
+
 ## Introduction to Application Ecosystem
 
 In order to make the development board ready to use out of the box, make it easy for users to use without barriers, enable developers to share their interesting applications, and provide effective channels for receiving feedback and even profits, we have launched a simple application framework, including:

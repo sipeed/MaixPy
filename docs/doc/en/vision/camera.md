@@ -164,3 +164,37 @@ cam.luma(50) # Set brightness, range [0, 100]
 cam.constrast(50) # set contrast, range [0, 100]
 cam.saturation(50) # Set the saturation, range [0, 100].
 ```
+
+
+## Using a USB Camera
+
+In addition to using the MIPI interface camera that comes with the development board, you can also use an external USB camera.
+Method:
+* First, in the development board settings, select `USB Mode` under `USB Settings` and set it to `HOST` mode. If there is no screen available, you can use the `examples/tools/maixcam_switch_usb_mode.py` script to set it.
+* Currently (as of 2024.10.24), the `maix.camera` module does not yet support USB cameras, but you can use `OpenCV` for this.
+
+```python
+from maix import image, display
+import cv2
+import sys
+
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+# cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
+
+disp = display.Display()
+
+if not cap.isOpened():
+    print("Unable to open camera")
+    sys.exit(1)
+print("Starting to read")
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        print("Unable to read frame")
+        return
+    img = image.cv2image(frame, bgr=True, copy=False)
+    disp.show(img)
+```
+

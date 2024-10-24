@@ -45,6 +45,7 @@ With Pinmap, we can set the specified chip pin for the specified function.
 The following diagram lists the pin numbers and their functions on the MaixCAM board.
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 Or read the [SG2002 Chip Manual](https://cn.dl.sipeed.com/fileList/LICHEE/LicheeRV_Nano/07_Datasheet/SG2002_Preliminary_Datasheet_V1.0-alpha_CN.pdf) Pinmux section for the remaining pin numbers and functions.
 

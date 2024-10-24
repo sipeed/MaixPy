@@ -45,7 +45,7 @@ See the ADC [API documentation](../../../api/maix/peripheral/adc.md) for a detai
 
 ## Some notes on MaixCAM's ADC
 
-MaixCAM elicits an IO that connects to the ADC, this IO is GPIO B3.
+MaixCAM elicits an IO that connects to the ADC, this IO is GPIO B3（For MaixCAM-Pro, B3 connected light LED, so ADC can't directly use）.
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
 

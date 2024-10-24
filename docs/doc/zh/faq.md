@@ -132,6 +132,10 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 多半是由于供电不足造成的， MaixCAM 需要 5v 150mA~500mA 左右的电压和点流，如果你遇到了这种现象，可以使用 USB 转 TTL 模块连接 MaixCAM 的串口到电脑，可以看到`Card did not respond to voltage select! : -110` 这样的字样，说明供电不足，换一个更加的稳定的供电设备即可。
 对于 MaixCAM，在开机会有 400mA 的电流，待机且屏幕有显示需要 250mA，全速运行 AI 模型需要 400mA~500mA 的电流，所以保证电源的稳定性十分重要！
 
+## MaixCAM 黑屏无法启动，或者卡在 LOGO 界面
+
+参考[MaixCAM FAQ](https://wiki.sipeed.com/hardware/zh/maixcam/faq.html)
+
 ## MaixVision 启动程序一直“卡在“ start running ...
 
 MaixVision 的日志输出窗口在开始启动程序是会打印一句`start running ...`代表程序开始发送到设备并开始执行，

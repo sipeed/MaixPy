@@ -16,7 +16,7 @@ while not app.need_exit():
 
     # show by maix.display
     t = time.ticks_ms()
-    img_show = image.cv2image(edged)
+    img_show = image.cv2image(edged, bgr=True, copy=False)
     print(f"edge time: {t2}ms, convert time: {time.ticks_ms() - t}ms")
     disp.show(img_show)
 

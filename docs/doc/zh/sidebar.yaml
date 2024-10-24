@@ -11,8 +11,8 @@ items:
     items:
     -   file: basic/os.md
         label: 升级和烧录系统
-    -   file: basic/app_usage.md
-        label: 应用使用说明
+    -   file: basic/app.md
+        label: 应用使用-开发-商店
     -   file: basic/maixpy_upgrade.md
         label: 更新 MaixPy
     -   file: basic/maixvision.md
@@ -23,8 +23,6 @@ items:
         label: Linux 基础知识
     -   file: basic/python_pkgs.md
         label: 添加额外的 Python 包
-    -   file: basic/app.md
-        label: 应用开发和商店
     -   file: basic/auto_start.md
         label: 开机自启
     -   file: basic/view_src_code.md

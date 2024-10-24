@@ -54,7 +54,7 @@ namespace maix::test
 * 修改项目名：修改`module_name.txt` 文件，改成你要的模块名称，必须以`maix_`开头，这样方便其它用户能在 [pypi.org](https://pypi.org) 或者 [github.com](https://github.com) 搜索到你的项目。
 * 和 MaixPy 一样执行`python setup.py bdist_wheel linux` 就可以开始为电脑构建。
 * 构建完成后可以直接在项目根目录执行`python -c "import maix_xxx;maix_xxx.basic.print('Li Hua')"`就能运行你的模块函数了。
-* 执行`setup.py bdist_wheel maixcam` 就可以为`MaixCAM` 构建软件包了。需要注意的是，构建过程种的代码提示文件(pyi文件)只能在给`linux` 平台构建的时候生成，所以在正式发布的时候需要先执行上一步的`linux`平台构建生成代码提示文件，然后再执行本步的命令生成`MaixCAM`平台的软件包。
+* 执行`python setup.py bdist_wheel maixcam` 就可以为`MaixCAM` 构建软件包了。需要注意的是，构建过程种的代码提示文件(pyi文件)只能在给`linux` 平台构建的时候生成，所以在正式发布的时候需要先执行上一步的`linux`平台构建生成代码提示文件，然后再执行本步的命令生成`MaixCAM`平台的软件包。
 * 将`dist`目录下的`.whl`包发送到设备，然后使用运行代码`import os;os.system("pip install /root/xxxxx.whl")`即可（替换路径）。
 * 如果调试的时候觉得安装 `.whl` 包太慢了，可以使用`maixcdk build` 编译，然后使用`scp -r maix_xxx root@10.228.104.1:/usr/lib/python3.11/site-packages`直接拷贝到设备系统种覆盖包，这里需要根据你的包名和设备 ip 替换一下。
 * 当你调试好代码后，可以考虑将代码开源到[github.com](https://github.com)，并且上传到[pypi.org](https://pypi.org)（具体上传方法可以看官方文档或者搜索教程，大概就是`pip install twine`然后 `twine upload dist/maix_xxx***.whl`就可以了。），写好后欢迎到[maixhub.com/share](https://maixhub.com/share)来分享告诉大家你的成果！

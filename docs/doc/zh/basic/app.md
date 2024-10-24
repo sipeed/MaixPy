@@ -2,6 +2,21 @@
 title: MaixCAM MaixPy 应用开发和应用商店
 ---
 
+## 哪里找应用
+
+开机后会自动进入应用选择界面，内置各种应用均发布在 [MaixHub 应用商店](https://maixhub.com/app)， 可以在这里找到对应应用的介绍和使用说明。
+
+## 哪里找源码
+
+源码可以在应用商店应用页面看到源码链接（如果有）。
+官方集成的应用源码都在 [MaixPy/projects](https://github.com/sipeed/MaixPy/tree/main/projects) 目录 或者 [MaixCDK/projects](https://github.com/sipeed/MaixCDK/tree/main/projects) 。
+
+## 安装应用
+
+可以先设置语言 `设置 -> 语言`， 以及 `设置 -> WiFi`。
+
+`应用商店`应用可以用来升级和安装应用，连接上可以连接互联网的 WiFi 后即可在[MaixHub 应用商店](https://maixhub.com/app)扫码安装应用。
+
 
 ## 应用生态简介
 

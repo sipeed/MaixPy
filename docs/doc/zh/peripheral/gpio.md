@@ -11,17 +11,20 @@ title: MaixCAM MaixPy 使用 GPIO
 
 ## MaixPy 中使用 GPIO
 
-> MaixPy 固件版本应该 > 4.1.2(不包含)
-
 首先我们需要知道设备有哪些引脚和 GPIO，对于 MaixCAM 每个引脚都对应了一个 GPIO 控制器，如图：
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 需要注意的是，引脚除了作为 GPIO 使用，还能用作其它功能比如 PWM 使用，使用前我们需要设置一下引脚的功能为 GPIO。
 
 比如在 MaixCAM 上**有些引脚默认已经被其它功能占用，比如 UART0， WiFi(SDIO1 + A26), 不建议使用它们。**
 
 其它的可以使用，另外 A14 引脚连接到了板载的 LED，默认是作为系统的负载提示灯，如果初始化它会自动取消系统提示灯功能作为普通 GPIO 被使用(注意`A14`只能作为输出)，这样你就能控制这颗 LED 的亮灭了。
+
+LED 的电路图如图所示，所以我们只需要给 A14 引脚一个高电平 LED 就会导通并亮起来：
+![](../../assets/gpio_led.png)
+
 
 ```python
 from maix import gpio, pinmap, time
@@ -54,4 +57,20 @@ while 1:
     time.sleep_ms(1) # sleep to make cpu free
 ```
 
+## MaixCAM-Pro 使用照明 LED
+
+MaixCAM 和 MaixCAM-Pro 都有一个 LED 小灯，即接到了引脚 `A14`，另外 MaixCAM-Pro 还板载了一个照明 LED，连接到了 `B3` 引脚，也是高电平开启低电平关闭：
+
+```python
+from maix import gpio, pinmap, time
+
+pinmap.set_pin_function("B3", "GPIOB3")
+led = gpio.GPIO("GPIOB3", gpio.Mode.OUT)
+led.value(0)
+
+while 1:
+    led.toggle()
+    time.sleep_ms(500)
+
+```
 

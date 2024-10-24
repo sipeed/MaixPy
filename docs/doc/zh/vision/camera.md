@@ -9,6 +9,10 @@ update:
     author: YWJ
     version: 1.0.1
     content: 修正文档部分bug,增加部分内容
+  - date: 2024-10-24
+    author: neucrack
+    version: 1.1.0
+    content: 增加 USB 摄像头支持说明
 ---
 
 
@@ -186,5 +190,13 @@ cam = camera.Camera(width=640, height=480)
 cam = camera.Camera()
 cam.set_resolution(width=640, height=480)
 ```
+
+
+## 使用 USB 摄像头
+
+除了使用开发板自带的 MIPI 接口摄像头，你也可以使用 USB 外接 USB 摄像头。
+方法：
+* 先在开发板设置里面`USB设置`中选择`USB 模式`为`HOST`模式。如果没有屏幕，可以用`examples/tools/maixcam_switch_usb_mode.py`脚本进行设置。
+* `maix.camera` 模块目前(2024.10.24) 还不支持 USB 摄像头，不过你可以参考 [OpenCV 使用 USB 摄像头](./opencv.md)。
 
 

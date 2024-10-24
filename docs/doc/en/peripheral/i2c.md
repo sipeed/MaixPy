@@ -7,6 +7,7 @@ title: Using I2C with MaixCAM MaixPy
 The `I2C` and corresponding pins of `MaixCAM` can be seen in the diagram:
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 For MaixCAM, due to limited pin resources, the pins for `I2C1` and `I2C3` overlap with those of the WiFi module (SDIO1). Therefore, you can only use either WiFi or hardware I2C, but not both. Additionally, there is an `I2C5`, which is simulated by software at the lower driver level. It is recommended to use this one, as the drivers are already set up, and its use is the same as using hardware `I2C`.
 

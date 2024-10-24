@@ -7,6 +7,7 @@ title: MaixCAM MaixPy 使用 I2C
 `MaixCAM` 的 `I2C` 及对应的 引脚 看图：
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 
 对于 MaixCAM，由于引脚资源比较紧张，引出的 `I2C1` `I2C3` 引脚和 WiFi 模块（SDIO1）重合了，所以 WiFi 和硬件 I2C 只能二选一使用。

@@ -18,7 +18,10 @@ title: MaixCAM MaixPy UART 串口使用介绍
 
 
 对于 MaixCAM 默认从 USB 口引出了一个串口，可以插上配套的 Type-C 转接小板，就能直接使用上面的串口引脚，
-也可以不用转接板，直接使用板子上的 `A16(TX)` 和 `A17(RX)`引脚, 和 USB 口引出的是同样的引脚，是等效的。
+也可以不用转接板，直接使用板子上的 `A16(TX)` 和 `A17(RX)`引脚, 和 USB 口引出的是同样的引脚，是等效的，具体看接口图：
+
+![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 
 对于 MaixCAM 使用 USB 引出的串口时需要**注意**，Typc-C 正插和反插，转接小板上的 `RX` 和 `TX`会交换(默认 **Type-C 母口朝前**和丝印符合)，所以当你发现无法通信时，有可能就是 RX TX 反了，可以尝试将 Type-C 翻转一面插再看看通信是否正常。这个算是设计缺陷，不过一般也不会经常拔插所以适应一下也能接受。
@@ -174,6 +177,7 @@ while not app.need_exit():
 每个引脚可能可以对应不同的外设功能，这也叫引脚复用，如下图，每个引脚对应了不同功能，比如`A17`引脚(板子的丝引标识)对应了`GPIOA17` `UART0_RX` `PWM5` 这三种功能，默认是`UART0_RX`。
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 
 默认我们就能像上面直接使用`UART0`，对于其它串口的引脚默认都不是串口外设功能，所以要使用其它串口，需要先设置一下映射，使用`pinmap.set_pin_function`来设置。

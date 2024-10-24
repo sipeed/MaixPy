@@ -7,6 +7,7 @@ To use `PWM` in MaixPy (v4), first set the pin function to `PWM` using `pinmap`.
 Each `PWM` corresponds to a specific pin, as shown in the pin diagram of MaixCAM:
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 We recommend using `PWM6` and `PWM7`.
 

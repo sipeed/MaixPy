@@ -21,10 +21,10 @@ title: MaixCAM MaixPy Quick Start
 
 | Resource Summary           | Link                                                                                      |
 | :-------------------------:| :-------------------------------------------------------------------------------------:|
-|  MaixPy Tutorial Documentation 📖 | [wiki.sipeed.com/maixpy/en/](https://wiki.sipeed.com/maixpy/en/)                                   |
-| MaixPy Examples and Source Code <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"> | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
-|  MaixCAM Hardware Documentation 📷 | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam)                                 |
-|  MaixPy API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
+|  Tutorial Documentation 📖 | [wiki.sipeed.com/maixpy/en/](https://wiki.sipeed.com/maixpy/en/)                                   |
+| Examples and Source Code <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"> | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
+|  MaixCAM Hardware 📷 | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) / [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)                                 |
+|  API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixHub App Store 📦      | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub Sharing Square 🎲 | [maixhub.com/share](https://maixhub.com/share)                                             |
 
@@ -49,7 +49,10 @@ title: MaixCAM MaixPy Quick Start
 
 ## Get a MaixCAM Device
 
+![maixcam_pro](../../static/image/maixcam_pro.png)
+
 * **MaixCAM**: Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> development board from the [Sipeed Taobao](https://item.taobao.com/item.htm?id=784724795837) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460) store.
+* **MaixCAM-Pro**: Purchase the <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> development board from the [Sipeed Taobao](https://item.taobao.com/item.htm?id=846226367137) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460) store.
 
 **It is recommended to purchase the bundle with a `TF card`, `camera`, `2.3-inch touchscreen`, `case`, `Type-C data cable`, `Type-C one-to-two mini board`, and `4P serial port socket+cable`**, which will be convenient for later use and development. **The following tutorials assume that you already have these accessories** (including the screen).
 
@@ -72,7 +75,7 @@ If you use screenless version, please refer to the [Quick Start (Screenless Vers
 
 ### Prepare the TF Image Card and Insert it into the Device
 
-If the package you purchased includes a TF card, it already contains the factory image. If the TF card was not installed in the device at the factory, you will first need to carefully open the case (be careful not to tear the ribbon cables inside) and then insert the TF card. Additionally, since the firmware from the factory may be outdated, it is highly recommended to follow the instructions on [Upgrading and Flashing the System](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html) to upgrade the system to the latest version.
+If the package you purchased includes a TF card, it already contains the factory image. If the TF card was not installed in the device at the factory, you will first need to carefully open the case (be careful not to tear the ribbon cables inside) and then insert the TF card. Additionally, since the firmware from the factory may be outdated, it is highly recommended to follow the instructions on [Upgrading and Flashing the System](./basic/os.md) to upgrade the system to the latest version.
 
 If you did not purchase a TF card, you need to flash the system onto a self-provided TF card. Please refer to [Upgrading and Flashing the System](./basic/os.md) for the flashing method, and then install it on the board.
 
@@ -117,7 +120,7 @@ If it shows `Request failed` or `请求失败` (Request failed), please first ch
 
 Many applications are built-in, such as Find Blobs, AI Detector, Line Follower, etc. For example, Find Blobs:
 
-<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/find_blobs.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/self_learn_tracker.mp4" type="video/mp4">
 Classifier Result video
 </video>
 
@@ -133,7 +136,7 @@ The built-in applications can be used directly as serial modules, such as `Find 
 Note that the serial port can only directly connect to other microcontrollers. **If you want to communicate with a computer via a serial port, you must provide a USB-to-serial module yourself.**
 
 Usage:
-* Hardware connection: You can connect the device to the `Type-C one-to-two mini board`, which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.
+* Hardware connection: You can connect the device to the `Type-C one-to-two mini board`(For MaixCAM-Pro is 6Pin interface), which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.
 * Open the application you want to use, such as QR code recognition. When the device scans a QR code, it will send the result to your main controller via serial.
 > The serial baud rate is `115200`, the data format is `8N1`, and the protocol follows the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). You can find the corresponding application introduction on the [MaixHub APP](https://maixhub.com/app) to view the protocol.
 > If APP no serial output, you can also do it by yourself, follow function examples and [UART usage doc](./peripheral/uart.md) to add function and serial output.
@@ -142,7 +145,7 @@ Usage:
 
 To enable communication between the computer (PC) and the device (MaixCAM), we need to ensure they are on the same local area network. There are two methods to achieve this:
 
-* **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or Wi-Fi hotspot that the computer is connected to via Wi-Fi. Go to the device's `Settings -> WiFi Settings` and connect to your Wi-Fi. (If you experience screen lag or high latency with Wi-Fi, you can try Method 2 for a wired connection.)
+* **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or Wi-Fi hotspot that the computer is connected to via Wi-Fi. Go to the device's `Settings -> WiFi Settings` and connect to your Wi-Fi. (If you experience **screen lag or high latency** with Wi-Fi, you can try Method 2 for a wired connection.)
 
 Here is the translation:
 
@@ -204,6 +207,8 @@ Here is the translation:
 >  The default examples do not explicitly write an exit function, so you can exit the application by pressing the function key on the device. (For MaixCAM, it is the user key.)
 
  If you want the program to start automatically on boot, you can set it in `Settings -> Boot Startup`.
+
+ More MaixVision usage refer to [MaixVision documentation](./basic/maixvision.md)。
 
  ## Next Steps
 

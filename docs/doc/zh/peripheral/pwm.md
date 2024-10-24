@@ -10,6 +10,7 @@ title: MaixCAM MaixPy 使用 PWM
 以及每个 `PWM` 有对应的引脚，根据 MaixCAM 的引脚图可以看到:
 
 ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
+![maixcam_pro_io](/static/image/maixcam_pro_io.png)
 
 这里我们推荐使用`PWM6` 和 `PWM7`。
 

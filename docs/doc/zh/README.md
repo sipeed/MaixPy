@@ -24,7 +24,7 @@ title: MaixCAM MaixPy 快速开始
 | :-------------------------: | :-------------------------------------------------------------------------------------:|
 |  MaixPy 教程文档 📖         | [wiki.sipeed.com/maixpy](https://wiki.sipeed.com/maixpy)                                   |
 | MaixPy 例程和源码 <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;">           | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
-|  MaixCAM 硬件资料 📷        | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam)                                 |
+|  MaixCAM 硬件资料 📷        | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) / [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)                                 |
 |  MaixPy API 文档 📚        | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixPy 视频和教程 💿        | [B站搜 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5) |
 | MaixHub 应用商店 📦     | [maixhub.com/app](https://maixhub.com/app)                                                 |
@@ -54,19 +54,22 @@ title: MaixCAM MaixPy 快速开始
 
 ## 获得 MaixCAM 设备
 
-* **MaixCAM**：在 [Sipeed 淘宝](https://item.taobao.com/item.htm?id=784724795837) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460) 店铺购买 <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a> 。
+![maixcam_pro](../../static/image/maixcam_pro.png)
 
-**建议购买带 `TF 卡`、`摄像头`、`2.3寸触摸屏`、`外壳`、`Type-C 数据线`、 `Type-C一转二小板`、`4P串口座子+线`的套餐**，方便后续使用和开发，**后面的教程都默认你已经有了这些配件**（包括屏幕）。
 
-**强烈建议买带屏幕的套餐，会大大提升开发体验**，如果你实际部署到生产环境不需要屏幕，可以先用带屏幕的入门和开发，最后再去掉屏幕或者购买不带屏幕的量产。
+* **MaixCAM 主体**，目前有几个版本，根据自己的需求买：
+  * **MaixCAM-Pro**（推荐）： 在 [Sipeed 淘宝](https://item.taobao.com/item.htm?id=846226367137) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460) 店铺购买 <a href="https://wiki.sipeed.com/maixcam-pro" target="_blank">MaixCAM-Pro</a>。
+  * **MaixCAM**：在 [Sipeed 淘宝](https://item.taobao.com/item.htm?id=784724795837) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460) 店铺购买 <a href="https://wiki.sipeed.com/maixcam" target="_blank">MaixCAM</a>。
+  * **MaixCAM-Lite**（不推荐）: 无屏幕和外壳版本，价格更便宜，学习开发不建议购买，量产可以考虑购买。
 
+* **TF 卡**： 系统安装在 TF 卡，没有 TF 无法启动。
+* **摄像头**: 视觉相关应用需要摄像头，可以根据自己的使用场景和财力选择合适的摄像头型号。比如 OS01A10 成像质量比 GC4653 高。
+* **触摸屏**： 方便交互，官方默认集成的应用都需要触摸屏交互，可以大大提升交互体验和开发难度。
 * **电源**： 一个稳定的供电方式，MaixCAM 需要 `5v 500mA` 的稳定供电，如果供电不足可能会导致无法开机，或者运行过程中死机等情况。特别是有些电脑的 USB 口供电可能不稳定。
-
 * **TF 读卡器**: 用来烧录系统，必备。
+* **USB转串口模块**: 如果你想要电脑和 MaixCAM 之间串口通信，需要备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个[双串口转USB模块](https://item.taobao.com/item.htm?id=610365562537)。
 
-* **USB转串口模块**: 如果你想要电脑和 MaixCAM 之间串口通信，需要备一个，淘宝随便买一个就行，也可以直接在 Sipeed 店里一起买，比如这个[双串口转USB模块](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)。
-
->! 注意，目前只支持 MaixCAM 开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
+>! 注意，目前只支持 MaixCAM 系列开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
 
 
 ## 使用无屏幕版本
@@ -78,7 +81,7 @@ title: MaixCAM MaixPy 快速开始
 
 ### 准备 TF 镜像卡和插入到设备
 
-如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，**务必**按照[升级和烧录系统](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html)先将系统升级到最新版本，否则可能会遇到某些应用 和 API 无法使用的问题。
+如果你买的套餐里面有 TF 卡，里面已经有出厂镜像了，如果出厂时 TF 卡没有安装到设备，需要先小心打开外壳（注意里面有排线连接不要扯断了），然后插入 TF 卡。另外因为出厂的固件可能比较老旧，**务必**按照[升级和烧录系统](./basic/os.md)先将系统升级到最新版本，否则可能会遇到某些应用 和 API 无法使用的问题。
 
 如果没买 TF 卡，则需要将系统烧录进自备的 TF 卡中，烧录方法请看[升级和烧录系统](./basic/os.md)，然后再安装到板子。
 
@@ -121,9 +124,9 @@ title: MaixCAM MaixPy 快速开始
 
 ### 使用内置应用
 
-内置了很多应用，比如 找色块，AI 检测器，巡线等等，找色块举例：
+内置了很多应用，比如 找色块，AI 检测器，巡线等等，自学习检测举例：
 
-<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/find_blobs.mp4" type="video/mp4" style="width:95%">
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/self_learn_tracker.mp4" type="video/mp4" style="width:95%">
 Classifier Result video
 </video>
 
@@ -140,7 +143,7 @@ Classifier Result video
 注意这里串口仅能直接和其它单片机连接，**如果要和电脑串口通信请自备一个 USB 转串口模块**。
 
 使用方法：
-* 硬件连接： 可以给设备接上`Type-C一转二小板`，这样我们就能将设备通过串口连接到你的主控上了，比如`Arduino`、`树莓派`、`STM32`等等。
+* 硬件连接： 可以给设备接上`Type-C一转二小板`（对于 MaixCAM-Pro 是 6Pin 接口），这样我们就能将设备通过串口连接到你的主控上了，比如`Arduino`、`树莓派`、`STM32`等等。
 * 打开你想用的应用，比如二维码识别，当设备扫描到二维码就会通过串口把结果发送给你的主控了。
 > 发送的串口波特率是 `115200`，数据格式是 `8N1`，协议遵循 [Maix 串口通信协议标准](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md)，可以在[MaixHub APP](https://maixhub.com/app) 找到对应的应用介绍查看协议。
 > 如果应用没有做串口输出结果，你也可以自己基于对应功能的例程，自行按照[串口使用文档](./peripheral/uart.md)添加串口输出结果。
@@ -148,7 +151,7 @@ Classifier Result video
 ## 准备连接电脑和设备
 
 为了后面电脑（PC）能和 设备（MaixCAM）通信，我们要让它们在同一个局域网内，提供了两种方式：
-* **方法一 (强烈推荐)**：无线连接， 设备使用 WiFi 连接到电脑连接的同一个路由器或者 WiFi 热点下： 在设备的`设置 -> WiFi 设置`中连接到你的 WiFi 即可。（WiFi 如果出现画面卡顿或者延迟高的问题可以尝试下面的方法二使用有线连接。）
+* **方法一 (强烈推荐)**：无线连接， 设备使用 WiFi 连接到电脑连接的同一个路由器或者 WiFi 热点下： 在设备的`设置 -> WiFi 设置`中连接到你的 WiFi 即可。（WiFi 如果出现**画面卡顿或者延迟**的问题可以尝试下面的方法二使用有线连接。）
 * **方法二**：有线连接， 设备通过 USB 线连接到电脑，设备会虚拟成一个 USB 网卡，这样和电脑就通过 USB 在同一局域网了。推荐先用 WiFi 开始是因为有线虽然传输稳定但是可能会遇到线缆不良，接触不良，驱动等问题，遇到问题也可以在 [FAQ](./faq.md) 中找常见问题。
 .. details::方法二在不同电脑系统中驱动安装方法：
     :open: true
@@ -207,6 +210,8 @@ while not app.need_exit():        # 一直循环，直到程序退出（可以�
 
 如果想让程序开机自启动，可以在 `设置 -> 开机启动` 中设置。
 
+
+更多 MaixVision 使用请看 [MaixVision 文档](./basic/maixvision.md)。
 
 ## 下一步
 

@@ -129,6 +129,9 @@ This is mostly due to insufficient power supply. MaixCAM requires a voltage of a
 
 For MaixCAM, it draws 400mA during startup, 250mA in standby mode with the screen on, and 400mA~500mA when running AI models at full speed. Therefore, ensuring a stable power supply is very important!
 
+## MaixCAM Black screen and not boot up, or stock in LOGO screen
+
+Refer to [MaixCAM FAQ](https://wiki.sipeed.com/hardware/en/maixcam/faq.html)
 
 ## MaixVision Program Stuck on "start running ..."
 
