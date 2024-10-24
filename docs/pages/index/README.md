@@ -534,7 +534,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video playsinline controls autoplay loop muted preload src="/static/video/gyroflow_small.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/gyroflow.mp4"></video>
             <p class="feature">陀螺仪增稳</p>
             <p class="description">板载陀螺仪(仅MaixCAM-Pro) 支持导出 gyroflow 防抖格式，DIY 摄影</p>
         </div>

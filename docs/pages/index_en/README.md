@@ -533,7 +533,7 @@ You can create new features using the rich API provided by MaixPy.
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <video playsinline controls autoplay loop muted preload src="/static/video/gyroflow_small.mp4"></video>
+            <video playsinline controls autoplay loop muted preload src="/static/video/gyroflow.mp4"></video>
             <p class="feature">Gyroscope Stabilization</p>
             <p class="description">Onboard gyroscope (MaixCAM-Pro only), supports exporting gyroflow stabilization format for DIY photography</p>
         </div>
