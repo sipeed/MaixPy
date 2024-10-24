@@ -147,7 +147,7 @@ h1 {
 
 <div class="text-center">
 
-[English](./en/) | 中文
+English | [中文](../)
 
 </div>
 
