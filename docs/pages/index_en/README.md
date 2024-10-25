@@ -17,6 +17,10 @@ h2 {
 {
     background: #f2f4f3;
 }
+.dark #page_wrapper
+{
+    background: #1b1b1b;
+}
 .md_page #page_content
 {
     padding: 1em;
@@ -26,13 +30,6 @@ h2 {
     width: 100%;
     max-width: 100%;
     text-align: left;
-}
-@media (min-width: 1280px) {
-    .md_page #page_content > div
-    {
-        width: 1440px;
-        max-width: 1440px;
-    }
 }
 h1 {
     font-size: 3em;
@@ -81,6 +78,10 @@ h1 {
     max-width: 20em;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
+.dark .feature_item {
+    border: 1em solid #2d2d2d;
+    background: #2d2d2d;
+}
 .feature_item .feature {
     font-size: 1.2em;
     font-weight: 600;
@@ -115,8 +116,26 @@ h1 {
 .white_border {
     border: 1em solid white;
 }
+.dark .white_border {
+    border: 1em solid #2d2d2d;
+}
 .code-toolbar pre {
     margin: 0;
+}
+.code_wrapper {
+    overflow: auto;
+}
+@media screen and (min-width: 1280px) {
+    .md_page #page_content > div
+    {
+        width: 1440px;
+        max-width: 1440px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .code_wrapper {
+        font-size: 0.6em;
+    }
 }
 </style>
 

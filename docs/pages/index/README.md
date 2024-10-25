@@ -18,6 +18,10 @@ h2 {
 {
     background: #f2f4f3;
 }
+.dark #page_wrapper
+{
+    background: #1b1b1b;
+}
 .md_page #page_content
 {
     padding: 1em;
@@ -27,13 +31,6 @@ h2 {
     width: 100%;
     max-width: 100%;
     text-align: left;
-}
-@media (min-width: 1280px) {
-    .md_page #page_content > div
-    {
-        width: 1440px;
-        max-width: 1440px;
-    }
 }
 h1 {
     font-size: 3em;
@@ -82,6 +79,10 @@ h1 {
     max-width: 20em;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
+.dark .feature_item {
+    border: 1em solid #2d2d2d;
+    background: #2d2d2d;
+}
 .feature_item .feature {
     font-size: 1.2em;
     font-weight: 600;
@@ -116,8 +117,26 @@ h1 {
 .white_border {
     border: 1em solid white;
 }
+.dark .white_border {
+    border: 1em solid #2d2d2d;
+}
 .code-toolbar pre {
     margin: 0;
+}
+.code_wrapper {
+    overflow: auto;
+}
+@media screen and (min-width: 1280px) {
+    .md_page #page_content > div
+    {
+        width: 1440px;
+        max-width: 1440px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .code_wrapper {
+        font-size: 0.6em;
+    }
 }
 </style>
 
@@ -171,8 +190,8 @@ MaixPy-v1 (K210) 用户请查看 <a target="_blank" style="color: #546e7a" href=
 <div class="mt-6"></div>
 
 <h2 class="text-center font-bold">简易的 API 设计， 10 行代码进行 AI 图像识别</h2>
-<div id="id1" class="flex flex-row justify-center items-end flex-wrap">
-<div class="shadow-xl">
+<div id="id1" class="flex flex-row justify-center items-end flex-wrap max-w-full">
+<div class="shadow-xl code_wrapper">
 
 ```python
 from maix import camera, display, image, nn
@@ -200,8 +219,8 @@ Classifier Result video
 <!-- div start-->
 <div class="text-center font-bold">
 <h2>硬件外设控制，不在话下</h2>
-<div class="flex flex-row justify-center flex-wrap">
-<div class="mr-4 shadow-xl">
+<div class="flex flex-row justify-center flex-wrap max-w-full">
+<div class="mr-4 shadow-xl code_wrapper">
 
 串口收发：
 
@@ -217,7 +236,7 @@ print("received:", serial.read(timeout = 2000))
 ```
 
 </div>
-<div class="shadow-xl">
+<div class="shadow-xl code_wrapper">
 
 I2C 收发：
 
@@ -231,7 +250,6 @@ print("find slaves:", slaves)
 dev1.writeto(0x12, b'hello')
 print("received:", dev1.readfrom(0x12, 5))
 ```
-
 </div>
 </div>
 </div>
@@ -578,7 +596,9 @@ MaixVision
 
 <div class="mt-3"></div>
 
-<div>
+<div class="max-w-full">
+
+<div class="overflow-auto">
 
 | 特征 | Maix-I K210 | Maix-II v831 | MaixCAM |
 | ------- | ----------- | ------------ | ------- |
@@ -604,6 +624,8 @@ MaixVision
 | AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
 | AI 检测(NPU推理部分)   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps<br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**|
 | 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+
+</div>
 
 <div class="mt-6"></div>
 
@@ -631,7 +653,8 @@ MaixVision
 
 ## 社区 {#community}
 
-<div>
+<div class="max-w-full">
+<div class="overflow-auto">
 
 | 社区 | 地址 |
 | --- | ---- |
@@ -644,6 +667,7 @@ MaixVision
 | **Telegram**| [t.me/maixpy](https://t.me/maixpy) |
 | **QQ 群**| 862340358 |
 
+</div>
 </div>
 
 
