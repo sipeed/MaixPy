@@ -27,7 +27,9 @@ from maix import nn, camera, display, image
 import os
 import math
 
-recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff = True)
+recognizer = nn.FaceRecognizer(detect_model="/root/models/yolov8n_face.mud", feature_model = "/root/models/insghtface_webface_r50.mud", dual_buff=True)
+# recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff=True)
+
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
@@ -35,7 +37,7 @@ dis = display.Display()
 
 while 1:
     img = cam.read()
-    faces = recognizer.recognize(img, 0.5, 0.45, 0.8)
+    faces = recognizer.recognize(img, 0.5, 0.45, 0.85)
     for obj in faces:
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         radius = math.ceil(obj.w / 10)
@@ -51,7 +53,7 @@ When you first run this code, it can detect faces but will not recognize them. W
 
 For example, you can learn faces when a user presses a button:
 ```python
-faces = recognizer.recognize(img, 0.5, 0.45, True)
+faces = recognizer.recognize(img, 0.5, 0.45, 0.85, True)
 for face in faces:
     print(face)
     # This accounts for the scenario where multiple faces are present in one scene; obj.class_id of 0 means the face is not registered
@@ -60,6 +62,10 @@ for face in faces:
     recognizer.add_face(face, label) # label is the name you assign to the face
 recognizer.save_faces("/root/faces.bin")
 ```
+
+Here, `0.5` is the threshold for face detection, where a higher value indicates stricter detection. `0.45` is the `IOU` threshold, used to filter overlapping face results. `0.85` is the threshold for face comparison, indicating similarity with stored faces in the database. If a face comparison score exceeds this threshold, it is considered a match. A higher threshold improves filtering accuracy, while a lower threshold increases the risk of misidentification and can be adjusted according to practical needs.
+
+The detection model here supports three types: `yolov8n_face`, `retinaface`, and `face_detector`, each differing slightly in speed and accuracy, allowing for selection based on specific requirements.
 
 ## Complete Example
 
@@ -72,5 +78,6 @@ You may have noticed that the model initialization uses `dual_buff` (which defau
 
 ## Replacing Other Default Recognition Models
 
-The current recognition model (used to distinguish different individuals) is based on the MobileNetV2 model. If its accuracy does not meet your requirements, you can replace it with another model, such as the [Insight Face ResNet50](https://maixhub.com/model/zoo/462) model. Of course, you can also train your own model or find other pre-trained models and convert them into a format supported by MaixCAM. For the conversion method, refer to the [MaixCAM Model Conversion Documentation](../ai_model_converter/maixcam.md), and you can write the mud file based on existing examples.
+The recognition model (for distinguishing different individuals) uses `mobilenetv2` and the [insight face resnet50](https://maixhub.com/model/zoo/462) model. If these do not meet accuracy requirements, other models can be substituted. You may need to train a new model or find a pre-trained model compatible with MaixCAM, such as other models from [insightface](https://github.com/deepinsight/insightface). For conversion instructions, refer to the [MaixCAM model conversion documentation](../ai_model_converter/maixcam.md), and follow existing `.mud` files as examples.
+
 

@@ -29,7 +29,9 @@ from maix import nn, camera, display, image
 import os
 import math
 
-recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff=True)
+recognizer = nn.FaceRecognizer(detect_model="/root/models/yolov8n_face.mud", feature_model = "/root/models/insghtface_webface_r50.mud", dual_buff=True)
+# recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff=True)
+
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
@@ -37,7 +39,7 @@ dis = display.Display()
 
 while 1:
     img = cam.read()
-    faces = recognizer.recognize(img, 0.5, 0.45, 0.8)
+    faces = recognizer.recognize(img, 0.5, 0.45, 0.85)
     for obj in faces:
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         radius = math.ceil(obj.w / 10)
@@ -53,7 +55,7 @@ while 1:
 
 比如可以在用户按下按键的时候学习人脸：
 ```python
-faces = recognizer.recognize(img, 0.5, 0.45, True)
+faces = recognizer.recognize(img, 0.5, 0.45, 0.85, True)
 for face in faces:
     print(face)
     # 这里考虑到了一个画面中有多个人脸的情况， obj.class_id 为 0 代表是没有录入的人脸
@@ -62,6 +64,11 @@ for face in faces:
     recognizer.add_face(face, label) # label 是要给人脸取的标签（名字）
 recognizer.save_faces("/root/faces.bin")
 ```
+
+这里 `0.5` 是检测人脸的阈值,越大越严格, `0.45`是`IOU`阈值,用来过滤多个重合的人脸结果；
+`0.85`是人脸对比阈值, 即和库中存好的人脸对比相似度,某个人脸对比分数大于这个阈值就认为是这个人。值越大过滤效果越好，值越小越容易误识别，可以根据实际情况调整。
+
+检测模型这里支持`yolov8n_face`/`retinaface`/`face_detector`三种，速度和精度略微区别，可以根据实际情况选择使用。
 
 ## 完整例程
 
@@ -74,6 +81,6 @@ recognizer.save_faces("/root/faces.bin")
 
 ## 更换其它默认识别模型
 
-这里识别模型（区分不同人）用了 mobilenetv2 模型，如果不满足精度要求，可以更换成其它模型，比如[insight face resnet50](https://maixhub.com/model/zoo/462) 模型，当然你也可以自己训练或者找其它训练好的模型转换成 MaixCAM 支持的模型即可，转换方法看[MaixCAM 模型转换文档](../ai_model_converter/maixcam.md)， mud 文件参考以有的文件写即可。
+这里识别模型（区分不同人）用了 `mobilenetv2` 和 [insight face resnet50](https://maixhub.com/model/zoo/462) 模型，如果不满足精度要求，可以更换成其它模型，需要自己训练或者找其它训练好的模型转换成 MaixCAM 支持的模型即可，比如 [insightface](https://github.com/deepinsight/insightface)的其它模型， 转换方法看[MaixCAM 模型转换文档](../ai_model_converter/maixcam.md)， mud 文件参考以有的文件写即可。
 
 

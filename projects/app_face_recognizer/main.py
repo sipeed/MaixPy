@@ -6,7 +6,16 @@ learn_id = 0
 
 def main(disp):
     global pressed_flag, learn_id
-    recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff = True)
+    img = image.Image(disp.width(), disp.height())
+    msg = "loading ..."
+    size = image.string_size(msg, scale=2, thickness=2)
+    img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, color=image.COLOR_WHITE, scale=2, thickness=2)
+    disp.show(img)
+
+    # yolov8-face + insightface resnet50, slower but more precisely
+    recognizer = nn.FaceRecognizer(detect_model="/root/models/yolov8n_face.mud", feature_model = "/root/models/insghtface_webface_r50.mud", dual_buff=True)
+    # Retinaface + mobilenetv2-face, faster but lower precese.
+    # recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff = True)
 
     # if os.path.exists("/root/faces.bin"):
     #     recognizer.load_faces("/root/faces.bin")
@@ -74,7 +83,7 @@ def main(disp):
             for i in range(len(recognizer.labels) - 1):
                 recognizer.remove_face(0)
         img = cam.read()
-        faces = recognizer.recognize(img, 0.5, 0.45, 0.8, learn, learn)
+        faces = recognizer.recognize(img, 0.5, 0.45, 0.85, learn, learn)
         for obj in faces:
             color = image.COLOR_RED if obj.class_id == 0 else image.COLOR_GREEN
             img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = color)
