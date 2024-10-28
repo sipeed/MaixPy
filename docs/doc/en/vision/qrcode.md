@@ -88,8 +88,9 @@ Steps:
 
 List common parameters and their explanations. If you cannot find parameters that fit your application, consider whether to use a different algorithm or extend the functionality based on the current algorithm's results.
 
-| Parameter | Description                                                  | Example                                                      |
-| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| roi       | Sets the rectangular area for the algorithm to compute, where roi=[x, y, w, h], x and y denote the top-left coordinates of the rectangle, and w and h denote the width and height of the rectangle, defaulting to the entire image. | Compute the area with coordinates (50,50) and width and height of 100:<br />`img.find_qrcodes(roi=[50, 50, 100, 100])` |
+| Parameter    | Description                                                  | Example                                                      |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| roi          | Sets the rectangular area for the algorithm to compute, where roi=[x, y, w, h], x and y denote the top-left coordinates of the rectangle, and w and h denote the width and height of the rectangle, defaulting to the entire image. | Compute the area with coordinates (50,50) and width and height of 100:<br />`img.find_qrcodes(roi=[50, 50, 100, 100])` |
+| qrcoder_type | Set the QR code library decoder type; you can choose either `image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR` or `image::QRCodeDecoderType::QRCODE_DECODER_TYPE_QUIRC`. `QRCODE_DECODER_TYPE_ZBAR` offers faster recognition speed and higher accuracy at lower resolutions. `QRCODE_DECODER_TYPE_QUIRC` is relatively faster at higher resolutions but with slightly lower accuracy. By default, `QRCODE_DECODER_TYPE_ZBAR` is used.<br />Effective in version 4.7.7 and later. | img.find_qrcodes(decoder_type=image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR) |
 
 This article introduces common methods. For more API details, refer to the [image](../../../api/maix/image.md) section of the API documentation.

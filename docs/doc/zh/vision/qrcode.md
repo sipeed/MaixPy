@@ -89,9 +89,10 @@ while 1:
 
 列举常用参数说明，如果没有找到可以实现应用的参数，则需要考虑是否使用其他算法实现，或者基于目前算法的结果扩展所需的功能
 
-| 参数 | 说明                                                         | 示例                                                         |
-| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| roi  | 设置算法计算的矩形区域，roi=[x, y, w, h]，x，y表示矩形区域左上角坐标，w，h表示矩形区域的宽度和高度，默认为整张图片 | 计算坐标为(50,50)，宽和高为100的区域<br />```img.find_qrcodes(roi=[50, 50, 100, 100])``` |
+| 参数         | 说明                                                         | 示例                                                         |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| roi          | 设置算法计算的矩形区域，roi=[x, y, w, h]，x，y表示矩形区域左上角坐标，w，h表示矩形区域的宽度和高度，默认为整张图片 | 计算坐标为(50,50)，宽和高为100的区域<br />```img.find_qrcodes(roi=[50, 50, 100, 100])``` |
+| qrcoder_type | 设置二维码库解码器类型，可以选择image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR或者image::QRCodeDecoderType::QRCODE_DECODER_TYPE_QUIRC.  QRCODE_DECODER_TYPE_ZBAR在分辨率较小时识别速度更快，识别精度更高. QRCODE_DECODER_TYPE_QUIRC在分辨率较大时相对速度更快，但识别精度相对较低. 默认使用QRCODE_DECODER_TYPE_ZBAR.<br />v4.7.7及以后的版本有效. | img.find_qrcodes(decoder_type=image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR) |
 
 本文介绍常用方法，更多 API 请看 API 文档的 [image](../../../api/maix/image.md) 部分。
 
