@@ -1,0 +1,12 @@
+id: timelapse
+name: Timelapse
+version: 1.0.3
+icon: icon.png
+author: Sipeed Ltd
+desc: Record a time-lapse video
+desc[zh]: 录制延时视频
+files:
+  - icon.png
+  - app.yaml
+  - assets
+  - README.md
