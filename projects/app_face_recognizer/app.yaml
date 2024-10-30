@@ -1,10 +1,10 @@
 id: face_recognizer
 name: Face Recognizer
-version: 1.0.0
+version: 1.0.1
 author: Sipeed Ltd
-icon: face.json
+icon: face.png
 desc: Learn and recognize face.
 files:
-  - face.json
+  - face.png
   - app.yaml
   - main.py
