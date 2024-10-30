@@ -165,3 +165,10 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 
 The error indicates that an object has not been defined as a Python object. In MaixPy, this is usually caused by an issue with the order of automatic API generation. For example, if there is an API declared with `@maixpy` in `a.hpp`, and another API in `b.hpp` that uses a definition from `a.hpp` as a parameter, then `b.hpp` depends on `a.hpp`. However, the current MaixPy compilation script does not perform dependency scanning. To resolve this, you need to manually specify the scan order in the `components/maix/headers_priority.txt` file in the MaixPy project, ensuring that `a.hpp` is scanned before `b.hpp`.
 
+## MaixVision Display Lag
+
+The lag is typically due to using WiFi transmission. When the signal is weak or the image resolution is too high, delays can occur. Here are solutions to reduce lag:
+
+* Switch to a wired connection; refer to the Quick Start Guide for details.
+* Lower the image resolution by reducing the size of `img` in the code with `disp.show(img)`.
+

@@ -165,3 +165,11 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 
 显示有对象没有定义成 python 对象，在 MaixPy 中一般是由于自动扫描API生成时的顺序问题造成的，比如在`a.hpp`中有一个`@maixpy`声明的`API`， 在`b.hpp` 中有另一个`API`而且参数使用了`a.hpp`中的定义，那么可以说`b.hpp`需要依赖`a.hpp`，但目前`MaixPy`的编译脚本不会做依赖关系扫描，所以需要在`MaixPy`项目中的`components/maix/headers_priority.txt`文件中手动指定一下，`a.hpp`在`b.hpp`前面扫描就可以了。
 
+## MaixVision 画面有延迟
+
+一般情况下应该是因为用了 WiFi 传输，信号不好时或者图像分辨率过大时就会有延迟。
+解决方法就是：
+* 更换有线方式连接，具体看快速入门文档。
+* 减小图像分辨率，在代码中 `disp.show(img)` `img` 的分辨率小一点。
+
+
