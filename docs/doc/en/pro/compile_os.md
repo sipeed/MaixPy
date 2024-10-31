@@ -32,20 +32,20 @@ Prepare the following:
 In the `MaixPy/tools/os` directory, run the following command:
 
 ```shell
-./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps]
+./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [device_name]
 ```
 
 Here’s what each parameter means:
 * **base_os_filepath**: The path to the base system, in `.img` or `.img.xz` format.
 * **maixpy_whl_filepath**: The MaixPy package, in `.whl` format.
 * **builtin_files_dir_path**: The custom files for MaixCAM, which can be downloaded from the MaixPy release page.
-* **os_version_str**: The system version, which should follow a format like `maixcam-2024-08-16-maixpy-v4.4.21`.
 * **skip_build_apps**: Skip compiling built-in applications, optional arg. Set to 1 to skip, no this arg it will compile and copy apps from MaixCDK and MaixPy into the system.
+* **device name**: Can be `maixcam` or `maixcam-pro`
 
 Example command:
 
 ```shell
-./gen_os.sh '/home/xxx/.../LicheeRV-Nano-Build/install/soc_sg2002_licheervnano_sd/images/2024-08-13-14-43-0de38f.img' ../../dist/MaixPy-4.4.21-py3-none-any.whl '/home/xxx/.../sys_builtin_files' maixcam-2024-08-15-maixpy-v4.4.21
+./gen_os.sh '/home/xxx/.../LicheeRV-Nano-Build/install/soc_sg2002_licheervnano_sd/images/2024-08-13-14-43-0de38f.img' ../../dist/MaixPy-4.4.21-py3-none-any.whl '/home/xxx/.../sys_builtin_files' 0 maixcam-pro
 ```
 
-After waiting for the built-in apps to compile and copy, you should find a `maixcam-2024-08-15-maixpy-v4.4.21.img.xz` system image in the `MaixPy/tools/os/tmp` directory.
+After waiting for the built-in apps to compile and copy, you should find a `maixcam-pro-2024-08-15-maixpy-v4.4.21.img.xz` system image in the `MaixPy/tools/os/tmp` directory.

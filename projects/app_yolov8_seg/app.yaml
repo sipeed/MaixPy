@@ -1,9 +1,9 @@
-id: yolov8_seg
-name: YOLOv8 Segmentation
+id: yolo11_seg
+name: YOLO11 Seg
 version: 1.0.1
 author: Sipeed Ltd
 icon: icon.png
-desc: YOLOv8 detect objects and segment object
+desc: YOLO11 detect objects and segment object
 files:
   - icon.png
   - app.yaml

@@ -5,7 +5,7 @@ def is_in_button(x, y, btn_pos):
 
 def main(disp):
     ts = touchscreen.TouchScreen()
-    detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud")
+    detector = nn.YOLO11(model="/root/models/yolo11n_seg.mud")
     img_back = image.load("/maixapp/share/icon/ret.png")
     back_rect = [0, 0, 32, 32]
 

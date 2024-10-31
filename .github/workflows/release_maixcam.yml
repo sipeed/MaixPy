@@ -87,7 +87,7 @@ jobs:
           python download_base_os.py -o ${base_os_path}
           python download_builtin_files.py --unzip tmp/dl_builtin_files
           builtin_files_dir=tmp/dl_builtin_files/sys_builtin_files
-          ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir
           os_filename=${os_version_name}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
           sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
@@ -98,7 +98,7 @@ jobs:
           echo "-- Generate system for MaixCAM-Pro --"
           echo "-------------------------------------"
           os_version_name_pro="maixcam-pro-${date_now}-maixpy-${maixpy_version}"
-          ./gen_os.sh $base_os_path $release_path $builtin_files_dir $os_version_name_pro 1 maixcam-pro
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir 1 maixcam-pro
           os_filename=${os_version_name_pro}.img.xz
           os_filepath=`pwd`/tmp/$os_filename
           sha256sum $os_filepath >> ${maixpy_path}/sha256sum_files.txt

@@ -6,17 +6,16 @@
 # 3. 打包 MaixPy 写的应用（MaixPy/projects 目录下执行 build_all.sh)，生成 maixapp/apps 目录，将内容全部拷贝到 sys_builtin_files/maixapp/apps 目录
 # 4. 打包 MaixCDK 写的应用，进入 $MAIXCDK_PATH/projects， 执行 build_all.sh，生成 maixapp/apps 目录，将内容全部拷贝到 sys_builtin_files/maixapp/apps 目录
 # 5. 生成 sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py sys_builtin_files/maixapp/apps
-# 6. 写入 sys_builtin_files/boot/ver 版本号文件（使用参数 os_version_str）， 比如 maixcam-2024-05-13-maixpy-v4.1.0
-# 7. 拷贝 MaixCDK/components/maixcam_lib/lib/libmaixcam_lib.so 到 sys_builtin_files/usr/lib
-# 8. 拷贝 sys_builtin_files 生成新镜像，通过 ./update_img.sh sys_builtin_files tmp/os_version_str.img
-# 9. xz 压缩镜像
+# 6. 拷贝 MaixCDK/components/maixcam_lib/lib/libmaixcam_lib.so 到 sys_builtin_files/usr/lib
+# 7. 拷贝 sys_builtin_files 生成新镜像，通过 ./update_img.sh sys_builtin_files tmp/os_version_str.img
+# 8. xz 压缩镜像
 
 set -e
 set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <os_version_str> [skip_build_apps] [board_name]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
     echo ""
@@ -31,30 +30,34 @@ fi
 base_os_path=$1
 whl_path=$2
 builtin_files_dir_path=$3
-os_version_str=$4
 skip_build_apps=0
 board_name=maixcam
 
 # 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
-if [ -n "$5" ]; then
-    if [ "x$5" == "x1" ]; then
+if [ -n "$4" ]; then
+    if [ "x$4" == "x1" ]; then
         skip_build_apps=1
-    elif [ "x$5" != "x0" ]; then
+    elif [ "x$4" != "x0" ]; then
         echo "skip_build_apps arg should be 0 or 1"
         exit 1
     fi
 fi
 
-if [ -n "$6" ]; then
-    if [ "x$6" == "xmaixcam" ]; then
+if [ -n "$5" ]; then
+    if [ "x$5" == "xmaixcam" ]; then
         board_name=maixcam
-    elif [ "x$6" == "xmaixcam-pro" ]; then
+    elif [ "x$5" == "xmaixcam-pro" ]; then
         board_name=maixcam-pro
     else
         echo "board_name arg should be maixcam or maixcam-pro"
         exit 1
     fi
 fi
+
+# 设置输出的镜像名字 maixcam-2024-10-31-maixpy-v4.7.8
+date_now=$(date +"%Y-%m-%d")
+maixpy_version=$(echo "$whl_path" | grep -oP '(?<=MaixPy-)[^-]+')
+os_version_str=${board_name}-${date_now}-maixpy-v${maixpy_version}
 
 
 # 0. 确保环境变量 MAIXCDK_PATH 存在，以及当前目录在 MaixPy/tools 目录下
@@ -134,7 +137,10 @@ cp "$MAIXCDK_PATH/components/maixcam_lib/lib/libmaixcam_lib.so" tmp/sys_builtin_
 # 8. 不同板型拷贝
 if [ $board_name == "maixcam-pro" ]; then
     cp -f "tmp/sys_builtin_files/boot/maixcam_pro_logo.jpeg" "tmp/sys_builtin_files/boot/logo.jpeg"
+    cp "tmp/sys_builtin_files/boot/boards/board.maixcam_pro" "tmp/sys_builtin_files/boot/board"
     sed -i 's/^panel=.*/panel=st7701_lct024bsi20/' "tmp/sys_builtin_files/boot/uEnv.txt"
+else
+    cp "tmp/sys_builtin_files/boot/boards/board.maixcam" "tmp/sys_builtin_files/boot/board"
 fi
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
