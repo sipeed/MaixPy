@@ -22,7 +22,7 @@ function usage() {
 }
 
 param_count=$#
-if [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ] && [ "$param_count" -ne 6 ]; then
+if [ "$param_count" -ne 3 ] && [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ]; then
     usage
     exit 1
 fi
