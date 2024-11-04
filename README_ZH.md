@@ -30,7 +30,7 @@ MaixPy (v4)
 
 
 
-> 新的 MaixPy (v4) 和新的硬件平台 MaixCAM 来了(2024.4)!<br>
+> 新的 MaixPy (v4) 和新的硬件平台 MaixCAM 来了!<br>
 > 如果你有任何建议，请在 [MaixHub](https://maixhub.com/discussion/100073) 上告诉我们，或者 [Telegram/MaixPy](https://t.me/maixpy) 或 QQ 群: 862340358。
 >
 > 点击右上角的 **Star** 让我们知道你喜欢它，以鼓励我们开发更多功能。
@@ -92,9 +92,9 @@ Python 编程, MaixVision 工作站, AI 视觉, 视频串流, 语音识别, 外�
 
 ## 硬件平台 MaixCAM
 
-提供性能强劲的硬件平台 **[MaixCAM](https://wiki.sipeed.com/maixcam)**:
+提供性能强劲的硬件平台 **[MaixCAM](https://wiki.sipeed.com/maixcam)** 和 **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**:
 
-![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam.png)
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam-pro.png)
 
 | CPU | NPU | Memory |
 | --- | --- | ------- |
@@ -104,9 +104,7 @@ Python 编程, MaixVision 工作站, AI 视觉, 视频串流, 语音识别, 外�
 | ----------- | ----- | --- | ---- |
 |  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
 
-芯片寄存器级别开放，详情看 [MaixCAM](https://wiki.sipeed.com/maixcam)
-
-> * 大核在 RISC-V and ARM A53 二选一。
+芯片寄存器级别开放，详情看 [MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro) 或 [MaixCAM](https://wiki.sipeed.com/maixcam)
 > * **Maix-I K210** 已过时，MaixPy v4 不支持它, 仍要使用请访问 **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
 
 

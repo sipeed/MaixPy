@@ -13,7 +13,7 @@ MaixPy (v4)
     <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> Quick Start </a> |
     <a href="https://wiki.sipeed.com/maixpy/en/index.html"> Documentation </a> |
     <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
-    <a href="https://wiki.sipeed.com/maixcam"> Hardware </a>
+    <a href="https://wiki.sipeed.com/maixcam-pro"> Hardware </a>
 </h3>
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
@@ -29,7 +29,7 @@ English | [中文](./README_ZH.md)
 </div>
 
 
-> New MaixPy (v4) and new hardware platform MaixCAM is coming now(2024.4)!<br>
+> New MaixPy (v4) and new hardware platform MaixCAM is coming now!<br>
 > If you have any suggestions, tell us on [MaixHub](https://maixhub.com/discussion/100073), or [Telegram/MaixPy](https://t.me/maixpy) or QQ group: 862340358.
 >
 > Click the **Star** in the upper right corner to let us know you like it to encourage us to add more features.
@@ -91,9 +91,9 @@ Python programing, MaixVision Workstation, AI vision, video streaming, voice rec
 
 ## Hardware platform MaixCAM
 
-And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)**:
+And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)** and **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**:
 
-![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam.png)
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam_pro.png)
 
 | CPU | NPU | Memory |
 | --- | --- | ------- |
@@ -103,9 +103,7 @@ And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.co
 | ----------- | ----- | --- | ---- |
 |  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [Sipeed Official Store](https://wiki.sipeed.com/store) |
 
-Chip register level open, more detalils: [MaixCAM](https://wiki.sipeed.com/maixcam)
-
-> * Big core can choose one of RISC-V and ARM A53.
+Chip register level open, more detalils: [MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro) or [MaixCAM](https://wiki.sipeed.com/maixcam)
 > * **Maix-I K210** series is outdated, MaixPy v4 not support it, use it please visit **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
 
 

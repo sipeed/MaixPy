@@ -83,7 +83,8 @@ items:
         label: 离线训练 YOLO11/YOLOv8 模型
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
-
+    -   file: pro/customize_model.md
+        label: 移植新模型
 
 -   label: AI 听觉
     items:
@@ -101,6 +102,8 @@ items:
         label: 语音合成
     -   file: audio/ai_classify.md
         label: AI 声音分类
+    -   file: pro/customize_model.md
+        label: 移植新模型
 
 -   label: 视频
     items:
