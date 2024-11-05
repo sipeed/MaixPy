@@ -1,0 +1,245 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+header button {
+    background: #555;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#settings {
+    padding: 10px;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+}
+
+#currentPath {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#fileList {
+    padding: 10px;
+    background: #fafafa;
+}
+
+/* 文件列表的基本样式 */
+.file-item {
+    display: flex;
+    justify-content: space-between; /* 左右分隔布局 */
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 左侧文件图标和文件名容器 */
+.file-name {
+    display: flex;
+    align-items: center;
+}
+
+/* 文件夹样式 */
+.file-item.folder .file-name span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* 文件样式 */
+.file-item.file .file-name span {
+    color: #333;
+}
+
+/* 文件图标样式 */
+.file-icon::before {
+    margin-right: 8px;
+}
+
+.file-item.folder .file-icon::before {
+    content: '📁'; /* 文件夹图标 */
+}
+
+.file-item.file.supported .file-icon::before {
+    content: '📄'; /* 文件图标 */
+}
+
+.file-item.file .file-icon::before {
+    content: '📦'; /* 文件图标 */
+}
+
+.file-item.file.supported .file-icon.fmt_video::before {
+    content: '🎥'; /* 文件图标 */
+}
+
+
+.file-item.file.supported .file-icon.fmt_image::before {
+    content: '🌄'; /* 文件图标 */
+}
+
+
+/* 右侧日期和按钮容器 */
+.file-details {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 按钮之间的间距 */
+}
+
+/* 日期样式，不可点击 */
+.file-date {
+    cursor: default;
+    color: #666;
+}
+
+/* 鼠标悬停在文件名和按钮上时显示为手形 */
+.file-name span,
+.file-item button {
+    cursor: pointer;
+}
+
+.file-item button {
+    border: none;
+    border-radius: 0.2em;
+    background-color: #3949AB;
+    color: white;
+    box-shadow: 0px 0px 1px 1px #1A237E;
+    padding: 0.4em;
+}
+
+/* 支持的文件格式加粗 */
+.file-item.file.supported .file-name span {
+    font-weight: bold;
+}
+
+
+/* 全屏遮罩层 */
+#previewOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 关闭预览的背景区域 */
+#previewBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+}
+
+/* 关闭按钮在屏幕右上角 */
+#closeButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    background-color: #333;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1001; /* 确保在遮罩层之上 */
+    border-radius: 0.3em;
+    box-shadow: 0px 0px 1px 1px #1b1b1b;
+}
+
+/* 预览内容容器 */
+#previewContent {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 图片样式 */
+#previewImage {
+    transform-origin: center center; /* 设置缩放中心 */
+    transition: transform 0.3s ease; /* 平滑缩放过渡效果 */
+}
+
+/* 文本文件预览 */
+#previewText {
+    color: #fff;
+    font-size: 16px;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 视频预览 */
+#previewVideo {
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 30px; /* 为内容顶部留出空间 */
+}
+
+
+/* 消息框的基本样式 */
+#messageBox {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0; /* 初始隐藏 */
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1001;
+}
+
+/* 消息框显示时的样式 */
+#messageBox.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 缩放按钮容器，固定在屏幕底部 */
+#zoomControls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    z-index: 1001;
+}
+
+#zoomControls button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+}
