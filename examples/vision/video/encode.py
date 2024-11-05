@@ -1,8 +1,10 @@
 from maix import video, time, image, camera, display, app
 
-cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+width = 640
+height = 480
+cam = camera.Camera(width, height, image.Format.FMT_YVU420SP)
 disp = display.Display()
-e = video.Encoder('/root/output.mp4')
+e = video.Encoder('/root/output.mp4', width, height)
 
 record_ms = 2000
 start_ms = time.ticks_ms()
