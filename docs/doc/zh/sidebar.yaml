@@ -133,6 +133,11 @@ items:
     -   file: network/flask.md
         label: Flask Web 服务器
 
+-   label: 通信协议
+    items:
+    -   file: comm/modbus.md
+        label: Modbus 通信协议
+
 -   label: 片上外设
     items:
     -   file: peripheral/pinmap.md
