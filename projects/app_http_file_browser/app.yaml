@@ -1,6 +1,6 @@
 id: http_file_browser
 name: HTTP File Browser
-version: 1.1.1
+version: 1.1.4
 author: Neucrack@Sipeed
 icon: icon.json
 desc: Browse and download files though http(browser)
@@ -8,3 +8,7 @@ files:
   - main.py
   - icon.json
   - locales
+  - script.js
+  - style.css
+  - index.html
+  - favicon.ico
