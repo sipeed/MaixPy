@@ -1,26 +1,64 @@
 let currentPath = '/root';
 let showHidden = false;
 let currentZoom = 1; // 初始缩放比例
+
 // 支持的文件类型字典
 const fileTypes = {
     image: ['jpg', 'jpeg', 'png', 'gif'],
-    text: ['txt', 'md', 'py', 'mud', 'json', 'yaml', 'yml', 'conf'],
+    text: ['txt', 'md', 'py', 'mud', 'json', 'yaml', 'yml', 'conf', 'ini', 'version'],
     video: ['mp4', 'webm', 'ogg', 'avi', 'flv']
 };
 
+let translations = {}; // 存储翻译内容
 
+// 加载语言文件，根据用户的语言设置选择合适的语言文件
+function loadLanguage() {
+    const userLang = navigator.language || 'zh';
+    const lang = userLang.startsWith('en') ? 'en' : 'zh';
+    fetch(`locales/${lang}.json`)
+        .then(response => response.json())
+        .then(data => {
+            translations = data;
+            updateTexts();
+        });
+}
+
+// 更新界面中的所有文本内容
+function updateTexts() {
+    document.getElementById("pageTitle").textContent = translations.title;
+    document.getElementById("pathDisplay").textContent = translations.currentPath + currentPath;
+    document.getElementById("labelShowHidden").textContent = translations.showHidden;
+    document.getElementById("backButton").textContent = translations.backButton;
+    document.getElementById("closeButton").textContent = translations.closePreview;
+    document.getElementById("zoomInButton").textContent = translations.zoomIn;
+    document.getElementById("zoomOutButton").textContent = translations.zoomOut;
+    document.getElementById("resetZoomButton").textContent = translations.resetZoom;
+
+    // 更新动态生成的按钮文本
+    document.querySelectorAll(".sha256-button").forEach(btn => {
+        btn.textContent = translations.sha256;
+    });
+    document.querySelectorAll(".download-button").forEach(btn => {
+        btn.textContent = translations.download;
+    });
+}
+
+// 页面加载完成后加载语言和初始化目录
 document.addEventListener("DOMContentLoaded", () => {
+    loadLanguage();
     loadDirectory(currentPath);
 });
 
+// 选择目录，更新当前路径
 function selectDirectory(path) {
     currentPath = path;
     loadDirectory(currentPath);
 }
 
-function showMessage(message) {
+// 显示自定义消息框
+function showMessage(messageKey) {
     const messageBox = document.getElementById("messageBox");
-    messageBox.textContent = message;
+    messageBox.textContent = translations[messageKey] || messageKey;
     messageBox.classList.add("show");
 
     // 3 秒后自动隐藏
@@ -29,23 +67,23 @@ function showMessage(message) {
     }, 3000);
 }
 
+// 返回上一层目录
 function goBack() {
-    // 移除当前路径的最后一级
     if (currentPath !== "/") {
         currentPath = currentPath.split("/").slice(0, -1).join("/") || "/";
         loadDirectory(currentPath);
     }
 }
 
+// 切换是否显示隐藏文件
 function toggleHidden() {
     showHidden = document.getElementById("showHidden").checked;
     loadDirectory(currentPath);
 }
 
+// 加载指定目录内容
 function loadDirectory(path) {
-    document.getElementById("pathDisplay").textContent = "当前路径：" + path;
-
-    // 如果路径不是根路径，则显示“返回上一层”按钮，否则隐藏它
+    document.getElementById("pathDisplay").textContent = translations.currentPath + path;
     const backButton = document.getElementById("backButton");
     backButton.style.display = path !== "/" ? "inline-block" : "none";
 
@@ -54,7 +92,7 @@ function loadDirectory(path) {
         .then(data => displayFiles(data));
 }
 
-
+// 显示文件列表
 function displayFiles(files) {
     const fileList = document.getElementById("fileList");
     fileList.innerHTML = '';
@@ -70,30 +108,17 @@ function displayFiles(files) {
 
     files.forEach(file => {
         const fileDiv = document.createElement("div");
-        fileDiv.classList.add("file-item");
-        fileDiv.classList.add(file.isDirectory ? "folder" : "file");
+        fileDiv.classList.add("file-item", file.isDirectory ? "folder" : "file");
 
-        // 判断文件格式是否支持
         const fileExtension = file.name.split('.').pop().toLowerCase();
         const isSupported = Object.values(fileTypes).some(types => types.includes(fileExtension));
-        if (isSupported) {
-            fileDiv.classList.add("supported"); // 加粗样式
-        }
+        if (isSupported) fileDiv.classList.add("supported");
 
-        // 左侧：图标和文件名
         const fileNameContainer = document.createElement("div");
         fileNameContainer.classList.add("file-name");
 
         const fileIcon = document.createElement("span");
-        fileIcon.classList.add("file-icon");
-        if(fileTypes.video.includes(fileExtension)) {
-            fileIcon.classList.add("fmt_video");
-        } else if(fileTypes.text.includes(fileExtension)) {
-            fileIcon.classList.add("fmt_txt");
-        } else if(fileTypes.image.includes(fileExtension)) {
-            fileIcon.classList.add("fmt_image");
-        }
-
+        fileIcon.classList.add("file-icon", `fmt_${fileTypes.video.includes(fileExtension) ? "video" : fileTypes.text.includes(fileExtension) ? "txt" : "image"}`);
         const fileName = document.createElement("span");
         fileName.textContent = file.name;
         fileName.onclick = () => {
@@ -101,115 +126,80 @@ function displayFiles(files) {
             else previewFile(file.path);
         };
 
-        fileNameContainer.appendChild(fileIcon); // 添加图标
-        fileNameContainer.appendChild(fileName); // 添加文件名
+        fileNameContainer.append(fileIcon, fileName);
 
-        // 右侧：日期和按钮容器
         const fileDetailsContainer = document.createElement("div");
         fileDetailsContainer.classList.add("file-details");
-
-        // 日期元素
         const fileTime = document.createElement("span");
         fileTime.classList.add("file-date");
         fileTime.textContent = file.time;
 
-        // 按钮：SHA256 和 下载
         if (!file.isDirectory) {
             const shaButton = document.createElement("button");
-            shaButton.textContent = "SHA256";
+            shaButton.classList.add("sha256-button");
+            shaButton.textContent = translations.sha256;
             shaButton.onclick = () => calculateSHA(file.path);
 
             const downloadButton = document.createElement("button");
-            downloadButton.textContent = "下载";
+            downloadButton.classList.add("download-button");
+            downloadButton.textContent = translations.download;
             downloadButton.onclick = () => downloadFile(file.path);
 
-            fileDetailsContainer.appendChild(fileTime);
-            fileDetailsContainer.appendChild(shaButton);
-            fileDetailsContainer.appendChild(downloadButton);
+            fileDetailsContainer.append(fileTime, shaButton, downloadButton);
         } else {
-            // 文件夹只显示日期和下载按钮
             const downloadButton = document.createElement("button");
-            downloadButton.textContent = "下载";
+            downloadButton.classList.add("download-button");
+            downloadButton.textContent = translations.download;
             downloadButton.onclick = () => downloadFile(file.path);
 
-            fileDetailsContainer.appendChild(fileTime);
-            fileDetailsContainer.appendChild(downloadButton);
+            fileDetailsContainer.append(fileTime, downloadButton);
         }
 
-        // 组合左侧和右侧内容
-        fileDiv.appendChild(fileNameContainer); // 左侧内容：图标+文件名
-        fileDiv.appendChild(fileDetailsContainer); // 右侧内容：日期+按钮
-
+        fileDiv.append(fileNameContainer, fileDetailsContainer);
         fileList.appendChild(fileDiv);
     });
 }
 
-
+// 计算文件的 SHA256 值
 function calculateSHA(path) {
-    // 找到当前路径对应的 SHA256 按钮
     const shaButton = event.target;
-    
-    // 禁用按钮，设置为“计算中...”
     shaButton.disabled = true;
-    const originalText = shaButton.textContent; // 保存原始文本
-    shaButton.textContent = "计算中...";
+    const originalText = shaButton.textContent;
+    shaButton.textContent = translations.calculate;
 
     fetch(`/sha256?path=${encodeURIComponent(path)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("计算失败");
-            }
-            return response.text();
-        })
-        .then(sha256Result => {
-            // 计算成功，显示结果并恢复按钮
-            alert(`SHA256: ${sha256Result}`);
-            shaButton.textContent = originalText;
-        })
-        .catch(error => {
-            // 计算失败，显示错误信息并恢复按钮
-            alert(error.message);
-            shaButton.textContent = "计算失败";
-            setTimeout(() => {
-                shaButton.textContent = originalText;
-            }, 2000); // 2 秒后恢复原始文本
-        })
+        .then(response => response.ok ? response.text() : Promise.reject("计算失败"))
+        .then(sha256Result => alert(`SHA256: ${sha256Result}`))
+        .catch(error => alert(error))
         .finally(() => {
-            // 最终恢复按钮的可点击状态
             shaButton.disabled = false;
+            shaButton.textContent = originalText;
         });
 }
 
-
+// 下载文件
 function downloadFile(path) {
     window.open(`/download?path=${encodeURIComponent(path)}`);
 }
 
+// 预览文件
 function previewFile(path) {
     const previewOverlay = document.getElementById("previewOverlay");
     const previewImage = document.getElementById("previewImage");
     const previewText = document.getElementById("previewText");
     const previewVideo = document.getElementById("previewVideo");
-    const zoomControls = document.getElementById("zoomControls");
 
-    // 清空上次的预览内容
-    previewImage.style.display = "none";
-    previewText.style.display = "none";
-    previewVideo.style.display = "none";
-    zoomControls.style.display = "none";
-    previewVideo.src = ""; // 清空视频源以确保每次重新加载
+    previewImage.style.display = previewText.style.display = previewVideo.style.display = "none";
+    previewVideo.src = ""; // 清空视频源
 
-    // 判断文件类型
     const fileExtension = path.split('.').pop().toLowerCase();
-
     if (fileTypes.image.includes(fileExtension)) {
-        // 图片文件
+        // 图片文件预览
         previewImage.src = `/preview?path=${encodeURIComponent(path)}`;
         previewImage.style.display = "block";
-        zoomControls.style.display = "flex"; // 显示缩放按钮
-        resetZoom(); // 重置缩放比例
+        resetZoom();
     } else if (fileTypes.text.includes(fileExtension)) {
-        // 文本文件
+        // 文本文件预览
         fetch(`/preview?path=${encodeURIComponent(path)}`)
             .then(response => response.text())
             .then(content => {
@@ -217,12 +207,18 @@ function previewFile(path) {
                 previewText.style.display = "block";
             });
     } else if (fileTypes.video.includes(fileExtension)) {
-        // 视频文件
+        // 视频文件预览
         previewVideo.src = `/preview?path=${encodeURIComponent(path)}`;
         previewVideo.style.display = "block";
+
+        // 添加错误事件监听器
+        previewVideo.onerror = () => {
+            if(previewVideo.src != "") {
+                showMessage("videoPlayError"); // 使用键值来显示翻译后的错误提示信息
+            }
+        };
     } else {
-        // 不支持的文件类型，显示自定义消息框
-        showMessage("不支持预览该文件类型。");
+        showMessage("unsupportedFileType"); // 不支持的文件类型
         return;
     }
 
@@ -232,36 +228,26 @@ function previewFile(path) {
 
 // 放大功能
 function zoomIn() {
-    const previewImage = document.getElementById("previewImage");
     currentZoom += 0.1;
-    previewImage.style.width = `${currentZoom * 100}%`;
-    previewImage.style.height = "auto";
+    document.getElementById("previewImage").style.width = `${currentZoom * 100}%`;
 }
 
 // 缩小功能
 function zoomOut() {
-    const previewImage = document.getElementById("previewImage");
-    if (currentZoom > 0.2) { // 限制最小缩放比例
-        currentZoom -= 0.1;
-        previewImage.style.width = `${currentZoom * 100}%`;
-        previewImage.style.height = "auto";
-    }
+    if (currentZoom > 0.2) currentZoom -= 0.1;
+    document.getElementById("previewImage").style.width = `${currentZoom * 100}%`;
 }
 
-// 复原功能
+// 重置缩放比例
 function resetZoom() {
+    currentZoom = 1;
     const previewImage = document.getElementById("previewImage");
-    currentZoom = 1; // 重置缩放比例
     previewImage.style.width = "auto";
     previewImage.style.height = "auto";
 }
 
-// 关闭预览功能
+// 关闭预览
 function closePreview() {
-    const previewOverlay = document.getElementById("previewOverlay");
-    const previewVideo = document.getElementById("previewVideo");
-
-    previewOverlay.style.display = "none";
-    previewVideo.pause(); // 关闭时暂停视频
-    previewVideo.src = ""; // 清空视频源
+    document.getElementById("previewOverlay").style.display = "none";
+    document.getElementById("previewVideo").pause();
 }

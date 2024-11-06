@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Maix 文件浏览器</title>
+    <title id="pageTitle">Maix 文件浏览器</title> <!-- 动态标题 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,26 +14,25 @@
     </header>
     <section id="settings">
         <label>
-            <input type="checkbox" id="showHidden" onclick="toggleHidden()"> 显示隐藏文件
+            <input type="checkbox" id="showHidden" onclick="toggleHidden()"> <span id="labelShowHidden"></span>
         </label>
     </section>
     <section id="currentPath">
-        <button id="backButton" onclick="goBack()" style="display: none;">返回上一层</button>
-        <span id="pathDisplay">当前路径：/root</span>
+        <button id="backButton" onclick="goBack()" style="display: none;"></button>
+        <span id="pathDisplay"></span>
     </section>
     <section id="fileList"></section>
     <div id="previewOverlay" onclick="closePreview()">
-        <button id="closeButton" onclick="closePreview()">关闭</button>
+        <button id="closeButton" onclick="closePreview()"></button>
         <div id="previewContent" onclick="event.stopPropagation()">
             <img id="previewImage" src="" alt="Image Preview">
             <pre id="previewText"></pre>
             <video id="previewVideo" controls muted type="video/mp4"></video>
         </div>
-        <!-- 固定在底部的缩放按钮 -->
         <div id="zoomControls" onclick="event.stopPropagation()">
-            <button onclick="zoomIn()">放大</button>
-            <button onclick="zoomOut()">缩小</button>
-            <button onclick="resetZoom()">复原</button>
+            <button id="zoomInButton" onclick="zoomIn()"></button>
+            <button id="zoomOutButton" onclick="zoomOut()"></button>
+            <button id="resetZoomButton" onclick="resetZoom()"></button>
         </div>
     </div>
     <div id="messageBox"></div>

@@ -1,0 +1,15 @@
+{
+    "title": "Maix File Browser",
+    "currentPath": "Current Path:",
+    "showHidden": "Show Hidden Files",
+    "backButton": "Go Back",
+    "calculate": "Calculating...",
+    "sha256": "SHA256",
+    "download": "Download",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "resetZoom": "Reset Zoom",
+    "closePreview": "Close",
+    "unsupportedFileType": "Unsupported file type for preview",
+    "videoPlayError": "Playback failed. The format may not be supported by the browser, such as H.265 encoding video, you can download to play"
+}

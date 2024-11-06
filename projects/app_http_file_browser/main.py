@@ -17,7 +17,6 @@ back_rect = [0, 0, 32, 32]
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
-        
         # Serve index.html for root path
         if parsed_path.path == "/":
             self.path = "/index.html"
@@ -38,7 +37,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         query = parse_qs(urlparse(self.path).query)
         path = query.get("path", ["/"])[0]
         show_hidden = query.get("showHidden", ["false"])[0] == "true"
-        
         try:
             files = []
             for item in sorted(os.listdir(path)):
@@ -88,11 +86,9 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def preview_file(self):
         query = parse_qs(urlparse(self.path).query)
         path = query.get("path", [None])[0]
-        
         if path and os.path.isfile(path):
             ext = os.path.splitext(path)[-1].lower()
-            
-            if ext in [".txt", ".md", ".py", ".mud", ".json", ".yaml", ".yml", ".conf"]:
+            if ext in [".txt", ".md", ".py", ".mud", ".json", ".yaml", ".yml", ".conf", ".ini", ".version"]:
                 # 文本文件预览
                 self.send_response(200)
                 self.send_header("Content-type", "text/plain; charset=utf-8")
@@ -100,7 +96,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 with open(path, "r", encoding="utf-8") as f:
                     content = f.read()
                 self.wfile.write(content.encode("utf-8"))
-            
             elif ext in [".jpg", ".jpeg", ".png", ".gif"]:
                 # 图片文件预览
                 self.send_response(200)
@@ -109,7 +104,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-
             elif ext == ".mp4":
                 # MP4视频文件预览
                 self.send_response(200)
@@ -117,7 +111,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-            
             elif ext == ".webm":
                 # WebM视频文件预览
                 self.send_response(200)
@@ -125,7 +118,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-            
             elif ext == ".ogg":
                 # Ogg视频文件预览
                 self.send_response(200)
@@ -133,7 +125,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-            
             elif ext == ".avi":
                 # AVI视频文件预览
                 self.send_response(200)
@@ -141,7 +132,6 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-            
             elif ext == ".flv":
                 # FLV视频文件预览
                 self.send_response(200)
@@ -149,11 +139,9 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.end_headers()
                 with open(path, "rb") as f:
                     self.wfile.write(f.read())
-            
             else:
                 # 不支持的文件类型
                 self.send_error(415, "Unsupported Media Type")
-        
         else:
             self.send_error(404, "File not found")
 
