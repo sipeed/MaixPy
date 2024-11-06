@@ -132,6 +132,11 @@ items:
     -   file: network/flask.md
         label: Flask Web server
 
+-   label: Comm
+    items:
+    -   file: comm/modbus.md
+        label: Modbus communication
+
 -   label: On-chip peripherals
     items:
     -   file: peripheral/pinmap.md
