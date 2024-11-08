@@ -1,19 +1,19 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build MaixCAM
+name: Build MaixCAM PR
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  # pull_request:
+  # push:
   #   branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-permissions: write-all
+# permissions: write-all
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -76,8 +76,9 @@ jobs:
           path: artifact/*.whl
 
       # Runs a set of commands using the runners shell
-      - name: Push doc to github pages
+      - name: build doc
         run: |
+          echo "== install teedoc =="
           pip3 install teedoc
           cd docs
           echo "== install plugins =="
@@ -85,23 +86,4 @@ jobs:
           echo "== start build =="
           teedoc build
           echo "== build complete =="
-          remote_addr=`git remote get-url --push origin`
-          remote_addr=`echo $remote_addr|  awk -F'://' '{print $2}'`
-          user_name=`git log -1 --pretty=format:'%an'`
-          user_email=`git log -1 --pretty=format:'%ae'`
-          echo "== checkout gh-pages branch =="
-          cd out
-          cp -r ../../.github .
-          git config --global init.defaultBranch gh-pages
-          git init
-          git config user.name "${user_name}"
-          git config user.email ${user_email}
-          remote_addr="https://Neutree:${{ secrets.DISPATCH_PAT }}@${remote_addr}"
-          echo "-- user ${user_name}"
-          echo "-- remote addr: ${remote_addr}"
-          git remote add origin "${remote_addr}"
-          echo "== add web files =="
-          git add -A
-          git commit -m "Rebuild MaixPy doc by commit $GITHUB_REF"
-          git push origin HEAD:gh-pages --force
-          echo "== push complete =="
+
