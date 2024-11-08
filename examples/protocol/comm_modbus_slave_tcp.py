@@ -2,14 +2,13 @@ from maix.comm import modbus
 from maix import app, err
 
 slave = modbus.Slave(
-    modbus.Mode.TCP,    # mode
-    "",                 # ip, keep empty
-    0x00, 10,           # coils
-    0x00, 10,           # discrete input
-    0x00, 10,           # input registers
-    0x00, 10,           # holding registers
-    0, 1,               # serial 115200-8N1, slave, ignore
-    5020, False            # tcp port, debug OFF
+    mode=modbus.Mode.TCP,                       # mode
+    ip_or_device="",                            # ip, keep empty
+    coils_start=0x00,       coils_size=10,      # coils
+    discrete_start=0x00,    discrete_size=10,   # discrete input
+    holding_start=0x00,     holding_size=10,    # input registers
+    input_start=0x00,       input_size=10,      # holding registers
+    tcp_port=5020,          debug=False         # tcp port, debug OFF
 )
 
 
