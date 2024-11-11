@@ -26,8 +26,8 @@ def master_thread(*args):
     while not app.need_exit():
         hr = master.read_holding_registers(
             RTU_SLAVE_ID,
-            REGISTERS_NUMBER,
             REGISTERS_START_ADDRESS,
+            REGISTERS_NUMBER,
             2000
         )
         if len(hr) == 0:
