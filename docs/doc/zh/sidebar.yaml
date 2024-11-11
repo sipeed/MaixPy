@@ -173,6 +173,8 @@ items:
         label: TOF 测距
     -   file: modules/thermal_cam.md
         label: 热成像摄像头
+        file: modules/pmu.md
+        label: 电源管理单元
 
 -   label: 项目实战
     items:
