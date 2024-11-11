@@ -172,6 +172,8 @@ items:
         label: TOF
     -   file: modules/thermal_cam.md
         label: Thermal imaging
+        file: modules/pmu.md
+        label: Power Management Unit
 
 -   label: Projects
     items:
