@@ -172,4 +172,11 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 * 更换有线方式连接，具体看快速入门文档。
 * 减小图像分辨率，在代码中 `disp.show(img)` `img` 的分辨率小一点。
 
+## 运行应用时提示: Runtime error: mmf vi init failed
 
+提示信息的意思是摄像头初始化失败了，可能的原因有:1. 摄像头被其他应用占用了; 2. 摄像头没有排线松了; 3. 没有安装运行库
+
+解决步骤：
+1. 检查maixvision的程序和板子自带程序是否同时运行，确保只有一个地方占用摄像头(注：一般情况连接maixvision后板子自带的程序会主动退出)
+2. 将摄像头排线取下来重新插一下
+3. 更新最新的运行库
