@@ -180,3 +180,7 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 1. 检查maixvision的程序和板子自带程序是否同时运行，确保只有一个地方占用摄像头(注：一般情况连接maixvision后板子自带的程序会主动退出)
 2. 将摄像头排线取下来重新插一下
 3. 更新最新的运行库
+
+## 运行应用时提示：`maix multi-media driver released`或者`maix multi-media driver destroyed`
+
+这不是错误日志，这是多媒体框架释放资源时的提示信息，一般在程序退出时会打印

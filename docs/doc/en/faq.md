@@ -179,3 +179,7 @@ Solution Steps:
 - Check if both the maixvision program and the board's built-in program are running at the same time. Ensure that only one program is using the camera. (Note: Usually, when maixvision is connected, the built-in program on the board will exit automatically.)
 - Remove and reinsert the camera ribbon cable to ensure a proper connection.
 - Update to the latest runtime library.
+
+## When running the application, you see: maix multi-media driver released or maix multi-media driver destroyed
+
+This is not an error message. It is a log message indicating that the multimedia framework is releasing resources, it is usually printed when the program exits.
