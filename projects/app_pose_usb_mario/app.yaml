@@ -6,3 +6,4 @@ icon: icon.json
 desc: body moving as USB keyboard input to control game Super Mario
 files:
   - main.py
+  - icon.json
