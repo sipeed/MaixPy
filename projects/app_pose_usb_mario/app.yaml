@@ -1,0 +1,8 @@
+id: pose_usb_mario
+name: Pose USB Mario
+version: 1.0.0
+author: Neucrack@Sipeed
+icon: icon.json
+desc: body moving as USB keyboard input to control game Super Mario
+files:
+  - main.py

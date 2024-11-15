@@ -42,6 +42,7 @@ def set_autostart_app(app_id):
         return
     with open(path, "w") as f:
         f.write(app_id)
+    os.sync()
 
 if __name__ == "__main__":
     # new_autostart_app_id = "settings"   # change to app_id you want to set
