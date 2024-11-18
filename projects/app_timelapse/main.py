@@ -4,6 +4,7 @@ import time as time2
 import os
 
 ENABLE_PLAYER=0     # The playback function is temporarily disabled due to insufficient memory required for 1440p playback.
+ENCODER_BITRATE=8000*1000
 
 disp = display.Display()
 disp2 = disp.add_channel()
@@ -203,7 +204,7 @@ while not app.need_exit():
             os.makedirs(dir, exist_ok=True)
             path = dir + curr_s_str + '.mp4'
             print(f'save to {path}')
-            encoder = video.Encoder(path, cam.width(), cam.height())
+            encoder = video.Encoder(path, cam.width(), cam.height(), bitrate=ENCODER_BITRATE)
             start_touch_record = time.ticks_ms()
         if time.ticks_ms() - last_record_ms >= record_step_ms:
             encoder.encode(img=img)
