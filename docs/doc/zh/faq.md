@@ -184,3 +184,7 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 ## 运行应用时提示：`maix multi-media driver released`或者`maix multi-media driver destroyed`
 
 这不是错误日志，这是多媒体框架释放资源时的提示信息，一般在程序退出时会打印
+
+## 为什么不能显示中文
+
+默认只有英文字体，如果要显示中文，需要更换中文字体，具体请看[基本图像操作 中文支持和自定义字体 部分](./vision/image_ops.md#中文支持和自定义字体)

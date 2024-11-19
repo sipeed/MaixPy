@@ -183,3 +183,8 @@ Solution Steps:
 ## When running the application, you see: maix multi-media driver released or maix multi-media driver destroyed
 
 This is not an error message. It is a log message indicating that the multimedia framework is releasing resources, it is usually printed when the program exits.
+
+
+## Why can't show Chinese charactors
+
+By default only support English charactors, if you want to show Chinese, you need to change font, refer to [Custom fonts part of image basic operation](./vision/image_ops.md#Chinese-support-and-custom-fonts)

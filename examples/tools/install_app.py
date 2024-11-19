@@ -3,7 +3,7 @@ import os
 def install_app(pkg_path):
     if not os.path.exists(pkg_path):
         raise Exception(f"package {pkg_path} not found")
-    cmd = f"chmod +x /maixapp/apps/app_store/app_store && /maixapp/apps/app_store/app_store install {pkg_path}"
+    cmd = f"/usr/bin/app_store_cli install {pkg_path}"
     err_code = os.system(cmd)
     if err_code != 0:
         print("[ERROR] Install failed, error code:", err_code)
