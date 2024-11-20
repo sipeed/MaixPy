@@ -11,7 +11,13 @@ update:
 
 This document provides instructions for using the Play Video feature.
 
-`MaixPy` supports playing `h264`, `mp4` and `flv` video formats, note that currently only `avc` encoded `mp4` and `flv` files are supported.
+`MaixPy` supports playing `h264`, `mp4` and `flv` video formats, note that currently only `avc` encoded `mp4` and `flv` files are supported. Additionally, due to hardware encoder limitations, if you encounter issues decoding the video during playback, try re-encoding it with `ffmpeg` and then play it again. Refer to the following command:
+
+```shell
+ffmpeg -i input_video.mp4 -c:v libx264 -x264opts "bframes=0" -c:a aac -strict experimental output_video.mp4
+```
+
+
 
 ## Play `MP4` video
 

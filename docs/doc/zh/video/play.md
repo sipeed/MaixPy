@@ -11,7 +11,13 @@ update:
 
 本文档提供播放视频功能的使用方法。
 
-`MaixPy`支持播放`h264`、`mp4`、`flv`格式的视频，需要注意目前只支持`avc`编码的`mp4`和`flv`文件
+`MaixPy`支持播放`h264`、`mp4`、`flv`格式的视频，需要注意目前只支持`avc`编码的`mp4`和`flv`文件。此外由于硬件编码器限制，如果播放视频时发现无法解码，先尝试`ffmpeg`重新编码一遍后再试，参考命令：
+
+```shell
+ffmpeg -i input_video.mp4 -c:v libx264 -x264opts "bframes=0" -c:a aac -strict experimental output_video.mp4
+```
+
+
 
 
 ## 播放`MP4`视频
