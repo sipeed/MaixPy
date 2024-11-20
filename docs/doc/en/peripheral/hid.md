@@ -20,7 +20,7 @@ Note: Since only 4 USB devices are supported, only 4 devices can be started at t
 
 You need to enable `HID Keyboard` to run it.
 
-The following example sends `rstuv` four characters through the keyboard and then releases the key.
+The following example sends keyboard event to pc.
 
 ```python
 from maix import hid, time
@@ -34,6 +34,14 @@ for key in keys:
     keyboard.write([0, 0, key, 0, 0, 0, 0, 0])
 
 ```
+
+After creating the `hid` object, key events can be sent using the `write` method. A key event is represented by an 8-byte array, where:
+- **Byte 1**: Indicates the status of modifier keys like `ctrl`, `shift`, `alt`, etc. Each bit represents a specific modifier key:`bit0: left ctrl`,`bit1: left shift`,`bit2: left alt`,`bit3: left GUI (e.g., Windows key)`,`bit4: right ctrl`,`bit5: right shift`,`bit6: right alt`,`bit7: right GUI`
+- **Byte 2**: Reserved byte.
+- **Byte 3**: Primary key value. A value of 0 means the key is released. Key codes are referenced from the "Universal Serial Bus HID Usage Tables" section of the [USB HID documentation](https://www.usb.org).
+- **Bytes 4~8**: Additional keys, used to press multiple keys at once. A value of 0 means the key is released.
+
+For specific usage, refer to the example code above.
 
 ## Write a mouse in MaixPy.
 
@@ -92,5 +100,4 @@ while True:
     if count > 50:
         break
 ```
-
 

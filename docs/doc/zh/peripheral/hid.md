@@ -19,20 +19,44 @@ HID（Human Interface Device）设备是一类计算机外围设备，用于向�
 
 需要使能了`HID Keyboard`后才能运行。
 
-下面示例中，通过键盘发送`rstuv`四个字符，然后松开按键。
+下面示例中，向PC发送按键事件
 
 ```python
 from maix import hid, time
 
 keyboard = hid.Hid(hid.DeviceType.DEVICE_KEYBOARD)
 
-# 按键编号参考[USB HID文档](https://www.usb.org))的"Universal Serial Bus HID Usage Tables"部分
-keys = [21, 22, 23, 24, 25, 0]    # 表示[r, s, t, u, v, 0], 0表示松开按键
-
-for key in keys:
+def press(keyboard, key):
     keyboard.write([0, 0, key, 0, 0, 0, 0, 0])
+    time.sleep_ms(50)
+    keyboard.write([0, 0, 0, 0, 0, 0, 0, 0])        #  key=0, means release
 
+def press2(keyboard, key0 = 0, key1 = 0, key2 = 0, key3 = 0, key4 = 0, key5 = 0):
+    keyboard.write([0, 0, key0, key1, key2, key3, key4, key5])
+    time.sleep_ms(50)
+    keyboard.write([0, 0, 0, 0, 0, 0, 0, 0])        #  key=0, means release
+
+# key0: 0x1:left-ctrl 0x2:left-shift 0x4:left-alt 0x8:left-windows
+#       0x10:right-ctrl 0x20:right-shift 0x40:right-alt 0x80:right-windows
+def press3(keyboard, key0, key1):
+    keyboard.write([key0, 0, key1, 0, 0, 0, 0, 0])
+    time.sleep_ms(50)
+    keyboard.write([0, 0, 0, 0, 0, 0, 0, 0])        #  key=0, means release
+
+# 按键编号参考[USB HID文档](https://www.usb.org))的"Universal Serial Bus HID Usage Tables"部分
+press(keyboard, 21)                 # press 'r'
+press2(keyboard, 23, 24)            # press 'tu'
+press3(keyboard, 0x2, 25)           # press 'left-shift + v'
 ```
+
+创建`hid`对象后，通过`write`方法来发送按键事件，按键事件由一个8字节的数组表示，其中：
+
+- 第1字节：指示 `ctrl`、`shift`、`alt` 等修饰键状态，字节每一位代表一个修饰键：`bit0： 左ctrl`，`bit1：左shift`， `bit2：左alt`，`bit3：左GUI（例如windows键）`，`bit4：右ctrl`，`bit5：右shift`，`bit6：右alt`，`bit7：右GUI`
+- 第2字节：保留字节
+- 第3字节：主按键值，0代表松开按键。按键编号参考[USB HID文档](https://www.usb.org))的"Universal Serial Bus HID Usage Tables"部分
+- 第4～8字节：其他按键，可以用来实现一次按下多个按键，0代表松开按键
+
+具体使用方法可以参考上面示例的代码
 
 ## 用MaixPy编写一个鼠标
 
