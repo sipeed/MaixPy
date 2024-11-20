@@ -265,7 +265,10 @@ def main(disp):
 if __name__ == '__main__':
     screen = display.Display()
     # set send to maixvision quality
-    # display.set_trans_image_quality(trans_img_quality)
+    try:
+        display.set_trans_image_quality(trans_img_quality)
+    except Exception:
+        pass
     try:
         main(screen)
     except Exception as e:
