@@ -194,7 +194,7 @@ model_deploy.py \
 
 ## 执行转换脚本
 
-直接执行`chmod +x convert_yolov5_to_cvimodelsh && ./convert_yolov5_to_cvimodel.sh` 等待转换完成。
+直接执行`chmod +x convert_yolov5_to_cvimodel.sh && ./convert_yolov5_to_cvimodel.sh` 等待转换完成。
 
 如果出错了，请仔细看上一步的说明，是不是参数有问题，或者输出层选择得不合理等。
 
