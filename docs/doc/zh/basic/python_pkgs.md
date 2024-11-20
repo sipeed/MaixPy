@@ -28,13 +28,34 @@ import os
 os.system("pip install --upgrade 包名")
 ```
 
-
-
 ### 方法二： 终端使用 pip 命令安装
 
 使用[Linux 基础](./linux_basic.md)中介绍的终端使用方法，使用 `pip install 包名` 安装你需要的包。
 
+## pip换源
 
+在使用 pip 下载 Python 软件包时，默认会从 [PyPI](https://pypi.org/) 下载。PyPI 是 Python 官方的软件包储存库，对于中国用户来说下载速度会很慢。
 
+国内有许多 PyPI 的镜像源，从镜像源下载可以提升下载速度。
 
+在终端中输入以下命令，可以从清华源更新 pip ：
 
+```
+python -m pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --upgrade pip
+```
+
+用以下命令将下载源设为清华源：
+
+```
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+```
+
+恢复默认源：
+
+```
+pip config unset global.index-url
+```
+
+参考：[清华大学开源软件镜像站 PyPI软件仓库](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)。
+
+你也可以自己寻找其他好用的镜像源。
