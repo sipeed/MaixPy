@@ -1,7 +1,6 @@
-import requests
-
 
 def get_pc_info(site_addr):
+    import requests
     url = site_addr + '/'
     try:
         res = requests.post(url)

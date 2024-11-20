@@ -257,6 +257,7 @@ def main(screen):
     size = image.string_size(msg)
     img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 - 10, msg, COLOR_RED)
     show_img = img
+    screen.show(show_img)
     scan_w = img.width() - img.width() // 4
     scan_h = img.height() - img.height() // 4
     while 1:
