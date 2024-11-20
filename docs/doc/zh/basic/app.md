@@ -32,16 +32,7 @@ title: MaixCAM MaixPy 应用开发和应用商店
 
 ## 打包应用
 
-
-使用 MaixPy + MaixVison 可以方便地开发、打包、安装应用：
-* 在 MaixVision 中使用 MaixPy 开发应用程序，可以是单个文件，也可以是一个工程目录。
-* 连接设备。
-* 点点击 MaixVision 左下角的 安装 按钮，会弹出一个界面填写应用的基本信息，id 是用来判别应用的 id，一个设备不能同时安装相同 id 的不同应用，所以 id 应该与 MaixHub 上面已经有的应用 id 不同，应用名字可以重复。以及图标等。
-* 点击打包应用，会将应用打包成一个安装包，如果你要上传到 [MaixHub 应用商店](https://maixhub./com/app)，用这个打包好的文件即可。
-* 点击 安装应用，这会将打包好的应用安装到设备。
-* 断开与设备的连接，就能看到设备功能选择界面多了一个你的应用，直接点进去就能运行。
-
-> 如果你用 MaixCDK 开发，使用 `maixcdk relrease` 就能打包出来一个应用，具体看 MaixCDK 的文档。
+参考[MaixVision 使用文档](./maixvision.md) 打包应用部分。
 
 ## 退出应用
 
@@ -50,24 +41,8 @@ title: MaixCAM MaixPy 应用开发和应用商店
 ## 安装应用
 
 * **方法一**： 设备使用`应用商店`应用，从[应用商店](https://maixhub.com/app)找到应用，设备联网后，扫码安装。
-* **方法二**： 使用安装包本地安装，将安装包传输到设备文件系统，比如`/root/my_app_v1.0.0.zip`，然后执行代码，注意修改`pkg_path`变量的路径，你也可以在`MaixPy`的 `examples/tools/install_app.py`找到本代码:
-```python
-import os
+* **方法二**： 使用安装包本地安装，将安装包传输到设备文件系统，比如`/root/my_app_v1.0.0.zip`，然后执行`examples/tools/install_app.py`代码，注意修改`pkg_path`变量的路径。
 
-def install_app(pkg_path):
-    if not os.path.exists(pkg_path):
-        raise Exception(f"package {pkg_path} not found")
-    cmd = f"/maixapp/apps/app_store/app_store install {pkg_path}"
-    err_code = os.system(cmd)
-    if err_code != 0:
-        print("[ERROR] Install failed, error code:", err_code)
-    else:
-        print(f"Install {pkg_path} success")
-
-pkg_path = "/root/my_app_v1.0.0.zip"
-
-install_app(pkg_path)
-```
 * **方法三**:
   * 如果是使用`MaixPy`开发的应用，在项目根目录（包含`app.yaml`和`main.py`）执行`maixtool deploy`会弹出一个二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
   * 如果是使用`MaixCDK`开发的应用，在项目根目录执行`maixcdk deploy`也会出现二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。

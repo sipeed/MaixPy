@@ -9,12 +9,10 @@ items:
 -   label: 基础
     collapsed: false
     items:
-    -   file: basic/os.md
+    -   file: basic/upgrade.md
         label: 升级和烧录系统
     -   file: basic/app.md
         label: 应用使用-开发-商店
-    -   file: basic/maixpy_upgrade.md
-        label: 更新 MaixPy
     -   file: basic/maixvision.md
         label: MaixVision 使用
     -   file: basic/python.md

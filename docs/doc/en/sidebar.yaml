@@ -9,12 +9,10 @@ items:
 -   label: Base
     collapsed: false
     items:
-    -   file: basic/os.md
+    -   file: basic/upgrade.md
         label: Burning system
     -   file: basic/app.md
         label: App Usage and Development
-    -   file: basic/maixpy_upgrade.md
-        label: Update MaixPy
     -   file: basic/maixvision.md
         label: MaixVision usage
     -   file: basic/python.md

@@ -107,6 +107,17 @@ First, connect to the device, then click the button to browse the device file sy
 
     * **Method 2**: Use [FileZilla](https://filezilla-project.org/) or other tools to connect to the device and transfer files, choosing the `SFTP` protocol and entering the device and account information to connect.
 
+## Packaging Applications
+
+Using MaixPy + MaixVison makes it easy to develop, package, and install applications for easy offline deploy:
+- Develop applications with MaixPy in MaixVision, which can be a single file or a project directory.
+- Connect the device.
+- Click the "Install" button at the bottom-left corner of MaixVision, fill in the basic information of the application in the popup window, where the ID is used to identify the application. A device cannot simultaneously install different applications with the same ID, so the ID should be different from the IDs of applications on MaixHub. The application name can be duplicated. You can also upload an icon.
+- Click "Package Application" to package the application into an installer. If you want to upload it to the [MaixHub App Store](https://maixhub./com/app), you can use this packaged file.
+- Click "Install Application" to install the packaged application on the device.
+- Disconnect from the device, and you will see your application in the device's app selection interface. Simply click on it to run the application.
+
+> If you develop with MaixCDK, you can use `maixcdk release` to package an application. Refer to the MaixCDK documentation for specifics.
 
 ## Using Graphical Block Programming
 
