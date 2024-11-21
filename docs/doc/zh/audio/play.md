@@ -32,7 +32,7 @@ from maix import audio, time, app
 p = audio.Player("/root/output.wav")
 
 p.play()
-
+p.volume(80)
 while not app.need_exit():
     time.sleep_ms(10)
 print("play finish!")
@@ -51,10 +51,12 @@ print("play finish!")
 
    ```python
    p = audio.Player("/root/output.wav")
+   p.volume(80)
    ```
 
   - 默认的采样率是48k，采样格式为小端格式-有符号16位，采样通道为1。你也可以像这样自定义参数`p = audio.Player(sample_rate=48000, format=audio.Format.FMT_S16_LE, channel = 1)`。目前只测试过采样率48000，`FMT_S16_LE`格式，和采样通道数为1。
   - 如果是`.wav`文件，则会自动获取采样率、采样格式和采样通道。
+  - `p.volume(80)`设置音量为80，范围为[0~100]。
 
 3. 播放音频
 

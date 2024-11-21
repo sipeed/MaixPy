@@ -32,7 +32,7 @@ from maix import audio, time, app
 p = audio.Player("/root/output.wav")
 
 p.play()
-
+p.volume(80)
 while not app.need_exit():
     time.sleep_ms(10)
 print("play finish!")
@@ -54,6 +54,7 @@ Steps：
    ```
   - Note that the default sample rate is 48k, the sample format is little-endian format - signed 16-bit, and the sample channel is 1. You can also customise the parameters like this `p = audio.Player(sample_rate=48000, format=audio.Format.FMT_S16_LE, channel = 1)`. So far only tested with sample rate 48000, format `FMT_S16_LE`, and number of sampling channels 1.
   - If it is a `.wav` file, the sample rate, sample format and sample channel are automatically obtained.
+  - `p.volume(80)` set volume value to 80, range is [0~100].
 
 3. Playing audio
 
