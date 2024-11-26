@@ -188,3 +188,27 @@ This is not an error message. It is a log message indicating that the multimedia
 ## Why can't show Chinese charactors
 
 By default only support English charactors, if you want to show Chinese, you need to change font, refer to [Custom fonts part of image basic operation](./vision/image_ops.md#Chinese-support-and-custom-fonts)
+
+## Program Exits with Prompt: app exit with code: 1
+
+This occurs because the program encountered an error and exited abnormally. You need to check the logs to identify the issue. Here's how to check the logs:
+
+### Method 1:
+1. First, use **MaixVision** to connect to the device, ensuring all programs occupying the display and camera are closed.
+2. Then connect to the device via **SSH** to access the SSH terminal. For details on connecting, refer to the [Linux Basics](./basic/linux_basic.md).
+3. Execute the following commands:
+   - For Python programs:  
+     ```bash
+     cd /maixapp/apps/xxx && python main.py
+     ```
+     Here, `xxx` is the ID of the application that encountered the error.
+   - For non-Python programs:  
+     ```bash
+     cd /maixapp/apps/xxx && ./xxx
+     ```
+     Again, `xxx` is the ID of the application that encountered the error.
+4. Carefully review the logs to check for errors. Note that errors might not always be at the last line, so check thoroughly from the end upward.
+
+### Method 2:
+If the application is written in Python, use **MaixVision** to run the source code directly, examine the runtime errors, and make corrections. Be aware that errors may not be at the last line, so inspect the logs carefully from the end upward.
+

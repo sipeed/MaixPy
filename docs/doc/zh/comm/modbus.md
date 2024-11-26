@@ -2,19 +2,47 @@
 title: MaixCAM MaixPy 使用 Modbus 协议
 ---
 
-MaixPy 适配了 modbus 协议, 其底层是 [libmodbus](https://libmodbus.org/).
+## Modbus 简介
 
-在 MaixPy 上使用 modbus 协议非常简单, 您只需要知道:
+Modbus 是一个应用层总线协议，传输层基于 UART 或者 TCP。
+使用它可以实现一个总线上挂多个设备，实现一对多通信。
 
-* 当您使用 modbus.Slave 时, MaixCAM(Pro) 就是一个从设备(比如说作为传感器模块), 控制该模块的就是一个主机(比如说您的MCU/PC), 您的主机只需要像读写芯片寄存器一样从从设备读写寄存器即可.
 
-* 您可以简单理解为:
+## Modbus 和 Maix 应用通信协议的区别
 
-    > 对主机来说, `coils` 是可读可写寄存器组, 存储一组布尔值; `discrete input` 是可读不可写寄存器组, 存储一组布尔值; `input registers` 是可读不可写寄存器组, 存储一组 16bit int值; `holding registers` 是可读可写寄存器组, 存储一组 16bit int 值.
+* **Maix 应用通信协议**：
+  * **通信方式**：一对一通信。
+  * **通信模式**：全双工通信，双方都可以主动发送消息，实现更加实时的交互。
+  * **数据灵活性**：数据长度和类型没有限制，灵活支持多种数据结构。
+  * **MaixPy内置**： MaixCAM MaixPy 内置了这个协议，部分应用默认数据输出用这个协议，在 MaixPy 生态中使用相同的协议有利于应用生态繁荣。
+  * **应用场景**：适用于一对一实时性要求高、需要双向数据传输的场景，比如 AI 推理结果传输和控制命令反馈，以及 Maix 应用信息读取和控制。
 
-    > 对从设备来说, 所有寄存器组可读可写, 且可自定义分配各组寄存器的大小, 其余特性跟上述主机视角一致.
+* **Modbus**：
+  * **通信方式**：总线协议，支持一对多通信。
+  * **通信模式**：只能由主机主动发起读写操作，从机的数据更新需要主机轮询获取，从机本质上可以看作具有多组寄存器的传感器。
+  * **数据类型**：数据以寄存器为单位，从机通过多个可读写或只读的寄存器实现数据交换。
+  * **应用场景**：适用于工业自动化中传感器或设备的数据采集与监控，尤其是在需要主从结构的情况下。
 
-直接上例程:
+## MaixCAM MaixPy 使用 Modbus
+
+MaixPy 适配了 modbus 协议, 主机和从机模式均支持，RTU（UART）和 TCP 模式均支持，底层使用了开源项目 [libmodbus](https://libmodbus.org/)，
+
+## MaixCAM MaixPy 作为 Modbus 从机
+
+作为从机时，可以将 MaixCAM 看作是一个有几组可读写寄存器的模块。
+
+包含了几组寄存器，它们的区别就是值类型不同，以及有的能读写，有的只能读，寄存器组包括：
+* `coils`寄存器组： 布尔值，可读写。
+* `discrete input`：布尔值，可读不可写。
+* `input registers`：16bit int 值，可读不可写。
+* `holding registers` 16bit int 值，可读可写.
+
+
+每组寄存器的地址和长度在从机初始化时自由指定，根据你的应用需求设置即可。
+
+以下是例程，更多代码请看源码例程(`examples/protocol/comm_modbus_xxx.py`):
+
+RTU（UART）：
 
 ```python
 from maix.comm import modbus
@@ -75,6 +103,8 @@ while not app.need_exit():
     slave.reply()
 ```
 
+TCP：
+
 ```python
 from maix.comm import modbus
 from maix import app, err
@@ -116,7 +146,55 @@ while not app.need_exit():
     slave.reply()
 ```
 
-这样, 我们就可以将 MaixCAM(Pro) 作为一个从设备, 主机可以随时读(写)其中的寄存器.
-
+可以看到这里接收到来自主机的读取请求后调用`slave.reply()`就会自动回复主机要读取的数据了，以及这里展示了更改本身的寄存器值。
 
 有关 Modbus API 的详细说明请看 [Modbus API 文档](../../../api/maix/comm/modbus.md).
+
+## MaixCAM MaixPy 作为 Modbus 主机
+
+主机则可以主动读写从机的数据，例程(以源码例程`examples/protocol/comm_modbus_xxx.py`为准)：
+
+```python
+from maix import pinmap, app, err, time, thread
+from maix.comm import modbus
+
+
+REGISTERS_START_ADDRESS = 0x00
+REGISTERS_NUMBER = 10
+
+RTU_SLAVE_ID = 1
+RTU_BAUDRATE = 115200
+
+def master_thread(*args):
+    if pinmap.set_pin_function("A19", "UART1_TX") != err.Err.ERR_NONE:
+        print("init uart1 failed!")
+        exit(-1)
+    if pinmap.set_pin_function("A18", "UART1_RX") != err.Err.ERR_NONE:
+        print("init uart1 failed!")
+        exit(-1)
+
+    # modbus.set_master_debug(True)
+
+    master = modbus.MasterRTU(
+        "/dev/ttyS1",
+        RTU_BAUDRATE
+    )
+
+    while not app.need_exit():
+        hr = master.read_holding_registers(
+            RTU_SLAVE_ID,
+            REGISTERS_START_ADDRESS,
+            REGISTERS_NUMBER,
+            2000
+        )
+        if len(hr) == 0:
+            continue
+        print("Master read hr: ", hr)
+        time.sleep(1)
+
+master_thread(None)
+```
+
+可以看到这里用 串口1 作为主机从从机读取寄存器值。
+
+

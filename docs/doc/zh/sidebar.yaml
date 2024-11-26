@@ -22,7 +22,7 @@ items:
     -   file: basic/python_pkgs.md
         label: 添加额外的 Python 包
     -   file: basic/auto_start.md
-        label: 开机自启
+        label: 应用开机自启
     -   file: basic/view_src_code.md
         label: 查看 API 对应源码
 
@@ -133,6 +133,8 @@ items:
 
 -   label: 通信协议
     items:
+    -   file: comm/maix_protocol.md
+        label: Maix 应用通信协议
     -   file: comm/modbus.md
         label: Modbus 通信协议
 

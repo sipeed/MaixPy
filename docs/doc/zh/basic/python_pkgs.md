@@ -36,5 +36,14 @@ os.system("pip install --upgrade 包名")
 
 
 
+## pip 无法直接安装的包
+
+设备内 pip 能安装纯 Python 编写的程序，对于底层使用了其它语言比如 C++ 编写的库由于 MaixCAM RISC-V 的特殊性，一般没有直接可以用的编译好的包。
+
+解决方法：
+* 方法一： 找到对应的包源码，在电脑上交叉编译成 whl 安装包，然后复制到设备里面使用`pip install xxxx.whl`安装。编译的工具链和[MaixCDK 使用的工具链相同](https://github.com/sipeed/MaixCDK/blob/main/platforms/maixcam.yaml)。
+* 方法二： 根据[编译系统](../pro/compile_os.md)中描述编译系统，编译前可以到`buildroot`目录下执行`make menuconfig`找找 Python 解释器 额外包中有没有你想要的软件包，勾选上再编译就能将改包编译进系统镜像。
+> 如果你通过方法二成功编译测试过了某个包并且觉得它十分有必要集成到系统中，欢迎通过[issues](https://github.com/sipeed/maixpy/issues) 提意见。
+
 
 

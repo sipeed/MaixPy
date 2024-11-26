@@ -114,14 +114,15 @@ The image refresh time difference between different screens is about 1-5 millise
 When replacing the screen, you must also **modify the configuration file**; otherwise, mismatched refresh timing could **cause screen burn-in** (leaving a ghost image on the screen). It’s important to follow the steps strictly as outlined below. If screen burn-in occurs, don’t panic; powering off and leaving it overnight usually resolves the issue.
 
 * Follow the system burning documentation to burn the system. Once completed, a USB drive will appear.
-* Open the USB drive, and you will see a `uEnv.txt` file.
-* Edit the `uEnv.txt` file, modifying the `pannel` key value as follows:
+* Open the USB drive, and you will see a `board` file.
+* Edit the `board` file, modifying the `pannel` key value as follows:
   * 2.3-inch (MaixCAM default screen): `st7701_hd228001c31`.
   * 2.4-inch (MaixCAM-Pro default screen): `st7701_lct024bsi20`.
   * 5-inch: `st7701_dxq5d0019_V0`, with the earlier (2023) test screen being `st7701_dxq5d0019b480854`.
   * 7-inch: `mtd700920b`, with the earlier (2023) test screen being `zct2133v1`.
-* Save the `uEnv.txt` file, and **click to eject the USB drive**—do not just disconnect the power, or the file may be lost.
+* Save the `board` file, and **click to eject the USB drive**—do not just disconnect the power, or the file may be lost.
 * Press the board's `reset` button, or power cycle to restart.
 
-The above method is the safest, ensuring the screen model is set correctly before powering on. If you have already burned the system, you can also modify the system’s `/boot/uEnv.txt` file and then reboot.
+The above method is the safest, ensuring the screen model is set correctly before powering on. If you have already burned the system, you can also modify the system’s `/boot/board` file and then reboot.
+> If you use earlier system and binary program(< 2024.11.25), you may have to change `uEnv.txt` too.
 

@@ -132,6 +132,8 @@ items:
 
 -   label: Comm
     items:
+    -   file: comm/maix_protocol.md
+        label: Maix APP communicate protocol
     -   file: comm/modbus.md
         label: Modbus communication
 

@@ -29,3 +29,14 @@ os.system("pip install --upgrade package_name")
 ### Method 2: Installing Using the Terminal and pip Command
 
 Follow the terminal usage method introduced in [Linux Basics](./linux_basic.md) and use `pip install package_name` to install the package you need.
+
+
+## Packages That Cannot Be Installed Directly with pip
+
+pip on the device can install programs written in pure Python. However, for libraries that use other languages like C++ at the lower level, there are generally no precompiled packages available due to the unique nature of MaixCAM RISC-V.
+
+Solutions:
+* **Method 1:** Find the source code of the corresponding package, cross-compile it into a `.whl` installation package on your computer, and then copy it to the device and use `pip install xxxx.whl` to install it. The toolchain used for compilation is the same as the one used by [MaixCDK](https://github.com/sipeed/MaixCDK/blob/main/platforms/maixcam.yaml).
+* **Method 2:** According to the [compilation system](../pro/compile_os.md), before compiling, you can execute `make menuconfig` in the `buildroot` directory to check if the Python interpreter's extra packages contain the software you need. After selecting it, you can recompile the system image to include the package.
+> If you successfully compile and test a package using Method 2 and find it necessary to integrate into the system, feel free to provide feedback through [issues](https://github.com/sipeed/maixpy/issues).
+

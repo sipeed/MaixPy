@@ -253,87 +253,9 @@ Similarly, binary protocols can have a frame header, data content, checksum, fra
 
 MaixPy also includes a built-in communication protocol.
 
-This communication protocol defines the format for communication between parties, making it easier to parse and recognize information. It's a binary protocol that includes a frame header, data content, and checksum. The complete protocol is defined in the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). Those unfamiliar with communication protocols may find it challenging at first, but reviewing the example below multiple times can help with understanding.
+Using this protocol, it is possible to implement application switching, application control, and data retrieval via serial communication or even TCP.
 
-For instance, if we have object detection, and we want to send the detected objects' information, such as coordinates, to another device (like STM32 or Arduino microcontrollers) via serial port:
-
-Complete example: [MaixPy/examples/protocol/comm_protocol_yolov5.py](https://github.com/sipeed/MaixPy/tree/main/examples/protocol/comm_protocol_yolov5.py).
-
-First, we need to detect objects. Refer to the `yolov5` object detection example. Here, we omit other details and focus on the detection results:
-
-```python
-while not app.need_exit():
-    img = cam.read()
-    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
-    for obj in objs:
-        img.draw_rect(obj.x, obj.y, obj.w, obj
-
-.h, color = image.COLOR_RED)
-        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
-        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
-    dis.show(img)
-```
-
-You can see `objs` are multiple detection results. Here, we're drawing boxes on the screen, and we can find a way to send these results via the serial port.
-
-We don't need to manually initialize the serial port, just use the built-in `maix.comm, maix.protocol` modules. Calling `comm.CommProtoco` will automatically initialize the serial port, with a default baud rate of `115200`. The serial port protocol can be set in the device's `System Settings->Communication Protocol`. 
-
-The system settings may have other communication methods, such as `tcp`, with `uart` as the default. You can also use `maix.app.get_sys_config_kv("comm", "method")` to check if `uart` is currently set.
-
-```python
-from maix import comm, protocol, app
-from maix.err import Err
-import struct
-
-def encode_objs(objs):
-    '''
-        encode objs info to bytes body for protocol
-        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...
-    '''
-    body = b""
-    for obj in objs:
-        body += struct.pack("<hhHHH", obj.x, obj.y, obj.w, obj.h, obj.class_id)
-    return body
-
-APP_CMD_ECHO = 0x01        # Custom command 1, for testing, not used here, reserved
-APP_CMD_DETECT_RES = 0x02  # Custom command 2, send detected object information
-                           # You can define more commands based on your application
-
-p = comm.CommProtocol(buff_size = 1024)
-
-while not app.need_exit():
-    # ...
-    objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
-    if len(objs) > 0:
-        body = encode_objs(objs)
-        p.report(APP_CMD_DETECT_RES, body)
-    # ...
-```
-
-Here, the `encode_objs` function packages all detected object information into `bytes` type data, and the `p.report` function sends the result.
-
-The content of `body` is simply defined as `2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...`, meaning:
-* In this image, multiple objects are detected and arranged in order in `body`. Each target takes up `2+2+2+2+2 = 10` bytes, with `body_len / 10` objects in total.
-* The 1st and 2nd bytes represent the `x` coordinate of the top-left corner of the detected object, in pixels. Since the yolov5 result can have negative values for this coordinate, we use a `short` type to represent it, with little-endian encoding (LE).
-
-> Little-endian here means the low byte is in front. For example, if the `x` coordinate is `100`, hexadecimal `0x64`, we use a two-byte `short` to represent it as `0x0064`. Little-endian encoding puts `0x64` first, resulting in `b'\x64\x00'`.
-
-* Similarly, encode the subsequent data in sequence, resulting in `10` bytes of `bytes` type data for each object.
-* Iterate through and encode all object information into a single `bytes` string.
-
-When calling the `report` function, the protocol header, checksum, etc., are automatically added according to the protocol, allowing the other end to receive a complete data frame.
-
-On the other end, data should be decoded according to the protocol. If the receiving end is also using MaixPy, you can directly do:
-
-```python
-while not app.need_exit():
-    msg = p.get_msg()
-    if msg and msg.is_report and msg.cmd == APP_CMD_DETECT_RES:
-        print("receive objs:", decode_objs(msg.get_body()))
-        p.resp_ok(msg.cmd, b'1')
-```
-
-If the other device is something like `STM32` or `Arduino`, you can refer to the C language functions in the appendix of the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md) for encoding and decoding.
+For example, the coordinates detected by an AI detection application after identifying an object can be parsed using this protocol.
 
 ## Other Tutorials
 
