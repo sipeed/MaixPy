@@ -212,3 +212,18 @@ This occurs because the program encountered an error and exited abnormally. You 
 ### Method 2:
 If the application is written in Python, use **MaixVision** to run the source code directly, examine the runtime errors, and make corrections. Be aware that errors may not be at the last line, so inspect the logs carefully from the end upward.
 
+
+### How to Read/Write to SD/TF Cards and Save Data to Them
+
+MaixPy is based on Linux and standard Python 3. The operating system and file system both run on the SD/TF card, so reading and writing data is done through the file system.
+
+You can use Python’s standard APIs to perform file operations. For example, to read a file:
+
+```python
+with open("/root/a.txt", "r") as f:
+  content = f.read()
+  print(content)
+```
+
+Similarly, other functions that are not covered in the documentation can be searched to check if they are included in Python’s built-in libraries, which you can call directly.
+

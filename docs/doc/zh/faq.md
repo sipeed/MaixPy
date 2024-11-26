@@ -204,3 +204,16 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 * 方法二：如果是 Python 编写的应用，使用 MaixVision 运行源码查看运行错误并修正，注意报错可能不在最后一行，可以从后往前仔细查找。
 
 
+## 如何读写 SD/TF 卡，保存数据到 SD/TF 卡
+
+MaixPy 基于 Linux 和 标准 Python3，操作系统在 SD/TF 卡上，同时文件系统也在 SD 卡上，保存和读取数据都从文件系统操作。
+使用 Python 的标准 API 即可操作，比如读取文件：
+```python
+with open("/root/a.txt", "r") as f:
+  content = f.read()
+  print(content)
+```
+
+类似的，其它在文档中没介绍的功能可以尝试搜一艘是不是 Python 自带的库，可以直接调用。
+
+

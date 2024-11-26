@@ -56,3 +56,18 @@ Once you have acquired the basic knowledge, you can start using MaixPy for progr
 If you have never dealt with programming before, you will need to start learning Python from scratch. Python is also quite suitable as an introductory language. You can search for video tutorials for specific guidance.
 
 After mastering the basic syntax, you will be able to use MaixPy for programming by following examples provided.
+
+
+### Using Built-in Packages
+
+Python comes with many commonly used packages and APIs built-in, so if you encounter any issues, you can search for “Python using xxxx” and you might find a solution right away. This applies to various common tasks, such as file handling, networking, system operations, algorithms, and more.
+
+For example:
+For those who are new to Python and have only dabbled in basic microcontroller development, they might wonder why there are no examples in the documentation for reading and writing to SD/TF cards. The reason is that a file system is already running on the SD/TF card by default, so you can use Python’s file handling APIs to read and write files directly on the SD card:
+
+```python
+with open("/root/a.txt", "r") as f:
+  content = f.read()
+  print(content)
+```
+
