@@ -94,3 +94,66 @@ List common parameters and their explanations. If you cannot find parameters tha
 | qrcoder_type | Set the QR code library decoder type; you can choose either `image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR` or `image::QRCodeDecoderType::QRCODE_DECODER_TYPE_QUIRC`. `QRCODE_DECODER_TYPE_ZBAR` offers faster recognition speed and higher accuracy at lower resolutions. `QRCODE_DECODER_TYPE_QUIRC` is relatively faster at higher resolutions but with slightly lower accuracy. By default, `QRCODE_DECODER_TYPE_ZBAR` is used.<br />Effective in version 4.7.7 and later. | img.find_qrcodes(decoder_type=image.QRCodeDecoderType.QRCODE_DECODER_TYPE_ZBAR) |
 
 This article introduces common methods. For more API details, refer to the [image](../../../api/maix/image.md) section of the API documentation.
+
+## Using Hardware Acceleration for QR Code Detection
+
+MaixPy includes a built-in `image.QRCodeDetector` object that can use hardware acceleration for QR code detection. At a resolution of 320x224, the maximum frame rate for a single-frame algorithm can reach 60+ fps.
+
+> Note: This feature is supported in MaixPy v4.7.9 and later versions
+
+### Usage
+
+```python
+from maix import camera, display, app, image
+
+cam = camera.Camera(320, 224)
+disp = display.Display()
+detector = image.QRCodeDetector()
+
+while not app.need_exit():
+    img = cam.read()
+
+    qrcodes = detector.detect(img)
+    for q in qrcodes:
+        img.draw_string(0, 0, "payload: " + q.payload(), image.COLOR_BLUE)
+
+    disp.show(img)
+```
+
+Steps:
+
+1. Import the `image`, `camera`, and `display` modules:
+
+   ```python
+   from maix import camera, display, app, image
+   ```
+
+2. Capture and display the image:
+
+   ```python
+   cam = camera.Camera(320, 224)
+   disp = display.Display()
+   
+   while not app.need_exit():
+       img = cam.read()
+       disp.show(img)
+   ```
+
+   - Create `Camera` and `Display` objects. Use the `cam.read()` method to capture the image and the `disp.show()` method to display it.
+
+3. Create a `QRCodeDetector` object for QR code detection:
+
+   ```python
+   detector = image.QRCodeDetector()
+   ```
+
+4. Use the `detect` method to detect QR codes, saving the results in the `qrcodes` variable:
+
+   ```python
+   qrcodes = detector.detect(img)
+   for q in qrcodes:
+       img.draw_string(0, 0, "payload: " + q.payload(), image.COLOR_BLUE)
+   ```
+
+   - Note: The detection process will utilize NPU resources. If other models are using the NPU at the same time, it may cause unexpected results.
+   - The structure of the detection result is the same as the data returned by `find_qrcodes`. Refer to the `QRCode` object's methods to access the detection results. For example, calling `q.payload()` will retrieve the QR code's content string.

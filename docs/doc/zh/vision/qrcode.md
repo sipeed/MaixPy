@@ -5,6 +5,7 @@ update:
     author: lxowalle
     version: 1.0.0
     content: 初版文档
+              
 ---
 
 阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读[快速开始](../README.md)
@@ -96,3 +97,65 @@ while 1:
 
 本文介绍常用方法，更多 API 请看 API 文档的 [image](../../../api/maix/image.md) 部分。
 
+## 使用硬件加速的方法识别二维码
+
+MaixPy内置了一个`image.QRCodeDetector`对象可以使用硬件加速的方法识别二维码，在320x224分辨率下单帧算法最高速度可以到60+fps
+
+> 注：MaixPy v4.7.8之后的版本支持该方法（不包括v4.7.8）
+
+### 使用方法
+
+```python
+from maix import camera, display, app, image
+
+cam = camera.Camera(320, 224)
+disp = display.Display()
+detector = image.QRCodeDetector()
+
+while not app.need_exit():
+    img = cam.read()
+
+    qrcodes = detector.detect(img)
+    for q in qrcodes:
+        img.draw_string(0, 0, "payload: " + q.payload(), image.COLOR_BLUE)
+
+    disp.show(img)
+```
+
+步骤：
+
+1. 导入image、camera、display模块
+
+   ```python
+   from maix import camera, display, app, image
+   ```
+
+2. 捕获和显示图像
+
+   ```python
+   cam = camera.Camera(320, 224)
+   disp = display.Display()
+   
+   while not app.need_exit():
+       img = cam.read()
+       disp.show(img)
+   ```
+
+   - 创建`Camera`和`Display`对象，通过`cam.read()`方法来捕获图像，用`disp.show()`方法来显示图像
+
+3. 创建`QRCodeDetector`对象来检测二维码
+
+   ```python
+   detector = image.QRCodeDetector()
+   ```
+
+4. 使用`detect`方法来检测二维码，检测结果保存到`qrcodes`变量中
+
+   ```python
+   qrcodes = detector.detect(img)
+   for q in qrcodes:
+       img.draw_string(0, 0, "payload: " + q.payload(), image.COLOR_BLUE)
+   ```
+
+   - 注意：检测过程中会占用NPU资源，如果此时有其他模型也再使用，则可能导致意外的结果
+   - 检测的结果与`find_qrcodes`返回结果的数据结构一致，参考`QRCode`对象的方法来获取检测结果。例如：调用`q.payload()`即可获取二维码的内容字符串。
