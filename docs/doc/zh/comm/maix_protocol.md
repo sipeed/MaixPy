@@ -56,7 +56,7 @@ while not app.need_exit():
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 可以看到`objs`是多个检测结果，这里在屏幕上进行画框了，我们也可以在这里想办法把结果通过串口发送出去。
 这里我们不需要手动初始化串口，直接使用内置的`maix.comm, maix.protocol`模块，调用`comm.CommProtoco`会自动初始化串口，默认波特率是`115200`，串口协议的相关可以在设备`系统设置->通信协议`里面设置。

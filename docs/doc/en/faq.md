@@ -189,25 +189,25 @@ This is not an error message. It is a log message indicating that the multimedia
 
 By default only support English charactors, if you want to show Chinese, you need to change font, refer to [Custom fonts part of image basic operation](./vision/image_ops.md#Chinese-support-and-custom-fonts)
 
-## Program Exits with Prompt: app exit with code: 1
+### Program Exit and Message: "app exit with code: 1, log in /maixapp/tmp/last_run.log"
 
-This occurs because the program encountered an error and exited abnormally. You need to check the logs to identify the issue. Here's how to check the logs:
+This indicates that the program encountered an error and exited unexpectedly. You need to check the log to find the issue. 
 
-### Method 1:
-1. First, use **MaixVision** to connect to the device, ensuring all programs occupying the display and camera are closed.
-2. Then connect to the device via **SSH** to access the SSH terminal. For details on connecting, refer to the [Linux Basics](./basic/linux_basic.md).
-3. Execute the following commands:
-   - For Python programs:  
-     ```bash
-     cd /maixapp/apps/xxx && python main.py
-     ```
-     Here, `xxx` is the ID of the application that encountered the error.
-   - For non-Python programs:  
-     ```bash
-     cd /maixapp/apps/xxx && ./xxx
-     ```
-     Again, `xxx` is the ID of the application that encountered the error.
-4. Carefully review the logs to check for errors. Note that errors might not always be at the last line, so check thoroughly from the end upward.
+#### How to Check the Logs:
+
+- **Method 1**: View the `/maixapp/tmp/last_run.log` file immediately after the error:
+  1. On MaixVision, run the script `MaixPy/examples/tools/show_last_run_log.py` to view the log.
+  2. On an SSH terminal, use the command `cat /maixapp/tmp/last_run.log` to view the log.
+
+- **Method 2**:
+  - First, use MaixVision to connect to the device to exit any programs that are using the display or camera.
+  - Then, connect to the device via SSH and enter the SSH terminal. For connection steps, refer to the [Linux Basics](./basic/linux_basic.md).
+  - Manually run the program using the following commands:
+    - If it's a Python program: `cd /maixapp/apps/xxx && python main.py`, where `xxx` is the ID of the application that encountered the error.
+    - If it's not a Python program: `cd /maixapp/apps/xxx && ./xxx`, where `xxx` is the ID of the application that encountered the error.
+  - Carefully examine the logs for any errors. Note that the error may not appear on the last line, so check the logs from the bottom upwards.
+
+- **Method 3**: If the application is written in Python, use MaixVision to run the source code to view runtime errors and fix them. Again, be aware that the error may not appear on the last line, so check the logs carefully from the bottom upwards.
 
 ### Method 2:
 If the application is written in Python, use **MaixVision** to run the source code directly, examine the runtime errors, and make corrections. Be aware that errors may not be at the last line, so inspect the logs carefully from the end upward.

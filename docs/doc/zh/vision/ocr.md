@@ -28,7 +28,7 @@ model = "/root/models/pp_ocr.mud"
 ocr = nn.PP_OCR(model)
 
 cam = camera.Camera(ocr.input_width(), ocr.input_height(), ocr.input_format())
-dis = display.Display()
+disp = display.Display()
 
 image.load_font("ppocr", "/maixapp/share/font/ppocr_keys_v1.ttf", size = 20)
 image.set_default_font("ppocr")
@@ -40,7 +40,7 @@ while not app.need_exit():
         points = obj.box.to_list()
         img.draw_keypoints(points, image.COLOR_RED, 4, -1, 1)
         img.draw_string(obj.box.x4, obj.box.y4, obj.char_str(), image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 
 ```
 

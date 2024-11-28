@@ -54,7 +54,9 @@ title: MaixCAM MaixPy 应用开发和应用商店
 * 每个应用实现的主要功能实现一个简单的串口交互，基于[串口协议](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md) （[例程](https://github.com/sipeed/MaixPy/tree/main/examples/communication/protocol)）,这样用户可以直接当成串口模块使用，比如人脸检测应用，可以在检测到人脸后通过串口输出坐标。
 
 
+## 设置应用开机自动启动
 
+参考 [应用开机自启](./auto_start.md)
 
 
 

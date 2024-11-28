@@ -190,18 +190,21 @@ ImportError: arg(): could not convert default argument into a Python object (typ
 默认只有英文字体，如果要显示中文，需要更换中文字体，具体请看[基本图像操作 中文支持和自定义字体 部分](./vision/image_ops.md#中文支持和自定义字体)
 
 
-## 程序退出并提示 app exit with code: 1
+## 程序退出并提示 app exit with code: 1, log in /maixapp/tmp/last_run.log
 
 这是因为程序出错异常退出了，需要尝试看日志来找到问题所在。
 看日志方法：
-* 方法一：
-  * 先使用 MaixVision 连接上设备以让所有占用显示和摄像头的程序退出
+* 方法一： 出错后立即查看 `/maixapp/tmp/last_run.log` 文件，查看方式：
+  1. MaixVision 运行 `MaixPy/examples/tools/show_last_run_log.py` 代码查看。
+  2. 在 ssh 终端中 `cat /maixapp/tmp/last_run.log` 查看。
+* 方法二：
+  * 先使用 MaixVision 连接上设备以让所有占用显示和摄像头的程序退出。
   * 然后通过 ssh 连接设备进入 ssh 终端，进入方法见[Linux 基础](./basic/linux_basic.md) 中描述。
   * 执行命令手动运行程序
     * 如果是 Python 程序 `cd /maixapp/apps/xxx && python main.py` 这里 `xxx`是出错应用的 ID。
     * 如果不是 Python 程序 `cd /maixapp/apps/xxx && ./xxx` 这里 `xxx`是出错应用的 ID。
   * 仔细查看日志看有没有报错，注意报错可能不在最后一行，可以从后往前仔细查找。
-* 方法二：如果是 Python 编写的应用，使用 MaixVision 运行源码查看运行错误并修正，注意报错可能不在最后一行，可以从后往前仔细查找。
+* 方法三：如果是 Python 编写的应用，使用 MaixVision 运行源码查看运行错误并修正，注意报错可能不在最后一行，可以从后往前仔细查找。
 
 
 ## 如何读写 SD/TF 卡，保存数据到 SD/TF 卡

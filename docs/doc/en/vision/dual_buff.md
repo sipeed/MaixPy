@@ -13,7 +13,7 @@ detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff=True)
 # detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -22,7 +22,7 @@ while not app.need_exit():
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 
 Generally, this parameter defaults to `True`, unless you manually set `dual_buff=False` to disable the dual buffer function.

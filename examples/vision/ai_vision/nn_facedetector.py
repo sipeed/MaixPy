@@ -8,7 +8,7 @@ import math
 detector = nn.Retinaface(model="/root/models/retinaface.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -17,4 +17,4 @@ while not app.need_exit():
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         radius = math.ceil(obj.w / 10)
         img.draw_keypoints(obj.points, image.COLOR_RED, size = radius if radius < 5 else 4)
-    dis.show(img)
+    disp.show(img)

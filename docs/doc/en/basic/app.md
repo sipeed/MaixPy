@@ -69,3 +69,8 @@ install_app(pkg_path)
 - Since touchscreens are standard, it is recommended to create a simple interface with touch interaction. You can refer to examples for implementation methods.
 - Avoid making interfaces and buttons too small, as MaixCAM default screen is 2.3 inches with 552x368 resolution and high PPI. Make sure fingers can easily tap without making mistakes.
 - Implement a simple serial interaction for the main functionality of each application based on the [serial protocol](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md) (see [example](https://github.com/sipeed/MaixPy/tree/main/examples/communication/protocol)). This way, users can directly use it as a serial module. For instance, in a face detection application, you can output coordinates via serial port when a face is detected.
+
+## APP power on auto start
+
+Refer to [APP auto start on power up](./auto_start.md).
+

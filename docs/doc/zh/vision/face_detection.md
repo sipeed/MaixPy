@@ -25,7 +25,7 @@ from maix import camera, display, image, nn, app
 detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -35,7 +35,7 @@ while not app.need_exit():
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
         detector.draw_pose(img, obj.points, 2, image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 
 另外两种模型使用方法：
@@ -50,7 +50,7 @@ detector = nn.Retinaface(model="/root/models/retinaface.mud")
 # detector = nn.FaceDetector(model="/root/models/face_detector.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -59,7 +59,7 @@ while not app.need_exit():
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         radius = math.ceil(obj.w / 10)
         img.draw_keypoints(obj.points, image.COLOR_RED, size = radius if radius < 5 else 4)
-    dis.show(img)
+    disp.show(img)
 
 ```
 

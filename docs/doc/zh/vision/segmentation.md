@@ -27,7 +27,7 @@ detector = nn.YOLOv8(model="/root/models/yolov8n_seg.mud", dual_buff = True)
 # detector = nn.YOLO11(model="/root/models/yolo11n_seg.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -38,7 +38,7 @@ while not app.need_exit():
         img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 
 > 这里切换 YOLOv8 和 YOLO11 只需要修改上面代码种注释的部分即可。

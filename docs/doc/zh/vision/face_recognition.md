@@ -35,7 +35,7 @@ recognizer = nn.FaceRecognizer(detect_model="/root/models/yolov8n_face.mud", fea
 if os.path.exists("/root/faces.bin"):
     recognizer.load_faces("/root/faces.bin")
 cam = camera.Camera(recognizer.input_width(), recognizer.input_height(), recognizer.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while 1:
     img = cam.read()
@@ -46,7 +46,7 @@ while 1:
         img.draw_keypoints(obj.points, image.COLOR_RED, size = radius if radius < 5 else 4)
         msg = f'{recognizer.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 
 第一次运行这个代码会发现能检测到人脸，但是都不认识，需要我们进入添加人脸模式学习人脸才行。

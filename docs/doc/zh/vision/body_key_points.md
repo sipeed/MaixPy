@@ -22,7 +22,7 @@ detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff = True)
 # detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-dis = display.Display()
+disp = display.Display()
 
 while not app.need_exit():
     img = cam.read()
@@ -32,7 +32,7 @@ while not app.need_exit():
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
         detector.draw_pose(img, obj.points, 8 if detector.input_width() > 480 else 4, image.COLOR_RED)
-    dis.show(img)
+    disp.show(img)
 ```
 
 另外代码也在[MaixPy/examples/vision](https://github.com/sipeed/MaixPy/tree/main/examples/vision/ai_vision)目录下可以找到。
