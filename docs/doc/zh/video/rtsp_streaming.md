@@ -66,9 +66,30 @@ while True:
 
 6. 完成，运行上须代码后, 你可以通过[VLC](https://www.videolan.org/vlc/)软件播放视频流, 已测试的`VLC`版本是`3.0.20`. 默认播放地址为`rtsp://设备的ip:8554/live`
 
-   
-## OSD
 
-通过OSD来实现画线与画框
+## 支持推流音频
 
-TODO
+MaixPy支持同时推送音视频流, 通过绑定一个`Recorder`对象后可以在推送视频流的同时附带音频数据
+
+> 注:MaixPy v4.7.8之后的版本支持该方法（不包括v4.7.8）
+
+参考代码如下:
+
+```python
+from maix import time, rtsp, camera, image, audio
+
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+audio_recorder = audio.Recorder()
+
+server = rtsp.Rtsp()
+server.bind_camera(cam)
+server.bind_audio_recorder(audio_recorder)
+server.start()
+
+print(server.get_url())
+
+while True:
+    time.sleep(1)
+```
+
+上文中通过`audio.Recorder()`创建一个`audio_recorder`对象,并使用`Rtsp`的`bind_audio_recorder()`方法绑定该对象, 使用`ffplay rtsp://设备的ip:8554/live`命令或者`vlc 3.0.20`就能接收音视频数据了

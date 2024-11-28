@@ -65,6 +65,40 @@ Steps:
 
 4. Done
 
+
+
+## Support for Streaming Audio
+
+MaixPy supports streaming both audio and video simultaneously. By binding a `Recorder` object,
+
+> Note: This method is supported in MaixPy v4.7.9 and later versions
+
+The following is an example code:
+
+```python
+from maix import camera, time, app, rtmp, image, audio
+
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+audio_recorder = audio.Recorder()
+
+host="192.168.0.63"
+port=1935
+app_name="live"
+stream_name="stream"
+client = rtmp.Rtmp(host, port, app_name, stream_name)
+client.bind_camera(cam)
+client.bind_audio_recorder(audio_recorder)
+client.start()
+
+print(f"rtmp://{host}:{port}/{app_name}/{stream_name}")
+while not app.need_exit():
+    time.sleep(1)
+```
+
+In the code above, an `audio_recorder` object is created using `audio.Recorder()`, and the `bind_audio_recorder()` method of the `Rtmp` server is used to bind this object. Stream the audio data while pushing the video stream.
+
+
+
 ## Push streaming test to Bilibili
 
 ### Launch bilibili live stream

@@ -64,8 +64,29 @@ Steps:
 
 6. Finished, after running the above code, you can play the video stream through [VLC](https://www.videolan.org/vlc/) software, the tested version of `VLC` is `3.0.20`. The default playback address is `rtsp://device ip:8554/live`.
 
-## OSD
+## Support for Streaming Audio
 
-Drawing lines and frames via OSD
+MaixPy supports streaming both audio and video simultaneously. By binding a `Recorder` object,
 
-TODO
+> Note: This method is supported in MaixPy v4.7.9 and later versions
+
+The following is an example code:
+
+```python
+from maix import time, rtsp, camera, image, audio
+
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+audio_recorder = audio.Recorder()
+
+server = rtsp.Rtsp()
+server.bind_camera(cam)
+server.bind_audio_recorder(audio_recorder)
+server.start()
+
+print(server.get_url())
+
+while True:
+    time.sleep(1)
+```
+
+In the code above, an `audio_recorder` object is created using `audio.Recorder()`, and the `bind_audio_recorder()` method of the `Rtsp` server is used to bind this object. You can use `ffplay rtsp://<device-ip>:8554/live` or `vlc 3.0.20` to receive the audio and video stream.

@@ -63,6 +63,38 @@ while True:
 
 4. 完成
 
+## 支持推流音频
+
+MaixPy支持同时推送音视频流, 通过绑定一个`Recorder`对象后可以在推送视频流的同时附带音频数据
+
+> 注:MaixPy v4.7.8之后的版本支持该方法（不包括v4.7.8）
+
+参考代码如下:
+
+```python
+from maix import camera, time, app, rtmp, image, audio
+
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
+audio_recorder = audio.Recorder()
+
+host="192.168.0.63"
+port=1935
+app_name="live"
+stream_name="stream"
+client = rtmp.Rtmp(host, port, app_name, stream_name)
+client.bind_camera(cam)
+client.bind_audio_recorder(audio_recorder)
+client.start()
+
+print(f"rtmp://{host}:{port}/{app_name}/{stream_name}")
+while not app.need_exit():
+    time.sleep(1)
+```
+
+上文中通过`audio.Recorder()`创建一个`audio_recorder`对象,并使用`Rtmp`的`bind_audio_recorder()`方法绑定该对象, 推流的同时把音频数据也推送出去了.
+
+
+
 ## 向Bilibili推流测试
 
 ### 启动bilibili直播
