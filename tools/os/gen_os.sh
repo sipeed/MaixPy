@@ -138,7 +138,6 @@ cp "$MAIXCDK_PATH/components/maixcam_lib/lib/libmaixcam_lib.so" tmp/sys_builtin_
 if [ $board_name == "maixcam-pro" ]; then
     cp -f "tmp/sys_builtin_files/boot/maixcam_pro_logo.jpeg" "tmp/sys_builtin_files/boot/logo.jpeg"
     cp "tmp/sys_builtin_files/boot/boards/board.maixcam_pro" "tmp/sys_builtin_files/boot/board"
-    sed -i 's/^panel=.*/panel=st7701_lct024bsi20/' "tmp/sys_builtin_files/boot/uEnv.txt"
 else
     cp "tmp/sys_builtin_files/boot/boards/board.maixcam" "tmp/sys_builtin_files/boot/board"
 fi
