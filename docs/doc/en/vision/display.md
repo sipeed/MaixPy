@@ -103,11 +103,12 @@ display.send_to_maixvision(img)
 
 If you wish to switch to a screen of a different size, you can consult and purchase from the [store](https://wiki.sipeed.com/store).
 
-For MaixCAM, the following four screen options are currently supported:
+For MaixCAM, currently, there are 4 types of screens and 1 type of MIPI to HDMI module supported:
 * 2.3-inch 552x368 resolution capacitive touch screen: The default screen that comes with MaixCAM.
 * 2.4-inch 640x480 resolution capacitive touch screen: The default screen that comes with MaixCAM-Pro.
 * 5-inch 854x480 resolution non-touch screen: Note that this is a non-touch screen, similar in size to a mobile phone screen.
 * 7-inch 1280x800 resolution capacitive touch screen: A large 7-inch screen, suitable for scenarios requiring a fixed screen display.
+* LT9611 (MIPI to HDMI module) supports various resolutions including 1280x720, suitable for driving various HDMI screens.
 
 The image refresh time difference between different screens is about 1-5 milliseconds, which is not significant; the main difference lies in the image resolution, which affects image processing time.
 
@@ -120,6 +121,15 @@ When replacing the screen, you must also **modify the configuration file**; othe
   * 2.4-inch (MaixCAM-Pro default screen): `st7701_lct024bsi20`.
   * 5-inch: `st7701_dxq5d0019_V0`, with the earlier (2023) test screen being `st7701_dxq5d0019b480854`.
   * 7-inch: `mtd700920b`, with the earlier (2023) test screen being `zct2133v1`.
+  * LT9611 (MIPI to HDMI module):
+    * Wiring:
+      * LT9611 I2C <---> MaixCAM I2C5
+      * LT9611 MIPI IN <---> MaixCAM MIPI OUT
+    * Supported configurations:
+      * `lt9611_1280x720_60hz`: 1280x720 60Hz
+      * `lt9611_1024x768_60hz`: 1024x768 60Hz
+      * `lt9611_640x480_60hz`: 640x480 60Hz
+      * `lt9611_552x368_60hz`: 552x368 60Hz
 * Save the `board` file, and **click to eject the USB drive**—do not just disconnect the power, or the file may be lost.
 * Press the board's `reset` button, or power cycle to restart.
 
