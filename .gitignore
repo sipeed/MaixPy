@@ -175,6 +175,7 @@ CMakeLists.txt
 !*/**/CMakeLists.txt
 tools/tmp/
 tools/os/tmp/
+tools/os/tmp2/
 tools/os/img_root/
 tools/os/img_boot/
 projects/apps/

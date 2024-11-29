@@ -1,6 +1,6 @@
 id: maixhub
 name: MaixHub Client
-name: MaixHub 客户端
+name[zh]: MaixHub 客户端
 version: 1.0.2
 author: Sipeed
 icon: app.png

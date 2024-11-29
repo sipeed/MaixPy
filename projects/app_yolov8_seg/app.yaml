@@ -1,6 +1,6 @@
 id: yolo11_seg
 name: YOLO11 Seg
-name: YOLO11 分割
+name[zh]: YOLO11 分割
 version: 1.0.2
 author: Sipeed Ltd
 icon: icon.png

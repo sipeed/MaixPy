@@ -141,6 +141,8 @@ if [ $board_name == "maixcam-pro" ]; then
 else
     cp "tmp/sys_builtin_files/boot/boards/board.maixcam" "tmp/sys_builtin_files/boot/board"
 fi
+# 8.2 因为 boot分区不能拷贝文件夹，将 boards 文件夹拷贝到 /maixapp/boards，等第一次开机脚本复制到 boot 分区
+cp -r "tmp/sys_builtin_files/boot/boards" "tmp/sys_builtin_files/maixapp/"
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
 ./update_img.sh tmp/sys_builtin_files "tmp/$os_version_str.img"
