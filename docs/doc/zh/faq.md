@@ -29,6 +29,12 @@ title: MaixCAM MaixPy FAQ(常见问题)
 * 检查网络连接质量，比如 WiFi。
 * 如果用的 USB 连接，检查 USB 线质量， 电脑 USB 口质量，可以尝试换台电脑或者 USB 口 或者 USB 线缆尝试对比。
 
+## MaixVision MacOS 无法运行
+
+对于 MacOS，由于前期还没有用开发者账号签名，可能会遇到 提示权限不足或者文件损坏问题，
+请参考[这里](https://maixhub.com/discussion/100301) 解决（在终端中执行命令sudo xattr -dr com.apple.quarantine /Applications/应用名称.app来移除这个属性）。
+
+
 ## 此产品适合量产吗
 
 答案：适合。

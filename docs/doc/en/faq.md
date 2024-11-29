@@ -29,6 +29,14 @@ The default GC4653 camera has a maximum frame rate of 30 frames per second (FPS)
 * Check the network connection quality, such as WiFi.
 * If using a USB connection, check the USB cable quality, computer USB port quality, and try using a different computer, USB port, or USB cable for comparison.
 
+
+## MaixVision MacOS can not launch
+
+For macOS, since the developer account has not been used for signing during the early stages, you may encounter issues such as insufficient permissions or file corruption. 
+
+Please refer to [this link](https://maixhub.com/discussion/100301) for a solution (run the command `sudo xattr -dr com.apple.quarantine /Applications/ApplicationName.app` in the terminal to remove this attribute).
+
+
 ## What is the difference between MaixPy v4 and v1/v3?
 
 * MaixPy v4 uses the Python language and is the culmination of the experiences from v1 and v3, offering better supporting software and ecosystem, more features, simpler usage, and more comprehensive documentation. While the hardware has significant improvements, the pricing is even more affordable compared to the other two versions. Additionally, it provides compatibility with the K210 user experience and API, making it easier for users to migrate quickly from v1 to v4.
