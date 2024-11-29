@@ -1,6 +1,7 @@
 id: mouse
 name: Mouse Simulator
-version: 1.0.0
+name[zh]: 鼠标模拟
+version: 1.0.1
 author: Sipeed Ltd
 icon: icon.png
 desc: Simulate using a mouse to control the mouse

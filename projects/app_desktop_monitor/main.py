@@ -1,6 +1,16 @@
+from maix import image, display
+
+screen = display.Display()
+img = image.Image(screen.width(), screen.height())
+msg = "loading..."
+size = image.string_size(msg, scale=2, thickness=2)
+img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=2, thickness=2)
+screen.show(img)
+del img
+
 import json
 from datetime import datetime
-from maix import image, display, app, time
+from maix import app, time
 from maix.touchscreen import TouchScreen
 from threading import Thread
 from desktop_monitor.util import get_pc_info
@@ -348,7 +358,6 @@ def main(screen):
 
 
 if __name__ == '__main__':
-    screen = display.Display()
     try:
         main(screen)
     except Exception:

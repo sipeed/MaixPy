@@ -1,5 +1,6 @@
 id: tracker_counter
 name: Tracker Counter
+name[zh]: 跟踪计数
 version: 1.0.2
 author: Sipeed Ltd
 icon: icon.png

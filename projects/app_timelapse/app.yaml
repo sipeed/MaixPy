@@ -1,5 +1,6 @@
 id: timelapse
 name: Timelapse
+name[zh]: 延时摄影
 version: 1.0.3
 icon: icon.png
 author: Sipeed Ltd

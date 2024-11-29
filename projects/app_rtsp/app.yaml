@@ -1,7 +1,7 @@
 id: rtsp_stream
 name: RTSP Stream
-name[zh]: RTSP Stream
-version: 1.0.0
+name[zh]: RTSP 推流
+version: 1.0.1
 icon: assets/app.png
 author: Sipeed Ltd
 desc: RTSP stream

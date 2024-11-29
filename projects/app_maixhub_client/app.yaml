@@ -1,6 +1,7 @@
 id: maixhub
 name: MaixHub Client
-version: 1.0.1
+name: MaixHub 客户端
+version: 1.0.2
 author: Sipeed
 icon: app.png
 desc: MaixHub client to collect image or deploy AI model etc.

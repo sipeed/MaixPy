@@ -1,6 +1,7 @@
 id: human_pose
 name: Human Pose
-version: 1.0.0
+name[zh]: 人体姿态
+version: 1.0.1
 author: Sipeed Ltd
 icon: icon.json
 desc: Detect human body 17 keypoints.
