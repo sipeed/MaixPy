@@ -28,13 +28,37 @@ import os
 os.system("pip install --upgrade 包名")
 ```
 
-
-
 ### 方法二： 终端使用 pip 命令安装
 
 使用[Linux 基础](./linux_basic.md)中介绍的终端使用方法，使用 `pip install 包名` 安装你需要的包。
 
+## pip换源
 
+在使用 pip 下载 Python 软件包时，默认会从 [PyPI](https://pypi.org/) 下载。PyPI 是 Python 官方的软件包储存库，对于中国用户来说下载速度会很慢。
+
+中国国内有许多 PyPI 的镜像源，从镜像源下载可以提升下载速度。
+
+在终端中输入以下命令，可以从清华源更新 pip ：
+
+```
+python -m pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple --upgrade pip
+```
+
+用以下命令将下载源设为清华源：
+
+```
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+```
+
+恢复默认源：
+
+```
+pip config unset global.index-url
+```
+
+参考：[清华大学开源软件镜像站 PyPI软件仓库](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)。
+
+你也可以自己寻找其他好用的镜像源。
 
 ## pip 无法直接安装的包
 
@@ -44,6 +68,5 @@ os.system("pip install --upgrade 包名")
 * 方法一： 找到对应的包源码，在电脑上交叉编译成 whl 安装包，然后复制到设备里面使用`pip install xxxx.whl`安装。编译的工具链和[MaixCDK 使用的工具链相同](https://github.com/sipeed/MaixCDK/blob/main/platforms/maixcam.yaml)。
 * 方法二： 根据[编译系统](../pro/compile_os.md)中描述编译系统，编译前可以到`buildroot`目录下执行`make menuconfig`找找 Python 解释器 额外包中有没有你想要的软件包，勾选上再编译就能将改包编译进系统镜像。
 > 如果你通过方法二成功编译测试过了某个包并且觉得它十分有必要集成到系统中，欢迎通过[issues](https://github.com/sipeed/maixpy/issues) 提意见。
-
 
 
