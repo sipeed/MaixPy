@@ -1,4 +1,4 @@
-from maix import app, rtsp, camera, image, display, touchscreen, time
+from maix import app, rtsp, camera, image, display, touchscreen, time, audio
 
 # init display
 disp = display.Display()
@@ -8,9 +8,13 @@ ts = touchscreen.TouchScreen()
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
 cam2 = cam.add_channel(disp.width(), disp.height())
 
+# init audio
+audio_recorder = audio.Recorder()
+
 # init rtsp server
 server = rtsp.Rtsp()
 server.bind_camera(cam)
+server.bind_audio_recorder(audio_recorder)
 server.start()
 urls = server.get_urls()
 print(server.get_urls())

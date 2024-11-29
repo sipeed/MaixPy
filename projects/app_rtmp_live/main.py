@@ -1,4 +1,4 @@
-from maix import camera, display, time, app, rtmp, image, touchscreen
+from maix import camera, display, time, app, rtmp, image, touchscreen, audio
 
 font_size = 16
 image.load_font("font", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = font_size)
@@ -7,6 +7,7 @@ image.set_default_font("font")
 # cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
 cam = None
 disp = display.Display()
+audio_recorder = audio.Recorder()
 ts = touchscreen.TouchScreen()
 rtmp_client = None
 
@@ -192,6 +193,7 @@ while not app.need_exit():
                         cam = None
                     cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
                 rtmp_client = rtmp.Rtmp(global_host, global_port, global_application, global_stream, global_bitrate)
+                rtmp_client.bind_audio_recorder(audio_recorder)
                 rtmp_client.bind_camera(cam)
                 rtmp_client.start()
                 global_status = 3
@@ -241,6 +243,7 @@ while not app.need_exit():
             global_status = 0
             rtmp_client.stop()
             del rtmp_client
+            rtmp_client = None
             global_status = 0
             time.sleep_ms(100)
     else:
