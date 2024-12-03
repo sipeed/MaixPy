@@ -27,9 +27,12 @@ foreach(item ${g_dynamic_libs})
     endif()
 endforeach()
 
+file(STRINGS "${PROJECT_PATH}/module_name.txt" ALL_LINES)
+list(GET ALL_LINES 0 MODULE_NAME)
+
 if(final_dynamic_libs)
     set(copy_dynamic_libs_cmd COMMAND mkdir -p ${PROJECT_BINARY_DIR}/dl_lib && cp ${final_dynamic_libs} ${PROJECT_BINARY_DIR}/dl_lib)
-    set(copy_dynamic_libs_cmd2 COMMAND mkdir -p ${PROJECT_PATH}/maix/dl_lib && cp -r ${PROJECT_BINARY_DIR}/dl_lib/* ${PROJECT_PATH}/maix/dl_lib)
+    set(copy_dynamic_libs_cmd2 COMMAND mkdir -p ${PROJECT_PATH}/${MODULE_NAME}/dl_lib && cp -r ${PROJECT_BINARY_DIR}/dl_lib/* ${PROJECT_PATH}/${MODULE_NAME}/dl_lib)
 else()
     set(copy_dynamic_libs_cmd)
     set(copy_dynamic_libs_cmd2)
