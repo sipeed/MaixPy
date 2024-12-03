@@ -1,0 +1,8 @@
+id: usb_video_camera
+name: USB Video Camera
+version: 1.0.1
+author: 916BGAI
+icon: app.png
+desc: Display the image of the USB camera
+files:
+  - main.py
