@@ -9,7 +9,7 @@ slave = modbus.Slave(
     0x00, 10,           # input registers
     0x00, 10,           # holding registers
     0, 1,               # serial 115200-8N1, slave, ignore
-    5020, False            # tcp port, debug OFF
+    502, False            # tcp port, debug OFF
 )
 
 

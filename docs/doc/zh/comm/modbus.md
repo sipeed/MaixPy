@@ -117,7 +117,7 @@ slave = modbus.Slave(
     0x00, 10,
     0x00, 10,
     0, 1,               # 我们使用的是 TCP 模式, 忽略波特率和rtu地址即可
-    5020, False         # TCP 端口号, 后者为 是否打印 debug 信息
+    502, False         # TCP 端口号, 后者为 是否打印 debug 信息
 )
 
 ### 以下代码与 RTU 部分一致
