@@ -176,6 +176,8 @@ items:
         label: Power Management Unit
     -   file: modules/fp5510.md
         label: Voice Coil Motor FP5510
+        file: modules/spilcd.md
+        label: SPI LCD Screen
 
 -   label: Projects
     items:
