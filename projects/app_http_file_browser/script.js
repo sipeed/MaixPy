@@ -1,11 +1,11 @@
 let currentPath = '/root';
 let showHidden = false;
-let currentZoom = 1; // 初始缩放比例
+let currentZoom = 0.8; // 初始缩放比例
 
 // 支持的文件类型字典
 const fileTypes = {
     image: ['jpg', 'jpeg', 'png', 'gif'],
-    text: ['txt', 'md', 'py', 'mud', 'json', 'yaml', 'yml', 'conf', 'ini', 'version'],
+    text: ['txt', 'md', 'py', 'mud', 'json', 'yaml', 'yml', 'conf', 'ini', 'version', 'log'],
     video: ['mp4', 'webm', 'ogg', 'avi', 'flv']
 };
 
@@ -229,18 +229,18 @@ function previewFile(path) {
 // 放大功能
 function zoomIn() {
     currentZoom += 0.1;
-    document.getElementById("previewImage").style.width = `${currentZoom * 100}%`;
+    document.getElementById("previewContent").style.width = `${currentZoom * 100}%`;
 }
 
 // 缩小功能
 function zoomOut() {
     if (currentZoom > 0.2) currentZoom -= 0.1;
-    document.getElementById("previewImage").style.width = `${currentZoom * 100}%`;
+    document.getElementById("previewContent").style.width = `${currentZoom * 100}%`;
 }
 
 // 重置缩放比例
 function resetZoom() {
-    currentZoom = 1;
+    currentZoom = 0.8;
     const previewImage = document.getElementById("previewImage");
     previewImage.style.width = "auto";
     previewImage.style.height = "auto";

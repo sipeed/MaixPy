@@ -77,9 +77,14 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         if path and os.path.isfile(path):
             self.send_response(200)
             self.send_header("Content-Disposition", f"attachment; filename={os.path.basename(path)}")
+            self.send_header("Content-Type", "application/octet-stream")
             self.end_headers()
-            with open(path, "rb") as f:
-                self.wfile.write(f.read())
+            try:
+                with open(path, "rb") as f:
+                    while chunk := f.read(2097152):
+                        self.wfile.write(chunk)
+            except Exception as e:
+                self.send_error(500, f"File read error: {str(e)}")
         else:
             self.send_error(404, "File not found")
 
@@ -88,62 +93,73 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         path = query.get("path", [None])[0]
         if path and os.path.isfile(path):
             ext = os.path.splitext(path)[-1].lower()
-            if ext in [".txt", ".md", ".py", ".mud", ".json", ".yaml", ".yml", ".conf", ".ini", ".version"]:
-                # 文本文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "text/plain; charset=utf-8")
-                self.end_headers()
-                with open(path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                self.wfile.write(content.encode("utf-8"))
-            elif ext in [".jpg", ".jpeg", ".png", ".gif"]:
-                # 图片文件预览
-                self.send_response(200)
-                content_type = "image/jpeg" if ext in [".jpg", ".jpeg"] else "image/png" if ext == ".png" else "image/gif"
-                self.send_header("Content-type", content_type)
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            elif ext == ".mp4":
-                # MP4视频文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "video/mp4")
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            elif ext == ".webm":
-                # WebM视频文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "video/webm")
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            elif ext == ".ogg":
-                # Ogg视频文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "video/ogg")
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            elif ext == ".avi":
-                # AVI视频文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "video/x-msvideo")
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            elif ext == ".flv":
-                # FLV视频文件预览
-                self.send_response(200)
-                self.send_header("Content-type", "video/x-flv")
-                self.end_headers()
-                with open(path, "rb") as f:
-                    self.wfile.write(f.read())
-            else:
-                # 不支持的文件类型
-                self.send_error(415, "Unsupported Media Type")
+            try:
+                if ext in [".txt", ".md", ".py", ".mud", ".json", ".yaml", ".yml", ".conf", ".ini", ".version", ".log"]:
+                    self.send_response(200)
+                    self.send_header("Content-Type", "text/plain; charset=utf-8")
+                    self.end_headers()
+                    with open(path, "r", encoding="utf-8") as f:
+                        for line in f:  # 按行读取
+                            self.wfile.write(line.encode("utf-8"))
+                elif ext in [".jpg", ".jpeg", ".png", ".gif", ".webm", ".ogg", ".avi", ".flv"]:
+                    content_type = {
+                        ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+                        ".png": "image/png", ".gif": "image/gif",
+                        ".webm": "video/webm", ".ogg": "video/ogg",
+                        ".avi": "video/x-msvideo", ".flv": "video/x-flv"
+                    }.get(ext, "application/octet-stream")
+                    self.send_response(200)
+                    self.send_header("Content-Type", content_type)
+                    self.end_headers()
+                    with open(path, "rb") as f:
+                        while chunk := f.read(2097152):  # 每次读取 2MB
+                            self.wfile.write(chunk)
+                elif ext == ".mp4":  # 单独处理 MP4 文件，支持 Range 请求
+                    self.handle_partial_request(path, "video/mp4")
+                else:
+                    self.send_error(415, "Unsupported Media Type")
+            except Exception as e:
+                self.send_error(500, f"Error previewing file: {str(e)}")
         else:
             self.send_error(404, "File not found")
+
+    def handle_partial_request(self, file_path, content_type):
+        """Handle HTTP Range Requests for streaming"""
+        try:
+            file_size = os.path.getsize(file_path)
+            range_header = self.headers.get("Range", None)
+            start, end = 0, file_size - 1
+
+            if range_header:
+                import re
+                range_match = re.match(r"bytes=(\d+)-(\d*)", range_header)
+                if range_match:
+                    start = int(range_match.group(1))
+                    if range_match.group(2):
+                        end = int(range_match.group(2))
+
+            if start >= file_size or start > end:
+                self.send_error(416, "Requested Range Not Satisfiable")
+                return
+
+            self.send_response(206)  # Partial Content
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Range", f"bytes {start}-{end}/{file_size}")
+            self.send_header("Content-Length", str(end - start + 1))
+            self.end_headers()
+
+            with open(file_path, "rb") as f:
+                f.seek(start)
+                while start <= end:
+                    chunk_size = min(8192, end - start + 1)  # 每次读取 8KB
+                    chunk = f.read(chunk_size)
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    start += chunk_size
+
+        except Exception as e:
+            self.send_error(500, f"Error handling partial request: {str(e)}")
 
 
 def start_http_server(port=8000):

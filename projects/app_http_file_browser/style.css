@@ -167,6 +167,7 @@ header button {
     position: relative;
     max-width: 90%;
     max-height: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;

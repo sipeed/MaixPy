@@ -1,7 +1,7 @@
 id: http_file_browser
 name: HTTP File Browser
 name[zh]: HTTP 文件浏览器
-version: 1.1.5
+version: 1.1.6
 author: Neucrack@Sipeed
 icon: icon.json
 desc: Browse and download files though http(browser)
