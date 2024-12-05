@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy: Where to Find Datasets for Training Models
+title: MaixCAM MaixP Where to Find Datasets for Training Models
 ---
 
 ## What Are Datasets Used For?
