@@ -81,6 +81,9 @@ disp.set_backlight(50)
 
 注意，程序退出回到应用选择界面后会自动恢复到系统设置的背光亮度。
 
+> 如果亮度设置到 `100%` 仍然觉得暗，可以尝试修改`/boot/board`文件中的`disp_max_backlight=50`选项为更大的值，当`disp_max_backlight=100`并且`disp.set_backlight(100)`时硬件上背光控制引脚输出`100%`占空比即高电平。即最终输出到硬件的占空比 = `set_backlight 设置值` * `disp_max_backlight`。
+> **注意**，修改最大亮度限制会带来功耗和发热量的上升，按照自己实际需求合理设置，不要盲目追求拉满亮度。
+
 
 ## 显示到 MaixVision
 

@@ -39,6 +39,10 @@ YOLOv8 / YOLO11 不光支持检测物体，还有 yolov8-pose / YOLO11-pose 支�
 * 使用 MaixPy 加载模型运行。
 
 
+## 哪里找数据集训练
+
+请看[哪里找数据集](../pro/datasets.md)
+
 
 ## 参考文章
 
@@ -78,7 +82,7 @@ MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO1
 
 按照[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 进行模型转换。
 
-注意模型输出节点的选择：
+注意模型输出节点的选择（注意可能你的模型可能数值不完全一样，看下面的图找到相同的节点即可）：
 * 检测模型：
   * YOLOv8 提取 onnx 的 `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` 这两个输出。
   * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`输出。

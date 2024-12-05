@@ -78,6 +78,11 @@ disp.set_backlight(50)
 
 Note that when the program exits and returns to the app selection interface, the backlight brightness will automatically revert to the system setting.
 
+If the brightness is set to `100%` and still feels dim, you can try modifying the `disp_max_backlight=50` option in the `/boot/board` file to a larger value. When `disp_max_backlight=100` and `disp.set_backlight(100)` are set, the hardware backlight control pin outputs a 100% duty cycle, which is a high level. The final duty cycle output to the hardware is calculated as:  
+`set_backlight value` * `disp_max_backlight`.  
+
+**Note**: Increasing the maximum brightness limit will lead to higher power consumption and heat generation. Adjust it reasonably based on your actual needs and avoid blindly maxing out the brightness.
+
 ## Displaying on MaixVision
 
 When running code in MaixVision, images can be displayed on MaixVision for easier debugging and development.

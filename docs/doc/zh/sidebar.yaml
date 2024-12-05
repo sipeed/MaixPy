@@ -81,6 +81,8 @@ items:
         label: 离线训练 YOLO11/YOLOv8 模型
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
+    -   file: pro/datasets.md
+        label: 哪里找数据集
     -   file: pro/customize_model.md
         label: 移植新模型
 

@@ -35,6 +35,11 @@ To ensure our model can be used on MaixPy (MaixCAM), it must go through the foll
 * Convert the `onnx` model into a `MUD` file supported by MaixPy, as described in the [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) article.
 * Use MaixPy to load and run the model.
 
+## Where to Find Datasets for Training
+
+Please refer to [Where to find datasets](../pro/datasets.md)
+
+
 ## Reference Articles
 
 Since this process is quite general, this article only provides an overview. For specific details, please refer to the **[YOLO11 / YOLOv8 official code and documentation](https://github.com/ultralytics/ultralytics)** (**recommended**) and search for training tutorials to eventually export an ONNX file.
@@ -72,7 +77,7 @@ MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 for object detection, YOLOv8-p
 
 Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) to convert the model.
 
-Pay attention to the model output node selection:
+Pay attention to the selection of the model output nodes (note that the numerical values of your model might not be exactly the same; refer to the diagram below to identify the corresponding nodes):
 * Object detection:
   * YOLOv8 extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` from ONNX as outputs.
   * YOLO11 extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`.

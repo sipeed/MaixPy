@@ -81,6 +81,8 @@ items:
         label: YOLO11/v8 model offline training
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
+    -   file: pro/datasets.md
+        label: Where to find datasets
     -   file: pro/customize_model.md
         label: Customize new AI model
 
