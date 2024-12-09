@@ -34,7 +34,13 @@ def touch_box(t, box, oft = 0):
 need_exit = False
 show_urls = False
 while not app.need_exit():
-    img = cam2.read()
+    img = None
+    try:
+        img = cam2.read()
+    except:
+        time.sleep_ms(10)
+        continue
+
     t = ts.read()
 
     box = [20, 15, img_exit.width(), img_exit.height()]

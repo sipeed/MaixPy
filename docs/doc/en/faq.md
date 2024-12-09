@@ -235,3 +235,18 @@ with open("/root/a.txt", "r") as f:
 
 Similarly, other functions that are not covered in the documentation can be searched to check if they are included in Python’s built-in libraries, which you can call directly.
 
+### Error: camera read timeout during image capture
+
+This error might occur when the camera's image buffer does not contain new images, causing a timeout during image capture. In most cases, this happens because the image is read too quickly, or multiple camera channels are attempting to read simultaneously. For instance, if one camera channel is bound to an RTSP service while another thread tries to capture images from a second camera channel.
+
+Solution: Catch the exception, wait for a short period, and then retry the capture. Example code:
+
+```python
+img = None
+try:
+    img = cam.read()
+except:
+    time.sleep_ms(10)
+    continue
+```
+

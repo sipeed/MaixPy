@@ -225,4 +225,15 @@ with open("/root/a.txt", "r") as f:
 
 类似的，其它在文档中没介绍的功能可以尝试搜一艘是不是 Python 自带的库，可以直接调用。
 
+## 取图时出现`camera read timeout`的错误
 
+这可能是在取图时摄像头缓存的图片缓存区没有新图片,导致取图超时.大部分情况是由于读图太快, 或者有多个Camera通道在同时读图时会遇到, 例如将一个Camera通道绑定到Rtsp服务后, 又在另一个线程从第二个Camera通道取图. 解决方法是捕获到异常后稍等片刻再次尝试取图, 参考代码:
+
+```python
+img = None
+try:
+    img = cam.read()
+except:
+    time.sleep_ms(10)
+    continue
+```
