@@ -148,7 +148,7 @@ cp -r "tmp/sys_builtin_files/boot/boards" "tmp/sys_builtin_files/maixapp/"
 ./update_img.sh tmp/sys_builtin_files "tmp/$os_version_str.img"
 
 # 9. xz 压缩镜像
-xz -zv "tmp/$os_version_str.img"
+xz -zv -T 0 "tmp/$os_version_str.img"
 
 echo "Complete: os file: tmp/$os_version_str.img.xz"
 
