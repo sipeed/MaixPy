@@ -13,8 +13,10 @@ def parse_str_values(value : str) -> list[float]:
       return [float(value)]
 
 def load_labels(model_path, path_or_labels : str):
-    path = os.path.join(os.path.dirname(model_path), path_or_labels)
-    if os.path.exists(path):
+    path = ""
+    if not ("," in path_or_labels or " " in path_or_labels or "\n" in path_or_labels):
+      path = os.path.join(os.path.dirname(model_path), path_or_labels)
+    if path and os.path.exists(path):
       with open(path, encoding = "utf-8") as f:
         labels0 = f.readlines()
     else:
@@ -30,7 +32,8 @@ class My_Classifier:
       self.extra_info = self.model.extra_info()
       self.mean = parse_str_values(self.extra_info["mean"])
       self.scale = parse_str_values(self.extra_info["scale"])
-      self.labels = load_labels(model, self.extra_info["labels"])
+      self.labels = self.model.extra_info_labels()
+      # self.labels = load_labels(model, self.extra_info["labels"]) # same as self.model.extra_info_labels()
 
     def classify(self, img : image.Image):
       outs = self.model.forward_image(img, self.mean, self.scale, copy_result = False)
