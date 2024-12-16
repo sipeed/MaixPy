@@ -42,6 +42,8 @@ items:
         label: Line tracking
     -   file: vision/qrcode.md
         label: QRcode identity
+    -   file: vision/find_barcodes.md
+        label: Barcode identity
     -   file: vision/apriltag.md
         label: AprilTag identity
     -   file: vision/opencv.md

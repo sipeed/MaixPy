@@ -42,6 +42,8 @@ items:
         label: 寻找直线
     -   file: vision/qrcode.md
         label: 二维码识别
+    -   file: vision/find_barcodes.md
+        label: 条形码识别
     -   file: vision/apriltag.md
         label: AprilTag 识别
     -   file: vision/opencv.md

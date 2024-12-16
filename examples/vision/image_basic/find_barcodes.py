@@ -1,8 +1,7 @@
 from maix import camera, display, image
 
-cam = camera.Camera(320, 240)
+cam = camera.Camera(480, 320)
 disp = display.Display()
-
 
 while 1:
     img = cam.read()
