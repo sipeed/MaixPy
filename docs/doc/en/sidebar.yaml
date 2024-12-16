@@ -72,7 +72,7 @@ items:
     -   file: vision/object_track.md
         label: Object tracking and counting
     -   file: vision/ocr.md
-        label: OCR 
+        label: OCR
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md
@@ -178,8 +178,12 @@ items:
         label: Power Management Unit
     -   file: modules/fp5510.md
         label: Voice Coil Motor FP5510
-        file: modules/spilcd.md
+    -   file: modules/spilcd.md
         label: SPI LCD Screen
+    -   file: modules/thermography_mlx90640.md
+        label: MLX90640
+    -   file: modules/tof_opns303x.md
+        label: TOF OPNS303x
 
 -   label: Projects
     items:
