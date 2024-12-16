@@ -101,7 +101,7 @@ while 1:
        for i in range(4):
            corners[i][0] = int(corners[i][0] * x_scale)
            corners[i][1] = int(corners[i][1] * y_scale)
-
+   
        # 显示
        for i in range(4):
            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
@@ -129,3 +129,135 @@ while 1:
 
 
 
+### 测量摄像头与物体的距离
+
+这里提供一种使用`distance=k/width`的公式来测距, 其中`distance`是摄像头和物体的距离,单位`mm`, `k`是一个常量, `width`是物体在画面中的宽度,单位是像素点. 
+
+测量方法分两步: 1. 测量常量系数k; 2. 通过常量系数和标签宽度来计算物体与摄像头的距离
+
+#### 前期准备
+
+1. `apriltag`标签纸
+2. 尺子(或其他测距工具)
+
+#### 测量常量系数k
+
+- 将`apriltag`标签纸固定,并在距离`apriltag`标签20cm处固定`maixcam`
+
+- 使用`maixcam`检测`apriltag`标签并计算标签的宽度, 参考代码:
+
+    ```python
+    from maix import camera, display
+    import math
+
+    '''
+    x1,y1,x2,y2: apriltag宽度的两点坐标, 一般通过corners()方法获取
+    返回标签的宽度,单位为像素点
+    '''
+    def caculate_width(x1, y1, x2, y2):
+        return math.sqrt((x2 - x1)**2 + (y2 - y1)**2) 
+
+    cam = camera.Camera(160, 120)
+    disp = display.Display()
+
+    while 1:
+        img = cam.read()
+
+        apriltags = img.find_apriltags()
+        for a in apriltags:
+            corners = a.corners()
+
+            # 通过水平方向的两个坐标点计算宽度
+            width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+            # 打印apriltag标签的实际宽度
+            print(f'apriltag width:{width}')
+        disp.show(img)
+    ```
+
+- 计算常量系数k
+
+    ```python
+    '''
+    width: 当距离为distance时,检测到apriltag标签的宽度
+    distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+    返回常量系数
+    '''
+    def caculate_k(width, distance):
+        return width * distance
+    
+    # 距离200mm时检测到标签宽度为43个像素
+    k = caculate_k(43, 200)
+    ```
+
+#### 通过常量系数计算摄像头和物体间的距离
+
+```python
+'''
+width: apriltag标签的宽度
+k: 常量系数
+返回摄像头与物体的距离,单位mm
+'''
+def caculate_distance(width, k):
+    return k / width
+
+distance = caculate_distance(55, 8600)
+```
+
+#### 完整的代码参考:
+
+```python
+from maix import camera, display, image
+import math
+
+'''
+x1,y1,x2,y2: apriltag宽度的两点坐标, 一般通过corners()方法获取
+返回标签的宽度,单位为像素点
+'''
+def caculate_width(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2) 
+
+'''
+width: 当距离为distance时,检测到apriltag标签的宽度
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(width, distance):
+    return width * distance
+
+'''
+width: apriltag标签的宽度
+k: 常量系数
+返回摄像头与物体的距离,单位mm
+'''
+def caculate_distance(width, k):
+    return k / width
+
+
+cam = camera.Camera(192, 108)
+disp = display.Display()
+
+# 距离200mm时检测到标签宽度为43个像素
+k = caculate_k(43, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # 通过水平方向的两个坐标点计算宽度
+        width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+
+        # 计算距离
+        distance = caculate_distance(width, k)
+
+        print(f'apriltag width:{width} distance:{distance} mm')
+
+    disp.show(img)
+
+```
+
+上面的方法是通过`apriltag`的宽度计算距离, 同样也可以扩展为使用高度来计算距离. 但需要注意该方法是在对距离估测, 实际应用中会有些许误差存在.

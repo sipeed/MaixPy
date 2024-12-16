@@ -125,3 +125,142 @@ Here are explanations for common parameters. If you can't find parameters to imp
 | families  | Apriltag label family type                                   | Scan for labels from the TAG36H11 family:<br />```img.find_apriltags(families = image.ApriltagFamilies.TAG36H11)``` |
 
 This article introduces common methods. For more API information, please refer to the [image](../../../api/maix/image.md) section of the API documentation.
+
+### Measuring Distance Between Camera and Object
+
+This section describes a method to estimate the distance using the formula `distance = k / width`, where:
+`distance`: Distance between the camera and the object in millimeters (mm).
+`k`: A constant.
+`width`: Width of the object in the image, measured in pixels.
+
+The process consists of two steps:
+
+1. Measure the constant coefficient `k`.
+2. Calculate the distance between the camera and the object using the constant and the object's `width`.
+
+#### Preparation
+
+1. AprilTag paper for calibration.
+2. A ruler (or other measuring tool).
+
+#### Measuring the Constant Coefficient `k`
+
+- Fix the AprilTag in place and set the camera (maixcam) at a distance of 20 cm from the tag.
+
+- Use `maixcam` to detect the `AprilTag` and calculate the tag's `width`. Refer to the following code:
+
+  ```python
+  from maix import camera, display
+  import math
+
+  '''
+  x1, y1, x2, y2: Coordinates of two points defining the tag's width, typically obtained using the corners() method.
+  Returns the width of the tag in pixels.
+  '''
+  def caculate_width(x1, y1, x2, y2):
+      return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+  cam = camera.Camera(160, 120)
+  disp = display.Display()
+
+  while 1:
+      img = cam.read()
+
+      apriltags = img.find_apriltags()
+      for a in apriltags:
+          corners = a.corners()
+
+          # Calculate width using two horizontal corner points
+          width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+          # Print the detected width of the AprilTag
+          print(f'apriltag width:{width}')
+      disp.show(img)
+  ```
+
+- Calculate the constant `k`:
+
+  ```python
+  '''
+  width: Width of the AprilTag detected at a known distance.
+  distance: The actual distance to the AprilTag during detection, in mm.
+  Returns the constant coefficient.
+  '''
+  def caculate_k(width, distance):
+      return width * distance
+
+  # Example: At a distance of 200 mm, the tag width is detected as 43 pixels
+  k = caculate_k(43, 200)
+  ```
+
+#### Calculate Distance Between Camera and Object Using `k`
+
+```python
+'''
+width: Width of the AprilTag in pixels.
+k: Constant coefficient.
+Returns the distance between the camera and the object in mm.
+'''
+def caculate_distance(width, k):
+    return k / width
+
+distance = caculate_distance(55, 8600)
+```
+
+#### 完整的代码参考:
+
+```python
+from maix import camera, display, image
+import math
+
+'''
+x1, y1, x2, y2: Coordinates of two points defining the tag's width, typically obtained using the corners() method.
+Returns the width of the tag in pixels.
+'''
+def caculate_width(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+'''
+width: Width of the AprilTag detected at a known distance.
+distance: The actual distance to the AprilTag during detection, in mm.
+Returns the constant coefficient.
+'''
+def caculate_k(width, distance):
+    return width * distance
+
+'''
+width: Width of the AprilTag in pixels.
+k: Constant coefficient.
+Returns the distance between the camera and the object in mm.
+'''
+def caculate_distance(width, k):
+    return k / width
+
+
+cam = camera.Camera(192, 108)
+disp = display.Display()
+
+# Example: At a distance of 200 mm, the tag width is detected as 43 pixels
+k = caculate_k(43, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # Calculate width using two horizontal corner points
+        width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+
+        # Calculate distance
+        distance = caculate_distance(width, k)
+
+        print(f'apriltag width:{width} distance:{distance} mm')
+
+    disp.show(img)
+
+```
+
+This method uses the width of the `AprilTag` to calculate the distance. It can also be extended to use height for distance calculation. However, note that this approach provides an estimate of the distance, and slight inaccuracies may occur due to real-world factors.
