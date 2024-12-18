@@ -181,8 +181,12 @@ items:
         label: 电源管理单元
     -   file: modules/fp5510.md
         label: 音圈电机 FP5510
-        file: modules/spilcd.md
+    -   file: modules/spilcd.md
         label: SPI LCD 屏幕
+    -   file: modules/thermography_mlx90640.md
+        label: 热成像模块 MLX90640
+    -   file: modules/tof_opns303x.md
+        label: TOF模块 OPNS303x
 
 -   label: 项目实战
     items:
