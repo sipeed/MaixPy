@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -o pipefail
 
 source_dir=$1
 img_file=$2
@@ -34,7 +35,9 @@ $THISDIR/fuse2fs -o fakeroot -o offset=$PART_OFFSET $img_file $mount_root
 
 # copy root files
 echo "copy root files now"
-find $source_dir -mindepth 1 -maxdepth 1 -type d ! -name "boot" -exec cp -r {} $mount_root \;
+find $source_dir -mindepth 1 -maxdepth 1 -type d ! -name "boot" | while read -r dir; do
+    cp -r "$dir" "$mount_root"
+done
 sync
 echo "copy root files done"
 
