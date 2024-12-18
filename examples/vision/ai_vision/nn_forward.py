@@ -4,7 +4,7 @@ import numpy as np
 model_path = "/root/models/yolov8n.mud"
 run_times = 20
 
-model = nn.NN(model_path)
+model = nn.NN(model_path, dual_buff=False)
 
 # input
 print("\ninputs:")
