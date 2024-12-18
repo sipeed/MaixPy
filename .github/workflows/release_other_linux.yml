@@ -1,0 +1,67 @@
+name: Relase MaixPy for Linux
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  build:
+    name: release and upload assets task
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.12"] # 3.11  released by release_maixcam
+        os: ["ubuntu-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build MaixPy
+        id: build_maixpy
+        run: |
+          whereis python
+          whereis python3
+          # export PATH=~/.local/bin/:$PATH
+          # pull sipeed/MaixCDK repo here first
+          pwd_path=$(pwd)
+          cd ~
+          git clone https://github.com/sipeed/MaixCDK --depth=1
+          export MAIXCDK_PATH=`pwd`/MaixCDK
+          cd $pwd_path
+          python -m pip install -U pip setuptools wheel twine
+          python -m pip install -r $MAIXCDK_PATH/requirements.txt
+          python -m pip install pybind11-stubgen
+          echo "--------------------------------"
+          echo "-- Build MaixPy for Linux now --"
+          echo "--------------------------------"
+          sudo apt update -y
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake
+          cmake --version
+          python setup.py bdist_wheel linux
+          echo "--------------------------------"
+          echo "-- Test MaixPy basic for Linux now --"
+          echo "--------------------------------"
+          release_name=`ls dist|awk '{print $1}'`
+          release_path=dist/$release_name
+          echo "release_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_name=$release_name" >> $GITHUB_OUTPUT
+
+      - name: Publish MaixPy to pypi.org
+        run: |
+          echo "[pypi]" > ~/.pypirc
+          echo "  username = __token__" >> ~/.pypirc
+          echo "  password = ${{ secrets.PYPI_TOKEN }}" >> ~/.pypirc
+          twine upload dist/*.whl
+
+      - name: Upload to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.release_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.release_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
