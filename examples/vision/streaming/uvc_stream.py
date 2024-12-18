@@ -1,13 +1,11 @@
 from maix import camera, display, app, time, uvc
 
-cam = camera.Camera(640, 360)   # Manually set resolution
+cam = camera.Camera(640, 360, fps=60)   # Manually set resolution
                                 # | 手动设置分辨率
 # disp = display.Display()        # MaixCAM default is 522x368
                                 # | MaixCAM 默认是 522x368
 
-uvcs = uvc.UvcStreamer(0)
-# uvcs.use_mjpg(1) for mjpg or yuyv default without it
-# uvcs.use_mjpg(1) 是为了刷 mjpg 通道，不添加这一行默认是 yuyv 通道
+uvcs = uvc.UvcStreamer()
 uvcs.use_mjpg(1)
 
 while not app.need_exit():
