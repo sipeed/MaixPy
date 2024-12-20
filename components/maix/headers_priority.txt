@@ -13,4 +13,7 @@ maix_camera.hpp
 maix_display.hpp
 maix_imu.hpp
 maix_qmi8658.hpp
+maix_cmap.hpp
+maix_mlx90640.hpp
+maix_opns303x.hpp
 
