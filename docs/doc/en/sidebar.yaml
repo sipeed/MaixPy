@@ -120,6 +120,8 @@ items:
         label: RTSP streaming
     -   file: video/rtmp_streaming.md
         label: RTMP streaming
+    -   file: video/uvc_streaming.md
+        label: UVC streaming
 
 -   label: Network
     items:
