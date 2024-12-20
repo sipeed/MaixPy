@@ -1,25 +1,33 @@
 ---
-title: MaixCAM MaixP Where to Find Datasets for Training Models
+title: MaixCAM MaixP Where to Find Models and Datasets
 ---
+
+---
+
+## Where to Find Ready-to-Use Models for MaixPy MaixCAM
+
+Visit the [MaixHub Model Library](https://maixhub.com/model/zoo) and filter by the corresponding hardware platform to find suitable models.
 
 ## What Are Datasets Used For?
 
-Datasets are essential for training machine learning models. They provide the labeled data that models use to learn patterns and features, enabling them to perform specific tasks such as object detection, image classification, or keypoint detection.
+First, check the [MaixHub Model Library](https://maixhub.com/model/zoo) to see if there’s a model you need. If not, you can train your own model. Training a model requires a dataset, which provides the data needed for training.
 
-## Is It Possible Not to Use a Dataset?
+## Converting Existing Models for Use with MaixCAM MaixPy
 
-Yes, it is possible!  
+MaixPy natively supports several model frameworks, such as YOLOv8/YOLO11/Mobilenet, etc. Models trained with these frameworks can be exported to ONNX format and then converted to a format supported by MaixCAM for use with MaixPy MaixCAM.
 
-Instead of training your own model, you can use open-source pre-trained models. For example, there are many pre-trained models available for YOLO11, YOLOv8, and YOLOv5. One such source is [this repository](https://github.com/Eric-Canas/qrdet/releases), where you can download YOLOv8 models for QR code detection (`qrdet-*.pt`) then can be convert [model for MaixCAM](https://maixhub.com/model/zoo/480). These models can be exported to ONNX format and then converted to a format supported by MaixCAM.
+If you don’t want to train your own models, you can find open-source pre-trained models online. For instance, YOLO11/YOLOv8/YOLOv5 have many shared models. For example, from [this link](https://github.com/Eric-Canas/qrdet/releases), you can download YOLOv8 models for QR code detection (`qrdet-*.pt`). Simply export the model to ONNX format and convert it to [MaixCAM’s supported format](https://maixhub.com/model/zoo/480).
 
-## Where to Find Datasets
+Refer to the [MaixCAM Model Conversion Documentation](../ai_model_converter/maixcam.md) for details on the conversion process.
 
-### Option 1: Use Official Datasets from Algorithm Providers
-For models like YOLO11 or YOLOv8, you can find many open-source datasets in the [YOLO Official Documentation - Datasets](https://docs.ultralytics.com/datasets/). These datasets are ready to use, and training can be done with a single command as per the documentation. After training, you can export the model to ONNX format and convert it to work with MaixCAM.
+## Where to Find Datasets?
 
-### Option 2: Use Dataset Platforms
-Platforms such as [Kaggle](https://www.kaggle.com/datasets/riondsilva21/hand-keypoint-dataset-26k) and [Roboflow](https://universe.roboflow.com/) provide extensive collections of datasets for various tasks. You can search for and download datasets that fit your needs.
+1. **Method 1: Check Official Documentation for Algorithms**  
+   For example, for YOLO11/YOLOv8, the [YOLO Official Documentation - Datasets](https://docs.ultralytics.com/datasets/) provides a variety of open-source datasets. You can use a single command to train models following the documentation. Afterward, export the model to ONNX format and convert it for MaixCAM.  
 
-### Option 3: Create Your Own Dataset in YOLO Format
-If you have access to open-source datasets, you can reformat them to make them compatible with YOLO and use them for training. This option provides flexibility and allows you to tailor datasets to your specific application.
+2. **Method 2: Visit Dataset Websites**  
+   Platforms like [Kaggle](https://www.kaggle.com/datasets/riondsilva21/hand-keypoint-dataset-26k) or [Roboflow](https://universe.roboflow.com/) host numerous datasets for different applications.
+
+3. **Method 3: Use Open-Source Datasets and Prepare Training Scripts**  
+   Search for open-source datasets and format them into scripts compatible with training frameworks like YOLO.
 

@@ -13,6 +13,18 @@ Besides the built-in AI algorithms and models, MaixPy is highly extensible, allo
 
 Due to the prevalence of visual applications, this guide will be divided into sections for visual applications and other applications.
 
+
+## If MaixPy Already Supports the Framework but the Dataset is Different
+
+For instance, if MaixPy already supports YOLO11 detection, but your dataset is different, you only need to prepare your dataset, train the model, and export it.
+
+Another quick and lazy method is to first search online to see if someone has already trained or open-sourced a model. If you find one, simply download it and convert the format for use, or continue training based on it. 
+
+For example:
+If you want to detect fire, a quick search online might lead you to the project [Abonia1/YOLOv8-Fire-and-Smoke-Detection](https://github.com/Abonia1/YOLOv8-Fire-and-Smoke-Detection), which shares a fire and smoke detection model based on YOLOv8. You can download it, export it to the ONNX format, and then convert it to a format supported by MaixPy.
+
+You can also upload your model to the [MaixHub Model Library](https://maixhub.com/model/zoo) to share it with more people, or find models shared by others there.
+
 ## Adding Visual AI Models and Algorithms in Python
 
 For visual applications, the usual task is image recognition, specifically:

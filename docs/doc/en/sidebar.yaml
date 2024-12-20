@@ -86,7 +86,7 @@ items:
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
     -   file: pro/datasets.md
-        label: Where to find datasets
+        label: Where to find models & datasets
     -   file: pro/customize_model.md
         label: Customize new AI model
 

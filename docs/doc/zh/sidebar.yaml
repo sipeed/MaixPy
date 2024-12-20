@@ -86,7 +86,7 @@ items:
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
     -   file: pro/datasets.md
-        label: 哪里找数据集
+        label: 哪里找模型和数据集
     -   file: pro/customize_model.md
         label: 移植新模型
 

@@ -47,6 +47,9 @@ plane, ship, storage tank, baseball diamond, tennis court, basketball court, gro
 ```
 在`/root/models/yolo11n_obb.mud`文件中也能看到。
 
+## 更多输入分辨率
+
+默认的输入图像分辨率是`320x224`，如果需要更高的分辨率，可以到[MaixHub 模型库](https://maixhub.com/model/zoo/869) 下载，或者按照后文自定义模型。
 
 ## MaixPy MaixCAM 自定义自己的OBB模型
 

@@ -49,6 +49,10 @@ plane, ship, storage tank, baseball diamond, tennis court, basketball court, gro
 
 The model file can be found at `/root/models/yolo11n_obb.mud`.
 
+## More Input Resolutions
+
+The default input image resolution is `320x224`. For higher resolutions, download from the [MaixHub Model Zoo](https://maixhub.com/model/zoo/869) or customize your own model as described below.
+
 ## Customizing Your Own OBB Model for MaixPy MaixCAM
 
 ### Using the Model on a Computer

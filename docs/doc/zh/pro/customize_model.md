@@ -15,6 +15,16 @@ update:
 因为视觉应用比较多，以下将分为视觉应用和其它应用进行讲解。
 
 
+## 如果 MaixPy 已经支持的框架，只是数据集不同
+
+比如 MaixPy 已经支持了 YOLO11 检测，但是你的数据集不同，这种情况下，你只需要准备好数据集，然后训练模型，导出模型即可。
+
+还有一个偷懒的最快的方式，就是先去网上找找有没有人已经训练好了模型或者开源了模型，下载转一下格式就能用了，或者基于其继续训练。
+举个例子:
+比如要识别火焰，在网上一搜，找到[Abonia1/YOLOv8-Fire-and-Smoke-Detection](https://github.com/Abonia1/YOLOv8-Fire-and-Smoke-Detection) 这个项目分享了基于 YOLOv8 的火焰和烟雾检测模型，下载下来，导出成 ONNX 格式再转换为 MaixPy 支持的格式即可。
+
+可以上传到[MaixHub 模型库](https://maixhub.com/model/zoo)分享给更多人使用，也可以找其他人分享的模型。
+
 ## 在 Python 层面添加视觉 AI 模型和算法
 
 对于视觉，一般来说是对图像进行时别，即：
