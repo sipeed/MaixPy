@@ -75,6 +75,8 @@ items:
         label: 物体轨迹跟踪和计数
     -   file: vision/ocr.md
         label: OCR 文字识别
+    -   file: vision/detect_obb.md
+        label: 带旋转角度的检测(OBB)
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolov5.md

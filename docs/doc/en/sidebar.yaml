@@ -75,6 +75,8 @@ items:
         label: Object tracking and counting
     -   file: vision/ocr.md
         label: OCR
+    -   file: vision/detect_obb.md
+        label: Detect with angle(OBB)
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md

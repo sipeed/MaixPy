@@ -68,7 +68,7 @@ model = YOLO(net_name)  # load an official model
 
 # Predict with the model
 results = model("https://ultralytics.com/images/bus.jpg")  # predict on an image
-path = model.export(format="onnx", imgsz=[input_height, input_width])  # export the model to ONNX format
+path = model.export(format="onnx", imgsz=[input_height, input_width], dynamic=False, simplify=True, opset=17)   # export the model to ONNX format
 print(path)
 
 ```
@@ -82,7 +82,7 @@ MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO1
 
 按照[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 进行模型转换。
 
-注意模型输出节点的选择（注意可能你的模型可能数值不完全一样，看下面的图找到相同的节点即可）：
+注意模型输出节点的选择（**注意可能你的模型可能数值不完全一样，看下面的图找到相同的节点即可**）：
 * 检测模型：
   * YOLOv8 提取 onnx 的 `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` 这两个输出。
   * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`输出。
@@ -92,8 +92,11 @@ MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO1
 * 图像分割：
   * YOLOv8-seg 提取 `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`
   * YOLO11-seg 提取 `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`四个输出。
+* OBB 检测：
+  * YOLOv8 提取`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`这三个输出。
+  * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`这三个输出。
 
-![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg)
+![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg) ![](../../assets/yolo11_out_obb.jpg)
 
 对于物体检测，mud 文件为（YOLO11 model_type 改为 yolo11）
 ```ini
