@@ -121,6 +121,8 @@ items:
         label: RTSP 串流
     -   file: video/rtmp_streaming.md
         label: RTMP 串流
+    -   file: video/uvc_streaming.md
+        label: UVC 串流
 
 -   label: 网络通信
     items:
