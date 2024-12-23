@@ -108,6 +108,8 @@ items:
         label: AI 声音分类
     -   file: pro/customize_model.md
         label: 移植新模型
+    -   file: audio/deploy_online_recognition.md
+        label: 部署在线语音识别环境
 
 -   label: 视频
     items:
