@@ -7,4 +7,5 @@ desc: >-
   Connecting to an ASR server built on Sherpa-ONNX to use online speech
   recognition.
 files:
-  - app_asr_online.py
+  - main.py
+  - app.png
