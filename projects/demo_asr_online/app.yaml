@@ -1,0 +1,10 @@
+id: app_asr_online
+name: ASR Online
+version: 1.0.0
+author: lxowalle
+icon: app.png
+desc: >-
+  Connecting to an ASR server built on Sherpa-ONNX to use online speech
+  recognition.
+files:
+  - app_asr_online.py
