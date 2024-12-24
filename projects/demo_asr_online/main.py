@@ -1,13 +1,9 @@
-from wave import Error
-from maix import camera, display, app, time, image, audio
-from maix._maix.err import Err
+from maix import camera, display, app, image, audio
 import asyncio, json, websockets
 import numpy as np
 
 STATUS_OK = 0
 STATUS_EXIT = 1
-STATUS_SCAN_QRCODE = 2
-STATUS_SHOW_ASR = 3
 
 class AsrOnlineClient:
     def __init__(self, exit_event):
