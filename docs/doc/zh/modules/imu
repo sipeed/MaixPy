@@ -1,0 +1,283 @@
+---
+title: imu惯性导航
+  - date: 2024-10-26
+    author: YWJ
+    version: 1.0.0
+    content: 初版文档
+---
+[来自项目](https://maixhub.com/share/51)
+[使用imu]（https://www.yahboom.com/tbdetails?id=507）
+ IMU惯导代码：
+通过串口接收来自惯性导航模块的数据，并对加速度、角速度和姿态角度进行处理。
+
+### 1. 导入所需的库：
+   - `numpy`：用于进行数学计算。
+   - `scipy.spatial.transform.Rotation`：用于处理旋转矩阵和四元数。
+   - `serial`：用于读取串口数据。
+   - `time`：用于时间相关的操作。
+
+### 2. 定义了一些全局变量，如加速度、角速度、姿态角度等的缓冲区，以及用于校验的数据结构和标志位。
+
+### 3. 定义了`GetDataDeal`函数，用于处理接收到的数据。这个函数会根据接收到的数据类型（加速度、角速度或姿态角度），调用相应的处理函数（`get_acc`、`get_gyro`、`get_angle`），并更新全局变量。
+
+### 4. 定义了`DueData`函数，作为新的核心过程，负责读取数据分区，并将每个读取到的数据存储到相应的数组中。
+
+### 5. 定义了`get_acc`、`get_gyro`和`get_angle`函数，这些函数用于将接收到的二进制数据转换为实际的加速度、角速度和姿态角度值。
+
+### 6. 定义了`KalmanFilter`类，用于实现卡尔曼滤波器，对传感器数据进行滤波处理，以减少噪声对测量结果的影响。
+
+### 7. 定义了`get_quaternion_from_gyro_accel`函数，用于根据加速度和角速度计算四元数表示的旋转。
+
+### 8. 在主程序中，设置了串口的端口号、波特率，并创建了一个串口对象。然后进入一个循环，不断从串口读取数据，并通过调用`DueData`函数来处理这些数据。
+
+### 9. 如果接收到的数据帧头是0x55，则开始接收数据，并根据数据长度来判断是否接收完整个数据帧。如果接收完整个数据帧，则调用`GetDataDeal`函数来处理这些数据。
+
+### 10. 最后，程序使用卡尔曼滤波器对加速度、角速度和姿态角度进行滤波处理，以提高数据的精度。
+
+```python
+import numpy as np
+from scipy.spatial.transform import Rotation as R
+
+# 读取数据，请结合实际修改，得到
+import serial,time
+a = time.time()
+acc_2 = [0,0,0]
+buf_length = 11
+
+RxBuff = [0]*buf_length
+
+ACCData = [0.0]*8
+GYROData = [0.0]*8
+AngleData = [0.0]*8
+FrameState = 0  # What is the state of the judgment
+CheckSum = 0  # Sum check bit
+
+start = 0 #帧头开始的标志
+data_length = 0 #根据协议的文档长度为11 eg:55 51 31 FF 53 02 CD 07 12 0A 1B
+n1=0
+acc = [0.0]*3
+gyro = [0.0]*3
+Angle = [0.0]*3
+
+def GetDataDeal(list_buf):
+    global acc,gyro,Angle,acc_2,n1
+
+    if(list_buf[buf_length - 1] != CheckSum): #校验码不正确
+        return
+        
+    if(list_buf[1] == 0x51): #加速度输出
+        for i in range(6): 
+            ACCData[i] = list_buf[2+i] #有效数据赋值
+        acc = get_acc(ACCData)
+
+    elif(list_buf[1] == 0x52): #角速度输出
+        for i in range(6): 
+            GYROData[i] = list_buf[2+i] #有效数据赋值
+        gyro = get_gyro(GYROData)
+
+    elif(list_buf[1] == 0x53): #姿态角度输出
+        for i in range(6): 
+            AngleData[i] = list_buf[2+i] #有效数据赋值
+        Angle = get_angle(AngleData)
+
+    
+    if n1 == 0:
+        n1 = acc
+
+def DueData(inputdata):  # New core procedures, read the data partition, each read to the corresponding array 
+    global start
+    global CheckSum
+    global data_length
+    # print(type(inputdata))
+    if inputdata == 0x55 and start == 0:
+        start = 1
+        data_length = 11
+        CheckSum = 0
+        #清0
+        for i in range(11):
+            RxBuff[i] = 0
+
+    if start == 1:
+        CheckSum += inputdata #校验码计算 会把校验位加上
+        RxBuff[buf_length-data_length] = inputdata #保存数据
+        data_length = data_length - 1 #长度减一
+        if data_length == 0: #接收到完整的数据
+            CheckSum = (CheckSum-inputdata) & 0xff 
+            start = 0 #清0
+            GetDataDeal(RxBuff)  #处理数据
+        
+
+def get_acc(datahex):
+    axl = datahex[0]
+    axh = datahex[1]
+    ayl = datahex[2]
+    ayh = datahex[3]
+    azl = datahex[4]
+    azh = datahex[5]
+    k_acc = 16.0
+    acc_x = (axh << 8 | axl) / 32768.0 * k_acc
+    acc_y = (ayh << 8 | ayl) / 32768.0 * k_acc
+    acc_z = (azh << 8 | azl) / 32768.0 * k_acc
+    if acc_x >= k_acc:
+        acc_x -= 2 * k_acc
+    if acc_y >= k_acc:
+        acc_y -= 2 * k_acc
+    if acc_z >= k_acc:
+        acc_z -= 2 * k_acc
+    return acc_x, acc_y, acc_z
+
+
+def get_gyro(datahex):
+    wxl = datahex[0]
+    wxh = datahex[1]
+    wyl = datahex[2]
+    wyh = datahex[3]
+    wzl = datahex[4]
+    wzh = datahex[5]
+    k_gyro = 2000.0
+    gyro_x = (wxh << 8 | wxl) / 32768.0 * k_gyro
+    gyro_y = (wyh << 8 | wyl) / 32768.0 * k_gyro
+    gyro_z = (wzh << 8 | wzl) / 32768.0 * k_gyro
+    if gyro_x >= k_gyro:
+        gyro_x -= 2 * k_gyro
+    if gyro_y >= k_gyro:
+        gyro_y -= 2 * k_gyro
+    if gyro_z >= k_gyro:
+        gyro_z -= 2 * k_gyro
+    return gyro_x, gyro_y, gyro_z
+
+
+def get_angle(datahex):
+    rxl = datahex[0]
+    rxh = datahex[1]
+    ryl = datahex[2]
+    ryh = datahex[3]
+    rzl = datahex[4]
+    rzh = datahex[5]
+    k_angle = 180.0
+    angle_x = (rxh << 8 | rxl) / 32768.0 * k_angle
+    angle_y = (ryh << 8 | ryl) / 32768.0 * k_angle
+    angle_z = (rzh << 8 | rzl) / 32768.0 * k_angle
+    if angle_x >= k_angle:
+        angle_x -= 2 * k_angle
+    if angle_y >= k_angle:
+        angle_y -= 2 * k_angle
+    if angle_z >= k_angle:
+        angle_z -= 2 * k_angle
+    return angle_x, angle_y, angle_z
+#卡尔曼滤波
+class KalmanFilter:
+    def __init__(self, dt, process_var, measurement_var):
+        self.dt = dt
+        self.process_var = process_var # Process variance
+        self.measurement_var = measurement_var # Measurement variance
+        
+        # State vector [x, y, z, vx, vy, vz]
+        self.state = np.zeros(6)
+        
+        # Covariance matrix
+        self.P = np.eye(6)
+        
+        # State transition model
+        self.F = np.array([[1, 0, 0, dt,  0,  0],
+                           [0, 1, 0,  0, dt,  0],
+                           [0, 0, 1,  0,  0, dt],
+                           [0, 0, 0,  1,  0,  0],
+                           [0, 0, 0,  0,  1,  0],
+                           [0, 0, 0,  0,  0,  1]])
+        
+        # Process noise covariance matrix Q
+        self.Q = process_var * np.eye(6)
+        
+        # Measurement model, only measuring position [x, y, z]
+        self.H = np.array([[1, 0, 0, 0, 0, 0],
+                           [0, 1, 0, 0, 0, 0],
+                           [0, 0, 1, 0, 0, 0]])
+        
+        # Measurement noise covariance matrix R
+        self.R = measurement_var * np.eye(3)
+    
+    def predict(self):
+        # State prediction
+        self.state = np.dot(self.F, self.state)
+        
+        # Covariance prediction
+        self.P = np.dot(self.F, np.dot(self.P, self.F.T)) + self.Q
+    
+    def update(self, z):
+        # Measurement residual
+        y = z - np.dot(self.H, self.state)
+        
+        # Residual covariance
+        S = np.dot(self.H, np.dot(self.P, self.H.T)) + self.R
+        
+        # Kalman gain
+        K = np.dot(self.P, np.dot(self.H.T, np.linalg.inv(S)))
+        
+        # State update
+        self.state = self.state + np.dot(K, y)
+        
+        # Covariance update
+        I = np.eye(self.P.shape[0])
+        self.P = np.dot((I - np.dot(K, self.H)), self.P)
+
+def get_quaternion_from_gyro_accel(acc, gyro, dt):
+    # Assuming acc and gyro are numpy arrays representing
+    # acceleration [ax, ay, az] and angular velocity [gx, gy, gz]
+    
+    # Normalize acceleration to get attitude
+    acc_norm = acc / np.linalg.norm(acc)
+    
+    # Calculate the incremental rotation from gyro measurements
+    gyro_quat = R.from_rotvec(gyro * dt).as_quat()
+    
+    # Update the rotation quaternion
+    rotation = R.from_quat(gyro_quat)
+    
+    return rotation
+
+
+# Sampling period
+dt = 1/200#采样率
+
+# Initialize Kalman Filter
+kf = KalmanFilter(dt, process_var=1e-2, measurement_var=1e-1)
+#b=[]
+#请结合实际情况修改
+if __name__ == '__main__':
+    port = '/dev/ttyUSB0' # USB serial port linux
+    #port = 'COM12' # USB serial port  windowns
+    baud = 115200   # Same baud rate as the INERTIAL navigation module
+    ser = serial.Serial(port, baud, timeout=0.5)
+    print("Serial is Opened:", ser.is_open)
+    while(1):
+        RXdata = ser.read(1)#一个一个读
+        RXdata = int(RXdata.hex(),16) #转成16进制显示
+        DueData(RXdata)
+        传入acc, gyro, dt
+        # Main loop to process IMU data
+        # Replace with actual IMU data acquisition
+        acc_3 = np.array(acc)  # Accelerometer data
+        gyro_3 = np.array(gyro)   # Gyroscope data
+        
+        # Get quaternion from gyro and accel data
+        rotation = get_quaternion_from_gyro_accel(acc_3, gyro_3, dt)
+        
+        # Rotate acceleration to global frame
+        #acc_global = rotation.apply(acc_3) - np.array([0.0, 0.0, 9.81])
+        acc_global = rotation.apply(acc_3) + np.array(acc_3)
+        # Update Kalman filter with the new measurements (position update step)
+        kf.predict()
+        kf.update(acc_global[:3] * dt ** 2 / 2)
+        
+        # Integrate acceleration to get velocity
+        velocity = kf.state[3:6] + acc_global * dt
+        
+        # Integrate velocity to get position
+        position = kf.state[:3] + velocity * dt
+        
+        # Update Kalman filter state (position prediction step)
+        kf.state[:3] = position
+        kf.state[3:6] = velocity
+        
+```
