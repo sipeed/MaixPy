@@ -21,6 +21,14 @@ Here, two methods are provided to display custom content:
 
 **First, you need to enable the `UVC` function in the `USB settings` section of the `Settings` app.**
 
+After connecting the USB cable:
+
+- Windows users can go to Settings → Bluetooth & devices → Cameras, and see the UVC Camera device. Clicking on it will preview a static image of a small cat.
+
+- Linux users need to download the `guvcview` software, select the resolution of 320x240 and the format as MJPG. You will see two cats with some garbled characters in between (this happens because the actual resolution of the cat image is 224x224, and the software automatically tries to fill the remaining space with another thing). Simply use the correct resolution normally.
+
+Note: The version of guvcview used in Ubuntu 22 and earlier systems is `2.0.7`, which is known that the colors are displayed incorrectly, with a strong green tint. To fix it, please upgrade to a higher version. The version currently in use by the author is `2.2.1`. Ubuntu/Debian users can try to find a relevant PPA (Personal Package Archive) to install a newer version of guvcview.
+
 **Note:**  
 Once the `UVC` function is enabled, due to Linux's implementation of the `UVC Gadget`, a user program is still required to handle `UVC` device events.  
 Otherwise, the entire `USB` functionality will pause and wait, affecting other simultaneously enabled `Gadget` features like `Rndis` and `NCM`, which may cause network disconnection.  
