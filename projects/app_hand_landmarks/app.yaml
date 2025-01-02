@@ -1,0 +1,11 @@
+id: hand_landmarks
+name: Hand Landmarks
+name[zh]: 手关键点
+version: 1.0.0
+author: Neucrack@Sipeed
+icon: icon.png
+desc: Hand Landmarks detect hand keypoints
+files:
+  - icon.png
+  - app.yaml
+  - main.py

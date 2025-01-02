@@ -77,6 +77,8 @@ items:
         label: OCR
     -   file: vision/detect_obb.md
         label: Detect with angle(OBB)
+    -   file: vision/hand_landmarks.md
+        label: Hand landmarks
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md

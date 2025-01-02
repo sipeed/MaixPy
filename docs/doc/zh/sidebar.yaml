@@ -77,6 +77,8 @@ items:
         label: OCR 文字识别
     -   file: vision/detect_obb.md
         label: 带旋转角度的检测(OBB)
+    -   file: vision/hand_landmarks.md
+        label: 手部关键点检测
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolov5.md
