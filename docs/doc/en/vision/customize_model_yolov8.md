@@ -71,6 +71,13 @@ print(path)
 
 Then run `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, we have redefined the input resolution. The model was originally trained with `640x640`, but we use `320x224` to improve the processing speed and match the MaixCAM's screen aspect ratio for convenient display. You can set the resolution according to your own needs.
 
+Espetially for NVIDIA users. You need to check onnxruntime version at your desktop venv and in tpu-mlir docker container. If they don't match you will see several "unimplemeted" errors. Jut update runtime in container 
+
+```shell
+pip install onnxruntime==<version>
+```
+`<version>` is version equals your desktop version
+
 ## Converting to a Model Supported by MaixCAM and MUD File
 
 MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 for object detection, YOLOv8-pose / YOLO11-pose for keypoint detection, and YOLOv8-seg / YOLO11-seg for segmentation (as of 2024-10-10).
