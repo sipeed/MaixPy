@@ -66,6 +66,50 @@ class PoseEstimation:
         def angle_vec(v1: np.ndarray, v2: np.ndarray) -> float:
             return np.degrees(np.arctan2(np.cross(v1, v2), np.dot(v1, v2)))
 
+        from maix import i18n
+
+        trans_dict = {
+            "zh": {
+            },
+            "en": {
+                "上身": "Body",
+                "竖直": " Upright",
+                "倾斜": " Tilted",
+                "平躺": " Lying Down",
+
+                "左": "Left ",
+                "右": "Right ",
+                "大腿": "Thigh",
+                "小臂": "Forearm",
+                "小腿": "Shin",
+                "弯曲": " Curved",
+                "伸直": " Straight",
+
+                "大臂": "Upper Arm",
+                "下垂" : " Drooping",
+                "抬起" : " Raised",
+                "平举" : " Horizontal",
+                "举高" : " High",
+                "上竖" : " Upright",
+
+                "躺下": "Lying Down",
+                "直立": "Standing Up",
+                "坐下": "Sitting Down",
+                "斜躺": "Reclining",
+                "向左1": "To Left 1",
+                "向右1": "To Right 1",
+                "双手平举": "Both Hands Raised Horizontally",
+                "举左手": "Left Hand Raised",
+                "举右手": "Right Hand Raised",
+                "举双手": "Both Hands Raised Up",
+                "双手比心": "Both Hands Forming a Heart",
+                "大字型": "Big 'T' Shape",
+            }
+        }
+        trans = i18n.Trans(trans_dict)
+        tr = trans.tr
+        trans.set_locale(i18n.get_locale())
+
         # km = keypoints_map
         km = {key: sum(d[key] for d in self.keypoints_map_deque) / len(self.keypoints_map_deque) for key in self.keypoints_map_deque[0].keys()}
         status = []
@@ -81,12 +125,12 @@ class PoseEstimation:
         uhs_c = angle_vec(UP, hs_c)
         status += [f"<uhs: l={uhs_l:.1f}, r={uhs_r:.1f}, c={uhs_c:.1f}>"]
 
-        if abs(uhs_c) < 30: # 上身竖直
-            status += ["上身竖直"]
-        elif abs(uhs_c) < 80: # 上身倾斜
-            status += ["上身倾斜"]
-        else: # 上身平躺
-            status += ["上身平躺"]
+        if abs(uhs_c) < 30:
+            status += [tr("上身")+tr("竖直")] # Body Upright
+        elif abs(uhs_c) < 80:
+            status += [tr("上身")+tr("倾斜")] # Body Tilted
+        else:
+            status += [tr("上身")+tr("平躺")] # Body Lying Down
 
         hk_l = km['Left Knee']-km['Left Hip']
         hk_r = km['Right Knee']-km['Right Hip']
@@ -99,14 +143,14 @@ class PoseEstimation:
 
         def det_curve(ang, status):
             ang = abs(ang)
-            if ang < 160: # 弯曲
-                status[-1] += "弯曲"
-            else: # 伸直
-                status[-1] += "伸直"
+            if ang < 160:
+                status[-1] += tr("弯曲") # Curved
+            else:
+                status[-1] += tr("伸直") # Straight
 
-        status += ["左大腿"]
+        status += [tr("左")+tr("大腿")] # Left Thigh
         det_curve(shk_l, status)
-        status += ["右大腿"]
+        status += [tr("右")+tr("大腿")] # Right Thigh
         det_curve(shk_r, status)
 
         se_l = km['Left Elbow']-km['Left Shoulder']
@@ -120,20 +164,20 @@ class PoseEstimation:
 
         def det_hse(ang, status):
             ang = abs(ang)
-            if ang < 20: # 下垂
-                status[-1] += "下垂"
-            elif ang < 80: # 抬起
-                status[-1] += "抬起"
-            elif ang < 110: # 平举
-                status[-1] += "平举"
-            elif ang < 160: # 举高
-                status[-1] += "举高"
-            else: # 上竖
-                status[-1] += "上竖"
+            if ang < 20:
+                status[-1] += tr("下垂") # Drooping
+            elif ang < 80:
+                status[-1] += tr("抬起") # Raised
+            elif ang < 110:
+                status[-1] += tr("平举") # Horizontal
+            elif ang < 160:
+                status[-1] += tr("举高") # High
+            else:
+                status[-1] += tr("上竖") # Upright
 
-        status += ["左大臂"]
+        status += [tr("左")+tr("大臂")] # Left Upper Arm
         det_hse(hse_l, status)
-        status += ["右大臂"]
+        status += [tr("右")+tr("大臂")] # Right Upper Arm
         det_hse(hse_r, status)
 
         ew_l = km['Left Wrist']-km['Left Elbow']
@@ -145,9 +189,9 @@ class PoseEstimation:
         sew_c = angle_vec(-se_c, ew_c)
         status += [f"<sew: l={sew_l:.1f}, r={sew_r:.1f}, c={sew_c:.1f}>"]
 
-        status += ["左小臂"]
+        status += [tr("左")+tr("小臂")] # Left Forearm
         det_curve(sew_l, status)
-        status += ["右小臂"]
+        status += [tr("右")+tr("小臂")] # Right Forearm
         det_curve(sew_r, status)
 
 
@@ -158,9 +202,9 @@ class PoseEstimation:
         hka_r = angle_vec(-hk_r, ka_r)
         status += [f"<hka: l={hka_l:.1f}, r={hka_r:.1f}>"]
 
-        status += ["左小腿"]
+        status += [tr("左")+tr("小腿")] # Left Shin
         det_curve(hka_l, status)
-        status += ["右小腿"]
+        status += [tr("右")+tr("小腿")] # Right Shin
         det_curve(hka_r, status)
 
 
@@ -172,48 +216,48 @@ class PoseEstimation:
         hsw_r = angle_vec(-hs_c, sw_r)
         status += [f"<hsw: l={hsw_l:.1f}, r={hsw_r:.1f}"]
 
-        status += ["综合："]
-        if "上身平躺" in status:
-            status += ["躺下"]
-        elif "上身竖直" in status:
-            if "左大腿伸直" in status or "右大腿伸直" in status:
-                status += ["直立"]
+        status += ["total:"]
+        if tr("上身")+tr("平躺") in status:
+            status += [tr("躺下")]
+        elif tr("上身")+tr("竖直") in status:
+            if tr("左")+tr("大腿")+tr("伸直") in status or tr("右")+tr("大腿")+tr("伸直") in status:
+                status += [tr("直立")]
             else:
-                status += ["坐下"]
+                status += [tr("坐下")]
         else:
-            if "左大腿伸直" in status or "右大腿伸直" in status: # todo: 斜躺平躺都可以弯腿。实际是二维平面投影图，应该要考虑人脸朝向（正向，背向，向左，向右。区分左右）
-                status += ["斜躺"]
+            if tr("左")+tr("大腿")+tr("伸直") in status or tr("右")+tr("大腿")+tr("伸直") in status: # todo: 斜躺平躺都可以弯腿。实际是二维平面投影图，应该要考虑人脸朝向（正向，背向，向左，向右。区分左右）
+                status += [tr("斜躺")]
             else:
-                status += ["坐下"]
+                status += [tr("坐下")]
 
-        if "左大臂平举" in status and "左小臂伸直" in status:
-            status += ["向左1"]
-        if "右大臂平举" in status and "右小臂伸直" in status:
-            status += ["向右1"]
-        if "向左1" in status and "向右1" in status:
+        if tr("左")+tr("大臂")+tr("平举") in status and tr("左")+tr("小臂")+tr("伸直") in status:
+            status += [tr("向左1")]
+        if tr("右")+tr("大臂")+tr("平举") in status and tr("右")+tr("小臂")+tr("伸直") in status:
+            status += [tr("向右1")]
+        if tr("向左1") in status and tr("向右1") in status:
             del status[-1]
             del status[-1]
-            status += ["双手平举"]
+            status += [tr("双手平举")]
 
-        if "左大臂举高" in status and "左小臂伸直" in status:
-            status += ["举左手"]
-        if "右大臂举高" in status and "右小臂伸直" in status:
-            status += ["举右手"]
-        if "举左手" in status and "举右手" in status:
+        if tr("左")+tr("大臂")+tr("举高") in status and tr("左")+tr("小臂")+tr("伸直") in status:
+            status += [tr("举左手")]
+        if tr("右")+tr("大臂")+tr("举高") in status and tr("右")+tr("小臂")+tr("伸直") in status:
+            status += [tr("举右手")]
+        if tr("举左手") in status and tr("举右手") in status:
             del status[-1]
             del status[-1]
-            status += ["举双手"]
+            status += [tr("举双手")]
 
-        if ("左大臂上竖" in status or "左大臂举高" in status) and "左小臂弯曲" in status and ("右大臂上竖" in status or "右大臂举高" in status) and "右小臂弯曲" in status:
+        if (tr("左")+tr("大臂")+tr("上竖") in status or tr("左")+tr("大臂")+tr("举高") in status) and tr("左")+tr("小臂")+tr("弯曲") in status and (tr("右")+tr("大臂")+tr("上竖") in status or tr("右")+tr("大臂")+tr("举高") in status) and tr("右")+tr("小臂")+tr("弯曲") in status:
             if abs(hsw_l) > 160 and abs(hsw_r) > 160:
-                status += ["双手比心"]
+                status += [tr("双手比心")]
 
-        if "双手平举" in status and "左小腿伸直" in status and "右小腿伸直" in status:
+        if tr("双手平举") in status and tr("左")+tr("小腿")+tr("伸直") in status and tr("右")+tr("小腿")+tr("伸直") in status:
             if -shk_r < 165 and -shk_r > 110 and shk_l < 165 and shk_l > 110 and abs(shk_c) > 170:
-                status += ["大字型"]
+                status += [tr("大字型")]
 
         # print(status)
-        self.status = status[status.index("综合：")+1:]
+        self.status = status[status.index("total:")+1:]
 
     def get_status(self):
         return "\n".join(self.status)
