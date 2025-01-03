@@ -85,6 +85,8 @@ items:
         label: 离线训练 YOLOv5 模型
     -   file: vision/customize_model_yolov8.md
         label: 离线训练 YOLO11/YOLOv8 模型
+    -   file: vision/body_pose_classification.md
+        label: 基于 YOLO11 pose 模型的人体姿态分类器
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
     -   file: pro/datasets.md

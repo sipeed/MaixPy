@@ -85,6 +85,8 @@ items:
         label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
         label: YOLO11/v8 model offline training
+    -   file: vision/body_pose_classification.md
+        label: YOLO11 pose model based classifier
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
     -   file: pro/datasets.md
