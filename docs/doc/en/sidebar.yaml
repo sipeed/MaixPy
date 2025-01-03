@@ -202,6 +202,10 @@ items:
         label: Line tracking robot
     -   file: projects/face_tracking.md
         label: Face tracking 2-axis gimbal
+    -   file: projects/thermal_camera.md
+        label: Thermal Camera
+    -   file: projects/tof_camera.md
+        label: ToF Camera
 
 -   label: Advanced
     collapsed: false
