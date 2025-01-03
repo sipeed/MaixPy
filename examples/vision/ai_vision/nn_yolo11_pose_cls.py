@@ -212,7 +212,7 @@ class PoseEstimation:
             if -shk_r < 165 and -shk_r > 110 and shk_l < 165 and shk_l > 110 and abs(shk_c) > 170:
                 status += ["大字型"]
 
-        print(status)
+        # print(status)
         self.status = status[status.index("综合：")+1:]
 
     def get_status(self):
@@ -247,4 +247,3 @@ while not app.need_exit():
         img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED, scale=0.5)
         detector.draw_pose(img, obj.points, 8 if detector.input_width() > 480 else 4, image.COLOR_RED)
     disp.show(img)
-
