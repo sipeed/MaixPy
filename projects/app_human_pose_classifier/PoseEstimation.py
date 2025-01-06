@@ -2,7 +2,8 @@ import numpy as np
 from collections import deque
 
 class PoseEstimation:
-    def __init__(self, keypoints_window_size=5):
+    # need redesign, PoseEstimation cant work on multi target unless keypoints_window_size=1
+    def __init__(self, keypoints_window_size=1):
         self.keypoints_map_deque = deque(maxlen=keypoints_window_size)
         self.status = []
 
