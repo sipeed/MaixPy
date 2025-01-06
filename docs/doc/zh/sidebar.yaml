@@ -193,10 +193,6 @@ items:
         label: 音圈电机 FP5510
     -   file: modules/spilcd.md
         label: SPI LCD 屏幕
-    -   file: modules/thermography_mlx90640.md
-        label: 热成像模块 MLX90640
-    -   file: modules/tof_opns303x.md
-        label: TOF模块 OPNS303x
 
 -   label: 项目实战
     items:
@@ -206,10 +202,6 @@ items:
         label: 小车巡线
     -   file: projects/face_tracking.md
         label: 人脸追踪2轴云台
-    -   file: projects/thermal_camera.md
-        label: 热成像
-    -   file: projects/tof_camera.md
-        label: ToF
 
 -   label: 进阶
     collapsed: false
