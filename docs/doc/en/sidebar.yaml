@@ -191,10 +191,6 @@ items:
         label: Voice Coil Motor FP5510
     -   file: modules/spilcd.md
         label: SPI LCD Screen
-    -   file: modules/thermography_mlx90640.md
-        label: MLX90640
-    -   file: modules/tof_opns303x.md
-        label: TOF OPNS303x
 
 -   label: Projects
     items:
@@ -204,10 +200,6 @@ items:
         label: Line tracking robot
     -   file: projects/face_tracking.md
         label: Face tracking 2-axis gimbal
-    -   file: projects/thermal_camera.md
-        label: Thermal Camera
-    -   file: projects/tof_camera.md
-        label: ToF Camera
 
 -   label: Advanced
     collapsed: false
