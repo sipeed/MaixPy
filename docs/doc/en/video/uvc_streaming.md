@@ -68,7 +68,7 @@ uvcs.show(img)
 This approach offers high performance with a single-process implementation, but USB functionality will only be available when the process is running. Therefore, when stopping this process, it's important to note that the enabled `Rndis` and `NCM` functionalities will temporarily become inactive, causing a network disconnection.
 
 **Reference example source code path:**  
-`MaixPy/examples/vision/streaming/uvc_stream.py`
+`MaixPy/examples/vision/streaming/uvc_server.py`
 
 **Also packaged as an app source code path:**  
 `MaixCDK/projects/app_uvc_camera/main/src/main.cpp`
