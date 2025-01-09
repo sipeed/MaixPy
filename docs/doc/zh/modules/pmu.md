@@ -65,7 +65,7 @@ while not app.need_exit():
     time.sleep_ms(1000)
 ```
 
-> 也可以使用 `AXP2101` 模块对电源管理单元进行设置。使用方法和 `PMU` 模块类似，可以参考例程 [axp2101_example.py](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/others/pmu_axp2101/axp2101_example.py)
+> 也可以使用 `AXP2101` 模块对电源管理单元进行设置。使用方法和 `PMU` 模块类似，可以参考例程 [axp2101_example.py](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/pmu/pmu_axp2101/axp2101_example.py)
 
 初始化 `PMU` 对象，调用 `get_bat_percent()` 即可获取当前电池电量。调用 `set_bat_charging_cur()` 可以设置最大充电电流。
 

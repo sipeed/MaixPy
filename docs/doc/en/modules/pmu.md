@@ -65,7 +65,7 @@ while not app.need_exit():
     time.sleep_ms(1000)
 ```
 
-> You can also use the `AXP2101` module to configure the power management unit. The usage is similar to the `PMU` module, and you can refer to the example script [axp2101_example.py](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/others/pmu_axp2101/axp2101_example.py) for guidance.
+> You can also use the `AXP2101` module to configure the power management unit. The usage is similar to the `PMU` module, and you can refer to the example script [axp2101_example.py](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/pmu/pmu_axp2101/axp2101_example.py) for guidance.
 
 Initialize the `PMU` object, and call `get_bat_percent()` to get the current battery level. Call `set_bat_charging_cur()` to set the maximum charging current.
 

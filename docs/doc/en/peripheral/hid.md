@@ -1,11 +1,13 @@
 ---
-title: Introduction to Using MaixCAM MaixPy HID Device
+title: Introduction to Using MaixCAM MaixPy USB HID (as device)
 ---
 
 
 ## 简介
 
-MaixPy currently supports the use of keyboards, mice, and touchscreens, and the following is a guide on how to use maixPy to control your PC via HID.
+MaixPy currently supports simulate as USB HID device like keyboards, mice, and touchscreens, and the following is a guide on how to use maixPy to control your PC via HID.
+
+> If you want to use USB as host to connect HID devices into MaixCAM, set USB mode to HOST mode in `settings`.
 
 ## Preparation
 
