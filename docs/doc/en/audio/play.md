@@ -62,7 +62,7 @@ Steps：
    p.play()
    ```
 
-  - This will block until all audio data is written, but not until all audio data is actually played. If you exit the programme after calling `play()`, some of the audio data to be played may be lost.
+  - This operation will block until all audio data is written, but not until all audio data is actually played. If you exit the programme after calling `play()`, some of the audio data to be played may be lost.
 
 4. Done
 
