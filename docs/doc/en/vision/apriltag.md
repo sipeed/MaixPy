@@ -273,7 +273,7 @@ This method uses the width of the `AprilTag` to calculate the distance. It can a
 
 By using the `apriltag` for distance measurement, we can accurately determine the position of the tag in space. In this case, we also use the parameters returned by the `find_apriltag()` method to calculate the position of any `AprilTag` relative to the camera. Of course, the prerequisite is that you must detect the `apriltag`.
 
-The measurement process consists of three steps:
+The process consists of two steps:
 
 1. Calculate the constant coefficient `k`.
 2. Use the position information returned by `find_apriltag()` to calculate the distance from the tag to the camera.
