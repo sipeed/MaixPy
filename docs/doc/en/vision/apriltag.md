@@ -126,12 +126,16 @@ Here are explanations for common parameters. If you can't find parameters to imp
 
 This article introduces common methods. For more API information, please refer to the [image](../../../api/maix/image.md) section of the API documentation.
 
-### Measuring Distance Between Camera and Object
+### Distance Measurement 1: The vertical distance between the object and the camera.
 
 This section describes a method to estimate the distance using the formula `distance = k / width`, where:
 `distance`: Distance between the camera and the object in millimeters (mm).
 `k`: A constant.
 `width`: Width of the object in the image, measured in pixels.
+
+**Advantages**: Simple and easy to understand, convenient for measurement.
+
+**Disadvantages**: It can only measure the vertical distance between the tag and the camera. When the tag is tilted, the error increases.
 
 The process consists of two steps:
 
@@ -187,7 +191,7 @@ The process consists of two steps:
   '''
   def caculate_k(width, distance):
       return width * distance
-
+  
   # Example: At a distance of 200 mm, the tag width is detected as 43 pixels
   k = caculate_k(43, 200)
   ```
@@ -264,3 +268,116 @@ while 1:
 ```
 
 This method uses the width of the `AprilTag` to calculate the distance. It can also be extended to use height for distance calculation. However, note that this approach provides an estimate of the distance, and slight inaccuracies may occur due to real-world factors.
+
+### Distance Measurement 2: Measuring the distance from the object to the camera using the AprilTag
+
+By using the `apriltag` for distance measurement, we can accurately determine the position of the tag in space. In this case, we also use the parameters returned by the `find_apriltag()` method to calculate the position of any `AprilTag` relative to the camera. Of course, the prerequisite is that you must detect the `apriltag`.
+
+The measurement process consists of three steps:
+
+1. Calculate the constant coefficient `k`.
+2. Use the position information returned by `find_apriltag()` to calculate the distance from the tag to the camera.
+
+**Advantages**: This method allows you to measure the distance between the `apriltag` and the camera even if the tag is rotated or offset relative to the camera.
+
+#### Preparations:
+
+1. `apriltag` paper tag.
+2. Ruler (or other distance measuring tools).
+
+#### Measuring the Constant Coefficient `k`:
+
+- Fix the `apriltag` paper tag and place the `MaixCAM` at a distance of `20cm` from the `apriltag`.
+
+- Use `MaixCAM` to detect the `apriltag` and calculate the constant coefficient using the `z_translation`. Reference code:
+
+  ```python
+  from maix import camera, display
+  
+  '''
+  z_trans: The value of z_translation() when the distance is 'distance' (actual distance in mm).
+  distance: The actual distance to the AprilTag when detected, in mm.
+  Returns the constant coefficient 'k'.
+  '''
+  def caculate_k(z_trans, distance):
+      return distance / z_trans
+  
+  cam = camera.Camera(160, 120)
+  disp = display.Display()
+  
+  while 1:
+      img = cam.read()
+  
+      apriltags = img.find_apriltags()
+      for a in apriltags:
+          k = caculate_k(a.z_translation(), 20)
+          print(f"k:{k}")
+      disp.show(img)
+  ```
+
+#### Measuring the Distance from the Tag to the Object:
+
+- Calculate the distance from the `apriltag` to the camera using `x_translation`, `y_translation`, and `z_translation` returned by the `apriltag`:
+
+  ```python
+  '''
+  x_trans: The value of x_translation() returned by detecting the AprilTag.
+  y_trans: The value of y_translation() returned by detecting the AprilTag.
+  z_trans: The value of z_translation() returned by detecting the AprilTag.
+  k: Constant coefficient.
+  Returns the distance in mm.
+  '''
+  def calculate_distance(x_trans, y_trans, z_trans, k):
+      return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+  ```
+
+#### Complete Code Example:
+
+```python
+from maix import camera, display, image
+import math
+
+'''
+z_trans: The value of z_translation() when the distance is 'distance' (actual distance in mm).
+distance: The actual distance to the AprilTag when detected, in mm.
+Returns the constant coefficient 'k'.
+'''
+def caculate_k(z_trans, distance):
+    return distance / z_trans
+
+'''
+x_trans: The value of x_translation() returned by detecting the AprilTag.
+y_trans: The value of y_translation() returned by detecting the AprilTag.
+z_trans: The value of z_translation() returned by detecting the AprilTag.
+k: Constant coefficient.
+Returns the distance in mm.
+'''
+def calculate_distance(x_trans, y_trans, z_trans, k):
+    return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+
+cam = camera.Camera(160, 120)
+disp = display.Display()
+
+# When the distance is 200mm, the detected z_translation() of the AprilTag is -9.7
+k = caculate_k(-9.7, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # Calculate the distance
+        x_trans = a.x_translation()
+        y_trans = a.y_translation()
+        z_trans = a.z_translation()
+        distance = calculate_distance(x_trans, y_trans, z_trans, k)
+        print(f'apriltag k:{k} distance:{distance} mm')
+
+    disp.show(img)
+```
+
+This code uses the `MaixCAM` to continuously read the camera feed, detect the `apriltag`, and calculate the distance from the tag to the camera using the constant coefficient and the tag's translations in all three axes. The calculated distance is printed out in millimeters. Note that this approach provides an estimate of the distance, and slight inaccuracies may occur due to real-world factors.

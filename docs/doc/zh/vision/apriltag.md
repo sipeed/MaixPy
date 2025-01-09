@@ -129,7 +129,7 @@ while 1:
 
 
 
-### 测量摄像头与物体的距离
+### 测距1：物体垂直与摄像头的距离
 
 这里提供一种使用`distance=k/width`的公式来测距, 其中`distance`是摄像头和物体的距离,单位`mm`, `k`是一个常量, `width`是物体在画面中的宽度,单位是像素点. 
 
@@ -261,3 +261,113 @@ while 1:
 ```
 
 上面的方法是通过`apriltag`的宽度计算距离, 同样也可以扩展为使用高度来计算距离. 但需要注意该方法是在对距离估测, 实际应用中会有些许误差存在.
+
+### 测距2：利用apriltag标签测量物体到摄像头的距离
+
+通过`apriltag`标签测距，可以比较准确的测量标签在空间中的位置，这里我们也利用`find_apriltag()`方法返回的参数来计算任意位置的`apriltag`标签到摄像头的位置，当然前提是你必须检测到`apriltag`标签。
+
+测量方法共三步：1. 计算常量系数k。3.通过`find_apriltag()`返回的位置信息计算标签到摄像头的距离
+
+优点：可以在`apriltag`标签旋转、与摄像头有偏移的情况测量出标签到摄像头的距离
+
+#### 前期准备
+
+1. `apriltag`标签纸
+2. 尺子(或其他测距工具)
+
+#### 测量常量系数
+
+- 将`apriltag`标签纸固定,并在距离`apriltag`标签20cm处固定`maixcam`
+
+- 使用`maixcam`检测`apriltag`标签并通过`z_translation`计算常量系数, 参考代码:
+
+  ```python
+  from maix import camera, display
+  
+  '''
+  z_trans: 当距离为distance时,检测到apriltag标签z_translation()的值
+  distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+  返回常量系数
+  '''
+  def caculate_k(z_trans, distance):
+      return distance / z_trans
+  
+  cam = camera.Camera(160, 120)
+  disp = display.Display()
+  
+  while 1:
+      img = cam.read()
+  
+      apriltags = img.find_apriltags()
+      for a in apriltags:
+          k = caculate_k(a.z_translation(), 20)
+          print(f"k:{k}")
+      disp.show(img)
+  ```
+
+#### 测量标签到物体的距离
+
+- 通过`apriltag`标签返回的`x_translation`,`y_translation`和`z_translation`计算标签到摄像头的距离
+
+  ```python
+  '''
+  x_trans: 检测apriltag标签返回的x_translation()的值
+  y_trans: 检测apriltag标签返回的y_translation()的值
+  z_trans: 检测apriltag标签返回的z_translation()的值
+  k: 常量系数
+  返回距离, 单位mm
+  '''
+  def calculate_distance(x_trans, y_trans, z_trans, k):
+      return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+  ```
+
+#### 完整的代码参考:
+
+```python
+from maix import camera, display, image
+import math
+
+'''
+z_trans: 当距离为distance时,检测到apriltag标签z_translation()的值
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(z_trans, distance):
+    return distance / z_trans
+
+'''
+x_trans: 检测apriltag标签返回的x_translation()的值
+y_trans: 检测apriltag标签返回的y_translation()的值
+z_trans: 检测apriltag标签返回的z_translation()的值
+k: 常量系数
+返回距离, 单位mm
+'''
+def calculate_distance(x_trans, y_trans, z_trans, k):
+    return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+
+cam = camera.Camera(160, 120)
+disp = display.Display()
+
+# 距离200mm时检测到apriltag标签返回的z_translation()为-9.7
+k = caculate_k(-9.7, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # 计算距离
+        x_trans = a.x_translation()
+        y_trans = a.y_translation()
+        z_trans = a.z_translation()
+        distance = calculate_distance(x_trans, y_trans, z_trans, k)
+        print(f'apriltag k:{k} distance:{distance} mm')
+
+    disp.show(img)
+```
+
+这段代码使用 `MaixCAM` 不断读取摄像头图像，检测 `apriltag`，并通过常量系数以及标签在三个轴向的位移计算标签到摄像头的距离。计算出的距离以毫米为单位打印出来, 需要注意该方法仍是在对距离估测, 实际应用中会有些许误差存在。
