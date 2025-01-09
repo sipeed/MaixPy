@@ -61,6 +61,8 @@ items:
         label: YOLO11/v8/v5 物体检测
     -   file: vision/face_detection.md
         label: 人脸及关键点检测
+    -   file: vision/face_landmarks.md
+        label: 人脸多关键点检测
     -   file: vision/face_recognition.md
         label: 人脸识别
     -   file: vision/body_key_points.md
@@ -155,23 +157,25 @@ items:
 -   label: 片上外设
     items:
     -   file: peripheral/pinmap.md
-        label: PINMAP 使用
+        label: PINMAP IO 功能映射
     -   file: peripheral/gpio.md
         label: GPIO 和 点灯
+    -   file: peripheral/key.md
+        label: Key 按键事件
     -   file: peripheral/uart.md
-        label: UART 串口使用
+        label: UART 串口
     -   file: peripheral/i2c.md
-        label: I2C 使用
+        label: I2C
     -   file: peripheral/pwm.md
-        label: PWM 使用
+        label: PWM
     -   file: peripheral/spi.md
-        label: SPI 使用
+        label: SPI
     -   file: peripheral/wdt.md
-        label: WDT 看门狗使用
+        label: WDT 看门狗
     -   file: peripheral/adc.md
-        label: ADC 使用
+        label: ADC 模数转换
     -   file: peripheral/hid.md
-        label: HID Device 使用
+        label: 作为 USB HID 设备
 
 -   label: 片外模块
     items:

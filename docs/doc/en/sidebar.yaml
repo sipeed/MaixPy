@@ -61,6 +61,8 @@ items:
         label: YOLO11/v8/v5 object detection
     -   file: vision/face_detection.md
         label: Face and keypoints detection
+    -   file: vision/face_landmarks.md
+        label: Face multi landmarks detection
     -   file: vision/face_recognition.md
         label: Face recognition
     -   file: vision/body_key_points.md
@@ -156,6 +158,8 @@ items:
         label: PINMAP
     -   file: peripheral/gpio.md
         label: GPIO
+    -   file: peripheral/key.md
+        label: Key
     -   file: peripheral/uart.md
         label: UART
     -   file: peripheral/i2c.md
