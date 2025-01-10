@@ -65,6 +65,8 @@ items:
         label: 人脸多关键点检测
     -   file: vision/face_recognition.md
         label: 人脸识别
+    -   file: vision/face_emotion.md
+        label: 人脸表情情绪识别
     -   file: vision/body_key_points.md
         label: 人体关键点检测
     -   file: vision/segmentation.md

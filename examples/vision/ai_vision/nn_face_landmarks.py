@@ -25,7 +25,7 @@ while not app.need_exit():
             if res and res.valid:
                 results.append(res)
         count += 1
-        if count >= max_face_num:
+        if max_face_num > 0 and count >= max_face_num:
             break
     for res in results:
         landmarks_detector.draw_face(img, res.points, landmarks_detector.landmarks_num, res.points_z)

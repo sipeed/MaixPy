@@ -65,6 +65,8 @@ items:
         label: Face multi landmarks detection
     -   file: vision/face_recognition.md
         label: Face recognition
+    -   file: vision/face_emotion.md
+        label: Face emotion
     -   file: vision/body_key_points.md
         label: Human critical point detection
     -   file: vision/segmentation.md

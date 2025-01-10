@@ -381,9 +381,27 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/maixcam_face_landmarks.mp4"></video>
+            <p class="feature">AI 人脸关键点</p>
+            <p class="description">检测人脸关键点，面部特征/动作识别，AI 换脸</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
             <img src="/static/image/body_keypoint.jpg">
             <p class="feature">AI 人体关键点检测</p>
             <p class="description">姿态识别、体感游戏</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/hands_landmarks.mp4"></video>
+            <p class="feature">AI 手部关键点</p>
+            <p class="description">检测手部关键点，手势识别</p>
         </div>
         <div>
         </div>

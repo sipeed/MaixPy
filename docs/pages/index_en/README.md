@@ -381,9 +381,27 @@ You can create new features using the rich API provided by MaixPy.
     </div>
     <div class="feature_item">
         <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/maixcam_face_landmarks.mp4"></video>
+            <p class="feature">AI Face Landmarks</p>
+            <p class="description">Detect face landmarks, replace face</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
             <img src="/static/image/body_keypoint.jpg">
             <p class="feature">AI Body Keypoint Detection</p>
             <p class="description">Posture recognition, body-sensing games</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/hands_landmarks.mp4"></video>
+            <p class="feature">AI Hand keypoints</p>
+            <p class="description">Detect hand keypoints and recognize gesture</p>
         </div>
         <div>
         </div>
