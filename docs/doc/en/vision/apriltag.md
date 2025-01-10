@@ -310,7 +310,7 @@ The process consists of two steps:
   
       apriltags = img.find_apriltags()
       for a in apriltags:
-          k = caculate_k(a.z_translation(), 20)
+          k = caculate_k(a.z_translation(), 200)
           print(f"k:{k}")
       disp.show(img)
   ```
@@ -353,7 +353,7 @@ k: Constant coefficient.
 Returns the distance in mm.
 '''
 def calculate_distance(x_trans, y_trans, z_trans, k):
-    return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+    return abs(k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans))
 
 cam = camera.Camera(160, 120)
 disp = display.Display()
