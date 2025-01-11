@@ -1,0 +1,13 @@
+id: face_emotion
+name: Face Emotion
+name[zh]: 人脸情绪
+version: 1.0.0
+icon: icon.png
+author: neucrack@Sipeed Ltd
+desc: Detect face emotion
+desc[zh]: 检测人脸情绪和表情
+exclude:
+  - data
+  - dist
+  - .gitignore
+

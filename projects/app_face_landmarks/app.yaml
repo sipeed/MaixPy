@@ -1,0 +1,13 @@
+id: face_landmarks
+name: Face Landmarks
+name[zh]: 人脸关键点
+version: 1.0.0
+icon: icon.png
+author: neucrack@Sipeed Ltd
+desc: Detect face landmarks
+desc[zh]: 检测人脸关键点
+exclude:
+  - data
+  - dist
+  - .gitignore
+
