@@ -46,6 +46,13 @@ For example, in `YOLOv5`:
 
 There are three `conv` layers, with subsequent calculations handled by the CPU. For quantization, use the outputs of these `conv` layers as the final outputs of the model. The output names in this case are `/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0`.
 
+YOLO11/YOLOv8: Please refer to [Offline Training YOLO11/YOLOv8](../vision/customize_model_yolov8.md).
+
+For classification models, it is generally sufficient to take the name of the last output layer. However, if there is a `softmax` layer, it is recommended not to include `softmax` in the model. Instead, take the output of the layer before `softmax`. In the diagram below, there is no `softmax` layer, so the final layer can be used directly.
+
+![](../../assets/mobilenet_top.png)
+
+
 ## Setting Up the Model Conversion Environment
 
 The model conversion uses Sophgo's [https://github.com/sophgo/tpu-mlir](https://github.com/sophgo/tpu-mlir). We will install it in a Docker environment to avoid compatibility issues with the host machine.

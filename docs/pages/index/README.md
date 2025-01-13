@@ -174,7 +174,7 @@ h1 {
 
 <div class="mt-16"></div>
 
-<img class="text-center" src="/static/image/maixcam_pro.png">
+<img class="text-center" src="/static/image/maixcams.png">
 
 <div class="mt-6"></div>
 

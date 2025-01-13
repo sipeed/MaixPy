@@ -96,7 +96,11 @@ MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO1
   * YOLOv8 提取`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`这三个输出。
   * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`这三个输出。
 
-![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg) ![](../../assets/yolo11_out_obb.jpg)
+YOLOv8/YOLO11 输出节点:
+![](../../assets/yolov8_out.jpg)
+
+YOLOv8/YOLO11 OBB 输出节点：
+![](../../assets/yolo11_out_obb.jpg)
 
 对于物体检测，mud 文件为（YOLO11 model_type 改为 yolo11）
 ```ini

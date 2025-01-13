@@ -94,8 +94,15 @@ Pay attention to the selection of the model output nodes (note that the numerica
 * Image segmentation:
   * YOLOv8-seg extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`.
   * YOLO11-seg extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`.
+* OBB Detection:
+  * YOLOv8 extracts`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`as outputs.
+  * YOLO11 extracts`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`as outputs.
 
-![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg)
+YOLOv8/YOLO11 output nodes:
+![](../../assets/yolov8_out.jpg)
+
+YOLOv8/YOLO11 OBB output nodes:
+[](../../assets/yolo11_out_obb.jpg)
 
 For object detection, the MUD file would be as follows (replace `yolo11` for YOLO11):
 

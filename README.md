@@ -28,14 +28,20 @@ English | [中文](./README_ZH.md)
 
 </div>
 
-
-> New MaixPy (v4) and new hardware platform MaixCAM is coming now!<br>
-> If you have any suggestions, tell us on [MaixHub](https://maixhub.com/discussion/100073), or [Telegram/MaixPy](https://t.me/maixpy) or QQ group: 862340358.
->
-> Click the **Star** in the upper right corner to let us know you like it to encourage us to add more features.
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcams.png)
 
 
-## Introduction
+## Feature Overview
+
+MaixPy offers simple Python programming combined with powerful edge computing hardware. Integrated hardware peripheral operations, video streaming, AI vision algorithms, and audio algorithms etc. With its plug-and-play design, MaixPy enables you to quickly implement your intelligent projects.
+
+Additionally, MaixPy provides the MaixVision IDE, MaixHub online training platform, detailed documentation, and even a C/C++ SDK with identical APIs, ensuring seamless development and production deployment.
+
+For more features and video demonstrations, please visit the **official website: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
+
+> If you like this project, please click **Star** on the top right of the [MaixPy Project](https://github.com/sipeed/maixpy) to encourage us to develop more exciting content!
+
+## Concise and Efficient Code (API) Design
 
 With MaixPy you can easily create **AI vision project** within **10 lines of code**:
 
@@ -55,13 +61,12 @@ while 1:
     disp.show(img)
 ```
 
-Result video:
+Result:
+![](https://wiki.sipeed.com/maixpy/static/video/classifier.gif)
 
-<video playsinline controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
-Classifier Result video
-</video>
+## Edge(embeded) friendly
 
-Simply use **peripheral** like serial port:
+Simply use hardware **peripheral** like serial port:
 
 ```python
 from maix import uart
@@ -73,38 +78,34 @@ serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
 
+## MaixVision workstation
+
 We also provide a handy **[MaixVision](https://wiki.sipeed.com/en/maixvision)** workstation software to make development easier and faster:
 
 <video playsinline controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
 MaixVision
 </video>
 
-And online AI train platform **[MaixHub](https://maixhub.com)**, one click to train AI model and deploy to MaixCAM even you have no AI knowledge and expensive training equipment.
+## MaixHub online platform
+
+**[MaixHub](https://maixhub.com)** provide free online AI train service, one click to train AI model and deploy to MaixCAM even you have no AI knowledge and expensive training equipment.
 
 ![MaixHub](https://wiki.sipeed.com/maixpy/static/image/maixhub.jpg)
 
-## Features
-
-Python programing, MaixVision Workstation, AI vision, video streaming, voice recognize, peripheral usage etc.
-
-**Details and videos** visit official site: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
 
 ## Hardware platform MaixCAM
 
-And we provide new powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)** and **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**:
+And we provide two powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)** and **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**, with datasheet register level open.
 
-![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam_pro.png)
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcams.png)
 
 | CPU | NPU | Memory |
 | --- | --- | ------- |
-| - 1GHz RISC-V(Linux)/ARM A53<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
+| - 1GHz RISC-V(Linux)<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
 
 | Connecting | Peripheral | MultiMedia | Buy |
 | ----------- | ----- | --- | ---- |
 |  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [Sipeed Official Store](https://wiki.sipeed.com/store) |
-
-Chip register level open, more detalils: [MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro) or [MaixCAM](https://wiki.sipeed.com/maixcam)
-> * **Maix-I K210** series is outdated, MaixPy v4 not support it, use it please visit **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
 
 
 ## Who are using MaixPy?
@@ -186,9 +187,11 @@ All files in this repository are under the terms of the [Apache License 2.0 Sipe
 ## Community
 
 * Project sharing: [maixhub.com/share](https://maixhub.com/share)
+* App sharing: [maixhub.com/app](https://maixhub.com/app)
 * Discussion: [maixhub.com/discussion](https://maixhub.com/discussion)
 * QQ group: 862340358
 * Telegram: [t.me/maixpy](https://t.me/maixpy)
+* Github issues: [github.com/sipeed/maixpy/issues](https://github.com/sipeed/maixpy/issues)
 
 
 

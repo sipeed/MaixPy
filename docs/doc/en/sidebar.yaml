@@ -83,14 +83,14 @@ items:
         label: Detect with angle(OBB)
     -   file: vision/hand_landmarks.md
         label: Hand landmarks
+    -   file: vision/body_pose_classification.md
+        label: Human pose classifier
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md
         label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
         label: YOLO11/v8 model offline training
-    -   file: vision/body_pose_classification.md
-        label: YOLO11 pose model based classifier
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
     -   file: pro/datasets.md

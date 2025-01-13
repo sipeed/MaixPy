@@ -13,7 +13,7 @@ MaixPy (v4)
     <a href="https://wiki.sipeed.com/maixpy/doc/index.html"> 快速开始 </a> |
     <a href="https://wiki.sipeed.com/maixpy/index.html"> 文档 </a> |
     <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
-    <a href="https://wiki.sipeed.com/maixcam"> 硬件 </a>
+    <a href="https://wiki.sipeed.com/maixcam-pro"> 硬件 </a>
 </h3>
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
@@ -29,13 +29,20 @@ MaixPy (v4)
 </div>
 
 
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcams.png)
 
-> 新的 MaixPy (v4) 和新的硬件平台 MaixCAM 来了!<br>
-> 如果你有任何建议，请在 [MaixHub](https://maixhub.com/discussion/100073) 上告诉我们，或者 [Telegram/MaixPy](https://t.me/maixpy) 或 QQ 群: 862340358。
->
-> 点击右上角的 **Star** 让我们知道你喜欢它，以鼓励我们开发更多功能。
 
-## 介绍
+## 特性简介
+
+MaixPy 提供简易的 Python 编程和性能强大的边缘计算硬件，内置了大量易用的 硬件外设操作、视频串流、AI 视觉算法、听觉算法，开箱即用，帮助你快速落地你的智能化项目。
+
+并且提供 MaixVision IDE, MaixHub 云端训练平台，详细的文档，甚至有相同 API 的 C/C++ SDK，帮助你无障碍开发和量产落地。
+
+更多特性和视频展示请访问**官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
+
+> 喜欢请点击 [MaixPy 项目](https://github.com/sipeed/maixpy)右上角 **Star** 鼓励我们开发更多有趣内容！
+
+## 简洁高效的代码(API)设计
 
 使用 MaixPy 轻松创建 **AI 视觉项目**，只需 **10 行代码**:
 
@@ -55,13 +62,12 @@ while 1:
     disp.show(img)
 ```
 
-效果视频:
+效果:
+![](https://wiki.sipeed.com/maixpy/static/video/classifier.gif)
 
-<video playsinline controls autoplay loop muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/d06e4f0e-31af-4679-b3bc-1f93cd633af0" type="video/mp4">
-Classifier Result video
-</video>
+## 边缘计算设备（嵌入式）友好
 
-建议的代码使用串口等 **外设**：
+运行在边缘计算设备，不光有视觉相关，常用的外设也不在话下，比如使用串口：
 
 ```python
 from maix import uart
@@ -73,39 +79,34 @@ serial.write_str("hello world")
 print("received:", serial.read(timeout = 2000))
 ```
 
-我们还提供了便捷的 **[MaixVision](https://wiki.sipeed.com/maixvision)** 工作站，让开发更简单快速：
+## MaixVision 工作站
+
+提供便捷的 **[MaixVision](https://wiki.sipeed.com/maixvision)** 工作站（IDE），让开发更简单快速：
 
 <video playsinline controls muted preload src="https://github.com/sipeed/MaixPy/assets/8625829/1168a282-d7c2-45bc-9ffb-c00de1ca24f5" type="video/mp4">
 MaixVision
 </video>
 
-以及在线 AI 训练平台 **[MaixHub](https://maixhub.com)**， 无需 AI 基础和昂贵的训练设备，一键训练模型，一键部署到 MaixCAM。
+## MaixHub 在线平台
+
+**[MaixHub](https://maixhub.com)** 提供免费在线 AI 训练， 无需 AI 基础和昂贵的训练设备，一键训练模型，一键部署。
 
 ![MaixHub](https://wiki.sipeed.com/maixpy/static/image/maixhub.jpg)
 
-## 功能特点
+## 性能强劲的硬件平台
 
-Python 编程, MaixVision 工作站, AI 视觉, 视频串流, 语音识别, 外设使用 等。
+目前支持两款硬件平台， 芯片寄存器级别开放，详细请看 **[MaixCAM](https://wiki.sipeed.com/maixcam)** 和 **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**:
 
-**细节和视频展示** 请访问官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)
-
-
-## 硬件平台 MaixCAM
-
-提供性能强劲的硬件平台 **[MaixCAM](https://wiki.sipeed.com/maixcam)** 和 **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**:
-
-![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcam-pro.png)
+![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcams.png)
 
 | CPU | NPU | Memory |
 | --- | --- | ------- |
-| - 1GHz RISC-V(Linux)/ARM A53<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
+| - 1GHz RISC-V(Linux)<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
 
-| Connecting | Peripheral | MultiMedia | Price |
-| ----------- | ----- | --- | ---- |
-|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [￥169/￥249](https://wiki.sipeed.com/store) |
+| 连接 | 外设 | 多媒体 | 购买 |
+| ----------- | ----- | --- | --- |
+|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [Sipeed 官方店铺](https://wiki.sipeed.com/store) |
 
-芯片寄存器级别开放，详情看 [MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro) 或 [MaixCAM](https://wiki.sipeed.com/maixcam)
-> * **Maix-I K210** 已过时，MaixPy v4 不支持它, 仍要使用请访问 **[MaixPy-v1](https://github.com/sipeed/maixpy-v1)**
 
 
 ## 谁在用 MaixPy？
@@ -188,9 +189,11 @@ MaixPy 不仅仅是一个 Python SDK，还有一个完整的生态系统，包�
 ## 社区
 
 * 项目分享: [maixhub.com/share](https://maixhub.com/share)
+* 应用分享: [maixhub.com/app](https://maixhub.com/app)
 * 讨论: [maixhub.com/discussion](https://maixhub.com/discussion)
 * QQ 群: 862340358
 * Telegram: [t.me/maixpy](https://t.me/maixpy)
+* Github issues: [github.com/sipeed/maixpy/issues](https://github.com/sipeed/maixpy/issues)
 
 
 
