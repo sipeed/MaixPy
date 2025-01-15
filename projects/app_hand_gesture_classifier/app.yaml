@@ -1,0 +1,14 @@
+id: gesture_classifier
+name: Gesture Classifier
+name[zh]: 手势分类
+version: 1.0.0
+author: Taorye@Sipeed
+icon: icon.png
+desc: Classify the hand gesture.
+files:
+  - app.yaml
+  - icon.png
+  - main.py
+  - LinearSVC.py
+  - clf_dump.npz
+  - trainSets.npz
