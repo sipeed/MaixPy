@@ -85,6 +85,8 @@ items:
         label: Hand landmarks
     -   file: vision/body_pose_classification.md
         label: Human pose classifier
+    -   file: vision/hand_gesture_classification.md
+        label: Hand geature classifier
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md

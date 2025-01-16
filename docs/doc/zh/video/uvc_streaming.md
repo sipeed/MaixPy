@@ -61,7 +61,7 @@ uvcs.show(img)
 
 高性能单进程实现，但仅在运行时 USB 全部功能才可用，故停止该进程时需要注意仍启用的 `Rndis` 和 `NCM` 会暂时失效，断开网络链接。
 
-参考示例源码路径：`MaixPy/examples/vision/streaming/uvc_stream.py`
+参考示例源码路径：`MaixPy/examples/vision/streaming/uvc_server.py`
 
 另有封装成 APP 的源码路径：`MaixCDK/projects/app_uvc_camera/main/src/main.cpp`
 

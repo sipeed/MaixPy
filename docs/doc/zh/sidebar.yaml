@@ -85,6 +85,8 @@ items:
         label: 手部关键点检测
     -   file: vision/body_pose_classification.md
         label: 人体姿态分类器
+    -   file: vision/hand_gesture_classification.md
+        label: 手势分类器
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolov5.md
