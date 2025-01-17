@@ -126,6 +126,12 @@ h1 {
 .code_wrapper {
     overflow: auto;
 }
+.biliiframe {
+    width: 100%;
+    min-height: 40em;
+    border-radius: 0.5em;
+    border: 1em solid white;
+}
 @media screen and (min-width: 1280px) {
     .md_page #page_content > div
     {
@@ -136,6 +142,10 @@ h1 {
 @media screen and (max-width: 768px) {
     .code_wrapper {
         font-size: 0.6em;
+    }
+    .biliiframe {
+        width: 100%;
+        min-height: 20em;
     }
 }
 </style>
@@ -298,11 +308,13 @@ MaixVision
 
 ## 更多特性
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center w-full">
 
 以下为部分功能简介，更多到[社区](#community)找到更多
 
 基于 MaixPy 提供的丰富 API 可以创造出更多新功能
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113485669204279&bvid=BV1ncmRYmEDv&cid=26768769718&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="biliiframe"></iframe>
 
 </div>
 
