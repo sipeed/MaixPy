@@ -45,7 +45,7 @@ print(f"X_train_len: {len(X_train)}")
 # print(f"X_train: {X_train[0]}")
 # print(f"y_train: {y_train[0]}")
 
-if 0:
+if 1:
     with timer("加载") as r:
         clfm = LinearSVCManager(LinearSVC.load("clf_dump.npz"), X_train, y_train, pretrained=True)
     last_train_time = r['passed']
