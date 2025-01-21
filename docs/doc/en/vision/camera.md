@@ -55,7 +55,9 @@ You can also get greyscale images
 
 ## Setting the frame rate of the camera
 
-Currently the camera supports `30fps`, `60fps` and `80fps` configurations, the frame rate is selected by the `width`, `height`, `fps` parameters passed when creating the `Camera` object, currently the maximum supported resolution is `1280x720` under `60/80fps`, and the maximum supported resolution is `2560x1440` under `30fps`.
+The GC4653 supports a maximum of three configurations: `2560x1440 30fps`, `1280x720 60fps`, and `1280x720 80fps`. The frame rate is selected based on the width, height, and fps parameters passed when creating the Camera object.
+
+The OS04A10 supports a maximum of two configurations: `2560x1440 30fps` and `1280x720 90fps`. The `1280x720` resolution is achieved by center-cropping the `2560x1440` image.
 
 ### Setting the frame rate to 30 fps
 

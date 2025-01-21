@@ -68,7 +68,9 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# 设置输出NV21图�
 
 ## 设置摄像头的帧率
 
-目前摄像头支持`30fps`、`60fps`和`80fps`三种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来选择帧率，目前`60/80fps`下最大支持分辨率`1280x720`， `30fps`下最大支持分辨率`2560x1440`。
+GC4653最大支持`2560x1440 30fps`、`1280x720 60fps`和`1280x720 80fps`三种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来选择帧率。
+
+OS04A10最大支持`2560x1440 30fps`、`1280x720 90fps`两种配置，其中`1280x720`是基于`2560x1440`居中裁剪的画面
 
 ### 设置帧率为30帧
 
@@ -198,5 +200,4 @@ cam.set_resolution(width=640, height=480)
 方法：
 * 先在开发板设置里面`USB设置`中选择`USB 模式`为`HOST`模式。如果没有屏幕，可以用`examples/tools/maixcam_switch_usb_mode.py`脚本进行设置。
 * `maix.camera` 模块目前(2024.10.24) 还不支持 USB 摄像头，不过你可以参考 [OpenCV 使用 USB 摄像头](./opencv.md)。
-
 
