@@ -1,5 +1,5 @@
 ---
-tite: 3D Coordinate Detection of 21 Hand Keypoints with MaixPy MaixCAM
+title: 3D Coordinate Detection of 21 Hand Keypoints with MaixPy MaixCAM
 update:
     - date: 2024-12-31
       version: v1.0

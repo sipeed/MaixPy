@@ -45,7 +45,7 @@ print(f"X_train_len: {len(X_train)}")
 # print(f"X_train: {X_train[0]}")
 # print(f"y_train: {y_train[0]}")
 
-if 0:
+if 1:
     with timer("加载") as r:
         clfm = LinearSVCManager(LinearSVC.load("clf_dump.npz"), X_train, y_train, pretrained=True)
     last_train_time = r['passed']
@@ -130,7 +130,7 @@ while not app.need_exit():
                 if not class_nums_changing and current_n_classes == 4:
                     class_nums_changing = True
                 if class_nums_changing:
-                    img.draw_string(30, 112, "Release to upgrade to class 14\n and please wait.", color = image.COLOR_RED)
+                    img.draw_string(30, 112, "Release to upgrade to class 14\n and please wait for Training be done.", color = image.COLOR_RED)
             else:
                 if class_nums_changing:
                     class_nums_changing = False
@@ -145,7 +145,7 @@ while not app.need_exit():
                 if not class_nums_changing and current_n_classes == 14:
                     class_nums_changing = True
                 if class_nums_changing:
-                    img.draw_string(30, 112, "Release to retrain to class 4\n and please wait.", color = image.COLOR_RED)
+                    img.draw_string(30, 112, "Release to retrain to class 4\n and please wait for Training be done.", color = image.COLOR_RED)
             else:
                 if class_nums_changing:
                     class_nums_changing = False

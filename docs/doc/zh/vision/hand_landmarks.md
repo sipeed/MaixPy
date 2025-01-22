@@ -1,5 +1,5 @@
 ---
-tite: MaixPy MaixCAM 人手部 21 个关键点三维坐标检测
+title: MaixPy MaixCAM 人手部 21 个关键点三维坐标检测
 update:
     - date: 2024-12-31
       version: v1.0
