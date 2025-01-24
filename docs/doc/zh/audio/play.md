@@ -122,18 +122,3 @@ print("play finish!")
   - `time.sleep_ms(10)`这里有一个循环来等待播放完成，因为播放操作是异步执行的，如果提前退出了程序，那么可能导致音频不会完全播放。
 
 4. 完成
-
-
-
-### 其他
-
-`Player`和`Recorder`模块有些`bug`待解决，请保证它们在其他模块（`Camera`模块，`Display`模块等）之前创建。例如：
-
-```python
-# 先创建Player和Recorder
-p = audio.Player()
-r = audio.Recorder()
-
-# 再创建Camera
-c = camera.Camera()						
-```

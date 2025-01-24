@@ -1,14 +1,15 @@
-from maix import audio, time, app
+from maix import audio, app, time
 
-p = audio.Player()
+p = audio.Player("/root/test.wav")
 print("sample_rate:{} format:{} channel:{}".format(p.sample_rate(), p.format(), p.channel()))
-
-with open('/root/output.pcm', 'rb') as f:
-    ctx = f.read()
-
-p.play(bytes(ctx))
+p.volume(100)
+p.play()
 
 while not app.need_exit():
-    time.sleep_ms(10)
+    total_frames = p.period_size() * p.period_count()
+    idle_frames = p.get_remaining_frames()
+    if  total_frames == idle_frames:
+        break
+    time.sleep_ms(100)
 
 print("play finish!")

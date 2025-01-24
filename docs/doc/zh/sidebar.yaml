@@ -103,7 +103,7 @@ items:
 -   label: AI 听觉
     items:
     -   file: audio/record.md
-        label: 录音
+        label: 录入音频
     -   file: audio/play.md
         label: 播放音频
     -   file: audio/recognize.md

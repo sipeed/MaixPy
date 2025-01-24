@@ -12,8 +12,9 @@ class AsrOnlineClient:
         self.server_port = server_port
         self.is_connected = False
 
-        self.recorder = audio.Recorder(sample_rate=16000, channel=1)
+        self.recorder = audio.Recorder(sample_rate=16000, channel=1, block=False)
         self.recorder.volume(100)
+        self.recorder.reset(True)
 
         self.audio_queue = asyncio.Queue()
         pass  
@@ -37,9 +38,17 @@ class AsrOnlineClient:
 
     async def run(self):
         async def record_audio():
+            record_ms = 50
+            bytes_per_frame = self.recorder.frame_size()
+            record_bytes = record_ms * self.recorder.sample_rate() * bytes_per_frame  / 1000
             while not app.need_exit():
-                data = self.recorder.record(50)
-                await self.audio_queue.put((data, 0))
+                while not app.need_exit():
+                    remain_bytes = self.recorder.get_remaining_frames() * bytes_per_frame
+                    if remain_bytes >= record_bytes:
+                        data = self.recorder.record(50)
+                        await self.audio_queue.put((data, 0))
+                    else:
+                        break
                 await asyncio.sleep(0.005)
 
         server_url = f"ws://{self.server_addr}:{self.server_port}"

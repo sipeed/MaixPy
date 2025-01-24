@@ -119,16 +119,3 @@ Steps：
   - `time.sleep_ms(10)` Here there is a loop to wait for the playback to complete, as the playback operation is performed asynchronously, and if the program exits early, then it may result in the audio not being played completely.
 
 4. Done
-
-### Other
-
-The `Player` and `Recorder` modules have some `bugs` to be worked out, make sure they are created before other modules (`Camera` module, `Display` module, etc.). For example:
-
-```python
-# Create Player and Recorder first.
-p = audio.Player()
-r = audio.Recorder()
-
-# Then create the Camera
-c = camera.Camera()
-```
