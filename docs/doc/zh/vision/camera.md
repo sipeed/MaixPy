@@ -193,6 +193,17 @@ cam = camera.Camera()
 cam.set_resolution(width=640, height=480)
 ```
 
+### 读取原始raw图
+
+注意输出的`raw`图是原始的`bayer`图，并且不同摄像头模组输出的`bayer`图格式可能不一样。
+
+```python
+cam = camera.Camera(raw=true)
+raw_img = cam.read_raw()
+print(raw_img)
+```
+
+如果需要在第三方软件打开`raw`图，需要额外在PC端进行转换，可以参考[bayer_to_tiff](https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py)的示例代码
 
 ## 使用 USB 摄像头
 

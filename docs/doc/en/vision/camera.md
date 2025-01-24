@@ -167,6 +167,19 @@ cam.constrast(50) # set contrast, range [0, 100]
 cam.saturation(50) # Set the saturation, range [0, 100].
 ```
 
+### Reading Raw Images
+
+Note that the output `raw` image is the original `Bayer` image, and the format of the `Bayer` image may vary depending on the camera module.
+
+```python
+cam = camera.Camera(raw=true)
+raw_img = cam.read_raw()
+print(raw_img)
+```
+
+If you need to open the `raw` image in third-party software, additional conversion on the PC side is required. You can refer to the example code in [bayer_to_tiff](https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py).
+
+
 
 ## Using a USB Camera
 
