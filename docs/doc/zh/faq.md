@@ -133,6 +133,11 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 这是 MaixVision 的代码提示功能报错找不到 maix 模块。
 这里需要搞清楚一个概念： MaixVision 的代码提示依赖的是电脑本地的 Python 包，代码运行依赖的设备端的 Python 包，所以要让 MaixVision 能够提示就要在电脑上也安装 Python 和 `MaixPy` 包。具体请看[MaixVision 使用文档](./basic/maixvision.md)。
 
+## MaixVision 如何编写多个文件，一个文件导入另一个文件的代码
+
+仔细阅读 [MaixVision 使用文档](./basic/maixvision.md)。
+
+
 ## MaixCAM 启动非常缓慢，甚至超过了 1 分钟，或者屏幕在闪动
 
 多半是由于供电不足造成的， MaixCAM 需要 5v 150mA~500mA 左右的电压和点流，如果你遇到了这种现象，可以使用 USB 转 TTL 模块连接 MaixCAM 的串口到电脑，可以看到`Card did not respond to voltage select! : -110` 这样的字样，说明供电不足，换一个更加的稳定的供电设备即可。

@@ -130,6 +130,9 @@ Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative 
 
 This error occurs because MaixVision's code hinting feature cannot find the `maix` module. It's important to understand that MaixVision's code hinting relies on the local Python packages on your computer, while the code execution depends on the Python packages on the device. To enable MaixVision's code hinting, you need to install Python and the `MaixPy` package on your computer. For more details, refer to the [MaixVision User Documentation](./basic/maixvision.md).
 
+## MaixVision how to import from another .py file
+
+Read documentation of [MaixVision](./basic/maixvision.md) carefully.
 
 ## MaixCAM starts very slowly, even exceeding 1 minute, or the screen flickers
 

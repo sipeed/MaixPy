@@ -39,6 +39,7 @@ When we click the 'pause' button in the top right corner, it will stop sending i
 ## Code Auto Completion
 
 Code suggestions depend on local Python packages installed on your computer. To enable code suggestions, you need to install Python on your computer and the required Python packages.
+> If it is not installed, a red underlined wavy line error prompt will be displayed. The code can still run normally, but there will be no code completion prompt.
 
 * To install Python, visit the [Python official website](https://python.org/).
 * To install the required packages, for MaixPy, for instance, you need to install the MaixPy package on your computer using `pip install MaixPy`. If `MaixPy` gets updated, you should update it on both your computer and device. On your computer, manually execute `pip install MaixPy -U` in the terminal. For device updates, update directly in the `Settings` application.
@@ -51,6 +52,27 @@ Code suggestions depend on local Python packages installed on your computer. To 
 
 > Additionally, while you have the MaixPy package installed on your computer, due to our limited resources, we cannot guarantee that you can directly use the Maix package in your computer's Python. Please run it on supported devices.
 
+
+In addition, in addition to the MaixPy package, other code hints, such as `numpy/opencv`, also need to be installed on the computer to implement code hints.
+
+## Single file and project (multiple py file projects/modularization)
+
+When writing code, there are generally two modes, executing a single file, or executing a complete project (containing multiple py files or other resource files).
+* **Single file mode**: MaixVision creates or opens a file in the `.py` format, and clicks Run in the lower left corner after editing to execute the code.
+* **Project (multiple files) mode**:
+  * Create an empty folder in the system file manager, and MaixVision clicks `Open folder/project` to open this empty folder.
+  * Create a main program entry of `main.py` (the name must be `main.py`). If `main.py` wants to reference other `.py` files, create a `.py` file in the project folder, such as `a.py`
+  ```python
+  def say_hello():
+  print("hello from module a")
+  ```
+  * Reference in `main.py`
+  ```python
+  from a import say_hello
+  say_hello()
+  ```
+  * Run the project, click the `Run Project` button in the lower left corner to automatically package the entire project and send it to the device for running.
+  * If you have opened a folder/project and still want to run a file separately, you can open the file you want to run, and then click the `Run Current File` in the lower left corner to send only the current file to the device for running. Note that other files will not be sent to the device, so do not reference other `.py` files.
 
 
 ## Calculating the Image Histogram
