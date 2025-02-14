@@ -306,6 +306,8 @@ You can create new features using the rich API provided by MaixPy.
 
 </div>
 
+<iframe style="width:100%;min-height:30em" src="https://www.youtube.com/embed/qV1lw0UVUYI?si=g3xUX5v3iT9r7RxJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 <div class="flex flex-wrap justify-between">
     <div class="feature_item">
         <div class="img_video">

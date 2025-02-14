@@ -7,6 +7,17 @@
     color: white;
 }
 
+#article video, #article iframe {
+    width: 100%;
+    min-height: 30em;
+    border-radius: 0.5em;
+    border: 1em solid white;
+}
+
+.dark #article video, .dark #article iframe {
+    border: 1em solid #2d2d2d;
+}
+
 @media screen and (max-width: 900px) {
     #home_page h1 {
         color: #eb4848;

@@ -41,6 +41,8 @@ title: MaixCAM MaixPy Quick Start
 > For an introduction to MaixPy, please see the [MaixPy official website homepage](../../README.md)
 > Please give the [MaixPy project](https://github.com/sipeed/MaixPy) a Star ⭐️ to encourage us to develop more features if you like MaixPy.
 
+<iframe style="width:100%;min-height:30em" src="https://www.youtube.com/embed/qV1lw0UVUYI?si=g3xUX5v3iT9r7RxJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Before Start
 
 * Please **carefully** follow the steps outlined in this document. Do not skip any sections, and compare your actions accordingly.
@@ -121,7 +123,7 @@ If it shows `Request failed` or `请求失败` (Request failed), please first ch
 
 Many applications are built-in, such as Find Blobs, AI Detector, Line Follower, etc. For example, Find Blobs:
 
-<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/self_learn_tracker.mp4" type="video/mp4">
+<video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/self_learn_tracker.mp4" type="video/mp4" style="width:100%">
 Classifier Result video
 </video>
 

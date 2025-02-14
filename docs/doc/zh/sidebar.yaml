@@ -183,6 +183,8 @@ items:
 
 -   label: 片外模块
     items:
+    -   file: kit/microscope.md
+        label: 显微镜套件
     -   file: modules/temp_humi.md
         label: 温湿度传感器
     -   file: modules/acc.md

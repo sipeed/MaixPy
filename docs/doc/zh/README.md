@@ -8,6 +8,12 @@ title: MaixCAM MaixPy 快速开始
         width: 100%;
         display: table;
     }
+    .biliiframe {
+      width: 100%;
+      min-height: 30em;
+      border-radius: 0.5em;
+      border: 1em solid white;
+  }
 
     @media screen and (max-width: 900px){
       #head_links th, #head_links td {
@@ -42,6 +48,9 @@ title: MaixCAM MaixPy 快速开始
 
 > 关于 MaixPy 介绍请看 [MaixPy 官网首页](../../README.md)
 > 喜欢 MaixPy 请给 [ MaixPy 项目](https://github.com/sipeed/MaixPy) 点个 Star ⭐️ 以鼓励我们开发更多功能。
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113485669204279&bvid=BV1ncmRYmEDv&cid=26768769718&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="biliiframe"></iframe>
+
 
 ## 写在前面
 

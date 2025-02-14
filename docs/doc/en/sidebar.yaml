@@ -181,6 +181,8 @@ items:
 
 -   label: Off-chip modules
     items:
+    -   file: moudles/microscope.md
+        label: Microscope kit
     -   file: modules/temp_humi.md
         label: Temperature and humidity
     -   file: modules/acc.md
