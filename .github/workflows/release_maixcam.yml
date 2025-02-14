@@ -1,0 +1,205 @@
+name: Relase MaixPy for MaixCAM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  build:
+    name: release and upload assets task
+    strategy:
+      matrix:
+        python-version: ["3.11"] # must use str, not int, or 3.10 will be recognized as 3.1
+        os: ["ubuntu-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build MaixPy
+        id: build_maixpy
+        run: |
+          echo "-- Check python version must python 3.11 --"
+          python3 -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
+          python -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
+          whereis python
+          whereis python3
+          # export PATH=~/.local/bin/:$PATH
+          # pull sipeed/MaixCDK repo here first
+          maixpy_path=$(pwd)
+          maixpy_version=`git describe --tag`
+          cd ~
+          git clone https://github.com/sipeed/MaixCDK --depth=1
+          export MAIXCDK_PATH=`pwd`/MaixCDK
+          cd $maixpy_path
+          python -m pip install -U pip setuptools wheel twine
+          python -m pip install -r $MAIXCDK_PATH/requirements.txt
+          python -m pip install pybind11-stubgen
+          echo "--------------------------------"
+          echo "-- Build MaixPy for Linux now --"
+          echo "--------------------------------"
+          sudo apt update -y
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake libfuse-dev mtools
+          cmake --version
+          python setup.py bdist_wheel linux
+          echo "--------------------------------"
+          echo "-- Test MaixPy basic for Linux now --"
+          echo "--------------------------------"
+          chmod +x ./run.sh && ./run.sh test/test_basic.py
+          mkdir -p artifact
+          cp dist/* artifact/
+          release_name=`ls artifact|awk '{print $1}'`
+          release_path=artifact/$release_name
+          echo "release_linux_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_linux_name=$release_name" >> $GITHUB_OUTPUT
+          echo "----------------------------------"
+          echo "-- Build MaixPy for MaixCAM now --"
+          echo "----------------------------------"
+          python setup.py bdist_wheel maixcam
+          cp dist/* artifact/
+          release_name=`ls dist|awk '{print $1}'`
+          release_path=`realpath dist/$release_name`
+          echo "release_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_name=$release_name" >> $GITHUB_OUTPUT
+          echo "--------------------------------"
+          echo "-- Generate MaixCDK version file --"
+          echo "--------------------------------"
+          cd $MAIXCDK_PATH
+          maixcdk_rev=`git rev-parse HEAD`
+          maixcdk_version_name="maixcdk_version_${maixcdk_rev}.txt"
+          echo "MaixPy ${maixpy_version} use MaixCDK commit ${maixcdk_rev}" > $maixcdk_version_name
+          maixcdk_version_path=`realpath "${MAIXCDK_PATH}/${maixcdk_version_name}"`
+          echo "maixcdk_version_path=$maixcdk_version_path" >> $GITHUB_OUTPUT
+          echo "maixcdk_version_name=$maixcdk_version_name" >> $GITHUB_OUTPUT
+          cd $maixpy_path
+          echo "--------------------------------"
+          echo "--      Generate system       --"
+          echo "--------------------------------"
+          cd tools/os
+          chmod +x gen_os.sh
+          date_now=`date +"%Y-%m-%d"`
+          os_version_name="maixcam-${date_now}-maixpy-${maixpy_version}"
+          base_os_path=tmp/base_os.img.xz
+          python download_base_os.py -o ${base_os_path}
+          python download_builtin_files.py --unzip tmp/dl_builtin_files
+          builtin_files_dir=tmp/dl_builtin_files/sys_builtin_files
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir
+          os_filename=${os_version_name}.img.xz
+          os_filepath=`pwd`/tmp/$os_filename
+          sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
+          sha256sum $os_filepath > ${maixpy_path}/sha256sum_files.txt
+          echo "os_path=$os_filepath" >> $GITHUB_OUTPUT
+          echo "os_name=$os_filename" >> $GITHUB_OUTPUT
+          echo "-------------------------------------"
+          echo "-- Generate system for MaixCAM-Pro --"
+          echo "-------------------------------------"
+          os_version_name_pro="maixcam-pro-${date_now}-maixpy-${maixpy_version}"
+          ./gen_os.sh $base_os_path $release_path $builtin_files_dir 1 maixcam-pro
+          os_filename=${os_version_name_pro}.img.xz
+          os_filepath=`pwd`/tmp/$os_filename
+          sha256sum $os_filepath >> ${maixpy_path}/sha256sum_files.txt
+          echo "os_pro_path=$os_filepath" >> $GITHUB_OUTPUT
+          echo "os_pro_name=$os_filename" >> $GITHUB_OUTPUT
+
+      - name: Build doc
+        id: build_doc
+        run: |
+          maixpy_path=$(pwd)
+          pip3 install teedoc
+          cd docs
+          echo "== install plugins =="
+          teedoc install
+          echo "== start build =="
+          teedoc build
+          echo "== build complete =="
+          remote_addr=`git remote get-url --push origin`
+          remote_addr=`echo $remote_addr|  awk -F'://' '{print $2}'`
+          user_name=`git log -1 --pretty=format:'%an'`
+          user_email=`git log -1 --pretty=format:'%ae'`
+          echo "== checkout gh-pages branch =="
+          doc_dirname=maixpy_${{ github.ref_name }}_doc
+          doc_dir=${maixpy_path}/$doc_dirname
+          echo "#!/bin/bash" > out/view_doc.sh
+          echo "python -m http.server" >> out/view_doc.sh
+          echo "python -m http.server" > out/view_doc.bat
+          mkdir -p ${doc_dir}/html
+          mv ./out/* ${doc_dir}/html/
+          mkdir -p ${doc_dir}/source
+          mv ./* ${doc_dir}/source/
+          cd ${maixpy_path}
+          zip ${doc_dirname}.zip -r $doc_dirname
+          release_name=${doc_dirname}.zip
+          release_path=${maixpy_path}/$release_name
+          sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
+          echo "release_doc_path=$release_path" >> $GITHUB_OUTPUT
+          echo "release_doc_name=$release_name" >> $GITHUB_OUTPUT
+          echo "sha256sum_path=${maixpy_path}/sha256sum_files.txt" >> $GITHUB_OUTPUT
+          echo "sha256sum_name=sha256sum_files.txt" >> $GITHUB_OUTPUT
+
+      - name: Upload MaixPy Doc to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_doc.outputs.release_doc_path }}
+          asset_name: ${{ steps.build_doc.outputs.release_doc_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload sha256sum file to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_doc.outputs.sha256sum_path }}
+          asset_name: ${{ steps.build_doc.outputs.sha256sum_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixCDK version txt to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.maixcdk_version_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.maixcdk_version_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixPy MaixCAM to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.release_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.release_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixPy Linux to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.release_linux_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.release_linux_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixCAM OS to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.os_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.os_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload MaixCAM-Pro OS to release assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: ${{ steps.build_maixpy.outputs.os_pro_path }}
+          asset_name: ${{ steps.build_maixpy.outputs.os_pro_name }}
+          tag: ${{ github.ref }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish MaixPy to pypi.org
+        run: |
+          echo "[pypi]" > ~/.pypirc
+          echo "  username = __token__" >> ~/.pypirc
+          echo "  password = ${{ secrets.PYPI_TOKEN }}" >> ~/.pypirc
+          twine upload artifact/*.whl
+

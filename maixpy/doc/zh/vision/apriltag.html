@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy 识别 Apriltag 标签 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2024-04-03", "update": [{"date": "2024-04-03", "author": "lxowalle", "version": "1.0.0", "content": "初版文档"}], "ts": 1712102400, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/vision/apriltag.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/vision/apriltag.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy 识别 Apriltag 标签</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2024-04-03">
+                                    2024-04-03
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/vision/apriltag.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2024-04-03</td>
+                                                    <td>1.0.0</td>
+                                                    <td>lxowalle</td>
+                                                    <td>
+                                                    
+                                                        初版文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>阅读本文前，确保已经知晓如何开发MaixCAM，详情请阅读<a href="../index.html"  >快速开始</a></p>
+<h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>本文介绍如何使用MaixPy来识别Apriltag标签</p>
+<h2 id="%E4%BD%BF%E7%94%A8-MaixPy-%E8%AF%86%E5%88%ABApriltag%E6%A0%87%E7%AD%BE">使用 MaixPy 识别Apriltag标签</h2>
+<p>MaixPy的 <code>maix.image.Image</code>中提供了<code>find_apriltags</code>方法，可以可以识别apriltag标签。</p>
+<h3 id="%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%ABApriltag%E6%A0%87%E7%AD%BE">如何识别Apriltag标签</h3>
+<p>一个简单的示例，实现识别apriltag标签并画框</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, camera, display
+
+cam = camera.Camera()
+disp = display.Display()
+
+families = image.ApriltagFamilies.TAG36H11
+x_scale = cam.width() / 160
+y_scale = cam.height() / 120
+
+while 1:
+    img = cam.read()
+
+    new_img = img.resize(160, 120)
+    apriltags = new_img.find_apriltags(families = families)
+    for a in apriltags:
+        corners = a.corners()
+
+        for i in range(4):
+            corners[i][0] = int(corners[i][0] * x_scale)
+            corners[i][1] = int(corners[i][1] * y_scale)
+        x = int(a.x() * x_scale)
+        y = int(a.y() * y_scale)
+        w = int(a.w() * x_scale)
+        h = int(a.h() * y_scale)
+
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
+        img.draw_string(x + w, y, &quot;id: &quot; + str(a.id()), image.COLOR_RED)
+        img.draw_string(x + w, y + 15, &quot;family: &quot; + str(a.family()), image.COLOR_RED)
+
+    disp.show(img)
+</code></pre>
+<p>步骤：</p>
+<ol>
+<li><p>导入image、camera、display模块</p>
+
+<pre class="language-python"><code class="language-python">from maix import image, camera, display
+</code></pre>
+</li>
+<li><p>初始化摄像头和显示</p>
+
+<pre class="language-python"><code class="language-python">cam = camera.Camera()
+disp = display.Display()
+</code></pre>
+</li>
+<li><p>从摄像头获取图片并显示</p>
+
+<pre class="language-python"><code class="language-python">while 1:
+    img = cam.read()
+    disp.show(img)
+</code></pre>
+</li>
+<li><p>调用<code>find_apriltags</code>方法识别摄像头图片中的apriltag标签</p>
+
+<pre class="language-python"><code class="language-python">new_img = img.resize(160, 120)
+apriltags = new_img.find_apriltags(families = families)
+</code></pre>
+<ul>
+<li><code>img</code>是通过<code>cam.read()</code>读取到的摄像头图像</li>
+<li><code>img.resize(160, 120)</code>是用来将图像缩放得更小，用更小的图像来让算法计算得更快</li>
+<li><code>new_img.find_apriltags(families = families)</code>用来寻找apriltag标签，并将查询结果保存到<code>apriltags</code>，以供后续处理。其中families用来选择apriltag族，默认为<code>image.ApriltagFamilies.TAG36H11</code></li>
+</ul>
+</li>
+<li><p>处理识别标签的结果并显示到屏幕上</p>
+
+<pre class="language-python"><code class="language-python">for a in apriltags:
+    # 获取位置信息（并映射坐标到原图）
+    x = int(a.x() * x_scale)
+    y = int(a.y() * y_scale)
+    w = int(a.w() * x_scale)
+    corners = a.corners()
+    for i in range(4):
+        corners[i][0] = int(corners[i][0] * x_scale)
+        corners[i][1] = int(corners[i][1] * y_scale)
+
+    # 显示
+    for i in range(4):
+        img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
+        img.draw_string(x + w, y, &quot;id: &quot; + str(a.id()), image.COLOR_RED)
+        img.draw_string(x + w, y + 15, &quot;family: &quot; + str(a.family()), image.COLOR_RED)
+        img.draw_string(x + w, y + 30, &quot;rotation : &quot; + str(180 * a.rotation() // 3.1415), image.COLOR_RED)
+</code></pre>
+<ul>
+<li>遍历<code>apriltags</code>的成员，<code>apriltags</code>是通过<code>img.find_apriltags()</code>扫描apriltag标签的结果，如果找不到标签则<code>apriltags</code>的成员为空</li>
+<li><code>x_scale</code>和<code>y_scale</code>用来映射坐标，由于<code>new_img</code>是缩放后的图像，计算apriltag的坐标时需要经过映射后才能正常的画在原图<code>img</code>上</li>
+<li><code>a.corners()</code>用来获取已扫描到的标签的四个顶点坐标，<code>img.draw_line()</code>利用这四个顶点坐标画出标签的形状</li>
+<li><code>img.draw_string</code>用来显示标签的内容，其中<code>a.x()</code>和<code>a.y()</code>用来获取标签左上角坐标x和坐标y，<code>a.id()</code>用来获取标签的id，<code>a.family()</code>用来获取标签族类型，<code>a.rotation()</code>用来获取标签的旋转角度。</li>
+</ul>
+</li>
+</ol>
+<h3 id="%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E">常用参数说明</h3>
+<p>列举常用参数说明，如果没有找到可以实现应用的参数，则需要考虑是否使用其他算法实现，或者基于目前算法的结果扩展所需的功能</p>
+<table>
+<thead>
+<tr>
+  <th>参数</th>
+  <th>说明</th>
+  <th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>roi</td>
+  <td>设置算法计算的矩形区域，roi=[x, y, w, h]，x，y表示矩形区域左上角坐标，w，h表示矩形区域的宽度和高度，默认为整张图片</td>
+  <td>计算坐标为(50,50)，宽和高为100的区域<br /><code>img.find_apriltags(roi=[50, 50, 100, 100])</code></td>
+</tr>
+<tr>
+  <td>families</td>
+  <td>apriltag标签家族类型</td>
+  <td>扫描TAG36H11家族的标签<br /><code>img.find_apriltags(families = image.ApriltagFamilies.TAG36H11)</code></td>
+</tr>
+</tbody>
+</table>
+<p>本文介绍常用方法，更多 API 请看 API 文档的 <a href="../../../api/maix/image.html"  >image</a> 部分。</p>
+<h3 id="%E6%B5%8B%E8%B7%9D1%EF%BC%9A%E7%89%A9%E4%BD%93%E5%9E%82%E7%9B%B4%E4%B8%8E%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E8%B7%9D%E7%A6%BB">测距1：物体垂直与摄像头的距离</h3>
+<p>这里提供一种使用<code>distance=k/width</code>的公式来测距, 其中<code>distance</code>是摄像头和物体的距离,单位<code>mm</code>, <code>k</code>是一个常量, <code>width</code>是物体在画面中的宽度,单位是像素点.</p>
+<p>测量方法分两步: 1. 测量常量系数k; 2. 通过常量系数和标签宽度来计算物体与摄像头的距离</p>
+<h4 id="%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87">前期准备</h4>
+<ol>
+<li><code>apriltag</code>标签纸</li>
+<li>尺子(或其他测距工具)</li>
+</ol>
+<h4 id="%E6%B5%8B%E9%87%8F%E5%B8%B8%E9%87%8F%E7%B3%BB%E6%95%B0k">测量常量系数k</h4>
+<ul>
+<li><p>将<code>apriltag</code>标签纸固定,并在距离<code>apriltag</code>标签20cm处固定<code>maixcam</code></p>
+</li>
+<li><p>使用<code>maixcam</code>检测<code>apriltag</code>标签并计算标签的宽度, 参考代码:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display
+import math
+
+'''
+x1,y1,x2,y2: apriltag宽度的两点坐标, 一般通过corners()方法获取
+返回标签的宽度,单位为像素点
+'''
+def caculate_width(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2) 
+
+cam = camera.Camera(160, 120)
+disp = display.Display()
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+
+        # 通过水平方向的两个坐标点计算宽度
+        width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+        # 打印apriltag标签的实际宽度
+        print(f'apriltag width:{width}')
+    disp.show(img)
+</code></pre>
+</li>
+<li><p>计算常量系数k</p>
+
+<pre class="language-python"><code class="language-python">'''
+width: 当距离为distance时,检测到apriltag标签的宽度
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(width, distance):
+    return width * distance
+
+# 距离200mm时检测到标签宽度为43个像素
+k = caculate_k(43, 200)
+</code></pre>
+</li>
+</ul>
+<h4 id="%E9%80%9A%E8%BF%87%E5%B8%B8%E9%87%8F%E7%B3%BB%E6%95%B0%E8%AE%A1%E7%AE%97%E6%91%84%E5%83%8F%E5%A4%B4%E5%92%8C%E7%89%A9%E4%BD%93%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB">通过常量系数计算摄像头和物体间的距离</h4>
+
+<pre class="language-python"><code class="language-python">'''
+width: apriltag标签的宽度
+k: 常量系数
+返回摄像头与物体的距离,单位mm
+'''
+def caculate_distance(width, k):
+    return k / width
+
+distance = caculate_distance(55, 8600)
+</code></pre>
+<h4 id="%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E5%8F%82%E8%80%83%3A">完整的代码参考:</h4>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, image
+import math
+
+'''
+x1,y1,x2,y2: apriltag宽度的两点坐标, 一般通过corners()方法获取
+返回标签的宽度,单位为像素点
+'''
+def caculate_width(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2) 
+
+'''
+width: 当距离为distance时,检测到apriltag标签的宽度
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(width, distance):
+    return width * distance
+
+'''
+width: apriltag标签的宽度
+k: 常量系数
+返回摄像头与物体的距离,单位mm
+'''
+def caculate_distance(width, k):
+    return k / width
+
+
+cam = camera.Camera(192, 108)
+disp = display.Display()
+
+# 距离200mm时检测到标签宽度为43个像素
+k = caculate_k(43, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # 通过水平方向的两个坐标点计算宽度
+        width = caculate_width(corners[0][0], corners[0][1], corners[1][0], corners[1][1])
+
+        # 计算距离
+        distance = caculate_distance(width, k)
+
+        print(f'apriltag width:{width} distance:{distance} mm')
+
+    disp.show(img)
+
+</code></pre>
+<p>上面的方法是通过<code>apriltag</code>的宽度计算距离, 同样也可以扩展为使用高度来计算距离. 但需要注意该方法是在对距离估测, 实际应用中会有些许误差存在.</p>
+<h3 id="%E6%B5%8B%E8%B7%9D2%EF%BC%9A%E5%88%A9%E7%94%A8apriltag%E6%A0%87%E7%AD%BE%E6%B5%8B%E9%87%8F%E7%89%A9%E4%BD%93%E5%88%B0%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E8%B7%9D%E7%A6%BB">测距2：利用apriltag标签测量物体到摄像头的距离</h3>
+<p>通过<code>apriltag</code>标签测距，可以比较准确的测量标签在空间中的位置，这里我们也利用<code>find_apriltag()</code>方法返回的参数来计算任意位置的<code>apriltag</code>标签到摄像头的位置，当然前提是你必须检测到<code>apriltag</code>标签。</p>
+<p>测量方法共两步：1. 计算常量系数k。2.通过<code>find_apriltag()</code>返回的位置信息计算标签到摄像头的距离</p>
+<p>优点：可以在<code>apriltag</code>标签旋转、与摄像头有偏移的情况测量出标签到摄像头的距离</p>
+<h4 id="%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87">前期准备</h4>
+<ol>
+<li><code>apriltag</code>标签纸</li>
+<li>尺子(或其他测距工具)</li>
+</ol>
+<h4 id="%E6%B5%8B%E9%87%8F%E5%B8%B8%E9%87%8F%E7%B3%BB%E6%95%B0">测量常量系数</h4>
+<ul>
+<li><p>将<code>apriltag</code>标签纸固定,并在距离<code>apriltag</code>标签20cm处固定<code>maixcam</code></p>
+</li>
+<li><p>使用<code>maixcam</code>检测<code>apriltag</code>标签并通过<code>z_translation</code>计算常量系数, 参考代码:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display
+
+'''
+z_trans: 当距离为distance时,检测到apriltag标签z_translation()的值
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(z_trans, distance):
+    return distance / z_trans
+
+cam = camera.Camera(160, 120)
+disp = display.Display()
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        k = caculate_k(a.z_translation(), 200)
+        print(f&quot;k:{k}&quot;)
+    disp.show(img)
+</code></pre>
+</li>
+</ul>
+<h4 id="%E6%B5%8B%E9%87%8F%E6%A0%87%E7%AD%BE%E5%88%B0%E7%89%A9%E4%BD%93%E7%9A%84%E8%B7%9D%E7%A6%BB">测量标签到物体的距离</h4>
+<ul>
+<li><p>通过<code>apriltag</code>标签返回的<code>x_translation</code>,<code>y_translation</code>和<code>z_translation</code>计算标签到摄像头的距离</p>
+
+<pre class="language-python"><code class="language-python">'''
+x_trans: 检测apriltag标签返回的x_translation()的值
+y_trans: 检测apriltag标签返回的y_translation()的值
+z_trans: 检测apriltag标签返回的z_translation()的值
+k: 常量系数
+返回距离, 单位mm
+'''
+def calculate_distance(x_trans, y_trans, z_trans, k):
+    return k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans)
+</code></pre>
+</li>
+</ul>
+<h4 id="%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E5%8F%82%E8%80%83%3A">完整的代码参考:</h4>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, image
+import math
+
+'''
+z_trans: 当距离为distance时,检测到apriltag标签z_translation()的值
+distance: 检测apriltag标签时距离apriltag标签的实际距离, 单位mm
+返回常量系数
+'''
+def caculate_k(z_trans, distance):
+    return distance / z_trans
+
+'''
+x_trans: 检测apriltag标签返回的x_translation()的值
+y_trans: 检测apriltag标签返回的y_translation()的值
+z_trans: 检测apriltag标签返回的z_translation()的值
+k: 常量系数
+返回距离, 单位mm
+'''
+def calculate_distance(x_trans, y_trans, z_trans, k):
+    return abs(k * math.sqrt(x_trans * x_trans + y_trans * y_trans + z_trans * z_trans))
+
+cam = camera.Camera(160, 120)
+disp = display.Display()
+
+# 距离200mm时检测到apriltag标签返回的z_translation()为-9.7
+k = caculate_k(-9.7, 200)
+
+while 1:
+    img = cam.read()
+
+    apriltags = img.find_apriltags()
+    for a in apriltags:
+        corners = a.corners()
+        for i in range(4):
+            img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_GREEN)
+
+        # 计算距离
+        x_trans = a.x_translation()
+        y_trans = a.y_translation()
+        z_trans = a.z_translation()
+        distance = calculate_distance(x_trans, y_trans, z_trans, k)
+        print(f'apriltag k:{k} distance:{distance} mm')
+
+    disp.show(img)
+</code></pre>
+<p>这段代码使用 <code>MaixCAM</code> 不断读取摄像头图像，检测 <code>apriltag</code>，并通过常量系数以及标签在三个轴向的位移计算标签到摄像头的距离。计算出的距离以毫米为单位打印出来, 需要注意该方法仍是在对距离估测, 实际应用中会有些许误差存在。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/vision/find_barcodes.html">
+                            <span class="icon"></span>
+                            <span class="label">条形码识别</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/vision/opencv.html">
+                            <span class="label">使用 OpenCV</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
