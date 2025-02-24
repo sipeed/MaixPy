@@ -36,7 +36,7 @@ class LinearSVC:
         self = cls(
             C=float(npzfile["C"]), 
             learning_rate=float(npzfile["learning_rate"]), 
-            max_iter=float(npzfile["max_iter"])
+            max_iter=int(npzfile["max_iter"])
         )
         self.scaler.mean = npzfile["scaler_mean"]
         self.scaler.std = npzfile["scaler_std"]
