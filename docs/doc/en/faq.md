@@ -253,3 +253,11 @@ except:
     continue
 ```
 
+## VI_VENC_GetStream failed with 0xc0078012 during program runtime
+This issue occurs because the program did not exit properly last time, causing the VENC module resources to not be released. As a result, the application cannot obtain the VENC resources when it starts again. The current solutions are:
+
+1. Restart the system.
+
+2. Turn off the MaixVision preview view or switch to the PNG stream.
+
+Since this is a legacy issue at the underlying framework level, it can currently only be resolved at the application level. Efforts should be made to ensure that the program exits normally.

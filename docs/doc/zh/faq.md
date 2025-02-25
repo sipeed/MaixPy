@@ -242,3 +242,10 @@ except:
     time.sleep_ms(10)
     continue
 ```
+
+## 程序运行时出现 CVI_VENC_GetStream failed with 0xc0078012
+
+这是因为上次程序没有正常退出，导致venc模块资源没有释放，再次启动应用就拿不到venc的资源了。 目前解决方法是：
+1. 重启系统
+2. 关掉maixvision的预览视图，或者切换到png流
+由于这是底层框架上遗留的问题，目前只能从应用层解决，尽量保证程序正常的退出
