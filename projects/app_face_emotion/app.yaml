@@ -1,7 +1,7 @@
 id: face_emotion
 name: Face Emotion
 name[zh]: 人脸情绪
-version: 1.0.0
+version: 1.0.1
 icon: icon.png
 author: neucrack@Sipeed Ltd
 desc: Detect face emotion

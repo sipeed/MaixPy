@@ -18,7 +18,7 @@ def main(disp):
     detect_iou_th = 0.45
     emotion_conf_th = 0.5
     max_face_num = -1
-    crop_scale = 1.2
+    crop_scale = 0.9
 
     # detect face model
     detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
