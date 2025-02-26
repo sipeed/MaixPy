@@ -37,9 +37,12 @@ MaixPy offers simple Python programming combined with powerful edge computing ha
 
 Additionally, MaixPy provides the MaixVision IDE, MaixHub online training platform, detailed documentation, and even a C/C++ SDK with identical APIs, ensuring seamless development and production deployment.
 
-For more features and video demonstrations, please visit the **official website: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
+Here is a partial video demonstration of the features. For more documentation, please visit the **official website: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
 
 > If you like this project, please click **Star** on the top right of the [MaixPy Project](https://github.com/sipeed/maixpy) to encourage us to develop more exciting content!
+
+[![](./docs/static/image/maixcam_play.jpg)](https://www.youtube.com/watch?v=qV1lw0UVUYI)
+
 
 ## Concise and Efficient Code (API) Design
 

@@ -38,9 +38,11 @@ MaixPy 提供简易的 Python 编程和性能强大的边缘计算硬件，内�
 
 并且提供 MaixVision IDE, MaixHub 云端训练平台，详细的文档，甚至有相同 API 的 C/C++ SDK，帮助你无障碍开发和量产落地。
 
-更多特性和视频展示请访问**官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
-
+下面是部分功能视频展示，更多功能和文档请访问**官网: [wiki.sipeed.com/maixpy/](https://wiki.sipeed.com/maixpy/)**
 > 喜欢请点击 [MaixPy 项目](https://github.com/sipeed/maixpy)右上角 **Star** 鼓励我们开发更多有趣内容！
+
+[![](./docs/static/image/maixcam_play.jpg)](https://www.bilibili.com/video/BV1ncmRYmEDv)
+
 
 ## 简洁高效的代码(API)设计
 
