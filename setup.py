@@ -249,8 +249,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'maix-resize=maix.maix_resize:main_cli',
-            'maix_test_hardware=maix.test_hardware:main',
+            'maix-resize=maix.maix_resize:main_cli'
         ],
         # 'gui_scripts': [
         # ],
@@ -276,9 +275,12 @@ if board:
         import zipfile
         with zipfile.ZipFile(os.path.join("dist", name), "r") as zip_ref:
             zip_ref.extractall("dist/temp")
-        with open("dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__), "r", encoding="utf-8") as f:
+        wheel_path = "dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__)
+        if not os.path.exists(wheel_path):
+            wheel_path = "dist/temp/maixpy-{}.dist-info/WHEEL".format(__version__)
+        with open(wheel_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
-        with open("dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__), "w", encoding="utf-8") as f:
+        with open(wheel_path, "w", encoding="utf-8") as f:
             for line in lines:
                 if line.startswith("Tag:"):
                     f.write("Tag: py3-none-any\n")
