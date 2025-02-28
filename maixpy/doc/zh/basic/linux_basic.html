@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>Linux 基础知识 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2024-10-26", "update": [{"date": "2024-10-26", "author": "YWJ", "version": "2.0.0", "content": "增加常用命令文档"}, {"date": "2024-03-19", "author": "neucrack", "version": "1.0.0", "content": "填加文档"}], "ts": 1729900800, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/basic/linux_basic.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/basic/linux_basic.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>Linux 基础知识</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2024-10-26">
+                                    2024-10-26
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/basic/linux_basic.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2024-10-26</td>
+                                                    <td>2.0.0</td>
+                                                    <td>YWJ</td>
+                                                    <td>
+                                                    
+                                                        增加常用命令文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2024-03-19</td>
+                                                    <td>1.0.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        填加文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>本章内容对于刚入门的同学来说，可以先跳过此章节，在学会 MaixPy 基础开发后再来学习也是可以的。</p>
+<p>最新的 MaixPy 支持的 MaixCAM 硬件支持跑 Linux 系统，所以 MaixPy 底层都是基于 Linux 系统进行开发的。<br />
+虽然 Sipeed 开发的 MaixPy 已经为开发者们做了很多工作，即使不知道 Linux 系统知识也能愉快使用，但是以防在某些情况下需要一些底层操作，以及方便未接触过 Linux 的开发者学习，这里写一些 Linux 基础知识。</p>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-Linux-%E7%B3%BB%E7%BB%9F">为什么需要 Linux 系统</h2>
+<p>Linux 的介绍请大家自行查阅了解，这里用通俗的看起来不太专业的话语简单举几个例子方便初学者理解：</p>
+<ul>
+<li>在单片机中，我们的程序是一个死循环程序，用上 Linux 后我们可以同时跑很多程序，每个程序看起来都独立在同时运行，每个程序具体怎么执行的由操作系统实现。</li>
+<li>基于 Linux 的开发者众多，需要功能和驱动可以很方便地找到，不需要自己再实现一遍。</li>
+<li>基于 Linux 配套的软件工具丰富，可以很方便地进行开发和调试，比如在本教程没有提到的一些 Linux 通用工具理论上也是可以使用的。</li>
+</ul>
+<h2 id="Linux-%E7%B3%BB%E7%BB%9F%E5%A4%A7%E5%AE%B6%E6%97%8F">Linux 系统大家族</h2>
+<p>Linux 是一个开源操作系统内核，提供了操作系统基本的内容，使用其本身并不能像 Windows 一样普通用户能开箱即用，所以开源社区基于 Linux 内核发展出了很多版本（发行版），比如 <code>Ubuntu</code> 应该是用户量最大的发行版，使用人数较多，资料多，入门建议选择，其它的还有 <code>Arch</code> <code>CentOS</code> 等等非常多，全部都是基于 Linux 内核，所以大家日常都称为 Linux。<br />
+这众多系统的不同就是 界面、用户交互体验、驱动、预装软件、软件管理器（包管理器）等等，新手可以选择<code>Ubuntu</code>再探索其它系统。</p>
+<p>对于 MaixCAM，理论上也可以安装<code>Ubuntu</code>等系统，不过由于 MaixCAM 的内存只有 256MB，比较有限，而且 ubuntu 有很多臃肿的软件实际部署用不到， MaixCAM 使用了基于<code>Linux</code>内核+<code>buildroot</code>文件系统构建的系统，代码开源在<a href="https://github.com/sipeed/LicheeRV-Nano-Build"  target="_blank">github.com/sipeed/LicheeRV-Nano-Build</a>。有兴趣的可以搜索相关词汇了解。</p>
+<h2 id="%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">文件系统</h2>
+<p>什么是文件系统？</p>
+<ul>
+<li>就像电脑的文件系统一样，Linux 上会将硬件磁盘用文件系统进行管理，这样我们可以很方便地向磁盘读写数据。</li>
+<li>对于学过单片机没有接触过文件系统开发的同学来讲，可以理解为我们有一个 Flash 或者 TF 卡，我们可以通过 API 读写 Flash 存取数据，断电后也能保存数据，但是 Flash 具有读写寿命，我们往往需要写一套程序去保证 Flash 读写寿命，而文件系统就可以理解成这样一套成熟的程序，文件系统帮我们完成了具体如何管理 Flash 空间和读写，我们只需调用文件系统的 API 即可，大大减少了我们的开发工作量并且用成熟的程序保证了稳定性和安全性。</li>
+</ul>
+<h2 id="%E5%9C%A8%E7%94%B5%E8%84%91%E5%92%8C%E8%AE%BE%E5%A4%87%EF%BC%88%E5%BC%80%E5%8F%91%E6%9D%BF%EF%BC%89%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6">在电脑和设备（开发板）之间传输文件</h2>
+<p>既然设备有 Linux 和文件系统，那我们怎么发送文件到设备呢？</p>
+<p>对于 MaixPy 我们配套了 MaixVision， 在后面的版本也会支持文件管理功能，在此之前可以用下面的方法：</p>
+<p>这里我们主要介绍通过网络传输的方式，其它方式可自行探索<code>传输文件到 Linux</code>：</p>
+<ul>
+<li>确保设备和电脑连接到了同一个局域网，比如：<ul>
+<li>MaixCAM 的 USB 口连接到电脑会创建一个虚拟网卡，在电脑端的设备管理器就能看到，设备的 IP 可以在设备的<code>设置-&gt;设备信息</code>中看到设备名和 IP。</li>
+<li>也可以在设备<code>设置-&gt;WiFi</code>中连接到和电脑相同的局域网。</li>
+</ul>
+</li>
+<li>电脑使用 SCP 或者 SFTP 协议传输文件到设备，具体的软件有很多，具体的软件和使用方法可以自行搜索，比如：<ul>
+<li>在 Windows 上可以使用 WinSCP 或者 FileZilla，或者 scp 命令等。</li>
+<li>在 Linux 上可以使用 FileZilla 或者 scp 命令 等。</li>
+<li>在 Mac 上可以使用 FileZilla 或者 scp 命令 等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="%E7%BB%88%E7%AB%AF%E5%92%8C%E5%91%BD%E4%BB%A4%E8%A1%8C">终端和命令行</h2>
+<p>终端就是通过<code>终端</code>这个软件与 Linux 系统进行通信和操作的工具，类似于 Windows 的<code>cmd</code>或者<code>PowerShell</code>。</p>
+<p>比如我们可以在电脑的 Window 系统中的 powershell 或者 Linux系统中的 终端 工具中输入<code>ssh root@maixcam-xxxx.local</code> 这里具体的名字在设备的<code>设置-&gt;设备信息</code>中可以看到，这样我们就可以通过终端连接到设备了(用户名和密码都是<code>root</code>)。<br />
+然后我们通过输入命令来操作设备，比如<code>ls</code>命令可以列出设备文件系统中当前目录下的文件, <code>cd</code> 用来切换当前所在的目录（就像电脑文件管理中点击文件夹切换目录一样），</p>
+
+<pre class="language-shell"><code class="language-shell">cd /     # 切换到根目录
+ls       # 显示当前目录（根目录）下的所有文件
+</code></pre>
+<p>然后会显示类似下面的内容：</p>
+
+<pre class="language-shell"><code class="language-shell">bin         lib         media       root        tmp
+boot        lib64       mnt         run         usr
+dev         linuxrc     opt         sbin        var
+etc         lost+found  proc        sys
+</code></pre>
+<p>更多命令学习请自行搜索<code>Linux 命令行使用教程</code>，这里只是为了让初学者知道基本概念，这样有开发者提到时可以知道是什么意思。</p>
+<h2 id="MaixCAM-%E6%89%A7%E8%A1%8C-shell-%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4">MaixCAM 执行 shell 终端命令</h2>
+<p>对于 <code>MaixCAM</code> 有几种方法可以和其系统<code>shell</code>进行交互：</p>
+<ul>
+<li>在电脑终端通过<code>ssh root@192.168.0.123</code> 来连接 <code>MaixCAM</code>，默认密码是<code>root</code>。</li>
+<li>通过 <code>MaixVision</code> 的<code>终端</code>功能来连接（MaixVision 版本 &gt;= 1.2.0）。</li>
+<li>通过 Python 脚本来执行，最简单的就是使用<code>os.system()</code>函数，比如</li>
+</ul>
+
+<pre class="language-python"><code class="language-python">import os
+os.system(&quot;echo hello&quot;)
+</code></pre>
+<p>另外<code>Python</code>还有其它模块可以执行 shell 命令，比如<code>subprocess</code> 模块：</p>
+
+<pre class="language-python"><code class="language-python">import subprocess
+
+# 要执行的命令
+command = [&quot;echo&quot;, &quot;Hello, World!&quot;]
+
+# 使用 Popen 执行命令
+process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+# 获取输出和错误
+stdout, stderr = process.communicate()
+
+# 打印输出
+print(&quot;标准输出:&quot;, stdout.decode())
+print(&quot;标准错误:&quot;, stderr.decode())
+</code></pre>
+<h2 id="Linux-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%82%E8%80%83">Linux 常用命令参考</h2>
+<p>这里列一些常见的 Linux 命令操作，方便查阅。</p>
+<p>注意以下为社区成员贡献文档，只做参考，以及并不是所有命令是适用于 MaixCAM 的系统。</p>
+<h3 id="%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C">文件和目录操作</h3>
+<ul>
+<li><p><strong>ls</strong>：列出目录内容。</p>
+
+<pre class="language-bash"><code class="language-bash">ls -l  # 详细列表
+ls -a  # 显示隐藏文件
+</code></pre>
+</li>
+<li><p><strong>cd</strong>：改变当前目录。</p>
+
+<pre class="language-bash"><code class="language-bash">cd /home/user  # 进入/home/user目录
+cd ..  # 返回上一级目录
+cd ~  # 返回用户主目录
+</code></pre>
+</li>
+<li><p><strong>pwd</strong>：显示当前工作目录。</p>
+
+<pre class="language-bash"><code class="language-bash">pwd
+</code></pre>
+</li>
+<li><p><strong>mkdir</strong>：创建新目录。</p>
+
+<pre class="language-bash"><code class="language-bash">mkdir new_directory
+mkdir -p parent_directory/child_directory  # 递归创建目录
+</code></pre>
+</li>
+<li><p><strong>rmdir</strong>：删除空目录。</p>
+
+<pre class="language-bash"><code class="language-bash">rmdir empty_directory
+</code></pre>
+</li>
+<li><p><strong>rm</strong>：删除文件或目录。</p>
+
+<pre class="language-bash"><code class="language-bash">rm file.txt  # 删除文件
+rm -r directory  # 递归删除目录及其内容
+</code></pre>
+</li>
+<li><p><strong>cp</strong>：复制文件或目录。</p>
+
+<pre class="language-bash"><code class="language-bash">cp source_file destination_file  # 复制文件
+cp -r source_directory destination_directory  # 递归复制目录
+</code></pre>
+</li>
+<li><p><strong>mv</strong>：移动或重命名文件或目录。</p>
+
+<pre class="language-bash"><code class="language-bash">mv old_name new_name  # 重命名文件或目录
+mv file.txt /new_directory/  # 移动文件到新目录
+</code></pre>
+</li>
+<li><p><strong>touch</strong>：创建空文件或更新文件的时间戳。</p>
+
+<pre class="language-bash"><code class="language-bash">touch new_file.txt
+</code></pre>
+</li>
+<li><p><strong>cat</strong>：连接文件并打印到标准输出。</p>
+
+<pre class="language-bash"><code class="language-bash">cat file.txt  # 显示文件内容
+</code></pre>
+</li>
+<li><p><strong>more</strong>：分页显示文件内容。</p>
+
+<pre class="language-bash"><code class="language-bash">more file.txt
+</code></pre>
+</li>
+<li><p><strong>less</strong>：类似more，但更强大。</p>
+
+<pre class="language-bash"><code class="language-bash">less file.txt
+</code></pre>
+</li>
+<li><p><strong>head</strong>：显示文件的前几行。</p>
+
+<pre class="language-bash"><code class="language-bash">head -n 10 file.txt  # 显示文件的前10行
+</code></pre>
+</li>
+<li><p><strong>tail</strong>：显示文件的后几行。</p>
+
+<pre class="language-bash"><code class="language-bash">tail -n 10 file.txt  # 显示文件的后10行
+</code></pre>
+</li>
+</ul>
+<h3 id="%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">文件权限管理</h3>
+<ul>
+<li><p><strong>chmod</strong>：改变文件或目录的权限。</p>
+
+<pre class="language-bash"><code class="language-bash">chmod 755 file.txt  # 设置文件权限为rwxr-xr-x
+chmod u+x file.txt  # 给文件所有者添加执行权限
+</code></pre>
+</li>
+<li><p><strong>chown</strong>：改变文件或目录的所有者。</p>
+
+<pre class="language-bash"><code class="language-bash">chown user:group file.txt  # 改变文件的所有者和所属组
+</code></pre>
+</li>
+<li><p><strong>chgrp</strong>：改变文件或目录的所属组。</p>
+
+<pre class="language-bash"><code class="language-bash">chgrp group file.txt  # 改变文件的所属组
+</code></pre>
+</li>
+</ul>
+<h3 id="%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86">系统管理</h3>
+<ul>
+<li><p><strong>ps</strong>：显示当前进程的状态。</p>
+
+<pre class="language-bash"><code class="language-bash">ps -ef  # 显示所有进程
+</code></pre>
+</li>
+<li><p><strong>top</strong>：实时显示系统中各个进程的资源使用情况。</p>
+
+<pre class="language-bash"><code class="language-bash">top
+</code></pre>
+
+<pre class="language-bash"><code class="language-bash">htop
+</code></pre>
+</li>
+<li><p><strong>kill</strong>：终止进程。</p>
+
+<pre class="language-bash"><code class="language-bash">kill -2 PID  # 向进程发送 Ctrl+C 信号
+kill -9 PID  # 强制终止进程
+</code></pre>
+</li>
+<li><p><strong>df</strong>：显示文件系统的磁盘空间使用情况。</p>
+
+<pre class="language-bash"><code class="language-bash">df -h  # 以人类可读的格式显示
+</code></pre>
+</li>
+<li><p><strong>du</strong>：显示目录或文件的磁盘使用情况。</p>
+
+<pre class="language-bash"><code class="language-bash">du -sh directory  # 显示目录的总大小
+</code></pre>
+</li>
+<li><p><strong>free</strong>：显示系统的内存使用情况。</p>
+
+<pre class="language-bash"><code class="language-bash">free -h  # 以人类可读的格式显示
+</code></pre>
+</li>
+<li><p><strong>ifconfig</strong>：显示或配置网络接口。</p>
+
+<pre class="language-bash"><code class="language-bash">ifconfig  # 显示网络接口信息
+</code></pre>
+</li>
+<li><p><strong>ping</strong>：测试网络连通性。</p>
+
+<pre class="language-bash"><code class="language-bash">ping www.example.com  # 测试与www.example.com的连通性
+</code></pre>
+</li>
+<li><p><strong>netstat</strong>：显示网络连接、路由表、接口状态等。</p>
+
+<pre class="language-bash"><code class="language-bash">netstat -an  # 显示所有网络连接
+</code></pre>
+</li>
+<li><p><strong>shutdown</strong>：关闭或重启系统。</p>
+
+<pre class="language-bash"><code class="language-bash">shutdown         # 立即关机
+shutdown -h now  # 立即关机
+shutdown -r now  # 立即重启
+</code></pre>
+</li>
+<li><p><strong>reboot</strong>：重启系统。</p>
+
+<pre class="language-bash"><code class="language-bash">reboot
+</code></pre>
+</li>
+</ul>
+<h3 id="%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86">软件包管理</h3>
+<ul>
+<li><p><strong>apt-get</strong>（适用于Debian系，如Ubuntu）</p>
+
+<pre class="language-bash"><code class="language-bash">sudo apt-get update  # 更新软件包列表
+sudo apt-get upgrade  # 升级所有已安装的软件包
+sudo apt-get install package_name  # 安装软件包
+sudo apt-get remove package_name  # 删除软件包
+sudo apt-get autoremove  # 删除不再需要的包
+</code></pre>
+</li>
+<li><p><strong>yum</strong>（适用于Red Hat系，如CentOS）</p>
+
+<pre class="language-bash"><code class="language-bash">sudo yum update  # 更新所有包
+sudo yum install package_name  # 安装软件包
+sudo yum remove package_name  # 删除软件包
+sudo yum clean all  # 清理缓存
+</code></pre>
+</li>
+</ul>
+<h3 id="%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86">用户和组管理</h3>
+<ul>
+<li><p><strong>useradd</strong>：添加新用户。</p>
+
+<pre class="language-bash"><code class="language-bash">sudo useradd -m new_user  # 创建新用户并创建主目录
+sudo passwd new_user  # 设置新用户的密码
+</code></pre>
+</li>
+<li><p><strong>usermod</strong>：修改用户信息。</p>
+
+<pre class="language-bash"><code class="language-bash">sudo usermod -aG group_name user_name  # 将用户添加到组
+</code></pre>
+</li>
+<li><p><strong>userdel</strong>：删除用户。</p>
+
+<pre class="language-bash"><code class="language-bash">sudo userdel -r user_name  # 删除用户及其主目录
+</code></pre>
+</li>
+<li><p><strong>groupadd</strong>：添加新组。</p>
+
+<pre class="language-bash"><code class="language-bash">sudo groupadd new_group
+</code></pre>
+</li>
+<li><p><strong>groupdel</strong>：删除组。</p>
+
+<pre class="language-bash"><code class="language-bash">sudo groupdel group_name
+</code></pre>
+</li>
+</ul>
+<h3 id="Shell%E8%84%9A%E6%9C%AC">Shell脚本</h3>
+<p>Shell脚本是Linux系统管理和自动化任务的重要工具。以下是一个简单的Shell脚本示例：</p>
+
+<pre class="language-bash"><code class="language-bash">#!/bin/bash
+
+# 打印当前日期和时间
+echo &quot;Current date and time: $(date)&quot;
+
+# 创建一个目录
+mkdir -p /tmp/my_directory
+
+# 进入目录
+cd /tmp/my_directory
+
+# 创建一个文件
+touch my_file.txt
+
+# 写入内容到文件
+echo &quot;Hello, World!&quot; &gt; my_file.txt
+
+# 显示文件内容
+cat my_file.txt
+</code></pre>
+<p>保存上述内容为<code>script.sh</code>，然后通过以下命令执行：</p>
+
+<pre class="language-bash"><code class="language-bash">chmod +x script.sh  # 赋予执行权限
+./script.sh  # 执行脚本
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE">Linux 的网络配置</h3>
+<h4 id="%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP%E5%9C%B0%E5%9D%80">配置静态IP地址</h4>
+<p>编辑网络配置文件（例如在CentOS上）：</p>
+
+<pre class="language-bash"><code class="language-bash">sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0
+</code></pre>
+<p>添加或修改以下内容：</p>
+
+<pre class="language-bash"><code class="language-bash">BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.1.100
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+</code></pre>
+<p>重启网络服务：</p>
+
+<pre class="language-bash"><code class="language-bash">sudo systemctl restart network
+
+</code></pre>
+<h4 id="%E9%85%8D%E7%BD%AE-DNS">配置 DNS</h4>
+<p>编辑<code>/etc/resolv.conf</code>文件：</p>
+
+<pre class="language-bash"><code class="language-bash">sudo vi /etc/resolv.conf
+</code></pre>
+<p>添加以下内容：</p>
+
+<pre class="language-bash"><code class="language-bash">nameserver 8.8.8.8
+nameserver 8.8.4.4
+</code></pre>
+<h4 id="%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%A1%E7%90%86">防火墙管理</h4>
+<p>在CentOS上使用<code>firewalld</code>：</p>
+
+<pre class="language-bash"><code class="language-bash">sudo systemctl start firewalld  # 启动防火墙
+sudo systemctl enable firewalld  # 开机启动防火墙
+sudo firewall-cmd --list-all  # 查看防火墙规则
+sudo firewall-cmd --add-port=80/tcp --permanent  # 添加规则
+sudo firewall-cmd --reload  # 重载防火墙规则
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86">Linux 的日志管理</h3>
+<p>Linux系统日志通常保存在<code>/var/log</code>目录下。常见的日志文件包括：</p>
+<ul>
+<li><strong>/var/log/messages</strong>：系统消息。</li>
+<li><strong>/var/log/syslog</strong>：系统日志。</li>
+<li><strong>/var/log/dmesg</strong>：内核消息。</li>
+<li><strong>/var/log/boot.log</strong>：启动日志。</li>
+</ul>
+<p>查看日志内容：</p>
+
+<pre class="language-bash"><code class="language-bash">cat /var/log/messages
+</code></pre>
+<p>使用<code>grep</code>搜索特定内容：</p>
+
+<pre class="language-bash"><code class="language-bash">grep &quot;error&quot; /var/log/messages
+</code></pre>
+<h3 id="Linux%E7%9A%84%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7">Linux的性能监控</h3>
+<h4 id="top">top</h4>
+<p>实时显示系统中各个进程的资源使用情况。</p>
+
+<pre class="language-bash"><code class="language-bash">top
+</code></pre>
+<p>或者</p>
+
+<pre class="language-bash"><code class="language-bash">htop
+</code></pre>
+<h4 id="vmstat">vmstat</h4>
+<p>报告虚拟内存、进程、I/O等信息。</p>
+
+<pre class="language-bash"><code class="language-bash">vmstat 1  # 每秒更新一次
+</code></pre>
+<h4 id="iostat">iostat</h4>
+<p>监控系统输入/输出设备。</p>
+
+<pre class="language-bash"><code class="language-bash">iostat 1  # 每秒更新一次
+</code></pre>
+<h4 id="mpstat">mpstat</h4>
+<p>监控CPU统计信息。</p>
+
+<pre class="language-bash"><code class="language-bash">mpstat -P ALL 1  # 监控所有CPU，每秒更新一次
+</code></pre>
+<h4 id="netstat">netstat</h4>
+<p>监控网络连接和流量。</p>
+
+<pre class="language-bash"><code class="language-bash">netstat -an
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7">Linux 的安全性</h3>
+<h4 id="SELinux">SELinux</h4>
+<p>SELinux（Security-Enhanced Linux）是一个强制访问控制系统，提供了更细粒度的安全控制。</p>
+<p>查看SELinux状态：</p>
+
+<pre class="language-bash"><code class="language-bash">sestatus
+</code></pre>
+<h4 id="AppArmor">AppArmor</h4>
+<p>AppArmor是另一种Linux安全模块，提供了基于路径的访问控制。</p>
+<h4 id="%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">权限管理</h4>
+<p>合理设置文件和目录的权限，避免使用root用户进行日常操作。</p>
+<h4 id="%E9%98%B2%E7%81%AB%E5%A2%99">防火墙</h4>
+<p>配置iptables或firewalld防火墙规则，限制不必要的网络访问。</p>
+<h4 id="%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0">定期更新</h4>
+<p>定期更新系统和软件包，修复安全漏洞。</p>
+<h3 id="Linux-%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D">Linux 的备份与恢复</h3>
+<h4 id="tar">tar</h4>
+<p>打包和压缩文件。</p>
+
+<pre class="language-bash"><code class="language-bash">tar -czvf archive_name.tar.gz /path/to/directory
+</code></pre>
+<h4 id="rsync">rsync</h4>
+<p>同步文件和目录。</p>
+
+<pre class="language-bash"><code class="language-bash">rsync -avz /source/directory user@remote_host:/destination/directory
+</code></pre>
+<h4 id="dump">dump</h4>
+<p>备份文件系统。</p>
+
+<pre class="language-bash"><code class="language-bash">dump -0 /path/to/directory
+</code></pre>
+<h4 id="restore">restore</h4>
+<p>恢复文件系统。</p>
+
+<pre class="language-bash"><code class="language-bash">restore -rf /dev/fd0
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4">Linux 的故障排除</h3>
+<h4 id="%E6%A3%80%E6%9F%A5%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4">检查磁盘空间</h4>
+
+<pre class="language-bash"><code class="language-bash">df -h
+</code></pre>
+<h4 id="%E6%A3%80%E6%9F%A5%E7%A3%81%E7%9B%98%E5%81%A5%E5%BA%B7">检查磁盘健康</h4>
+<p>使用<code>smartctl</code>检查磁盘SMART状态。</p>
+
+<pre class="language-bash"><code class="language-bash">smartctl -a /dev/sda
+</code></pre>
+<h4 id="%E6%A3%80%E6%9F%A5%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6">检查日志文件</h4>
+<p>查看<code>/var/log</code>目录下的日志文件，查找错误信息。</p>
+<h4 id="%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD">网络诊断</h4>
+<p>使用<code>ping</code>、<code>traceroute</code>等工具诊断网络问题。</p>
+
+<pre class="language-bash"><code class="language-bash">ping www.example.com
+traceroute www.example.com
+</code></pre>
+<h4 id="%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7">系统监控</h4>
+<p>使用<code>top</code>、<code>vmstat</code>等工具监控系统性能。</p>
+<h3 id="Linux%E7%9A%84%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91">Linux的编程开发</h3>
+<h4 id="gcc/g%2B%2B">gcc/g++</h4>
+<p>编译C/C++程序。</p>
+
+<pre class="language-bash"><code class="language-bash">gcc -o program program.c
+g++ -o program program.cpp
+</code></pre>
+<h4 id="make">make</h4>
+<p>自动化编译和链接。</p>
+
+<pre class="language-bash"><code class="language-bash">make -f Makefile
+</code></pre>
+<h4 id="gdb">gdb</h4>
+<p>调试C/C++程序。</p>
+
+<pre class="language-bash"><code class="language-bash">gdb program
+</code></pre>
+<h4 id="vim/emacs">vim/emacs</h4>
+<p>强大的文本编辑器。</p>
+<h4 id="git">git</h4>
+<p>版本控制。</p>
+
+<pre class="language-bash"><code class="language-bash">git clone https://github.com/user/repo.git
+git add .
+git commit -m &quot;message&quot;
+git push origin master
+</code></pre>
+<h4 id="Python">Python</h4>
+<p>Python编程。</p>
+
+<pre class="language-bash"><code class="language-bash">python3 script.py
+</code></pre>
+<h4 id="Perl">Perl</h4>
+<p>Perl编程。</p>
+
+<pre class="language-bash"><code class="language-bash">perl script.pl
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF">Linux 的容器技术</h3>
+<h4 id="Docker">Docker</h4>
+<p>Docker是一个开源的容器化平台，允许开发者打包应用以及应用的依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化。</p>
+<p>拉取和运行Docker镜像：</p>
+
+<pre class="language-bash"><code class="language-bash">docker pull ubuntu
+docker run -it ubuntu /bin/bash
+</code></pre>
+<p>管理Docker容器：</p>
+
+<pre class="language-bash"><code class="language-bash">docker ps  # 查看运行中的容器
+docker stop container_id  # 停止容器
+docker rm container_id  # 删除容器
+</code></pre>
+<h4 id="Kubernetes">Kubernetes</h4>
+<p>Kubernetes是一个开源的容器编排系统，用于自动化部署、扩展和管理容器化应用程序。</p>
+
+<pre class="language-bash"><code class="language-bash">kubectl run my-pod --image=ubuntu --command -- /bin/bash
+</code></pre>
+<h3 id="Linux-%E7%9A%84%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF">Linux 的虚拟化技术</h3>
+<h4 id="KVM">KVM</h4>
+<p>KVM（Kernel-based Virtual Machine）是一个基于Linux内核的虚拟化技术。</p>
+<h4 id="Xen">Xen</h4>
+<p>Xen是一个开源的虚拟化平台，支持多种操作系统。</p>
+<h4 id="VirtualBox">VirtualBox</h4>
+<p>VirtualBox是一个开源的虚拟化软件，可以在多种操作系统上运行。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/basic/python.html">
+                            <span class="icon"></span>
+                            <span class="label">Python 语法</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/basic/python_pkgs.html">
+                            <span class="label">添加额外的 Python 包</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

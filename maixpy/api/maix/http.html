@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.http - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.http</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/http.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.http module</p>
+<blockquote>
+<p>You can use <code>maix.http</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h2 id="Class">Class</h2>
+<h3 id="JpegStreamer">JpegStreamer</h3>
+<p>JpegStreamer class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class JpegStreamer
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, host: str = '', port: int = 8000, client_number: int = 16) -&gt; None
+</code></pre>
+<p>Construct a new jpeg streamer object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>You can get the picture stream through <a href="http://host:port/stream"  target="_blank">http://host:port/stream</a>, you can also get it through <a href="http://ip:port"  target="_blank">http://ip:port</a>, and you can add personal style through set_html() at this time</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>host</strong>: http host<br><strong>port</strong>: http port, default is 8000<br><strong>client_number</strong>: the max number of client<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">JpegStreamer(std::string host = std::string(), int port = 8000, int client_number = 16)
+</code></pre>
+</blockquote>
+<h4 id="start">start</h4>
+
+<pre class="language-python"><code class="language-python">def start(self) -&gt; maix.err.Err
+</code></pre>
+<p>start jpeg streame</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err start()
+</code></pre>
+</blockquote>
+<h4 id="stop">stop</h4>
+
+<pre class="language-python"><code class="language-python">def stop(self) -&gt; maix.err.Err
+</code></pre>
+<p>stop http</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err stop()
+</code></pre>
+</blockquote>
+<h4 id="write">write</h4>
+
+<pre class="language-python"><code class="language-python">def write(self, img: maix.image.Image) -&gt; maix.err.Err
+</code></pre>
+<p>Write data to http</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: image object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err write(image::Image *img)
+</code></pre>
+</blockquote>
+<h4 id="set_html">set_html</h4>
+
+<pre class="language-python"><code class="language-python">def set_html(self, data: str) -&gt; maix.err.Err
+</code></pre>
+<p>add your style in this api\ndefault is:\n<html>\n<body>\n<h1>JPG Stream</h1>\n<img src='/stream'>\n</body>\n</html></p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: html code<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_html(std::string data)
+</code></pre>
+</blockquote>
+<h4 id="host">host</h4>
+
+<pre class="language-python"><code class="language-python">def host(self) -&gt; str
+</code></pre>
+<p>Get host</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>host name</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string host()
+</code></pre>
+</blockquote>
+<h4 id="port">port</h4>
+
+<pre class="language-python"><code class="language-python">def port(self) -&gt; int
+</code></pre>
+<p>Get port</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>port</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int port()
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/video.html">
+                            <span class="icon"></span>
+                            <span class="label">video</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/rtsp.html">
+                            <span class="label">rtsp</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

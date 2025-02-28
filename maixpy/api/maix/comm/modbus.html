@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.comm.modbus - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.comm.modbus</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/comm/modbus.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.comm.modbus module</p>
+<blockquote>
+<p>You can use <code>maix.comm.modbus</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h3 id="Mode">Mode</h3>
+<p>modbus mode</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>values</strong></td>
+  <td><strong>RTU</strong>: <br><strong>TCP</strong>: <br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">enum class Mode : unsigned char {
+        RTU,
+        TCP
+    }
+</code></pre>
+</blockquote>
+<h3 id="RequestType">RequestType</h3>
+<p>Modbus request types enumeration.\nThis enumeration defines the various Modbus request types,\nincluding functions for reading and writing coils, registers,\nas well as diagnostics and identification.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>values</strong></td>
+  <td><strong>READ_COILS</strong>: &lt; Read Coils<br><strong>READ_DISCRETE_INPUTS</strong>: &lt; Read Discrete Inputs<br><strong>READ_HOLDING_REGISTERS</strong>: &lt; Read Holding Registers<br><strong>READ_INPUT_REGISTERS</strong>: &lt; Read Input Registers<br><strong>WRITE_SINGLE_COIL</strong>: &lt; Write Single Coil<br><strong>WRITE_SINGLE_REGISTER</strong>: &lt; Write Single Register<br><strong>DIAGNOSTICS</strong>: &lt; Diagnostics (Serial Line only)<br><strong>GET_COMM_EVENT_COUNTER</strong>: &lt; Get Comm Event Counter (Serial Line only)<br><strong>WRITE_MULTIPLE_COILS</strong>: &lt; Write Multiple Coils<br><strong>WRITE_MULTIPLE_REGISTERS</strong>: &lt; Write Multiple Registers<br><strong>REPORT_SERVER_ID</strong>: &lt; Report Slave ID (Serial Line only)<br><strong>MASK_WRITE_REGISTER</strong>: &lt; Mask Write Register<br><strong>READ_WRITE_MULTIPLE_REGISTERS</strong>: &lt; Read/Write Multiple Registers<br><strong>READ_DEVICE_IDENTIFICATION</strong>: &lt; Read Device Identification<br><strong>UNKNOWN</strong>: &lt; Unknown Request Type<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">enum class RequestType : unsigned char {
+        READ_COILS                      = 0x01,     ///&lt; Read Coils
+        READ_DISCRETE_INPUTS            = 0x02,     ///&lt; Read Discrete Inputs
+        READ_HOLDING_REGISTERS          = 0x03,     ///&lt; Read Holding Registers
+        READ_INPUT_REGISTERS            = 0x04,     ///&lt; Read Input Registers
+        WRITE_SINGLE_COIL               = 0x05,     ///&lt; Write Single Coil
+        WRITE_SINGLE_REGISTER           = 0x06,     ///&lt; Write Single Register
+        DIAGNOSTICS                     = 0x08,     ///&lt; Diagnostics (Serial Line only)
+        GET_COMM_EVENT_COUNTER          = 0x0B,     ///&lt; Get Comm Event Counter (Serial Line only)
+        WRITE_MULTIPLE_COILS            = 0x0F,     ///&lt; Write Multiple Coils
+        WRITE_MULTIPLE_REGISTERS        = 0x10,     ///&lt; Write Multiple Registers
+        REPORT_SERVER_ID                = 0x11,     ///&lt; Report Slave ID (Serial Line only)
+        MASK_WRITE_REGISTER             = 0x16,     ///&lt; Mask Write Register
+        READ_WRITE_MULTIPLE_REGISTERS   = 0x17,     ///&lt; Read/Write Multiple Registers
+        READ_DEVICE_IDENTIFICATION      = 0x2B,     ///&lt; Read Device Identification
+        UNKNOWN                         = 0xFF      ///&lt; Unknown Request Type
+    }
+</code></pre>
+</blockquote>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="set_master_debug">set_master_debug</h3>
+
+<pre class="language-python"><code class="language-python">def set_master_debug(debug: bool) -&gt; None
+</code></pre>
+<p>Set the master debug ON/OFF</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>debug</strong>: True(ON) or False(OFF)<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_master_debug(bool debug)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Slave">Slave</h3>
+<p>Class for modbus Slave</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Slave
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, mode: Mode, ip_or_device: str, coils_start: int = 0, coils_size: int = 0, discrete_start: int = 0, discrete_size: int = 0, holding_start: int = 0, holding_size: int = 0, input_start: int = 0, input_size: int = 0, rtu_baud: int = 115200, rtu_slave: int = 1, tcp_port: int = 502, debug: bool = False) -&gt; None
+</code></pre>
+<p>Modbus Slave constructor.\nThis constructor initializes a Modbus Slave instance. Depending on the mode (RTU or TCP),\nit sets up the necessary parameters for communication and defines the register structure.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>mode</strong>: Specifies the communication mode: RTU or TCP.<br><strong>ip_or_device</strong>: The UART device name if using RTU mode.<br>If TCP mode is selected, this parameter is ignored.<br><strong>coils_start</strong>: The starting address of the coils register.<br><strong>coils_size</strong>: The number of coils to manage.<br><strong>discrete_start</strong>: The starting address of the discrete inputs register.<br><strong>discrete_size</strong>: The number of discrete inputs to manage.<br><strong>holding_start</strong>: The starting address of the holding registers.<br><strong>holding_size</strong>: The number of holding registers to manage.<br><strong>input_start</strong>: The starting address of the input registers.<br><strong>input_size</strong>: The number of input registers to manage.<br><strong>rtu_baud</strong>: The baud rate for RTU communication.<br>Supported rates include: 110, 300, 600, 1200, 2400, 4800,<br>9600, 19200, 38400, 57600, 115200, 230400, 460800,<br>500000, 576000, 921600, 1000000, 1152000, 1500000,<br>2500000, 3000000, 3500000, 4000000.<br>Default is 115200. Ensure that the selected baud rate<br>is supported by the underlying hardware and libmodbus.<br><strong>rtu_slave</strong>: The RTU slave address. Ignored in TCP mode. Default is 1.<br><strong>tcp_port</strong>: The port used for TCP communication. Ignored in RTU mode. Default is 502.<br><strong>debug</strong>: A boolean flag to enable or disable debug mode. Default is false.<br></td>
+</tr>
+<tr>
+  <td><strong>see</strong></td>
+  <td>modbus.Mode for valid modes.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Slave(maix::comm::modbus::Mode mode, const std::string&amp; ip_or_device,
+            uint32_t coils_start=0, uint32_t coils_size=0,
+            uint32_t discrete_start=0, uint32_t discrete_size=0,
+            uint32_t holding_start=0, uint32_t holding_size=0,
+            uint32_t input_start=0, uint32_t input_size=0,
+            int rtu_baud=115200, uint8_t rtu_slave=1,
+            int tcp_port=502, bool debug=false)
+</code></pre>
+</blockquote>
+<h4 id="receive">receive</h4>
+
+<pre class="language-python"><code class="language-python">def receive(self, timeout_ms: int = -1) -&gt; maix.err.Err
+</code></pre>
+<p>Receives a Modbus request\nThis function is used to receive a Modbus request from the client. The behavior of the function\ndepends on the parameter <code>timeout_ms</code> provided, which dictates how long the function will wait\nfor a request before returning.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>This function gets and parses the request, it does not manipulate the registers.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timeout_ms</strong>: Timeout setting<br>-1   Block indefinitely until a request is received<br>0    Non-blocking mode; function returns immediately, regardless of whether a request is received<br>&gt;0   Blocking mode; function will wait for the specified number of milliseconds for a request<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>maix::err::Err type, @see maix::err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">::maix::err::Err receive(const int timeout_ms=-1)
+</code></pre>
+</blockquote>
+<h4 id="request_type">request_type</h4>
+
+<pre class="language-python"><code class="language-python">def request_type(self) -&gt; RequestType
+</code></pre>
+<p>Gets the type of the Modbus request that was successfully received\nThis function can be used to retrieve the type of the request received after a successful\ncall to <code>receive()</code>. The return value indicates the type of the Modbus request, allowing\nthe user to understand and process the received request appropriately.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>RequestType The type of the Modbus request that has been received.</td>
+</tr>
+<tr>
+  <td><strong>see</strong></td>
+  <td>modbus.RequestType</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">::maix::comm::modbus::RequestType request_type()
+</code></pre>
+</blockquote>
+<h4 id="reply">reply</h4>
+
+<pre class="language-python"><code class="language-python">def reply(self) -&gt; maix.err.Err
+</code></pre>
+<p>Processes the request and returns the corresponding data.\nThis function handles the requests received from the client. It retrieves any data that the client\nneeds to write to the registers and updates the registers accordingly. Additionally, it retrieves\nthe requested data from the registers and sends it back to the client in the response.\nThis function is essential for managing read and write operations in a Modbus Slave context.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>The function will modify the Slave's internal state based on the data received in the<br>request, and ensure that the appropriate data is returned to the client.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>maix::err::Err type, @see maix::err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">::maix::err::Err reply()
+</code></pre>
+</blockquote>
+<h4 id="receive_and_reply">receive_and_reply</h4>
+
+<pre class="language-python"><code class="language-python">def receive_and_reply(self, timeout_ms: int = -1) -&gt; RequestType
+</code></pre>
+<p>Receives a request from the client and sends a response.\nThis function combines the operations of receiving a request and sending a corresponding\nresponse in a single call. It waits for a specified duration (defined by the <code>timeout_ms</code>\nparameter) to receive a request from the client. Upon successful receipt of the request,\nit processes the request and prepares the necessary data to be sent back to the client.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timeout_ms</strong>: The timeout duration for waiting to receive a request.<br>- A value of -1 makes the function block indefinitely until a request<br>is received.<br>- A value of 0 makes it non-blocking, returning immediately without<br>waiting for a request.<br>- A positive value specifies the maximum time (in milliseconds) to wait<br>for a request before timing out.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>RequestType The type of the Modbus request that has been received.</td>
+</tr>
+<tr>
+  <td><strong>see</strong></td>
+  <td>modbus.RequestType</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">::maix::comm::modbus::RequestType receive_and_reply(const int timeout_ms=-1)
+</code></pre>
+</blockquote>
+<h4 id="coils">coils</h4>
+
+<pre class="language-python"><code class="language-python">def coils(self, data: list[int] = [], index: int = 0) -&gt; list[int]
+</code></pre>
+<p>Reads from or writes to coils.\nThis function can be used to either read data from coils or write data to them.\nIf the <code>data</code> parameter is empty, the function performs a read operation.\nIf <code>data</code> is not empty, the function writes the contents of <code>data</code> to the coils\nstarting at the specified index.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: A vector of data to be written. If empty, a read operation is performed.<br>If not empty, the data will overwrite the coils from <code>index</code>.<br><strong>index</strong>: The starting index for writing data. This parameter is ignored during read operations.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt; When the read operation is successful, return all data in the coils as a list.<br>When the write operation is successful, return a non-empty list; when it fails, return an empty list.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; coils(const std::vector&lt;uint8_t&gt;&amp; data = std::vector&lt;uint8_t&gt;{}, const uint32_t index = 0)
+</code></pre>
+</blockquote>
+<h4 id="discrete_input">discrete_input</h4>
+
+<pre class="language-python"><code class="language-python">def discrete_input(self, data: list[int] = [], index: int = 0) -&gt; list[int]
+</code></pre>
+<p>Reads from or writes to discrete input.\nThis function can be used to either read data from discrete input or write data to them.\nIf the <code>data</code> parameter is empty, the function performs a read operation.\nIf <code>data</code> is not empty, the function writes the contents of <code>data</code> to the discrete input\nstarting at the specified index.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: A vector of data to be written. If empty, a read operation is performed.<br>If not empty, the data will overwrite the discrete input from <code>index</code>.<br><strong>index</strong>: The starting index for writing data. This parameter is ignored during read operations.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt; When the read operation is successful, return all data in the discrete input as a list.<br>When the write operation is successful, return a non-empty list; when it fails, return an empty list.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; discrete_input(const std::vector&lt;uint8_t&gt;&amp; data = std::vector&lt;uint8_t&gt;{}, const uint32_t index = 0)
+</code></pre>
+</blockquote>
+<h4 id="input_registers">input_registers</h4>
+
+<pre class="language-python"><code class="language-python">def input_registers(self, data: list[int] = [], index: int = 0) -&gt; list[int]
+</code></pre>
+<p>Reads from or writes to input registers.\nThis function can be used to either read data from input registers or write data to them.\nIf the <code>data</code> parameter is empty, the function performs a read operation.\nIf <code>data</code> is not empty, the function writes the contents of <code>data</code> to the input registers\nstarting at the specified index.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: A vector of data to be written. If empty, a read operation is performed.<br>If not empty, the data will overwrite the input registers from <code>index</code>.<br><strong>index</strong>: The starting index for writing data. This parameter is ignored during read operations.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt; When the read operation is successful, return all data in the input registers as a list.<br>When the write operation is successful, return a non-empty list; when it fails, return an empty list.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; input_registers(const std::vector&lt;uint16_t&gt;&amp; data = std::vector&lt;uint16_t&gt;{}, const uint32_t index = 0)
+</code></pre>
+</blockquote>
+<h4 id="holding_registers">holding_registers</h4>
+
+<pre class="language-python"><code class="language-python">def holding_registers(self, data: list[int] = [], index: int = 0) -&gt; list[int]
+</code></pre>
+<p>Reads from or writes to holding registers.\nThis function can be used to either read data from holding registers or write data to them.\nIf the <code>data</code> parameter is empty, the function performs a read operation.\nIf <code>data</code> is not empty, the function writes the contents of <code>data</code> to the holding registers\nstarting at the specified index.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: A vector of data to be written. If empty, a read operation is performed.<br>If not empty, the data will overwrite the holding registers from <code>index</code>.<br><strong>index</strong>: The starting index for writing data. This parameter is ignored during read operations.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt; When the read operation is successful, return all data in the holding registers as a list.<br>When the write operation is successful, return a non-empty list; when it fails, return an empty list.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; holding_registers(const std::vector&lt;uint16_t&gt;&amp; data = std::vector&lt;uint16_t&gt;{}, const uint32_t index = 0)
+</code></pre>
+</blockquote>
+<h3 id="MasterRTU">MasterRTU</h3>
+<p>Class for modbus MasterRTU</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class MasterRTU final
+</code></pre>
+</blockquote>
+<h4 id="__init__-2">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, device: str = '', baudrate: int = 115200) -&gt; None
+</code></pre>
+<p>Construct a new MasterRTU object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>device</strong>: Default uart device.<br><strong>baudrate</strong>: Default uart baudrate.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">MasterRTU(const std::string&amp; device=&quot;&quot;, const int baudrate=115200)
+</code></pre>
+</blockquote>
+<h4 id="read_coils">read_coils</h4>
+
+<pre class="language-python"><code class="language-python">def read_coils(self, slave_id: int, addr: int, size: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads coils from the Modbus device.\nThis function reads a specified number of coils starting from a given address.\nIt includes timeout settings to define how long to wait for a response.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>addr</strong>: The starting address for reading coils.<br><strong>size</strong>: The number of coils to read.<br><strong>timeout_ms</strong>: The timeout duration for waiting to receive a request.<br>- A value of -1 makes the function block indefinitely until a request<br>is received.<br>- A value of 0 makes it non-blocking, returning immediately without<br>waiting for a request.<br>- A positive value specifies the maximum time (in milliseconds) to wait<br>for a request before timing out.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint8_t&gt;/list[int] A vector containing the read coil values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; read_coils(const uint32_t slave_id, const uint32_t addr,
+                                        const uint32_t size, const int timeout_ms=-1,
+                                        const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h4 id="write_coils">write_coils</h4>
+
+<pre class="language-python"><code class="language-python">def write_coils(self, slave_id: int, data: list[int], addr: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; int
+</code></pre>
+<p>Writes values to coils on the Modbus device.\nThis function writes the specified data to the coils starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>data</strong>: A vector containing the coil values to write.<br><strong>addr</strong>: The starting address for writing coils.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Returns the number of bytes written on success, or a value less than 0 on failure.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int write_coils(const uint32_t slave_id, const std::vector&lt;uint8_t&gt;&amp; data,
+                        const uint32_t addr, const int timeout_ms=-1,
+                        const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_discrete_input">read_discrete_input</h4>
+
+<pre class="language-python"><code class="language-python">def read_discrete_input(self, slave_id: int, addr: int, size: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads discrete inputs from the Modbus device.\nThis function reads a specified number of discrete inputs starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>addr</strong>: The starting address for reading discrete inputs.<br><strong>size</strong>: The number of discrete inputs to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint8_t&gt;/list[int] A vector containing the read discrete input values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; read_discrete_input(const uint32_t slave_id, const uint32_t addr,
+                                                const uint32_t size, const int timeout_ms=-1,
+                                                const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_input_registers">read_input_registers</h4>
+
+<pre class="language-python"><code class="language-python">def read_input_registers(self, slave_id: int, addr: int, size: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads input registers from the Modbus device.\nThis function reads a specified number of input registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>addr</strong>: The starting address for reading input registers.<br><strong>size</strong>: The number of input registers to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt;/list[int] A vector containing the read input register values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; read_input_registers(const uint32_t slave_id, const uint32_t addr,
+                                                const uint32_t size, const int timeout_ms=-1,
+                                                const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_holding_registers">read_holding_registers</h4>
+
+<pre class="language-python"><code class="language-python">def read_holding_registers(self, slave_id: int, addr: int, size: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads holding registers from the Modbus device.\nThis function reads a specified number of holding registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>addr</strong>: The starting address for reading holding registers.<br><strong>size</strong>: The number of holding registers to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt;/list[int] A vector containing the read holding register values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; read_holding_registers(const uint32_t slave_id, const uint32_t addr,
+                                                    const uint32_t size, const int timeout_ms=-1,
+                                                    const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h4 id="write_holding_registers">write_holding_registers</h4>
+
+<pre class="language-python"><code class="language-python">def write_holding_registers(self, slave_id: int, data: list[int], addr: int, timeout_ms: int = -1, device: str = '', baudrate: int = -1) -&gt; int
+</code></pre>
+<p>Writes values to holding registers on the Modbus device.\nThis function writes the specified data to the holding registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>slave_id</strong>: The RTU slave address.<br><strong>data</strong>: A vector containing the values to write to holding registers.<br><strong>addr</strong>: The starting address for writing holding registers.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>device</strong>: The UART device to use. An empty string (&quot;&quot;) indicates that the<br>default device from the constructor will be used.<br><strong>baudrate</strong>: The UART baud rate. A value of -1 signifies that the default baud rate<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Returns the number of bytes written on success, or a value less than 0 on failure.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int write_holding_registers(const uint32_t slave_id, const std::vector&lt;uint16_t&gt;&amp; data,
+                                    const uint32_t addr, const int timeout_ms=-1,
+                                    const std::string&amp; device=&quot;&quot;, const int baudrate=-1)
+</code></pre>
+</blockquote>
+<h3 id="MasterTCP">MasterTCP</h3>
+<p>Class for modbus Master</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class MasterTCP final
+</code></pre>
+</blockquote>
+<h4 id="__init__-3">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, port: int = 502) -&gt; None
+</code></pre>
+<p>Construct a new MasterTCP object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>port</strong>: Device tcp port.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">MasterTCP(const int port=502)
+</code></pre>
+</blockquote>
+<h4 id="read_coils-2">read_coils</h4>
+
+<pre class="language-python"><code class="language-python">def read_coils(self, ip: str, addr: int, size: int, timeout_ms: int = -1, port: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads coils from the Modbus device.\nThis function reads a specified number of coils starting from a given address.\nIt includes timeout settings to define how long to wait for a response.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>addr</strong>: The starting address for reading coils.<br><strong>size</strong>: The number of coils to read.<br><strong>timeout_ms</strong>: The timeout duration for waiting to receive a request.<br>- A value of -1 makes the function block indefinitely until a request<br>is received.<br>- A value of 0 makes it non-blocking, returning immediately without<br>waiting for a request.<br>- A positive value specifies the maximum time (in milliseconds) to wait<br>for a request before timing out.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint8_t&gt;/list[int] A vector containing the read coil values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; read_coils(const std::string ip, const uint32_t addr,
+                                        const uint32_t size, const int timeout_ms=-1,
+                                        const int port=-1)
+</code></pre>
+</blockquote>
+<h4 id="write_coils-2">write_coils</h4>
+
+<pre class="language-python"><code class="language-python">def write_coils(self, ip: str, data: list[int], addr: int, timeout_ms: int = -1, port: int = -1) -&gt; int
+</code></pre>
+<p>Writes values to coils on the Modbus device.\nThis function writes the specified data to the coils starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>data</strong>: A vector containing the coil values to write.<br><strong>addr</strong>: The starting address for writing coils.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Returns the number of bytes written on success, or a value less than 0 on failure.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int write_coils(const std::string ip, const std::vector&lt;uint8_t&gt;&amp; data,
+                        const uint32_t addr, const int timeout_ms=-1,
+                        const int port=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_discrete_input-2">read_discrete_input</h4>
+
+<pre class="language-python"><code class="language-python">def read_discrete_input(self, ip: str, addr: int, size: int, timeout_ms: int = -1, port: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads discrete inputs from the Modbus device.\nThis function reads a specified number of discrete inputs starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>addr</strong>: The starting address for reading discrete inputs.<br><strong>size</strong>: The number of discrete inputs to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint8_t&gt;/list[int] A vector containing the read discrete input values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; read_discrete_input(const std::string ip, const uint32_t addr,
+                                        const uint32_t size, const int timeout_ms=-1,
+                                        const int port=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_input_registers-2">read_input_registers</h4>
+
+<pre class="language-python"><code class="language-python">def read_input_registers(self, ip: str, addr: int, size: int, timeout_ms: int = -1, port: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads input registers from the Modbus device.\nThis function reads a specified number of input registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>addr</strong>: The starting address for reading input registers.<br><strong>size</strong>: The number of input registers to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt;/list[int] A vector containing the read input register values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; read_input_registers(const std::string ip, const uint32_t addr,
+                                        const uint32_t size, const int timeout_ms=-1,
+                                        const int port=-1)
+</code></pre>
+</blockquote>
+<h4 id="read_holding_registers-2">read_holding_registers</h4>
+
+<pre class="language-python"><code class="language-python">def read_holding_registers(self, ip: str, addr: int, size: int, timeout_ms: int = -1, port: int = -1) -&gt; list[int]
+</code></pre>
+<p>Reads holding registers from the Modbus device.\nThis function reads a specified number of holding registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>addr</strong>: The starting address for reading holding registers.<br><strong>size</strong>: The number of holding registers to read.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>std::vector&lt;uint16_t&gt;/list[int] A vector containing the read holding register values.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint16_t&gt; read_holding_registers(const std::string ip, const uint32_t addr,
+                                        const uint32_t size, const int timeout_ms=-1,
+                                        const int port=-1)
+</code></pre>
+</blockquote>
+<h4 id="write_holding_registers-2">write_holding_registers</h4>
+
+<pre class="language-python"><code class="language-python">def write_holding_registers(self, ip: str, data: list[int], addr: int, timeout_ms: int = -1, port: int = -1) -&gt; int
+</code></pre>
+<p>Writes values to holding registers on the Modbus device.\nThis function writes the specified data to the holding registers starting from a given address.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ip</strong>: The TCP IP address.<br><strong>data</strong>: A vector containing the values to write to holding registers.<br><strong>addr</strong>: The starting address for writing holding registers.<br><strong>timeout_ms</strong>: The timeout duration for the write operation.<br>- A value of -1 makes the function block until the write is complete.<br>- A value of 0 makes it non-blocking.<br>- A positive value specifies the maximum time (in milliseconds) to wait.<br><strong>port</strong>: The TCP port. A value of -1 signifies that the default port<br>from the constructor will be applied.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Returns the number of bytes written on success, or a value less than 0 on failure.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int write_holding_registers(const std::string ip, const std::vector&lt;uint16_t&gt;&amp; data,
+                                    const uint32_t addr, const int timeout_ms=-1,
+                                    const int port=-1)
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/comm.html">
+                            <span class="icon"></span>
+                            <span class="label">comm</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/fs.html">
+                            <span class="label">fs</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

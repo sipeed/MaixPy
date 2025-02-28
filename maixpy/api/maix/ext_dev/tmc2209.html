@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.ext_dev.tmc2209 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="active_parent with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.ext_dev.tmc2209</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/ext_dev/tmc2209.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.ext_dev.tmc2209 module</p>
+<blockquote>
+<p>You can use <code>maix.ext_dev.tmc2209</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="slide_scan">slide_scan</h3>
+
+<pre class="language-python"><code class="language-python">def slide_scan(port: str, addr: int, baud: int, step_angle: float, micro_step: int, round_mm: float, speed_mm_s: float, dir: bool = True, use_internal_sense_resistors: bool = True, run_current_per: int = 100, hold_current_per: int = 100, conf_save_path: str = './slide_conf.bin', force_update: bool = True) -&gt; None
+</code></pre>
+<p>Scan and initialize the slide with the given parameters</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>port</strong>: UART port, string type.<br><strong>addr</strong>: TMC2209 UART address, range 0x00~0x03, integer type.<br><strong>baud</strong>: UART baud rate, integer type.<br><strong>step_angle</strong>: Motor step angle, float type.<br><strong>micro_step</strong>: Motor micro step, options: 1/2/4/8/16/32/64/128/256, integer type.<br><strong>round_mm</strong>: Round distance in mm, float type.<br><strong>speed_mm_s</strong>: Speed of the slide in mm/s, float type.<br><strong>dir</strong>: Direction of movement, boolean type. Default is true.<br><strong>use_internal_sense_resistors</strong>: Enable internal sense resistors if true, disable if false, boolean type. Default is true.<br><strong>run_current_per</strong>: Motor run current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>hold_current_per</strong>: Motor hold current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>conf_save_path</strong>: Configuration save path, string type. Default is &quot;./slide_conf.bin&quot;.<br><strong>force_update</strong>: Force update the configuration if true, boolean type. Default is true.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void slide_scan(const char* port, uint8_t addr, long baud, /* Uart init param */
+                float step_angle, uint16_t micro_step, float round_mm, /* Motor init param */
+                float speed_mm_s, bool dir=true, bool use_internal_sense_resistors=true, uint8_t run_current_per=100,
+                uint8_t hold_current_per=100, const std::string conf_save_path=&quot;./slide_conf.bin&quot;,
+                bool force_update=true  /* Driver init param */)
+</code></pre>
+</blockquote>
+<h3 id="slide_test">slide_test</h3>
+
+<pre class="language-python"><code class="language-python">def slide_test(port: str, addr: int, baud: int, step_angle: float, micro_step: int, round_mm: float, speed_mm_s: float, dir: bool = True, use_internal_sense_resistors: bool = True, run_current_per: int = 100, hold_current_per: int = 100, conf_save_path: str = './slide_conf.bin') -&gt; None
+</code></pre>
+<p>Test the slide with the given parameters\nThis function tests the slide by moving it in the specified direction until a stall condition is detected, as defined in the configuration file.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>port</strong>: UART port, string type.<br><strong>addr</strong>: TMC2209 UART address, range 0x00~0x03, integer type.<br><strong>baud</strong>: UART baud rate, integer type.<br><strong>step_angle</strong>: Motor step angle, float type.<br><strong>micro_step</strong>: Motor micro step, options: 1/2/4/8/16/32/64/128/256, integer type.<br><strong>round_mm</strong>: Round distance in mm, float type.<br><strong>speed_mm_s</strong>: Speed of the slide in mm/s, float type.<br><strong>dir</strong>: Direction of movement, boolean type. Default is true.<br><strong>use_internal_sense_resistors</strong>: Enable internal sense resistors if true, disable if false, boolean type. Default is true.<br><strong>run_current_per</strong>: Motor run current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>hold_current_per</strong>: Motor hold current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>conf_save_path</strong>: Configuration save path, string type. Default is &quot;./slide_conf.bin&quot;.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void slide_test(const char* port, uint8_t addr, long baud, /* Uart init param */
+                float step_angle, uint16_t micro_step, float round_mm, /* Motor init param */
+                float speed_mm_s, bool dir=true, bool use_internal_sense_resistors=true, uint8_t run_current_per=100,
+                uint8_t hold_current_per=100, const std::string conf_save_path=&quot;./slide_conf.bin&quot;/* Driver init param */)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Slide">Slide</h3>
+<p>Slide Class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Slide
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, port: str, addr: int, baud: int, step_angle: float, micro_step: int, round_mm: float, speed_mm_s: float = -1, use_internal_sense_resistors: bool = True, run_current_per: int = 100, hold_current_per: int = 100, cfg_file_path: str = '') -&gt; None
+</code></pre>
+<p>Constructor for Slide\nInitializes the Slide object with the specified parameters.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>port</strong>: UART port, string type.<br><strong>addr</strong>: TMC2209 UART address, range 0x00~0x03, integer type.<br><strong>baud</strong>: UART baud rate, integer type.<br><strong>step_angle</strong>: Motor step angle, float type.<br><strong>micro_step</strong>: Motor micro step, options: 1/2/4/8/16/32/64/128/256, integer type.<br><strong>round_mm</strong>: Round distance in mm, float type.<br><strong>speed_mm_s</strong>: Speed of the slide in mm/s, float type. Default is -1, indicating the use of a default speed factor.<br><strong>use_internal_sense_resistors</strong>: Enable internal sense resistors if TRUE, disable if FALSE, boolean type. Default is TRUE.<br><strong>run_current_per</strong>: Motor run current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>hold_current_per</strong>: Motor hold current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>cfg_file_path</strong>: Configuration file path, string type. Default is an empty string, indicating no configuration file.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Slide(const char* port, uint8_t addr, long baud, /* Uart init param */
+            float step_angle, uint16_t micro_step, float round_mm,   /* Motor init param */
+            float speed_mm_s=-1, bool use_internal_sense_resistors=true, uint8_t run_current_per=100,
+            uint8_t hold_current_per=100, std::string cfg_file_path=&quot;&quot; /* Driver init param */)
+</code></pre>
+</blockquote>
+<h4 id="load_conf">load_conf</h4>
+
+<pre class="language-python"><code class="language-python">def load_conf(self, path: str) -&gt; None
+</code></pre>
+<p>Load configuration from a file\nLoads the configuration settings for the slide from the specified file path.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: Path to the configuration file, string type.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void load_conf(std::string path)
+</code></pre>
+</blockquote>
+<h4 id="move">move</h4>
+
+<pre class="language-python"><code class="language-python">def move(self, oft: float, speed_mm_s: int = -1, check: bool = True) -&gt; None
+</code></pre>
+<p>Move the slide by a specified length\nMoves the slide by the specified length at the given speed. Optionally checks for stall conditions.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>oft</strong>: Length to move, float type.<br><strong>speed_mm_s</strong>: Speed in mm/s. Default is -1, indicating the use of the default speed set during initialization.<br><strong>check</strong>: Enable movement check if true, boolean type. Default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void move(float oft, int speed_mm_s=-1, bool check=true)
+</code></pre>
+</blockquote>
+<h4 id="reset">reset</h4>
+
+<pre class="language-python"><code class="language-python">def reset(self, dir: bool = False, speed_mm_s: int = -1) -&gt; None
+</code></pre>
+<p>Reset the slide position\nResets the slide position in the specified direction at the given speed.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>dir</strong>: Direction of reset, boolean type. Default is false.<br><strong>speed_mm_s</strong>: Speed in mm/s. Default is -1, indicating the use of the speed set during initialization.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void reset(bool dir=false, int speed_mm_s=-1)
+</code></pre>
+</blockquote>
+<h4 id="stop_default_per">stop_default_per</h4>
+<p>Get or set the stop default percentage\nRetrieves or sets the stop default percentage. If the parameter is -1, it returns the current setting.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>per</strong>: Stop default percentage, range 0~100(%), integer type. Default is -1, indicating no change.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Current stop default percentage if per is -1, otherwise the new set percentage.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int stop_default_per(int per=-1)
+</code></pre>
+</blockquote>
+<h4 id="run_current_per">run_current_per</h4>
+
+<pre class="language-python"><code class="language-python">def run_current_per(self, per: int = -1) -&gt; int
+</code></pre>
+<p>Get or set the run current percentage\nRetrieves or sets the run current percentage. If the parameter is -1, it returns the current setting.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>per</strong>: Run current percentage, range 0~100(%), integer type. Default is -1, indicating no change.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Current run current percentage if per is -1, otherwise the new set percentage.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int run_current_per(int per=-1)
+</code></pre>
+</blockquote>
+<h4 id="hold_current_per">hold_current_per</h4>
+
+<pre class="language-python"><code class="language-python">def hold_current_per(self, per: int = -1) -&gt; int
+</code></pre>
+<p>Get or set the hold current percentage\nRetrieves or sets the hold current percentage. If the parameter is -1, it returns the current setting.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>per</strong>: Hold current percentage, range 0~100(%), integer type. Default is -1, indicating no change.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Current hold current percentage if per is -1, otherwise the new set percentage.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int hold_current_per(int per=-1)
+</code></pre>
+</blockquote>
+<h4 id="use_internal_sense_resistors">use_internal_sense_resistors</h4>
+
+<pre class="language-python"><code class="language-python">def use_internal_sense_resistors(self, b: bool = True) -&gt; None
+</code></pre>
+<p>Enable or disable internal sense resistors\nEnables or disables the internal sense resistors based on the provided boolean value.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>b</strong>: Boolean value to enable (true) or disable (false) internal sense resistors. Default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void use_internal_sense_resistors(bool b=true)
+</code></pre>
+</blockquote>
+<h3 id="ScrewSlide">ScrewSlide</h3>
+<p>ScrewSlide Class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class ScrewSlide
+</code></pre>
+</blockquote>
+<h4 id="__init__-2">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, port: str, addr: int, baud: int, step_angle: float, micro_step: int, screw_pitch: float, speed_mm_s: float = -1, use_internal_sense_resistors: bool = True, run_current_per: int = 100, hold_current_per: int = 100) -&gt; None
+</code></pre>
+<p>Constructor for ScrewSlide</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>port</strong>: UART port, string type.<br><strong>addr</strong>: TMC2209 UART address, range 0x00~0x03, integer type.<br><strong>baud</strong>: UART baud rate, integer type.<br><strong>step_angle</strong>: Motor step angle, float type.<br><strong>micro_step</strong>: Motor micro step, options: 1/2/4/8/16/32/64/128/256, integer type.<br><strong>screw_pitch</strong>: Screw pitch of the slide, integer type.<br><strong>speed_mm_s</strong>: Speed of the slide in mm/s, 10 means 10mm/s, float type.<br>Default is -1, indicating the use of a default speed factor.<br><strong>use_internal_sense_resistors</strong>: Enable internal sense resistors if TRUE,<br>disable if FALSE, boolean type. Default is TRUE.<br><strong>run_current_per</strong>: Motor run current percentage, range 0~100(%), integer type. Default is 100%.<br><strong>hold_current_per</strong>: Motor hold current percentage, range 0~100(%), integer type. Default is 100%.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">ScrewSlide(const char* port, uint8_t addr, long baud, /* Uart init param */
+                float step_angle, uint16_t micro_step, float screw_pitch,   /* Motor init param */
+                float speed_mm_s=-1, bool use_internal_sense_resistors=true, uint8_t run_current_per=100,
+                uint8_t hold_current_per=100)
+</code></pre>
+</blockquote>
+<h4 id="move-2">move</h4>
+
+<pre class="language-python"><code class="language-python">def move(self, oft: float, speed_mm_s: int = -1, callback: typing.Callable[[float], bool] = None) -&gt; None
+</code></pre>
+<p>Move the slide by a specified length</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>oft</strong>: Length to move, 10 means 10mm, float type.<br>Positive values move the slide in the positive direction, negative values move it in the opposite direction.<br><strong>speed_mm_s</strong>: Speed in mm/s. Default is -1, indicating the use of the default speed set during initialization.<br><strong>callback</strong>: Callback function to be called during movement.<br>The callback function receives the current progress percentage (0~100%) of the movement.<br>If the callback returns true, the move operation will be terminated immediately. Default is nullptr.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void move(float oft, int speed_mm_s=-1, std::function&lt;bool(float)&gt; callback=nullptr)
+</code></pre>
+</blockquote>
+<h4 id="reset-2">reset</h4>
+
+<pre class="language-python"><code class="language-python">def reset(self, callback: typing.Callable[[], bool], dir: bool = False, speed_mm_s: int = -1) -&gt; None
+</code></pre>
+<p>Reset the slide position</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>callback</strong>: Callback function to be called during the reset loop.<br>The reset operation will only terminate if the callback returns true.<br><strong>dir</strong>: Direction of reset. Default is false.<br><strong>speed_mm_s</strong>: Speed in mm/s. Default is -1, indicating the use of the speed set during initialization.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void reset(std::function&lt;bool(void)&gt; callback, bool dir=false, int speed_mm_s=-1)
+</code></pre>
+</blockquote>
+<h4 id="run_current_per-2">run_current_per</h4>
+
+<pre class="language-python"><code class="language-python">def run_current_per(self, per: int = -1) -&gt; int
+</code></pre>
+<p>Get or set the run current percentage</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>per</strong>: Run current percentage, range 0~100(%).<br>Default is -1, indicating no change and returning the current run current percentage.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Current run current percentage if per is -1, otherwise the new set percentage.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int run_current_per(int per=-1)
+</code></pre>
+</blockquote>
+<h4 id="hold_current_per-2">hold_current_per</h4>
+
+<pre class="language-python"><code class="language-python">def hold_current_per(self, per: int = -1) -&gt; int
+</code></pre>
+<p>Get or set the hold current percentage</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>per</strong>: Hold current percentage, range 0~100(%). Default is -1, indicating no change and returning the current hold current percentage.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>int Current hold current percentage if per is -1, otherwise the new set percentage.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int hold_current_per(int per=-1)
+</code></pre>
+</blockquote>
+<h4 id="use_internal_sense_resistors-2">use_internal_sense_resistors</h4>
+
+<pre class="language-python"><code class="language-python">def use_internal_sense_resistors(self, b: bool = True) -&gt; None
+</code></pre>
+<p>Enable or disable internal sense resistors</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>b</strong>: Boolean value to enable (true) or disable (false) internal sense resistors. Default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void use_internal_sense_resistors(bool b=true)
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/ext_dev/pmu.html">
+                            <span class="icon"></span>
+                            <span class="label">pmu</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/ext_dev/fp5510.html">
+                            <span class="label">fp5510</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

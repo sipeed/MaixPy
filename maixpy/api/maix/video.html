@@ -1,0 +1,3885 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.video - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.video</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/video.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.video module</p>
+<blockquote>
+<p>You can use <code>maix.video</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h3 id="VideoType">VideoType</h3>
+<p>Video type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>values</strong></td>
+  <td><strong>VIDEO_NONE</strong>: format invalid<br><strong>VIDEO_ENC_H265_CBR</strong>: Deprecated<br><strong>VIDEO_ENC_MP4_CBR</strong>: Deprecated<br><strong>VIDEO_DEC_H265_CBR</strong>: Deprecated<br><strong>VIDEO_DEC_MP4_CBR</strong>: Deprecated<br><strong>VIDEO_H264_CBR</strong>: Deprecated<br><strong>VIDEO_H265_CBR</strong>: Deprecated<br><strong>VIDEO_H264_CBR_MP4</strong>: Deprecated<br><strong>VIDEO_H265_CBR_MP4</strong>: Deprecated<br><strong>VIDEO_H264</strong>: <br><strong>VIDEO_H264_MP4</strong>: <br><strong>VIDEO_H264_FLV</strong>: <br><strong>VIDEO_H265</strong>: <br><strong>VIDEO_H265_MP4</strong>: <br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">enum VideoType
+    {
+        VIDEO_NONE = 0,  // format invalid
+        VIDEO_ENC_H265_CBR,     // Deprecated
+        VIDEO_ENC_MP4_CBR,      // Deprecated
+        VIDEO_DEC_H265_CBR,     // Deprecated
+        VIDEO_DEC_MP4_CBR,      // Deprecated
+        VIDEO_H264_CBR,         // Deprecated
+        VIDEO_H265_CBR,         // Deprecated
+        VIDEO_H264_CBR_MP4,     // Deprecated
+        VIDEO_H265_CBR_MP4,     // Deprecated
+
+        VIDEO_H264,
+        VIDEO_H264_MP4,
+        VIDEO_H264_FLV,
+        VIDEO_H265,
+        VIDEO_H265_MP4,
+    }
+</code></pre>
+</blockquote>
+<h3 id="MediaType">MediaType</h3>
+<p>Video type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>values</strong></td>
+  <td><strong>MEDIA_TYPE_UNKNOWN</strong>: Represents an unknown media type, which is usually treated as AVMEDIA_TYPE_DATA.<br><strong>MEDIA_TYPE_VIDEO</strong>: Represents a video stream, such as video content encoded in H.264, MPEG-4, etc.<br><strong>MEDIA_TYPE_AUDIO</strong>: Represents an audio stream, such as audio content encoded in AAC, MP3, etc.<br><strong>MEDIA_TYPE_DATA</strong>: Represents opaque data streams that are usually continuous. This type of stream is not necessarily audio or video and may be used for other data purposes.<br><strong>MEDIA_TYPE_SUBTITLE</strong>: Represents a subtitle stream used for displaying text or subtitle information, such as SRT, ASS, etc.<br><strong>MEDIA_TYPE_ATTACHMENT</strong>: Represents attachment streams that are usually sparse. Attachment streams can include images, fonts, or other files that need to be bundled with the media.<br><strong>MEDIA_TYPE_NB</strong>: Represents the number of media types (count) and indicates the total number of media types defined in this enumeration. It is not a media type itself but is used for counting enumeration items.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">enum MediaType
+    {
+        MEDIA_TYPE_UNKNOWN = -1,    // Represents an unknown media type, which is usually treated as AVMEDIA_TYPE_DATA.
+        MEDIA_TYPE_VIDEO,           // Represents a video stream, such as video content encoded in H.264, MPEG-4, etc.
+        MEDIA_TYPE_AUDIO,           // Represents an audio stream, such as audio content encoded in AAC, MP3, etc.
+        MEDIA_TYPE_DATA,            // Represents opaque data streams that are usually continuous. This type of stream is not necessarily audio or video and may be used for other data purposes.
+        MEDIA_TYPE_SUBTITLE,        // Represents a subtitle stream used for displaying text or subtitle information, such as SRT, ASS, etc.
+        MEDIA_TYPE_ATTACHMENT,      // Represents attachment streams that are usually sparse. Attachment streams can include images, fonts, or other files that need to be bundled with the media.
+        MEDIA_TYPE_NB               // Represents the number of media types (count) and indicates the total number of media types defined in this enumeration. It is not a media type itself but is used for counting enumeration items.
+    }
+</code></pre>
+</blockquote>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="timebase_to_us">timebase_to_us</h3>
+
+<pre class="language-python"><code class="language-python">def timebase_to_us(timebase: list[int], value: int) -&gt; float
+</code></pre>
+<p>Convert a value in timebase units to microseconds. value * 1000000 / (timebase[1] / timebase[0])</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timebse</strong>: Time base, used as the unit for calculating playback time. It must be an array containing two parameters,<br>in the format [num, den], where the first parameter is the numerator of the time base, and the second parameter is the denominator of the time base.<br><strong>value</strong>: Input value<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Return the result in microseconds.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double timebase_to_us(std::vector&lt;int&gt; timebase, uint64_t value)
+</code></pre>
+</blockquote>
+<h3 id="timebase_to_ms">timebase_to_ms</h3>
+
+<pre class="language-python"><code class="language-python">def timebase_to_ms(timebase: list[int], value: int) -&gt; float
+</code></pre>
+<p>Convert a value in timebase units to milliseconds.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timebse</strong>: Time base, used as the unit for calculating playback time. It must be an array containing two parameters,<br>in the format [num, den], where the first parameter is the numerator of the time base, and the second parameter is the denominator of the time base.<br><strong>value</strong>: Input value<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Return the result in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double timebase_to_ms(std::vector&lt;int&gt; timebase, uint64_t value)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Context">Context</h3>
+<p>Context class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Context
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, media_type: MediaType, timebase: list[int]) -&gt; None
+</code></pre>
+<p>Construct a new Context object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>media_type</strong>: enable capture, if true, you can use capture() function to get an image object<br><strong>timebase</strong>: Time base, used as the unit for calculating playback time. It must be an array containing two parameters,<br>in the format [num, den], where the first parameter is the numerator of the time base, and the second parameter is the denominator of the time base.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Context(video::MediaType media_type, std::vector&lt;int&gt; timebase)
+</code></pre>
+</blockquote>
+<h4 id="audio_sample_rate">audio_sample_rate</h4>
+
+<pre class="language-python"><code class="language-python">def audio_sample_rate(self) -&gt; int
+</code></pre>
+<p>Get sample rate of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>sample rate</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int audio_sample_rate()
+</code></pre>
+</blockquote>
+<h4 id="audio_channels">audio_channels</h4>
+
+<pre class="language-python"><code class="language-python">def audio_channels(self) -&gt; int
+</code></pre>
+<p>Get channels of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>channels</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int audio_channels()
+</code></pre>
+</blockquote>
+<h4 id="audio_format">audio_format</h4>
+
+<pre class="language-python"><code class="language-python">def audio_format(self) -&gt; maix.audio.Format
+</code></pre>
+<p>Get format of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>audio format. @see audio::Format</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">audio::Format audio_format()
+</code></pre>
+</blockquote>
+<h4 id="set_pcm">set_pcm</h4>
+
+<pre class="language-python"><code class="language-python">def set_pcm(self, data: maix.Bytes(bytes), duration: int = 0, pts: int = 0, copy: bool = True) -&gt; maix.err.Err
+</code></pre>
+<p>Set pcm data (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>duration</strong>: Duration of the current pcm. unit: timebase<br><strong>pts</strong>: The start time of this pcm playback. If it is 0, it means this parameter is not supported. unit: timebase<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_pcm(maix::Bytes *data, int duration = 0, uint64_t pts = 0, bool copy = true)
+</code></pre>
+</blockquote>
+<h4 id="get_pcm">get_pcm</h4>
+
+<pre class="language-python"><code class="language-python">def get_pcm(*args, **kwargs)
+</code></pre>
+<p>Get pcm data (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>Note that if you call this interface, you are responsible for releasing the memory of the data, and this interface cannot be called again.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Bytes</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Bytes *get_pcm()
+</code></pre>
+</blockquote>
+<h4 id="image">image</h4>
+
+<pre class="language-python"><code class="language-python">def image(self) -&gt; maix.image.Image
+</code></pre>
+<p>Retrieve the image data to be played.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>Note that if you call this interface, you are responsible for releasing the memory of the image, and this interface cannot be called again.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *image()
+</code></pre>
+</blockquote>
+<h4 id="media_type">media_type</h4>
+
+<pre class="language-python"><code class="language-python">def media_type(self) -&gt; MediaType
+</code></pre>
+<p>Get the media type to determine whether it is video, audio, or another media type.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::MediaType media_type()
+</code></pre>
+</blockquote>
+<h4 id="pts">pts</h4>
+
+<pre class="language-python"><code class="language-python">def pts(self) -&gt; int
+</code></pre>
+<p>Get the start time of the current playback., in units of time base.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t pts()
+</code></pre>
+</blockquote>
+<h4 id="last_pts">last_pts</h4>
+
+<pre class="language-python"><code class="language-python">def last_pts(self) -&gt; int
+</code></pre>
+<p>Get the start time of the previous playback, in units of time base.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t last_pts()
+</code></pre>
+</blockquote>
+<h4 id="timebase">timebase</h4>
+
+<pre class="language-python"><code class="language-python">def timebase(self) -&gt; list[int]
+</code></pre>
+<p>Get the time base.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; timebase()
+</code></pre>
+</blockquote>
+<h4 id="duration">duration</h4>
+
+<pre class="language-python"><code class="language-python">def duration(self) -&gt; int
+</code></pre>
+<p>Duration of the current frame. unit: timebase</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int duration()
+</code></pre>
+</blockquote>
+<h4 id="duration_us">duration_us</h4>
+
+<pre class="language-python"><code class="language-python">def duration_us(self) -&gt; int
+</code></pre>
+<p>Duration of the current frame. unit: us</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t duration_us()
+</code></pre>
+</blockquote>
+<h3 id="Frame">Frame</h3>
+<p>Frame class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Frame
+</code></pre>
+</blockquote>
+<h4 id="to_bytes">to_bytes</h4>
+
+<pre class="language-python"><code class="language-python">def to_bytes(*args, **kwargs)
+</code></pre>
+<p>Get raw data of packet</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>copy</strong>: if true, will alloc memory and copy data to new buffer<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>raw data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Bytes *to_bytes(bool copy = false)
+</code></pre>
+</blockquote>
+<h4 id="size">size</h4>
+
+<pre class="language-python"><code class="language-python">def size(self) -&gt; int
+</code></pre>
+<p>Get raw data size of packet</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>size of raw data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">size_t size()
+</code></pre>
+</blockquote>
+<h4 id="is_valid">is_valid</h4>
+
+<pre class="language-python"><code class="language-python">def is_valid(self) -&gt; bool
+</code></pre>
+<p>Check packet is valid</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true, packet is valid; false, packet is invalid</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_valid()
+</code></pre>
+</blockquote>
+<h4 id="set_pts">set_pts</h4>
+
+<pre class="language-python"><code class="language-python">def set_pts(self, pts: int) -&gt; None
+</code></pre>
+<p>Set pts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>pts</strong>: presentation time stamp. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_pts(uint64_t pts)
+</code></pre>
+</blockquote>
+<h4 id="set_dts">set_dts</h4>
+
+<pre class="language-python"><code class="language-python">def set_dts(self, dts: int) -&gt; None
+</code></pre>
+<p>Set dts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>dts</strong>: decoding time stamp.  unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_dts(uint64_t dts)
+</code></pre>
+</blockquote>
+<h4 id="set_duration">set_duration</h4>
+
+<pre class="language-python"><code class="language-python">def set_duration(self, duration: int) -&gt; None
+</code></pre>
+<p>Set duration</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>duration</strong>: packet display time. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_duration(uint64_t duration)
+</code></pre>
+</blockquote>
+<h4 id="get_pts">get_pts</h4>
+
+<pre class="language-python"><code class="language-python">def get_pts(self) -&gt; int
+</code></pre>
+<p>Set pts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>pts</strong>: presentation time stamp. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>pts value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t get_pts()
+</code></pre>
+</blockquote>
+<h4 id="get_dts">get_dts</h4>
+
+<pre class="language-python"><code class="language-python">def get_dts(self) -&gt; int
+</code></pre>
+<p>Set dts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>dts</strong>: decoding time stamp.  unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>dts value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t get_dts()
+</code></pre>
+</blockquote>
+<h4 id="get_duration">get_duration</h4>
+
+<pre class="language-python"><code class="language-python">def get_duration(self) -&gt; int
+</code></pre>
+<p>Get duration</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>duration value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t get_duration()
+</code></pre>
+</blockquote>
+<h4 id="type">type</h4>
+
+<pre class="language-python"><code class="language-python">def type(self) -&gt; VideoType
+</code></pre>
+<p>Get frame type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video type. @see video::VideoType</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::VideoType type()
+</code></pre>
+</blockquote>
+<h3 id="Packet">Packet</h3>
+<p>Packet class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Packet
+</code></pre>
+</blockquote>
+<h4 id="__init__-2">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, data: int, len: int, pts: int = -1, dts: int = -1, duration: int = 0) -&gt; None
+</code></pre>
+<p>Packet number (pair of numerator and denominator).</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: src data pointer, use pointers directly without copying.<br>Note: this object will try to free this memory<br><strong>len</strong>: data len<br><strong>pts</strong>: presentation time stamp. unit: time_base<br><strong>dts</strong>: decoding time stamp. unit: time_base<br><strong>duration</strong>: packet display time. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Packet(uint8_t *data, int len, uint64_t pts = -1, uint64_t dts = -1, int64_t duration = 0)
+</code></pre>
+</blockquote>
+<h4 id="get">get</h4>
+
+<pre class="language-python"><code class="language-python">def get(self) -&gt; list[int]
+</code></pre>
+<p>Get raw data of packet</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>raw data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;uint8_t&gt; get()
+</code></pre>
+</blockquote>
+<h4 id="data">data</h4>
+
+<pre class="language-python"><code class="language-python">def data(self) -&gt; int
+</code></pre>
+<p>Get raw data of packet</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>raw data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint8_t *data()
+</code></pre>
+</blockquote>
+<h4 id="data_size">data_size</h4>
+
+<pre class="language-python"><code class="language-python">def data_size(self) -&gt; int
+</code></pre>
+<p>Get raw data size of packet</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>size of raw data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">size_t data_size()
+</code></pre>
+</blockquote>
+<h4 id="is_valid-2">is_valid</h4>
+
+<pre class="language-python"><code class="language-python">def is_valid(self) -&gt; bool
+</code></pre>
+<p>Check packet is valid</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true, packet is valid; false, packet is invalid</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_valid()
+</code></pre>
+</blockquote>
+<h4 id="set_pts-2">set_pts</h4>
+
+<pre class="language-python"><code class="language-python">def set_pts(self, pts: int) -&gt; None
+</code></pre>
+<p>Set pts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>pts</strong>: presentation time stamp. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true, packet is valid; false, packet is invalid</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_pts(uint64_t pts)
+</code></pre>
+</blockquote>
+<h4 id="set_dts-2">set_dts</h4>
+
+<pre class="language-python"><code class="language-python">def set_dts(self, dts: int) -&gt; None
+</code></pre>
+<p>Set dts</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>dts</strong>: decoding time stamp.  unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true, packet is valid; false, packet is invalid</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_dts(uint64_t dts)
+</code></pre>
+</blockquote>
+<h4 id="set_duration-2">set_duration</h4>
+
+<pre class="language-python"><code class="language-python">def set_duration(self, duration: int) -&gt; None
+</code></pre>
+<p>Set duration</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>duration</strong>: packet display time. unit: time_base<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true, packet is valid; false, packet is invalid</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_duration(uint64_t duration)
+</code></pre>
+</blockquote>
+<h3 id="Encoder">Encoder</h3>
+<p>Encode class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Encoder
+</code></pre>
+</blockquote>
+<h4 id="__init__-3">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, path: str = '', width: int = 2560, height: int = 1440, format: maix.image.Format = ..., type: VideoType = ..., framerate: int = 30, gop: int = 50, bitrate: int = 3000000, time_base: int = 1000, capture: bool = False, block: bool = True) -&gt; None
+</code></pre>
+<p>Construct a new Video object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>width</strong>: picture width. this value may be set automatically. default is 2560.<br><strong>height</strong>: picture height. this value may be set automatically. default is 1440.<br><strong>format</strong>: picture format. default is image::Format::FMT_YVU420SP. @see image::Format<br><strong>type</strong>: video encode/decode type. default is ENC_H265_CBR. @see EncodeType<br><strong>framerate</strong>: frame rate. framerate default is 30, means 30 frames per second<br>for video. 1/time_base is not the average frame rate if the frame rate is not constant.<br><strong>gop</strong>: for h264/h265 encoding, the interval between two I-frames, default is 50.<br><strong>bitrate</strong>: for h264/h265 encoding, used to limit the bandwidth used by compressed data, default is 3000kbps<br><strong>time_base</strong>: frame time base. time_base default is 1000, means 1/1000 ms (not used)<br><strong>capture</strong>: enable capture, if true, you can use capture() function to get an image object<br><strong>block</strong>: This parameter determines whether encoding should block until it is complete.<br>If set to true, it will wait until encoding is finished before returning.<br>If set to false, it will return the current encoding result on the next call.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Encoder(std::string path = &quot;&quot;, int width = 2560, int height = 1440, image::Format format = image::Format::FMT_YVU420SP, video::VideoType type = video::VideoType::VIDEO_H264, int framerate = 30, int gop = 50, int bitrate = 3000 * 1000, int time_base = 1000, bool capture = false, bool block = true)
+</code></pre>
+</blockquote>
+<h4 id="bind_camera">bind_camera</h4>
+
+<pre class="language-python"><code class="language-python">def bind_camera(self, camera: maix.camera.Camera) -&gt; maix.err.Err
+</code></pre>
+<p>Bind camera</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>camera</strong>: camera object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_camera(camera::Camera *camera)
+</code></pre>
+</blockquote>
+<h4 id="encode">encode</h4>
+
+<pre class="language-python"><code class="language-python">def encode(self, img: maix.image.Image = ..., pcm: maix.Bytes(bytes) = b'') -&gt; Frame
+</code></pre>
+<p>Encode image.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: the image will be encode.<br>if the img is NULL, this function will try to get image from camera, you must use bind_camera() function to bind the camera.<br><strong>pcm</strong>: the pcm data will be encode.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>encode result</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::Frame *encode(image::Image *img = maix::video::Encoder::NoneImage, Bytes *pcm = maix::video::Encoder::NoneBytes)
+</code></pre>
+</blockquote>
+<h4 id="capture">capture</h4>
+
+<pre class="language-python"><code class="language-python">def capture(self) -&gt; maix.image.Image
+</code></pre>
+<p>Capture image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>Each time encode is called, the last captured image will be released.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *capture()
+</code></pre>
+</blockquote>
+<h4 id="width">width</h4>
+
+<pre class="language-python"><code class="language-python">def width(self) -&gt; int
+</code></pre>
+<p>Get video width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int width()
+</code></pre>
+</blockquote>
+<h4 id="height">height</h4>
+
+<pre class="language-python"><code class="language-python">def height(self) -&gt; int
+</code></pre>
+<p>Get video height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int height()
+</code></pre>
+</blockquote>
+<h4 id="format">format</h4>
+
+<pre class="language-python"><code class="language-python">def format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get video format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video format</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format format()
+</code></pre>
+</blockquote>
+<h4 id="type-2">type</h4>
+
+<pre class="language-python"><code class="language-python">def type(self) -&gt; VideoType
+</code></pre>
+<p>Get video encode type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>VideoType</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::VideoType type()
+</code></pre>
+</blockquote>
+<h4 id="framerate">framerate</h4>
+
+<pre class="language-python"><code class="language-python">def framerate(self) -&gt; int
+</code></pre>
+<p>Get video encode framerate</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>frame rate</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int framerate()
+</code></pre>
+</blockquote>
+<h4 id="gop">gop</h4>
+
+<pre class="language-python"><code class="language-python">def gop(self) -&gt; int
+</code></pre>
+<p>Get video encode gop</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>gop value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int gop()
+</code></pre>
+</blockquote>
+<h4 id="bitrate">bitrate</h4>
+
+<pre class="language-python"><code class="language-python">def bitrate(self) -&gt; int
+</code></pre>
+<p>Get video encode bitrate</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>bitrate value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int bitrate()
+</code></pre>
+</blockquote>
+<h4 id="time_base">time_base</h4>
+
+<pre class="language-python"><code class="language-python">def time_base(self) -&gt; int
+</code></pre>
+<p>Get video encode time base</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>time base value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int time_base()
+</code></pre>
+</blockquote>
+<h3 id="Decoder">Decoder</h3>
+<p>Decoder class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Decoder
+</code></pre>
+</blockquote>
+<h4 id="__init__-4">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, path: str, format: maix.image.Format = ...) -&gt; None
+</code></pre>
+<p>Construct a new decoder object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: Path to the file to be decoded. Supports files with .264 and .mp4 extensions. Note that only mp4 files containing h.264 streams are supported.<br><strong>format</strong>: Decoded output format, currently only support GRAYSCALE and YUV420SP<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Decoder(std::string path, image::Format format = image::Format::FMT_YVU420SP)
+</code></pre>
+</blockquote>
+<h4 id="decode_video">decode_video</h4>
+
+<pre class="language-python"><code class="language-python">def decode_video(self, block: bool = True) -&gt; Context
+</code></pre>
+<p>Decode the video stream, returning the image of the next frame each time.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>block</strong>: Whether it blocks or not. If true, it will wait for the decoding to complete and return the current frame.<br>If false, it will return the result of the previous frame's decoding. If the previous frame's decoding result is empty,<br>it will return an unknown Context, and you can use the media_type method of the Context to determine if a valid result exists.<br>default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Decoded context information.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::Context * decode_video(bool block = true)
+</code></pre>
+</blockquote>
+<h4 id="decode_audio">decode_audio</h4>
+
+<pre class="language-python"><code class="language-python">def decode_audio(self) -&gt; Context
+</code></pre>
+<p>Decode the video stream, returning the image of the next frame each time.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Decoded context information.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::Context * decode_audio()
+</code></pre>
+</blockquote>
+<h4 id="decode">decode</h4>
+
+<pre class="language-python"><code class="language-python">def decode(self, block: bool = True) -&gt; Context
+</code></pre>
+<p>Decode the video and audio stream</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>block</strong>: Whether it blocks or not. If true, it will wait for the decoding to complete and return the current frame.<br>If false, it will return the result of the previous frame's decoding. If the previous frame's decoding result is empty,<br>it will return an unknown Context, and you can use the media_type method of the Context to determine if a valid result exists.<br>default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Decoded context information.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::Context * decode(bool block = true)
+</code></pre>
+</blockquote>
+<h4 id="audio_sample_rate-2">audio_sample_rate</h4>
+
+<pre class="language-python"><code class="language-python">def audio_sample_rate(self) -&gt; int
+</code></pre>
+<p>Get sample rate of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>sample rate</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int audio_sample_rate()
+</code></pre>
+</blockquote>
+<h4 id="audio_channels-2">audio_channels</h4>
+
+<pre class="language-python"><code class="language-python">def audio_channels(self) -&gt; int
+</code></pre>
+<p>Get channels of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>channels</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int audio_channels()
+</code></pre>
+</blockquote>
+<h4 id="audio_format-2">audio_format</h4>
+
+<pre class="language-python"><code class="language-python">def audio_format(self) -&gt; maix.audio.Format
+</code></pre>
+<p>Get format of audio (only valid in the context of audio)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>audio format. @see audio::Format</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">audio::Format audio_format()
+</code></pre>
+</blockquote>
+<h4 id="width-2">width</h4>
+
+<pre class="language-python"><code class="language-python">def width(self) -&gt; int
+</code></pre>
+<p>Get the video width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int width()
+</code></pre>
+</blockquote>
+<h4 id="height-2">height</h4>
+
+<pre class="language-python"><code class="language-python">def height(self) -&gt; int
+</code></pre>
+<p>Get the video height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int height()
+</code></pre>
+</blockquote>
+<h4 id="bitrate-2">bitrate</h4>
+
+<pre class="language-python"><code class="language-python">def bitrate(self) -&gt; int
+</code></pre>
+<p>Get the video bitrate</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>bitrate value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int bitrate()
+</code></pre>
+</blockquote>
+<h4 id="fps">fps</h4>
+
+<pre class="language-python"><code class="language-python">def fps(self) -&gt; int
+</code></pre>
+<p>Get the video fps</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>fps value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int fps()
+</code></pre>
+</blockquote>
+<h4 id="seek">seek</h4>
+
+<pre class="language-python"><code class="language-python">def seek(self, time: float = -1) -&gt; float
+</code></pre>
+<p>Seek to the required playback position</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>time</strong>: timestamp value, unit: s<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>return the current position, unit: s</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double seek(double time = -1)
+</code></pre>
+</blockquote>
+<h4 id="duration-2">duration</h4>
+
+<pre class="language-python"><code class="language-python">def duration(self) -&gt; float
+</code></pre>
+<p>Get the maximum duration of the video. If it returns 0, it means it cannot be predicted.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>duration value, unit: s</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double duration()
+</code></pre>
+</blockquote>
+<h4 id="timebase-2">timebase</h4>
+
+<pre class="language-python"><code class="language-python">def timebase(self) -&gt; list[int]
+</code></pre>
+<p>Get the time base.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; timebase()
+</code></pre>
+</blockquote>
+<h4 id="has_audio">has_audio</h4>
+
+<pre class="language-python"><code class="language-python">def has_audio(self) -&gt; bool
+</code></pre>
+<p>If find audio data, return true</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool has_audio()
+</code></pre>
+</blockquote>
+<h4 id="has_video">has_video</h4>
+
+<pre class="language-python"><code class="language-python">def has_video(self) -&gt; bool
+</code></pre>
+<p>If find video data, return true</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool has_video()
+</code></pre>
+</blockquote>
+<h3 id="Video">Video</h3>
+<p>Video class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Video
+</code></pre>
+</blockquote>
+<h4 id="__init__-5">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, path: str = '', width: int = 2560, height: int = 1440, format: maix.image.Format = ..., time_base: int = 30, framerate: int = 30, capture: bool = False, open: bool = True) -&gt; None
+</code></pre>
+<p>Construct a new Video object</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: video path. the path determines the location where you load or save the file, if path is none, the video module will not save or load file.<br>xxx.h265 means video format is H265, xxx.mp4 means video format is MP4<br><strong>width</strong>: picture width. this value may be set automatically. default is 2560.<br><strong>height</strong>: picture height. this value may be set automatically. default is 1440.<br><strong>format</strong>: picture pixel format. this value may be set automatically. default is FMT_YVU420SP.<br><strong>time_base</strong>: frame time base. time_base default is 30, means 1/30 ms<br><strong>framerate</strong>: frame rate. framerate default is 30, means 30 frames per second<br>for video. 1/time_base is not the average frame rate if the frame rate is not constant.<br><strong>capture</strong>: enable capture, if true, you can use capture() function to get an image object<br><strong>open</strong>: If true, video will automatically call open() after creation. default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Video(std::string path = std::string(), int width = 2560, int height = 1440, image::Format format = image::Format::FMT_YVU420SP, int time_base = 30, int framerate = 30, bool capture = false, bool open = true)
+</code></pre>
+</blockquote>
+<h4 id="open">open</h4>
+
+<pre class="language-python"><code class="language-python">def open(self, path: str = '', fps: float = 30.0) -&gt; maix.err.Err
+</code></pre>
+<p>Open video and run</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: video path. the path determines the location where you load or save the file, if path is none, the video module will not save or load file.<br>xxx.h265 means video format is H265, xxx.mp4 means video format is MP4<br><strong>fps</strong>: video fps<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err open(std::string path = std::string(), double fps = 30.0)
+</code></pre>
+</blockquote>
+<h4 id="close">close</h4>
+
+<pre class="language-python"><code class="language-python">def close(self) -&gt; None
+</code></pre>
+<p>Close video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void close()
+</code></pre>
+</blockquote>
+<h4 id="bind_camera-2">bind_camera</h4>
+
+<pre class="language-python"><code class="language-python">def bind_camera(self, camera: maix.camera.Camera) -&gt; maix.err.Err
+</code></pre>
+<p>Bind camera</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>camera</strong>: camera object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_camera(camera::Camera *camera)
+</code></pre>
+</blockquote>
+<h4 id="encode-2">encode</h4>
+
+<pre class="language-python"><code class="language-python">def encode(self, img: maix.image.Image = ...) -&gt; Packet
+</code></pre>
+<p>Encode image.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>img</strong>: the image will be encode.<br>if the img is NULL, this function will try to get image from camera, you must use bind_camera() function to bind the camera.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>encode result</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">video::Packet *encode(image::Image *img = maix::video::Video::NoneImage)
+</code></pre>
+</blockquote>
+<h4 id="decode-2">decode</h4>
+
+<pre class="language-python"><code class="language-python">def decode(self, frame: Frame = None) -&gt; maix.image.Image
+</code></pre>
+<p>Decode frame</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>frame</strong>: the frame will be decode<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>decode result</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *decode(video::Frame *frame = nullptr)
+</code></pre>
+</blockquote>
+<h4 id="finish">finish</h4>
+
+<pre class="language-python"><code class="language-python">def finish(self) -&gt; maix.err.Err
+</code></pre>
+<p>Encode or decode finish</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err finish()
+</code></pre>
+</blockquote>
+<h4 id="capture-2">capture</h4>
+
+<pre class="language-python"><code class="language-python">def capture(self) -&gt; maix.image.Image
+</code></pre>
+<p>Capture image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>Each time encode is called, the last captured image will be released.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *capture()
+</code></pre>
+</blockquote>
+<h4 id="is_recording">is_recording</h4>
+
+<pre class="language-python"><code class="language-python">def is_recording(self) -&gt; bool
+</code></pre>
+<p>Check if video is recording</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if video is recording, false if not</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_recording()
+</code></pre>
+</blockquote>
+<h4 id="is_opened">is_opened</h4>
+
+<pre class="language-python"><code class="language-python">def is_opened(self) -&gt; bool
+</code></pre>
+<p>Check if video is opened</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if video is opened, false if not</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_opened()
+</code></pre>
+</blockquote>
+<h4 id="is_closed">is_closed</h4>
+
+<pre class="language-python"><code class="language-python">def is_closed(self) -&gt; bool
+</code></pre>
+<p>check video device is closed or not</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>closed or not, bool type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_closed()
+</code></pre>
+</blockquote>
+<h4 id="width-3">width</h4>
+
+<pre class="language-python"><code class="language-python">def width(self) -&gt; int
+</code></pre>
+<p>Get video width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int width()
+</code></pre>
+</blockquote>
+<h4 id="height-3">height</h4>
+
+<pre class="language-python"><code class="language-python">def height(self) -&gt; int
+</code></pre>
+<p>Get video height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>video height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int height()
+</code></pre>
+</blockquote>
+<h3 id="VideoRecorder">VideoRecorder</h3>
+<p>Video Recorder class. This module is not fully supported and may be deprecated in the future. You can use the camera, encoder, and audio modules to achieve similar functionality.</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class VideoRecorder
+</code></pre>
+</blockquote>
+<h4 id="__init__-6">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, open: bool = True) -&gt; None
+</code></pre>
+<p>Construct a new VideoRecorder object. This is an object that integrates recording, video capturing, and display functions, which can be used to achieve high-resolution video input when needed.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>open</strong>: If true, video will automatically call open() after creation. default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">VideoRecorder(bool open = true)
+</code></pre>
+</blockquote>
+<h4 id="lock">lock</h4>
+
+<pre class="language-python"><code class="language-python">def lock(self, timeout: int = -1) -&gt; maix.err.Err
+</code></pre>
+<p>lock video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timeout</strong>: timeout in ms. unit:ms<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err lock(int64_t timeout = -1)
+</code></pre>
+</blockquote>
+<h4 id="unlock">unlock</h4>
+
+<pre class="language-python"><code class="language-python">def unlock(self) -&gt; maix.err.Err
+</code></pre>
+<p>unlock video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err unlock()
+</code></pre>
+</blockquote>
+<h4 id="open-2">open</h4>
+
+<pre class="language-python"><code class="language-python">def open(self) -&gt; maix.err.Err
+</code></pre>
+<p>Start a thread to handle the input function.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err open()
+</code></pre>
+</blockquote>
+<h4 id="close-2">close</h4>
+
+<pre class="language-python"><code class="language-python">def close(self) -&gt; maix.err.Err
+</code></pre>
+<p>Stop the thread, and reset the object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err close()
+</code></pre>
+</blockquote>
+<h4 id="is_opened-2">is_opened</h4>
+
+<pre class="language-python"><code class="language-python">def is_opened(self) -&gt; bool
+</code></pre>
+<p>Check whether the object is opened.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_opened()
+</code></pre>
+</blockquote>
+<h4 id="bind_display">bind_display</h4>
+
+<pre class="language-python"><code class="language-python">def bind_display(self, display: maix.display.Display, fit: maix.image.Fit = ...) -&gt; maix.err.Err
+</code></pre>
+<p>Bind a Display object. if this object is not bound, it will not be displayed.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>display</strong>: display object<br><strong>fit</strong>: fit mode. It is recommended to fill in FIT_COVER or FIT_FILL. For maixcam, using FIT_CONTAIN may affect the<br>functionality of the second layer created by add_channel() in the Display. default is FIT_COVER.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_display(display::Display *display, image::Fit fit = image::FIT_COVER)
+</code></pre>
+</blockquote>
+<h4 id="bind_camera-3">bind_camera</h4>
+
+<pre class="language-python"><code class="language-python">def bind_camera(self, camera: maix.camera.Camera) -&gt; maix.err.Err
+</code></pre>
+<p>Bind a Camera object. if this object is not bound, images cannot be captured.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>camera</strong>: camera object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_camera(camera::Camera *camera)
+</code></pre>
+</blockquote>
+<h4 id="bind_audio">bind_audio</h4>
+
+<pre class="language-python"><code class="language-python">def bind_audio(self, audio: maix.audio.Recorder) -&gt; maix.err.Err
+</code></pre>
+<p>Bind a AudioRecorder object. if this object is not bound, audio cannot be captured.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>audio</strong>: audio recorder object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_audio(audio::Recorder *audio)
+</code></pre>
+</blockquote>
+<h4 id="bind_imu">bind_imu</h4>
+
+<pre class="language-python"><code class="language-python">def bind_imu(self, imu: capsule) -&gt; maix.err.Err
+</code></pre>
+<p>Bind a IMU object. if this object is not bound, imu data cannot be captured.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>imu</strong>: imu object<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err bind_imu(void *imu)
+</code></pre>
+</blockquote>
+<h4 id="reset">reset</h4>
+
+<pre class="language-python"><code class="language-python">def reset(self) -&gt; maix.err.Err
+</code></pre>
+<p>Reset the video recorder.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>It will not reset the bound object; if you have already bound the display using bind_display(), there is no need to rebind the display after calling reset().</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err reset()
+</code></pre>
+</blockquote>
+<h4 id="config_path">config_path</h4>
+
+<pre class="language-python"><code class="language-python">def config_path(self, path: str) -&gt; maix.err.Err
+</code></pre>
+<p>The recorded video will be saved to this path, and this API cannot be called during runtime.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: The path of the video file to be saved<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err config_path(std::string path)
+</code></pre>
+</blockquote>
+<h4 id="get_path">get_path</h4>
+
+<pre class="language-python"><code class="language-python">def get_path(self) -&gt; str
+</code></pre>
+<p>Get the path of the video file to be saved</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>path</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string get_path()
+</code></pre>
+</blockquote>
+<h4 id="config_snapshot">config_snapshot</h4>
+
+<pre class="language-python"><code class="language-python">def config_snapshot(self, enable: bool, resolution: list[int] = [], format: maix.image.Format = ...) -&gt; maix.err.Err
+</code></pre>
+<p>Set the snapshot parameters</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>Enabling snapshot functionality may result in some performance loss.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>enable</strong>: enable or disable snapshot<br><strong>resolution</strong>: image resolution of snapshot<br><strong>format</strong>: image format of snapshot<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err config_snapshot(bool enable, std::vector&lt;int&gt; resolution = std::vector&lt;int&gt;(), image::Format format = image::Format::FMT_YVU420SP)
+</code></pre>
+</blockquote>
+<h4 id="config_resolution">config_resolution</h4>
+
+<pre class="language-python"><code class="language-python">def config_resolution(self, resolution: list[int]) -&gt; maix.err.Err
+</code></pre>
+<p>Set the resolution of the video, and this API cannot be called during runtime.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>You must bind the camera first, and this interface will modify the camera's resolution. The width must be divisible by 32.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>resolution</strong>: The resolution of the video<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err config_resolution(std::vector&lt;int&gt; resolution)
+</code></pre>
+</blockquote>
+<h4 id="get_resolution">get_resolution</h4>
+
+<pre class="language-python"><code class="language-python">def get_resolution(self) -&gt; list[int]
+</code></pre>
+<p>Get the resolution of the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>the resolution of the video</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; get_resolution()
+</code></pre>
+</blockquote>
+<h4 id="config_fps">config_fps</h4>
+
+<pre class="language-python"><code class="language-python">def config_fps(self, fps: int) -&gt; maix.err.Err
+</code></pre>
+<p>Set the fps of the video, and this API cannot be called during runtime.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>This interface only affect the fps of the encoded file.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err config_fps(int fps)
+</code></pre>
+</blockquote>
+<h4 id="get_fps">get_fps</h4>
+
+<pre class="language-python"><code class="language-python">def get_fps(self) -&gt; int
+</code></pre>
+<p>Get the fps of the video.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>fps value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int get_fps()
+</code></pre>
+</blockquote>
+<h4 id="config_bitrate">config_bitrate</h4>
+
+<pre class="language-python"><code class="language-python">def config_bitrate(self, bitrate: int) -&gt; maix.err.Err
+</code></pre>
+<p>Set the bitrate of the video, and this API cannot be called during runtime.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err config_bitrate(int bitrate)
+</code></pre>
+</blockquote>
+<h4 id="get_bitrate">get_bitrate</h4>
+
+<pre class="language-python"><code class="language-python">def get_bitrate(self) -&gt; int
+</code></pre>
+<p>Get the bitrate of the video.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>bitrate value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int get_bitrate()
+</code></pre>
+</blockquote>
+<h4 id="mute">mute</h4>
+
+<pre class="language-python"><code class="language-python">def mute(self, data: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get the mute of the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: If the parameter is true, mute; if false, unmute; if no parameter is provided, return the mute status.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int mute(int data = -1)
+</code></pre>
+</blockquote>
+<h4 id="volume">volume</h4>
+
+<pre class="language-python"><code class="language-python">def volume(self, data: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get the volume of the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>data</strong>: The volume of the video, the range is 0-100. if no parameter is provided, return the volume.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int volume(int data = -1)
+</code></pre>
+</blockquote>
+<h4 id="seek-2">seek</h4>
+
+<pre class="language-python"><code class="language-python">def seek(self) -&gt; int
+</code></pre>
+<p>Get the current position of the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current position, unit: ms</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int64_t seek()
+</code></pre>
+</blockquote>
+<h4 id="record_start">record_start</h4>
+
+<pre class="language-python"><code class="language-python">def record_start(self) -&gt; maix.err.Err
+</code></pre>
+<p>Start recording</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>You must bind the camera at a minimum during input. Additionally,<br>if you bind a display, the input image will be shown,<br>if you bind a audio, audio will be recorded,<br>if you bind a IMU, IMU data will be logged.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err record_start()
+</code></pre>
+</blockquote>
+<h4 id="snapshot">snapshot</h4>
+
+<pre class="language-python"><code class="language-python">def snapshot(self) -&gt; maix.image.Image
+</code></pre>
+<p>Take a snapshot</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>image::Image</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *snapshot()
+</code></pre>
+</blockquote>
+<h4 id="record_finish">record_finish</h4>
+
+<pre class="language-python"><code class="language-python">def record_finish(self) -&gt; maix.err.Err
+</code></pre>
+<p>Stop recording and save the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err record_finish()
+</code></pre>
+</blockquote>
+<h4 id="draw_rect">draw_rect</h4>
+
+<pre class="language-python"><code class="language-python">def draw_rect(self, id: int, x: int, y: int, w: int, h: int, color: maix.image.Color = ..., thickness: int = -1, hidden: bool = False) -&gt; maix.err.Err
+</code></pre>
+<p>Draw a rect on the video</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>id</strong>: id of the rect, range is [0, 15]<br><strong>x</strong>: x coordinate<br><strong>y</strong>: y coordinate<br><strong>w</strong>: width<br><strong>h</strong>: height<br><strong>color</strong>: color<br><strong>tickness</strong>: The line width of the rectangular box; if set to -1, it indicates that the rectangular box will be filled.<br><strong>hidden</strong>: Hide or show the rectangular box<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err draw_rect(int id, int x, int y, int w, int h, image::Color color = image::COLOR_WHITE, int thickness = -1, bool hidden = false)
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/rtmp.html">
+                            <span class="icon"></span>
+                            <span class="label">rtmp</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/http.html">
+                            <span class="label">http</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

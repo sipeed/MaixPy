@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.camera - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.camera</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/camera.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.camera module, access camera device and get image from it</p>
+<blockquote>
+<p>You can use <code>maix.camera</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="list_devices">list_devices</h3>
+
+<pre class="language-python"><code class="language-python">def list_devices() -&gt; list[str]
+</code></pre>
+<p>List all supported camera devices.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Returns the path to the camera device.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::string&gt; list_devices()
+</code></pre>
+</blockquote>
+<h3 id="set_regs_enable">set_regs_enable</h3>
+
+<pre class="language-python"><code class="language-python">def set_regs_enable(enable: bool = True) -&gt; None
+</code></pre>
+<p>Enable set camera registers, default is false, if set to true, will not set camera registers, you can manually set registers by write_reg API.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>enable</strong>: enable/disable set camera registers<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_regs_enable(bool enable = true)
+</code></pre>
+</blockquote>
+<h3 id="get_device_name">get_device_name</h3>
+
+<pre class="language-python"><code class="language-python">def get_device_name() -&gt; str
+</code></pre>
+<p>Get device name. Most of the time, the returned name is the name of the sensor.</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string get_device_name()
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Camera">Camera</h3>
+<p>Camera class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Camera
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, width: int = -1, height: int = -1, format: maix.image.Format = ..., device: str = None, fps: float = -1, buff_num: int = 3, open: bool = True, raw: bool = False) -&gt; None
+</code></pre>
+<p>Construct a new Camera object.\nMaximum resolution support 2560x1440.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>width</strong>: camera width, default is -1, means auto, mostly means max width of camera support<br><strong>height</strong>: camera height, default is -1, means auto, mostly means max height of camera support<br><strong>format</strong>: camera output format, default is image.Format.FMT_RGB888<br><strong>device</strong>: camera device path, you can get devices by list_devices method, by default(value is NULL(None in MaixPy)) means the first device<br><strong>fps</strong>: camera fps, default is -1, means auto, mostly means max fps of camera support<br><strong>buff_num</strong>: camera buffer number, default is 3, means 3 buffer, one used by user, one used for cache the next frame,<br>more than one buffer will accelerate image read speed, but will cost more memory.<br><strong>open</strong>: If true, camera will automatically call open() after creation. default is true.<br><strong>raw</strong>: If true, you can use read_raw() to capture the raw image output from the sensor.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Camera(int width = -1, int height = -1, image::Format format = image::FMT_RGB888, const char *device = nullptr, double fps = -1, int buff_num = 3, bool open = true, bool raw = false)
+</code></pre>
+</blockquote>
+<h4 id="get_ch_nums">get_ch_nums</h4>
+
+<pre class="language-python"><code class="language-python">def get_ch_nums(self) -&gt; int
+</code></pre>
+<p>Get the number of channels supported by the camera.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>Returns the maximum number of channels.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int get_ch_nums()
+</code></pre>
+</blockquote>
+<h4 id="open">open</h4>
+
+<pre class="language-python"><code class="language-python">def open(self, width: int = -1, height: int = -1, format: maix.image.Format = ..., fps: float = -1, buff_num: int = -1) -&gt; maix.err.Err
+</code></pre>
+<p>Open camera and run</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>width</strong>: camera width, default is -1, means auto, mostly means max width of camera support<br><strong>height</strong>: camera height, default is -1, means auto, mostly means max height of camera support<br><strong>format</strong>: camera output format, default same as the constructor's format argument<br><strong>fps</strong>: camera fps, default is -1, means auto, mostly means max fps of camera support<br><strong>buff_num</strong>: camera buffer number, default is 3, means 3 buffer, one used by user, one used for cache the next frame,<br>more than one buffer will accelerate image read speed, but will cost more memory.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err open(int width = -1, int height = -1, image::Format format = image::FMT_INVALID, double fps = -1, int buff_num = -1)
+</code></pre>
+</blockquote>
+<h4 id="read">read</h4>
+
+<pre class="language-python"><code class="language-python">def read(self, buff: capsule = None, buff_size: int = 0, block: bool = True, block_ms: int = -1) -&gt; maix.image.Image
+</code></pre>
+<p>Get one frame image from camera buffer, must call open method before read.\nIf open method not called, will call it automatically, if open failed, will throw exception!\nSo call open method before read is recommended.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>buff</strong>: buffer to store image data, if buff is nullptr, will alloc memory automatically.<br>In MaixPy, default to None, you can create a image.Image object, then pass img.data() to buff.<br><strong>block</strong>: block read, default is true, means block util read image successfully,<br>if set to false, will return nullptr if no image in buffer<br><strong>block_ms</strong>: block read timeout<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>image::Image object, if failed, return nullptr, you should delete if manually in C++</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *read(void *buff = nullptr, size_t buff_size = 0, bool block = true, int block_ms = -1)
+</code></pre>
+</blockquote>
+<h4 id="read_raw">read_raw</h4>
+
+<pre class="language-python"><code class="language-python">def read_raw(self) -&gt; maix.image.Image
+</code></pre>
+<p>Read the raw image and obtain the width, height, and format of the raw image through the returned Image object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>note</strong></td>
+  <td>The raw image is in a Bayer format, and its width and height are affected by the driver. Modifying the size and format is generally not allowed.</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>image::Image object, if failed, return nullptr, you should delete if manually in C++</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Image *read_raw()
+</code></pre>
+</blockquote>
+<h4 id="clear_buff">clear_buff</h4>
+
+<pre class="language-python"><code class="language-python">def clear_buff(self) -&gt; None
+</code></pre>
+<p>Clear buff to ensure the next read image is the latest image</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void clear_buff()
+</code></pre>
+</blockquote>
+<h4 id="skip_frames">skip_frames</h4>
+
+<pre class="language-python"><code class="language-python">def skip_frames(self, num: int) -&gt; None
+</code></pre>
+<p>Read some frames and drop, this is usually used avoid read not stable image when camera just opened.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>num</strong>: number of frames to read and drop<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void skip_frames(int num)
+</code></pre>
+</blockquote>
+<h4 id="close">close</h4>
+
+<pre class="language-python"><code class="language-python">def close(self) -&gt; None
+</code></pre>
+<p>Close camera</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void close()
+</code></pre>
+</blockquote>
+<h4 id="add_channel">add_channel</h4>
+
+<pre class="language-python"><code class="language-python">def add_channel(self, width: int = -1, height: int = -1, format: maix.image.Format = ..., fps: float = -1, buff_num: int = 3, open: bool = True) -&gt; Camera
+</code></pre>
+<p>Add a new channel and return a new Camera object, you can use close() to close this channel.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>width</strong>: camera width, default is -1, means auto, mostly means max width of camera support<br><strong>height</strong>: camera height, default is -1, means auto, mostly means max height of camera support<br><strong>format</strong>: camera output format, default is RGB888<br><strong>fps</strong>: camera fps, default is -1, means auto, mostly means max fps of camera support<br><strong>buff_num</strong>: camera buffer number, default is 3, means 3 buffer, one used by user, one used for cache the next frame,<br>more than one buffer will accelerate image read speed, but will cost more memory.<br><strong>open</strong>: If true, camera will automatically call open() after creation. default is true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>new Camera object</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">camera::Camera *add_channel(int width = -1, int height = -1, image::Format format = image::FMT_RGB888, double fps = -1, int buff_num = 3, bool open = true)
+</code></pre>
+</blockquote>
+<h4 id="is_opened">is_opened</h4>
+
+<pre class="language-python"><code class="language-python">def is_opened(self) -&gt; bool
+</code></pre>
+<p>Check if camera is opened</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if camera is opened, false if not</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_opened()
+</code></pre>
+</blockquote>
+<h4 id="is_closed">is_closed</h4>
+
+<pre class="language-python"><code class="language-python">def is_closed(self) -&gt; bool
+</code></pre>
+<p>check camera device is closed or not</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>closed or not, bool type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool is_closed()
+</code></pre>
+</blockquote>
+<h4 id="width">width</h4>
+
+<pre class="language-python"><code class="language-python">def width(self) -&gt; int
+</code></pre>
+<p>Get camera width</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera width</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int width()
+</code></pre>
+</blockquote>
+<h4 id="height">height</h4>
+
+<pre class="language-python"><code class="language-python">def height(self) -&gt; int
+</code></pre>
+<p>Get camera height</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera height</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int height()
+</code></pre>
+</blockquote>
+<h4 id="fps">fps</h4>
+
+<pre class="language-python"><code class="language-python">def fps(self) -&gt; float
+</code></pre>
+<p>Get camera fps</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera fps</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double fps()
+</code></pre>
+</blockquote>
+<h4 id="format">format</h4>
+
+<pre class="language-python"><code class="language-python">def format(self) -&gt; maix.image.Format
+</code></pre>
+<p>Get camera output format</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera output format, image::Format object</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">image::Format format()
+</code></pre>
+</blockquote>
+<h4 id="buff_num">buff_num</h4>
+
+<pre class="language-python"><code class="language-python">def buff_num(self) -&gt; int
+</code></pre>
+<p>Get camera buffer number</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera buffer number</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int buff_num()
+</code></pre>
+</blockquote>
+<h4 id="hmirror">hmirror</h4>
+
+<pre class="language-python"><code class="language-python">def hmirror(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera horizontal mirror</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera horizontal mirror</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int hmirror(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="vflip">vflip</h4>
+
+<pre class="language-python"><code class="language-python">def vflip(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera vertical flip</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera vertical flip</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int vflip(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="device">device</h4>
+
+<pre class="language-python"><code class="language-python">def device(self) -&gt; str
+</code></pre>
+<p>Get camera device path</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera device path</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string device()
+</code></pre>
+</blockquote>
+<h4 id="write_reg">write_reg</h4>
+
+<pre class="language-python"><code class="language-python">def write_reg(self, addr: int, data: int, bit_width: int = 8) -&gt; maix.err.Err
+</code></pre>
+<p>Write camera register</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>addr</strong>: register address<br><strong>data</strong>: register data<br><strong>bit_width</strong>: register data bit width, default is 8<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err write_reg(int addr, int data, int bit_width = 8)
+</code></pre>
+</blockquote>
+<h4 id="read_reg">read_reg</h4>
+
+<pre class="language-python"><code class="language-python">def read_reg(self, addr: int, bit_width: int = 8) -&gt; int
+</code></pre>
+<p>Read camera register</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>addr</strong>: register address<br><strong>bit_width</strong>: register data bit width, default is 8<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>register data, -1 means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int read_reg(int addr, int bit_width = 8)
+</code></pre>
+</blockquote>
+<h4 id="show_colorbar">show_colorbar</h4>
+
+<pre class="language-python"><code class="language-python">def show_colorbar(self, enable: bool) -&gt; maix.err.Err
+</code></pre>
+<p>Camera output color bar image for test</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>enable</strong>: enable/disable color bar<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err show_colorbar(bool enable)
+</code></pre>
+</blockquote>
+<h4 id="get_channel">get_channel</h4>
+
+<pre class="language-python"><code class="language-python">def get_channel(self) -&gt; int
+</code></pre>
+<p>Get channel of camera</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>channel number</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int get_channel()
+</code></pre>
+</blockquote>
+<h4 id="set_resolution">set_resolution</h4>
+
+<pre class="language-python"><code class="language-python">def set_resolution(self, width: int, height: int) -&gt; maix.err.Err
+</code></pre>
+<p>Set camera resolution</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>width</strong>: new width<br><strong>height</strong>: new height<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_resolution(int width, int height)
+</code></pre>
+</blockquote>
+<h4 id="set_fps">set_fps</h4>
+
+<pre class="language-python"><code class="language-python">def set_fps(self, fps: float) -&gt; maix.err.Err
+</code></pre>
+<p>Set camera fps</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>fps</strong>: new fps<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code, err::ERR_NONE means success, others means failed</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_fps(double fps)
+</code></pre>
+</blockquote>
+<h4 id="exposure">exposure</h4>
+
+<pre class="language-python"><code class="language-python">def exposure(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera exposure</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: exposure time. unit: us<br>If value == -1, return exposure time.<br>If value != 0, set and return exposure time.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera exposure time</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int exposure(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="gain">gain</h4>
+
+<pre class="language-python"><code class="language-python">def gain(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera gain</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: camera gain.<br>If value == -1, returns camera gain.<br>If value != 0, set and return camera gain.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>camera gain</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int gain(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="luma">luma</h4>
+
+<pre class="language-python"><code class="language-python">def luma(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera luma</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: luma value, range is [0, 100]<br>If value == -1, returns luma value.<br>If value != 0, set and return luma value.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns luma value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int luma(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="constrast">constrast</h4>
+
+<pre class="language-python"><code class="language-python">def constrast(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera constrast</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: constrast value, range is [0, 100]<br>If value == -1, returns constrast value.<br>If value != 0, set and return constrast value.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns constrast value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int constrast(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="saturation">saturation</h4>
+
+<pre class="language-python"><code class="language-python">def saturation(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get camera saturation</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: saturation value, range is [0, 100]<br>If value == -1, returns saturation value.<br>If value != 0, set and return saturation value.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns saturation value</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int saturation(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="awb_mode">awb_mode</h4>
+
+<pre class="language-python"><code class="language-python">def awb_mode(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get white balance mode (deprecated interface)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.<br>This interface may be deprecated in the future, and there may be incompatibilities in the definition of the parameters of the new interface</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: value = 0, means set white balance to auto mode, value = 1, means set white balance to manual mode, default is auto mode.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns awb mode</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int awb_mode(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="set_awb">set_awb</h4>
+
+<pre class="language-python"><code class="language-python">def set_awb(self, mode: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get white balance mode</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: value = 0, means set white balance to manual mode, value = 1, means set white balance to auto mode, default is auto mode.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns awb mode</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int set_awb(int mode = -1)
+</code></pre>
+</blockquote>
+<h4 id="exp_mode">exp_mode</h4>
+
+<pre class="language-python"><code class="language-python">def exp_mode(self, value: int = -1) -&gt; int
+</code></pre>
+<p>Set/Get exposure mode (deprecated interface)</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This method will affect the isp and thus the image, so please be careful with it.<br>This interface may be deprecated in the future, and there may be incompatibilities in the definition of the parameters of the new interface</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>value</strong>: value = 0, means set exposure to auto mode, value = 1, means set exposure to manual mode, default is auto mode.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>returns exposure mode</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int exp_mode(int value = -1)
+</code></pre>
+</blockquote>
+<h4 id="set_windowing">set_windowing</h4>
+
+<pre class="language-python"><code class="language-python">def set_windowing(self, roi: list[int]) -&gt; maix.err.Err
+</code></pre>
+<p>Set window size of camera</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>roi</strong>: Support two input formats, [x,y,w,h] set the coordinates and size of the window;<br>[w,h] set the size of the window, when the window is centred.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>error code</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_windowing(std::vector&lt;int&gt; roi)
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/image.html">
+                            <span class="icon"></span>
+                            <span class="label">image</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/display.html">
+                            <span class="label">display</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

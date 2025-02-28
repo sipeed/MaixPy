@@ -1,0 +1,45 @@
+# This is a basic workflow to help you get started with Actions
+
+name: trigger wiki
+
+# Controls when the action will run.
+on:
+  push:
+    branches:
+      - gh-pages
+  pull_request:
+    branches:
+      - gh-pages
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions: write-all
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  trigger_wiki:
+    name: trigger sipeed_wiki
+    # Only run job for specific repository
+    # if: github.repository == 'sipeed/MaixPy'
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     python-version: [3.8]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: trigger sipeed wiki request
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.DISPATCH_PAT }}
+        script: |
+          const result = await github.rest.repos.createDispatchEvent({
+            owner: 'sipeed',
+            repo: 'sipeed_wiki',
+            event_type: 'update_maixpy_doc',
+            client_payload: {"key": "value"}
+          })
+          console.log(result);

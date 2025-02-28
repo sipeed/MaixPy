@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy 基于手部关键点检测结果进行进行手势分类 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/vision/hand_gesture_classification.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/vision/hand_gesture_classification.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/README_no_screen.html"><span class="label">快速开始（无屏幕版）</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/acc.html"><span class="label">加速度计使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy 基于手部关键点检测结果进行进行手势分类</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/vision/hand_gesture_classification.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>由<code>MaixCAM MaixPy 基于手部关键点检测结果进行进行手势分类</code>可分类手势。</p>
+<p>通过前置 <a href="./hand_landmarks.html"  >AI 模型估计手部关键点</a>获取特征，再由 LinearSVC (支持向量机线性分类算法) 提供了自训练分类各种手势的能力。详情位于 <code>MaixPy/projects/app_hand_gesture_classifier/LinearSVC.py</code>，使用案例见 app 实现，其位于 <code>MaixPy/projects/app_hand_gesture_classifier/main.py</code>。</p>
+<p><strong>用户可自行添加其他任意可区分手势进行训练。</strong></p>
+<h2 id="%E4%BD%BF%E7%94%A8">使用</h2>
+<h3 id="%E9%A2%84%E5%A4%84%E7%90%86">预处理</h3>
+<p>以下是对 AI 模型估计手部关键点 的原始输出 hand_landmarks 数据结构进行预处理得到待使用特征：</p>
+
+<pre class="language-python"><code class="language-python">def preprocess(hand_landmarks, is_left=False, boundary=(1,1,1)):
+    hand_landmarks = np.array(hand_landmarks).reshape((21, -1))
+    vector = hand_landmarks[:,:2]
+    vector = vector[1:] - vector[0]
+    vector = vector.astype('float64') / boundary[:vector.shape[1]]
+    if not is_left: # mirror
+        vector[:,0] *= -1
+    return vector
+</code></pre>
+<h3 id="%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97">导入模块</h3>
+<p>也可直接前往该目录 <code>target_dir</code> 拷贝 <code>LinearSVC.py</code> 实现</p>
+
+<pre class="language-python"><code class="language-python"># 为了导入 LinearSVC 
+target_dir = '/maixapp/apps/hand_gesture_classifier/'
+import sys
+if target_dir not in sys.path:
+    sys.path.insert(0, target_dir)
+
+from LinearSVC import LinearSVC, LinearSVCManager
+</code></pre>
+<h3 id="%E5%88%86%E7%B1%BB%E5%99%A8%EF%BC%88LinearSVC%EF%BC%89">分类器（LinearSVC）</h3>
+<p>介绍分类器（LinearSVC）的各项功能和使用方法。</p>
+<h4 id="%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%AF%BC%E5%87%BA">初始化，加载和导出</h4>
+
+<pre class="language-python"><code class="language-python"># 初始化
+clf = LinearSVC(C=1.0, learning_rate=0.01, max_iter=500)
+# 加载
+clf = LinearSVC.load(&quot;/maixapp/apps/hand_gesture_classifier/clf_dump.npz&quot;)
+# 导出
+clf.save(&quot;my_clf_dump.npz&quot;)
+</code></pre>
+<p><em>初始化方法参数</em></p>
+<ol>
+<li><p>C=1.0（正则化参数）</p>
+<ul>
+<li>控制支持向量机（SVM）的正则化强度。</li>
+<li>C 值越大，对误分类的惩罚越高，模型会尝试严格分类每个样本，可能会导致过拟合。</li>
+<li>C 值越小，允许一定程度的误分类，提高泛化能力，可能会导致欠拟合。</li>
+</ul>
+<p>默认值：1.0，适中的正则化，平衡准确性和泛化能力。</p>
+</li>
+<li><p>learning_rate=0.01（学习率）</p>
+<ul>
+<li>控制权重更新的步长大小，即每次梯度下降优化时，参数调整的速度。</li>
+<li>学习率过大，可能会导致优化过程无法收敛，甚至发散。</li>
+<li>学习率过小，优化过程收敛速度过慢，训练时间较长。</li>
+</ul>
+<p>默认值：0.01，通常为适中的学习率，确保模型逐步逼近最优解。</p>
+</li>
+<li><p>max_iter=500（最大迭代次数）</p>
+<ul>
+<li>控制训练过程中执行的最大优化轮数。</li>
+<li>迭代次数越多，模型有更多机会找到最优解，但过多的迭代可能会导致训练时间过长或过拟合。</li>
+<li>如果 max_iter 过小，可能在尚未收敛时就提前停止，导致欠拟合。</li>
+</ul>
+<p>默认值：1000，允许模型有足够的训练轮次来收敛。</p>
+</li>
+</ol>
+<p><em>加载和导出方法参数</em></p>
+<ol>
+<li>filename: str<ul>
+<li>目标文件路径，支持相对和绝对路径</li>
+<li>必须提供</li>
+</ul>
+默认值：无</li>
+</ol>
+<h4 id="%E8%AE%AD%E7%BB%83%E5%92%8C%E9%A2%84%E6%B5%8B%EF%BC%88%E5%88%86%E7%B1%BB%EF%BC%89">训练和预测（分类）</h4>
+<p>分类器初始化后需要进行有效训练才能完成后续分类任务。</p>
+<p>若是直接加载先前的训练器备份，即可直接用于分类。</p>
+<p><strong>每次训练都是全量训练，即会丢失先前训练结果。建议：有需要请及时导出当前分类器备份。</strong></p>
+
+<pre class="language-python"><code class="language-python">npzfile = np.load(&quot;/maixapp/apps/hand_gesture_classifier/trainSets.npz&quot;) # 预加载特征和ID（name_classes 索引）
+X_train = npzfile[&quot;X&quot;] # 原始特征
+y_train = npzfile[&quot;y&quot;] # 标签id
+
+clf.fit(clf.scaler.fit_transform(X_train), y_train)  # 标准化特征后训练SVM
+
+# 回归
+y_pred = clf.predict(clf.scaler.transform(X_train))  # 标准化特征后预测类别
+recall_count = len(y_train)
+right_count = np.sum(y_pred == y_train)
+print(f&quot;right/recall= {right_count}/{recall_count}, acc: {right_count/recall_count}&quot;)
+
+# 预测
+X_test = X_train[:5]
+feature_test = clf.scaler.transform(X_test) # 标准化特征
+# y_pred = clf.predict(feature_test)  # 预测类别
+y_pred, y_conf = clf.predict_with_confidence(feature_test)  # 预测类别
+print(f&quot;pred: {y_pred}, conf: {y_conf}&quot;)
+# 对应的类别名 name_classes = (&quot;one&quot;, &quot;five&quot;, &quot;fist&quot;, &quot;ok&quot;, &quot;heartSingle&quot;, &quot;yearh&quot;, &quot;three&quot;, &quot;four&quot;, &quot;six&quot;, &quot;Iloveyou&quot;, &quot;gun&quot;, &quot;thumbUp&quot;, &quot;nine&quot;, &quot;pink&quot;)
+</code></pre>
+<p>由于每次都是是全量训练，直接使用分类器时，还需要手动维护先前训练的特征和对应标签的存储，才能实现动态增删改分类类别。</p>
+<p>为了简化使用并降低额外负担，现封装了 <code>分类器管理器（LinearSVCManager）</code>，见下节。</p>
+<h3 id="%E5%88%86%E7%B1%BB%E5%99%A8%E7%AE%A1%E7%90%86%E5%99%A8%EF%BC%88LinearSVCManager%EF%BC%89">分类器管理器（LinearSVCManager）</h3>
+<p>介绍分类器管理器（LinearSVCManager）的各项功能和使用方法。</p>
+<h4 id="%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%AF%BC%E5%87%BA">初始化，加载和导出</h4>
+<p>无论 <code>初始化</code> 或 <code>加载</code> 都必须提供有效 X，Y（对应特征和标签）输入。</p>
+<p>且保证长度相等，元素一一对应，否则会报错。</p>
+
+<pre class="language-python"><code class="language-python"># 初始化，加载
+def __init__(self, clf: LinearSVC=LinearSVC(), X=None, Y=None, pretrained=False)
+
+# 使用默认参数的 LinearSVC 进行初始化
+clfm = LinearSVCManager(X=X_train, Y=y_train)
+# 使用特定参数的 LinearSVC 进行初始化
+clfm = LinearSVCManager(LinearSVC(C=1.0, learning_rate=0.01, max_iter=100), X_train, y_train)
+
+# 加载必须使用加载的 LinearSVC 并且指定 pretrained=True 避免无意义的当场二次训练
+# 且需要保证 X_train, y_train 确实是先前用来训练 LinearSVC 的
+clfm = LinearSVCManager(LinearSVC.load(&quot;/maixapp/apps/hand_gesture_classifier/clf_dump.npz&quot;), X_train, y_train, pretrained=True)
+
+# 导出参数请使用 LinearSVC (clfm.clf) 的 save
+clfm.clf.save(&quot;my_clf_dump.npz&quot;)
+# 导出用于训练的特征和标签
+np.savez(&quot;trainSets.npz&quot;,
+            X = X_train,
+            y = y_train,
+        )
+</code></pre>
+<h4 id="%E8%AE%BF%E9%97%AE%E5%B7%B2%E7%94%A8%E4%BA%8E%E8%AE%AD%E7%BB%83%E7%9A%84%E6%95%B0%E6%8D%AE">访问已用于训练的数据</h4>
+<p>clfm.samples 为一个 python 二元组：</p>
+<ol>
+<li>clfm.samples[0] 为 <code>X</code></li>
+<li>clfm.samples[1] 为 <code>Y</code></li>
+</ol>
+<p><strong>请不要直接修改，仅供只读访问。否则需手动调用 <code>clfm.train()</code> 重新训练。</strong></p>
+<h4 id="%E6%B7%BB%E5%8A%A0%E6%88%96%E7%A7%BB%E9%99%A4">添加或移除</h4>
+<p><strong>添加请确保 X_new 和 y_new 长度相等，且形状对应先前的 X_train 和 y_train。</strong></p>
+<p>皆为 numpy 数组，可自行通过 shape 字段确认。</p>
+
+<pre class="language-python"><code class="language-python"># 添加
+clfm.add(X_new, y_new)
+
+# 移除
+mask_ge_4 = clfm.samples[1] &gt;= 4  # 大于等于 4 的掩码
+indices_ge_4 = np.where(mask_ge_4)[0]
+clfm.rm(indices_ge_4)
+</code></pre>
+<p>以上操作主要处理 <code>clfm.samples</code>，但每次会在结尾调用 <code>clfm.train()</code> 再训练。</p>
+<p>因此，根据待训练数据规模，等待些许时间后，便可直接应用。</p>
+<h4 id="%E9%A2%84%E6%B5%8B">预测</h4>
+
+<pre class="language-python"><code class="language-python">y_pred, y_conf = clfm.test(X_test)  # 预测类别
+</code></pre>
+<p>等价于</p>
+
+<pre class="language-python"><code class="language-python">clf = clfm.clf
+feature_test = clf.scaler.transform(X_test) # 标准化特征
+y_pred, y_conf = clf.predict_with_confidence(feature_test)  # 预测类别
+</code></pre>
+<h4 id="%E7%A4%BA%E4%BE%8B%EF%BC%88%E6%95%88%E6%9E%9C%E8%A7%86%E9%A2%91%E7%AE%80%E5%8C%96%E7%89%88%E6%9C%AC%EF%BC%89">示例（效果视频简化版本）</h4>
+<p>注意：</p>
+<ul>
+<li>缺失 preprocess 实现，请从 <code>预处理</code> 拷贝过来</li>
+<li>缺失 LinearSVC 模块，请从 <code>导入模块</code> 拷贝过来</li>
+</ul>
+<p>分类预测部分如下，可单文件运行：</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, image, nn, app
+import numpy as np
+
+# 添加在我下面
+
+name_classes = (&quot;one&quot;, &quot;five&quot;, &quot;fist&quot;, &quot;ok&quot;, &quot;heartSingle&quot;, &quot;yearh&quot;, &quot;three&quot;, &quot;four&quot;, &quot;six&quot;, &quot;Iloveyou&quot;, &quot;gun&quot;, &quot;thumbUp&quot;, &quot;nine&quot;, &quot;pink&quot;) # , &quot;class N&quot;, &quot;class N+1&quot;, ...) # 易于理解的标签名
+npzfile = np.load(&quot;/maixapp/apps/hand_gesture_classifier/trainSets.npz&quot;) # 预加载特征和ID（name_classes 索引）
+X_train = npzfile[&quot;X&quot;]
+y_train = npzfile[&quot;y&quot;]
+clfm = LinearSVCManager(LinearSVC.load(&quot;/maixapp/apps/hand_gesture_classifier/clf_dump.npz&quot;), X_train, y_train, pretrained=True) # 使用预加载分类器初始化 LinearSVCManager
+
+detector = nn.HandLandmarks(model=&quot;/root/models/hand_landmarks.mud&quot;)
+cam = camera.Camera(320, 224, detector.input_format())
+disp = display.Display()
+
+# Loading screen
+img = cam.read()
+img.draw_string(100, 112, &quot;Loading...\nwait up to 10s&quot;, color = image.COLOR_GREEN)
+disp.show(img)
+
+while not app.need_exit():
+    img = cam.read()
+    objs = detector.detect(img, conf_th = 0.7, iou_th = 0.45, conf_th2 = 0.8)
+    for obj in objs:
+        hand_landmarks = preprocess(obj.points[8:8+21*3], obj.class_id == 0, (img.width(), img.height(), 1)) # 预处理
+        features = np.array([hand_landmarks.flatten()])
+        class_idx, pred_conf = clfm.test(features)  # 获取预测类别
+        class_idx, pred_conf = class_idx[0], pred_conf[0] # 复数输入，复数返回，取第一单元
+        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}\n{name_classes[class_idx]}({class_idx})={pred_conf*100:.2f}%'
+        img.draw_string(obj.points[0], obj.points[1], msg, color = image.COLOR_RED if obj.class_id == 0 else image.COLOR_GREEN, scale = 1.4, thickness = 2)
+        detector.draw_hand(img, obj.class_id, obj.points, 4, 10, box=True)
+    disp.show(img)
+</code></pre>
+<p>目前使用的 <code>X_train</code> 基于的原始数据集为<code>14 类静态手势数据集</code>，<a href="https://pan.baidu.com/s/1Sd-Ad88Wzp0qjGH6Ngah0g"  target="_blank">数据集下载地址(百度网盘 Password: 6urr )</a>，其中数据集共 2850 个样本，分为 14 类。</p>
+<p><img src="../../assets/handposex_14class.jpg" alt="" /></p>
+<h2 id="%E6%95%88%E6%9E%9C%E8%A7%86%E9%A2%91">效果视频</h2>
+<p>该 app 实现位于 <code>MaixPy/projects/app_hand_gesture_classifier/main.py</code>，主要逻辑是</p>
+<ol>
+<li>加载 <code>14 类静态手势数据集</code> 经 <code>手部关键点检测</code> 处理后的 <code>20</code> 个相对手腕的坐标偏移</li>
+<li>初始训练前 <code>4</code> 个分类 <strong>或直接加载预训练的 <code>14</code> 分类器参数(源码可切换)</strong>，以支持手势识别</li>
+<li>加载 <code>手部关键点检测</code> 模型处理摄像头并通过该分类器将结果可视化在屏幕上</li>
+<li>点击右上角 <code>class14</code> 可增添剩余分类样本再训练以达到 <code>14</code> 分类手势</li>
+<li>点击右下角 <code>class4</code> 可移除上一步添加的分类样本再训练以达到 <code>4</code> 分类手势</li>
+<li>点击按钮之间的小块区域，可在顶部显示分类器上一次训练的时长</li>
+<li>点击其余大块区域，可在左侧显示当前支持的分类类别，绿色表示支持，黄色表示不支持</li>
+</ol>
+<video playsinline controls autoplay loop muted preload src="/maixpy/static/video/hand_gesture_demo.mp4" type="video/mp4">
+Classifier Result video
+</video>
+<ol>
+<li>视频演示内容为执行了上述第 <code>4</code> 步 <strong>或第 <code>2</code> 步加粗部分</strong>后的 <code>14</code> 分类模式，可识别手势 <code>1-10</code> （默认对应其他英文释义），ok，大拇指点赞，比心（需要手背，拍摄时不好演示，可自行验证），小拇指伸展 一共 <code>14</code> 种手势。</li>
+<li>紧接着执行第 <code>5</code> 步，回退到 <code>4</code> 分类模式，仅可识别 1，5，10（握拳）和 ok，其余的手势都无法识别到正常结果。期间也有执行 第 <code>7</code> 步展示了当前是 <code>4</code> 分类模式，因为除了前 4 种手势为绿，后 10 种全部为黄色显示。</li>
+<li>再就是执行第 <code>4</code> 步，恢复到 <code>14</code> 分类模式，<code>4</code> 分类模式无法识别的手势现在也恢复正确识别了。</li>
+<li>末尾展示了双手的识别，实测可同时正确识别两只手的手势。</li>
+</ol>
+<h2 id="%E5%85%B6%E5%AE%83">其它</h2>
+<p><strong>效果视频为捕获的 maixvision 右上的屏幕预览窗口而来，和屏幕实际显示内容一致。</strong></p>
+<p><strong>更详细使用方法或二次开发请参考上述分析阅读源码，内附有注释。</strong></p>
+<p>如仍有疑惑或需要协助，可于 <code>maixhub</code> 上发帖留言或发 <code>e-mail</code> 到公司邮箱 <code>support@sipeed.com</code>，<strong>标题请使用<code>[help][MaixPy] guesture classification: xxx</code></strong>。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/vision/body_pose_classification.html">
+                            <span class="icon"></span>
+                            <span class="label">人体姿态分类器</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/vision/maixhub_train.html">
+                            <span class="label">MaixHub 在线训练 AI 模型</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

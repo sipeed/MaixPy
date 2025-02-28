@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.tensor - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.tensor</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/tensor.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.tensor module</p>
+<blockquote>
+<p>You can use <code>maix.tensor</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h3 id="DType">DType</h3>
+<p>Tensor data types</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>values</strong></td>
+  <td><strong>UINT8</strong>: <br><strong>INT8</strong>: <br><strong>UINT16</strong>: <br><strong>INT16</strong>: <br><strong>UINT32</strong>: <br><strong>INT32</strong>: <br><strong>FLOAT16</strong>: <br><strong>FLOAT32</strong>: <br><strong>FLOAT64</strong>: <br><strong>BOOL</strong>: <br><strong>DTYPE_MAX</strong>: <br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">enum DType
+        {
+            UINT8 = 0,
+            INT8,
+            UINT16,
+            INT16,
+            UINT32,
+            INT32,
+            FLOAT16,
+            FLOAT32,
+            FLOAT64,
+            BOOL,
+            // STRING,
+            // OBJECT,
+            DTYPE_MAX
+        }
+</code></pre>
+</blockquote>
+<h2 id="Variable">Variable</h2>
+<h3 id="dtype_size">dtype_size</h3>
+<p>Tensor data type size in bytes</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>It's a copy of this variable in MaixPy,<br>so change it in C++ (e.g. update var in hello function) will not take effect the var inMaixPy.<br>So we add const for this var to avoid this mistake.</td>
+</tr>
+<tr>
+  <td><strong>value</strong></td>
+  <td><strong>{<br>            1, // UINT8<br>            1, // INT8<br>            2, // UINT16<br>            2, // INT16<br>            4, // UINT32<br>            4, // INT32<br>            2, // FLOAT16<br>            4, // FLOAT32<br>            8, // FLOAT64<br>            1, // BOOL<br>            // 1, // STRING<br>            // 1, // OBJECT<br>            0<br>        }</strong></td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>True</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">const std::vector&lt;int&gt; dtype_size = {
+            1, // UINT8
+            1, // INT8
+            2, // UINT16
+            2, // INT16
+            4, // UINT32
+            4, // INT32
+            2, // FLOAT16
+            4, // FLOAT32
+            8, // FLOAT64
+            1, // BOOL
+            // 1, // STRING
+            // 1, // OBJECT
+            0
+        }
+</code></pre>
+</blockquote>
+<h3 id="dtype_name">dtype_name</h3>
+<p>Tensor data type name</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>value</strong></td>
+  <td><strong>{<br>            &quot;uint8&quot;,<br>            &quot;int8&quot;,<br>            &quot;uint16&quot;,<br>            &quot;int16&quot;,<br>            &quot;uint32&quot;,<br>            &quot;int32&quot;,<br>            &quot;float16&quot;,<br>            &quot;float32&quot;,<br>            &quot;float64&quot;,<br>            &quot;bool&quot;,<br>            // &quot;string&quot;,<br>            // &quot;object&quot;,<br>            &quot;invalid&quot;<br>        }</strong></td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>True</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">const std::vector&lt;std::string&gt; dtype_name = {
+            &quot;uint8&quot;,
+            &quot;int8&quot;,
+            &quot;uint16&quot;,
+            &quot;int16&quot;,
+            &quot;uint32&quot;,
+            &quot;int32&quot;,
+            &quot;float16&quot;,
+            &quot;float32&quot;,
+            &quot;float64&quot;,
+            &quot;bool&quot;,
+            // &quot;string&quot;,
+            // &quot;object&quot;,
+            &quot;invalid&quot;
+        }
+</code></pre>
+</blockquote>
+<h2 id="Function">Function</h2>
+<h3 id="tensor_from_numpy_float32">tensor_from_numpy_float32</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_from_numpy_float32(array: numpy.ndarray[numpy.float32], copy: bool = True) -&gt; Tensor
+</code></pre>
+<p>float32 type numpy ndarray object to tensor.Tensor object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>array</strong>: numpy array object.<br><strong>copy</strong>: if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.<br>Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>tensor.Tensor object.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor *tensor_from_numpy_float32(py::array_t&lt;float, py::array::c_style&gt; array, bool copy = true)
+</code></pre>
+</blockquote>
+<h3 id="tensor_from_numpy_uint8">tensor_from_numpy_uint8</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_from_numpy_uint8(array: numpy.ndarray[numpy.uint8], copy: bool = True) -&gt; Tensor
+</code></pre>
+<p>uint8 type numpy ndarray object to tensor.Tensor object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>array</strong>: numpy array object.<br><strong>copy</strong>: if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.<br>Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>tensor.Tensor object.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor *tensor_from_numpy_uint8(py::array_t&lt;uint8_t, py::array::c_style&gt; array, bool copy = true)
+</code></pre>
+</blockquote>
+<h3 id="tensor_from_numpy_int8">tensor_from_numpy_int8</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_from_numpy_int8(array: numpy.ndarray[numpy.int8], copy: bool = True) -&gt; Tensor
+</code></pre>
+<p>int8 type numpy ndarray object to tensor.Tensor object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>array</strong>: numpy array object.<br><strong>copy</strong>: if true, will alloc new buffer and copy data, else will directly use array's data buffer, default true.<br>Use this arg carefully, when set to false, ther array MUST keep alive until we don't use the return tensor of this func, or will cause program crash.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>tensor.Tensor object.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor *tensor_from_numpy_int8(py::array_t&lt;int8_t, py::array::c_style&gt; array, bool copy = true)
+</code></pre>
+</blockquote>
+<h3 id="tensor_to_numpy_float32">tensor_to_numpy_float32</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_to_numpy_float32(t: Tensor, copy: bool = True) -&gt; numpy.ndarray[numpy.float32]
+</code></pre>
+<p>tensor.Tensor object to float32 type numpy ndarray object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>t</strong>: tensor.Tensor object.<br><strong>copy</strong>: Whether alloc new Tensor and copy data or not,<br>if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>numpy array object</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">py::array_t&lt;float, py::array::c_style&gt; tensor_to_numpy_float32(tensor::Tensor *t, bool copy = true)
+</code></pre>
+</blockquote>
+<h3 id="tensor_to_numpy_uint8">tensor_to_numpy_uint8</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_to_numpy_uint8(t: Tensor, copy: bool = True) -&gt; numpy.ndarray[numpy.uint8]
+</code></pre>
+<p>tensor.Tensor object to int8 type numpy ndarray object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>t</strong>: tensor.Tensor object.<br><strong>copy</strong>: Whether alloc new Tensor and copy data or not,<br>if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>numpy array object</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">py::array_t&lt;uint8_t, py::array::c_style&gt; tensor_to_numpy_uint8(tensor::Tensor *t, bool copy = true)
+</code></pre>
+</blockquote>
+<h3 id="tensor_to_numpy_int8">tensor_to_numpy_int8</h3>
+
+<pre class="language-python"><code class="language-python">def tensor_to_numpy_int8(t: Tensor, copy: bool = True) -&gt; numpy.ndarray[numpy.int8]
+</code></pre>
+<p>tensor.Tensor object to int8 type numpy ndarray object.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>t</strong>: tensor.Tensor object.<br><strong>copy</strong>: Whether alloc new Tensor and copy data or not,<br>if not copy, array object will directly use arg's data buffer, will faster but change array will affect arg's data, default true.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>numpy array object</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">py::array_t&lt;int8_t, py::array::c_style&gt; tensor_to_numpy_int8(tensor::Tensor *t, bool copy = true)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Tensor">Tensor</h3>
+<p>Tensor class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Tensor
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, shape: list[int], dtype: DType) -&gt; None
+</code></pre>
+<p>Tensor constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>shape</strong>: tensor shape, a int list<br><strong>dtype</strong>: tensor element data type, see DType of this module<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Tensor(std::vector&lt;int&gt; shape, tensor::DType dtype)
+</code></pre>
+</blockquote>
+<h4 id="to_str">to_str</h4>
+
+<pre class="language-python"><code class="language-python">def to_str(self) -&gt; str
+</code></pre>
+<p>To string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string to_str()
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>To string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string __str__()
+</code></pre>
+</blockquote>
+<h4 id="shape">shape</h4>
+
+<pre class="language-python"><code class="language-python">def shape(self) -&gt; list[int]
+</code></pre>
+<p>get tensor shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>tensor shape, a int list</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; shape()
+</code></pre>
+</blockquote>
+<h4 id="expand_dims">expand_dims</h4>
+
+<pre class="language-python"><code class="language-python">def expand_dims(self, axis: int) -&gt; None
+</code></pre>
+<p>expand tensor shape</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>axis</strong>: axis to expand<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void expand_dims(int axis)
+</code></pre>
+</blockquote>
+<h4 id="reshape">reshape</h4>
+
+<pre class="language-python"><code class="language-python">def reshape(self, shape: list[int]) -&gt; None
+</code></pre>
+<p>reshape tensor shape, if size not match, it will throw an err::Exception</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>shape</strong>: new shape<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void reshape(std::vector&lt;int&gt; shape)
+</code></pre>
+</blockquote>
+<h4 id="flatten">flatten</h4>
+
+<pre class="language-python"><code class="language-python">def flatten(self) -&gt; None
+</code></pre>
+<p>Flatten tensor shape to 1D</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void flatten()
+</code></pre>
+</blockquote>
+<h4 id="dtype-2">dtype</h4>
+
+<pre class="language-python"><code class="language-python">def dtype(self) -&gt; DType
+</code></pre>
+<p>get tensor data type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>tensor data type, see DType of this module</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::DType  dtype()
+</code></pre>
+</blockquote>
+<h4 id="to_float_list">to_float_list</h4>
+
+<pre class="language-python"><code class="language-python">def to_float_list(self) -&gt; list[float]
+</code></pre>
+<p>get tensor data and return a list</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>list type data</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::valarray&lt;float&gt;* to_float_list()
+</code></pre>
+</blockquote>
+<h4 id="argmax">argmax</h4>
+
+<pre class="language-python"><code class="language-python">def argmax(self, axis: int = 65535) -&gt; Tensor
+</code></pre>
+<p>argmax of tensor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>axis</strong>: By default, the index is into the flattened array, otherwise along the specified axis., wrong axis will throw an err::Exception<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>argmax result, you need to delete it after use in C++.</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor *argmax(int axis = 0xffff)
+</code></pre>
+</blockquote>
+<h4 id="argmax1">argmax1</h4>
+
+<pre class="language-python"><code class="language-python">def argmax1(self) -&gt; int
+</code></pre>
+<p>argmax1, flattened data max index</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>argmax result, int type</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int argmax1()
+</code></pre>
+</blockquote>
+<h3 id="Tensors">Tensors</h3>
+<p>Tensors</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Tensors
+</code></pre>
+</blockquote>
+<h4 id="__init__-2">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self) -&gt; None
+</code></pre>
+<p>Constructor of Tensors</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Tensors()
+</code></pre>
+</blockquote>
+<h4 id="add_tensor">add_tensor</h4>
+
+<pre class="language-python"><code class="language-python">def add_tensor(self, key: str, tensor: Tensor, copy: bool, auto_delete: bool) -&gt; None
+</code></pre>
+<p>Add tensor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void add_tensor(const std::string &amp;key, tensor::Tensor *tensor, bool copy, bool auto_delete)
+</code></pre>
+</blockquote>
+<h4 id="rm_tensor">rm_tensor</h4>
+
+<pre class="language-python"><code class="language-python">def rm_tensor(self, key: str) -&gt; None
+</code></pre>
+<p>Remove tensor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void rm_tensor(const std::string &amp;key)
+</code></pre>
+</blockquote>
+<h4 id="clear">clear</h4>
+
+<pre class="language-python"><code class="language-python">def clear(self) -&gt; None
+</code></pre>
+<p>Clear tensors</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void clear()
+</code></pre>
+</blockquote>
+<h4 id="get_tensor">get_tensor</h4>
+
+<pre class="language-python"><code class="language-python">def get_tensor(self, key: str) -&gt; Tensor
+</code></pre>
+<p>Get tensor by key</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor &amp;get_tensor(const std::string &amp;key)
+</code></pre>
+</blockquote>
+<h4 id="__getitem__">__getitem__</h4>
+
+<pre class="language-python"><code class="language-python">def __getitem__(self, key: str) -&gt; Tensor
+</code></pre>
+<p>Operator []</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tensor::Tensor &amp;operator[](const std::string &amp;key)
+</code></pre>
+</blockquote>
+<h4 id="__len__">__len__</h4>
+
+<pre class="language-python"><code class="language-python">def __len__(self) -&gt; int
+</code></pre>
+<p>Size</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">size_t size()
+</code></pre>
+</blockquote>
+<h4 id="keys">keys</h4>
+
+<pre class="language-python"><code class="language-python">def keys(self) -&gt; list[str]
+</code></pre>
+<p>Get names</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::string&gt; keys()
+</code></pre>
+</blockquote>
+<h4 id="tensors-2">tensors</h4>
+<p>Tensors data, dict type</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::map&lt;std::string, tensor::Tensor*&gt; tensors
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/err.html">
+                            <span class="icon"></span>
+                            <span class="label">err</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/image.html">
+                            <span class="label">image</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

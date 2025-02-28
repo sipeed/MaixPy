@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.app - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.app</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/app.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.app module</p>
+<blockquote>
+<p>You can use <code>maix.app</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="app_id">app_id</h3>
+
+<pre class="language-python"><code class="language-python">def app_id() -&gt; str
+</code></pre>
+<p>Get current APP ID.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>APP ID.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string app_id()
+</code></pre>
+</blockquote>
+<h3 id="set_app_id">set_app_id</h3>
+
+<pre class="language-python"><code class="language-python">def set_app_id(app_id: str) -&gt; str
+</code></pre>
+<p>Set current APP ID.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>app_id</strong>: APP ID.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string set_app_id(const string &amp;app_id)
+</code></pre>
+</blockquote>
+<h3 id="get_apps_info_path">get_apps_info_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_apps_info_path() -&gt; str
+</code></pre>
+<p>Get APP info file path.</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_apps_info_path()
+</code></pre>
+</blockquote>
+<h3 id="get_apps_info">get_apps_info</h3>
+
+<pre class="language-python"><code class="language-python">def get_apps_info(ignore_launcher: bool = False, ignore_app_store: bool = False) -&gt; list[APP_Info]
+</code></pre>
+<p>Get APP info list.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ignore_launcher</strong>: if true, ignore launcher APP. default false.<br><strong>ignore_app_store</strong>: if true, ignore app store APP. default false.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>APP info list. APP_Info object list.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">vector&lt;app::APP_Info&gt; &amp;get_apps_info(bool ignore_launcher = false, bool ignore_app_store = false)
+</code></pre>
+</blockquote>
+<h3 id="get_app_info">get_app_info</h3>
+
+<pre class="language-python"><code class="language-python">def get_app_info(app_id: str) -&gt; APP_Info
+</code></pre>
+<p>Get app info by app id.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>app.APP_Info type.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">app::APP_Info get_app_info(const std::string &amp;app_id)
+</code></pre>
+</blockquote>
+<h3 id="get_app_data_path">get_app_data_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_app_data_path() -&gt; str
+</code></pre>
+<p>Get APP info, APP can store private data in this directory.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>APP data path &quot;./data&quot;, just return the data folder in current path because APP executed in app install path or project path.<br>So, you must execute your program in you project path to use the project/data folder when you debug your APP.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_app_data_path()
+</code></pre>
+</blockquote>
+<h3 id="get_app_path">get_app_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_app_path(app_id: str = '') -&gt; str
+</code></pre>
+<p>Get APP path.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>app_id</strong>: APP ID, if empty, return current APP path, else return the APP path by app_id.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>APP path, just return the current path because APP executed in app install path or project path.<br>So, you must execute your program in you project path to use the project/data folder when you debug your APP.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_app_path(const string &amp;app_id = &quot;&quot;)
+</code></pre>
+</blockquote>
+<h3 id="get_tmp_path">get_tmp_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_tmp_path() -&gt; str
+</code></pre>
+<p>Get global temporary data path, APPs can use this path as temporary data directory.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>temporary data path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_tmp_path()
+</code></pre>
+</blockquote>
+<h3 id="get_share_path">get_share_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_share_path() -&gt; str
+</code></pre>
+<p>Get data path of share, shared data like picture and video will put in this directory</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>share data path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_share_path()
+</code></pre>
+</blockquote>
+<h3 id="get_picture_path">get_picture_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_picture_path() -&gt; str
+</code></pre>
+<p>Get picture path of share, shared picture will put in this directory</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>share picture path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_picture_path()
+</code></pre>
+</blockquote>
+<h3 id="get_video_path">get_video_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_video_path() -&gt; str
+</code></pre>
+<p>Get video path of share, shared video will put in this directory</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>share video path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_video_path()
+</code></pre>
+</blockquote>
+<h3 id="get_font_path">get_font_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_font_path() -&gt; str
+</code></pre>
+<p>Get font path of share, shared font will put in this directory</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>share font path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_font_path()
+</code></pre>
+</blockquote>
+<h3 id="get_icon_path">get_icon_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_icon_path() -&gt; str
+</code></pre>
+<p>Get icon path of share, shared icon will put in this directory</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>share icon path.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_icon_path()
+</code></pre>
+</blockquote>
+<h3 id="get_sys_config_kv">get_sys_config_kv</h3>
+
+<pre class="language-python"><code class="language-python">def get_sys_config_kv(item: str, key: str, value: str = '', from_cache: bool = True) -&gt; str
+</code></pre>
+<p>Get system config item value.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>item</strong>: name of setting item, e.g. wifi, language. more see settings APP.<br><strong>key</strong>: config key, e.g. for wifi, key can be ssid, for language, key can be locale.<br><strong>value</strong>: default value, if not found, return this value.<br><strong>from_cache</strong>: if true, read from cache, if false, read from file.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>config value, always string type, if not found, return empty string.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_sys_config_kv(const string &amp;item, const string &amp;key, const string &amp;value = &quot;&quot;, bool from_cache = true)
+</code></pre>
+</blockquote>
+<h3 id="get_app_config_kv">get_app_config_kv</h3>
+
+<pre class="language-python"><code class="language-python">def get_app_config_kv(item: str, key: str, value: str = '', from_cache: bool = True) -&gt; str
+</code></pre>
+<p>Get APP config item value.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>item</strong>: name of setting item, e.g. user_info<br><strong>key</strong>: config key, e.g. for user_info, key can be name, age etc.<br><strong>value</strong>: default value, if not found, return this value.<br><strong>from_cache</strong>: if true, read from cache, if false, read from file.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>config value, always string type, if not found, return empty string.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_app_config_kv(const string &amp;item, const string &amp;key, const string &amp;value = &quot;&quot;, bool from_cache = true)
+</code></pre>
+</blockquote>
+<h3 id="set_app_config_kv">set_app_config_kv</h3>
+
+<pre class="language-python"><code class="language-python">def set_app_config_kv(item: str, key: str, value: str, write_file: bool = True) -&gt; maix.err.Err
+</code></pre>
+<p>Set APP config item value.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>item</strong>: name of setting item, e.g. user_info<br><strong>key</strong>: config key, e.g. for user_info, key can be name, age etc.<br><strong>value</strong>: config value, always string type.<br><strong>write_file</strong>: if true, write to file, if false, just write to cache.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>err::Err</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_app_config_kv(const string &amp;item, const string &amp;key, const string &amp;value, bool write_file = true)
+</code></pre>
+</blockquote>
+<h3 id="get_app_config_path">get_app_config_path</h3>
+
+<pre class="language-python"><code class="language-python">def get_app_config_path() -&gt; str
+</code></pre>
+<p>Get APP config path, ini format, so you can use your own ini parser to parse it like <code>configparser</code> in Python.\nAll APP config info is recommended to store in this file.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>APP config path(ini format).</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string get_app_config_path()
+</code></pre>
+</blockquote>
+<h3 id="set_exit_msg">set_exit_msg</h3>
+
+<pre class="language-python"><code class="language-python">def set_exit_msg(code: maix.err.Err, msg: str) -&gt; maix.err.Err
+</code></pre>
+<p>Set APP exit code and exit message.\nIf code != 0, the launcher will show a dialog to user, and display the msg.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>code</strong>: exit code, 0 means success, other means error, if code is 0, do nothing.<br><strong>msg</strong>: exit message, if code is 0, msg is not used.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>exit code, the same as arg @code.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">err::Err set_exit_msg(err::Err code, const string &amp;msg)
+</code></pre>
+</blockquote>
+<h3 id="get_exit_msg">get_exit_msg</h3>
+
+<pre class="language-python"><code class="language-python">def get_exit_msg(cache: bool = False) -&gt; tuple[str, maix.err.Err, str]
+</code></pre>
+<p>Get APP exit code and exit message.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>cache</strong>: if true, read from cache, if false, read from file. default false.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>exit return app_id, exit code and exit message.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">tuple&lt;string, err::Err, string&gt; get_exit_msg(bool cache = false)
+</code></pre>
+</blockquote>
+<h3 id="have_exit_msg">have_exit_msg</h3>
+
+<pre class="language-python"><code class="language-python">def have_exit_msg(cache: bool = False) -&gt; bool
+</code></pre>
+<p>Check if have exit msg</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>cache</strong>: if true, just check from cache, if false, check from file. default false.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if have exit msg, false if not.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool have_exit_msg(bool cache = false)
+</code></pre>
+</blockquote>
+<h3 id="switch_app">switch_app</h3>
+
+<pre class="language-python"><code class="language-python">def switch_app(app_id: str, idx: int = -1, start_param: str = '') -&gt; None
+</code></pre>
+<p>Exit this APP and start another APP(by launcher).\nCall this API will call set_exit_flag(true), you should check app::need_exit() in your code.\nAnd exit this APP if app::need_exit() return true.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>app_id</strong>: APP ID which will be started. app_id and idx must have one is valid.<br><strong>idx</strong>: APP index. app_id and idx must have one is valid.<br><strong>start_param</strong>: string type, will send to app, app can get this param by <code>app.get_start_param()</code><br></td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If app id or idx the same as current app, do nothing.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void switch_app(const string &amp;app_id, int idx = -1, const std::string &amp;start_param = &quot;&quot;)
+</code></pre>
+</blockquote>
+<h3 id="get_start_param">get_start_param</h3>
+
+<pre class="language-python"><code class="language-python">def get_start_param() -&gt; str
+</code></pre>
+<p>Get start param set by caller</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>param, string type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">const std::string get_start_param()
+</code></pre>
+</blockquote>
+<h3 id="need_exit">need_exit</h3>
+
+<pre class="language-python"><code class="language-python">def need_exit() -&gt; bool
+</code></pre>
+<p>Shoule this APP exit?</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if this APP should exit, false if not.</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This API is a function, not a variable.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool need_exit()
+</code></pre>
+</blockquote>
+<h3 id="running">running</h3>
+
+<pre class="language-python"><code class="language-python">def running() -&gt; bool
+</code></pre>
+<p>App should running? The same as !app::need_exit() (not app::need_exit() in MaixPy).</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>true if this APP should running, false if not.</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>This API is a function, not a variable.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">bool running()
+</code></pre>
+</blockquote>
+<h3 id="set_exit_flag">set_exit_flag</h3>
+
+<pre class="language-python"><code class="language-python">def set_exit_flag(exit: bool) -&gt; None
+</code></pre>
+<p>Set exit flag. You can get exit flag by app.need_exit().</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>exit</strong>: true if this APP should exit, false if not.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_exit_flag(bool exit)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="Version">Version</h3>
+<p>APP version</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class Version
+</code></pre>
+</blockquote>
+<h4 id="__str__">__str__</h4>
+
+<pre class="language-python"><code class="language-python">def __str__(self) -&gt; str
+</code></pre>
+<p>Convert to string, e.g. 1.0.0</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string __str__()
+</code></pre>
+</blockquote>
+<h4 id="from_str">from_str</h4>
+
+<pre class="language-python"><code class="language-python">def from_str(version_str: str) -&gt; Version
+</code></pre>
+<p>Convert from string, e.g. &quot;1.0.0&quot;</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>True</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">static app::Version from_str(const string &amp;version_str)
+</code></pre>
+</blockquote>
+<h3 id="APP_Info">APP_Info</h3>
+<p>APP info</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class APP_Info
+</code></pre>
+</blockquote>
+<h4 id="id">id</h4>
+<p>APP id</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string id
+</code></pre>
+</blockquote>
+<h4 id="name">name</h4>
+<p>APP name</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string name
+</code></pre>
+</blockquote>
+<h4 id="icon">icon</h4>
+<p>APP icon</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string icon
+</code></pre>
+</blockquote>
+<h4 id="version-2">version</h4>
+<p>APP version</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">Version version
+</code></pre>
+</blockquote>
+<h4 id="exec">exec</h4>
+<p>APP exec</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string exec
+</code></pre>
+</blockquote>
+<h4 id="author">author</h4>
+<p>APP author</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string author
+</code></pre>
+</blockquote>
+<h4 id="desc">desc</h4>
+<p>APP desc</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">string desc
+</code></pre>
+</blockquote>
+<h4 id="names">names</h4>
+<p>APP names</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">map&lt;string, string&gt; names
+</code></pre>
+</blockquote>
+<h4 id="descs">descs</h4>
+<p>APP descs</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">map&lt;string, string&gt; descs
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/sys.html">
+                            <span class="icon"></span>
+                            <span class="label">sys</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/time.html">
+                            <span class="label">time</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

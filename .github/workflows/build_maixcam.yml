@@ -1,0 +1,107 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build MaixCAM
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions: write-all
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # Only run job for specific repository
+    if: github.repository == 'sipeed/MaixPy'
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"] # MaixCAM use 3.11
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build MaixPy
+        run: |
+          echo "-- Check python version must python 3.11 --"
+          python3 -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
+          python -c 'import sys;print(sys.version);assert sys.version_info >= (3, 11);assert sys.version_info < (3, 12)'
+          whereis python
+          whereis python3
+          # export PATH=~/.local/bin/:$PATH
+          # pull sipeed/MaixCDK repo here first
+          pwd_path=$(pwd)
+          cd ~
+          git clone https://github.com/sipeed/MaixCDK --depth=1
+          export MAIXCDK_PATH=`pwd`/MaixCDK
+          cd $pwd_path
+          python -m pip install -U pip setuptools wheel
+          python -m pip install -r $MAIXCDK_PATH/requirements.txt
+          python -m pip install pybind11-stubgen
+          echo "--------------------------------"
+          echo "-- Build MaixPy for Linux now --"
+          echo "--------------------------------"
+          sudo apt update -y
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake
+          cmake --version
+          python setup.py bdist_wheel linux
+          echo "--------------------------------"
+          echo "-- Test MaixPy basic for Linux now --"
+          echo "--------------------------------"
+          chmod +x ./run.sh && ./run.sh test/test_basic.py
+          mkdir -p artifact
+          mv dist/* artifact/
+          echo "----------------------------------"
+          echo "-- Build MaixPy for MaixCAM now --"
+          echo "----------------------------------"
+          python setup.py bdist_wheel maixcam
+          mv dist/* artifact/
+
+      - name: Upload MaixPy Linux firmware as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maixpy_firmware
+          path: artifact/*.whl
+
+      # Runs a set of commands using the runners shell
+      - name: Push doc to github pages
+        run: |
+          pip3 install teedoc
+          cd docs
+          echo "== install plugins =="
+          teedoc install
+          echo "== start build =="
+          teedoc build
+          echo "== build complete =="
+          remote_addr=`git remote get-url --push origin`
+          remote_addr=`echo $remote_addr|  awk -F'://' '{print $2}'`
+          user_name=`git log -1 --pretty=format:'%an'`
+          user_email=`git log -1 --pretty=format:'%ae'`
+          echo "== checkout gh-pages branch =="
+          cd out
+          cp -r ../../.github .
+          git config --global init.defaultBranch gh-pages
+          git init
+          git config user.name "${user_name}"
+          git config user.email ${user_email}
+          remote_addr="https://Neutree:${{ secrets.DISPATCH_PAT }}@${remote_addr}"
+          echo "-- user ${user_name}"
+          echo "-- remote addr: ${remote_addr}"
+          git remote add origin "${remote_addr}"
+          echo "== add web files =="
+          git add -A
+          git commit -m "Rebuild MaixPy doc by commit $GITHUB_REF"
+          git push origin HEAD:gh-pages --force
+          echo "== push complete =="
