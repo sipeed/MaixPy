@@ -101,7 +101,7 @@ Download the `whl` file from [GitHub](https://github.com/sophgo/tpu-mlir/release
 pip install tpu_mlir*.whl # Replace with the downloaded file name
 ```
 
-Running `model_transform.py` should display help information, indicating a successful installation.
+Type `model_transform.py` end with Enter key in container should display help information, indicating a successful installation.
 
 ## Writing the Conversion Script
 

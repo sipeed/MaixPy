@@ -113,7 +113,7 @@ docker run --privileged --name tpu-env -v /home/$USER/data:/home/$USER/data -it 
 pip install tpu_mlir*.whl # 这里就是下载文件的名字
 ```
 
-执行`model_transform.py` 会有打印帮助信息就算是安装成功了。
+在容器内**直接输入**`model_transform.py`回车执行会有打印帮助信息就算是安装成功了。
 
 ## 编写转换脚本
 
