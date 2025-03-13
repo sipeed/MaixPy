@@ -2,9 +2,9 @@ from maix import display, app, time, ext_dev
 
 disp = display.Display()
 
-tof = ext_dev.opns303x.Opns303x(
+tof = ext_dev.tof100.Tof100(
     4,
-    ext_dev.opns303x.Resolution.RES_50x50,
+    ext_dev.tof100.Resolution.RES_50x50,
     ext_dev.cmap.Cmap.JET,
     40, 1000)
 
