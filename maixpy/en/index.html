@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+<html lang="en"  id="home_page"  class=" md_page ">
+
+<head>
+     
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="generator" content="teedoc">
+        <meta name="theme" content="teedoc-plugin-theme-default">
+    
+     
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser"><script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/maixpy/static/js/theme_default/pre_main.js"></script><link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/><script src="/maixpy/static/js/theme_default/jquery.min.js"></script><script src="/maixpy/static/js/theme_default/split.js"></script><link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+    
+    
+        <title>MaixPy - MaixPy</title>
+    
+    
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": "", "id": "home_page"}</script>
+</head>
+<body class="type_page">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/en/index.html">English</a></li>
+<li class=""><a  href="/maixpy/index.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="page_wrapper">
+        <div id="page_content">
+            <div>
+                
+                <div>
+<script src="/maixpy/static/css/tailwind.css"></script>
+</div>
+<style>
+h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    font-weight: bold;
+}
+#page_wrapper
+{
+    background: #f2f4f3;
+}
+.dark #page_wrapper
+{
+    background: #1b1b1b;
+}
+.md_page #page_content
+{
+    padding: 1em;
+}
+.md_page #page_content > div
+{
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+}
+h1 {
+    font-size: 3em;
+    font-weight: 600;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+}
+#page_content h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: 0.67em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+}
+#page_content h3 {
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+#tags > p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1em;
+}
+#tags > p a {
+    margin: 0.2em 0.2em;
+}
+#feature video, #feature img {
+    height: 15em;
+}
+.feature_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em;
+    border: 1em solid white;
+    background: white;
+    border-radius: 0.5em;
+    overflow: hidden;
+    max-width: 20em;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.dark .feature_item {
+    border: 1em solid #2d2d2d;
+    background: #2d2d2d;
+}
+.feature_item .feature {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.feature_item .description {
+    font-size: 0.8em;
+    font-weight: 400;
+}
+.feature_item video, .feature_item img {
+    width: 100%;
+    object-fit: cover;
+}
+.feature_item .img_video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.feature_item > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.feature_item p {
+    padding: 0.5em;
+}
+#page_content li {
+    margin: 0.5em;
+    list-style-type: disc;
+}
+.white_border {
+    border: 1em solid white;
+}
+.dark .white_border {
+    border: 1em solid #2d2d2d;
+}
+.code-toolbar pre {
+    margin: 0;
+}
+.code_wrapper {
+    overflow: auto;
+}
+@media screen and (min-width: 1280px) {
+    .md_page #page_content > div
+    {
+        width: 1440px;
+        max-width: 1440px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .code_wrapper {
+        font-size: 0.6em;
+    }
+}
+</style>
+<!-- wrapper -->
+<div class="flex flex-col justify-center items-center">
+<div class="w-full flex flex-col justify-center text-center">
+    <div class="flex justify-center">
+        <img src="/maixpy/static/image/maixpy_banner.png" alt="MaixPy Banner">
+    </div>
+    <h1><span>MaixPy (v4)</span></h1>
+    <h3>Fast implementation of AI vision and auditory applications</h3>
+</div>
+<div id="big_btn_wrapper" class="flex flex-wrap justify-center items-center">
+    <a class="btn m-1" href="/maixpy/doc/zh/index.html">Quick Start 🚀📖</a>
+    <a class="btn m-1" href="/maixpy/api/">API Reference 📚</a>
+    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam-pro">Hardware Platform: MaixCAM 📷</a>
+    <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">Open Source Code ⭐️</a>
+    <a class="btn m-1" target="_blank" href="https://maixhub.com/app">App Store 📦</a>
+</div>
+<div id="tags">
+<p><a href="https://github.com/sipeed/MaixPy"  target="_blank"><img src="https://img.shields.io/github/stars/sipeed/MaixPy?style=social" alt="GitHub Repo stars" /></a><a href="%22https://github.com/sipeed/MaixPy/blob/main/LICENSE.html"  target="_blank"><img src="https://img.shields.io/badge/license-Apache%20v2.0-orange.svg" alt="Apache 2.0" /></a><a href="https://pypi.python.org/pypi/maixpy/"  target="_blank"><img src="https://img.shields.io/pypi/v/maixpy.svg" alt="PyPI" /></a><a href="https://pypi.org/project/maixpy/"  target="_blank"><img src="https://img.shields.io/pypi/dm/maixpy?label=pypi%20downloads" alt="PyPI - Downloads" /></a><a href="https://github.com/sipeed/MaixPy"  target="_blank"><img src="https://img.shields.io/github/downloads/sipeed/maixpy/total?label=GitHub%20downloads" alt="GitHub downloads" /></a> <a href="https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml"  target="_blank"><img src="https://github.com/sipeed/MaixPy/actions/workflows/build_maixcam.yml/badge.svg" alt="Build MaixCAM" /></a><a href="https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml"  target="_blank"><img src="https://github.com/sipeed/MaixPy/actions/workflows/trigger_wiki.yml/badge.svg" alt="Trigger wiki" /></a></p>
+</div>
+<div class="text-center">
+<p>English | <a href="../"  >中文</a></p>
+</div>
+<div class="mt-16"></div>
+<img class="text-center" src="/maixpy/static/image/maixcams.png">
+<div class="mt-6"></div>
+<div class="text-gray-400 text-center">
+<p>MaixPy-v1 (K210) usage refer to <a target="_blank" style="color: #546e7a" href="https://wiki.sipeed.com/soft/maixpy/zh/">MaixPy-v1</a>. MaixPy v4 does not support Maix-I Maix-II series hardware, please upgrade to the <a href="https://wiki.sipeed.com/maixcam-pro"  target="_blank">MaixCAM</a> platform.</p>
+<p>If you like MaixPy, please give a star ⭐️ to the <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy open source project</a> to encourage us to develop more features.</p>
+</div>
+<div class="mt-6"></div>
+<h2 class="text-center font-bold">Simple API Design, AI Image Recognition with Just 10 Lines of Code</h2>
+<div id="id1" class="flex flex-row justify-center items-end flex-wrap">
+<div class="shadow-xl">
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, image, nn
+
+classifier = nn.Classifier(model=&quot;/root/models/mobilenetv2.mud&quot;)
+cam = camera.Camera(classifier.input_width(), classifier.input_height(), classifier.input_format())
+disp = display.Display()
+
+while 1:
+    img = cam.read()
+    res = classifier.classify(img)
+    max_idx, max_prob = res[0]
+    msg = f&quot;{max_prob:5.2f}: {classifier.labels[max_idx]}&quot;
+    img.draw_string(10, 10, msg, image.COLOR_RED)
+    disp.show(img)
+</code></pre>
+</div>
+<video playsinline controls autoplay loop muted preload  class="p-0 mx-2 rounded-md shadow-xl white_border" src="/maixpy/static/video/classifier.mp4" type="video/mp4">
+Classifier Result video
+</video>
+</div> <!-- id1 -->
+<!-- div start-->
+<div class="text-center font-bold">
+<h2>Hardware Peripheral Control, No Big Deal</h2>
+<div class="flex flex-row justify-center flex-wrap">
+<div class="mr-4 shadow-xl">
+<p>Serial Communication:</p>
+
+<pre class="language-python"><code class="language-python">from maix import uart
+
+devices = uart.list_devices()
+
+serial = uart.UART(devices[0], 115200)
+serial.write_str(&quot;hello world&quot;)
+print(&quot;received:&quot;, serial.read(timeout = 2000))
+
+</code></pre>
+</div>
+<div class="shadow-xl">
+<p>I2C Communication:</p>
+
+<pre class="language-python"><code class="language-python">from maix import i2c
+
+devices = i2c.list_devices()
+dev1 = i2c.I2C(devices[0], freq=100000)
+slaves = dev1.scan()
+print(&quot;find slaves:&quot;, slaves)
+dev1.writeto(0x12, b'hello')
+print(&quot;received:&quot;, dev1.readfrom(0x12, 5))
+</code></pre>
+</div>
+</div>
+</div>
+<!-- div end-->
+<!-- start -->
+<div class="flex flex-col justify-center items-center">
+<h2>Convenient MaixVision Workstation</h2>
+<p class="text-center">Simplify the development environment to make development easier and faster<p>
+<div class="mt-3"></div>
+<video playsinline controls muted preload src="/maixpy/static/video/maixvision.mp4" type="video/mp4" class="p-0 mx-2 rounded-md shadow-xl white_border">
+MaixVision
+</video>
+<h2>Online AI Training Platform MaixHub</h2>
+<p>No need for AI expertise or expensive training equipment, train models with one click, deploy to MaixCAM with one click.</p>
+<div class="mt-3"></div>
+<img class="shadow-xl white_border" src="/maixpy/static/image/maixhub.jpg">
+</div>
+<!-- end -->
+<h2 id="High-performance-MaixCAM-Hardware-Platform">High-performance MaixCAM Hardware Platform</h2>
+<p><img src="/maixpy/static/image/maixcam_pro.png" alt="MaixCAM" /></p>
+<br>
+<ul>
+<li><strong>CPU</strong>: 1GHz RISC-V (Linux) + 700MHz RISC-V (RTOS) + 25~300MHz 8051 (Low Power)</li>
+<li><strong>NPU</strong>: 1Tops@INT8 NPU, supports BF16, YOLO11, YOLOv8, YOLOv5, etc.</li>
+<li><strong>Memory</strong>: 256MB DDR3</li>
+<li><strong>Communication</strong>: USB2.0/WiFi6/BLE5.4</li>
+<li><strong>Peripherals</strong>: IIC/PWM/SPI/UART/WDT/GPIO/ADC</li>
+<li><strong>Multimedia</strong>: 4M camera, 2.4&quot; 640x480 HD capacitive touchscreen, H.264/H.265/MJPEG 2K hardware codec.</li>
+<li><strong>Purchase</strong>: Various hardware versions are available, see <a href="https://wiki.sipeed.com/store"  target="_blank">Store</a> (contact the store for availability)</li>
+<li><strong>More</strong>: See <a href="https://wiki.sipeed.com/maixcam"  target="_blank">MaixCAM</a> and <a href="https://wiki.sipeed.com/maixcam-pro"  target="_blank">MaixCAM-Pro</a> hardware documentation</li>
+</ul>
+<!-- feature introduction -->
+<div id="feature" class="flex flex-col justify-center items-center">
+<h2 id="More-Features">More Features</h2>
+<div class="flex flex-col justify-center items-center">
+<p>Here are some feature highlights, find more in the <a href="#community"  >Community</a></p>
+<p>You can create new features using the rich API provided by MaixPy.</p>
+</div>
+<iframe style="width:100%;min-height:30em" src="https://www.youtube.com/embed/qV1lw0UVUYI?si=g3xUX5v3iT9r7RxJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="flex flex-wrap justify-between">
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/opencv_openmv.jpg">
+            <p class="feature">OpenCV + OpenMV</p>
+            <p class="description">Supports OpenCV, compatible with OpenMV</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/maixcdk.png">
+            <p class="feature">C++ Version</p>
+            <p class="description"><a href="https://github.com/sipeed/MaixCDK">MaixCDK</a> C++ version SDK, same API as MaixPy, commercial-friendly</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/serial_module.png">
+            <p class="feature">As a Serial Module</p>
+            <p class="description">Control other MCUs via serial commands</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/app_store.mp4"></video>
+            <p class="feature">APP Store</p>
+            <p class="description">Share your apps with the community and install them with one click via the <a href="https://maixhub.com/app">APP Store</a>.</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/maixpy-v1-square.png">
+            <p class="feature">MaixPy-v1 Compatible API</p>
+            <p class="description">Quickly migrate from MaixPy-v1 (K210) to MaixPy-v4</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/classifier.mp4"></video>
+            <p class="feature">AI Classification</p>
+            <p class="description">Identify object categories</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/detector.mp4"></video>
+            <p class="feature">AI Object Detection</p>
+            <p class="description">Identify object categories and coordinates</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/face_recognize.jpg">
+            <p class="feature">AI Face Recognition</p>
+            <p class="description">Recognize different facial features</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/maixcam_face_landmarks.mp4"></video>
+            <p class="feature">AI Face Landmarks</p>
+            <p class="description">Detect face landmarks, replace face</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/body_keypoint.jpg">
+            <p class="feature">AI Body Keypoint Detection</p>
+            <p class="description">Posture recognition, body-sensing games</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/hands_landmarks.mp4"></video>
+            <p class="feature">AI Hand keypoints</p>
+            <p class="description">Detect hand keypoints and recognize gesture</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/self_learn_classifier.jpg">
+            <p class="feature">AI Self-learning Classifier</p>
+            <p class="description">Instantly learn any object on the device without PC training</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/self_learn_tracker.mp4"></video>
+            <p class="feature">AI Self-learning Detector</p>
+            <p class="description">Instantly learn any object on the device without PC training</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/tracker.mp4"></video>
+            <p class="feature">AI Object Tracking</p>
+            <p class="description">Track objects, count traffic</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/monitor.jpg">
+            <p class="feature">AI Surveillance, Streaming</p>
+            <p class="description">Security monitoring, streaming, even live stream to platforms like Bilibili.com</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/find_blobs.mp4"></video>
+            <p class="feature">Color Detection</p>
+            <p class="description">Detect color spots</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/line_track.mp4"></video>
+            <p class="feature">Line Following</p>
+            <p class="description">Line-following car, logistics transportation</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/qr_apriltag.mp4"></video>
+            <p class="feature">QR Code and AprilTag</p>
+            <p class="description">Recognize QR codes and AprilTag</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/ocr.jpg">
+            <p class="feature">OCR</p>
+            <p class="description">Recognize characters in images, digitize old items</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/voice_recognize.jpg">
+            <p class="feature">Voice Recognition</p>
+            <p class="description">Real-time continuous voice recognition</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/desktop_monitor.mp4"></video>
+            <p class="feature">Desktop Monitor</p>
+            <p class="description">Monitor PC information such as CPU, memory, and network.</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/weather_station.jpg">
+            <p class="feature">Weather Station</p>
+            <p class="description">Monitor weather information such as temperature and humidity.</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/thermal.jpg">
+            <p class="feature">Thermal Infrared Camera</p>
+            <p class="description">Optional camera, for temperature image acquisition/measurement</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/hdmi_capture.jpg">
+            <p class="feature">HDMI Video Capture</p>
+            <p class="description">Optional feature, capture images via HDMI for server monitoring (KVM), remote control, external AI, streaming devices, etc.</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/video_play.mp4"></video>
+            <p class="feature">Large Screen Video Playback</p>
+            <p class="description">Multiple screen sizes (2.3", 2.4", 5", 7", etc.), hardware decoding support</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/microscope.mp4"></video>
+            <p class="feature">Microscope</p>
+            <p class="description">Pair with 1/8" large sensor + microscope lens = digital microscope</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/global_shutter.jpg">
+            <p class="feature">High-Speed Recognition</p>
+            <p class="description">Pair with a global shutter camera to accurately recognize high-speed moving objects</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/time_lapse.mp4"></video>
+            <p class="feature">Time-lapse Photography</p>
+            <p class="description">Pair with a 1/8" large sensor for all-day time-lapse photography</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <img src="/maixpy/static/image/capture_sky.jpg">
+            <p class="feature">Astronomical Photography</p>
+            <p class="description">Pair with a 1/8" large sensor + high-power lens for astronomical photography, supports long exposure mode and RAW image output</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/maixpy/static/video/gyroflow.mp4"></video>
+            <p class="feature">Gyroscope Stabilization</p>
+            <p class="description">Onboard gyroscope (MaixCAM-Pro only), supports exporting gyroflow stabilization format for DIY photography</p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</div>
+<h2 id="Who-Uses-MaixPy%3F">Who Uses MaixPy?</h2>
+<div>
+<ul>
+<li><strong>AI Algorithm Engineers</strong>: Easily deploy your AI models to embedded devices.</li>
+</ul>
+<blockquote>
+<p>Easy-to-use API to access NPU, open-source quantization tools, detailed documentation on AI models.</p>
+</blockquote>
+<ul>
+<li><strong>STEM</strong>: Teachers who want to teach students AI and embedded development.</li>
+</ul>
+<blockquote>
+<p>Easy-to-use API, PC tools, online AI training services, allowing you to focus on teaching AI instead of hardware and complex software development.</p>
+</blockquote>
+<ul>
+<li><strong>Makers</strong>: Want to create cool projects without spending too much time on complex hardware and software.</li>
+</ul>
+<blockquote>
+<p>Rich, simple Python and C++ APIs, quick to get started, complete your DIY projects in just minutes.</p>
+</blockquote>
+<ul>
+<li><strong>Engineers</strong>: Want to build projects but hope to have prototypes and solutions quickly.</li>
+</ul>
+<blockquote>
+<p>Rich Python and C++ APIs, efficient, stable, and easy to use, helping you quickly create prototypes and implement projects directly.</p>
+</blockquote>
+<ul>
+<li><strong>Students</strong>: Want to learn AI and embedded development.</li>
+</ul>
+<blockquote>
+<p>Offers rich documentation, tutorials, and open-source code, helping you find learning paths and gradually grow, from simple Python programming to vision, AI, audio, Linux, RTOS, etc.</p>
+</blockquote>
+<ul>
+<li><strong>Companies</strong>: Want to develop AI vision products but don’t have the time or engineers to develop complex embedded systems.</li>
+</ul>
+<blockquote>
+<p>Use MaixPy or even graphical programming to reduce the number of employees and time. For example, adding an AI QA system to the production line, or an AI security monitor to the office.</p>
+</blockquote>
+<ul>
+<li><strong>Competitors</strong>: People who want to win competitions.</li>
+</ul>
+<blockquote>
+<p>MaixPy integrates many features, is easy to use, speeds up the output of your work, and helps you win competitions in a short time. Many students use MaixPy to win common competitions in China.</p>
+</blockquote>
+</div>
+<h2 id="Performance-Comparison">Performance Comparison</h2>
+<p>Compared to the limited NPU operator support and memory constraints of the previous two generations of Maix series products (K210, V831), MaixCAM offers significant improvements in performance and experience while maintaining an excellent price-performance ratio.</p>
+<div class="mt-3"></div>
+<div>
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Maix-I K210</th>
+  <th>Maix-II v831</th>
+  <th>MaixCAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>CPU</td>
+  <td>400MHz RISC-V x2</td>
+  <td>800MHz ARM7</td>
+  <td><strong>1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)</strong></td>
+</tr>
+<tr>
+  <td>Memory</td>
+  <td>6MB SRAM</td>
+  <td>64MB DDR2</td>
+  <td><strong>256MB DDR3</strong></td>
+</tr>
+<tr>
+  <td>NPU</td>
+  <td>0.25Tops@INT8<br>official says 1T but...</td>
+  <td>0.25Tops@INT8</td>
+  <td><strong>1Tops@INT8</strong></td>
+</tr>
+<tr>
+  <td>Encoder</td>
+  <td>✖</td>
+  <td>1080p@30fps</td>
+  <td><strong>2K@30fps</strong></td>
+</tr>
+<tr>
+  <td>Screen</td>
+  <td>2.4&quot; 320x240</td>
+  <td>1.3&quot; 240x240</td>
+  <td><strong>2.3&quot; 552x368</strong>(MaixCAM)<br/><strong>2.4&quot; 640x480</strong>(MaixCAM-Pro)<br/>5&quot; 1280x720<br/>7&quot; 1280x800<br/>10“ 1280x800</td>
+</tr>
+<tr>
+  <td>Touchscreen</td>
+  <td>✖</td>
+  <td>✖</td>
+  <td><strong>2.3&quot; 552x368</strong></td>
+</tr>
+<tr>
+  <td>Camera</td>
+  <td>30W</td>
+  <td>200W</td>
+  <td><strong>500W</strong></td>
+</tr>
+<tr>
+  <td>WiFi</td>
+  <td>2.4G</td>
+  <td>2.4G</td>
+  <td><strong>WiFi6</strong> 2.4G/5G</td>
+</tr>
+<tr>
+  <td>USB</td>
+  <td>✖</td>
+  <td><strong>USB2.0</strong></td>
+  <td><strong>USB2.0</strong></td>
+</tr>
+<tr>
+  <td>Ethernet</td>
+  <td>✖</td>
+  <td>100M(optional)</td>
+  <td>100M(optional)</td>
+</tr>
+<tr>
+  <td>SD Card Interface</td>
+  <td>SPI</td>
+  <td><strong>SDIO</strong></td>
+  <td><strong>SDIO</strong></td>
+</tr>
+<tr>
+  <td>BLE</td>
+  <td>✖</td>
+  <td>✖</td>
+  <td><strong>BLE5.4</strong></td>
+</tr>
+<tr>
+  <td>Operating System</td>
+  <td>RTOS</td>
+  <td>Tina Linux</td>
+  <td><strong>Linux + RTOS</strong></td>
+</tr>
+<tr>
+  <td>Programming Language</td>
+  <td>C / C++ / MicroPython</td>
+  <td>C / C++ / <strong>Python3</strong></td>
+  <td>C / <strong>C++ / Python3</strong></td>
+</tr>
+<tr>
+  <td>Software</td>
+  <td>MaixPy</td>
+  <td>MaixPy3</td>
+  <td><strong>MaixCDK + MaixPy v4 + OpenCV + Numpy + ...</strong></td>
+</tr>
+<tr>
+  <td>PC Software</td>
+  <td>MaixPy IDE</td>
+  <td>MaixPy3 IDE</td>
+  <td><strong>MaixVision</strong> Workstation</td>
+</tr>
+<tr>
+  <td>Documentation</td>
+  <td>⭐️⭐️⭐️⭐️</td>
+  <td>⭐️⭐️⭐️</td>
+  <td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+  <td>Online AI Training</td>
+  <td>⭐️⭐️⭐️</td>
+  <td>⭐️⭐️⭐️⭐️</td>
+  <td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+  <td>Official Apps</td>
+  <td>⭐️</td>
+  <td>⭐️⭐️⭐️</td>
+  <td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+  <td>AI Classification (224x224)</td>
+  <td>MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖</td>
+  <td>MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖</td>
+  <td>MobileNetv2 <strong>130fps</strong><br>Resnet18 <strong>62fps</strong><br>Resnet50 <strong>28fps</strong></td>
+</tr>
+<tr>
+  <td>AI Detection (NPU inference part)</td>
+  <td>YOLOv2(224x224) 15fps</td>
+  <td>YOLOv2(224x224) 15fps</td>
+  <td><strong>YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps<br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps</strong></td>
+</tr>
+<tr>
+  <td>Ease of Use</td>
+  <td>⭐️⭐️⭐️⭐️</td>
+  <td>⭐️⭐️⭐️</td>
+  <td>🌟🌟🌟🌟🌟</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-6"></div>
+<div>
+<p><strong>MaixCAM-Pro</strong> Upgrades compared to MaixCAM:</p>
+<ol>
+<li>Optimized case design for better aesthetics and heat dissipation</li>
+<li>Screen upgraded to 2.4 inches with 640x480 resolution</li>
+<li>Dual-channel PWM servo interface, standard PMOD interface, 6-pin terminal interface</li>
+<li>Onboard AXP2101 PMU, supports lithium battery charging and discharging, power metering function</li>
+<li>Onboard six-axis IMU, qmi8658, supports video stabilization</li>
+<li>Built-in 1W small speaker</li>
+<li>Added 1/4 inch standard thread mount for easy installation</li>
+<li>Added auxiliary lighting LED</li>
+<li>Added RTC chip BM8653 and RTC battery</li>
+</ol>
+</div>
+</div>
+<h2 id="Maix-Ecosystem">Maix Ecosystem</h2>
+<img src="/maixpy/static/image/maix_ecosystem.png" class="white_border shadow-xl rounded-md">
+<h2 id="community">Community</h2>
+<div>
+<table>
+<thead>
+<tr>
+  <th>Community</th>
+  <th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Documentation</strong></td>
+  <td><a href="/maixpy/doc/en/index.html"  >MaixPy Documentation</a></td>
+</tr>
+<tr>
+  <td><strong>App Store</strong></td>
+  <td><a href="https://maixhub.com/app"  target="_blank">maixhub.com/app</a></td>
+</tr>
+<tr>
+  <td><strong>Project Sharing</strong></td>
+  <td><a href="https://maixhub.com/share"  target="_blank">maixhub.com/share</a></td>
+</tr>
+<tr>
+  <td><strong>Bilibili</strong></td>
+  <td>Search for <code>MaixCAM</code> or <code>MaixPy</code> on Bilibili</td>
+</tr>
+<tr>
+  <td><strong>Discussion</strong></td>
+  <td><a href="https://maixhub.com/discussion"  target="_blank">maixhub.com/discussion</a></td>
+</tr>
+<tr>
+  <td><strong>MaixPy issues</strong></td>
+  <td><a href="https://github.com/sipeed/MaixPy/issues"  target="_blank">github.com/sipeed/MaixPy/issues</a></td>
+</tr>
+<tr>
+  <td><strong>Telegram</strong></td>
+  <td><a href="https://t.me/maixpy"  target="_blank">t.me/maixpy</a></td>
+</tr>
+<tr>
+  <td><strong>QQ Group</strong></td>
+  <td>862340358</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="What-Are-the-Differences-Between-MaixPy-v1%2C-MaixPy3%2C-and-MaixPy-v4%3F">What Are the Differences Between MaixPy v1, MaixPy3, and MaixPy v4?</h2>
+<div class="flex flex-col items-center justify-center">
+<ul>
+<li>MaixPy v1 uses the MicroPython programming language and only supports the Sipeed Maix-I K210 series hardware with limited third-party packages.</li>
+<li>MaixPy3 is specifically designed for Sipeed Maix-II-Dock v831 and is not a long-term support version.</li>
+<li>MaixPy v4 uses the Python programming language, allowing direct use of many packages.<br/>MaixPy v4 supports Sipeed's new hardware platform and is a long-term support version. Future hardware platforms will support this version.<br>MaixPy v4 has a MaixPy-v1 compatible API, so you can quickly migrate your MaixPy v1 projects to MaixPy v4.</li>
+</ul>
+<p>(MaixPy v4 does not support the K210 series. It is recommended to upgrade your hardware platform to use this version for more features, better performance,<br/>and a more convenient programming experience.)</p>
+</div>
+</div>
+<!-- wrapper end -->
+
+                
+            </div>
+        </div>
+        <a id="to_top" href="#"></a>
+        <div id="page_footer">
+            <div id="footer">
+                
+                <div id="footer_top">
+                    <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+                </div>
+                <div id="footer_bottom">
+                    <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+    
+</body>
+</html>

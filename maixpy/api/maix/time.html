@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>maix.time - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class="active"><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/index.html"><span class="label">Brief</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">maix</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/err.html"><span class="label">err</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tensor.html"><span class="label">tensor</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/image.html"><span class="label">image</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/camera.html"><span class="label">camera</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/display.html"><span class="label">display</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev.html"><span class="label">ext_dev</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/imu.html"><span class="label">imu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/qmi8658.html"><span class="label">qmi8658</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/cmap.html"><span class="label">cmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/mlx90640.html"><span class="label">mlx90640</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tof100.html"><span class="label">tof100</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/bm8563.html"><span class="label">bm8563</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/pmu.html"><span class="label">pmu</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/tmc2209.html"><span class="label">tmc2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/fp5510.html"><span class="label">fp5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/ext_dev/axp2101.html"><span class="label">axp2101</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/audio.html"><span class="label">audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral.html"><span class="label">peripheral</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/adc.html"><span class="label">adc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/key.html"><span class="label">key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/wdt.html"><span class="label">wdt</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pwm.html"><span class="label">pwm</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/gpio.html"><span class="label">gpio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/uart.html"><span class="label">uart</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/hid.html"><span class="label">hid</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/pinmap.html"><span class="label">pinmap</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/spi.html"><span class="label">spi</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/timer.html"><span class="label">timer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/peripheral/i2c.html"><span class="label">i2c</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm.html"><span class="label">comm</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/comm/modbus.html"><span class="label">modbus</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/fs.html"><span class="label">fs</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/example.html"><span class="label">example</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/protocol.html"><span class="label">protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/thread.html"><span class="label">thread</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/sys.html"><span class="label">sys</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/app.html"><span class="label">app</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/api/maix/time.html"><span class="label">time</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/util.html"><span class="label">util</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/i18n.html"><span class="label">i18n</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn.html"><span class="label">nn</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/nn/F.html"><span class="label">F</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/tracker.html"><span class="label">tracker</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/touchscreen.html"><span class="label">touchscreen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtmp.html"><span class="label">rtmp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/video.html"><span class="label">video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/http.html"><span class="label">http</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/rtsp.html"><span class="label">rtsp</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/uvc.html"><span class="label">uvc</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/api/maix/network.html"><span class="label">network</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/api/maix/network/wifi.html"><span class="label">wifi</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>maix.time</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/api/maix/time.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <p>maix.time module</p>
+<blockquote>
+<p>You can use <code>maix.time</code> to access this module with MaixPy<br />
+This module is generated from <a href="https://github.com/sipeed/MaixPy"  target="_blank">MaixPy</a> and <a href="https://github.com/sipeed/MaixCDK"  target="_blank">MaixCDK</a></p>
+</blockquote>
+<h2 id="Module">Module</h2>
+<p>No module</p>
+<h2 id="Enum">Enum</h2>
+<h2 id="Variable">Variable</h2>
+<h2 id="Function">Function</h2>
+<h3 id="time">time</h3>
+
+<pre class="language-python"><code class="language-python">def time() -&gt; float
+</code></pre>
+<p>Get current time in s</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in s, double type</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If board have no RTC battery, when bootup and connect to network,<br>system will automatically sync time by NTP, will cause time() have big change,<br>e.g. before NTP: 10(s), after: 1718590639.5149617(s).<br>If you want to calculate time interval, please use ticks_s().</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double time()
+</code></pre>
+</blockquote>
+<h3 id="time_ms">time_ms</h3>
+
+<pre class="language-python"><code class="language-python">def time_ms() -&gt; int
+</code></pre>
+<p>Get current time in ms</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in ms, uint64_t type</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If board have no RTC battery, when bootup and connect to network,<br>system will automatically sync time by NTP, will cause time() have big change,<br>e.g. before NTP: 10000(ms), after: 1718590639000(ms)<br>If you want to calculate time interval, please use ticks_ms().</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t time_ms()
+</code></pre>
+</blockquote>
+<h3 id="time_s">time_s</h3>
+
+<pre class="language-python"><code class="language-python">def time_s() -&gt; int
+</code></pre>
+<p>Get current time in s</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in s, uint64_t type</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If board have no RTC battery, when bootup and connect to network,<br>system will automatically sync time by NTP, will cause time() have big change,<br>e.g. before NTP: 10(s), after: 1718590639(s)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t time_s()
+</code></pre>
+</blockquote>
+<h3 id="time_us">time_us</h3>
+
+<pre class="language-python"><code class="language-python">def time_us() -&gt; int
+</code></pre>
+<p>Get current time in us</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in us, uint64_t type</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If board have no RTC battery, when bootup and connect to network,<br>system will automatically sync time by NTP, will cause time() have big change,<br>e.g. before NTP: 10000000(us), after: 1718590639000000(s)<br>If you want to calculate time interval, please use ticks_us().</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t time_us()
+</code></pre>
+</blockquote>
+<h3 id="time_diff">time_diff</h3>
+
+<pre class="language-python"><code class="language-python">def time_diff(last: float, now: float = -1) -&gt; float
+</code></pre>
+<p>Calculate time difference in s.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>last</strong>: last time<br><strong>now</strong>: current time, can be -1 if use current time<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>time difference</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>If board have no RTC battery, when bootup and connect to network,<br>system will automatically sync time by NTP, will cause time() have big change, and lead to big value.<br>e.g. before NTP: 1(s), after: 1718590500(s)<br>If you want to calculate time interval, please use ticks_diff().</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double time_diff(double last, double now = -1)
+</code></pre>
+</blockquote>
+<h3 id="ticks_s">ticks_s</h3>
+
+<pre class="language-python"><code class="language-python">def ticks_s() -&gt; float
+</code></pre>
+<p>Get current time in s since bootup</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in s, double type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double ticks_s()
+</code></pre>
+</blockquote>
+<h3 id="ticks_ms">ticks_ms</h3>
+
+<pre class="language-python"><code class="language-python">def ticks_ms() -&gt; int
+</code></pre>
+<p>Get current time in ms since bootup</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in ms, uint64_t type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t ticks_ms()
+</code></pre>
+</blockquote>
+<h3 id="ticks_us">ticks_us</h3>
+
+<pre class="language-python"><code class="language-python">def ticks_us() -&gt; int
+</code></pre>
+<p>Get current time in us since bootup</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current time in us, uint64_t type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">uint64_t ticks_us()
+</code></pre>
+</blockquote>
+<h3 id="ticks_diff">ticks_diff</h3>
+
+<pre class="language-python"><code class="language-python">def ticks_diff(last: float, now: float = -1) -&gt; float
+</code></pre>
+<p>Calculate time difference in s.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>last</strong>: last time<br><strong>now</strong>: current time, can be -1 if use current time<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>time difference</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double ticks_diff(double last, double now = -1)
+</code></pre>
+</blockquote>
+<h3 id="sleep">sleep</h3>
+<p>Sleep seconds</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>s</strong>: seconds, double type<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void sleep(double s)
+</code></pre>
+</blockquote>
+<h3 id="sleep_ms">sleep_ms</h3>
+<p>Sleep milliseconds</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>ms</strong>: milliseconds, uint64_t type<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void sleep_ms(uint64_t ms)
+</code></pre>
+</blockquote>
+<h3 id="sleep_us">sleep_us</h3>
+<p>Sleep microseconds</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>us</strong>: microseconds, uint64_t type<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void sleep_us(uint64_t us)
+</code></pre>
+</blockquote>
+<h3 id="fps">fps</h3>
+
+<pre class="language-python"><code class="language-python">def fps() -&gt; float
+</code></pre>
+<p>Calculate FPS since last call this method.\nAttention, this method is not multi thread safe, only call this method in one threads.\nIf you want to use in multi threads, please use time.FPS class.\nFPS is average value of recent n(buff_len) times, and you can call fps_set_buff_len(10) to change buffer length, default is 20.\nMultiple invoke this function will calculate fps between two invoke, and you can also call fps_start() fisrt to manually assign fps calulate start point.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>float type, current fps since last call this method</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float fps()
+</code></pre>
+</blockquote>
+<h3 id="fps_start">fps_start</h3>
+
+<pre class="language-python"><code class="language-python">def fps_start() -&gt; None
+</code></pre>
+<p>Manually set fps calculation start point, then you can call fps() function to calculate fps between fps_start() and fps().</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void fps_start()
+</code></pre>
+</blockquote>
+<h3 id="fps_set_buff_len">fps_set_buff_len</h3>
+
+<pre class="language-python"><code class="language-python">def fps_set_buff_len(len: int) -&gt; None
+</code></pre>
+<p>Set fps method buffer length, by default the buffer length is 10.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>len</strong>: Buffer length to store recent fps value.<br></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void fps_set_buff_len(int len)
+</code></pre>
+</blockquote>
+<h3 id="now">now</h3>
+
+<pre class="language-python"><code class="language-python">def now() -&gt; DateTime
+</code></pre>
+<p>Get current UTC date and time</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>current date and time, DateTime type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">time::DateTime *now()
+</code></pre>
+</blockquote>
+<h3 id="localtime">localtime</h3>
+
+<pre class="language-python"><code class="language-python">def localtime() -&gt; DateTime
+</code></pre>
+<p>Get local time</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>local time, DateTime type</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">time::DateTime *localtime()
+</code></pre>
+</blockquote>
+<h3 id="strptime">strptime</h3>
+
+<pre class="language-python"><code class="language-python">def strptime(str: str, format: str) -&gt; DateTime
+</code></pre>
+<p>DateTime from string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>str</strong>: date time string<br><strong>format</strong>: date time format<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>DateTime</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">time::DateTime *strptime(const std::string &amp;str, const std::string &amp;format)
+</code></pre>
+</blockquote>
+<h3 id="gmtime">gmtime</h3>
+
+<pre class="language-python"><code class="language-python">def gmtime(timestamp: float) -&gt; DateTime
+</code></pre>
+<p>timestamp to DateTime(time zone is UTC (value 0))</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timestamp</strong>: double timestamp<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>DateTime</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">time::DateTime *gmtime(double timestamp)
+</code></pre>
+</blockquote>
+<h3 id="timezone">timezone</h3>
+
+<pre class="language-python"><code class="language-python">def timezone(timezone: str = '') -&gt; str
+</code></pre>
+<p>Set or get timezone</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>timezone</strong>: string type, can be empty and default to empty, if empty, only return crrent timezone, a &quot;region/city&quot; string, e.g. Asia/Shanghai, Etc/UTC, you can get all by list_timezones function.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>string type, return current timezone setting.</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>when set new timezone, time setting not take effect in this process for some API, so you need to restart program.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string timezone(const std::string &amp;timezone = &quot;&quot;)
+</code></pre>
+</blockquote>
+<h3 id="timezone2">timezone2</h3>
+
+<pre class="language-python"><code class="language-python">def timezone2(region: str = '', city: str = '') -&gt; list[str]
+</code></pre>
+<p>Set or get timezone</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>region</strong>: string type, which region to set, can be empty means only get current, default empty.<br><strong>city</strong>: string type, which city to set, can be empty means only get current, default empty.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>list type, return current timezone setting, first is region, second is city.</td>
+</tr>
+<tr>
+  <td><strong>attention</strong></td>
+  <td>when set new timezone, time setting not take effect in this process for some API, so you need to restart program.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;std::string&gt; timezone2(const std::string &amp;region = &quot;&quot;, const std::string &amp;city = &quot;&quot;)
+</code></pre>
+</blockquote>
+<h3 id="list_timezones">list_timezones</h3>
+
+<pre class="language-python"><code class="language-python">def list_timezones() -&gt; dict[str, list[str]]
+</code></pre>
+<p>List all timezone info</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>return</strong></td>
+  <td>A dict with key are regions, and value are region's cities.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::map&lt;std::string, std::vector&lt;std::string&gt;&gt; list_timezones()
+</code></pre>
+</blockquote>
+<h3 id="ntp_timetuple">ntp_timetuple</h3>
+
+<pre class="language-python"><code class="language-python">def ntp_timetuple(host: str, port: int = -1, retry: int = 3, timeout_ms: int = 0) -&gt; list[int]
+</code></pre>
+<p>Retrieves time from an NTP server\nThis function fetches the current time from the specified NTP server and port,\nreturning a tuple containing the time details.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>host</strong>: The hostname or IP address of the NTP server.<br><strong>port</strong>: The port number of the NTP server. Use -1 for the default port 123.<br><strong>retry</strong>: The number of retry attempts. Must be at least 1.<br><strong>timeout_ms</strong>: The timeout duration in milliseconds. Must be non-negative.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>A list of 6 elements: [year, month, day, hour, minute, second]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; ntp_timetuple(std::string host, int port=-1, uint8_t retry=3, int timeout_ms=0)
+</code></pre>
+</blockquote>
+<h3 id="ntp_timetuple_with_config">ntp_timetuple_with_config</h3>
+
+<pre class="language-python"><code class="language-python">def ntp_timetuple_with_config(path: str) -&gt; list[int]
+</code></pre>
+<p>Retrieves time from an NTP server using a configuration file\nThis function reads the configuration from a YAML file to fetch the current time\nfrom a list of specified NTP servers, returning a tuple containing the time details.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: The path to the YAML configuration file, which should include:<br>- Config:<br>- retry: Number of retry attempts (must be at least 1)<br>- total_timeout_ms: Total timeout duration in milliseconds (must be non-negative)<br>- NtpServers:<br>- host: Hostname or IP address of the NTP server<br>- port: Port number of the NTP server (use 123 for default)<br>Example YAML configuration:<br>Config:<br>- retry: 3<br>- total_timeout_ms: 10000<br>NtpServers:<br>- host: &quot;pool.ntp.org&quot;<br>port: 123<br>- host: &quot;time.nist.gov&quot;<br>port: 123<br>- host: &quot;time.windows.com&quot;<br>port: 123<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>A list of 6 elements: [year, month, day, hour, minute, second]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; ntp_timetuple_with_config(std::string path)
+</code></pre>
+</blockquote>
+<h3 id="ntp_sync_sys_time">ntp_sync_sys_time</h3>
+
+<pre class="language-python"><code class="language-python">def ntp_sync_sys_time(host: str, port: int = -1, retry: int = 3, timeout_ms: int = 0) -&gt; list[int]
+</code></pre>
+<p>Retrieves time from an NTP server and synchronizes the system time\nThis function fetches the current time from the specified NTP server and port,\nthen synchronizes the system time with the retrieved time.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>host</strong>: The hostname or IP address of the NTP server.<br><strong>port</strong>: The port number of the NTP server. Use 123 for the default port.<br><strong>retry</strong>: The number of retry attempts. Must be at least 1.<br><strong>timeout_ms</strong>: The timeout duration in milliseconds. Must be non-negative.<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>A list of 6 elements: [year, month, day, hour, minute, second]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; ntp_sync_sys_time(std::string host, int port=-1, uint8_t retry=3, int timeout_ms=0)
+</code></pre>
+</blockquote>
+<h3 id="ntp_sync_sys_time_with_config">ntp_sync_sys_time_with_config</h3>
+
+<pre class="language-python"><code class="language-python">def ntp_sync_sys_time_with_config(path: str) -&gt; list[int]
+</code></pre>
+<p>Retrieves time from an NTP server using a configuration file and synchronizes the system time\nThis function reads the configuration from a YAML file to fetch the current time\nfrom a list of specified NTP servers, then synchronizes the system time with the retrieved time.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>path</strong>: The path to the YAML configuration file, which should include:<br>- Config:<br>- retry: Number of retry attempts (must be at least 1)<br>- total_timeout_ms: Total timeout duration in milliseconds (must be non-negative)<br>- NtpServers:<br>- host: Hostname or IP address of the NTP server<br>- port: Port number of the NTP server (use 123 for default)<br>Example YAML configuration:<br>Config:<br>- retry: 3<br>- total_timeout_ms: 10000<br>NtpServers:<br>- host: &quot;pool.ntp.org&quot;<br>port: 123<br>- host: &quot;time.nist.gov&quot;<br>port: 123<br>- host: &quot;time.windows.com&quot;<br>port: 123<br></td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>A vector of integers containing the time details: [year, month, day, hour, minute, second]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::vector&lt;int&gt; ntp_sync_sys_time_with_config(std::string path)
+</code></pre>
+</blockquote>
+<h2 id="Class">Class</h2>
+<h3 id="FPS-2">FPS</h3>
+<p>FPS class to use average filter to calculate FPS.</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class FPS
+</code></pre>
+</blockquote>
+<h4 id="__init__">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, buff_len: int = 20) -&gt; None
+</code></pre>
+<p>FPS class constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>buff_len</strong>: Average buffer length, default 20, that is, fps() function will return the average fps in recent buff_len times fps.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">FPS(int buff_len = 20)
+</code></pre>
+</blockquote>
+<h4 id="start">start</h4>
+
+<pre class="language-python"><code class="language-python">def start(self) -&gt; None
+</code></pre>
+<p>Manually set fps calculation start point, then you can call fps() function to calculate fps between start() and fps().</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void start()
+</code></pre>
+</blockquote>
+<h4 id="fps-3">fps</h4>
+
+<pre class="language-python"><code class="language-python">def fps(self) -&gt; float
+</code></pre>
+<p>The same as end function.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>float type, current fps since last call this method</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float fps()
+</code></pre>
+</blockquote>
+<h4 id="end">end</h4>
+
+<pre class="language-python"><code class="language-python">def end(self) -&gt; float
+</code></pre>
+<p>Calculate FPS since last call this method.\nFPS is average value of recent n(buff_len) times, and you can call fps_set_buff_len(10) to change buffer length, default is 20.\nMultiple invoke this function will calculate fps between two invoke, and you can also call fps_start() fisrt to manually assign fps calulate start point.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>float type, current fps since last call this method</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float end()
+</code></pre>
+</blockquote>
+<h4 id="set_buff_len">set_buff_len</h4>
+
+<pre class="language-python"><code class="language-python">def set_buff_len(self, len: int) -&gt; None
+</code></pre>
+<p>Set fps method buffer length, by default the buffer length is 10.</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>len</strong>: Buffer length to store recent fps value.<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">void set_buff_len(int len)
+</code></pre>
+</blockquote>
+<h3 id="DateTime">DateTime</h3>
+<p>Date and time class</p>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">class DateTime
+</code></pre>
+</blockquote>
+<h4 id="year">year</h4>
+<p>Year</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int year
+</code></pre>
+</blockquote>
+<h4 id="month">month</h4>
+<p>Month, 1~12</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int month
+</code></pre>
+</blockquote>
+<h4 id="day">day</h4>
+<p>Day</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int day
+</code></pre>
+</blockquote>
+<h4 id="hour">hour</h4>
+<p>Hour</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int hour
+</code></pre>
+</blockquote>
+<h4 id="minute">minute</h4>
+<p>Minute</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int minute
+</code></pre>
+</blockquote>
+<h4 id="second">second</h4>
+<p>Second</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int second
+</code></pre>
+</blockquote>
+<h4 id="microsecond">microsecond</h4>
+<p>Microsecond</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int microsecond
+</code></pre>
+</blockquote>
+<h4 id="yearday">yearday</h4>
+<p>Year day</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int yearday
+</code></pre>
+</blockquote>
+<h4 id="weekday">weekday</h4>
+<p>Weekday, 0 is Monday, 6 is Sunday</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">int weekday
+</code></pre>
+</blockquote>
+<h4 id="zone">zone</h4>
+<p>Time zone</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">float zone
+</code></pre>
+</blockquote>
+<h4 id="zone_name">zone_name</h4>
+<p>Time zone name</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>var</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+<tr>
+  <td><strong>readonly</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string zone_name
+</code></pre>
+</blockquote>
+<h4 id="__init__-2">__init__</h4>
+
+<pre class="language-python"><code class="language-python">def __init__(self, year: int = 0, month: int = 0, day: int = 0, hour: int = 0, minute: int = 0, second: int = 0, microsecond: int = 0, yearday: int = 0, weekday: int = 0, zone: int = 0) -&gt; None
+</code></pre>
+<p>Constructor</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>param</strong></td>
+  <td><strong>year</strong>: year<br><strong>month</strong>: month<br><strong>day</strong>: day<br><strong>hour</strong>: hour<br><strong>minute</strong>: minute<br><strong>second</strong>: second<br><strong>microsecond</strong>: microsecond<br><strong>yearday</strong>: year day<br><strong>weekday</strong>: weekday<br><strong>zone</strong>: time zone<br></td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">DateTime(int year = 0, int month = 0, int day = 0, int hour = 0, int minute = 0, int second = 0, int microsecond = 0, int yearday = 0, int weekday = 0, int zone = 0)
+</code></pre>
+</blockquote>
+<h4 id="strftime">strftime</h4>
+
+<pre class="language-python"><code class="language-python">def strftime(self, format: str) -&gt; str
+</code></pre>
+<p>Convert to string</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>date time string</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">std::string strftime(const std::string &amp;format)
+</code></pre>
+</blockquote>
+<h4 id="timestamp">timestamp</h4>
+
+<pre class="language-python"><code class="language-python">def timestamp(self) -&gt; float
+</code></pre>
+<p>Convert to float timestamp</p>
+<table>
+<thead>
+<tr>
+  <th>item</th>
+  <th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>type</strong></td>
+  <td>func</td>
+</tr>
+<tr>
+  <td><strong>return</strong></td>
+  <td>float timestamp</td>
+</tr>
+<tr>
+  <td><strong>static</strong></td>
+  <td>False</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>C++ defination code:</p>
+
+<pre class="language-cpp"><code class="language-cpp">double timestamp()
+</code></pre>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/api/maix/app.html">
+                            <span class="icon"></span>
+                            <span class="label">app</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/api/maix/util.html">
+                            <span class="label">util</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
