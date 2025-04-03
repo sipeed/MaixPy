@@ -6,12 +6,17 @@ import shutil
 
 ####################################################################
 # supported platforms
-board_names = ["linux", "maixcam"]
+board_names = ["linux", "maixcam", "maixcam2"]
 platform_names = {
     # use correspond docker to compile https://github.com/pypa/manylinux
     "linux": "manylinux2014_{}".format(platform.machine().replace("-", "_").replace(".", "_").lower()),
     "m2dock": "linux_armv7l",
     "maixcam": "linux_riscv64",
+    "maixcam2": "manylinux2014_aarch64",
+}
+python_version = {
+    "maixcam": [3, 11],
+    "maixcam2": [3, 13]
 }
 platform_toolchain_id = {
     "maixcam": "musl_t-hread"
@@ -68,8 +73,8 @@ def print_py_version_err(build_py_version):
 
 # specially check for maixcam
 py_version = get_python_version()
-if board == "maixcam" and f"{py_version[0]}.{py_version[1]}" != "3.11":
-    print_py_version_err([3, 11])
+if board in python_version and py_version[:2] != python_version[board]:
+    print_py_version_err(python_version[board])
     sys.exit(1)
 
 if board:
