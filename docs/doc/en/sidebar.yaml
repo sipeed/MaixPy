@@ -201,6 +201,8 @@ items:
         label: Voice Coil Motor FP5510
     -   file: modules/spilcd.md
         label: SPI LCD Screen
+    -   file: modules/bluetooth.md
+        label: Bluetooth
 
 -   label: Projects
     items:
