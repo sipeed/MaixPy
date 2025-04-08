@@ -51,6 +51,8 @@ for name in board_names:
         board = name
         sys.argv.remove(name)
         break
+if "-p" in sys.argv:
+    sys.argv.remove("-p")
 if (not board) and not ("-h" in sys.argv or "--help" in sys.argv or "--help-commands" in sys.argv):
     print("-- Please specify board name: {}, e.g. python setup.py bdist_wheel linux".format(board_names))
     sys.exit(1)
@@ -95,6 +97,8 @@ if board:
         if ret != 0:
             print("-- Build cpp modules failed!")
             sys.exit(1)
+    else:
+        sys.argv.remove("--skip-build")
 
 # check python version
 build_py_version = get_build_python_version()
@@ -163,6 +167,10 @@ class BinaryDistribution(Distribution):
 
 pkgs = find_packages()
 print("-- found packages: {}".format(pkgs))
+
+print("\n=================================")
+print("python package setup args:", sys.argv)
+print("=================================\n")
 
 setup(
     # all keywords see https://setuptools.pypa.io/en/latest/references/keywords.html
