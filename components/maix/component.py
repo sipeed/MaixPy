@@ -23,7 +23,7 @@ def add_file_downloads(confs : dict) -> list:
         # }
     ]
 
-def add_requirements(component_dirs : list):
+def add_requirements(platform : str, component_dirs : list):
     requires = [
         "pybind11", "python3", "basic", "nn", "peripheral", "vision", "comm", "network", "voice", "vision_extra"
     ]
