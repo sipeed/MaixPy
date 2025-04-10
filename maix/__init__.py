@@ -4,11 +4,13 @@ from .version import __version__
 from ._maix.peripheral.key import add_default_listener
 from ._maix.comm import add_default_comm_listener
 from .__signal_handle__ import register_signal_handle
-from ._maix.util import register_atexit
+from ._maix.util import register_atexit, init_before_main
 from . import __maix_time__
 from . import _maix
 
 del __maix_time__ # update time module then delete
+
+init_before_main()
 
 register_signal_handle()
 del register_signal_handle
