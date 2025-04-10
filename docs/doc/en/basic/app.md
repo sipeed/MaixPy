@@ -74,3 +74,55 @@ install_app(pkg_path)
 
 Refer to [APP auto start on power up](./auto_start.md).
 
+
+## System Settings
+
+The **System Settings** application contains several configuration items, such as language, screen brightness, etc. We can retrieve the values of these settings using `maix.app.get_sys_config_kv(item, key)`.
+
+For example, to get the language setting:
+
+```python
+from maix import app
+locale = app.get_sys_config_kv("language", "locale")
+print("locale:", locale)
+
+backlight = app.get_sys_config_kv("backlight", "value")
+print("backlight:", backlight, ", type:", type(backlight))
+```
+
+Note: All setting values are of **string type**, so please be mindful of this when using them.
+
+
+```ini
+# All configs user can edit easily
+# Format: maix_<item>_<key>=value
+#         all key charactors should be lowercase
+# Full supported items see documentation of maixpy at:
+#      https://wiki.sipeed.com/maixpy/doc/zh/basic/app.html
+
+### [language]
+maix_language_locale=en
+
+### [wifi]
+# can be "ap" or "sta" or "off"
+maix_wifi_mode=sta
+maix_wifi_ssid=Sipeed_Guest
+maix_wifi_passwd=qwert123
+# encrypt default auto detect, you can also set it manually:
+#   can be "NONE", "WPA-PSK", "WPA-EAP", "SAE"
+# maix_wifi_encrypt="WPA-PSK"
+
+### [comm] Maix comm protocol
+# can be "uart" or "none"
+maix_comm_method=uart
+
+## [backlight] Screeen backlight, from 0 to 100
+maix_backlight_value = 50
+
+### [npu]
+# for maixcam2, enable AI ISP(1) or not(0),
+# enalbe AI ISP will get better camera quality and occupy half of NPU.
+maix_npu_aiisp=0
+
+```
+
