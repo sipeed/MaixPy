@@ -90,6 +90,21 @@ Notes:
 2. A `60/80fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
 3. Note that due to the fact that `60/80fps` and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
 4. The camera's performance depends on the system. Some systems may not support setting the camera to 80fps, which can result in strange patterns appearing on the screen. In such cases, please switch back to the normal 60fps setting.
+5. We have noticed that when using the OS04A10 sensor at 720p 90fps, the system may experience resource shortages, causing some image processing algorithms to take longer than expected. The recommended solution is to lower the frame rate appropriately after configuring it to 720p 90fps.
+```python
+# Supported in versions v4.10.3 and above
+from maix import camera
+cam = camera.Camera(320, 240, fps=90)   # Configure to 720p 90fps
+cam.set_fps(80)                         # Set to 80fps, or lower
+
+# For versions below v4.10.3, please temporarily set via command line
+from maix import camera
+import os
+cam = camera.Camera(320, 240, fps=90)   # Configure to 720p 90fps
+# os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x08 0xad')  # 60fps
+# os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x07 0x71')  # 70fps
+os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x06 0x90')  # 80fps
+```
 
 ## Image correction
 
