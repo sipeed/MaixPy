@@ -174,7 +174,7 @@ docs/out/
 CMakeLists.txt
 !*/**/CMakeLists.txt
 tools/tmp/
-tools/os/tmp/
-tools/os/img_root/
-tools/os/img_boot/
+tools/os/*/tmp/
+tools/os/*/img_root/
+tools/os/*/img_boot/
 projects/apps/

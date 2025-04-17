@@ -79,7 +79,7 @@ jobs:
           echo "--------------------------------"
           echo "--      Generate system       --"
           echo "--------------------------------"
-          cd tools/os
+          cd tools/os/maixcam
           chmod +x gen_os.sh
           date_now=`date +"%Y-%m-%d"`
           os_version_name="maixcam-${date_now}-maixpy-${maixpy_version}"

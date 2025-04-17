@@ -66,8 +66,8 @@ if [ -z "$MAIXCDK_PATH" ]; then
     exit 1
 fi
 
-if [ "$(basename $PWD)" != "os" ] || [ "$(basename $(dirname $PWD))" != "tools" ]; then
-    echo "Error: Script must be run from MaixPy/tools/os directory."
+if [ "$(basename $PWD)" != "maixcam" ] || [ "$(basename $(dirname $PWD))" != "os" ]; then
+    echo "Error: Script must be run from MaixPy/tools/os/maixcam directory."
     exit 1
 fi
 
@@ -132,7 +132,7 @@ echo "$os_version_str" > tmp/sys_builtin_files/boot/ver
 
 # 7. 拷贝 MaixCDK/components/maixcam_lib/lib/libmaixcam_lib.so 到 tmp/sys_builtin_files/usr/lib
 mkdir -p tmp/sys_builtin_files/usr/lib
-cp "$MAIXCDK_PATH/components/maixcam_lib/lib/libmaixcam_lib.so" tmp/sys_builtin_files/usr/lib
+cp "$MAIXCDK_PATH/components/maixcam_lib/lib_maixcam/libmaixcam_lib.so" tmp/sys_builtin_files/usr/lib
 
 # 8. 不同板型拷贝
 if [ $board_name == "maixcam-pro" ]; then
