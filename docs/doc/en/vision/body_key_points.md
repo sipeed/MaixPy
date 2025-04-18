@@ -17,8 +17,8 @@ You can easily implement this using the `maix.nn.YOLOv8` or `maix.nn.YOLO11` cla
 ```python
 from maix import camera, display, image, nn, app
 
-detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff=True)
-# detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff=True)
+detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff=True)
+# detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff=True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 disp = display.Display()

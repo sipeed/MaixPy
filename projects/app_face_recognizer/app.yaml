@@ -1,7 +1,7 @@
 id: face_recognizer
 name: Face Recognizer
 name[zh]: 人脸识别
-version: 1.0.2
+version: 1.0.3
 author: Sipeed Ltd
 icon: face.png
 desc: Learn and recognize face.

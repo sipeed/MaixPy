@@ -1,4 +1,4 @@
-from maix import nn, camera, display, image, time, touchscreen, app
+from maix import nn, camera, display, image, time, touchscreen, app, sys
 import math
 
 pressed_flag = [False, False, False]
@@ -13,7 +13,8 @@ def main(disp):
     disp.show(img)
 
     # yolov8-face + insightface resnet50, slower but more precisely
-    recognizer = nn.FaceRecognizer(detect_model="/root/models/yolov8n_face.mud", feature_model = "/root/models/insghtface_webface_r50.mud", dual_buff=True)
+    face_detect_model = "/root/models/yolo11s_face.mud" if sys.device_name().lower() == "maixcam2" else "/root/models/yolov8n_face.mud"
+    recognizer = nn.FaceRecognizer(detect_model=face_detect_model, feature_model = "/root/models/insghtface_webface_r50.mud", dual_buff=True)
     # Retinaface + mobilenetv2-face, faster but lower precese.
     # recognizer = nn.FaceRecognizer(detect_model="/root/models/retinaface.mud", feature_model = "/root/models/face_feature.mud", dual_buff = True)
 

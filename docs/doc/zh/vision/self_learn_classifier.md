@@ -28,7 +28,7 @@ title: MaixCAM MaixPy 自学习分类器
 ```python
 from maix import nn, image
 
-classifier = nn.SelfLearnClassifier(model="/root/models/mobilenetv2.mud", dual_buff = True)
+classifier = nn.SelfLearnClassifier(model="/root/models/mobilenet_v2_no_top.mud", dual_buff = True)
 
 img1 = image.load("/root/1.jpg")
 img2 = image.load("/root/2.jpg")

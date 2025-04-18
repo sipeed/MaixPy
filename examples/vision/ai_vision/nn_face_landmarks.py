@@ -1,4 +1,4 @@
-from maix import camera, display, image, nn, app
+from maix import camera, display, image, nn, app, sys
 
 
 detect_conf_th = 0.5
@@ -7,7 +7,10 @@ landmarks_conf_th = 0.5
 landmarks_abs = True
 landmarks_rel = False
 max_face_num = 2
-detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
+if sys.device_name().lower() == "maixcam2":
+    detector = nn.YOLO11(model="/root/models/yolo11s_face.mud", dual_buff = False)
+else:
+    detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
 landmarks_detector = nn.FaceLandmarks(model="/root/models/face_landmarks.mud")
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())

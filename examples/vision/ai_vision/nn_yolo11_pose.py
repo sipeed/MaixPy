@@ -1,6 +1,9 @@
-from maix import camera, display, image, nn, app
+from maix import camera, display, image, nn, app, sys
 
-detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff = True)
+if sys.device_name().lower() == "maixcam2":
+    detector = nn.YOLO11(model="/root/models/yolo11s_pose.mud", dual_buff = True)
+else:
+    detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud", dual_buff = True)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 disp = display.Display()

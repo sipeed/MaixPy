@@ -1,11 +1,14 @@
-from maix import camera, display, image, nn, app
+from maix import camera, display, image, nn, app, sys
 import math
 
 # download model from:
-#                     https://maixhub.com/model/zoo/377 (face_detector https://github.com/biubug6/Face-Detector-1MB-with-landmark)
-#                     https://maixhub.com/model/zoo/378 (retinafate https://github.com/biubug6/Pytorch_Retinaface)
+#                     https://wiki.sipeed.com/maixpy/doc/zh/vision/face_detection.html
 # detector = nn.FaceDetector(model="/root/models/face_detector.mud")
-detector = nn.Retinaface(model="/root/models/retinaface.mud", dual_buff = True)
+# detector = nn.Retinaface(model="/root/models/retinaface.mud", dual_buff = True)
+if sys.device_name().lower() == "maixcam2":
+    detector = nn.YOLO11(model="/root/models/yolo11s_face.mud", dual_buff = False)
+else:
+    detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
 
 cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 disp = display.Display()

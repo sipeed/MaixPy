@@ -1,4 +1,4 @@
-from maix import camera, display, image, nn, app
+from maix import camera, display, image, nn, app, sys
 
 detect_conf_th = 0.5
 detect_iou_th = 0.45
@@ -7,7 +7,10 @@ max_face_num = -1
 crop_scale = 0.9
 
 # detect face model
-detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
+if sys.device_name().lower() == "maixcam2":
+    detector = nn.YOLO11(model="/root/models/yolo11s_face.mud", dual_buff = False)
+else:
+    detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
 # we only use one of it's function to crop face from image, wo we not init model actually
 landmarks_detector = nn.FaceLandmarks(model="")
 # emotion classify model

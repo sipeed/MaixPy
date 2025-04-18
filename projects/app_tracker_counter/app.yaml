@@ -1,7 +1,7 @@
 id: tracker_counter
 name: Tracker Counter
 name[zh]: 跟踪计数
-version: 1.0.2
+version: 1.0.3
 author: Sipeed Ltd
 icon: icon.png
 desc: track objects and count movement

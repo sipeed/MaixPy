@@ -1,4 +1,4 @@
-from maix import camera, display, image, nn, app, time, touchscreen
+from maix import camera, display, image, nn, app, time, touchscreen, sys
 import math
 
 sub_146_idxes = [0, 1, 4, 5, 6, 7, 8, 10, 13, 14, 17, 21, 33, 37, 39, 40, 46, 52, 53, 54, 55, 58, 61, 63, 65, 66, 67, 70, 78, 80,
@@ -48,7 +48,10 @@ def main(disp):
     max_face_num = 4
 
     mode_pressed = False
-    detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
+    if sys.device_name().lower() == "maixcam2":
+        detector = nn.YOLO11(model="/root/models/yolo11s_face.mud", dual_buff = False)
+    else:
+        detector = nn.YOLOv8(model="/root/models/yolov8n_face.mud", dual_buff = False)
     landmarks_detector = nn.FaceLandmarks(model="/root/models/face_landmarks.mud")
 
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())

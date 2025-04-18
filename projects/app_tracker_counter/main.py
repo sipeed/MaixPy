@@ -1,4 +1,4 @@
-from maix import nn, display, camera, app, time, image, tracker, touchscreen
+from maix import nn, display, camera, app, time, image, tracker, touchscreen, sys
 
 colors = [
     [255, 0, 0],       # 红色
@@ -133,8 +133,13 @@ def main(disp):
     valid_class_id = [0]       # we used classes index in detect model, empty means all class.
 
     # Any object detector, detect more stable the track will more stable
-    detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
-    # detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
+    if sys.device_name().lower() == "maixcam2":
+        print("use yolo11s")
+        detector = nn.YOLO11(model="/root/models/yolo11s.mud", dual_buff = True)
+    else:
+        print("use yolov5s")
+        detector = nn.YOLOv5(model="/root/models/yolov5s.mud", dual_buff = True)
+        # detector = nn.YOLOv8(model="/root/models/yolov8n.mud", dual_buff = True)
 
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
     tracker0 = tracker.ByteTracker(max_lost_buff_time, track_thresh, high_thresh, match_thresh, max_history_num)

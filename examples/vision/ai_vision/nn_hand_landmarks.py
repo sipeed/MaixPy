@@ -1,10 +1,16 @@
-from maix import camera, display, image, nn, app
+from maix import camera, display, image, nn, app, sys
 
 detector = nn.HandLandmarks(model="/root/models/hand_landmarks.mud")
 # detector = nn.HandLandmarks(model="/root/models/hand_landmarks_bf16.mud")
 landmarks_rel = False
 
-cam = camera.Camera(320, 224, detector.input_format())
+cam_w = 320
+cam_h = 240
+if sys.device_name().lower() == "maixcam2":
+    cam_w = 640
+    cam_h = 480
+
+cam = camera.Camera(cam_w, cam_h, detector.input_format())
 disp = display.Display()
 
 while not app.need_exit():
@@ -19,6 +25,6 @@ while not app.need_exit():
             img.draw_rect(0, 0, detector.input_width(detect=False), detector.input_height(detect=False), color = image.COLOR_YELLOW)
             for i in range(21):
                 x = obj.points[8 + 21*3 + i * 2]
-                y = obj.points[8 + 21** + i * 2 + 1]
+                y = obj.points[8 + 21*3 + i * 2 + 1]
                 img.draw_circle(x, y, 3, color = image.COLOR_YELLOW)
     disp.show(img)

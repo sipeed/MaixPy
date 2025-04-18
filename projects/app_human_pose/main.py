@@ -1,11 +1,14 @@
-from maix import camera, display, image, nn, app, time, touchscreen
+from maix import camera, display, image, nn, app, time, touchscreen, sys
 
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
 def main(disp):
     ts = touchscreen.TouchScreen()
-    detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud")
+    if sys.device_name().lower() == "maixcam2":
+        detector = nn.YOLO11(model="/root/models/yolo11s_pose.mud")
+    else:
+        detector = nn.YOLOv8(model="/root/models/yolov8n_pose.mud")
     img_back = image.load("/maixapp/share/icon/ret.png")
     back_rect = [0, 0, 32, 32]
 

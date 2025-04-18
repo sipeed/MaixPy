@@ -630,30 +630,30 @@ MaixVision
 
 <div class="overflow-auto">
 
-| 特征 | Maix-I K210 | Maix-II v831 | MaixCAM |
-| ------- | ----------- | ------------ | ------- |
-| CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** |
-| 内存 | 6MB SRAM | 64MB DDR2 | **256MB DDR3** |
-| NPU | 0.25Tops@INT8<br>official says 1T but... | 0.25Tops@INT8 | **1Tops@INT8** |
-| Encoder | ✖ | 1080p@30fps | **2K@30fps** |
-| 屏幕 | 2.4" 320x240 | 1.3" 240x240 | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800|
-| 触摸屏 | ✖ | ✖ | **2.3" 552x368** |
-| 摄像头 | 30W | 200W | **500W** |
-| WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G |
-| USB    | ✖    | **USB2.0** | **USB2.0** |
-| 以太网    | ✖    | 100M(选配)   | 100M(选配) |
-| SD 卡接口 | SPI | **SDIO** | **SDIO** |
-| BLE    | ✖    | ✖      | **BLE5.4** |
-| 操作系统     | RTOS | Tina Linux | **Linux + RTOS** |
-| 编程语言 | C / C++ / MicroPython | C / C++ / **Python3** | C / **C++ / Python3** |
-| Software | MaixPy | MaixPy3 | **MaixCDK + MaixPy v4 + opencv + numpy + ...**|
-| PC 软件 | MaixPy IDE | MaixPy3 IDE | **MaixVision** Workstation |
-| 文档   | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
-| 在线 AI 训练 | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 |
-| 官方应用   | ⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
-| AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
-| AI 检测(NPU推理部分)   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps<br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**|
-| 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
+| 特征 | Maix-I K210 | Maix-II v831 | MaixCAM | MaixCAM2 |
+| ------- | ----------- | ------------ | ------- | ------- |
+| CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** | |
+| 内存 | 6MB SRAM | 64MB DDR2 | **256MB DDR3** | |
+| NPU | 0.25Tops@INT8<br>official says 1T but... | 0.25Tops@INT8 | **1Tops@INT8** | |
+| Encoder | ✖ | 1080p@30fps | **2K@30fps** | |
+| 屏幕 | 2.4" 320x240 | 1.3" 240x240 | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| |
+| 触摸屏 | ✖ | ✖ | **2.3" 552x368** | |
+| 摄像头 | 30W | 200W | **500W** | |
+| WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G | |
+| USB    | ✖    | **USB2.0** | **USB2.0** | |
+| 以太网    | ✖    | 100M(选配)   | 100M(选配) | |
+| SD 卡接口 | SPI | **SDIO** | **SDIO** | |
+| BLE    | ✖    | ✖      | **BLE5.4** | |
+| 操作系统     | RTOS | Tina Linux | **Linux + RTOS** | |
+| 编程语言 | C / C++ / MicroPython | C / C++ / **Python3** | C / **C++ / Python3** | |
+| Software | MaixPy | MaixPy3 | **MaixCDK + MaixPy v4 + opencv + numpy + ...**| |
+| PC 软件 | MaixPy IDE | MaixPy3 IDE | **MaixVision** Workstation | |
+| 文档   | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | |
+| 在线 AI 训练 | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 | |
+| 官方应用   | ⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | |
+| AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** | MobileNetv2 **1218fps** |
+| AI 检测(NPU推理部分)   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br><br>YOLOv8n(640x640) 23fps<br><br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**| **YOLOv5s(224x224) 495fps<br>YOLOv5s(320x256) 400fps<br>YOLOv5s(640x480) 106fps<br>YOLOv5s(640x640) 80fps<br><br>YOLO11n(224x224) 1214fps<br>YOLO11n(640x480) 168fps<br>YOLO11n(640x640) 113fps<br><br>YOLO11s(640x480) 87fps<br>YOLO11s(640x640) 62fps** |
+| 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
 
 </div>
 

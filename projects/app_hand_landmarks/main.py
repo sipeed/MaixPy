@@ -1,4 +1,4 @@
-from maix import camera, display, image, nn, app, time, touchscreen
+from maix import camera, display, image, nn, app, time, touchscreen, sys
 import math
 
 model_id = 1
@@ -6,6 +6,13 @@ models = [
     "/root/models/hand_landmarks.mud",
     "/root/models/hand_landmarks_bf16.mud"
 ]
+
+cam_w = 320
+cam_h = 240
+if sys.device_name().lower() == "maixcam2":
+    cam_w = 640
+    cam_h = 480
+
 
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
@@ -21,7 +28,7 @@ def main(disp):
     histories = [[],[]]
     detect_time = [0, 0]
 
-    cam = camera.Camera(320, 224, detector.input_format())
+    cam = camera.Camera(cam_w, cam_h, detector.input_format())
     model_rect = [0, cam.height() - 26, 80, 25]
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
     model_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, model_rect[0], model_rect[1], model_rect[2], model_rect[3])

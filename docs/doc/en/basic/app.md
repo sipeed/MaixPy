@@ -122,7 +122,7 @@ maix_backlight_value = 50
 ### [npu]
 # for maixcam2, enable AI ISP(1) or not(0),
 # enalbe AI ISP will get better camera quality and occupy half of NPU.
-maix_npu_aiisp=0
+maix_npu_ai_isp=0
 
 ```
 
