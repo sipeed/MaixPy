@@ -103,14 +103,14 @@ cp -r tmp/maixpy_whl/* tmp/sys_builtin_files/usr/lib/python3.11/site-packages
 
 # 3. 打包 MaixPy 写的应用（MaixPy/projects 目录下执行 build_all.sh)，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
 echo "pack and copy MaixPy projects"
-cd ../../projects
+cd ../../../projects
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
     ./build_all.sh
 fi
 cd -
 mkdir -p tmp/sys_builtin_files/maixapp/apps
-cp -r ../../projects/apps/* tmp/sys_builtin_files/maixapp/apps
+cp -r ../../../projects/apps/* tmp/sys_builtin_files/maixapp/apps
 
 # 4. 打包 MaixCDK 写的应用，进入 $MAIXCDK_PATH/projects， 执行 build_all.sh，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
 echo "pack and copy MaixCDK projects"
