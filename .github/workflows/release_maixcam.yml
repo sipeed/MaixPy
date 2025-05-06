@@ -89,7 +89,7 @@ jobs:
           builtin_files_dir=tmp/dl_builtin_files/sys_builtin_files
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir
           os_filename=${os_version_name}.img.xz
-          os_filepath=`pwd`/tmp/$os_filename
+          os_filepath=`pwd`/images/$os_filename
           sha256sum $release_path >> ${maixpy_path}/sha256sum_files.txt
           sha256sum $os_filepath > ${maixpy_path}/sha256sum_files.txt
           echo "os_path=$os_filepath" >> $GITHUB_OUTPUT
@@ -100,7 +100,7 @@ jobs:
           os_version_name_pro="maixcam-pro-${date_now}-maixpy-${maixpy_version}"
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir 1 maixcam-pro
           os_filename=${os_version_name_pro}.img.xz
-          os_filepath=`pwd`/tmp/$os_filename
+          os_filepath=`pwd`/images/$os_filename
           sha256sum $os_filepath >> ${maixpy_path}/sha256sum_files.txt
           echo "os_pro_path=$os_filepath" >> $GITHUB_OUTPUT
           echo "os_pro_name=$os_filename" >> $GITHUB_OUTPUT

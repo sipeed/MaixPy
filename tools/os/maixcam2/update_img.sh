@@ -127,10 +127,12 @@ finish() {
 }
 trap finish ERR
 
-echo "Deleting files in tmp2/rootfs"
+echo "Deleting files in $delete_first_files"
 # delete first files
 while IFS= read -r line; do
-    if [ -d "tmp2/rootfs/$line" ]; then
+    if [ -z $line ]; then
+        continue
+    elif [ -d "tmp2/rootfs/$line" ]; then
         echo "Deleting directory $line"
         rm -rf tmp2/rootfs/$line
     elif [ -f "tmp2/rootfs/$line" ]; then

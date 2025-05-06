@@ -120,11 +120,13 @@ if [ $skip_build_apps == 0 ]; then
     ./build_all.sh
 fi
 cd -
-cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
+if [ -d $MAIXCDK_PATH/projects/apps/ ]; then
+    cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
+fi
 
 # 5. 生成 tmp/sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-cp -f gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+cp -f ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+python ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
 
 # 6. 写入 tmp/sys_builtin_files/boot/ver 版本号文件（使用参数 os_version_str）， 比如 maixcam-2024-05-13-maixpy-v4.1.0
 mkdir -p tmp/sys_builtin_files/boot
@@ -150,6 +152,7 @@ cp -r "tmp/sys_builtin_files/boot/boards" "tmp/sys_builtin_files/maixapp/"
 # 9. xz 压缩镜像
 xz -zv -T 0 "tmp/$os_version_str.img"
 
+mv tmp/$os_version_str.img.xz images/$os_version_str.img.xz
 echo "Complete: os file: tmp/$os_version_str.img.xz"
 
 

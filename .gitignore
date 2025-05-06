@@ -178,6 +178,7 @@ tools/os/*/tmp/
 tools/os/*/tmp2/
 tools/os/*/img_root/
 tools/os/*/img_boot/
+tools/os/*/images/
 projects/apps/
 
 

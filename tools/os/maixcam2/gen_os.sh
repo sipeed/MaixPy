@@ -15,18 +15,23 @@ set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [rootfs_size]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [rootfs_size] [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
     echo "rootfs_size default AUTO means same with original, you can change it like 5120M"
+    echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm"
     echo ""
 }
 
 param_count=$#
-if [ "$param_count" -ne 3 ] && [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ]; then
-    usage
-    exit 1
-fi
+case "$param_count" in
+    3|4|5|6|7)
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
+esac
 
 base_os_path=$1
 whl_path=$2
@@ -54,9 +59,14 @@ if [ -n "$5" ]; then
 fi
 
 rootfs_size=AUTO
+delete_first_files=""
 if [ -n "$6" ]; then
     rootfs_size=$6
 fi
+if [ -n "$7" ]; then
+    delete_first_files=$7
+fi
+
 
 # 检查镜像文件
 if [[ ! -e "$base_os_path" || "${base_os_path##*.}" != "axp" ]]; then
@@ -86,6 +96,7 @@ rm -rf tmp/maixpy_whl
 rm -rf tmp/sys_builtin_files
 rm -rf tmp/*.img
 rm -rf tmp/$os_version_str.img.xz
+rm tmp/delete_files.txt
 sync
 
 # 1. 检查参数 文件或者文件夹是否存在，然后拷贝一份 builtin_files_dir_path 到 tmp，不要影响原目录，检查 base os file 是不是 xz, 如果是解压到临时目录 tmp，并改名为 os_version_str.img，不是则拷贝一份到 tmp 目录下 os_version_str.img
@@ -103,7 +114,7 @@ elif [[ "$builtin_files_dir_path" == *.xz ]]; then
     builtin_files_dir_path=$(basename "$builtin_files_dir_path" .xz)
 elif [ -d "$builtin_files_dir_path" ]; then
     mkdir tmp/sys_builtin_files
-    cp -r "${builtin_files_dir_path}/*" tmp/sys_builtin_files
+    cp -r ${builtin_files_dir_path}/* tmp/sys_builtin_files
 else
     echo "builtin_files_dir_path is not a directory or xz/tar.xz file"
     exit 1
@@ -140,11 +151,13 @@ if [ $skip_build_apps == 0 ]; then
     ./build_all.sh
 fi
 cd -
-cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
+if [ -d $MAIXCDK_PATH/projects/apps/ ]; then
+    cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
+fi
 
 # 5. 生成 tmp/sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-cp -f gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+cp -f ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+python ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
 
 # 6. 写入 tmp/sys_builtin_files/boot/ver 版本号文件（使用参数 os_version_str）， 比如 maixcam-2024-05-13-maixpy-v4.1.0
 mkdir -p tmp/sys_builtin_files/boot
@@ -158,12 +171,18 @@ cp "$MAIXCDK_PATH/components/maixcam_lib/lib_maixcam2/libmaixcam_lib.so" tmp/sys
 cp "tmp/sys_builtin_files/boot/boards/board.maixcam2" "tmp/sys_builtin_files/boot/board"
 
 # 9. 生成需要删除的文件列表
-echo "" > tmp/delete_files.txt
+if [ -n "$delete_first_files" ]; then
+    echo "$delete_first_files" > tmp/delete_files.txt
+else
+    echo "" > tmp/delete_files.txt
+fi
+delete_first_files=tmp/delete_files.txt
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
-./update_img.sh $base_os_path tmp/sys_builtin_files tmp/delete_files.txt tmp/${os_version_str}.axp $rootfs_size
+echo "Now update system image, need sudo permition to mount rootfs:"
+sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files tmp/${os_version_str}.axp $rootfs_size
 
-
-echo "Complete: os file: tmp/${os_version_str}.axp"
+mv tmp/${os_version_str}.axp images/${os_version_str}.axp
+echo "Complete: os file: images/${os_version_str}.axp"
 
 
