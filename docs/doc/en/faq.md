@@ -128,6 +128,8 @@ Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative 
 
 ## MaixVision Shows Red Wavy Line on `import maix`
 
+MaixVision show  `no maix moudle` `"maix" is not accessed` or `Import "maix" could not be resolved`:
+
 This error occurs because MaixVision's code hinting feature cannot find the `maix` module. It's important to understand that MaixVision's code hinting relies on the local Python packages on your computer, while the code execution depends on the Python packages on the device. To enable MaixVision's code hinting, you need to install Python and the `MaixPy` package on your computer. For more details, refer to the [MaixVision User Documentation](./basic/maixvision.md).
 
 ## MaixVision how to import from another .py file
@@ -261,3 +263,8 @@ This issue occurs because the program did not exit properly last time, causing t
 2. Turn off the MaixVision preview view or switch to the PNG stream.
 
 Since this is a legacy issue at the underlying framework level, it can currently only be resolved at the application level. Efforts should be made to ensure that the program exits normally.
+
+
+## How to uninstall the application
+
+refer to [APP Usage Document](./basic/app.md).

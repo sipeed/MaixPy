@@ -87,6 +87,8 @@ items:
         label: Human pose classifier
     -   file: vision/hand_gesture_classification.md
         label: Hand geature classifier
+    -   file: vision/yolo_world.md
+        label: YOLO-World deten any object
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md

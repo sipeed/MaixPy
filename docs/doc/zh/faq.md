@@ -128,7 +128,9 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 ```
 这里制定了 `model` 为相对这个`.mud`文件目录的 `yolov5s_224_int8.cvimodel` 文件为模型文件，如果你改了`yolov5s_224_int8.cvimodel` 为其它名，那也需要改这里。
 
-## MaixVision import maix 显示红色波浪线
+## MaixVision import maix 显示红色波浪线 "maix" is not accessed
+
+MaixVision 显示 `no maix moudle` `"maix" is not accessed` 或者 `Import "maix" could not be resolved`。
 
 这是 MaixVision 的代码提示功能报错找不到 maix 模块。
 这里需要搞清楚一个概念： MaixVision 的代码提示依赖的是电脑本地的 Python 包，代码运行依赖的设备端的 Python 包，所以要让 MaixVision 能够提示就要在电脑上也安装 Python 和 `MaixPy` 包。具体请看[MaixVision 使用文档](./basic/maixvision.md)。
@@ -249,3 +251,8 @@ except:
 1. 重启系统
 2. 关掉maixvision的预览视图，或者切换到png流
 由于这是底层框架上遗留的问题，目前只能从应用层解决，尽量保证程序正常的退出
+
+
+## 如何卸载已经安装的应用
+
+在开发板 `应用商店` 中可以直接卸载已经安装的应用，请看[应用使用文档](./basic/app.md)。

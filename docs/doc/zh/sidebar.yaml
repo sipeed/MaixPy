@@ -87,6 +87,8 @@ items:
         label: 人体姿态分类器
     -   file: vision/hand_gesture_classification.md
         label: 手势分类器
+    -   file: vision/yolo_world.md
+        label: YOLO-World 检测任意物体
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolov5.md

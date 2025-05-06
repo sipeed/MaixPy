@@ -17,6 +17,13 @@ title: MaixCAM MaixPy 应用开发和应用商店
 
 `应用商店`应用可以用来升级和安装应用，连接上可以连接互联网的 WiFi 后即可在[MaixHub 应用商店](https://maixhub.com/app)扫码安装应用。
 
+## 卸载应用
+
+在设备端`应用商店`应用中，选择`卸载应用`功能即可。
+
+另外也可以执行脚本[MaixPy/examples/tools/uninstall_app.py](https://github.com/sipeed/MaixPy)，设置`app_id`变量为要卸载的应用 ID。
+`app_id`可以执行`MaixPy/examples/tools/list_app.py`脚本来查看已安装应用的 ID。
+
 
 ## 应用生态简介
 

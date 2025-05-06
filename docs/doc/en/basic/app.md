@@ -16,6 +16,11 @@ Frequently used settings include `Settings -> Language` and `Settings -> WiFi`.
 
 The `App Store` application can be used to upgrade and install apps. Once connected to a WiFi network with internet access, you can scan to install apps from the [MaixHub App Store](https://maixhub.com/app).
 
+## Uninstalling Applications
+
+You can uninstall applications using the `Uninstall App` feature in the `App Store` application on the device.
+
+You can also execute the script [MaixPy/examples/tools/uninstall_app.py](https://github.com/sipeed/MaixPy), setting the `app_id` variable to the ID of the application you want to uninstall. The `app_id` can be viewed by executing the `MaixPy/examples/tools/list_app.py` script to see the IDs of installed applications.
 
 ## Introduction to Application Ecosystem
 
