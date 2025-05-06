@@ -14,7 +14,7 @@ version=1
 if len(sys.argv) > 1:
     apps_dir = sys.argv[1]
 else:
-    apps_dir = os.path.abspath(os.path.dirname(__file__))
+    apps_dir = "/maixapp/apps"
 
 app_info_path = os.path.join(apps_dir, "app.info")
 
