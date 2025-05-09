@@ -268,3 +268,7 @@ Since this is a legacy issue at the underlying framework level, it can currently
 ## How to uninstall the application
 
 refer to [APP Usage Document](./basic/app.md).
+
+## Why is the image so blurry, as if a Gaussian blur has been applied?
+
+For the MaixCAM, the lens requires manual focusing. You can adjust the focus physically by twisting the lens.

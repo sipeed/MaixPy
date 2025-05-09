@@ -25,6 +25,11 @@ Currently supported cameras:
 
 The system will automatically switch; simply replace the hardware to use.
 
+## Adjusting the Camera Focus
+
+The MaixCAM comes with a manually adjustable focus lens by default. You can physically twist the lens to adjust the focal length.
+If the image appears blurry, try rotating the lens clockwise or counterclockwise to bring the image into clear focus.
+
 ## Getting Images from the Camera
 
 Using MaixPy to easily get images:
