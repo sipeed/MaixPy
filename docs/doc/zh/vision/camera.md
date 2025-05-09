@@ -74,7 +74,7 @@ cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# 设置输出NV21图�
 
 GC4653最大支持`2560x1440 30fps`、`1280x720 60fps`和`1280x720 80fps`三种配置，由创建`Camera`对象时传入的`width`，`height`，`fps`参数来选择帧率。
 
-OS04A10最大支持`2560x1440 30fps`、`1280x720 90fps`两种配置，其中`1280x720`是基于`2560x1440`居中裁剪的画面
+OS04A10最大支持`2560x1440 30fps`、`1280x720 80fps`两种配置，其中`1280x720`是基于`2560x1440`居中裁剪的画面
 
 ### 设置帧率为30帧
 
@@ -107,21 +107,6 @@ cam = camera.Camera(640, 480, fps=80)	        # 设置帧率为80帧
 2. `60/80fps`与`30fps`的画面相比会有几个像素的偏移，在对视角有严格要求的应用下需要注意修正偏移。
 3. 需要注意由于`60/80fps`和`30fps`共用了`isp`配置，在某些环境下两种帧率下的画面画质会存在一些偏差。
 4. 摄像头需要看体制，有些体制无法设置到80fps，会出现画面有奇怪的纹路，请换回正常的60fps使用。
-5. 我们注意到当使用OS04A10的720p90fps时，系统会因为资源不足，导致部分图像算法耗时比预计要多, 甚至有时候导致系统卡住，解决方法是在配置为720p90fps后，再酌情降低一些帧率
-```python
-# MaixPy v4.10.3以上版本支持
-from maix import camera
-cam = camera.Camera(320, 240, fps=90)   # 配置为720p90fps
-cam.set_fps(80)                         # 设置为80fps，或者更低
-
-# MaixPy v4.10.3及以下版本,请临时通过命令行设置
-from maix import camera
-import os
-cam = camera.Camera(320, 240, fps=90)   # 配置为720p90fps
-# os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x08 0xad')  # 60fps
-# os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x07 0x71')  # 70fps
-os.system('i2ctransfer -fy 4 w4@0x36 0x38 0x0c 0x06 0x90')  # 80fps
-```
 
 ## 图像矫正
 
