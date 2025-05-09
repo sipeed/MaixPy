@@ -12,7 +12,7 @@ jobs:
     name: release and upload assets task
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.12"] # 3.11  released by release_maixcam
+        python-version: ["3.8", "3.9", "3.10", "3.12", "3.13"] # 3.11  released by release_maixcam
         os: ["ubuntu-latest"]
     runs-on: ${{ matrix.os }}
     steps:

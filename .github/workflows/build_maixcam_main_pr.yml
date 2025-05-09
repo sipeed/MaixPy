@@ -68,6 +68,11 @@ jobs:
           echo "----------------------------------"
           python setup.py bdist_wheel maixcam
           mv dist/* artifact/
+          echo "----------------------------------"
+          echo "-- Build MaixPy for MaixCAM2 now --"
+          echo "----------------------------------"
+          python setup.py bdist_wheel maixcam2
+          mv dist/* artifact/
 
       - name: Upload MaixPy Linux firmware as artifact
         uses: actions/upload-artifact@v4
