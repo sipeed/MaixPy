@@ -261,3 +261,25 @@ except:
 
 对于 MaixCAM， 镜头是需要手动对焦的，物理上拧镜头即可实现调焦。
 
+
+## No module named 'lcd' 'sensor'，OpenMV 的代码如何移植/兼容 OpenMV 的代码
+
+MaixPy (v4) 兼容了 OpenMV 和 MaixPy-v1 的代码，都放到了`maix.v1`模块下，比如 OpenMV 和 MaixPy-v1 中：
+```python
+import lcd, sensor
+```
+
+在 MaixPy (v4) 中：
+```python
+from maix.v1 import lcd, sensor
+```
+
+或者直接导入所有兼容包（不推荐，程序可读性变差）：
+```python
+from maix.v1 import *
+import lcd, sensor
+```
+
+最新的 MaixPy 兼容 OpenMV/MaixPy-v1 的方式是在新 API 的基础上封装了一个兼容层，源码在[https://github.com/sipeed/MaixPy/tree/main/maix/v1](https://github.com/sipeed/MaixPy/tree/main/maix/v1)。
+所以**强烈推荐升级到新的 MaixPy API**，API 更丰富而且更高效。
+如果一定要用旧的 API 而且发现某个 API 官方没有实现，可以尝试修改上述源码支持，底层调用新的API即可，然后提交贡献到[https://github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy) 即可，方法可以参考[参与 MaixPy 项目文档](./source_code/contribute.md)

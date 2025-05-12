@@ -272,3 +272,31 @@ refer to [APP Usage Document](./basic/app.md).
 ## Why is the image so blurry, as if a Gaussian blur has been applied?
 
 For the MaixCAM, the lens requires manual focusing. You can adjust the focus physically by twisting the lens.
+
+## No module named 'lcd' or 'sensor': How to port OpenMV Code for Compatibility
+
+MaixPy (v4) is compatible with both OpenMV and MaixPy-v1 code. All compatible modules are placed under the `maix.v1` module. For example, in OpenMV and MaixPy-v1:
+
+```python
+import lcd, sensor
+```
+
+In MaixPy (v4), you should write:
+
+```python
+from maix.v1 import lcd, sensor
+```
+
+Or, to import all compatible modules at once (not recommended due to reduced code readability):
+
+```python
+from maix.v1 import *
+import lcd, sensor
+```
+
+The latest version of MaixPy provides a compatibility layer for OpenMV/MaixPy-v1, built on top of the new API. The source code is available at: [https://github.com/sipeed/MaixPy/tree/main/maix/v1](https://github.com/sipeed/MaixPy/tree/main/maix/v1).
+
+Therefore, **it is highly recommended to upgrade to the new MaixPy API**, which offers richer features and better performance.
+
+If you must use the old API and find that a specific function is not supported by the official compatibility layer, you can try modifying the source code mentioned above to add support by calling the new API underneath. Then, consider contributing your changes to the community at [https://github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy). For contribution guidelines, refer to the [MaixPy Contribution Documentation](./source_code/contribute.md).
+
