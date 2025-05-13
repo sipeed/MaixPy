@@ -5,17 +5,67 @@ update:
     author: 916BGAI
     version: 1.0.0
     content: Initial document
+  - date: 2025-05-13
+    author: lxowalle
+    version: 1.0.1
+    content: Added usage instructions for Whisper
 ---
 
 ## Introduction
 
 `MaixCAM` has ported the `Maix-Speech` offline speech library, enabling continuous Chinese numeral recognition, keyword recognition, and large vocabulary speech recognition capabilities. It supports audio recognition in `PCM` and `WAV` formats, and can accept input recognition via the onboard microphone.
 
+In addition, we have ported OpenAI's Whisper speech recognition model to the `MaixCAM2`, enabling powerful speech-to-text functionality even on resource-constrained devices.
+
+## Using Whisper for Speech-to-Text
+
+> Note: MaixCAM and MaixCAM Pro do not support the Whisper model.
+
+Currently, only the base version of the Whisper model is supported. It accepts single-channel WAV audio with a 16kHz sample rate and can recognize both Chinese and English.
+
+```python
+from maix import nn
+
+whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
+
+wav_path = "/maixapp/share/audio/demo.wav"
+
+res = whisper.forward(wav_path)
+
+print('whisper:', res)
+```
+
+Notes:
+1. First, import the nn module to create the Whisper model object:
+```python
+from maix import nn
+```
+2. Load the model. Currently, only the `base` version is supported:
+```python
+whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
+```
+3. Prepare a WAV audio file with 1 channel and 16kHz sample rate, and run inference. The result will be returned directly:
+```python
+wav_path = "/maixapp/share/audio/demo.wav"
+res = whisper.forward(wav_path)
+print('whisper:', res)
+```
+4. Sample output:
+```shell
+whisper: Have fun exploring!
+```
+5. Give it a try yourself!
+
+By default, it recognizes Chinese. To recognize English, pass the language parameter when initializing the object.
+```python
+whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
+```
+
 ## Maix-Speech
 
 [`Maix-Speech`](https://github.com/sipeed/Maix-Speech) is an offline speech recognition library specifically designed for embedded environments. It has been deeply optimized for speech recognition algorithms, significantly reducing memory usage while maintaining excellent recognition accuracy. For detailed information, please refer to the [Maix-Speech Documentation](https://github.com/sipeed/Maix-Speech/blob/master/usage_zh.md).
 
-## Continuous Large Vocabulary Speech Recognition
+### Continuous Large Vocabulary Speech Recognition
 
 ```python
 from maix import app, nn
