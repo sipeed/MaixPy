@@ -80,7 +80,7 @@ while 1:
 
    - `img`是通过`cam.read()`读取到的摄像头图像，当初始化的方式为`cam = camera.Camera(320, 240)`时，`img`对象是一张分辨率为320x240的RGB图。
    - `img.find_blobs`用来寻找色块， `thresholds` 是一个颜色阈值列表，每个元素是一个颜色阈值，同时找到多个阈值就传入多个，每个颜色阈值的格式为 `[L_MIN, L_MAX, A_MIN, A_MAX, B_MIN, B_MAX]`，这里的 `L`、`A`、`B` 是`LAB`颜色空间的三个通道，`L` 通道是亮度，`A` 通道是红绿通道，`B` 通道是蓝黄通道。`pixels_threshold`是一个像素点数量的阈值，用来过滤一些不需要的小色块。
-   - `img.draw_rect`用来画色块框，`blob[0]`、`blob[1]`、`blob[1]`、`blob[1]`分别代表色块左上角坐标x，色块左上角坐标y，色块宽度w和色块高度h
+   - `img.draw_rect`用来画色块框，`blob[0]`、`blob[1]`、`blob[2]`、`blob[3]`分别代表色块左上角坐标x，色块左上角坐标y，色块宽度w和色块高度h
 
 ### 常用参数说明
 
