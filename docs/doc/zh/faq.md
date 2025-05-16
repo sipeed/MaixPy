@@ -283,3 +283,10 @@ import lcd, sensor
 最新的 MaixPy 兼容 OpenMV/MaixPy-v1 的方式是在新 API 的基础上封装了一个兼容层，源码在[https://github.com/sipeed/MaixPy/tree/main/maix/v1](https://github.com/sipeed/MaixPy/tree/main/maix/v1)。
 所以**强烈推荐升级到新的 MaixPy API**，API 更丰富而且更高效。
 如果一定要用旧的 API 而且发现某个 API 官方没有实现，可以尝试修改上述源码支持，底层调用新的API即可，然后提交贡献到[https://github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy) 即可，方法可以参考[参与 MaixPy 项目文档](./source_code/contribute.md)
+
+
+## MaixCAM 自带的相机 APP 拍摄的照片和视频存在哪儿，怎么导出到电脑
+
+MaixCAM 自带的**相机**应用拍摄的照片和视频可以在自带的**相册**应用看到照片，点击`Info`按钮可以看到照片路径。
+通过 [MaixVision 的文件管理功能](./basic/maixvision.md) 或者其它拷贝工具（比如scp 或者 winscp）即可拷贝到电脑上。
+

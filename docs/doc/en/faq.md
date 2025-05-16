@@ -300,3 +300,11 @@ Therefore, **it is highly recommended to upgrade to the new MaixPy API**, which 
 
 If you must use the old API and find that a specific function is not supported by the official compatibility layer, you can try modifying the source code mentioned above to add support by calling the new API underneath. Then, consider contributing your changes to the community at [https://github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy). For contribution guidelines, refer to the [MaixPy Contribution Documentation](./source_code/contribute.md).
 
+
+## Where Are Photos and Videos Taken by the Built-in Camera App on MaixCAM Stored, and How to Export Them to a Computer
+
+Photos and videos taken using MaixCAM’s built-in **Camera** app can be viewed in the **Gallery** app. You can see the file path of a photo by tapping the `Info` button.
+
+To export the files to your computer, you can use the [MaixVision file manager feature](./basic/maixvision.md) or other file transfer tools such as `scp` or `WinSCP`.
+
+
