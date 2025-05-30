@@ -121,6 +121,12 @@ items:
         label: Customize new AI model
     -   file: audio/deploy_online_recognition.md
         label: Deploy online speech recognition
+
+-   label: AI LLM
+    items:
+    -   file: lm/llm_qwen.md
+        label: Qwen LLM
+
 -   label: Video
     items:
     -   file: video/record.md
@@ -218,6 +224,8 @@ items:
 -   label: Advanced
     collapsed: false
     items:
+    -   file: pro/memory.md
+        label: Memory Usage
     -   file: source_code/contribute.md
         label: Contribute
     -   file: source_code/build.md

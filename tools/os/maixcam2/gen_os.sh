@@ -182,6 +182,7 @@ delete_first_files=tmp/delete_files.txt
 echo "Now update system image, need sudo permition to mount rootfs:"
 sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files tmp/${os_version_str}.axp $rootfs_size
 
+mkdir -p images
 mv tmp/${os_version_str}.axp images/${os_version_str}.axp
 echo "Complete: os file: images/${os_version_str}.axp"
 

@@ -123,6 +123,10 @@ items:
     -   file: audio/deploy_online_recognition.md
         label: 部署在线语音识别环境
 
+-   label: AI 大模型
+    items:
+    -   file: lm/llm_qwen.md
+        label: Qwen 大语言模型
 -   label: 视频
     items:
     -   file: video/record.md
@@ -220,6 +224,8 @@ items:
 -   label: 进阶
     collapsed: false
     items:
+    -   file: pro/memory.md
+        label: 内存使用说明
     -   file: source_code/contribute.md
         label: 贡献文档和代码
     -   file: source_code/build.md
