@@ -4,12 +4,10 @@
      Not Supported devices: MaixCAM
      Models:
         - https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2
-        - https://huggingface.co/sipeed/deepseek-r1-distill-qwen-0.5B-maixcam2
 '''
 from maix import nn, err, log, sys
 
 model = "/root/models/deepseek-r1-distill-qwen-1.5B/model.mud"
-# model = "/root/models/deepseek-r1-distill-qwen-0.5B/model.mud"
 log.set_log_level(log.LogLevel.LEVEL_ERROR, color = False)
 
 def bytes_to_human(b):

@@ -127,6 +127,8 @@ items:
     items:
     -   file: lm/llm_qwen.md
         label: Qwen 大语言模型
+    -   file: lm/llm_deepseek.md
+        label: DeepSeek 大语言模型
 -   label: 视频
     items:
     -   file: video/record.md

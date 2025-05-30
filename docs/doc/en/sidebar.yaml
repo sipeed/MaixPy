@@ -126,6 +126,8 @@ items:
     items:
     -   file: lm/llm_qwen.md
         label: Qwen LLM
+    -   file: lm/llm_deepseek.md
+        label: DeepSeek LLM
 
 -   label: Video
     items:
