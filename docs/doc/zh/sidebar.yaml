@@ -125,10 +125,12 @@ items:
 
 -   label: AI 大模型
     items:
-    -   file: lm/llm_qwen.md
+    -   file: mllm/llm_qwen.md
         label: Qwen 大语言模型
-    -   file: lm/llm_deepseek.md
+    -   file: mllm/llm_deepseek.md
         label: DeepSeek 大语言模型
+    -   file: mllm/vlm_internvl.md
+        label: InternVL 视觉语言模型
 -   label: 视频
     items:
     -   file: video/record.md

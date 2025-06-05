@@ -124,11 +124,12 @@ items:
 
 -   label: AI LLM
     items:
-    -   file: lm/llm_qwen.md
+    -   file: mllm/llm_qwen.md
         label: Qwen LLM
-    -   file: lm/llm_deepseek.md
+    -   file: mllm/llm_deepseek.md
         label: DeepSeek LLM
-
+    -   file: mllm/vlm_internvl.md
+        label: InternVL Vision-Language Model
 -   label: Video
     items:
     -   file: video/record.md

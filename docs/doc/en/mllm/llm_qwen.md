@@ -98,21 +98,10 @@ model = "/root/models/Qwen2.5-1.5B-Instruct/model.mud"
 # model = "/root/models/Qwen2.5-0.5B-Instruct/model.mud"
 log.set_log_level(log.LogLevel.LEVEL_ERROR, color = False)
 
-def bytes_to_human(b):
-    """Convert bytes to a human-readable format."""
-    if b < 1024:
-        return f"{b} B"
-    elif b < 1024**2:
-        return f"{b / 1024:.2f} KB"
-    elif b < 1024**3:
-        return f"{b / 1024**2:.2f} MB"
-    else:
-        return f"{b / 1024**3:.2f} GB"
-
 def show_mem_info():
     print("memory info:")
     for k, v in sys.memory_info().items():
-        print(f"\t{k:12}: {bytes_to_human(v)}")
+        print(f"\t{k:12}: {sys.bytes_to_human(v)}")
     print("")
 
 show_mem_info()
