@@ -135,6 +135,37 @@ err.check_raise(resp.err_code)
 # print(resp.msg)
 ```
 
+Result:
+```
+>> 你好，请介绍你自己
+你好！我是Qwen，我是一个由阿里云开发的预训练语言模型。我的设计目的是尽可能多地模拟人类语言的复杂性和多样性。虽然我没有个人记忆或情感，但我可以生成连贯和有意义的文本。如果你有任何问题或需要帮助，请告诉我！
+
+>> 请计算 1990 + 35的值，并给出计算过程
+计算的过程如下：
+
+1. 首先，将两个数相加，即 1990 + 35。
+
+2. 将 1990 和 35 对齐数字位数，如下：
+
+   1 9 9 0
+ +   3 5
+-------
+   2 0 2 5
+
+3. 按照从右向左加起来：
+
+   0 + 5 = 5
+   2 + 9 = 11（进一，写 2 进 10）
+   1 + 9 = 10（进一，写 0 进 10）
+   1 + 1 = 2
+
+所以，1990 + 35 的结果是 2025。
+
+>> please calculate 1990 + 35
+1990 + 35 = 2025
+
+```
+
 ### Context
 
 Due to limited resources, the context length is also limited. For example, the default model supports about 512 tokens, and at least 128 free tokens must remain to continue the dialogue. For instance, if the historical tokens reach 500 (which is less than 512 but not enough free tokens), further dialogue is not possible.
@@ -142,6 +173,66 @@ Due to limited resources, the context length is also limited. For example, the d
 When the context is full, you currently must call `clear_context()` to clear the dialogue and start a new one.
 
 Of course, this context length can be modified, but doing so requires re-quantizing the model. Also, longer context length can slow down model performance. If needed, you can convert the model yourself as described below.
+
+## Modifying Parameters
+
+The Qwen model allows certain parameters to be modified, which can change the model's behavior. Default values are typically set within the `model.mud` file, 
+Of course, you can also set these values programmatically, for example:
+
+```python
+qwen.post_config.temperature = 0.9
+```
+
+configs for example:
+
+```ini
+[post_config]
+enable_temperature = true
+temperature = 0.9
+
+enable_repetition_penalty = false
+repetition_penalty = 1.2
+penalty_window = 20
+
+enable_top_p_sampling = false
+top_p = 0.8
+
+enable_top_k_sampling = true
+top_k = 10
+```
+
+These parameters are used to **control the text generation behavior** of the Qwen model (or other large language models) through sampling strategies. They affect the **diversity, randomness, and repetition** of the output. Below is an explanation of each parameter:
+
+* `enable_temperature = true`
+* `temperature = 0.9`
+  * **Meaning**: Enables the "temperature sampling" strategy and sets the temperature value to 0.9.
+  * **Explanation**:
+    * Temperature controls **randomness**. Lower values (e.g., 0.1) result in more deterministic outputs (similar to greedy search), while higher values (e.g., 1.5) increase randomness.
+    * A recommended range is typically between `0.7 ~ 1.0`.
+    * A value of 0.9 means a moderate increase in diversity without making the output too chaotic.
+* `enable_repetition_penalty = false`
+* `repetition_penalty = 1.2`
+* `penalty_window = 20`
+  * **Meaning**:
+    * Repetition penalty is disabled, so the value `repetition_penalty = 1.2` has no effect.
+    * If enabled, this mechanism reduces the probability of repeating tokens from the most recent `20` tokens.
+  * **Explanation**:
+    * Helps prevent the model from being verbose or getting stuck in repetitive loops (e.g., “hello hello hello…”).
+    * A penalty factor > 1 suppresses repetition. A common recommended range is `1.1 ~ 1.3`.
+* `enable_top_p_sampling = false`
+* `top_p = 0.8`
+  * **Meaning**:
+    * Top-p (nucleus) sampling is disabled.
+    * If enabled, the model samples from **the smallest set of tokens whose cumulative probability exceeds p**, instead of from all tokens.
+  * **Explanation**:
+    * `top_p = 0.8` means sampling from tokens whose cumulative probability just reaches 0.8.
+    * More flexible than top-k, as it adapts the candidate set dynamically based on the token distribution in each generation step.
+* `enable_top_k_sampling = true`
+* `top_k = 10`
+  * **Meaning**: Enables top-k sampling, where the model selects output tokens from the **top 10 most probable tokens**.
+  * **Explanation**:
+    * This is a way to constrain the sampling space and control output diversity.
+    * `top_k = 1` approximates greedy search (most deterministic), while `top_k = 10` allows for a moderate level of diversity.
 
 ## Custom Quantized Models
 

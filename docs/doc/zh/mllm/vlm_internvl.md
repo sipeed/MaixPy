@@ -18,8 +18,22 @@ update:
 ## InternVL 简介
 
 VLM(Vision-Language Model) 即视觉语言模型，可以通过文字+图像输入，让 AI 输出文字，比如让 AI 描述图像中的内容，即 AI 学会了看图。
+InternVL 支持多种语言，比如中文和英文。
 
 MaixPy 中移植了 [InternVL2.5](https://huggingface.co/OpenGVLab/InternVL2_5-1B)，其底层基于 Qwen2.5 增加了图像的支持，所以一些基础概念这里不详细介绍，建议先看[Qwen](./llm_qwen.md) 的介绍。
+
+比如这里这张图片，输入系统提示词`你是由上海人工智能实验室联合商汤科技开发的书生多模态大模型，英文名叫InternVL, 是一个有用无害的人工智能助手。` + 用户提示词`请描述图中有什么`，在 MaixCAM2 中使用 InternVL2.5-1B 的结果（也是下文代码的结果）：
+![ssd_car.jpg](../../assets/ssd_car.jpg)
+
+```
+>> 请描述图中有什么
+图中有一个红色双层巴士停在马路上，前面是一辆黑色的小轿车。一位穿黑色夹克的人站在巴士前面，脸上带着微笑。背景是城市建筑，有商店和多幅广告牌。路上的画面上有一个行人图案。
+
+>> Describe the picture
+In the image, we see a vibrant street scene featuring a classic double-decker bus in red with "Things Get New Look!" written on its side. It’s parked on the street, where a woman stands smiling at the camera. Behind the bus, a row of classic buildings with large windows lines the street, contributing to the urban atmosphere. A black van is parked nearby, and there are a few people and street signs indicating traffic regulations. The overall scene captures a typical day in a historic city.
+```
+
+这里是随便设置的提示词的效果，可以根据实际情况，调整系统提示词和用户提示词。
 
 
 ## MaixPy MaixCAM 中使用 InternVL
@@ -106,6 +120,15 @@ err.check_raise(resp.err_code)
 # print(resp.msg)
 ```
 
+结果：
+```
+>> 请描述图中有什么
+图中有一个红色双层巴士停在马路上，前面是一辆黑色的小轿车。一位穿黑色夹克的人站在巴士前面，脸上带着微笑。背景是城市建筑，有商店和多幅广告牌。路上的画面上有一个行人图案。
+
+>> Describe the picture
+In the image, we see a vibrant street scene featuring a classic double-decker bus in red with "Things Get New Look!" written on its side. It’s parked on the street, where a woman stands smiling at the camera. Behind the bus, a row of classic buildings with large windows lines the street, contributing to the urban atmosphere. A black van is parked nearby, and there are a few people and street signs indicating traffic regulations. The overall scene captures a typical day in a historic city.
+```
+
 这里从系统加载了一张图片，并且让它描述图中有什么，注意这个模型是**不支持上下文**的，也就是说每次调用`send`函数都是全新的对话，不会记住之前`send`的内容。
 
 另外，默认模型支持`364 x 364`的图片输入分辨率，所以调用`set_image`时，如果分辨率不是这个分辨率，会自动调用`img.resize`方法进行缩放，缩放方法为`fit`指定的方法，比如`image.Fit.FIT_CONTAIN`就是当输入图片分辨率和期望的分辨率比例不一致时采用保持原比例缩放，周围空白填充黑色。
@@ -114,6 +137,11 @@ err.check_raise(resp.err_code)
 `set_system_prompt` 是系统提示语句，可以适当进行修改来提高你的应用场景的准确率。
 
 注意发送的文字编码成 token 后的长度是有限制的，比如默认提供的 1B 模型 是 256 个 token，以及发送+回复最多 1023 个 token。
+
+### 修改参数
+
+模型有一些参数可以修改，参考[Qwen 文档](./llm_qwen.md)。
+
 
 ## 自定义量化模型
 
