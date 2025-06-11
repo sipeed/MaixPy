@@ -87,6 +87,8 @@ items:
         label: Human pose classifier
     -   file: vision/hand_gesture_classification.md
         label: Hand geature classifier
+    -   file: vision/depth_anything.md
+        label: Depth-Anything Monocular Depth Estimation
     -   file: vision/yolo_world.md
         label: YOLO-World deten any object
     -   file: vision/maixhub_train.md
@@ -95,12 +97,6 @@ items:
         label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
         label: YOLO11/v8 model offline training
-    -   file: ai_model_converter/maixcam.md
-        label: ONNX model to MaixCAM's
-    -   file: pro/datasets.md
-        label: Where to find models & datasets
-    -   file: pro/customize_model.md
-        label: Customize new AI model
 
 
 -   label: AI audio
@@ -117,8 +113,6 @@ items:
         label: Keyword recognition
     -   file: audio/synthesis.md
         label: Speech synthesis
-    -   file: pro/customize_model.md
-        label: Customize new AI model
     -   file: audio/deploy_online_recognition.md
         label: Deploy online speech recognition
 
@@ -130,6 +124,17 @@ items:
         label: DeepSeek LLM
     -   file: mllm/vlm_internvl.md
         label: InternVL Vision-Language Model
+
+-   label: AI Model Convertion and Port
+    items:
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX model to MaixCAM's
+    -   file: pro/datasets.md
+        label: Where to find models & datasets
+    -   file: pro/customize_model.md
+        label: Customize new AI model
+
+
 -   label: Video
     items:
     -   file: video/record.md

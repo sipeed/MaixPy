@@ -35,6 +35,7 @@ title: MaixCAM MaixPy 快速开始
 | MaixPy 视频和教程 💿        | [B站搜 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5) |
 | MaixHub 应用商店 📦     | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub 分享广场 🎲       | [maixhub.com/share](https://maixhub.com/share)                                             |
+| 开源项目 📡             | GitHub 搜：[MaixCAM](https://github.com/search?q=maixcam&type=repositoriese) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositoriese) / [MaixPy](https://github.com/search?q=maixpy&type=repositoriese)  |
 
 </div>
 <div style="font-size: 1.2em;padding:1em; text-align:center; color: white">

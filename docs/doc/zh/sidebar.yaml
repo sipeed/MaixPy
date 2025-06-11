@@ -87,6 +87,8 @@ items:
         label: 人体姿态分类器
     -   file: vision/hand_gesture_classification.md
         label: 手势分类器
+    -   file: vision/depth_anything.md
+        label: Depth-Anything 单目深度估计
     -   file: vision/yolo_world.md
         label: YOLO-World 检测任意物体
     -   file: vision/maixhub_train.md
@@ -95,12 +97,6 @@ items:
         label: 离线训练 YOLOv5 模型
     -   file: vision/customize_model_yolov8.md
         label: 离线训练 YOLO11/YOLOv8 模型
-    -   file: ai_model_converter/maixcam.md
-        label: ONNX 模型转给 MaixCAM 用
-    -   file: pro/datasets.md
-        label: 哪里找模型和数据集
-    -   file: pro/customize_model.md
-        label: 移植新模型
 
 -   label: AI 听觉
     items:
@@ -118,8 +114,6 @@ items:
         label: 语音合成
     -   file: audio/ai_classify.md
         label: AI 声音分类
-    -   file: pro/customize_model.md
-        label: 移植新模型
     -   file: audio/deploy_online_recognition.md
         label: 部署在线语音识别环境
 
@@ -131,6 +125,16 @@ items:
         label: DeepSeek 大语言模型
     -   file: mllm/vlm_internvl.md
         label: InternVL 视觉语言模型
+
+-   label: AI 模型转换和移植
+    items:
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX 模型转给 MaixCAM 用
+    -   file: pro/datasets.md
+        label: 哪里找模型和数据集
+    -   file: pro/customize_model.md
+        label: 移植新模型
+
 -   label: 视频
     items:
     -   file: video/record.md

@@ -27,6 +27,7 @@ title: MaixCAM MaixPy Quick Start
 |  API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixHub App Store 📦      | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub Sharing Square 🎲 | [maixhub.com/share](https://maixhub.com/share)                                             |
+| Open Source Projects 📡             | GitHub Search：[MaixCAM](https://github.com/search?q=maixcam&type=repositoriese) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositoriese) / [MaixPy](https://github.com/search?q=maixpy&type=repositoriese)  |
 
 </div>
 <div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
