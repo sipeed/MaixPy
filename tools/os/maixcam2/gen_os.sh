@@ -15,10 +15,9 @@ set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [rootfs_size] [delete_first_files]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
-    echo "rootfs_size default AUTO means same with original, you can change it like 5120M"
     echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm"
     echo ""
 }
@@ -58,13 +57,9 @@ if [ -n "$5" ]; then
     fi
 fi
 
-rootfs_size=AUTO
 delete_first_files=""
 if [ -n "$6" ]; then
-    rootfs_size=$6
-fi
-if [ -n "$7" ]; then
-    delete_first_files=$7
+    delete_first_files=$6
 fi
 
 
@@ -96,8 +91,11 @@ rm -rf tmp/maixpy_whl
 rm -rf tmp/sys_builtin_files
 rm -rf tmp/*.img
 rm -rf tmp/$os_version_str.img.xz
-rm tmp/delete_files.txt
+rm -rf tmp/delete_files.txt
 sync
+
+# get sudo permission for update_img.sh later
+sudo echo "Need sudo permission for update_img.sh later, grant permission now"
 
 # 1. 检查参数 文件或者文件夹是否存在，然后拷贝一份 builtin_files_dir_path 到 tmp，不要影响原目录，检查 base os file 是不是 xz, 如果是解压到临时目录 tmp，并改名为 os_version_str.img，不是则拷贝一份到 tmp 目录下 os_version_str.img
 echo "copy builtin files"
@@ -148,7 +146,7 @@ echo "pack and copy MaixCDK projects"
 cd "$MAIXCDK_PATH/projects"
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
-    ./build_all.sh
+    ./build_all.sh maixcam2
 fi
 cd -
 if [ -d $MAIXCDK_PATH/projects/apps/ ]; then
@@ -180,7 +178,7 @@ delete_first_files=tmp/delete_files.txt
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
 echo "Now update system image, need sudo permition to mount rootfs:"
-sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files tmp/${os_version_str}.axp $rootfs_size
+sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files tmp/${os_version_str}.axp
 
 mkdir -p images
 mv tmp/${os_version_str}.axp images/${os_version_str}.axp

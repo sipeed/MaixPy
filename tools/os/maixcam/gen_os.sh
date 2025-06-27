@@ -117,7 +117,7 @@ echo "pack and copy MaixCDK projects"
 cd "$MAIXCDK_PATH/projects"
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
-    ./build_all.sh
+    ./build_all.sh maixcam
 fi
 cd -
 if [ -d $MAIXCDK_PATH/projects/apps/ ]; then

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###
-#    update_image.sh <xxxx.axp> <builtin_files.tar.xz/builtin_files_dir> <delete_first_files.txt> <out_path> [rootfs_size]
+#    update_image.sh <xxxx.axp> <builtin_files.tar.xz/builtin_files_dir> <delete_first_files.txt> <out_path>
 ###
 
 set -e
@@ -13,11 +13,6 @@ out_path=$4
 
 rootfs_name=ubuntu_rootfs_sparse.ext4
 bootfs_name=bootfs.fat32
-rootfs_image_size=AUTO
-# if rootf_size is not set, use default value
-if [ -n "$5" ]; then
-    rootfs_image_size=$5
-fi
 
 # check root permition
 if [ "$(id -u)" -ne 0 ]; then
@@ -98,15 +93,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 echo "Converting $axp_file to raw image done"
-file_size=$(stat -c%s tmp2/rootfs.ext4.raw)
-rootfs_image_size0=$(($file_size / 1024 / 1024))M
-resize_image=0
-if [[ $rootfs_image_size == "AUTO" ]]; then
-    rootfs_image_size=$rootfs_image_size0
-elif [[ $rootfs_image_size0 != "$rootfs_image_size" ]]; then
-    echo "will create new image with size $rootfs_image_size"
-    resize_image=1
-fi
 
 echo "Mounting raw image to tmp2/rootfs"
 mkdir -p tmp2/rootfs
@@ -143,16 +129,27 @@ while IFS= read -r line; do
     fi
 done < "$delete_first_files"
 
+# check image size
+# get tmp2/rootfs + builtin_files size, if > rootfs_image_size, update rootfs_image_size -> rootfs_image_size + 100M
+rootfs_image_size0=$(du -s --block-size=1M tmp2/rootfs | cut -f1)
+rootfs_image_size0=$(($rootfs_image_size0 + $(du -s --block-size=1M $builtin_files | cut -f1)))
+rootfs_image_size=$(($rootfs_image_size0 + 300))
+echo "=============================="
+echo "rootfs_dir_size: $rootfs_image_size0 M"
+echo "final rootfs_image_size: $rootfs_image_size M"
+echo "=============================="
+
 # copy builtin_files rootfs
 echo "Copying files from directory $builtin_files"
 target_rootfs_path=tmp2/rootfs
-if [[ "$resize_image" == "1" ]]; then
-    mkdir tmp2/rootfs_new
-    cp -r tmp2/rootfs/* tmp2/rootfs_new/
-    target_rootfs_path=tmp2/rootfs_new
-fi
+# copy to new dir
+rm -rf tmp2/rootfs_new
+mkdir tmp2/rootfs_new
+cp -rP tmp2/rootfs/* tmp2/rootfs_new/
+target_rootfs_path=tmp2/rootfs_new
+# copy rootfs files
 find $builtin_files -mindepth 1 -maxdepth 1 -type d ! -name "boot" | while read -r dir; do
-    cp -r "$dir" "$target_rootfs_path"
+    cp -rP "$dir" "$target_rootfs_path"
 done
 
 # copy boot files
@@ -160,7 +157,8 @@ if [[ -e ${builtin_files}/boot ]]; then
     echo "Copying boot files from ${builtin_files}/boot..."
     mkdir -p tmp2/bootfs
     mount -o loop,rw tmp2/axp/$bootfs_name tmp2/bootfs
-    cp -rf ${builtin_files}/boot/* tmp2/bootfs/
+    cp -rfP ${builtin_files}/boot/* tmp2/bootfs/
+    sync
     umount tmp2/bootfs
     echo "Copying boot files done"
 fi
@@ -168,7 +166,8 @@ fi
 # convert raw image to ext4 sparse image
 echo "Making sparse rootfs ..."
 rm -f tmp2/axp/${rootfs_name}
-./make_ext4fs/make_ext4fs -s -l $rootfs_image_size tmp2/axp/${rootfs_name} $target_rootfs_path
+./make_ext4fs/make_ext4fs -s -l ${rootfs_image_size}M tmp2/axp/${rootfs_name} $target_rootfs_path
+sync
 echo "Making sparse rootfs done"
 
 # unmount rootfs
