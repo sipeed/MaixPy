@@ -90,8 +90,8 @@ Use a `Type-C` data cable to connect the `MaixCAM` device and power it on. Wait 
 ![maixcam_font](../../static/image/maixcam_font.png)
 
 If the screen does not display:
-* Please confirm that you purchased the bundled TF card. If you confirm that you have a TF card and it is inserted into the device, you can try [updating to the latest system](./basic/os.md).
-* If you did not purchase the TF card bundle, you need to follow the instructions in [Upgrading and Flashing the System](./basic/os.md) to flash the latest system onto the TF card.
+* Please confirm that you purchased the bundled TF card. If you confirm that you have a TF card and it is inserted into the device, you can try <a href="./basic/os" target="_blank">updating to the latest system</a>.
+* If you did not purchase the TF card bundle, you need to follow the instructions in <a href="./basic/os" target="_blank">updating to the latest system</a> to flash the latest system onto the TF card.
 * Also, ensure that the screen and camera cables are not loose. The screen cable can easily come off when opening the case, so be careful.
 
 ### Connect to the Network

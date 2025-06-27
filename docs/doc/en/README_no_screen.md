@@ -16,9 +16,9 @@ However, if you are unable to purchase the version with a screen or require a sc
 
 ### Preparing the TF Image Card and Inserting it into the Device
 
-If your package includes a TF card, it already contains the factory image. If the TF card was not installed in the device during manufacturing, carefully open the case (be careful not to disconnect any cables inside) and insert the TF card. Additionally, since the factory firmware may be outdated, it is **essential** to update the system to the latest version by following the [Upgrade and Flash System](https://wiki.sipeed.com/maixpy/doc/zh/basic/os.html) instructions; otherwise, some applications and APIs may not function properly.
+If your package includes a TF card, it already contains the factory image. If the TF card was not installed in the device during manufacturing, carefully open the case (be careful not to disconnect any cables inside) and insert the TF card. Additionally, since the factory firmware may be outdated, it is **essential** to update the system to the latest version by following the <a href="./basic/os" target="_blank">updating to the latest system</a> instructions; otherwise, some applications and APIs may not function properly.
 
-If you did not purchase a TF card, you will need to flash the system onto your own TF card. Follow the [Upgrade and Flash System](./basic/os.md) guide, then install the card into the board.
+If you did not purchase a TF card, you will need to flash the system onto your own TF card. Follow the <a href="./basic/os" target="_blank">updating to the latest system</a> guide, then install the card into the board.
 
 ### Powering On
 
