@@ -10,7 +10,12 @@ title: MaixCAM MaixPy 升级和烧录系统
 
 ## 获得最新系统
 
-在 [MaixPy 发布页面](https://github.com/sipeed/MaixPy/releases) 找到最新的系统镜像文件，比如`maixcam_os_20240401_maixpy_v4.1.0.xz`。
+在 [MaixPy 发布页面](https://github.com/sipeed/MaixPy/releases) 找到最新的系统镜像文件，比如:
+* `maixcam_os_20240401_maixpy_v4.1.0.xz`: MaixCAM 系统镜像，包含了 MaixPy v4.1.0。
+* `maixcam-pro_os_20240401_maixpy_v4.1.0.xz`： MaixCAM Pro 系统镜像，包含了 MaixPy v4.1.0。
+* `maixcam2_os_20250801_maixpy_v4.11.0.xz`： MaixCAM2 系统镜像，包含了 MaixPy v4.11.0。
+<span style="color: #e91e63; font-weight: 800">注意一定要下载对应型号的系统镜像</span>，下载错误可能导致设备损坏。
+
 > 中国国内用户下载速度慢可以用迅雷下载，速度可能会快一些。
 > 或者使用例如 [github.abskoop.workers.dev](https://github.abskoop.workers.dev/) 这种代理网站下载。
 
@@ -22,15 +27,23 @@ title: MaixCAM MaixPy 升级和烧录系统
 如果你已经在系统里面存了重要数据，请先将数据拷贝到电脑备份。
 
 备份方法：
-* 连接 MaixVision， 使用文件管理功能下载你的重要数据文件到电脑本地。
+* 连接 MaixVision， 使用文件管理功能下载你的重要数据文件到电脑本地，一般来说`/maixapp` 和 `/root` 目录下的文件需要多注意保存。
 * 使用 `scp` 命令进行拷贝。
-* 使用其它文件管理软件，比如 WinSCP 或者 FileZilla 等进行传输。
+* 使用其它文件管理软件，比如 `WinSCP` 或者 `FileZilla` 等进行传输。
 * 直接用读卡器插到电脑拷贝。注意根目录是`ext4`格式，`Windows`默认不支持（可以用三方软件比如diskgenius 读取）。
 
 
-## 烧录系统到 MaixCAM
+## 烧录系统到硬件
 
-参考 硬件文档中的 [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) 教程，注意里面能满足 `USB 烧录`的条件则推荐使用 `USB 烧录`方式，USB 烧录方式不用拔 TF 卡。
+| 项目 | MaixCAM / MaixCAM-Pro | MaixCAM2 |
+| --- | --- | --- |
+| 烧录文档 | [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| 系统存放位置 | TF 卡 | 内置EMMC(/TF卡) |
+| 必须 TF 卡 | 是 | 否 |
+| 烧录方式 | USB 烧录 或 读卡器烧录 | USB 烧录 或 读卡器烧录 |
+| 推荐烧录方式 | USB 烧录 | USB 烧录 |
+| 救砖烧录方式 | 读卡器烧录 | USB烧录/读卡器烧录 |
+
 
 ## 什么时候需要更新系统，什么时候可以只更新 MaixPy
 

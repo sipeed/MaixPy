@@ -308,3 +308,15 @@ Photos and videos taken using MaixCAM’s built-in **Camera** app can be viewed 
 To export the files to your computer, you can use the [MaixVision file manager feature](./basic/maixvision.md) or other file transfer tools such as `scp` or `WinSCP`.
 
 
+## No Network, Is There an Offline Version of the Documentation?
+
+Yes.
+
+An offline HTML version of the documentation is provided. Go to the [MaixPy release page](https://github.com/sipeed/MaixPy/releases) and download the file named `maixpy_v*.*.*_doc.zip`.
+
+After extracting the file, you will get a `html` folder. Make sure `Python` is installed on your computer, then run the following command: `chmod +x ./view_doc.sh && ./view_doc.sh` (for Linux/MacOS) or `view_doc.bat` (for Windows).
+
+After that, open `http://<your_computer_IP>:8000/maixpy/index.html` in your browser to view the documentation offline.
+
+Additionally, if you just want to save a single page for offline viewing, you can press `Ctrl + P` on that page and select "Print as PDF" to save the page as a local PDF file.
+

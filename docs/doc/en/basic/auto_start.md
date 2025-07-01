@@ -80,9 +80,14 @@ You can also modify the `/maixapp/auto_start.txt` file in your device to set it 
 
 ## Other Methods
 
-For MaixCAM, since the underlying system is Linux, if you are familiar with Linux, you can edit the startup scripts in `/etc/rc.local` or `/etc/init.d`.
 
-However, it is important to note that this method may cause the application to continue running when MaixVision connects, thereby occupying resources (such as the screen and camera) which might prevent MaixVision from running programs normally. The first two methods allow MaixVision to terminate the program upon connection to run its own programs.
+Since MaixCAM runs on a Linux-based system, if you're familiar with Linux, you can also configure system startup by directly editing startup scripts:
 
-Thus, this method is more suitable for running background processes that do not occupy screen and camera resources. Generally, if you are not familiar with Linux, it is not recommended to use this method.
+* For **MaixCAM/MaixCAM-Pro**, edit `/etc/rc.local` or startup scripts under `/etc/init.d`.
+* For **MaixCAM2**, which uses **systemd** for startup management, add a service file under `/etc/systemd/system`, then enable it with `systemctl enable xxxx.service`. You can refer to `launcher.service`, which is the default launcher program.
 
+> ⚠️ However, note that this approach **prevents MaixVision from stopping the running application during connection**, which may cause **resource conflicts** (e.g., screen or camera already in use), and **MaixVision might fail to run programs** properly.
+
+In contrast, the first two application auto-start methods allow MaixVision to **gracefully stop the running app** when connecting to the device.
+
+Therefore, this method is **more suitable for background processes** that don’t require access to the screen or camera. If you're not familiar with Linux, this approach is **not recommended**, as it can easily lead to resource conflicts involving the screen or camera.

@@ -2,6 +2,8 @@
 title: 将 ONNX 模型转换为 MaixCAM MaixPy 可以使用的模型（MUD）
 ---
 
+> MaixCAM2 模型转换请看[MaixCAM2 模型转换文档](./maixcam2.md)
+
 ## 简介
 
 电脑上训练的模型不能直接给 MaixCAM 使用，因为 MaixCAM 的硬件性能有限，一般我们需要将模型进行`INT8`量化以减少计算量，并且转换为 MaixCAM 支持的模型格式。

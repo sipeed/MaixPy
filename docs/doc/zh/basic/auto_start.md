@@ -80,11 +80,13 @@ if __name__ == "__main__":
 
 ## 其它方法
 
-对于 MaixCAM， 因为底层是 Linux， 如果你熟悉 Linux, 编辑`/etc/rc.local` 或者 `/etc/init.d` 下的启动脚本也可以。
+因为 MaixCAM 底层是 Linux， 如果你熟悉 Linux，还可以直接编辑系统启动脚本：
+* 对于 MaixCAM/MaixCAM-Pro, 编辑`/etc/rc.local` 或者 `/etc/init.d` 下的启动脚本。
+* 对于 MaixCAM2，基于 systemd 的启动管理方式，在`/etc/systemd/system`下面添加启动项，然后`systemctl enable xxxx.service`即可使能开机启动，可以参考`launcher.service`即开机起动器程序。
 
 但是需要注意的是，这种方式会让 MaixVision 在连接的时候无法停止这个应用，从而造成资源占用（比如屏幕和摄像头） MaixVision 可能无法正常跑程序，而前两种方法 MaixVision 连接设备时是可以正常让程序退出以供 MaixVsion 跑程序的。
 
-所以这种方法比较适合开机跑一些不会占用屏幕和摄像头等资源的后台进程，一般情况下如果你不熟悉 Linux 不建议这样操作。
+所以这种方法比较适合开机跑一些不会占用屏幕和摄像头等资源的后台进程，一般情况下如果你不熟悉 Linux 不建议这样操作，不然很容易导致屏幕和摄像头资源互相占用出问题。
 
 
 

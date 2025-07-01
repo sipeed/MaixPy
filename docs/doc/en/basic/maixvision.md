@@ -39,7 +39,7 @@ When we click the 'pause' button in the top right corner, it will stop sending i
 ## Code Auto Completion
 
 Code suggestions depend on local Python packages installed on your computer. To enable code suggestions, you need to install Python on your computer and the required Python packages.
-> If it is not installed, a red underlined wavy line error prompt will be displayed. The code can still run normally, but there will be no code completion prompt.
+> If not installed, red wavy underlines will appear indicating errors. However, the code can still run normally on the device — it's just that the editor won't provide code completion or IntelliSense.
 
 * To install Python, visit the [Python official website](https://python.org/).
 * To install the required packages, for MaixPy, for instance, you need to install the MaixPy package on your computer using `pip install MaixPy`. If `MaixPy` gets updated, you should update it on both your computer and device. On your computer, manually execute `pip install MaixPy -U` in the terminal. For device updates, update directly in the `Settings` application.
@@ -55,24 +55,38 @@ Code suggestions depend on local Python packages installed on your computer. To 
 
 In addition, in addition to the MaixPy package, other code hints, such as `numpy/opencv`, also need to be installed on the computer to implement code hints.
 
-## Single file and project (multiple py file projects/modularization)
+## Running a Single File
 
-When writing code, there are generally two modes, executing a single file, or executing a complete project (containing multiple py files or other resource files).
-* **Single file mode**: MaixVision creates or opens a file in the `.py` format, and clicks Run in the lower left corner after editing to execute the code.
-* **Project (multiple files) mode**:
-  * Create an empty folder in the system file manager, and MaixVision clicks `Open folder/project` to open this empty folder.
-  * Create a main program entry of `main.py` (the name must be `main.py`). If `main.py` wants to reference other `.py` files, create a `.py` file in the project folder, such as `a.py`
-  ```python
-  def say_hello():
+When writing code, there are generally two modes: running a **single file**, or running a **complete project** (which may include multiple `.py` files or other resources like images/models, etc.).
+
+For simple scripts, **a single `.py` file is enough**. Just create or open a `.py` file, edit it, and click the **Run** button at the bottom left to execute it on the device.
+
+## Creating a Project (Multi-file Project / Modular Code)
+
+For slightly more complex programs—when your code grows larger, needs modularization, or requires additional resources such as images or models—you should set up a **project**.
+
+* Use your system's file manager to create an **empty folder**, then in MaixVision click **“Open Folder/Project”** to open that folder. (Or click **New Project**, if available in your version.)
+* Create a `main.py` file as the **main program entry point** (the name **must be** `main.py`).
+* If `main.py` needs to import other `.py` modules, create them in the same folder. For example, create a file named `a.py`:
+
+```python
+def say_hello():
   print("hello from module a")
-  ```
-  * Reference in `main.py`
-  ```python
-  from a import say_hello
-  say_hello()
-  ```
-  * Run the project, click the `Run Project` button in the lower left corner to automatically package the entire project and send it to the device for running.
-  * If you have opened a folder/project and still want to run a file separately, you can open the file you want to run, and then click the `Run Current File` in the lower left corner to send only the current file to the device for running. Note that other files will not be sent to the device, so do not reference other `.py` files.
+```
+
+* Then in `main.py`, import and use it:
+
+```python
+from a import say_hello
+say_hello()
+```
+
+* To run the whole project, click the **“Run Project”** button at the bottom left. This will automatically **package and send all files in the project folder** to the device and run the code.
+
+* If you have a folder/project open but still want to run a **single file**, open that file and click **“Run Current File”**. Only that file will be sent to the device.
+
+  > ⚠️ Note: This mode **does not** send other `.py` files to the device, so **do not use imports** if you’re running only one file.
+
 
 
 ## Calculating the Image Histogram
@@ -83,13 +97,29 @@ This feature is helpful when finding suitable parameters for some image processi
 
 ## Distinguishing Between `Device File System` and `Computer File System`
 
-Here we have an important concept to grasp: **distinguish between the `Device File System` and the `Computer File System`**.
-* **Computer File System**: Operates on the computer. Opening a file or project in MaixVision accesses files on the computer, and saving is automatically done to the computer's file system.
-* **Device File System**: The program sends the code to the device for execution, so the files used in the code are read from the device's file system.
+This is an important concept to understand: **clearly distinguish between the `device file system` and the `computer file system`**.
 
-A common issue is when students save a file on the computer, such as `D:\data\a.jpg`, and then use this file on the device with `img = image.load("D:\data\a.jpg")`. Naturally, the file cannot be found because the device does not have `D:\data\a.jpg`.
+* **Computer File System**: This runs on your PC. When you open files or projects in MaixVision, you're accessing files from your computer (e.g., from C: or D: drive). Saving also saves to your computer's file system.
 
-For specifics on how to send files from the computer to the device, refer to the following section.
+* **Device File System**: When running a program, the code is sent to the device for execution, so any files accessed in the code are read from the **device's file system**, not your computer.
+
+A common mistake:
+Someone saves an image file on their PC, like `D:\data\a.jpg`, and then tries to load it in the device code using:
+
+```python
+img = image.load("D:\data\a.jpg")
+```
+
+This will **fail**, because the device **does not have access** to `D:\data\a.jpg`.
+
+Correct Usage:
+
+* Use **MaixVision's file manager** to upload the file from your computer to the device, for example into the `/root/` directory. (See the following section for details.)
+* In your code, load the file from the **device file system**:
+
+```python
+img = image.load("/root/a.jpg")
+```
 
 
 ## Transferring Files to the Device
@@ -140,6 +170,13 @@ Using MaixPy + MaixVison makes it easy to develop, package, and install applicat
 - Disconnect from the device, and you will see your application in the device's app selection interface. Simply click on it to run the application.
 
 > If you develop with MaixCDK, you can use `maixcdk release` to package an application. Refer to the MaixCDK documentation for specifics.
+
+## Terminal Usage
+
+MaixVision supports direct access to the device terminal. Simply click the **"Device Terminal"** button on the right to open it.
+
+Of course, you can also use third-party shell tools. For example, use your system's built-in terminal and connect via the `ssh` command.
+
 
 ## Using Graphical Block Programming
 

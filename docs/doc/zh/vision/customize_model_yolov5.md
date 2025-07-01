@@ -6,6 +6,11 @@ update:
       author: neucrack
       content:
         编写文档
+    - date: 2025-7-01
+      version: v2.0
+      author: neucrack
+      content:
+        增加 MaixCAM2 支持
 ---
 
 
@@ -31,7 +36,9 @@ update:
 * 拉取 [yolov5](https://github.com/ultralytics/yolov5) 源码到本地。
 * 准备数据集，并做成 yolov5 项目需要的格式。
 * 训练模型，得到一个 `onnx` 模型文件，也是本文的最终输出文件。
-* 将`onnx`模型转换成 MaixPy 支持的 `MUD` 文件，这个过程在[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 一文种有详细介绍。
+* 将`onnx`模型转换成 MaixPy 支持的 `MUD` 文件，这个过程在模型转换文章中有详细介绍：
+  * [MaixCAM 模型转换](../ai_model_converter/maixcam.md)
+  * [MaixCAM2 模型转换](../ai_model_converter/maixcam2.md)
 * 使用 MaixPy 加载模型运行。
 
 
@@ -54,25 +61,51 @@ YOLOv5 提供了导出选项，直接在`yolov5`目录下执行
 python export.py --weights ../yolov5s.pt --include onnx --img 224 320
 ```
 这里加载 pt 参数文件，转换成 onnx， 同时指定分辨率，注意这里 高在前，宽在后。
-模型训练的时候用的`640x640`，我们重新指定了分辨率方便提升运行速度，这里使用`320x224`的原因是和 MaixCAM 的屏幕比例比较相近方便显示，具体可以根据你的需求设置就好了。
+模型训练的时候用的`640x640`，我们重新指定了分辨率方便提升运行速度，这里使用`320x224`的原因是和 MaixCAM 的屏幕比例比较相近方便显示，对于 MaixCAM2 可以用 `640x480` 或者 `320x240`，具体可以根据你的需求设置就好了。
 
 
 
 ## MaixCAM MUD 文件
 
-将 onnx 转换为 `mud` 格式的模型文件时，参照 [MaixCAM 模型转换](../ai_model_converter/maixcam.md) 即可，最终会得到一个`mud`文件和`cvimodel`文件，其中 `mud` 文件内容：
+将 onnx 转换为 `mud` 格式的模型文件时，参照 [MaixCAM 模型转换](../ai_model_converter/maixcam.md) 和 [MaixCAM2 模型转换](../ai_model_converter/maixcam2.md)  即可，最终会得到一个`mud`文件和`cvimodel`文件，其中 `mud` 文件内容：
 
+MaixCAM/MaixCAM-Pro:
 ```ini
 [basic]
 type = cvimodel
-model = yolov8n.cvimodel
+model = yolov5s_320x224_int8.cvimodel
 
 [extra]
-model_type = yolov8
+model_type = yolov5
 input_type = rgb
 mean = 0, 0, 0
 scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
 labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+```
+
+MaixCAM2:
+```ini
+[basic]
+type = axmodel
+model_npu = yolov5s_640x480_npu.axmodel
+model_vnpu = yolov5s_640x480_vnpu.axmodel
+
+[extra]
+model_type = yolov5
+type=detector
+input_type = rgb
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+
+mean = 0,0,0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 ```
 
 根据你训练的内容替换参数即可，比如你训练检测`0~9`数字，那么只需要替换`labels=0,1,2,3,4,5,6,7,8,9` 即可， 然后运行模型时将两个文件放在同一个目录下加载`mud`文件即可。

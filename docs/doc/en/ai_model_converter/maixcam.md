@@ -2,6 +2,9 @@
 title: Convert ONNX Model to a Format Usable by MaixCAM / MaixPy (MUD)
 ---
 
+> For MaixCAM2 model conversion, please refer to the [MaixCAM2 Model Conversion Documentation](./maixcam2.md).
+
+
 ## Introduction
 
 Models trained on a computer cannot be directly used by MaixCAM due to its limited hardware performance. Generally, we need to perform `INT8` quantization to reduce computation and convert the model into a format supported by MaixCAM.

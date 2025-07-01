@@ -127,6 +127,8 @@ items:
 
 -   label: AI Model Convertion and Port
     items:
+    -   file: ai_model_converter/maixcam2.md
+        label: ONNX model to MaixCAM2's
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
     -   file: pro/datasets.md

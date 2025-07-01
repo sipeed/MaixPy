@@ -9,6 +9,10 @@ update:
     version: v2.0
     author: neucrack
     content: 增加 YOLO11 支持
+  - date: 2025-07-01
+    version: v3.0
+    author: neucrack
+    content: 增加 MaixCAM2 支持
 ---
 
 
@@ -73,36 +77,76 @@ print(path)
 
 ```
 
-然后执行`python export_onnx.py yolov8n.pt 320 224` 就能导出 `onnx` 模型了，这里重新指定了输入分辨率，模型训练的时候用的`640x640`，我们重新指定了分辨率方便提升运行速度，这里使用`320x224`的原因是和 MaixCAM 的屏幕比例比较相近方便显示，具体可以根据你的需求设置就好了。
+然后执行`python export_onnx.py yolov8n.pt 320 224` 就能导出 `onnx` 模型了，这里重新指定了输入分辨率，模型训练的时候用的`640x640`，我们重新指定了分辨率方便提升运行速度，这里使用`320x224`的原因是和 MaixCAM 的屏幕比例比较相近方便显示，对于 MaixCAM2 可以用 `640x480`或者 `320x240`，具体可以根据你的需求设置就好了。
 
 
 ## 转换为 MaixCAM 支持的模型以及 mud 文件
 
 MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO11-pose 关键点检测 以及 YOLOv8-seg / YOLO11-seg 三种模型（2024.10.10）。
 
-按照[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 进行模型转换。
+按照[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 和 [MaixCAM2 模型转换](../ai_model_converter/maixcam2.md) 进行模型转换。
 
 注意模型输出节点的选择（**注意可能你的模型可能数值不完全一样，看下面的图找到相同的节点即可**）：
 * 检测模型：
-  * YOLOv8 提取 onnx 的 `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` 这两个输出。
-  * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`输出。
+  * YOLOv8:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+  * YOLO11:
+    * `/model.23/Concat_output_0`
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
 * 关键点检测：
-  * YOLOv8-pose 提取`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0`这三个输出。
-  * YOLO11-pose 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0`这三个输出。
+  * YOLOv8-pose:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+  * YOLO11-pose:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
 * 图像分割：
-  * YOLOv8-seg 提取 `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`
-  * YOLO11-seg 提取 `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`四个输出。
+  * YOLOv8-seg:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+    * `output1`
+  * YOLO11-seg:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
+    * `output1`
 * OBB 检测：
-  * YOLOv8 提取`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`这三个输出。
-  * YOLO11 提取`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`这三个输出。
+  * YOLOv8-obb:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+  * YOLO11-obb:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
 
-YOLOv8/YOLO11 输出节点:
-![](../../assets/yolov8_out.jpg)
+YOLOv8/YOLO11 检测输出节点:
 
-YOLOv8/YOLO11 OBB 输出节点：
-![](../../assets/yolo11_out_obb.jpg)
+![](../../assets/yolo11_detect_nodes.png)
+
+YOLOv8/YOLO11 pose 额外输出节点：
+![](../../assets/yolo11_pose_node.png)
+
+YOLOv8/YOLO11 seg 额外输出节点：
+![](../../assets/yolo11_seg_node.png)
+
+YOLOv8/YOLO11 OBB 额外输出节点：
+![](../../assets/yolo11_obb_node.png)
 
 对于物体检测，mud 文件为（YOLO11 model_type 改为 yolo11）
+MaixCAM/MaixCAM-Pro:
 ```ini
 [basic]
 type = cvimodel
@@ -116,39 +160,34 @@ scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
 ```
 
+MaixCAM2:
+```ini
+[basic]
+type = axmodel
+model_npu = yolo11n_640x480_npu.axmodel
+model_vnpu = yolo11n_640x480_vnpu.axmodel
+
+[extra]
+model_type = yolo11
+type=detector
+input_type = rgb
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+
+mean = 0,0,0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+```
+
 根据你训练的对象替换`labels`即可。
 
-对于关键点检测(yolov8-pose)， mud 文件为（YOLO11 model_type 改为 yolo11）：
-```ini
-[basic]
-type = cvimodel
-model = yolov8n_pose.cvimodel
+对于关键点检测(yolov8-pose)，修改 `type=pose`。
+对于关键点检测(yolov8-seg)，修改 `type=seg`。
+对于关键点检测(yolov8-obb)，修改 `type=obb`。
 
-[extra]
-model_type = yolov8
-type = pose
-input_type = rgb
-mean = 0, 0, 0
-scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person
-```
-
-官方默认的时人体姿态关键点检测，所以`labels`只有一个 `person`，根据你检测的物体替换即可。
-
-对于图像分割(yolov8-seg)， mud 文件（YOLO11 model_type 改为 yolo11）：
-```ini
-[basic]
-type = cvimodel
-model = yolo11n-seg_320x224_int8.cvimodel
-
-[extra]
-model_type = yolov8
-input_type = rgb
-type = seg
-mean = 0, 0, 0
-scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
-```
 
 ## 上传分享到 MaixHub
 

@@ -10,7 +10,8 @@ MaixPy 基于 Python 语言，提供了大量方便嵌入式应用开发的功�
 
 ## 安装额外的 Python 包
 
-> 注意可能不是所有 Python 包都支持，一般只支持纯 Python 包，不支持 C 扩展包， C 扩展包可能需要你手动在电脑交叉编译（比较复杂，这里就不介绍了）。
+> 注意由于 MaixCAM 是 RISC-V 而且定制工具链， 可能不是所有 Python 包都支持，一般只支持纯 Python 包，不支持 C 扩展包， C 扩展包可能需要你手动在电脑交叉编译（比较复杂，这里就不介绍了）。
+> 对于 MaixCAM2，是 AARCH64, 而且内置了 GCC，所以可以认为能安装所有包。
 
 ### 方法一： 使用 Python 代码来安装
 
@@ -61,6 +62,8 @@ pip config unset global.index-url
 你也可以自己寻找其他好用的镜像源。
 
 ## pip 无法直接安装的包
+
+主要是 MaixCAM/MaixCAM-Pro 会有这个问题，MaixCAM2 一般不存在这个问题。
 
 设备内 pip 能安装纯 Python 编写的程序，对于底层使用了其它语言比如 C++ 编写的库由于 MaixCAM RISC-V 的特殊性，一般没有直接可以用的编译好的包。
 

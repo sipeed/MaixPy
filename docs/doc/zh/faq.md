@@ -290,3 +290,13 @@ import lcd, sensor
 MaixCAM 自带的**相机**应用拍摄的照片和视频可以在自带的**相册**应用看到照片，点击`Info`按钮可以看到照片路径。
 通过 [MaixVision 的文件管理功能](./basic/maixvision.md) 或者其它拷贝工具（比如scp 或者 winscp）即可拷贝到电脑上。
 
+
+## 没有网络，文档有离线版本吗
+
+有的。
+
+提供 HTML 格式的离线文档，到[MaixPy release 页面](https://github.com/sipeed/MaixPy/releases) 找到`maixpy_v*.*.*_doc.zip` 下载。
+解压后有`html`文件夹，保证电脑安装了`Python`，执行下面的`chmod +x ./view_doc.sh && view_doc.sh`(Linux/MacOS)或者`view_doc.bat`(Windows)。
+然后访问`http://电脑IP:8000/maixpy/index.html`即可离线查看文档。
+
+另外如果你只是想离线查看某一篇文档，你也可以在文档页面按`Ctrl+ P` 选择打印为 PDF 来保存单页面为 PDF到本地。

@@ -47,8 +47,8 @@
             "from": "pypi",
             "config": {
                 "dark": true,
-                "show_print_page": false,
-                "heading_no_counter": true,
+                "show_print_page": true,
+                "heading_no_counter": false,
                 "env":{
                     "main_color": "#c33d45"
                 }

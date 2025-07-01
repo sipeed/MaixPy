@@ -8,38 +8,46 @@ First, let's distinguish between **`System`** and **`MaixPy`**:
 * **System**: The foundation for running all software, including the operating system and drivers, serving as the cornerstone for software operation.
 * **MaixPy**: A software package that relies on system drivers to function.
 
----
+## Getting the Latest System
 
-## Obtaining the Latest System
+Find the latest system image files on the [MaixPy Releases page](https://github.com/sipeed/MaixPy/releases), for example:
 
-Visit the [MaixPy Release Page](https://github.com/sipeed/MaixPy/releases) to find the latest system image file, such as `maixcam_os_20240401_maixpy_v4.1.0.xz`.
-> **Note for users in China:** Download speeds may be slow. Consider using Xunlei for potentially faster downloads.  
-> Alternatively, use proxy websites like [github.abskoop.workers.dev](https://github.abskoop.workers.dev/) for downloading.  
+* `maixcam_os_20240401_maixpy_v4.1.0.xz`: MaixCAM system image including MaixPy v4.1.0.
+* `maixcam-pro_os_20240401_maixpy_v4.1.0.xz`: MaixCAM Pro system image including MaixPy v4.1.0.
+* `maixcam2_os_20250801_maixpy_v4.11.0.xz`: MaixCAM2 system image including MaixPy v4.11.0.
 
-Backup download link: [Sourceforge](https://sourceforge.net/projects/maixpy/files/) (May not always be up-to-date; prioritize the methods above.)
+<span style="color: #e91e63; font-weight: 800">**Make sure to download the system image that corresponds to your device model**</span>. Downloading the wrong image may cause device damage.
 
----
+> Users in China with slow download speeds can use tools like Xunlei for faster downloads.
+> Alternatively, use proxy sites such as [github.abskoop.workers.dev](https://github.abskoop.workers.dev/) for downloads.
 
-## Backing Up Data
+Backup mirror: [Sourceforge](https://sourceforge.net/projects/maixpy/files/) (may not be up-to-date, so prefer the above official sources)
+
+
+## Backup Your Data
 
 **Updating (flashing) the system will erase all data.**
-If you have important data stored on the system, back it up to your computer before proceeding.
+If you have important data saved on the device, please back it up to your computer first.
 
-### Backup Methods:
-1. Connect MaixVision and use its file management feature to download your important files to your local computer.
-2. Use the `scp` command to copy files.
-3. Transfer files using other file management software, such as WinSCP or FileZilla.
-4. Insert the TF card directly into a card reader and copy the data.
-   Note: The root directory uses the `ext4` format, which is not natively supported by Windows. You can use third-party software like DiskGenius to access the data.
+Backup methods:
 
----
+* Connect with MaixVision and use the file manager to download important files to your computer, especially files under `/maixapp` and `/root`.
+* Use the `scp` command to copy files.
+* Use file transfer tools such as WinSCP or FileZilla.
+* Remove the storage media and use a card reader to copy files directly. Note: the root filesystem is formatted as `ext4`, which Windows does not support by default (you can use third-party software like DiskGenius to read it).
 
-## Flashing the System onto MaixCAM
 
-Refer to the hardware documentation's [MaixCAM System Flashing Guide](https://wiki.sipeed.com/hardware/zh/maixcam/os.html).  
-If the conditions for **USB flashing** are met, it is recommended to use this method, as it avoids removing the TF card.
+## Flashing the System to Hardware
 
----
+| Item          | MaixCAM / MaixCAM-Pro    | MaixCAM2      |
+| --------------- | ---------- | ------ |
+| Flashing Docs      | [MaixCAM System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| System Storage     | TF Card    | Built-in EMMC (/TF Card)    |
+| TF Card Required   | Yes   | No   |
+| Flashing Method    | USB flashing or card reader flashing   | USB flashing or card reader flashing |
+| Recommended Method | USB flashing   | USB flashing   |
+| Recovery Flashing  | Card reader flashing     | USB flashing / card reader flashing    |
+
 
 ## When to Update the System vs. Updating MaixPy Only
 
@@ -57,7 +65,6 @@ To simplify the process and avoid issues, it is **recommended to update the syst
 1. The current version meets your requirements and is running stably in critical scenarios (e.g., during competitions or product deployment).
 2. The update introduces new features, but as a development kit, it may cause minor code incompatibilities or introduce bugs. Only update if you are prepared for development and debugging.
 
----
 
 ## Upgrading MaixPy Only
 

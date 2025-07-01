@@ -9,6 +9,10 @@ update:
     version: v2.0
     author: neucrack
     content: Added YOLO11 support
+  - date: 2025-07-01
+    version: v3.0
+    author: neucrack
+    content: Add MaixCAM2 support
 ---
 
 ## Introduction
@@ -69,43 +73,84 @@ path = model.export(format="onnx", imgsz=[input_height, input_width])  # export 
 print(path)
 ```
 
-Then run `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, we have redefined the input resolution. The model was originally trained with `640x640`, but we use `320x224` to improve the processing speed and match the MaixCAM's screen aspect ratio for convenient display. You can set the resolution according to your own needs.
+Then run `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, the input resolution is redefined; the model was originally trained with `640x640`, but we specify a different resolution to improve runtime speed. The reason for using `320x224` is that it closely matches the MaixCAM screen aspect ratio, making display easier. For MaixCAM2, you can use `640x480` or `320x240` — feel free to set it according to your specific needs.
 
-Espetially for NVIDIA users. You need to check onnxruntime version at your desktop venv and in tpu-mlir docker container. If they don't match you will see several "unimplemeted" errors. Jut update runtime in container 
 
-```shell
-pip install onnxruntime==<version>
-```
-`<version>` is version equals your desktop version
 
-## Converting to a Model Supported by MaixCAM and MUD File
+## Convert to MaixCAM Supported Models and mud Files
 
-MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 for object detection, YOLOv8-pose / YOLO11-pose for keypoint detection, and YOLOv8-seg / YOLO11-seg for segmentation (as of 2024-10-10).
+MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 detection, YOLOv8-pose / YOLO11-pose keypoint detection, and YOLOv8-seg / YOLO11-seg segmentation models (2024.10.10).
 
-Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) to convert the model.
+Convert the models according to [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) and [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md).
 
-Pay attention to the selection of the model output nodes (note that the numerical values of your model might not be exactly the same; refer to the diagram below to identify the corresponding nodes):
-* Object detection:
-  * YOLOv8 extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` from ONNX as outputs.
-  * YOLO11 extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`.
+Note the selection of model output nodes (**Note that your model values may not be exactly the same, just find the corresponding nodes according to the pictures below**):
+
+* Detection models:
+  * YOLOv8:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+  * YOLO11:
+    * `/model.23/Concat_output_0`
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
 * Keypoint detection:
-  * YOLOv8-pose extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0` as outputs.
-  * YOLO11-pose extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0`.
+  * YOLOv8-pose:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+  * YOLO11-pose:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
 * Image segmentation:
-  * YOLOv8-seg extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`.
-  * YOLO11-seg extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`.
-* OBB Detection:
-  * YOLOv8 extracts`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`as outputs.
-  * YOLO11 extracts`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`as outputs.
+  * YOLOv8-seg:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+    * `output1`
+  * YOLO11-seg:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
+    * `output1`
+* OBB detection:
+  * YOLOv8-obb:
+    * `/model.22/Concat_1_output_0`
+    * `/model.22/Concat_2_output_0`
+    * `/model.22/Concat_3_output_0`
+    * `/model.22/Concat_output_0`
+  * YOLO11-obb:
+    * `/model.23/Concat_1_output_0`
+    * `/model.23/Concat_2_output_0`
+    * `/model.23/Concat_3_output_0`
+    * `/model.23/Concat_output_0`
 
-YOLOv8/YOLO11 output nodes:
-![](../../assets/yolov8_out.jpg)
+YOLOv8/YOLO11 detection output nodes:
 
-YOLOv8/YOLO11 OBB output nodes:
-[](../../assets/yolo11_out_obb.jpg)
+![](../../assets/yolo11_detect_nodes.png)
+
+YOLOv8/YOLO11 pose extra output nodes:
+
+![](../../assets/yolo11_pose_node.png)
+
+YOLOv8/YOLO11 seg extra output nodes:
+
+![](../../assets/yolo11_seg_node.png)
+
+YOLOv8/YOLO11 OBB extra output nodes:
+
+![](../../assets/yolo11_obb_node.png)
+
+
 
 For object detection, the MUD file would be as follows (replace `yolo11` for YOLO11):
 
+MaixCAM/MaixCAM-Pro:
 ```ini
 [basic]
 type = cvimodel
@@ -116,44 +161,38 @@ model_type = yolov8
 input_type = rgb
 mean = 0, 0, 0
 scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair dryer, toothbrush
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
 ```
 
-Replace `labels` according to the objects you trained.
-
-For keypoint detection (yolov8-pose), the MUD file would be (replace `yolo11` for YOLO11):
-
+MaixCAM2:
 ```ini
 [basic]
-type = cvimodel
-model = yolov8n_pose.cvimodel
+type = axmodel
+model_npu = yolo11n_640x480_npu.axmodel
+model_vnpu = yolo11n_640x480_vnpu.axmodel
 
 [extra]
-model_type = yolov8
-type = pose
+model_type = yolo11
+type=detector
 input_type = rgb
-mean = 0, 0, 0
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+
+mean = 0,0,0
 scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person
 ```
 
-The default model is for human pose detection, so `labels` only contains `person`. Replace it according to your detected objects.
+Replace the `labels` according to your trained objects.
 
-For image segmentation (yolov8-seg), the MUD file would be (replace `yolo11` for YOLO11):
+For keypoint detection (yolov8-pose), modify `type=pose`.
+For keypoint detection (yolov8-seg), modify `type=seg`.
+For keypoint detection (yolov8-obb), modify `type=obb`.
 
-```ini
-[basic]
-type = cvimodel
-model = yolo11n-seg_320x224_int8.cvimodel
 
-[extra]
-model_type = yolov8
-input_type = rgb
-type = seg
-mean = 0, 0, 0
-scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair dryer, toothbrush
-```
 
 ## Upload and Share on MaixHub
 

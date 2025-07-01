@@ -128,6 +128,8 @@ items:
 
 -   label: AI 模型转换和移植
     items:
+    -   file: ai_model_converter/maixcam2.md
+        label: ONNX 模型转给 MaixCAM2 用
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
     -   file: pro/datasets.md

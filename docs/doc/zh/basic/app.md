@@ -13,9 +13,24 @@ title: MaixCAM MaixPy 应用开发和应用商店
 
 ## 安装应用
 
+有几种方法：
+### 在线扫码安装
+
 可以先设置语言 `设置 -> 语言`， 以及 `设置 -> WiFi`。
 
-`应用商店`应用可以用来升级和安装应用，连接上可以连接互联网的 WiFi 后即可在[MaixHub 应用商店](https://maixhub.com/app)扫码安装应用。
+[应用商店](https://maixhub.com/app)可以用来升级和安装应用，连接上可以连接互联网的 WiFi 后即可在[MaixHub 应用商店](https://maixhub.com/app)扫码安装应用。
+
+### 本地安装
+
+上传应用安装包到设备，然后命令行使用`app_store_cli install 安装包路径`命令安装应用。
+或者执行脚本 [MaixPy/examples/tools/install_app.py](https://github.com/sipeed/MaixPy) 来安装应用, 注意修改`pkg_path`变量的路径。
+
+### 本地扫码安装电脑上的安装包
+
+* 可以在电脑利用 `maixtool deploy --pkg 安装包路径` 起一个服务，然后在设备端的`应用商店`应用中扫码即可实现安装电脑上的安装包。
+  > 需要电脑先`pip install maixtool` 安装 `maixtool` 工具。
+* 如果是使用`MaixPy`开发的应用，在项目根目录（包含`app.yaml`和`main.py`）执行`maixtool deploy`会弹出一个二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
+* 如果是使用`MaixCDK`开发的应用，在项目根目录执行`maixcdk deploy`也会出现二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
 
 ## 卸载应用
 
@@ -39,20 +54,13 @@ title: MaixCAM MaixPy 应用开发和应用商店
 
 ## 打包应用
 
-参考[MaixVision 使用文档](./maixvision.md) 打包应用部分。
+* **MaixVision 打包**：参考[MaixVision 使用文档](./maixvision.md) 打包应用部分。
+* **手动打包**：你也可以在项目根目录手动添加`app.yaml`文件，参考 [Maix APP 规范](https://wiki.sipeed.com/maixcdk/doc/zh/convention/app.html)， 然后执行`maixtool release`(MaixPy 项目) 或者 `maixcdk release`(MaixCDK 项目) 来打包应用。
 
 ## 退出应用
 
 如果你只是写了比较简单的应用，没有做界面和返回按钮，默认可以按设备上的功能按键（一般是 USER 或者 FUNC 或者 OK 按钮）或者返回按钮（如果有这个按键，MaixCAM 默认没有这个按键）来退出应用。
 
-## 安装应用
-
-* **方法一**： 设备使用`应用商店`应用，从[应用商店](https://maixhub.com/app)找到应用，设备联网后，扫码安装。
-* **方法二**： 使用安装包本地安装，将安装包传输到设备文件系统，比如`/root/my_app_v1.0.0.zip`，然后执行`examples/tools/install_app.py`代码，注意修改`pkg_path`变量的路径。
-
-* **方法三**:
-  * 如果是使用`MaixPy`开发的应用，在项目根目录（包含`app.yaml`和`main.py`）执行`maixtool deploy`会弹出一个二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
-  * 如果是使用`MaixCDK`开发的应用，在项目根目录执行`maixcdk deploy`也会出现二维码，保持设备和电脑在同一局域网，设备使用应用商店扫描对应的局域网地址二维码就能在线安装。
 
 ## 应用开发基本准则
 
@@ -79,8 +87,12 @@ backlight = app.get_sys_config_kv("backlight", "value")
 print("backlight:", backlight, ", type:", type(backlight))
 ```
 
-这里注意，所有设置项的值都是字符串类型，使用时需要注意。
+这里**注意**，所有设置项的**值都是字符串**类型，使用时需要注意。
 
+系统设置的配置被保存在`/boot/configs` 文件，你也可以在未开机情况下修改，不过要小心格式。
+格式遵循`maix_<item>_<key>=value`，变量要让`shell`能使用，所以注意等号两边不要有空格。
+
+文件内容示例（注意不是所有配置，具体以 `/boot/configs` 为准）：
 
 ```ini
 # All configs user can edit easily

@@ -8,7 +8,10 @@ MaixPy is based on the Python language and provides a wide range of functionalit
 
 ## Installing Additional Python Packages
 
-> Please note that not all Python packages are supported. Generally, only pure Python packages are supported, not C extension packages. C extension packages may require you to manually cross-compile them on a computer (which is quite complex and won't be covered here).
+> Note: Since MaixCAM uses a custom RISC-V toolchain, **not all Python packages are supported**. Generally, only **pure Python packages** are supported — C extension packages are **not supported** unless you manually cross-compile them on your PC (which is more complex and not covered here).
+
+> For **MaixCAM2**, which is **AARCH64** and comes with a built-in **GCC**, you can assume that **almost all Python packages can be installed**.
+
 
 ### Method 1: Installing Using Python Code
 
@@ -32,6 +35,9 @@ Follow the terminal usage method introduced in [Linux Basics](./linux_basic.md) 
 
 
 ## Packages That Cannot Be Installed Directly with pip
+
+> This issue mainly affects MaixCAM/MaixCAM-Pro. MaixCAM2 generally does not have this problem.
+
 
 pip on the device can install programs written in pure Python. However, for libraries that use other languages like C++ at the lower level, there are generally no precompiled packages available due to the unique nature of MaixCAM RISC-V.
 

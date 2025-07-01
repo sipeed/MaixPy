@@ -6,6 +6,11 @@ update:
       author: neucrack
       content:
         Documentation written
+    - date: 2025-7-01
+      version: v2.0
+      author: neucrack
+      content:
+        Add MaixCAM2 Support
 ---
 
 ## Introduction
@@ -30,7 +35,9 @@ To use our model on MaixPy (MaixCAM), the following process is required:
 * Pull the [yolov5](https://github.com/ultralytics/yolov5) source code to your local machine.
 * Prepare the dataset and format it as required by the yolov5 project.
 * Train the model to get an `onnx` model file, which is the final output file of this article.
-* Convert the `onnx` model to a `MUD` file supported by MaixPy, which is detailed in [MaixCAM Model Conversion](../ai_model_converter/maixcam.md).
+* Convert the `onnx` model into a MaixPy-supported `MUD` file. This process is detailed in the model conversion articles:
+  * [MaixCAM Model Conversion](../ai_model_converter/maixcam.md)
+  * [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md)
 * Use MaixPy to load and run the model.
 
 
@@ -56,19 +63,45 @@ This command loads the `pt` parameter file and converts it to `onnx`, while also
 
 ## MaixCAM MUD File
 
-When converting onnx to `mud` format model files, refer to [MaixCAM Model Conversion](../ai_model_converter/maixcam.md). You will eventually get a `mud` file and a `cvimodel` file. The content of the `mud` file is:
+When converting an ONNX model to the `mud` format model file, refer to [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) and [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md). In the end, you will get a `mud` file and a `cvimodel` file. The content of the `mud` file is as follows:
 
+MaixCAM/MaixCAM-Pro:
 ```ini
 [basic]
 type = cvimodel
-model = yolov8n.cvimodel
+model = yolov5s_320x224_int8.cvimodel
 
 [extra]
-model_type = yolov8
+model_type = yolov5
 input_type = rgb
 mean = 0, 0, 0
 scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
 labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+```
+
+MaixCAM2:
+```ini
+[basic]
+type = axmodel
+model_npu = yolov5s_640x480_npu.axmodel
+model_vnpu = yolov5s_640x480_vnpu.axmodel
+
+[extra]
+model_type = yolov5
+type=detector
+input_type = rgb
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+
+mean = 0,0,0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 ```
 
 Replace the parameters according to the content of your training. For example, if you train to detect digits `0-9`, then just replace `labels=0,1,2,3,4,5,6,7,8,9`, and then place the two files in the same directory and load the `mud` file when running the model.
