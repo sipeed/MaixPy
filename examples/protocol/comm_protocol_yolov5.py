@@ -17,11 +17,11 @@ report_on = True
 def encode_objs(objs):
     '''
         encode objs info to bytes body for protocol
-        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx ...
+        2B x(LE) + 2B y(LE) + 2B w(LE) + 2B h(LE) + 2B idx + 4B score(float) ...
     '''
     body = b''
     for obj in objs:
-        body += struct.pack("<hhHHH", obj.x, obj.y, obj.w, obj.h, obj.class_id)
+        body += struct.pack("<hhHHHf", obj.x, obj.y, obj.w, obj.h, obj.class_id, obj.score)
     return body
 
 def decode_objs(body):
