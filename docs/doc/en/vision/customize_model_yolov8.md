@@ -83,70 +83,31 @@ MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 detection, YOLOv8-pose / YOLO1
 
 Convert the models according to [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) and [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md).
 
+### Select output nodes
+
 Note the selection of model output nodes (**Note that your model values may not be exactly the same, just find the corresponding nodes according to the pictures below**):
 
-* Detection models:
-  * YOLOv8:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-  * YOLO11:
-    * `/model.23/Concat_output_0`
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-* Keypoint detection:
-  * YOLOv8-pose:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-  * YOLO11-pose:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
-* Image segmentation:
-  * YOLOv8-seg:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-    * `output1`
-  * YOLO11-seg:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
-    * `output1`
-* OBB detection:
-  * YOLOv8-obb:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-  * YOLO11-obb:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
+For YOLO11 / YOLOv8, MaixPy support two types node select method, choose proper method according to your device:
 
-YOLOv8/YOLO11 detection output nodes:
+| Model & Feature | Method A | Method B |
+| -- | --- | --- |
+| Supported Devices | **MaixCAM2**(Recommend)<br>MaixCAM(running speed lowe than method B) | **MaixCAM**(Recommend) |
+| Feature | More computation on CPU (safer quantization, slightly slower than Solution 2) | More computation on NPU (included in quantization) |
+| Attention | None | Quantization failed in actual tests on MaixCAM2. |
+| Detect YOLOv8 |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0` |
+| Detect YOLO11 |`/model.23/Concat_output_0`<br>`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0` |
+| Keypoint YOLOv8-pose | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0` |
+| Keypoint YOLO11-pose | `/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`| `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`|
+| Segment YOLOv8-seg|`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`<br>`output1`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0`<br>`output1`|
+| Segment YOLO11-seg |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|
+| OBB YOLOv8-obb |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`|`/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_1_output_0`<br>`/model.22/Sigmoid_output_0`|
+| OBB YOLO11-obb |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_1_output_0`<br>`/model.23/Sigmoid_output_0`|
+|YOLOv8/YOLO11 Detect output nodes| ![](../../assets/yolo11_detect_nodes.png) | ![](../../assets/yolov8_out.jpg)|
+|YOLOv8/YOLO11 pose extra nodes | ![](../../assets/yolo11_pose_node.png) | pose branch in the figure above |
+|YOLOv8/YOLO11 seg extra nodes | ![](../../assets/yolo11_seg_node.png) | ![](../../assets/yolo11_seg_node.png)|
+|YOLOv8/YOLO11 OBB extra nodes | ![](../../assets/yolo11_obb_node.png) | ![](../../assets/yolo11_out_obb.jpg)|
 
-![](../../assets/yolo11_detect_nodes.png)
-
-YOLOv8/YOLO11 pose extra output nodes:
-
-![](../../assets/yolo11_pose_node.png)
-
-YOLOv8/YOLO11 seg extra output nodes:
-
-![](../../assets/yolo11_seg_node.png)
-
-YOLOv8/YOLO11 OBB extra output nodes:
-
-![](../../assets/yolo11_obb_node.png)
-
-
+### Edit mud file
 
 For object detection, the MUD file would be as follows (replace `yolo11` for YOLO11):
 

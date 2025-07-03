@@ -86,64 +86,30 @@ MaixPy/MaixCDK 目前支持了 YOLOv8 / YOLO11 检测 以及 YOLOv8-pose / YOLO1
 
 按照[MaixCAM 模型转换](../ai_model_converter/maixcam.md) 和 [MaixCAM2 模型转换](../ai_model_converter/maixcam2.md) 进行模型转换。
 
+### 输出节点选择
+
 注意模型输出节点的选择（**注意可能你的模型可能数值不完全一样，看下面的图找到相同的节点即可**）：
-* 检测模型：
-  * YOLOv8:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-  * YOLO11:
-    * `/model.23/Concat_output_0`
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-* 关键点检测：
-  * YOLOv8-pose:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-  * YOLO11-pose:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
-* 图像分割：
-  * YOLOv8-seg:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-    * `output1`
-  * YOLO11-seg:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
-    * `output1`
-* OBB 检测：
-  * YOLOv8-obb:
-    * `/model.22/Concat_1_output_0`
-    * `/model.22/Concat_2_output_0`
-    * `/model.22/Concat_3_output_0`
-    * `/model.22/Concat_output_0`
-  * YOLO11-obb:
-    * `/model.23/Concat_1_output_0`
-    * `/model.23/Concat_2_output_0`
-    * `/model.23/Concat_3_output_0`
-    * `/model.23/Concat_output_0`
+对于 YOLO11 / YOLOv8， MaixPy 支持了两种节点选择，可以根据硬件平台适当选择：
 
-YOLOv8/YOLO11 检测输出节点:
+| 模型和特点 | 方案一 | 方案二 |
+| -- | --- | --- |
+| 适用设备 | **MaixCAM2**(推荐)<br>MaixCAM(速度比方案二慢一点点) | **MaixCAM**(推荐) |
+| 特点    | 将更多的计算给 CPU 后处理，量化更不容易出问题，速度略微慢于方案二 | 将更多的计算给 NPU 并且参与量化 |
+| 注意点 | 无 | MaixCAM2 实测量化失败 |
+| 检测 YOLOv8 |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0` |
+| 检测 YOLO11 |`/model.23/Concat_output_0`<br>`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0` |
+| 关键点 YOLOv8-pose | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0` |
+| 关键点 YOLO11-pose | `/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`| `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`|
+| 分割 YOLOv8-seg|`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`<br>`output1`| `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0`<br>`output1`|
+| 分割 YOLO11-seg |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|
+| 旋转框 YOLOv8-obb |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`|`/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_1_output_0`<br>`/model.22/Sigmoid_output_0`|
+| 旋转框 YOLO11-obb |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_1_output_0`<br>`/model.23/Sigmoid_output_0`|
+|YOLOv8/YOLO11 检测输出节点图| ![](../../assets/yolo11_detect_nodes.png) | ![](../../assets/yolov8_out.jpg)|
+|YOLOv8/YOLO11 pose 额外输出节点 | ![](../../assets/yolo11_pose_node.png) | 见上图 pose 分支|
+|YOLOv8/YOLO11 seg 额外输出节点 | ![](../../assets/yolo11_seg_node.png) | ![](../../assets/yolo11_seg_node.png)|
+|YOLOv8/YOLO11 OBB 额外输出节点 | ![](../../assets/yolo11_obb_node.png) | ![](../../assets/yolo11_out_obb.jpg)|
 
-![](../../assets/yolo11_detect_nodes.png)
-
-YOLOv8/YOLO11 pose 额外输出节点：
-![](../../assets/yolo11_pose_node.png)
-
-YOLOv8/YOLO11 seg 额外输出节点：
-![](../../assets/yolo11_seg_node.png)
-
-YOLOv8/YOLO11 OBB 额外输出节点：
-![](../../assets/yolo11_obb_node.png)
+### 修改 mud 文件
 
 对于物体检测，mud 文件为（YOLO11 model_type 改为 yolo11）
 MaixCAM/MaixCAM-Pro:
