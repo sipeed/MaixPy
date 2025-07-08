@@ -201,10 +201,10 @@ items:
     items:
     -   file: moudles/microscope.md
         label: Microscope kit
+    -   file: modules/ahrs.md
+        label: IMU AHRS Attitude Estimation
     -   file: modules/temp_humi.md
         label: Temperature and humidity
-    -   file: modules/acc.md
-        label: Accelerometer
     -   file: modules/rtc.md
         label: RTC usage
     -   file: modules/tmc2209.md

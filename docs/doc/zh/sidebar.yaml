@@ -201,10 +201,10 @@ items:
     items:
     -   file: kit/microscope.md
         label: 显微镜套件
+    -   file: modules/ahrs.md
+        label: IMU AHRS 姿态检测
     -   file: modules/temp_humi.md
         label: 温湿度传感器
-    -   file: modules/acc.md
-        label: 加速度计使用
     -   file: modules/rtc.md
         label: RTC 时钟模块使用
     -   file: modules/tmc2209.md

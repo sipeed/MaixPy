@@ -39,5 +39,14 @@ def add_requirements(platform : str, component_dirs : list):
                 if os.path.exists(py_paty) or os.path.exists(cmake_path):
                     requires.append(name)
             break
+        if "algo" in names:
+            names = os.listdir(os.path.join(dir, "algo"))
+            for name in names:
+                path = os.path.join(dir, "algo", name)
+                py_paty = os.path.join(path, "component.py")
+                cmake_path = os.path.join(path, "CMakeLists.txt")
+                if os.path.exists(py_paty) or os.path.exists(cmake_path):
+                    requires.append(name)
+            break
     return requires
 
