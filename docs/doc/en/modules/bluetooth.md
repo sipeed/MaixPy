@@ -67,3 +67,10 @@ hcidump
 btmon
 ```
 
+
+## Other reference
+
+* [使用MaixCAM的蓝牙功能 · 硬件篇](https://maixhub.com/share/58)
+* [使用MaixCAM的蓝牙功能 · 软件篇](https://maixhub.com/share/62)
+
+
