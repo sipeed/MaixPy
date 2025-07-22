@@ -157,10 +157,18 @@ cam.gain(100)
 ```
 
 ### Setting the white balance
+Currently, only manual white balance via gain adjustment is supported. Use set_wb_gain() to pass in an array of four values corresponding to the gain for `R`, `Gr`, `Gb`, and `B` channels, with each value ranging from [0.0, 1.0].
+
+The recommended default manual white balance gains are:
+For MaixCam: [0.134, 0.0625, 0.0625, 0.1239]
+For MaixCam2: [0.0682, 0, 0, 0.04897]
+To fine-tune image appearance, it is usually sufficient to adjust only the `R` and `B` channels, while keeping `Gr` and `Gb` unchanged.
 
 ```python
 cam = camera.Camera()
-cam.awb_mode(1)     # 0,turn on white balance;1,turn off white balance
+cam.awb_mode(1)  # 0 to enable auto white balance, 1 to enable manual white balance
+cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # Set gains for R, Gr, Gb, B channels
+
 ```
 
 ### Setting brightness, contrast and saturation
