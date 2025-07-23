@@ -140,18 +140,20 @@ while 1:
 
 ### Set exposure time
 
-Note that after setting the exposure time, the camera will switch to manual exposure mode, if you want to switch back to automatic exposure mode you need to run `cam.exp_mode(0)`.
+Note that after setting the exposure time, the camera will switch to manual exposure mode, if you want to switch back to automatic exposure mode you need to run `cam.exp_mode(camera.AeMode.Auto)`.
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.exposure(1000)
 ```
 
 ### Setting the gain
 
-Note that after setting the gain, the camera will switch to manual exposure mode, to switch back to auto exposure mode you need to run `cam.exp_mode(0)`. Customised gain values will only work in manual exposure mode.
+Note that after setting the gain, the camera will switch to manual exposure mode, to switch back to auto exposure mode you need to run `cam.exp_mode(camera.AeMode.Auto)`. Customised gain values will only work in manual exposure mode.
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.gain(100)
 ```
@@ -165,8 +167,9 @@ For MaixCam2: [0.0682, 0, 0, 0.04897]
 To fine-tune image appearance, it is usually sufficient to adjust only the `R` and `B` channels, while keeping `Gr` and `Gb` unchanged.
 
 ```python
+from maix import camera
 cam = camera.Camera()
-cam.awb_mode(1)  # 0 to enable auto white balance, 1 to enable manual white balance
+cam.awb_mode(camera.AwbMode.Manual)  # AwbMode.Manual to enable auto white balance, AwbMode.Manual to enable manual white balance
 cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # Set gains for R, Gr, Gb, B channels
 
 ```
@@ -174,6 +177,7 @@ cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # Set gains for R, Gr, Gb, B c
 ### Setting brightness, contrast and saturation
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.luma(50) # Set brightness, range [0, 100]
 cam.constrast(50) # set contrast, range [0, 100]
@@ -185,6 +189,7 @@ cam.saturation(50) # Set the saturation, range [0, 100].
 Note that the output `raw` image is the original `Bayer` image, and the format of the `Bayer` image may vary depending on the camera module.
 
 ```python
+from maix import camera
 cam = camera.Camera(raw=true)
 raw_img = cam.read_raw()
 print(raw_img)

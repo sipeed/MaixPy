@@ -154,18 +154,20 @@ while 1:
 
 ### 设置曝光时间
 
-注意设置曝光时间后，摄像头会切换到手动曝光模式，如果要切换回自动曝光模式需运行`cam.exp_mode(0)`
+注意设置曝光时间后，摄像头会切换到手动曝光模式，如果要切换回自动曝光模式需运行`cam.exp_mode(camera.AeMode.Auto)`
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.exposure(1000)
 ```
 
 ### 设置增益
 
-注意设置增益后，摄像头会切换到手动曝光模式，如果要切换回自动曝光模式需运行`cam.exp_mode(0)`。自定义的增益值只能在手动曝光模式下生效。
+注意设置增益后，摄像头会切换到手动曝光模式，如果要切换回自动曝光模式需运行`cam.exp_mode(camera.AeMode.Auto)`。自定义的增益值只能在手动曝光模式下生效。
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.gain(100)
 ```
@@ -176,14 +178,16 @@ cam.gain(100)
 如果需要调整画面效果, 通常只需要调整`R`通道和`B`通道, `Gr`和`Gb`通道可以保持不变
 
 ```python
+from maix import camera
 cam = camera.Camera()
-cam.awb_mode(1)			# 0,开启自动白平衡, 1,开启手动白平衡;
+cam.awb_mode(camera.AwbMode.Manual)			# AwbMode.Auto,开启自动白平衡, AwbMode.Manual,开启手动白平衡;
 cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # 设置r, gr, gb, b四个通道的增益
 ```
 
 ### 设置亮度、对比度和饱和度
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.luma(50)		    # 设置亮度，范围[0, 100]
 cam.constrast(50)		# 设置对比度，范围[0, 100]
@@ -192,11 +196,13 @@ cam.saturation(50)		# 设置饱和度，范围[0, 100]
 ### 更改图片长宽
 
 ```python
+from maix import camera
 cam = camera.Camera(width=640, height=480)
 ```
 或
 
 ```python
+from maix import camera
 cam = camera.Camera()
 cam.set_resolution(width=640, height=480)
 ```
@@ -206,6 +212,7 @@ cam.set_resolution(width=640, height=480)
 注意输出的`raw`图是原始的`bayer`图，并且不同摄像头模组输出的`bayer`图格式可能不一样。
 
 ```python
+from maix import camera
 cam = camera.Camera(raw=true)
 raw_img = cam.read_raw()
 print(raw_img)
