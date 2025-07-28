@@ -1,5 +1,15 @@
+from maix import display, image
+
+disp = display.Display()
+img = image.Image(disp.width(), disp.height())
+msg = "Loading ..."
+size = image.string_size(msg, scale=2, thickness=2)
+img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, scale=2, color=image.COLOR_WHITE, thickness=2)
+disp.show(img)
+del img
+
+from maix import camera, app, time, i18n, touchscreen
 import gc
-from maix import display, camera, image, app, time, i18n, touchscreen
 from .board import get_board_name, is_support_model_platform
 import os
 import json
@@ -21,7 +31,7 @@ image.set_default_font("sourcehansans")
 if paly_key_sound:
     audio = Audio(os.path.join(assets_dir, "btn.wav"))
 
-disp = display.Display()
+
 ts = touchscreen.TouchScreen()
 
 def is_in_button(x, y, btn_pos):
