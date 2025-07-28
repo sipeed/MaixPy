@@ -170,6 +170,7 @@ projects/MaixPy/docs/api/
 MaixCDK/
 docs/api/*
 !docs/api/config.json
+!docs/api/README2.md
 docs/out/
 CMakeLists.txt
 !*/**/CMakeLists.txt
