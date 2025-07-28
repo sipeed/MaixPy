@@ -35,6 +35,7 @@ Otherwise, the entire `USB` functionality will pause and wait, affecting other s
 Therefore, for users who also need other `USB` functionalities, it is recommended to use the `UvcStreamer` method when developing UVC display functionality based on `MaixPy`.  
 Otherwise, ensure that the `MaixCAM` device has other network access methods, such as `WIFI`, to ensure proper development and debugging.
 
+<video controls autoplay src="../../assets/maixcam-pro_uvcdemo.mp4" type="video/mp4"> Your browser does not support video playback. </video>
 
 ### UvcStreamer
 

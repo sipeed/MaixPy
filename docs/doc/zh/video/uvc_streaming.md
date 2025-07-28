@@ -30,6 +30,8 @@ update:
 故对于其它 `USB` 功能有需求的用户，在基于 `MaixPy` 开发 UVC 显示功能时建议采用 `UvcStreamer` 的实现。
 否则请保证 `MaixCAM` 设备有其它联网途径如 `WIFI` 以确保能正常开发调试。
 
+<video controls autoplay src="../../assets/maixcam-pro_uvcdemo.mp4" type="video/mp4"> 您的浏览器不支持视频播放 </video>
+
 ### UvcStreamer
 
 该方法不影响常态下 USB 功能，原理是分了两个进程。官方默认实现了一个 `server` 进程进行`UVC` 设备的事件处理，并封装了易用统一的刷图接口 `show(img)` 供用户使用，当成一个 `display` 线性逻辑操作即可。
