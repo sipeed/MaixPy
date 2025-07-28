@@ -4,35 +4,53 @@ update:
   - date: 2024-04-03
     author: neucrack
     version: 1.0.0
-    content: Initial documentation
+    content: Initial version of the document
+  - date: 2024-08-21
+    author: YWJ
+    version: 1.0.1
+    content: Fixed some bugs in the document, added some content
+  - date: 2024-10-24
+    author: neucrack
+    version: 1.1.0
+    content: Added USB camera support instructions
+  - date: 2025-07-28
+    author: neucrack & lxo
+    version: 1.2.0
+    content: Add AWB and lens usage doc.
 ---
 
 ## Introduction
 
-For the MaixCAM, it comes with a pre-installed GC4653 camera, or an optional OS04A10 camera or global shutter camera, and even an HDMI to MIPI module, all of which can be directly used with simple API calls.
+MaixCAM comes with a default GC4653 camera or optional OS04A10 camera, global shutter camera, or even HDMI to MIPI module, all of which can be used directly through simple API calls.
 
 ## API Documentation
 
-This article introduces common methods. For more API usage, refer to the documentation of the [maix.camera](/api/maix/camera.html) module.
+This document introduces commonly used methods. For more API usage, please refer to the documentation of the [maix.camera](/api/maix/camera.html) module.
 
 ## Camera Switching
 
 Currently supported cameras:
-* **GC4653**: M12 universal lens, 1/3" sensor, clear image quality, 4MP.
-* **OS04A10**: M12 universal lens, 1/1.8" large sensor, ultra-clear image quality, 4MP.
-* **OV2685**: Does not support lens replacement, lowest image quality, and lowest cost; generally not recommended for use.
-* **SC035HGS**: Monochrome global shutter camera, 0.3MP black-and-white, suitable for capturing high-speed objects.
 
-The system will automatically switch; simply replace the hardware to use.
+* **GC4653**: M12 universal lens, 1/3" sensor, clear image quality, 4M pixels. Suitable for common scenarios such as AI recognition and image processing.
+* **OS04A10**: M12 universal lens, 1/1.8" large sensor, ultra-high image quality, 4M pixels. Suitable for scenarios that require high image quality, such as photography and video recording. Note that it generates more heat.
+* **OV2685**: Lens is not replaceable, 1/5" sensor, 2M pixels, lowest image quality and cost. Generally not recommended.
+* **SC035HGS**: Monochrome global shutter camera, 0.3M monochrome pixels, suitable for capturing fast-moving objects.
 
-## Adjusting the Camera Focus
+The system will switch automatically; just replace the hardware to use.
 
-The MaixCAM comes with a manually adjustable focus lens by default. You can physically twist the lens to adjust the focal length.
-If the image appears blurry, try rotating the lens clockwise or counterclockwise to bring the image into clear focus.
+## Lens Cap
 
-## Getting Images from the Camera
+The lens cap is for dust protection. **Please remove the lens cap!!** before use.
 
-Using MaixPy to easily get images:
+## Adjusting Camera Focus
+
+MaixCAM is equipped with a **manual focus lens** by default. You can physically rotate the lens to adjust focus.
+If you find the **image is blurry**, try rotating the lens (clockwise and counterclockwise) to focus until the image is clear.
+
+## Getting Image from the Camera
+
+Use MaixPy to easily acquire images:
+
 ```python
 from maix import camera
 
@@ -43,88 +61,135 @@ while 1:
     print(img)
 ```
 
-Here we import the `camera` module from the `maix` module, then create a `Camera` object, specifying the width and height of the image. Then, in a loop, we continuously read the images. The default output is in `RGB` format. If you need `BGR` format or other formats, please refer to the API documentation.
+Here we import the `camera` module from `maix`, create a `Camera` object with specified width and height, and then continuously read images in a loop. The default image format is `RGB`. For `BGR` or other formats, see the API documentation.
+
+You can also get grayscale images:
 
 ```python
 from maix import camera, image
-cam = camera.Camera(640, 480, image.Format.FMT_GRAYSCALE) # Set the output greyscale image
+cam = camera.Camera(640, 480, image.Format.FMT_GRAYSCALE)	# Set output to grayscale image
 ```
-Also get the NV21 image
+
+Or get NV21 images:
+
 ```python
 from maix import camera, image
-cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP) # set to output NV21 image
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# Set output to NV21 image
 ```
 
-Note: You need to disable MaixVision's online browsing function if you set a very high resolution (e.g. `2560x1440`), otherwise the code may run abnormally due to lack of memory.
-You can also get greyscale images
+## Set Camera Resolution
 
-## Setting the frame rate of the camera
-
-The GC4653 supports a maximum of three configurations: `2560x1440 30fps`, `1280x720 60fps`, and `1280x720 80fps`. The frame rate is selected based on the width, height, and fps parameters passed when creating the Camera object.
-
-The OS04A10 supports a maximum of two configurations: `2560x1440 30fps` and `1280x720 80fps`. The `1280x720` resolution is achieved by center-cropping the `2560x1440` image.
-
-### Setting the frame rate to 30 fps
+Specify width and height directly in the code:
 
 ```python
 from maix import camera
-cam = camera.Camera(640, 480, fps=30) # set the frame rate to 30 fps
+cam = camera.Camera(width=640, height=480)
+```
+
+or
+
+```python
+from maix import camera
+cam = camera.Camera()
+cam.set_resolution(width=640, height=480)
+```
+
+### Choosing Resolution Size
+
+Different boards and camera modules support different resolutions. Make sure to use **even number values**.
+
+It’s important to understand that **higher resolution is not always better**—choose the right resolution based on your scenario:
+
+* Photography/Video/Monitoring: Higher resolution can give clearer images.
+  GC4653 and OS04A10 support up to `2560x1440` resolution (i.e. `2K/4M pixels`). But high resolution demands more programming skill and memory. You may consider smaller resolutions such as `1920x1080`, `1280x720`, `640x480`, etc.
+  Note: When running code in **MaixVision**, if you set high resolution (e.g., `2560x1440`), disable the image preview feature in MaixVision to avoid errors due to insufficient memory.
+* AI Recognition / Image Processing: For faster performance, reduce resolution as much as possible while still ensuring recognizability.
+
+  * `640x480`: VGA resolution; large enough for most AI recognition and clear image processing. Demands more from MaixCAM; easier for MaixCAM2.
+  * `320x320`: Square resolution; suitable for some AI models, but will have black borders on rectangle screens.
+  * `320x240`: QVGA resolution; easy for algorithms, and still meets clarity needs.
+  * `320x224`: Both width and height are multiples of 32; suitable for small resolution AI input and displays well on `552x368` screen.
+  * `224x224`: Square, both dimensions are multiples of 32; fits small resolution AI models like `MobileNetV2`, `MobileNetV3`.
+
+### Aspect Ratio of Resolution
+
+Aspect ratio affects field of view. For example, sensor max is `2560x1440` (16:9). Using `640x480` changes to 4:3, reducing field of view. To maximize view, choose resolution matching sensor's aspect ratio, e.g., `1280x720`, `2560x1440`.
+
+Different ratios will result in center cropping.
+
+## Set Camera Frame Rate
+
+The camera operates at specific frame rates. MaixPy supports frame rate settings. Supported frame rates vary by module:
+
+| GC4653                                                 | OS04A10                             | OV2685           | SC035HGS        |
+| ------------------------------------------------------ | ----------------------------------- | ---------------- | --------------- |
+| 2560x1440\@30fps<br>1280x720\@60fps<br>1280x720\@80fps | 2560x1440\@30fps<br>1280x720\@80fps | 1920x1080\@30fps | 640x480\@180fps |
+
+Frame rate is set via `width`, `height`, and `fps` when creating `Camera`.
+
+### Set Frame Rate to 30fps
+
+```python
+from maix import camera
+cam = camera.Camera(640, 480, fps=30)
 # or
-cam = camera.Camera(1920, 1280) # Frame rate is set to 30 fps when resolution is higher than 1280x720
+cam = camera.Camera(1920, 1280)  # Above 1280x720 will auto use 30fps
 ```
 
-### Set the frame rate to 60 fps
+### Set Frame Rate to 60fps
 
 ```python
 from maix import camera
-cam = camera.Camera(640, 480, fps=60) # Set frame rate to 60 fps
+cam = camera.Camera(640, 480, fps=60)
 # or
-cam = camera.Camera(640, 480) # Set frame rate to 60fps if resolution is less than or equal to 1280x720
+cam = camera.Camera(640, 480)  # ≤1280x720 defaults to 80fps
 ```
 
-### Set the frame rate to 80 fps
+### Set Frame Rate to 80fps
 
 ```python
 from maix import camera
-cam = camera.Camera(640, 480, fps=80) # Set frame rate to 60 fps
+cam = camera.Camera(640, 480, fps=80)
 ```
 
 Notes:
 
-1. if `Camera` is passed in a size larger than `1280x720`, for example written as `camera.Camera(1920, 1080, fps=60)`, then the `fps` parameter will be invalidated, and the frame rate will remain at `30fps`.
-2. A `60/80fps` frame will be offset by a few pixels compared to a `30fps` frame, and the offset will need to be corrected if the viewing angle is critical.
-3. Note that due to the fact that `60/80fps` and `30fps` share the same `isp` configuration, in some environments there will be some deviation in the quality of the screen at the two frame rates.
-4. The camera's performance depends on the system. Some systems may not support setting the camera to 80fps, which can result in strange patterns appearing on the screen. In such cases, please switch back to the normal 60fps setting.
+1. If size > `1280x720`, e.g., `camera.Camera(1920, 1080, fps=60)`, then `fps` param is ignored and stays at 30fps.
+2. 60/80fps images may shift by a few pixels compared to 30fps—consider correcting this if precise alignment is needed.
+3. 60/80fps and 30fps share ISP config—image quality may vary slightly.
+4. Some camera setups can't handle 80fps—may show visual artifacts. Switch back to 60fps if needed.
 
-## Image correction
+## Image Correction
 
-In case of distortion such as fisheye, you can use the `lens_corr` function under the `Image` object to correct the distortion of the image. In general, you just need to increase or decrease the value of `strength` to adjust the image to the right effect.
+For fisheye or distortion, use `lens_corr` under `Image` to correct. Adjust the `strength` value for best results.
 
-``python
-from maix import camera, display
+```python
+from maix import camera, display, app, time
 
 cam = camera.Camera(320, 240)
 disp = display.Display()
-while not app.need_exit():: t = time.
+while not app.need_exit():
     t = time.ticks_ms()
-    img = cam.read()
-    img = img.lens_corr(strength=1.5) # Adjust the strength value until the image is no longer distorted.
-    disp = display.Display()
-``
-
-Note that since the correction is done through software, it takes some time. Alternatively, you can use a distortion-free lens (inquire with the vendor) to solve the issue from a hardware perspective.
-
-## Skipping Initial Frames
-
-During the brief initialization period of the camera, the image acquisition may not be stable, resulting in strange images. You can use the `skip_frames` function to skip the initial few frames:
-```python
-cam = camera.Camera(640, 480)
-cam.skip_frames(30)           # Skip the first 30 frames
+    img = cam.read() 
+    img = img.lens_corr(strength=1.5)  # Adjust strength until distortion is gone
+    disp.show(img)
 ```
 
-## Displaying Images
+Note: This is software-based correction and consumes time. You may also use non-distorted lenses (ask vendor).
 
-MaixPy provides the `display` module, which can conveniently display images:
+## Skip Initial Frames
+
+During initialization, camera may output unstable images. Skip first few frames using `skip_frames`:
+
+```python
+cam = camera.Camera(640, 480)
+cam.skip_frames(30)           # Skip first 30 frames
+```
+
+## Display Camera Image
+
+MaixPy provides the `display` module for easy image display:
+
 ```python
 from maix import camera, display
 
@@ -136,11 +201,11 @@ while 1:
     disp.show(img)
 ```
 
-## Setting the camera parameters
+## Set Camera Parameters
 
-### Set exposure time
+### Set Exposure Time
 
-Note that after setting the exposure time, the camera will switch to manual exposure mode, if you want to switch back to automatic exposure mode you need to run `cam.exp_mode(camera.AeMode.Auto)`.
+Note: Setting exposure time switches to manual exposure. To revert to auto mode, run `cam.exp_mode(camera.AeMode.Auto)`
 
 ```python
 from maix import camera
@@ -148,9 +213,9 @@ cam = camera.Camera()
 cam.exposure(1000)
 ```
 
-### Setting the gain
+### Set Gain
 
-Note that after setting the gain, the camera will switch to manual exposure mode, to switch back to auto exposure mode you need to run `cam.exp_mode(camera.AeMode.Auto)`. Customised gain values will only work in manual exposure mode.
+Note: Setting gain switches to manual exposure. Custom gain only works in manual mode.
 
 ```python
 from maix import camera
@@ -158,35 +223,39 @@ cam = camera.Camera()
 cam.gain(100)
 ```
 
-### Setting the white balance
-Currently, only manual white balance via gain adjustment is supported. Use set_wb_gain() to pass in an array of four values corresponding to the gain for `R`, `Gr`, `Gb`, and `B` channels, with each value ranging from [0.0, 1.0].
+### Set White Balance
 
-The recommended default manual white balance gains are:
-For MaixCam: [0.134, 0.0625, 0.0625, 0.1239]
-For MaixCam2: [0.0682, 0, 0, 0.04897]
-To fine-tune image appearance, it is usually sufficient to adjust only the `R` and `B` channels, while keeping `Gr` and `Gb` unchanged.
+Usually auto white balance suffices. For color-sensitive scenarios, manually set it:
 
-```python
-from maix import camera
-cam = camera.Camera()
-cam.awb_mode(camera.AwbMode.Manual)  # AwbMode.Manual to enable auto white balance, AwbMode.Manual to enable manual white balance
-cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # Set gains for R, Gr, Gb, B channels
+Set `awb_mode` to `Manual`, then set gain for `R`, `Gr`, `Gb`, `B` channels. Range: `[0.0, 1.0]`.
 
-```
+Default gain values:
 
-### Setting brightness, contrast and saturation
+* `MaixCAM`: `[0.134, 0.0625, 0.0625, 0.1239]`
+* `MaixCAM2`: `[0.0682, 0, 0, 0.04897]`
+
+Usually only `R` and `B` need adjustment.
 
 ```python
 from maix import camera
 cam = camera.Camera()
-cam.luma(50) # Set brightness, range [0, 100]
-cam.constrast(50) # set contrast, range [0, 100]
-cam.saturation(50) # Set the saturation, range [0, 100].
+cam.awb_mode(camera.AwbMode.Manual)
+cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])
 ```
 
-### Reading Raw Images
+### Set Brightness, Contrast, Saturation
 
-Note that the output `raw` image is the original `Bayer` image, and the format of the `Bayer` image may vary depending on the camera module.
+```python
+from maix import camera
+cam = camera.Camera()
+cam.luma(50)		    # Brightness [0, 100]
+cam.constrast(50)		# Contrast [0, 100]
+cam.saturation(50)		# Saturation [0, 100]
+```
+
+### Read Raw Image
+
+To read raw `bayer` image data for processing or debugging:
 
 ```python
 from maix import camera
@@ -195,39 +264,24 @@ raw_img = cam.read_raw()
 print(raw_img)
 ```
 
-If you need to open the `raw` image in third-party software, additional conversion on the PC side is required. You can refer to the example code in [bayer_to_tiff](https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py).
+For viewing on PC, use script like [bayer\_to\_tiff](https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py).
 
+## Change Lens
 
+MaixCAM uses M12 lens by default and supports lens replacement. Notes:
 
-## Using a USB Camera
+1. Ensure new lens is M12.
+2. Different lenses have different flange back distances. Default lens mount has fixed height—check compatibility.
+3. Avoid scratching sensor surface. Blow dust gently, clean with lens paper only if necessary.
+4. Want a zoom lens? Buy M12 zoom lens.
+5. Default is manual focus. Auto-focus lenses require driver support; MaixCAM lacks AF circuit—you may need to write control program.
 
-In addition to using the MIPI interface camera that comes with the development board, you can also use an external USB camera.
-Method:
-* First, in the development board settings, select `USB Mode` under `USB Settings` and set it to `HOST` mode. If there is no screen available, you can use the `examples/tools/maixcam_switch_usb_mode.py` script to set it.
-* Currently (as of 2024.10.24), the `maix.camera` module does not yet support USB cameras, but you can use `OpenCV` for this.
+## Use USB Camera
 
-```python
-from maix import image, display
-import cv2
-import sys
+Besides built-in MIPI camera, you can use USB camera.
 
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-# cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
+Steps:
 
-disp = display.Display()
-
-if not cap.isOpened():
-    print("Unable to open camera")
-    sys.exit(1)
-print("Starting to read")
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        print("Unable to read frame")
-        return
-    img = image.cv2image(frame, bgr=True, copy=False)
-    disp.show(img)
-```
+* Set `USB Mode` to `HOST` in system settings. Without screen, use script `examples/tools/maixcam_switch_usb_mode.py`.
+* As of 2024.10.24, `maix.camera` module **does not** support USB camera. Refer to [Using USB Camera with OpenCV](./opencv.md).
 
