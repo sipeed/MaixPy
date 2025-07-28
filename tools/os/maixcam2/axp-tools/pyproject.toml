@@ -1,0 +1,31 @@
+
+[project]
+name = "axp-tools"
+dynamic = ["version"]
+authors = [{name = "Neucrack", email = "czd666666@gmail.com"}]
+description = "tools for axp(Axera package) format file"
+readme = "README.md"
+requires-python = ">=3.8"
+maintainers = [
+    { name = "Neucrack", email = "czd666666@gmail.com" },
+]
+
+dependencies = [
+    "tqdm"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/sipeed/MaixPy"
+"Source" = "https://github.com/sipeed/MaixPy"
+"Documentation" = "https://github.com/sipeed/MaixPy"
+"Bug Reports" = "https://github.com/sipeed/MaixPy/issues"
+
+[project.scripts]
+axp2img = "axp_tools.axp2img:main"
+axp-tools = "axp_tools.axp_tools:main"
+
+[tool.setuptools]  # configuration specific to the `setuptools` build backend.
+packages = { find = { where = ["."], include = ["axp_tools", "axp_tools.*"] } }
+
+[tool.setuptools.dynamic]
+version = { attr = "axp_tools.__version__" }

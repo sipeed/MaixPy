@@ -11,14 +11,14 @@
 # 8. xz 压缩镜像
 
 set -e
-set -x
 
 function usage() {
     echo "Usage:"
     echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
-    echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm"
+    echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm,"
+    echo "you can also create a delete_first.txt in builtin_files_dir and leave this arg empty"
     echo ""
 }
 
@@ -60,14 +60,31 @@ fi
 delete_first_files=""
 if [ -n "$6" ]; then
     delete_first_files=$6
+    if [[ ! -e "$delete_first_files" ]]; then
+        echo "Error: delete_first_files $delete_first_files file does not exist"
+        exit 1
+    fi
 fi
-
 
 # 检查镜像文件
 if [[ ! -e "$base_os_path" || "${base_os_path##*.}" != "axp" ]]; then
     echo "Error: Base OS file does not exist or is not an .axp file."
     exit 1
 fi
+
+if [ ! -f $whl_path ]; then
+    echo "MaixPy wheel $whl_path not found!!!"
+    usage
+    exit 1
+fi
+
+if [ ! -e $builtin_files_dir_path ]; then
+    echo "builtin_files_dir_path $builtin_files_dir_path not found!!!"
+    usage
+    exit 1
+fi
+
+set -x
 
 # 设置输出的镜像名字 maixcam2-2025-04-16-maixpy-v4.11.0
 date_now=$(date +"%Y-%m-%d")
@@ -171,6 +188,8 @@ cp "tmp/sys_builtin_files/boot/boards/board.maixcam2" "tmp/sys_builtin_files/boo
 # 9. 生成需要删除的文件列表
 if [ -n "$delete_first_files" ]; then
     echo "$delete_first_files" > tmp/delete_files.txt
+elif [ -e "tmp/sys_builtin_files/delete_first.txt" ]; then
+    mv "tmp/sys_builtin_files/delete_first.txt" tmp/delete_files.txt
 else
     echo "" > tmp/delete_files.txt
 fi
@@ -184,4 +203,8 @@ mkdir -p images
 mv tmp/${os_version_str}.axp images/${os_version_str}.axp
 echo "Complete: os file: images/${os_version_str}.axp"
 
+echo "Now convert to binary img file: images/${os_version_str}.img.xz"
+# need install simg2img and xz tool first
+axp2img -i images/${os_version_str}.axp -o images/${os_version_str}.img.xz
+echo "Complete convert to binary img file: images/${os_version_str}.img.xz"
 

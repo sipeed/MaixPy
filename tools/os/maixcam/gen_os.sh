@@ -15,9 +15,11 @@ set -x
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
+    echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm,"
+    echo "you can also create a delete_first.txt in builtin_files_dir and leave this arg empty"
     echo ""
 }
 
@@ -38,7 +40,7 @@ if [ -n "$4" ]; then
     if [ "x$4" == "x1" ]; then
         skip_build_apps=1
     elif [ "x$4" != "x0" ]; then
-        echo "skip_build_apps arg should be 0 or 1"
+        echo "skip_build_apps arg should be 0 or 1, but now --$4--"
         exit 1
     fi
 fi
@@ -49,10 +51,39 @@ if [ -n "$5" ]; then
     elif [ "x$5" == "xmaixcam-pro" ]; then
         board_name=maixcam-pro
     else
-        echo "board_name arg should be maixcam or maixcam-pro"
+        echo "board_name arg should be maixcam or maixcam-pro, but now --$5--"
         exit 1
     fi
 fi
+
+delete_first_files=""
+if [ -n "$6" ]; then
+    delete_first_files=$6
+    if [[ ! -e "$delete_first_files" ]]; then
+        echo "Error: delete_first_files $delete_first_files file does not exist"
+        exit 1
+    fi
+fi
+
+# 检查镜像文件
+if [[ ! -e "$base_os_path" ]]; then
+    echo "Error: Base OS file does not exist"
+    exit 1
+fi
+
+if [ ! -f $whl_path ]; then
+    echo "MaixPy wheel $whl_path not found!!!"
+    usage
+    exit 1
+fi
+
+if [ ! -e $builtin_files_dir_path ]; then
+    echo "builtin_files_dir_path $builtin_files_dir_path not found!!!"
+    usage
+    exit 1
+fi
+
+set -x
 
 # 设置输出的镜像名字 maixcam-2024-10-31-maixpy-v4.7.8
 date_now=$(date +"%Y-%m-%d")
@@ -139,18 +170,30 @@ cp "$MAIXCDK_PATH/components/maixcam_lib/lib_maixcam/libmaixcam_lib.so" tmp/sys_
 # 8. 不同板型拷贝
 if [ $board_name == "maixcam-pro" ]; then
     cp -f "tmp/sys_builtin_files/boot/maixcam_pro_logo.jpeg" "tmp/sys_builtin_files/boot/logo.jpeg"
+    cp -f "tmp/sys_builtin_files/boot/maixcam_pro_logo_upgrade.jpeg" "tmp/sys_builtin_files/boot/logo_upgrade.jpeg"
     cp "tmp/sys_builtin_files/boot/boards/board.maixcam_pro" "tmp/sys_builtin_files/boot/board"
 else
+    cp -f "tmp/sys_builtin_files/boot/maixcam_logo_upgrade.jpeg" "tmp/sys_builtin_files/boot/logo_upgrade.jpeg"
     cp "tmp/sys_builtin_files/boot/boards/board.maixcam" "tmp/sys_builtin_files/boot/board"
 fi
 # 8.2 因为 boot分区不能拷贝文件夹，将 boards 文件夹拷贝到 /maixapp/boards，等第一次开机脚本复制到 boot 分区
 cp -r "tmp/sys_builtin_files/boot/boards" "tmp/sys_builtin_files/maixapp/"
 
-# 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
-./update_img.sh tmp/sys_builtin_files "tmp/$os_version_str.img"
+# 9. 生成需要删除的文件列表
+if [ -n "$delete_first_files" ]; then
+    echo "$delete_first_files" > tmp/delete_files.txt
+elif [ -e "tmp/sys_builtin_files/delete_first.txt" ]; then
+    mv "tmp/sys_builtin_files/delete_first.txt" tmp/delete_files.txt
+else
+    echo "" > tmp/delete_files.txt
+fi
+delete_first_files=tmp/delete_files.txt
 
-# 9. xz 压缩镜像
-xz -zv -T 0 "tmp/$os_version_str.img"
+# 10. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
+./update_img.sh tmp/sys_builtin_files "tmp/$os_version_str.img" "$delete_first_files"
+
+# 11. xz 压缩镜像
+xz -zv -9 -T 0 "tmp/$os_version_str.img"
 
 mkdir -p images
 mv tmp/$os_version_str.img.xz images/$os_version_str.img.xz

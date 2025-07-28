@@ -5,6 +5,7 @@ set -o pipefail
 
 source_dir=$1
 img_file=$2
+delete_first_files=$3
 mount_root=img_root
 
 img_file=$(readlink -f "$img_file")
@@ -13,6 +14,11 @@ THISDIR=$(dirname $(realpath $0))
 if [ -z $img_file ]
 then
 	echo "usage: $0 new_rootfs_dir image_file"
+fi
+
+if [ ! -f "$delete_first_files" ]; then
+    echo "File $delete_first_files not found!"
+    exit 1
 fi
 
 if [ ! -e $mount_root ]
@@ -32,6 +38,22 @@ echo "PART OFFSET: $PART_OFFSET"
 
 # some old version fuse2fs not support offset
 $THISDIR/fuse2fs -o fakeroot -o offset=$PART_OFFSET $img_file $mount_root
+
+echo "Deleting files in $delete_first_files"
+# delete first files
+while IFS= read -r line; do
+    if [ -z $line ]; then
+        continue
+    elif [ -d "$mount_root/$line" ]; then
+        echo "Deleting directory $line"
+        rm -rf $mount_root/$line
+    elif [ -f "$mount_root/$line" ]; then
+        echo "Deleting file $line"
+        rm -f $mount_root/$line
+    else
+        echo "File or directory $line not found, skip"
+    fi
+done < "$delete_first_files"
 
 # copy root files
 echo "copy root files now"
