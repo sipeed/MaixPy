@@ -242,6 +242,15 @@ cam.awb_mode(camera.AwbMode.Manual)			# AwbMode.Auto,开启自动白平衡, AwbM
 cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])  # 设置r, gr, gb, b四个通道的增益
 ```
 
+### 设置更低抓图延时
+
+通过设置buff_num来减小抓图的延时, 需要注意修改该参数会改变图片缓存大小,降低后可能会导致图像丢失的情况.
+对于maixcam, 由于内部软件框架的限制, 即使设置buff_num为1, 实际至少还是会存在一个双缓存, 测试取图延时最低在30+ms左右
+```python
+from maix import camera
+cam = camera.Camera(buff_num=1)         # 只使用1个缓存
+```
+
 ### 设置亮度、对比度和饱和度
 
 ```python

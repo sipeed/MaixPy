@@ -243,6 +243,16 @@ cam.awb_mode(camera.AwbMode.Manual)
 cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])
 ```
 
+### Setting Lower Capture Latency
+You can reduce image capture latency by setting the buff_num parameter. However, note that changing this parameter affects the image buffer size, and setting it too low may lead to image loss.
+
+For MaixCam, due to limitations in the internal software framework, even if buff_num is set to 1, there will still be at least a double-buffering mechanism in place. In testing, the minimum achievable capture latency is around 30+ ms.
+
+```python
+from maix import camera
+cam = camera.Camera(buff_num=1)         # Use only 1 buffer
+```
+
 ### Set Brightness, Contrast, Saturation
 
 ```python
