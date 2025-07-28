@@ -54,7 +54,7 @@ jobs:
           echo "-- Build MaixPy for Linux now --"
           echo "--------------------------------"
           sudo apt update -y
-          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake autoconf automake libtool git build-essential
           cmake --version
           python setup.py bdist_wheel linux
           echo "--------------------------------"
@@ -67,11 +67,6 @@ jobs:
           echo "-- Build MaixPy for MaixCAM now --"
           echo "----------------------------------"
           python setup.py bdist_wheel maixcam
-          mv dist/* artifact/
-          echo "----------------------------------"
-          echo "-- Build MaixPy for MaixCAM2 now --"
-          echo "----------------------------------"
-          python setup.py bdist_wheel maixcam2
           mv dist/* artifact/
 
       - name: Upload MaixPy Linux firmware as artifact

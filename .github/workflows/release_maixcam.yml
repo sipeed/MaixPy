@@ -43,7 +43,7 @@ jobs:
           echo "-- Build MaixPy for Linux now --"
           echo "--------------------------------"
           sudo apt update -y
-          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake libfuse-dev mtools
+          sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake libfuse-dev mtools autoconf automake libtool git build-essential
           cmake --version
           python setup.py bdist_wheel linux
           echo "--------------------------------"
