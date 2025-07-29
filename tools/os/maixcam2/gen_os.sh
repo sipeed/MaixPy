@@ -14,7 +14,7 @@ set -e
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [board_name] [delete_first_files]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <skip_build_apps> <board_name> [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
     echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm,"

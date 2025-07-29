@@ -31,15 +31,15 @@ title: 为 MaixCAM 编译系统
 
 到`MaixPy/tools/os`目录下，执行
 ```shell
-./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> [skip_build_apps] [device_name]
+./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <skip_build_apps> <device_name>
 ```
 这里参数说明：
 * **base_os_filepath**: 基础系统路径, img 或者 img.xz 格式。
 * **maixpy_whl_filepath**： MaixPy 软件包， whl 格式。
 * **builtin_files_dir_path**： MaixCAM 自定义文件， 可以在 MaixPy release 下载到最新的。
 * **os_version_str**: 系统版本，格式要满足类似 `maixcam-2024-08-16-maixpy-v4.4.21` 的规范。
-* **skip_build_apps**: 跳过编译内置应用，可选参数，传 1 则会跳过，不传这个参数会将 MaixCDK 和 MaixPy 中的应用都编译并拷贝到系统中。
-* * **device name**: 可以选择`maixcam` 或者 `maixcam-pro`，对应了设备的型号。
+* **skip_build_apps**: 跳过编译内置应用，可选参数，传 `1` 则会跳过，传 `0` 会将 MaixCDK 和 MaixPy 中的应用都编译并拷贝到系统中。
+* **device name**: 可以选择`maixcam` 或者 `maixcam-pro`，对应了设备的型号。
 
 举例：
 ```shell
