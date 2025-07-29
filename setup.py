@@ -294,6 +294,7 @@ if board:
             wheel_path_r = "dist/temp/maixpy-{}.dist-info/WHEEL".format(__version__)
         with open(wheel_path_r, "r", encoding="utf-8") as f:
             lines = f.readlines()
+        os.makedirs(os.path.dirname(wheel_path), exist_ok=True)
         with open(wheel_path, "w", encoding="utf-8") as f:
             for line in lines:
                 if line.startswith("Tag:"):
