@@ -86,7 +86,7 @@ jobs:
           base_os_path=tmp/base_os.img.xz
           python download_base_os.py -o ${base_os_path}
           python download_builtin_files.py --unzip tmp/dl_builtin_files
-          builtin_files_dir=tmp/dl_builtin_files/sys_builtin_files
+          builtin_files_dir=tmp/dl_builtin_files/maixcam_builtin_files
           ./gen_os.sh $base_os_path $release_path $builtin_files_dir 0 maixcam
           os_filename=${os_version_name}.img.xz
           os_filepath=`pwd`/images/$os_filename

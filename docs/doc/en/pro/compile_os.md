@@ -45,7 +45,7 @@ Here’s what each parameter means:
 Example command:
 
 ```shell
-./gen_os.sh '/home/xxx/.../LicheeRV-Nano-Build/install/soc_sg2002_licheervnano_sd/images/2024-08-13-14-43-0de38f.img' ../../dist/MaixPy-4.4.21-py3-none-any.whl '/home/xxx/.../sys_builtin_files' 0 maixcam-pro
+./gen_os.sh '/home/xxx/.../LicheeRV-Nano-Build/install/soc_sg2002_licheervnano_sd/images/2024-08-13-14-43-0de38f.img' ../../dist/MaixPy-4.4.21-py3-none-any.whl '/home/xxx/.../maixcam_builtin_files' 0 maixcam-pro
 ```
 
 After waiting for the built-in apps to compile and copy, you should find a `maixcam-pro-2024-08-15-maixpy-v4.4.21.img.xz` system image in the `MaixPy/tools/os/tmp` directory.
