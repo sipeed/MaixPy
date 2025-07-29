@@ -1,6 +1,6 @@
 import os
 
-cmd_restart = "/etc/init.d/S03usbdev stop &&/etc/init.d/S03usbdev start"
+cmd_restart = "/usr/bin/usb_util stop && /usr/bin/usb_util start"
 
 def usb_devive(device_list):
     if os.path.exists("/boot/usb.host"):
