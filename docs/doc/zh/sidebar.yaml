@@ -222,10 +222,10 @@ items:
     -   file: modules/bluetooth.md
         label: 蓝牙
 
--   label: 项目实战
+-   label: 项目实战和开源项目
     items:
     -   file: projects/README.md
-        label: 介绍和汇总
+        label: 介绍和开源项目汇总
     -   file: projects/line_tracking_robot.md
         label: 小车巡线
     -   file: projects/face_tracking.md
