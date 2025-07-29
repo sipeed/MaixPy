@@ -289,10 +289,12 @@ if board:
         with zipfile.ZipFile(os.path.join("dist", name), "r") as zip_ref:
             zip_ref.extractall("dist/temp")
         wheel_path = "dist/temp/MaixPy-{}.dist-info/WHEEL".format(__version__)
-        wheel_path_r = wheel_path
-        if not os.path.exists(wheel_path_r):
-            wheel_path_r = "dist/temp/maixpy-{}.dist-info/WHEEL".format(__version__)
-        with open(wheel_path_r, "r", encoding="utf-8") as f:
+        if not os.path.exists(wheel_path):
+            wheel_path_lower = "dist/temp/maixpy-{}.dist-info/WHEEL".format(__version__)
+            if os.path.exists(wheel_path_lower):
+                # rename this dir to MaixPy-<version>.dist-info
+                os.rename("dist/temp/maixpy-{}.dist-info".format(__version__), "dist/temp/MaixPy-{}.dist-info".format(__version__))
+        with open(wheel_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         os.makedirs(os.path.dirname(wheel_path), exist_ok=True)
         with open(wheel_path, "w", encoding="utf-8") as f:
