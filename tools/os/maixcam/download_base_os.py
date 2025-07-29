@@ -45,7 +45,7 @@ def download_file(url, output_path, force=False):
         print(f"An error occurred: {e}")
 
 def get_base_image(file_path = ""):
-    version_txt = os.path.join(curr_dir, "..", "..", "maix", "version_base_system_maixcam.txt")
+    version_txt = os.path.join(curr_dir, "..", "..", "..", "maix", "version_base_system_maixcam.txt")
     with open(version_txt, "r") as f:
         version = f.readline().strip()
     url, filename = get_release_image_url(version)
