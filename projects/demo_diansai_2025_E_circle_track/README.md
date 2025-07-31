@@ -3,6 +3,8 @@
 
 ## 效果
 
+演示视频看[Bilibili](https://www.bilibili.com/video/BV18m8CzNEqT/)
+
 * 使用了 AI 模型，可以避免很多干扰识别到矩形框。
 * 使用MaixCAM 默认 GC4653 摄像头，最远距离可 4 米还能识别到。
 * 多种算法选择。
@@ -16,6 +18,8 @@
 ## 软件
 
 基于 [MaixPy](https://github.com/sipeed/maixpy)，以及用到了一点点 OpenCV。
+
+注意，本代码在系统镜像 v4.11.8 上测试过。之前的版本可以在`main.py`配置中打开自动白平衡即可运行，或者直接升级系统也可以。
 
 
 ## 使用
