@@ -6,10 +6,18 @@
     @license MIT
     @date 2025.7.30
 '''
-from enum import auto
+
 from maix import camera, display, image, nn, app, time
+disp = display.Display()
+img = image.Image(disp.width(), disp.height())
+msg = "Loading ..."
+size = image.string_size(msg, scale = 1.5, thickness=2)
+img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, scale=1.5, thickness=2)
+disp.show(img)
+
 import cv2
 import numpy as np
+import os
 
 
 DEBUG=False
@@ -55,6 +63,12 @@ contrast = 80                               # 对比度，会影响到检测，�
 
 ###################################################################################
 
+if not os.path.exists(model_path):
+    model_path1 = "model/model_3356.mud"
+    if not os.path.exists(model_path1):
+        print(f"load model failed, please put model in {model_path}, or {os.path.getcwd()}/{model_path1}")
+    model_path = model_path1
+
 # 初始化摄像头
 detector = nn.YOLOv5(model=model_path, dual_buff = True)
 
@@ -64,12 +78,10 @@ if hires_mode:
 else:
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format(), buff_num=cam_buff_num)
 if not auto_awb:
-    cam.awb_mode(camera.AwbMode.Manual)	
+    cam.awb_mode(camera.AwbMode.Manual)
     cam.set_wb_gain(awb_gain)
 cam.constrast(contrast)
 # cam.set_windowing([448, 448])
-
-disp = display.Display()
 
 def find_laser_point(img, original_img):
     '''
@@ -87,7 +99,7 @@ def find_laser_point(img, original_img):
             max_s = s
             max_b = b
     if DEBUG:
-        laser_binary = img.binary(ths, copy=True) 
+        laser_binary = img.binary(ths, copy=True)
         original_img.draw_image(original_img.width() - laser_binary.width(), original_img.height() - laser_binary.height(), laser_binary)
     return max_b
 
@@ -227,7 +239,7 @@ while not app.need_exit():
                     # heightB = np.linalg.norm(tl - bl)
                     # maxHeight = int(max(heightA, heightB) * img_ai_scale[1] * std_scale)
                     # print(maxWidth, maxHeight)
-                    
+
 
                     maxWidth = std_res[0]
                     maxHeight = std_res[1]
@@ -245,7 +257,7 @@ while not app.need_exit():
                         [0, maxHeight - 1]], dtype="float32")
                     M = cv2.getPerspectiveTransform(rect, dst)
                     M_inv = np.linalg.inv(M)
-                    img_std_cv = cv2.warpPerspective(img_cv, M, (maxWidth, maxHeight))                
+                    img_std_cv = cv2.warpPerspective(img_cv, M, (maxWidth, maxHeight))
                     img_std = image.cv2image(img_std_cv, False, False)
                     debug_time("get std img")
 
@@ -380,7 +392,7 @@ while not app.need_exit():
                         print("detected circle too small", img_std.width(), img_std.height())
                 else:
                     print(minW, minH, "rect not valid")
-        
+
         # 绘制路径
         if approx is not None:
             cv2.drawContours(crop_ai_cv, [approx], -1, (255, 255, 255), 1)

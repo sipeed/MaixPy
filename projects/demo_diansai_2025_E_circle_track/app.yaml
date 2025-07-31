@@ -1,0 +1,11 @@
+id: find_rect_circle
+name: Find rectangle circle
+version: 1.0.0
+author: Neucrack
+icon: assets/rectangle_circle.png
+desc: Find circle in black rectangle A4 paper
+files:
+  - assets
+  - model
+  - app.yaml
+  - main.py

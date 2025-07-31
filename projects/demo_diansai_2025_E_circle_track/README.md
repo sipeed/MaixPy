@@ -1,6 +1,10 @@
 2025 电赛 E 题 MaixPy 实现
 ======
 
+## 题目
+
+这是对 《2025 电赛 E 题 简易自行瞄准装置》的一个实现，官方题目在[这里](https://res.nuedc-training.com.cn/topic/2025/topic_from_30.html)。
+
 ## 效果
 
 演示视频看[Bilibili](https://www.bilibili.com/video/BV18m8CzNEqT/)
