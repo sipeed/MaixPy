@@ -36,7 +36,7 @@ debug_draw_err_line = True   # 画出圆心和画面中心的误差线，需要�
 # debug_draw_err_msg = True    # 画出圆心和画面中心的误差值和 FPS 信息，需要消耗7ms左右时间，慎用
 debug_draw_circle = True       # 画出圆圈，实际是画点，需要再打开变量, debug 模式都会画，耗费时间比较多，慎用
 # debug_draw_rect = True         # 画出矩形框
-debug_show_hires = True        # 显示结果在高分辨率图上，而不是小分辨率图上， 开启了 hires_mode 才生效
+# debug_show_hires = True        # 显示结果在高分辨率图上，而不是小分辨率图上， 开启了 hires_mode 才生效
 
 
 crop_padding = 12            # 裁切图时的外扩距离，调试到保证最近和最远位置整个黑框在检测框里，可以打开 DEBUG 模式看
@@ -49,7 +49,7 @@ hires_mode = True           # 高分辨模式，适合 find_circle 模式使用�
                              # 注意开启了这个模式，输出的误差值也是基于大图的分辨率
 high_res = 448               # 高分辨率模式宽高,越高越清晰但是帧率越低，注意 std_res 也要跟着改大点
 model_path = "/root/models/model_3356.mud" # 检测黑框模型路径，从 https://maixhub.com/model/zoo/1159 下载并传到开发板的 /root/models 目录
-
+model_dual_buff_mode = True  # 模型双缓冲模式，开启了帧率会高一帧处理的时间，但是延迟也会高一帧
 
 find_circle = False          # 在找到黑框以内白框后是否继续找圆，如果圆圈画得标准，在纸正中心则不用找，如果画点不在纸正中心则需要找。
                              # 建议把A4纸制作正确就不用找了，帧率更高。
@@ -57,7 +57,7 @@ find_circle = False          # 在找到黑框以内白框后是否继续找圆�
 cam_buff_num = 1             # 摄像头缓冲， 1 延迟更低帧率慢一点点， 2延迟更高帧率高一点点
 find_laser = False           # 找激光点（未测试），实际使用时直接把摄像头中心和激光点保持移植就好了，不需要找激光点
 
-auto_awb = True                            # 自动白平衡或者手动白平衡
+auto_awb = True                             # 自动白平衡或者手动白平衡
 awb_gain = [0.134, 0.0625, 0.0625, 0.1139]  # 手动白平衡，auto_awb为False才生效， R GR GB B 的值，调 R 和 B 即可
 contrast = 80                               # 对比度，会影响到检测，阴影和圆圈痕迹都会更重
 
@@ -70,7 +70,7 @@ if not os.path.exists(model_path):
     model_path = model_path1
 
 # 初始化摄像头
-detector = nn.YOLOv5(model=model_path, dual_buff = True)
+detector = nn.YOLOv5(model=model_path, dual_buff = model_dual_buff_mode)
 
 # 初始化摄像头
 if hires_mode:
@@ -375,11 +375,11 @@ while not app.need_exit():
                             # 画在小图上显示
                                 # too slow
                                 # center_ai = image.resize_map_pos(img.width(), img.height(), img_ai.width(), img_ai.height(), image.Fit.FIT_FILL, original_center_point[0], original_center_point[1])
-                                center_ai = [int(original_center_point[0] * img_ai_scale[0]), int(original_center_point[1] * img_ai_scale[1])]
+                                center_ai = [int(original_center_point[0] / img_ai_scale[0]), int(original_center_point[1] / img_ai_scale[1])]
                                 img_ai.draw_circle(center_ai[0], center_ai[1], 2, image.COLOR_RED, thickness=-1)
                                 pts = orig_circle_pts[0]  # shape: (N, 2)
 
-                                scaled_pts = (pts * img_ai_scale).astype(np.int32)  # shape: (N, 2)
+                                scaled_pts = (pts / img_ai_scale).astype(np.int32)  # shape: (N, 2)
                                 points = scaled_pts.reshape(-1).tolist()  # 转为 Python list（与原结果相同）
                                 if debug_draw_circle:
                                     img_ai.draw_keypoints(points, image.COLOR_RED, 1, line_thickness=1)
