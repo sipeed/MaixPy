@@ -22,6 +22,13 @@ function usage() {
     echo ""
 }
 
+function check_axp2img_command() {
+    if ! command -v axp2img >/dev/null 2>&1; then
+        echo "axp2img command not found, please run \"pip install axp-tools\" first"
+        exit 1
+    fi
+}
+
 param_count=$#
 case "$param_count" in
     3|4|5|6|7)
@@ -56,6 +63,8 @@ if [ -n "$5" ]; then
         exit 1
     fi
 fi
+
+check_axp2img_command
 
 delete_first_files=""
 if [ -n "$6" ]; then
