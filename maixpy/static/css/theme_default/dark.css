@@ -1,0 +1,169 @@
+/**
+    teedoc light theme css
+    @author neucrack
+    @copyright (c) neucrack CZD666666@gmail.com with MIT License
+    @changes 2021.1.27  add basic attrributes
+ */
+
+ /*
+    use .dark class to cover light theme style
+  */
+
+/* global template */
+.dark body {
+    color: #d1d1d1;
+    background-color: #1b1b1b;
+}
+.dark a {
+    color: #8a8a8a;
+}
+.dark a:visited {
+    color: #8a8a8a;
+}
+.dark code {
+    background-color: #2a2a2a;
+}
+.dark pre[class*="language-"].line-numbers > code {
+    background: none;
+    padding: 0;
+}
+.dark #navbar .sub_items ul {
+    box-shadow: 0 0 9px 0px #000000;
+    background-color: #232323;
+}
+.dark #sidebar .active > a,
+.dark #navbar .active > a {
+    background-color: #2d2d2d;
+    color: #c33d45;
+}
+.dark #sidebar .active > a,
+.dark #navbar .active > a,
+.dark #navbar .active_parent > a {
+    background-color: #2d2d2d;
+}
+.dark #sidebar li > a:hover,
+.dark #sidebar li.active_parent > a:hover,
+.dark #navbar li > a:hover,
+.dark #navbar .sub_items > a:hover {
+    background-color: #2d2d2d;
+}
+.dark #sidebar ul .active_parent > a {
+    background-color: #232323;
+}
+.dark .gutter.gutter-horizontal {
+    background-color: #484848;
+}
+.dark *::-webkit-scrollbar-track {
+    background: #484848;
+}
+.dark *::-webkit-scrollbar-thumb {
+    background-color: #6b6b6b;
+}
+.dark #article #toc {
+    background-color: #1b1b1b;
+}
+.dark #to_top {
+    background-color: #2d2d2d;
+    box-shadow: 8px 8px 20px #000000;
+}
+.dark #to_top:hover {
+    box-shadow: 8px 8px 28px #000000;
+}
+.dark #to_top:active {
+    box-shadow: 0px 0px 20px #000000;
+}
+.dark blockquote {
+    background-color: #2d2d2d;
+}
+.dark blockquote.spoiler {
+    border-left: 5px solid #FF9800;
+    background-color: #6e5200;
+    color: white;
+}
+.dark td {
+    background-color: #373737;
+    border: 2px solid #555555;
+}
+.dark th {
+    font-weight: 700;
+    background-color: #0f5943;
+    color: white;
+    border: 2px solid #006f4f;
+}
+.dark sup a {
+    background-color: #2d2d2d;
+}
+.dark a:hover {
+    background-color: #424242;
+}
+.dark #doc_footer {
+    background-color: #2d2d2d;
+    border-top: 1px solid #2d2d2d;
+}
+.dark #page_footer {
+    background-color: #2d2d2d;
+    border-top: 1px solid #2d2d2d;
+}
+.dark #footer a:hover {
+    background-color: #404040;
+}
+.dark #previous_next {
+    border-top: 1px solid #525252;
+}
+.dark #previous_next a {
+    background-color: #2d2d2d;
+}
+
+/* google translate */
+.dark #navbar #google_translate_element .goog-te-gadget-simple {
+    background-color: #1b1b1b;
+}
+.dark #navbar #google_translate_element .goog-te-gadget-simple .goog-te-menu-value {
+    color: #8a8a8a;
+}
+
+/* tabset */
+.dark .tabset {
+    border: 0.2em solid #4c4c4c;
+}
+.dark .tabset-text-container {
+    background-color: #212121;
+}
+.dark .tabset-tab-active {
+    background-color: #212121;
+}
+
+/* details */
+.dark details {
+    border: 0.2em solid #4c4c4c;
+}
+.dark details > .details-content {
+    background-color: #212121;
+}
+
+/* markdown */
+.dark #mermaid-1662893106119 .messageText {
+    fill: #6f6f6f;
+    stroke: #6f6f6f;
+}
+#mermaid-1662893106119 .loopText, #mermaid-1662893106119 .loopText>tspan {
+    fill: #a99b1a;
+    stroke: none;
+}
+
+@media screen and (max-width: 900px) {
+    .dark #menu_wrapper.m_menu_fixed {
+        background-color: rgb(27, 27, 27, 0.9);
+        box-shadow: 0px 1px 10px 0px rgb(0, 0, 0, 0.32);
+    }
+    .dark #sidebar_wrapper {
+        background-color: #1b1b1b;
+    }
+    .dark #navbar {
+        display: block;
+        border-bottom: 1px solid #383838;
+        z-index: 89;
+    }
+}
+
+
