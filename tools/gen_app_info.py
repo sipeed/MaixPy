@@ -36,6 +36,8 @@ for name in os.listdir(apps_dir):
         continue
     app_info_str += f'[{app_info["id"]}]\n'
     valid_keys = ["name", "version", "icon", "author", "desc"]
+    if not "icon" in app_info:
+        app_info["icon"] = "/maixapp/share/icon/icon.json"
     for k, v in app_info.items():
         valid = False
         for valid_k in valid_keys:

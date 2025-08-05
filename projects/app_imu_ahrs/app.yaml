@@ -2,7 +2,7 @@ id: imu_ahrs
 name: IMU AHRS
 name[zh]: 姿态解算
 version: 1.0.3
-#icon: assets/hello.png
+icon: assets/icon.png
 author: Sipeed Ltd
 desc: IMU AHRS
 desc[zh]: IMU 姿态解算
