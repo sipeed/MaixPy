@@ -90,7 +90,17 @@ def main(disp):
     ret_btn = [0, disp.height() - 50, 100, 50]
     dir_btn = [disp.width() // 2 - dir_font_size.width() // 2 - 10, disp.height() - 50, dir_font_size.width() + 20, 50]
 
-    sensor = imu.IMU("qmi8658")
+    try:
+        sensor = imu.IMU("default")
+    except Exception:
+        img = image.Image(disp.width(), disp.height())
+        msg = "Init IMU failed, maybe no IMU"
+        size = image.string_size(msg, scale=1.2, font="hershey_complex_small")
+        img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 , msg, image.COLOR_WHITE, scale=1.2, font="hershey_complex_small")
+        disp.show(img)
+        while not app.need_exit():
+            time.sleep(0.2)
+        return 0
     filter = ahrs.MahonyAHRS(kp, ki)
 
     # if not sensor.calib_gyro_exists():
