@@ -34,7 +34,7 @@ cd ~/maix/MaixPy
 python setup.py bdist_wheel maixcam
 ```
 
-`maixcam` 可以被替换为其他板卡配置, 请查看 `MaixPy/platforms` 目录。
+`maixcam` 可以被替换为其他板卡配置, 请查看 `MaixCDK/platforms` 目录。
 
 构建成功后, 你会在 `dist` 目录中找到 wheel 文件, 传输到设备（开发板），在设备终端中使用 `pip install -U MaixPy****.whl` 在你的设备上安装或升级。
 
