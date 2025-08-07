@@ -1,5 +1,12 @@
 from maix.peripheral import adc
-from maix import time
+from maix import time, sys
+
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    raise Exception("MaixCAM2 don't have ADC")
+else:
+    pin_name = "A19"
+
 
 a = adc.ADC(0, adc.RES_BIT_12)
 

@@ -1,19 +1,29 @@
-from maix import spi, pinmap
+from maix import spi, pinmap, sys, err
 
-pin_function = {
-    "A24": "SPI4_CS",
-    "A23": "SPI4_MISO",
-    "A25": "SPI4_MOSI",
-    "A22": "SPI4_SCK"
-}
+# get pin and SPI number according to device id
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_function = {
+        "IO1_A21": "SPI2_CS1",
+        "IO1_A19": "SPI2_MISO",
+        "IO1_A18": "SPI2_MOSI",
+        "IO1_A20": "SPI2_SCK"
+    }
+    spi_id = 2
+else:
+    pin_function = {
+        "A24": "SPI4_CS",
+        "A23": "SPI4_MISO",
+        "A25": "SPI4_MOSI",
+        "A22": "SPI4_SCK"
+    }
+    spi_id = 4
 
 for pin, func in pin_function.items():
-    if 0 != pinmap.set_pin_function(pin, func):
-        print(f"Failed: pin{pin}, func{func}")
-        exit(-1)
+    err.check_raise(pinmap.set_pin_function(pin, func), f"Failed set pin{pin} function to {func}")
 
 
-spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
+spidev = spi.SPI(spi_id, spi.Mode.MASTER, 1250000)
 
 ### Example of full parameter passing.
 # spidev = spi.SPI(id=4,                  # SPI ID

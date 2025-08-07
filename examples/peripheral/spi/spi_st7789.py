@@ -23,7 +23,7 @@ import sys
 import numbers
 import numpy as np
 
-from maix import spi, gpio, pinmap, time
+from maix import spi, gpio, pinmap, time, err
 
 __version__ = '0.0.4'
 
@@ -102,26 +102,43 @@ class ST7789(object):
         # print(f"use spi{port}")
 
         ### pinmap
-        if port == 4:
-            spi_pin_function = {
-                "A24": "SPI4_CS",
-                "A23": "SPI4_MISO", # MISO
-                "A25": "SPI4_MOSI", # MOSI
-                "A22": "SPI4_SCK",  # SCK
-            }
-        elif port == 2:
-            spi_pin_function = {
-                "P18": "SPI2_CS",
-                "P21": "SPI2_MISO", # MISO
-                "P22": "SPI2_MOSI", # MOSI
-                "P23": "SPI2_SCK",  # SCK
-            }
+        device_id = sys.device_id()
+        if device_id == "maixcam2":
+            if port == 1:
+                spi_pin_function = {
+                    "IO0_A2": "SPI1_CS0",
+                    "IO0_A1": "SPI1_MISO",
+                    "IO0_A0": "SPI1_MOSI",
+                    "IO0_A4": "SPI1_SCK"
+                }
+            elif port == 2:
+                spi_pin_function = {
+                    "IO1_A21": "SPI2_CS1",
+                    "IO1_A19": "SPI2_MISO",
+                    "IO1_A18": "SPI2_MOSI",
+                    "IO1_A20": "SPI2_SCK"
+                }
+            else:
+                raise ValueError("Only support spi2 and spi4")
         else:
-            raise ValueError("Only support spi2 and spi4")
+            if port == 4:
+                spi_pin_function = {
+                    "A24": "SPI4_CS",
+                    "A23": "SPI4_MISO", # MISO
+                    "A25": "SPI4_MOSI", # MOSI
+                    "A22": "SPI4_SCK",  # SCK
+                }
+            elif port == 2:
+                spi_pin_function = {
+                    "P18": "SPI2_CS",
+                    "P21": "SPI2_MISO", # MISO
+                    "P22": "SPI2_MOSI", # MOSI
+                    "P23": "SPI2_SCK",  # SCK
+                }
+            else:
+                raise ValueError("Only support spi2 and spi4")
         for pin, func in spi_pin_function.items():
-            if 0 != pinmap.set_pin_function(pin, func):
-                print(f"Failed: pin{pin}, func{func}")
-                exit(-1)
+            err.check_raise(pinmap.set_pin_function(pin, func), f"Failed set pin{pin} function to {func}")
 
         ### soft cs
         if soft_cs != None:
@@ -395,10 +412,17 @@ if __name__ == '__main__':
     ### Select a picture.
     image_file = "/maixapp/share/icon/detector.png"
 
+    # get pin and spi number according to device id
+    device_id = sys.device_id()
+    if device_id == "maixcam2":
+        spi_id = 2
+    else:
+        spi_id = 4
+
     disp = ST7789(
             height=135,
             rotation=0,
-            port=4,
+            port=spi_id,
             dc="A14",
             backlight=None,
             spi_speed_hz=1250000,

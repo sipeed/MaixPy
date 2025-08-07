@@ -1,7 +1,19 @@
-from maix import gpio, pinmap, time
+from maix import gpio, pinmap, time, sys
 
-pinmap.set_pin_function("A19", "GPIOA19")
-led = gpio.GPIO("GPIOA19", gpio.Mode.IN)
+# get pin and GPIO number according to device id
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_name = "IO0_A2"
+    gpio_id = "GPIO0_A2"
+else:
+    pin_name = "A19"
+    gpio_id = "GPIOA19"
+
+# set pinmap
+pinmap.set_pin_function(pin_name, gpio_id)
+
+# Init GPIO
+led = gpio.GPIO(gpio_id, gpio.Mode.IN)
 
 while 1:
     print(led.value())

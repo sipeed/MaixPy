@@ -4,10 +4,18 @@ SERVO_PERIOD = 50     # 50Hz 20ms
 SERVO_MIN_DUTY = 2.5  # 2.5% -> 0.5ms
 SERVO_MAX_DUTY = 12.5  # 12.5% -> 2.5ms
 
-# Use PWM7
-pwm_id = 7
-# !! set pinmap to use PWM7
-pinmap.set_pin_function("A19", "PWM7")
+
+# get pin and pwm number according to device id
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_name = "IO0_A31"
+    pwm_id = 7
+else:
+    pin_name = "A19"
+    pwm_id = 7
+
+# set pinmap
+pinmap.set_pin_function(pin_name, f"PWM{pwm_id}")
 
 
 
