@@ -1,0 +1,252 @@
+items:
+-   file: README.md
+    label: 快速开始
+-   file: README_no_screen.md
+    label: 快速开始（无屏幕版）
+-   file: faq.md
+    label: FAQ 常见问题
+
+-   label: 基础
+    collapsed: false
+    items:
+    -   file: basic/upgrade.md
+        label: 升级和烧录系统
+    -   file: basic/app.md
+        label: 应用使用-开发-商店
+    -   file: basic/maixvision.md
+        label: MaixVision 使用
+    -   file: basic/python.md
+        label: Python 语法
+    -   file: basic/linux_basic.md
+        label: Linux 基础知识
+    -   file: basic/python_pkgs.md
+        label: 添加额外的 Python 包
+    -   file: basic/auto_start.md
+        label: 应用开机自启
+    -   file: basic/view_src_code.md
+        label: 查看 API 对应源码
+
+-   label: 基础图像和算法
+    items:
+    -   file: vision/display.md
+        label: 屏幕使用
+    -   file: vision/camera.md
+        label: 摄像头使用
+    -   file: vision/image_ops.md
+        label: 基本图像操作
+    -   file: vision/touchscreen.md
+        label: 触摸屏使用
+    -   file: vision/find_blobs.md
+        label: 寻找色块
+    -   file: vision/line_tracking.md
+        label: 寻找直线
+    -   file: vision/qrcode.md
+        label: 二维码识别
+    -   file: vision/find_barcodes.md
+        label: 条形码识别
+    -   file: vision/apriltag.md
+        label: AprilTag 识别
+    -   file: vision/opencv.md
+        label: 使用 OpenCV
+    -   file: gui/i18n.md
+        label: I18N 国际化(多语言)
+
+-   label: AI 视觉
+    items:
+    -   file: vision/ai.md
+        label: AI 视觉基本知识
+    -   file: vision/classify.md
+        label: AI 物体分类
+    -   file: vision/yolov5.md
+        label: YOLO11/v8/v5 物体检测
+    -   file: vision/face_detection.md
+        label: 人脸及关键点检测
+    -   file: vision/face_landmarks.md
+        label: 人脸多关键点检测
+    -   file: vision/face_recognition.md
+        label: 人脸识别
+    -   file: vision/face_emotion.md
+        label: 人脸表情情绪识别
+    -   file: vision/body_key_points.md
+        label: 人体关键点检测
+    -   file: vision/segmentation.md
+        label: 图像语义分割
+    -   file: vision/self_learn_classifier.md
+        label: 自学习分类器
+    -   file: vision/self_learn_detector.md
+        label: 自学习检测器
+    -   file: vision/object_track.md
+        label: 物体轨迹跟踪和计数
+    -   file: vision/ocr.md
+        label: OCR 文字识别
+    -   file: vision/detect_obb.md
+        label: 带旋转角度的检测(OBB)
+    -   file: vision/hand_landmarks.md
+        label: 手部关键点检测
+    -   file: vision/body_pose_classification.md
+        label: 人体姿态分类器
+    -   file: vision/hand_gesture_classification.md
+        label: 手势分类器
+    -   file: vision/depth_anything.md
+        label: Depth-Anything 单目深度估计
+    -   file: vision/yolo_world.md
+        label: YOLO-World 检测任意物体
+    -   file: vision/maixhub_train.md
+        label: MaixHub 在线训练 AI 模型
+    -   file: vision/customize_model_yolov5.md
+        label: 离线训练 YOLOv5 模型
+    -   file: vision/customize_model_yolov8.md
+        label: 离线训练 YOLO11/YOLOv8 模型
+
+-   label: AI 听觉
+    items:
+    -   file: audio/record.md
+        label: 录入音频
+    -   file: audio/play.md
+        label: 播放音频
+    -   file: audio/recognize.md
+        label: 语音实时识别
+    -   file: audio/digit.md
+        label: 连续中文数字识别
+    -   file: audio/keyword.md
+        label: 关键词识别
+    -   file: audio/synthesis.md
+        label: 语音合成
+    -   file: audio/ai_classify.md
+        label: AI 声音分类
+    -   file: audio/deploy_online_recognition.md
+        label: 部署在线语音识别环境
+
+-   label: AI 大模型
+    items:
+    -   file: mllm/llm_qwen.md
+        label: Qwen 大语言模型
+    -   file: mllm/llm_deepseek.md
+        label: DeepSeek 大语言模型
+    -   file: mllm/vlm_internvl.md
+        label: InternVL 视觉语言模型
+
+-   label: AI 模型转换和移植
+    items:
+    -   file: ai_model_converter/maixcam2.md
+        label: ONNX 模型转给 MaixCAM2 用
+    -   file: ai_model_converter/maixcam.md
+        label: ONNX 模型转给 MaixCAM 用
+    -   file: pro/datasets.md
+        label: 哪里找模型和数据集
+    -   file: pro/customize_model.md
+        label: 移植新模型
+
+-   label: 视频
+    items:
+    -   file: video/record.md
+        label: 录像
+    -   file: video/play.md
+        label: 播放视频
+    -   file: video/jpeg_streaming.md
+        label: JPEG 串流
+    -   file: video/rtsp_streaming.md
+        label: RTSP 串流
+    -   file: video/rtmp_streaming.md
+        label: RTMP 串流
+    -   file: video/uvc_streaming.md
+        label: UVC 串流
+
+-   label: 网络通信
+    items:
+    -   file: network/network_settings.md
+        label: 网络设置
+    -   file: network/http.md
+        label: http 网络通信
+    -   file: network/socket.md
+        label: socket 网络通信
+    -   file: network/mqtt.md
+        label: MQTT 网络通信
+    -   file: network/websocket.md
+        label: websocket 网络通信
+    -   file: network/flask.md
+        label: Flask Web 服务器
+
+-   label: 通信协议
+    items:
+    -   file: comm/maix_protocol.md
+        label: Maix 应用通信协议
+    -   file: comm/modbus.md
+        label: Modbus 通信协议
+
+-   label: 片上外设
+    items:
+    -   file: peripheral/pinmap.md
+        label: PINMAP IO 功能映射
+    -   file: peripheral/gpio.md
+        label: GPIO 和 点灯
+    -   file: peripheral/key.md
+        label: Key 按键事件
+    -   file: peripheral/uart.md
+        label: UART 串口
+    -   file: peripheral/i2c.md
+        label: I2C
+    -   file: peripheral/pwm.md
+        label: PWM
+    -   file: peripheral/spi.md
+        label: SPI
+    -   file: peripheral/wdt.md
+        label: WDT 看门狗
+    -   file: peripheral/adc.md
+        label: ADC 模数转换
+    -   file: peripheral/hid.md
+        label: 作为 USB HID 设备
+
+-   label: 片外模块
+    items:
+    -   file: kit/microscope.md
+        label: 显微镜套件
+    -   file: modules/ahrs.md
+        label: IMU AHRS 姿态检测
+    -   file: modules/temp_humi.md
+        label: 温湿度传感器
+    -   file: modules/rtc.md
+        label: RTC 时钟模块使用
+    -   file: modules/tmc2209.md
+        label: 步进电机 TMC2209
+    -   file: modules/tof.md
+        label: TOF 测距
+    -   file: modules/thermal_cam.md
+        label: 热成像摄像头
+    -   file: modules/pmu.md
+        label: 电源管理单元
+    -   file: modules/fp5510.md
+        label: 音圈电机 FP5510
+    -   file: modules/spilcd.md
+        label: SPI LCD 屏幕
+    -   file: modules/bluetooth.md
+        label: 蓝牙
+
+-   label: 项目实战和开源项目
+    items:
+    -   file: projects/README.md
+        label: 介绍和开源项目汇总
+    -   file: projects/line_tracking_robot.md
+        label: 小车巡线
+    -   file: projects/face_tracking.md
+        label: 人脸追踪2轴云台
+
+-   label: 进阶
+    collapsed: false
+    items:
+    -   file: pro/memory.md
+        label: 内存使用说明
+    -   file: source_code/contribute.md
+        label: 贡献文档和代码
+    -   file: source_code/build.md
+        label: 构建 MaixPy 源码
+    -   file: source_code/faq.md
+        label: MaixPy 源码 FAQ
+    -   file: source_code/add_c_module.md
+        label: 使用 C/C++ 写一个模块
+    -   file: source_code/maixcdk.md
+        label: 使用 MaixCDK 开发
+    -   file: pro/compile_os.md
+        label: 编译系统
+
+
