@@ -1,42 +1,55 @@
 ---
-title: Using SPI in MaixCAM MaixPy
+title: MaixCAM MaixPy SPI Serial Peripheral Interface Usage Guide
 update:
   - date: 2024-06-11
     author: iawak9lkm
     version: 1.0.0
-    content: Initial document
+    content: Initial version of the document
+  - date: 2025-08-08
+    author: Neucrack
+    version: 1.1.0
+    content: Refactored document, easier for beginners to understand
 ---
 
-## SPI Introduction
+## Prerequisites
 
-SPI (Serial Peripheral Interface) is a synchronous peripheral interface that enables the SoC to communicate serially with various peripheral devices to exchange information. Common peripherals are Flash RAM, network controllers, LCD display drivers, and A/D converters.
+Please first learn how to use the [pinmap](./pinmap.md) module to set pin functions.
 
-SPI uses Master-Slave mode, which supports one or more Slave devices.
+To enable a pin for `SPI` functionality, first use `pinmap` to set the corresponding pin function to `SPI`.
 
-On a hardware circuit, SPI usually consists of 4 wires which are:
 
-* `MISO`(Master Output Slave Input): This pin sends data in slave mode or receives data in master mode.
-* `MOSI`(Master Input Slave Output): This pin sends data in master mode or receives data in slave mode.
-* `SCK`: Serial bus clock, output by the master device and input by the slave device.
-* `NSS/CS`:  Slave Device Selection. It acts as a chip select pin, allowing the master device to communicate with specific slave devices individually, avoiding conflicts on the bus.
+## Introduction to SPI
 
-In terms of communication protocols, SPI behavior is generally like this:
+Earlier we introduced `I2C`, which enables one-to-many bus communication with only two wires. However, it has limitations, such as relatively low speed (typically `200k/400k`). `SPI` (Serial Peripheral Interface) is also a one-to-many bus communication method, but it is faster and requires `4` wires for communication:
+* `MISO`: Master In Slave Out — this pin sends data in slave mode and receives data in master mode.
+* `MOSI`: Master Out Slave In — this pin sends data in master mode and receives data in slave mode.
+* `SCK`: Serial clock, output by the master and input to the slave.
+* `NSS`/`CS`: Slave Select — chip select pin that allows the master to communicate individually with a specific slave device, avoiding conflicts on the data lines.
 
-* SPI supports one master device and multiple slave devices. When the master device needs to communicate with a specific slave device, it selects the CS pin connected to that slave device to enable this transfer.This means that a slave device has only one CS pin for the master device to select itself, and the number of chip-select pins for the master device depends on how many slave devices are connected to its SPI bus.
+Common uses include:
+* Reading and writing Flash memory.
+* Communication between two devices.
+* Protocol conversion, such as SPI to Ethernet.
+* LCD display drivers.
+* Outputting specific square waves, e.g., WS2812 LEDs. Apart from using GPIO control, SPI’s square-wave output capability can also be used to output specific waveforms.
 
-* SPI has four modes, depending on the configuration of polarity (CPOL) and phase (CPHA).
+In terms of protocol behavior, SPI generally works as follows:
 
-  Polarity affects the level of the clock signal when the SPI bus is idle.
+* SPI supports one master and multiple slaves. The master selects the slave to communicate with via the chip select pin. In most cases, a slave device needs only one chip select pin, while the master’s number of chip select pins equals the number of devices. When the chip select signal for a specific slave is enabled, that slave responds to all requests from the master; other slaves ignore all bus data.
 
-  1. CPOL = 1, it indicates a high level at idle.
-  2. CPOL = 0, it indicates a low level at idle.
+* SPI has four modes, determined by polarity (CPOL) and phase (CPHA) settings.
 
-  The phase determines the edge at which the SPI bus acquires data. There are two types of edges, rising edge and falling edge.
+  Polarity affects the clock signal level when the SPI bus is idle.
 
-  1. CPHA = 0, it indicates that sampling starts from the first edge.
-  2. CPHA = 1, it indicates that sampling starts from the second edge.
+  1. CPOL = 1: Idle level is high.
+  2. CPOL = 0: Idle level is low.
 
-  Polarity and phase are combined to form the four modes of SPI:
+  Phase determines which clock edge is used to sample data.
+
+  1. CPHA = 0: Sampling starts at the first clock edge.
+  2. CPHA = 1: Sampling starts at the second clock edge.
+
+  Combining polarity and phase yields the four SPI modes:
 
 | Mode | CPOL | CPHA |
 | ---- | ---- | ---- |
@@ -45,40 +58,61 @@ In terms of communication protocols, SPI behavior is generally like this:
 | 2    | 1    | 0    |
 | 3    | 1    | 1    |
 
-* SPI typically supports both full-duplex transmission and half-duplex transmission.
+* SPI usually supports both full-duplex and half-duplex communication.
 
-* SPI does not specify a maximum transmission rate, it does not have an address scheme; SPI does not specify a communication response mechanism, it does not specify flow control rules.
+* SPI has no defined maximum transfer rate, no addressing scheme, no acknowledgment mechanism, and no flow control rules.
+
+SPI is a very common communication interface, and through SPI, SoCs can control various peripheral devices.
+
+## Choosing the Right SPI to Use
+
+First, we need to know which pins and SPI interfaces the device provides, as shown in the table:
+
+| Device Model | Pin Diagram | Pin Multiplexing Description |
+| ------- | ------- | --- |
+| MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | On the silkscreen, `A24` is the pin name, `SPI4_CS` is the function name |
+| MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | The first name, such as `A24`, is the pin name; `SPI4_CS` is the function name |
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | The first name, such as `IO1_A21`, is the pin name; `SPI2_CS1` is the function name |
+
+Note that pins may be used for other purposes by default; it’s best to avoid those pins. See the [pinmap](./pinmap.md) documentation for details.
+
+For example:
+* `MaixCAM/MaixCAM-Pro`: Due to SPI peripheral limitations, they can only be used as SPI masters. MaixCAM's SPI currently does not support changing the active level of the hardware CS pin; all hardware SPI CS pins are active low. If you need another CS active level, configure it in the SPI API using a software CS pin and its active level. SPI4 is a software-simulated SPI, with a tested maximum speed of 1.25 MHz; usage is the same as hardware SPI.
+* `MaixCAM2`: Has two hardware SPI interfaces by default; SPI2’s default function is SPI. SPI1’s pins require multiplexing setup first; see `pinmap` for details.
 
 ## Using SPI in MaixPy
 
-This is the pinout of MaixCAM.
+To use SPI in MaixPy, first configure `pinmap`, then create an `SPI` object to communicate.
 
-![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
-![maixcam_pro_io](/static/image/maixcam_pro_io.png)
-
-You need to use `maix.peripheral.pinmap` to complete the pin mapping for SPI before use.
-
-**Note: The MaixCAM's SPI can only be used as an SPI master device. MaixCAM's SPI does not support modifying the valid level of the hardware CS pins at this time. The active level of all SPI hardware CS is low. If you need to use other CS active levels, configure the software CS pins and their active levels in the SPI API. SPI4 is the software simulated SPI, the measured maximum rate is 1.25MHz, and the usage is the same as hardware SPI.**
-
-Using SPI with MaixPy is easy:
+Here’s an example: connect the SPI’s `MOSI` and `MISO` together to perform a full-duplex loopback test.
 
 ```python
-from maix import spi, pinmap
+from maix import spi, pinmap, sys, err
 
-pin_function = {
-    "A24": "SPI4_CS",
-    "A23": "SPI4_MISO",
-    "A25": "SPI4_MOSI",
-    "A22": "SPI4_SCK"
-}
+# get pin and SPI number according to device id
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_function = {
+        "IO1_A21": "SPI2_CS1",
+        "IO1_A19": "SPI2_MISO",
+        "IO1_A18": "SPI2_MOSI",
+        "IO1_A20": "SPI2_SCK"
+    }
+    spi_id = 2
+else:
+    pin_function = {
+        "A24": "SPI4_CS",
+        "A23": "SPI4_MISO",
+        "A25": "SPI4_MOSI",
+        "A22": "SPI4_SCK"
+    }
+    spi_id = 4
 
 for pin, func in pin_function.items():
-    if 0 != pinmap.set_pin_function(pin, func):
-        print(f"Failed: pin{pin}, func{func}")
-        exit(-1)
-        
+    err.check_raise(pinmap.set_pin_function(pin, func), f"Failed set pin{pin} function to {func}")
 
-spidev = spi.SPI(4, spi.Mode.MASTER, 1250000)
+
+spidev = spi.SPI(spi_id, spi.Mode.MASTER, 1250000)
 
 ### Example of full parameter passing.
 # spidev = spi.SPI(id=4,                  # SPI ID
@@ -98,11 +132,13 @@ if res == b:
 else:
     print("loopback test failed")
     print(f"send:{b}\nread:{res}")
-```
+````
 
-You need to connect the `MOSI` and `MISO` of this SPI first.
+## More Examples
 
-Configure the required pins with `pinmap` and then enable full duplex communication, the return value will be equal to the sent value.
+See [MaixPy examples](https://github.com/sipeed/MaixPy/tree/main/examples/peripheral/spi).
 
+## API Documentation
 
-See the [SPI API documentation]((../../../api/maix/peripheral/spi.md)) for a more detailed description of the SPI API.
+For more APIs, see the [SPI API documentation](https://wiki.sipeed.com/maixpy/api/maix/peripheral/spi.html)
+

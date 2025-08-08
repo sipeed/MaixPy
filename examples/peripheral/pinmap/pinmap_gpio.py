@@ -1,5 +1,4 @@
-from maix.peripheral import pinmap, gpio
-from maix import sys, time
+from maix import pinmap, gpio, sys, time, err
 
 # get pin and GPIO number according to device id
 device_id = sys.device_id()
@@ -19,7 +18,7 @@ gpio_id = None
 for func_id in funcs:
     if "GPIO" in func_id:
         print(f"set function as {func_id}")
-        pinmap.set_pin_function(pin_name, func_id)
+        err.check_raise(pinmap.set_pin_function(scl_pin_name, func_id), f"set pin {pin_name} function as {func_id} failed")
         gpio_id = func_id
         break
 

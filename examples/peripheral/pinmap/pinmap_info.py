@@ -1,4 +1,4 @@
-from maix.peripheral import pinmap
+from maix import pinmap, err
 
 print("All pins of MaixCAM:")
 print(pinmap.get_pins())
@@ -9,5 +9,5 @@ for pin in pinmap.get_pins():
     print(f"{pin:10s}: {', '.join(funcs)}")
 
 # set pinmap
-# pinmap.set_pin_function("A28", "GPIOA28")
+# err.check_raise(pinmap.set_pin_function("A28", "GPIOA28"), "set pin func failed")
 

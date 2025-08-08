@@ -1,68 +1,140 @@
 ---
-title: Using PINMAP in MaixCAM MaixPy
+title: MaixCAM MaixPy Pinmap Usage Introduction
 update:
   - date: 2024-06-11
     author: iawak9lkm
     version: 1.0.0
-    content: Initial document
+    content: Initial version of the document
+  - date: 2025-08-08
+    author: Neucrack
+    version: 1.1.0
+    content: Refactored the document for better understanding by beginners
 ---
 
-## Pinmap Introduction
+## What is a Pin
 
-In System on Chip (SoC) design, a pin usually has more than one function, and this design method is called pin multiplexing. There are several main reasons for this:
+A pin is a physical hardware pin exposed from the chip/development board. They are visible and tangible around the chip package. In English, we refer to them as `Pin`.
 
-* It saves the number of SoC pins. 
+## What is an On-chip Peripheral
 
-  SoCs integrate a large number of functional modules, such as CPUs, GPUs, memory controllers, I/O interfaces, communication modules, and so on. Assigning separate pins for each function would result in a very large number of pins being required, increasing the complexity and cost of the package. Through pin multiplexing, one pin can support different functions in different modes, thus significantly reducing the total number of pins.
+These are components built into the chip, other than the CPU cores. The “external” here is relative to the `CPU core` (internal), as opposed to “off-chip modules” which are external to the entire chip.
+For example, the following is the internal architecture diagram of the `MaixCAM/MaixCAM-Pro` chip:
 
-* It reduces the cost of chip packaging and manufacturing. 
+![](../../assets/maixcam_cpu_arch.jpg)
 
-  Designers can choose smaller package sizes by reducing the number of pins, thus reducing packaging and manufacturing costs. Smaller packages not only reduce material costs, but also reduce the amount of space the chip takes up on the board, facilitating the design of more compact electronic products.
+We can see that the core consists of two RISC-V cores and one 8051 core. In addition, there are many peripherals such as `GPIO`, `UART`, and `H.264 codec`, all of which are considered on-chip peripherals.
+Importantly, **peripherals here do not necessarily require pins to be brought out of the chip** — for example, the `H.264 codec` is also a peripheral but does not need external pins for interaction.
 
-* It improves design flexibility. 
+Also note that here `GPIO` is a peripheral function within the chip and is not the same as the physical pins (`Pin`) exposed from the chip.
 
-  Pin-multiplexing provides greater design flexibility. Different combinations of pin functions may be required in different application scenarios, and different pin functions can be enabled according to specific needs through software configuration. For example, the same pin can be used as a UART interface in one practical application and an SPI bus interface in another.
+## What is Pin Multiplexing / Pin Mapping
 
-* It simplifies the PCB layout. 
+For peripherals that require interaction with the outside world, such as `GPIO` or `I2C`,
 
-  Reducing the number of pins simplifies the layout design of a printed circuit board (PCB). Fewer pins mean fewer wiring layers and vias, which simplifies PCB design and reduces manufacturing challenges and costs.
+* `GPIO` can control pin input/output,
+* `I2C` can communicate with other chips via two pins (`SDA/SCL`).
 
-* Optimize performance. 
+The simplest design is one pin for each function: for example, in the architecture diagram above, `GPIO` has 54 pins, and `I2C` has 5 sets, requiring a total of `54 + 2 × 5 = 64` pins.
 
-  In some cases, signal paths and performance can be optimized by multiplexing pins. For example, by selecting the proper combination of pin functions, interference and noise in the signal transmission path can be reduced, improving the overall performance and reliability of the system.
+The more functions that require pins, the more pins need to be exposed from the chip, which increases chip size. In reality, it’s rare to need all 54 `GPIO`s and all 5 `I2C`s simultaneously.
+We can add a pin multiplexing circuit between peripherals and pins, so a single pin can switch between `GPIO` and `I2C`. This way, fewer pins can support more functions.
+For example, with 50 pins, 10 of them could be configured either as `GPIO` or as `I2C`. This is pin multiplexing, usually called `pinmux` in English.
 
-Pinmap displays and manages the individual pin configurations of the chip, which typically include the name of each pin and its function (usually multiple functions).
+Due to hardware design limits, most chips allow a pin to be mapped to only a few fixed functions. For example, the `MaixCAM-Pro` pin mapping is shown below:
 
-We use the MaixCAM GPIO A28 as an example.
+![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)
 
-* `A28` is the pin name.
-* `GPIOA28`/`UART2_TX`/`JTAG_TDI` are the functions supported by this pin as listed in the Soc manual, and the function of this pin at the same time can only be one of these three functions.
+Take the `A17` pin on the right: it supports three functions — `GPIOA17 / UART0_RX / PWM5`. We can select which function to use.
+If the default is `UART0_RX` but we need `PWM5`, we configure the pinmux accordingly.
 
-With Pinmap, we can set the specified chip pin for the specified function.
+In MaixPy, the `maix.peripheral.pinmap` module (or simply `maix.pinmap`) is used to query and set pin multiplexing (pin function mapping).
+
+> Other benefits of pin multiplexing:
+>
+> * **Save pin count**: SoCs integrate many modules (CPU, GPU, memory controllers, I/O interfaces, communication modules, etc.). Assigning separate pins to each function would require huge pin counts, increasing packaging complexity and cost. Pinmux allows one pin to serve multiple purposes, reducing pin numbers significantly.
+> * **Reduce packaging & manufacturing cost**: Fewer pins allow for smaller chip packages, lowering material and manufacturing costs. Smaller packages also save PCB space, enabling more compact designs.
+> * **Increase design flexibility**: Pinmux provides flexibility for different application scenarios by enabling different pin functions via software configuration.
+> * **Simplify PCB layout**: Fewer pins make PCB routing easier, reducing layers and vias, which lowers production difficulty and cost.
+> * **Optimize performance**: Choosing optimal pin functions can shorten signal paths and reduce noise/interference, improving overall system reliability.
 
 ## Using Pinmap in MaixPy
 
-The following diagram lists the pin numbers and their functions on the MaixCAM board.
+### Pin Function Diagrams
 
-![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
-![maixcam_pro_io](/static/image/maixcam_pro_io.png)
+Different boards expose different pins. Below are pin mapping diagrams for each device. For detailed mappings, refer to the schematic or the chip manual’s Pinmux section:
 
-Or read the [SG2002 Chip Manual](https://cn.dl.sipeed.com/fileList/LICHEE/LicheeRV_Nano/07_Datasheet/SG2002_Preliminary_Datasheet_V1.0-alpha_CN.pdf) Pinmux section for the remaining pin numbers and functions.
+| Device Model | Pin Diagram                                                                        | Description                                                                        | Full Schematic & Datasheet                                                        |
+| ------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| MaixCAM      | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | Silkscreen like `A19` is the pin name; `GPIOA19/PWM7` is the function name         | See [Hardware Docs](https://wiki.sipeed.com/hardware/zh/maixcam/index.html)       |
+| MaixCAM-Pro  | ![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)                              | First name like `A19` is the pin name; `GPIOA19/PWM7` is the function name         | See [Hardware Docs](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam_pro.html) |
+| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | First name like `IO0_A2` is the pin name; `GPIO0_A2/SPI1_CS0` is the function name | See [Hardware Docs](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2.html)    |
 
-It's actually quite easy to use Pinmap to manage pin functions through MaixPy.
+### Mapping Pin Functions in MaixPy
+
+In MaixPy, use `maix.pinmap.set_pin_function` to set a pin function.
+
+Example — set `A17` pin on `MaixCAM/MaixCAM-Pro`:
+
+```python
+from maix import pinmap
+
+pinmap.set_pin_function("A17", "GPIOA17")
+```
+
+Here `A17` is the pin name, and `GPIOA17` is the on-chip peripheral function.
+This changes the default `UART0_RX` to `GPIO`. Now, even if data is sent to `UART0`, the chip won’t receive it because the pin is in `GPIO` mode.
+
+After setting to `GPIO`, follow the [GPIO usage](./gpio.md) docs to output high/low levels or read input.
+
+### Get All Functions of a Pin
+
+```python
+from maix import pinmap
+
+funcs = pinmap.get_pin_functions("A17")
+print(funcs)
+```
+
+Print all pins and their functions:
 
 ```python
 from maix.peripheral import pinmap
 
+print("All pins of MaixCAM:")
 print(pinmap.get_pins())
 
-f = pinmap.get_pin_functions("A28")
-print(f"GPIO A28 pin functions:{f}")
-
-print(f"Set GPIO A28 to {f[0]} function")
-pinmap.set_pin_function("A28", f[0])
+print("All pin's functions:")
+for pin in pinmap.get_pins():
+    funcs = pinmap.get_pin_functions(pin)
+    print(f"{pin:10s}: {', '.join(funcs)}")
 ```
 
-In the example, we start by listing all the pins available for management. Then we query `GPIO A28` for all the functions available. Finally the function of the pin is set to the first function listed (GPIO).
+### Query Current Function of a Pin
 
-For a more detailed description of the Pinmap API, see the [Pinmap API documentation](../../../api/maix/peripheral/pinmap.md).
+Note: support varies by board type:
+
+* **MaixCAM / MaixCAM-Pro**: Mapping info is stored in an array, not read directly from hardware, so you must set it first for accuracy ([source code here](https://github.com/sipeed/MaixCDK/blob/main/components/peripheral/port/maixcam/maix_pinmap.cpp)).
+* **MaixCAM2**: Reads directly from hardware, so results are accurate.
+
+```python
+from maix import pinmap
+
+func = pinmap.get_pin_function("A17")
+print(func)
+```
+
+### More Examples
+
+See more in [MaixPy Examples](https://github.com/sipeed/MaixPy/tree/main/examples/peripheral/pinmap).
+
+## API Documentation
+
+See the detailed [Pinmap API Docs](../../../api/maix/peripheral/pinmap.md).
+
+## Default Pin Functions & Notes
+
+| Device Model | Pin Diagram                                                                        | Default Function                                                                             | Pins to Note                                                                                                                                                                                                                                                                                              |
+| ------------ | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MaixCAM      | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | Refer to `MaixCAM-Pro`                                                                       | 1. `UART0` is system log + default serial port<br>WiFi (SDIO1 + A26)<br>2. `A14` is system status LED; after setting to `GPIO`, it can be used as normal output<br>3. User button already has a system `key` driver; not recommended to read via `GPIO`<br>4. IO is `3.3V` — do not connect `5V` directly |
+| MaixCAM-Pro  | ![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)                              | 1. Refer to silkscreen, e.g. `29` = GPIO, `RX` = UART<br>2. `6pin` defaults to UART and I2C  | 1. Same as `MaixCAM`<br>2. `B3` drives a lighting LED, active high                                                                                                                                                                                                                                        |
+| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | 1. Refer to silkscreen, e.g. `A4` = GPIO, `U2R` = UART<br>2. `6pin` defaults to UART and I2C | 1. `IO1_A25` drives a lighting LED, active high<br>2. `IO0_A6` drives system status LED; can be used as GPIO output after init<br>3. IO is `3.3V` — do not connect `5V` directly                                                                                                                          |

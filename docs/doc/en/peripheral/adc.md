@@ -7,6 +7,15 @@ update:
     content: Initial document
 ---
 
+
+## Supported Devices
+
+| Device   | Supported |
+| -------- | --------- |
+| MaixCAM2 | ❌ |
+| MaixCAM / MaixCAM-Pro  | ✅ |
+
+
 ## ADC Introduction
 
 

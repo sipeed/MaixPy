@@ -1,4 +1,4 @@
-from maix import pwm, time, pinmap
+from maix import pwm, time, pinmap, err
 
 SERVO_PERIOD = 50     # 50Hz 20ms
 SERVO_MIN_DUTY = 2.5  # 2.5% -> 0.5ms
@@ -15,7 +15,7 @@ else:
     pwm_id = 7
 
 # set pinmap
-pinmap.set_pin_function(pin_name, f"PWM{pwm_id}")
+err.check_raise(pinmap.set_pin_function(pin_name, f"PWM{pwm_id}"), "set pinmap failed")
 
 
 

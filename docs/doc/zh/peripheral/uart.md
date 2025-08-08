@@ -1,6 +1,26 @@
 ---
 title: MaixCAM MaixPy UART 串口使用介绍
+update:
+  - date: 2024-03-07
+    author: Neucrack
+    version: 1.0.0
+    content: 初版文档
+  - date: 2024-08-01
+    author: Neucrack
+    version: 1.1.0
+    content: 优化文档，更多详细内容
+  - date: 2025-08-08
+    author: Neucrack
+    version: 1.2.0
+    content: 添加 MaixCAM2 支持
 ---
+
+## 前置知识
+
+请先学会使用[pinmap](./pinmap.md) 模块设置引脚功能。
+
+要让一个引脚能使用 `UART` 功能，先用`pinmap`设置对应引脚功能为`UART`。
+
 
 ## 串口简介
 
@@ -14,57 +34,114 @@ title: MaixCAM MaixPy UART 串口使用介绍
 
 通过板子的串口，可以和其它单片机或者 SOC 进行数据通信，比如可以在 MaixCAM 上实现人体检测功能，检测到坐标后通过串口发送给 STM32/Arduino 单片机。
 
+
+## 选择合适的 I2C 使用
+
+首先我们需要知道设备有哪些引脚和 I2C，如图：
+
+| 设备型号 | 引脚简图 | 引脚复用说明 |
+| ------- | ------- | --- |
+| MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 板子丝印比如`A19`是引脚名，`UART1_TX`是功能名 |
+| MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | 第一个名如`A19`是引脚名，对应`UART1_TX`是功能名 |
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`IO0_A21`是引脚名，对应`UART4_TX`是功能名  |
+
+需要注意的是，引脚默认可能用做其它用途，最好避开这些引脚，请看[pinmap](./pinmap.md) 文档中的说明。
+
+### MaixCAM/MaixCAM-Pro 串口使用注意点：
+
+* 默认从 USB 口引出了一个串口0，可以插上配套的 Type-C 转接小板，就能直接使用上面的串口引脚，也可以不用转接板，直接使用板子上的 `A16(TX)` 和 `A17(RX)`引脚, 和 USB 口引出的是同样的引脚，是等效的。
+* 对于 MaixCAM 使用 USB 引出的串口时需要**注意**，Typc-C 正插和反插，转接小板上的 `RX` 和 `TX`会交换(默认 **Type-C 母口朝前**和丝印符合)，所以当你发现无法通信时，有可能就是 RX TX 反了，可以尝试将 Type-C 翻转一面插再看看通信是否正常。这个算是设计缺陷，不过一般也不会经常拔插所以适应一下也能接受。
+* **MaixCAM 的`串口0` 在开机时会打印一部分开机日志**， 启动完毕后会打印`serial ready`字样，如果和单片机通信需要注意丢弃这部分信息，如果出现系统启动出现问题也可以通过查看`串口0`的开机打印来诊断问题。
+* MaixCAM 的 `TX`(`UART0`) 引脚也是启动模式检测引脚之一，所以在**串口0开机时不能是被拉低**的状态，不然会导致无法开机，是芯片的特性，如果你在做 `3.3v` 转 `5v` 的电平转换电路要十分注意不要默认拉低请保持浮空（可以考虑使用电平转换芯片）。以及如果你发现无法开机，也可以先检查一下 `TX` 是否被拉低了。
+* 综上，`UART0` 如果你遇到了问题不好解决，建议使用其它串口比如`UART1`。
+* `UART0` 也是系统默认`maix protocol` 串口。
+
+### MaixCAM2 使用注意点
+
+* `MaixCAM2`引出的串口很多，有`UART0 / UART1 / UART2 / UART3 / UART4`共 4 组串口，使用时不要混淆。
+* `UART0`是系统终端和日志串口。
+
+
+### 波特率限制
+
+注意，不是所有波特率都能使用的，推荐没有特殊需求使用 `115200`，这是芯片都支持的，其它波特率误码率可能会很高或者驱动未支持导致数据传输丢失。
+
+这里列举不同设备的常见测试可用波特率（欢迎PR）：
+* `MaixCAM / MaixCAM-Pro`: `115200`。
+* `MaixCAM2`: `115200`。理论最高能到`4000000 bits/s`，底层`baud = uart_clk /(小数分频 * 16)`，默认`uart_clk`是 `200000000`，小数分频值整数部分`uart_clk / (baud * 16)`，小数部分`round((uart_clk % (baud * 16)) * 16 / (baud * 16)) / 16`，比如`115200`计算出来分频器设置为`108.5`，实际验证精度`(115200 - (uart_clk / (108.5 * 16))) / 115200 = 0.0064%`，所以如果你切换波特率，也可以根据这个公式进行计算精度。
+
+
+## 串口硬件接线
+
+两个设备通信， 接三个引脚，`GND`， `RX`， `TX`，通信双发**交叉连接** `RX` `TX`， 即一方 `TX` 发送到另一方的 `RX`， 双方 `GND` 连接到一起即可。
+
+
 ## MaixPy 中使用串口
 
-
-对于 MaixCAM 默认从 USB 口引出了一个串口，可以插上配套的 Type-C 转接小板，就能直接使用上面的串口引脚，
-也可以不用转接板，直接使用板子上的 `A16(TX)` 和 `A17(RX)`引脚, 和 USB 口引出的是同样的引脚，是等效的，具体看接口图：
-
-![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
-![maixcam_pro_io](/static/image/maixcam_pro_io.png)
-
-
-对于 MaixCAM 使用 USB 引出的串口时需要**注意**，Typc-C 正插和反插，转接小板上的 `RX` 和 `TX`会交换(默认 **Type-C 母口朝前**和丝印符合)，所以当你发现无法通信时，有可能就是 RX TX 反了，可以尝试将 Type-C 翻转一面插再看看通信是否正常。这个算是设计缺陷，不过一般也不会经常拔插所以适应一下也能接受。
 
 将两个通信的板子双方连接好后（通信双发交叉连接 RX TX， 即一方 TX 发送到另一方的 RX， 双方 GND 连接到一起），就可以使用软件了。
 
 
-通过 MaixPy 使用串口很简单：
-
+通过 MaixPy 使用串口，核心代码：
 ```python
 from maix import uart
 
-device = "/dev/ttyS0"
-# ports = uart.list_devices() # 列出当前可用的串口
-
-serial = uart.UART(device, 115200)
-serial.write_str("hello world")
-print("received:", serial.read(timeout = 2000))
+serial_dev = uart.UART("/dev/ttyS0", 115200)
+serial_dev.write_str("Hello MaixPy")
 ```
 
-这里使用了第一个串口`/dev/ttyS0`，也就是上面说的 `Type-C` 出 引出的串口。
+`/dev/ttyS0` 是串口设备，可以通过`print(uart.list_devices())`看到所有串口设备。
+一般`/dev/ttyS*`,`*`就是串口号。
 
-更多串口的 API 在 [UART API 文档](../../../api/maix/peripheral/uart.md)。
+对于默认对应引脚就是串口功能的串口可以这样直接使用，其它串口则需要先用`pinmap`映射引脚功能为对应的`UART`功能，然后创建`UART`对象即可：
 
-## MaixCAM 串口使用注意点
+```python
+from maix import uart, pinmap, time, sys, err
 
-### TX 引脚注意点
+# ports = uart.list_devices() # 列出所有串口
 
-MaixCAM 的 `TX`(`UART0`) 引脚在开机时**不能是被拉低**的状态，不然会导致无法开机，是芯片的特性，如果你在做 `3.3v` 转 `5v` 的电平转换电路要十分注意不要默认拉低请保持浮空（可以考虑使用电平转换芯片）。
+# get pin and UART number according to device id
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_function = {
+        "IO0_A21": "UART4_TX",
+        "IO0_A22": "UART4_RX"
+        # "IO1_A0": "UART2_TX",
+        # "IO1_A1": "UART2_RX"
+    }
+    device = "/dev/ttyS4"
+    # device = "/dev/ttyS2"
+else:
+    pin_function = {
+        "A16": "UART0_TX",
+        "A17": "UART0_RX"
+        # "A19": "UART1_TX"
+        # "A18": "UART1_RX",
 
-以及如果你发现无法开机，也可以先检查一下 `TX` 是否被拉低了。
+    }
+    device = "/dev/ttyS0"
+    # device = "/dev/ttyS1"
+
+for pin, func in pin_function.items():
+    err.check_raise(pinmap.set_pin_function(pin, func), f"Failed set pin{pin} function to {func}")
+
+# Init UART
+serial_dev = uart.UART(device, 115200)
+serial_dev.write_str("Hello MaixPy")
+```
 
 ## 串口连接电脑
 
-有开发者可能会问：为什么插上 USB 电脑没出现串口设备？
-答： 因为设备的 USB 默认是 虚拟 USB 网卡，没有串口功能，如果要访问设备的终端，请使用 ssh 连接。
+* 有开发者可能会问：为什么插上 USB 电脑没出现串口设备？
+答： 因为设备的 USB 口是 USB 功能，不是 USB 转串口功能，而且默认会虚拟成 USB 网卡，如果要访问设备的终端，请使用 ssh 连接。
 
-对于 MaixCAM, 从 Type-C 转接板引出的`串口0`直连到 `A16(TX)`和 `A17(RX)`引脚，可以直接接到其它设备比如单片机的串口引脚；
-如果要和电脑通信，需要使用 USB 转串口小板(比如[这个](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537))连接到电脑。
+* 我想电脑和板子串口通信，怎么办？
+答： 现代电脑一般只有 USB 口，所以想电脑和板子的 UART 通信，中间需要一个 USB 转 UART 的转接板，比如[这个](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)，USB 连接电脑，串口连接开发板的串口就能通信了。
 
-## 开机日志输出
-
-需要注意的是， **MaixCAM 的`串口0` 在开机时会打印一部分开机日志**， 启动完毕后会打印`serial ready`字样，如果和单片机通信需要注意丢弃这部分信息，如果出现系统启动出现问题也可以通过查看`串口0`的开机打印来诊断问题。
+* 我想在电脑看板子串口终端打印的日志，或者终端交互，怎么操作？
+答：一般推荐通过网络 ssh 进行终端交互，如果遇到问题，可以用以下方法进入串口终端：
+  * 对于 MaixCAM/MaixCAM-Pro： 将 USB 转 UART 的转接板和板子的`串口0`（`A16(TX)`和 `A17(RX)`）引脚交叉相连，提前将系统内`/boot/uEnv.txt`中的`consoledev`一行前面加`#`号注释掉或者直接删掉使能串口0作为终端，然后重启系统就能通过串口0看到开机日志和终端交互了。
+  * 对于 MaixCAM2: 将 USB 转 UART 的转接板和板子的`串口0`(`U0T`/`U0R`)引脚交叉相连，就可以进行串口终端交互了，开机也会打印日志。
 
 
 ## 发送数据
@@ -172,28 +249,15 @@ while not app.need_exit():
 使用回调函数的方式接收数据请不要再使用`read`函数读取，否则会读取出错。
 
 
-## 使用其它串口
+## 更多串口例程
 
-每个引脚可能可以对应不同的外设功能，这也叫引脚复用，如下图，每个引脚对应了不同功能，比如`A17`引脚(板子的丝引标识)对应了`GPIOA17` `UART0_RX` `PWM5` 这三种功能，默认是`UART0_RX`。
-
-![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
-![maixcam_pro_io](/static/image/maixcam_pro_io.png)
+看[MaixPy examples](https://github.com/sipeed/MaixPy/tree/main/examples/peripheral/uart)。
 
 
-默认我们就能像上面直接使用`UART0`，对于其它串口的引脚默认都不是串口外设功能，所以要使用其它串口，需要先设置一下映射，使用`pinmap.set_pin_function`来设置。
+## 串口API 文档
 
-这里以使用`UART1` 为例，先设置引脚映射选择引脚功能为串口，然后设备编号使用`/dev/ttyS1`，注意`uart.list_devices()` 默认不会返回需要手动映射的串口，所以直接手动传参就可以了：
+更多 API 看 [UART API 文档](https://wiki.sipeed.com/maixpy/api/maix/peripheral/uart.html)
 
-```python
-from maix import app, uart, pinmap, time
-
-pinmap.set_pin_function("A18", "UART1_RX")
-pinmap.set_pin_function("A19", "UART1_TX")
-
-device = "/dev/ttyS1"
-
-serial1 = uart.UART(device, 115200)
-```
 
 ## 应用层通信协议
 

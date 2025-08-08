@@ -1,63 +1,137 @@
 ---
-title: Introduction to Using MaixCAM MaixPy UART Serial Port
+title: MaixCAM MaixPy UART Serial Port Usage Introduction
+update:
+  - date: 2024-03-07
+    author: Neucrack
+    version: 1.0.0
+    content: Initial version
+  - date: 2024-08-01
+    author: Neucrack
+    version: 1.1.0
+    content: Optimized documentation with more details
+  - date: 2025-08-08
+    author: Neucrack
+    version: 1.2.0
+    content: Added MaixCAM2 support
 ---
 
-## Introduction to Serial Ports
+## Prerequisite Knowledge
 
-A serial port is a communication method that includes the definitions of both hardware and communication protocols.
+Please first learn to use the [pinmap](./pinmap.md) module to set pin functions.
+
+To use a pin for `UART` functionality, you must first set its function to `UART` using `pinmap`.
+
+## Serial Port Overview
+
+A serial port is a communication method that includes both hardware and communication protocol definitions.
 
 * Hardware includes:
-  * 3 pins: `GND`, `RX`, `TX`, with cross-connection for communication. `RX` and `TX` should be cross-connected, meaning one side's `TX` should connect to the other side's `RX`, and both sides' `GND` should be connected together.
-  * Controller, usually inside the chip, also known as the `UART` peripheral. Generally, a chip can have one or more `UART` controllers, each with corresponding pins.
-* Serial communication protocol: To ensure smooth communication between both parties, a set of protocols is established, specifying how communication should occur, including common parameters like baud rate and parity bit. Baud rate is the most commonly used parameter.
 
-Using the serial port of the board, you can communicate data with other microcontrollers or SOCs. For example, human detection can be implemented on MaixCAM, and the detected coordinates can be sent to STM32/Arduino microcontrollers via the serial port.
+  * 3 pins: `GND`, `RX`, and `TX`. Communication between two devices is **cross-connected** for `RX` and `TX`, meaning one device’s `TX` connects to the other’s `RX`, and both `GND` pins are connected together.
+  * A controller, usually inside the chip, also called a `UART` peripheral. A chip usually has one or more `UART` controllers, each with corresponding pins.
+* Serial communication protocol: To ensure proper communication, a protocol defines timing, baud rate, parity bits, etc. The baud rate is the most commonly used parameter.
+
+Through the board’s serial port, you can communicate with other microcontrollers or SoCs. For example, MaixCAM can perform human detection and send the detected coordinates to an STM32/Arduino via the serial port.
+
+## Choosing the Appropriate I2C to Use
+
+First, we need to know which pins and I2C interfaces are available on the device, as shown below:
+
+| Device Model | Pin Diagram                                                                        | Pin Multiplexing Description                                                                              |
+| ------------ | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| MaixCAM      | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | The board’s silkscreen shows the pin name (e.g., `A19`) and function name (e.g., `UART1_TX`).             |
+| MaixCAM-Pro  | ![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)                              | The first label (e.g., `A19`) is the pin name, corresponding to the function name (e.g., `UART1_TX`).     |
+| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | The first label (e.g., `IO0_A21`) is the pin name, corresponding to the function name (e.g., `UART4_TX`). |
+
+Note: Pins may be used for other purposes by default. It’s best to avoid these pins—see the [pinmap](./pinmap.md) documentation.
+
+### Notes for MaixCAM/MaixCAM-Pro Serial Port Usage:
+
+* By default, a `UART0` serial port is routed from the USB port. You can use the matching Type-C adapter board to directly access the serial pins, or you can use the onboard `A16 (TX)` and `A17 (RX)` pins, which are equivalent to the USB-exposed serial pins.
+* When using the USB-exposed serial port on MaixCAM, note that the Type-C plug’s orientation affects the adapter board’s `RX` and `TX` pins (swapped if reversed; silkscreen matches when the **Type-C female port faces forward**). If communication fails, try flipping the Type-C connector.
+* **`UART0` on MaixCAM prints boot logs** during startup and prints `serial ready` when boot completes. If communicating with a microcontroller, ignore this initial output. Boot logs can also help diagnose startup issues.
+* The `TX` pin of `UART0` is also a boot mode detection pin. It **must not be pulled low during power-on**, or the device won’t boot. If using a 3.3 V to 5 V level shifter, ensure it doesn’t pull `TX` low by default (use a level-shifting chip or keep it floating). If the board won’t start, check if `TX` is being pulled low.
+* If `UART0` causes issues, consider using another UART such as `UART1`.
+* `UART0` is also the system’s default `maix protocol` port.
+
+### Notes for MaixCAM2:
+
+* `MaixCAM2` has multiple serial ports: `UART0 / UART1 / UART2 / UART3 / UART4`—don’t mix them up.
+* `UART0` is the system terminal and log port.
+
+### Baud Rate Limitations
+
+Not all baud rates are supported. Unless necessary, use `115200` (universally supported). Other baud rates may have high error rates or be unsupported.
+
+Common tested baud rates (contributions welcome):
+
+* `MaixCAM / MaixCAM-Pro`: `115200`.
+* `MaixCAM2`: `115200`. Theoretical max: `4000000 bits/s`. Formula:
+  `baud = uart_clk / (fractional_div * 16)`
+  Default `uart_clk`: `200000000`. Integer part: `uart_clk / (baud * 16)`. Fractional part: `round((uart_clk % (baud * 16)) * 16 / (baud * 16)) / 16`.
+  Example: For `115200`, divisor = `108.5`, precision = `0.0064%`.
+
+## Serial Port Hardware Wiring
+
+For two devices to communicate, connect three pins: `GND`, `RX`, `TX`. Connect `TX` of one to `RX` of the other, and connect both `GND`s together.
 
 ## Using Serial Port in MaixPy
 
-MaixCAM's default configuration exposes a serial port through the USB port. By plugging in the Type-C adapter board, you can directly use the serial port pins. Alternatively, you can use the `A16(TX)` and `A17(RX)` pins directly on the board, which are equivalent to those exposed via the USB port, refer to IO interface image:
+Once the two boards are connected (crossed `RX`/`TX`, common `GND`), you can use the software.
 
-![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg)
-![maixcam_pro_io](/static/image/maixcam_pro_io.png)
-
-When using the serial port exposed through USB on MaixCAM, note that the `RX` and `TX` pins on the Type-C adapter board will swap between regular and reverse insertions (assuming the **Type-C female port is facing forward** and matching the silk screen). If communication fails, try flipping the Type-C connection to see if it resolves the issue. Although this is a design flaw, frequent plug/unplug operations are rare, so adapting to it is acceptable.
-
-After connecting the two communicating boards (cross-connecting `RX` and `TX` and connecting both `GND`), you can use software for communication.
-
-Using the serial port with MaixPy is simple:
+Basic MaixPy code:
 
 ```python
 from maix import uart
 
-device = "/dev/ttyS0"
-# ports = uart.list_devices() # List available serial ports
-
-serial = uart.UART(device, 115200)
-serial.write_str("hello world")
-print("received:", serial.read(timeout = 2000))
+serial_dev = uart.UART("/dev/ttyS0", 115200)
+serial_dev.write_str("Hello MaixPy")
 ```
 
-Here, we use the first serial port `/dev/ttyS0`, which is the serial port exposed via `Type-C` mentioned above.
+`/dev/ttyS0` is the serial device. Use `print(uart.list_devices())` to list all devices.
 
-More serial port APIs can be found in the [UART API documentation](../../../api/maix/peripheral/uart.md).
+For pins that are already mapped to UART, you can use them directly. For others, set their function via `pinmap` before creating the `UART` object:
 
-## MaixCAM Serial Port Usage Notes
+```python
+from maix import uart, pinmap, time, sys, err
 
-### TX Pin Notes
+# ports = uart.list_devices() # list all UARTs
 
-MaixCAM's `TX` (`UART0`) pin must not be in a pulled-down state during boot-up, or the device will fail to start. This is a characteristic of the chip. If you are designing a 3.3v to 5v level-shifting circuit, be sure not to default it to a pulled-down state and keep it floating (consider using a level-shifting chip).
+device_id = sys.device_id()
+if device_id == "maixcam2":
+    pin_function = {
+        "IO0_A21": "UART4_TX",
+        "IO0_A22": "UART4_RX"
+    }
+    device = "/dev/ttyS4"
+else:
+    pin_function = {
+        "A16": "UART0_TX",
+        "A17": "UART0_RX"
+    }
+    device = "/dev/ttyS0"
 
-If the device fails to boot, also check whether the `TX` pin is pulled down.
+for pin, func in pin_function.items():
+    err.check_raise(pinmap.set_pin_function(pin, func), f"Failed set pin{pin} function to {func}")
 
-## Connecting to a Computer via Serial Port
+serial_dev = uart.UART(device, 115200)
+serial_dev.write_str("Hello MaixPy")
+```
 
-Developers may ask: Why doesn't the serial port device appear on the computer when the USB is plugged in? The answer is that the USB on the device defaults to a virtual USB network card without serial port functionality. To access the device's terminal, use SSH connection.
+## Connecting Serial Port to a Computer
 
-For MaixCAM, the `serial port 0` from the Type-C adapter board is directly connected to the `A16(TX)` and `A17(RX)` pins. It can be connected directly to other devices, such as microcontrollers' serial port pins. To communicate with a computer, use a USB-to-serial converter board (such as [this one](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)).
+* **Why doesn’t a serial device appear on my computer when I plug in USB?**
+  The board’s USB port is for USB functions (e.g., USB network adapter), not USB-to-UART. For terminal access, use SSH.
 
-## Boot Log Output
+* **How to communicate between the computer and board via UART?**
+  Use a USB-to-UART adapter (e.g., [this one](https://item.taobao.com/item.htm?spm=a1z10.5-c-s.w4002-24984936573.13.73cc59d6AkB9bS&id=610365562537)). Connect USB to the PC and UART to the board.
 
-It is important to note that **MaixCAM's `serial port 0` will output some boot logs during startup**. After startup, the message `serial ready` will be printed. When communicating with a microcontroller, discard this information. If there are system startup issues, the boot log from `serial port 0` can help diagnose the problem.
+* **How to view boot logs or interact with the board via UART terminal?**
+  SSH is recommended for terminal interaction. For serial terminal access:
+
+  * **MaixCAM/MaixCAM-Pro**: Connect USB-to-UART adapter to `UART0` (`A16` TX, `A17` RX). In `/boot/uEnv.txt`, comment or remove the `consoledev` line to enable UART0 terminal, then reboot. You’ll see boot logs and have terminal access.
+  * **MaixCAM2**: Connect USB-to-UART adapter to `UART0` (`U0T`/`U0R`). You’ll see boot logs and have terminal access after boot.
+
 
 ## Sending Data
 
