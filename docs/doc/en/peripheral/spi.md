@@ -114,15 +114,19 @@ for pin, func in pin_function.items():
 
 spidev = spi.SPI(spi_id, spi.Mode.MASTER, 1250000)
 
-### Example of full parameter passing.
+### Example of full parameter passing, fully documention see API documentation.
 # spidev = spi.SPI(id=4,                  # SPI ID
 #                  mode=spi.Mode.MASTER,  # SPI mode
 #                  freq=1250000,          # SPI speed
 #                  polarity=0,            # CPOL 0/1, default is 0
 #                  phase=0,               # CPHA 0/1, default is 0
 #                  bits=8,                # Bits of SPI, default is 8
-#                  cs_enable=True,        # Use soft CS pin? True/False, default is False
-#                  cs='GPIOA19')          # Soft cs pin number, default is 'GPIOA19'
+#                  hw_cs=-1,              # use default hardware cs.
+#                  soft_cs="",            # If you want use soft cs, set GPIO name,
+#                                         # e.g.  GPIOA19(MaixCAM), GPIO0_A2(MaixCAM2)
+#                                         # you should set pinmap first by yourself.
+#                  cs_active_low=true     # cs pin active low voltage level
+
 
 b = bytes(range(0, 8))
 
