@@ -12,7 +12,8 @@ input_tensors = tensor.Tensors()
 input_tensors_li = []
 for layer in model.inputs_info():
     print(layer)
-    data = np.zeros(layer.shape, dtype=np.float32)
+    dtype = np.float32 if sys.device_id() == ["maixcam", "maixcam_pro"] or layer_info.dtype == tensor.DType.FLOAT32 else np.uint8
+    data = np.zeros(layer.shape, dtype=dtype)
     t = tensor.tensor_from_numpy_float32(data, copy = False)
     input_tensors.add_tensor(layer.name, t, False, False)
     # we use `copy = False` for add_tensor, so input_tensors' data is borrowed from t,
