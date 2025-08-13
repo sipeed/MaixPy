@@ -39,13 +39,13 @@ You can use the `key.Key` class to handle key events. The callback function take
 
 Example:
 ```python
-from maix import key, app
+from maix import key, app, time
 
-def on_key(self, key_id, state):
+def on_key(key_id, state):
     '''
-        This function is called in a single thread
+        this func is called in a single thread
     '''
-    print(f"key: {key_id}, state: {state}") # e.g., key.c or key.State.KEY_RELEASED
+    print(f"key: {key_id}, state: {state}") # key.c or key.State.KEY_RELEASED
 
 key_obj = key.Key(on_key)
 

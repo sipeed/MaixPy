@@ -20,7 +20,7 @@ calibrate_first = False
 
 
 # default config: acc +-2g 1KHz, gyro +-256rad/s 8KHz
-sensor = imu.IMU("qmi8658", mode=imu.Mode.DUAL,
+sensor = imu.IMU("", mode=imu.Mode.DUAL,
                                     acc_scale=imu.AccScale.ACC_SCALE_2G,
                                     acc_odr=imu.AccOdr.ACC_ODR_1000,
                                     gyro_scale=imu.GyroScale.GYRO_SCALE_256DPS,

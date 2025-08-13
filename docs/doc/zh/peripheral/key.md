@@ -39,11 +39,11 @@ while not app.need_exit():
 
 
 ```python
-from maix import key, app
+from maix import key, app, time
 
-def on_key(self, key_id, state):
+def on_key(key_id, state):
     '''
-        this func called in a single thread
+        this func is called in a single thread
     '''
     print(f"key: {key_id}, state: {state}") # key.c or key.State.KEY_RELEASED
 
