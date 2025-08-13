@@ -1,0 +1,12 @@
+id: benchmark
+name: Benchmark
+name[zh]: 跑分测试
+version: 1.0.1
+icon: icon.png
+author: neucrack@Sipeed Ltd
+desc: Hardware and software benchmark
+desc[zh]: 硬件和软件跑分
+exclude:
+  - data
+  - dist
+  - .gitignore
