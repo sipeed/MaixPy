@@ -177,6 +177,8 @@ header button {
 #previewImage {
     transform-origin: center center; /* 设置缩放中心 */
     transition: transform 0.3s ease; /* 平滑缩放过渡效果 */
+    width: 100%;
+    height: 100%;
 }
 
 /* 文本文件预览 */

@@ -229,6 +229,8 @@ function previewFile(path) {
 // 放大功能
 function zoomIn() {
     currentZoom += 0.1;
+    if(currentZoom >= 1)
+        currentZoom = 1
     document.getElementById("previewContent").style.width = `${currentZoom * 100}%`;
 }
 
@@ -242,8 +244,8 @@ function zoomOut() {
 function resetZoom() {
     currentZoom = 0.8;
     const previewImage = document.getElementById("previewImage");
-    previewImage.style.width = "auto";
-    previewImage.style.height = "auto";
+    previewImage.style.width = "100%";
+    previewImage.style.height = "100%";
 }
 
 // 关闭预览
