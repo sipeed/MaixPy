@@ -15,6 +15,13 @@ update:
 
 `MaixCAM` has ported the `Maix-Speech` offline speech library, enabling continuous Chinese numeral recognition, keyword recognition, and large vocabulary speech recognition capabilities. It supports audio recognition in `PCM` and `WAV` formats, and can accept input recognition via the onboard microphone.
 
+Speech recognition model support list:
+
+|         | MaixCAM | MaixCAM Pro | MaixCAM2 |
+| ------- | ------- | ----------- | -------- |
+| Whisper | ❌       | ❌           | ✅        |
+| Speech  | ✅       | ✅           | ❌        |
+
 In addition, we have ported OpenAI's Whisper speech recognition model to the `MaixCAM2`, enabling powerful speech-to-text functionality even on resource-constrained devices.
 
 ## Using Whisper for Speech-to-Text
@@ -30,7 +37,7 @@ whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
 
 wav_path = "/maixapp/share/audio/demo.wav"
 
-res = whisper.forward(wav_path)
+res = whisper.transcribe(wav_path)
 
 print('whisper:', res)
 ```

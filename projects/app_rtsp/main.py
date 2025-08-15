@@ -1,4 +1,5 @@
 from maix import app, rtsp, camera, image, display, touchscreen, time, audio
+import sys
 
 # init display
 disp = display.Display()
@@ -66,3 +67,7 @@ while not app.need_exit():
 
     if need_exit:
         break
+
+# Must release rtsp server before audio_reocorder
+del server
+del audio_recorder

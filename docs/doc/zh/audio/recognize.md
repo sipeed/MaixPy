@@ -17,6 +17,13 @@ update:
 
 此外，我们把 OpenAI 的语音识别模型 Whisper 移植到`MaixCAM2`上，即使是在资源比较有限的设备上，也能运行强大的语音转文字功能。
 
+语音识别模型支持列表:
+
+|         | MaixCAM | MaixCAM Pro | MaixCAM2 |
+| ------- | ------- | ----------- | -------- |
+| Whisper | ❌       | ❌           | ✅        |
+| Speech  | ✅       | ✅           | ❌        |
+
 ## 使用Whisper做语音转文字
 
 > MaixCAM和MaixCAM Pro不支持使用whisper模型
@@ -30,7 +37,7 @@ whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
 
 wav_path = "/maixapp/share/audio/demo.wav"
 
-res = whisper.forward(wav_path)
+res = whisper.transcribe(wav_path)
 
 print('res:', res)
 ```
