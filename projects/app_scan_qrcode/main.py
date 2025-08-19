@@ -45,8 +45,8 @@ def get_str_height(thickness = 1):
 
 canvas_width = screen_width
 canvas_height =  int(screen_height * 0.15)
-upper_canvas = image.Image(screen_width, canvas_height)
-lower_canvas = image.Image(screen_width, canvas_height)
+upper_canvas = image.Image(screen_width, canvas_height, bg=image.COLOR_BLACK)
+lower_canvas = image.Image(screen_width, canvas_height, bg=image.COLOR_BLACK)
 upper_canvas_x = 0
 upper_canvas_y = 0
 lower_canvas_x = 0
@@ -59,7 +59,7 @@ button_x2 = (screen_width // 3 - button_w) // 2 + screen_width // 3
 button_x3 = (screen_width // 3 - button_w) // 2 + screen_width // 3 * 2
 button_y = (canvas_height - button_h) // 2
 
-button1 = image.Image(button_w, button_h)
+button1 = image.Image(button_w, button_h, bg=image.COLOR_BLACK)
 button1.draw_rect(0, 0, button1.width(), button1.height(), image.COLOR_BLACK, thickness = 2)
 button2 = button1.copy()
 button3 = button1.copy()
