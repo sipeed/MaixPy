@@ -4,6 +4,17 @@ import math
 pressed_flag = [False, False, False]
 learn_id = 0
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
+
 def main(disp):
     global pressed_flag, learn_id
     img = image.Image(disp.width(), disp.height())
@@ -115,6 +126,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
+    print(msg)
     img = image.Image(disp.width(), disp.height())
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)

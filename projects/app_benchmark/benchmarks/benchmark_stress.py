@@ -105,8 +105,10 @@ class Bechmark:
         def update_res_vars():
             if self.cam.height() > 480:
                 self.font_scale = 2.2
+                self.font_thickness = 2
             else:
                 self.font_scale = 1.4
+                self.font_thickness = 1
             self.font_size = image.string_size("aA!~?/", scale = self.font_scale)
             self.ai_isp_on = app.get_sys_config_kv("npu", "ai_isp", "0")
             self.font_margin = self.font_size.height() // 2
@@ -123,7 +125,6 @@ class Bechmark:
             back_rect = [0, 0, self.img_back.width() + self.button_padding_2x, self.img_back.height() + self.button_padding_2x]
             self.back_rect_disp = image.resize_map_pos(self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
             self.string_cam_res_rect_disp = image.resize_map_pos(self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, self.string_cam_res_rect[0], self.string_cam_res_rect[1], self.string_cam_res_rect[2], self.string_cam_res_rect[3])
-            print(back_rect, self.back_rect_disp, self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height())
         update_res_vars()
         touch_pressed = False
         cam_res_curr_idx = 0
@@ -187,6 +188,9 @@ class Bechmark:
                 last = (x, y)
                 last_fps = (x, y2)
                 x += padding
+            msg = f"{cpu_temp:3.1f} C"
+            msg_size = image.string_size(msg, scale=self.font_scale)
+            img.draw_string(last[0] - msg_size.width() - 2, last[1] - msg_size.height() - 2, msg, image.COLOR_RED, scale=self.font_scale, thickness=2)
 
             img.draw_image(0, 0, self.img_back)
             img.draw_rect(self.string_cam_res_rect[0], self.string_cam_res_rect[1], self.string_cam_res_rect[2], self.string_cam_res_rect[3], image.COLOR_WHITE)

@@ -73,6 +73,9 @@ class Bechmark:
         test_items = []
         path_11n = "/root/models/yolo11n.mud"
         path_11s = "/root/models/yolo11s.mud"
+        path_11n_640 = "/root/models/yolo11n_640.mud"
+        path_11s_640 = "/root/models/yolo11s_640.mud"
+        path_11l_640 = "/root/models/yolo11l_640.mud"
         path_5s = "/root/models/yolov5s.mud"
         path_mbn = "/root/models/mobilenetv2.mud"
         detect_img = "/maixapp/share/picture/2024.1.1/test_coco_640.jpg"
@@ -80,6 +83,12 @@ class Bechmark:
         test_items.append((path_11n, detect_img))
         if os.path.exists(path_11s):
             test_items.append((path_11s, detect_img))
+        if os.path.exists(path_11n_640):
+            test_items.append((path_11n_640, detect_img))
+        if os.path.exists(path_11s_640):
+            test_items.append((path_11s_640, detect_img))
+        if os.path.exists(path_11l_640):
+            test_items.append((path_11l_640, detect_img))
         test_items.append((path_5s, detect_img))
         test_items.append((path_mbn, clssify_img))
 

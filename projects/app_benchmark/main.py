@@ -104,23 +104,34 @@ class Program:
                     print("run item", self.runing_case_obj.name)
                     show, img = self.runing_case_obj.run()
                     print(f"run item {self.runing_case_obj.name} end")
-                    del self.runing_case_obj
-                    self.runing_case_obj = None
-                    gc.collect()
                     # show result
                     if show:
                         print("show result, press any key to exit")
                         self.showing_result = True
-                        self.disp.show(img)
-                        while self.showing_result:
-                            x, y, preesed = ts.read()
-                            if preesed:
-                                touch_pressed = True
-                            elif touch_pressed:
-                                touch_pressed = False
-                                self.showing_result = False
-                                break
-                            time.sleep_ms(50)
+                        idx = -1
+                        if isinstance(img, (list, tuple)):
+                            idx = 0
+                        while self.showing_result and not app.need_exit():
+                            img0 = img[idx] if idx>=0 else img
+                            self.disp.show(img0)
+                            save_path = f"/root/benchmark_result_{self.runing_case_obj.name}_{max(0, idx)}.png"
+                            print(f"save to {save_path}")
+                            img0.save(save_path)
+                            while self.showing_result:
+                                x, y, preesed = ts.read()
+                                if preesed:
+                                    touch_pressed = True
+                                elif touch_pressed:
+                                    touch_pressed = False
+                                    if idx >= 0 and idx < len(img):
+                                        idx += 1
+                                        continue
+                                    self.showing_result = False
+                                    break
+                                time.sleep_ms(50)
+                    del self.runing_case_obj
+                    self.runing_case_obj = None
+                    gc.collect()
 
 program = Program(disp)
 try:

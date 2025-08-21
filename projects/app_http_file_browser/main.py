@@ -10,8 +10,19 @@ import time as sys_time
 import hashlib
 from urllib.parse import urlparse, parse_qs
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
+
 err_msg = ""
-img_back = image.load("/maixapp/share/icon/ret.png")
+img_back = None
 back_rect = [0, 0, 32, 32]
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
@@ -244,6 +255,8 @@ def main(disp, ts):
 
 if __name__ == '__main__':
     screen = display.Display()
+    img_back = get_back_btn_img(screen.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
     ts = touchscreen.TouchScreen()
     try:
         main(screen, ts)

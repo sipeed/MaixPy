@@ -49,14 +49,13 @@ colors = [
     [255, 255, 255]    # 白色
 ]
 
-def draw_yolo_results(img, objs, valid_class_id):
-    msg_h = image.string_size("1!aA,</?").height()
+def draw_yolo_results(img, objs, valid_class_id, font_scale, font_thickness, str_h):
     for obj in objs:
         if len(valid_class_id) > 0 and obj.class_id not in valid_class_id:
             continue
-        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_GRAY)
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_GRAY, thickness=font_thickness)
         msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
-        img.draw_string(obj.x, obj.y + obj.h - msg_h, msg, color = image.COLOR_GRAY)
+        img.draw_string(obj.x, obj.y + obj.h - str_h, msg, color = image.COLOR_GRAY, scale = font_scale, thickness = font_thickness)
 
 def yolo_objs_to_tracker_objs(objs, valid_class_id):
     new = []
@@ -66,7 +65,7 @@ def yolo_objs_to_tracker_objs(objs, valid_class_id):
         new.append(tracker.Object(obj.x, obj.y, obj.w, obj.h, obj.class_id, obj.score))
     return new
 
-def show_tracks(img : image.Image, tracks):
+def show_tracks(img : image.Image, tracks, font_scale, font_thickness, str_h, start_y):
     valid = 0
     for track in tracks:
         if track.lost:
@@ -75,11 +74,13 @@ def show_tracks(img : image.Image, tracks):
         color = colors[track.id % len(colors)]
         color = image.Color.from_rgb(color[0], color[1], color[2])
         obj = track.history[-1]
-        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color, thickness=2)
-        img.draw_string(obj.x, obj.y, f"{track.id} {track.score:.1f}", color, scale=1.3)
-        for obj in track.history:
-            img.draw_circle(obj.x + obj.w // 2, obj.y + obj.h // 2, 1, color, -1)
-    img.draw_string(2, 40, f'valid: {valid}, total: {len(tracks)}', image.COLOR_RED, scale=1.3)
+        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color, thickness=font_thickness)
+        img.draw_string(obj.x, obj.y, f"{track.id} {track.score:.1f}", color, scale=font_scale, thickness=font_thickness)
+        for i in range(1, len(track.history)):
+            o = track.history[i]
+            last_o = track.history[i - 1]
+            img.draw_line(last_o.x + last_o.w // 2, last_o.y + last_o.h // 2, o.x + o.w // 2, o.y + o.h // 2, color=color, thickness=font_thickness)
+    img.draw_string(2, start_y, f'valid: {valid}, total: {len(tracks)}', image.COLOR_RED, scale=font_scale, thickness=font_thickness)
 
 def obj_in_roi(obj, roi):
     x = obj.x + obj.w // 2
@@ -92,7 +93,7 @@ def obj_in_roi(obj, roi):
         return 0
     return None
 
-def count_tracks(img, count_roi, tracks, count, down_track_ids):
+def count_tracks(img, count_roi, tracks, count, down_track_ids, font_scale, font_thickness, str_h):
     # calculate object from up down, change code according to your application
     img.draw_rect(count_roi[0], count_roi[1], count_roi[2], count_roi[3], image.COLOR_YELLOW, thickness=2)
     # we assume: object latest center pos below roi and history pos in roi, it crossed roi from up to below.
@@ -110,8 +111,7 @@ def count_tracks(img, count_roi, tracks, count, down_track_ids):
                     count += 1
                     down_track_ids.append(track.id)
                     break
-    msg_h = image.string_size("1!aA,</?", scale=1.3).height()
-    img.draw_string(0, img.height() - msg_h, f"up down: {count}", scale=1.3)
+    img.draw_string(0, img.height() - str_h, f"up down: {count}", color=image.COLOR_RED, scale=font_scale, thickness=font_thickness)
     if len(down_track_ids) > 500: # remove some history we not use
         down_track_ids = down_track_ids[300:]
     return count, down_track_ids
@@ -119,6 +119,16 @@ def count_tracks(img, count_roi, tracks, count, down_track_ids):
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
 
 def main(disp):
     # configs
@@ -128,7 +138,7 @@ def main(disp):
     track_thresh = 0.4         # tracking confidence threshold.
     high_thresh = 0.6          # threshold to add to new track.
     match_thresh = 0.8         # matching threshold for tracking, e.g. one object in two frame iou < match_thresh we think they are the same obj.
-    max_history_num = 5       # max tack's position history length.
+    max_history_num = 10       # max tack's position history length.
     show_detect = False        # show detect
     valid_class_id = [0]       # we used classes index in detect model, empty means all class.
 
@@ -145,10 +155,16 @@ def main(disp):
     tracker0 = tracker.ByteTracker(max_lost_buff_time, track_thresh, high_thresh, match_thresh, max_history_num)
 
     # back button
-    img_back = image.load("/maixapp/share/icon/ret.png")
-    back_rect = [0, 0, 32, 32]
+    img_back = get_back_btn_img(cam.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
     ts = touchscreen.TouchScreen()
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
+
+    font_scale = 2 if cam.height() >= 480 else 1.2
+    font_thickness = 2 if cam.height() >= 480 else 1
+    str_size = image.string_size("A", scale=font_scale, thickness=font_thickness)
+    str_w = str_size.width()
+    str_h = str_size.height()
 
     # counter
     count_roi = [0, cam.height() - cam.height() // 2, cam.width(), cam.height() // 9]
@@ -159,11 +175,11 @@ def main(disp):
         img = cam.read()
         objs = detector.detect(img, conf_th = conf_threshold, iou_th = iou_threshold)
         if show_detect:
-            draw_yolo_results(img, objs, valid_class_id)
+            draw_yolo_results(img, objs, valid_class_id, font_scale, font_thickness, str_h)
         objs = yolo_objs_to_tracker_objs(objs, valid_class_id)
         tracks = tracker0.update(objs)
-        show_tracks(img, tracks)
-        up_down_count, down_track_ids = count_tracks(img, count_roi, tracks, up_down_count, down_track_ids)
+        show_tracks(img, tracks, font_scale, font_thickness, str_h, img_back.height() + font_thickness)
+        up_down_count, down_track_ids = count_tracks(img, count_roi, tracks, up_down_count, down_track_ids, font_scale, font_thickness, str_h)
         img.draw_image(0, 0, img_back)
         disp.show(img)
 

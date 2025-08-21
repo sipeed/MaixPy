@@ -11,6 +11,17 @@ curr_model = 0
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
+
 def main(disp):
     global curr_model
 
@@ -28,11 +39,17 @@ def main(disp):
     classifier = nn.Classifier(model=models[models_keys[curr_model]], dual_buff=False)
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 
+    font_scale = 2 if cam.height() >= 480 else 1.2
+    font_thickness = 2 if cam.height() >= 480 else 1
+    str_size = image.string_size("A", scale=font_scale, thickness=font_thickness)
+    str_w = str_size.width()
+    str_h = str_size.height()
+
     mode_pressed = False
     ts = touchscreen.TouchScreen()
-    img_back = image.load("/maixapp/share/icon/ret.png")
-    back_rect = [0, 0, 32, 32]
-    mode_rect = [0, cam.height() - 26, image.string_size(models_keys[curr_model]).width() + 6, 30]
+    img_back = get_back_btn_img(cam.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
+    mode_rect = [0, cam.height() - int(str_h * 2), image.string_size(models_keys[curr_model], scale=font_scale, thickness=font_thickness).width() + 6, int(str_h * 2)]
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
     mode_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, mode_rect[0], mode_rect[1], mode_rect[2], mode_rect[3])
 
@@ -40,7 +57,7 @@ def main(disp):
     # for draw result info
     max_labels_length = 0
     for label in classifier.labels:
-        size = image.string_size(label)
+        size = image.string_size(label, scale=font_scale, thickness=font_thickness)
         if size.width() > max_labels_length:
             max_labels_length = size.width()
 
@@ -73,18 +90,18 @@ def main(disp):
                 for j in range(len(classifier.labels)):
                     idx = res[j][0]
                     score = res[j][1]
-                    img.draw_string(0, img_std_first.height() + idx * 16, classifier.labels[idx], image.COLOR_WHITE)
-                    img.draw_rect(max_labels_length, int(img_std_first.height() + idx * 16), int(score * max_score_length), 8, image.COLOR_GREEN if score >= emotion_conf_th else image.COLOR_RED, -1)
-                    img.draw_string(int(max_labels_length + score * max_score_length + 2), int(img_std_first.height() + idx * 16), f"{score:.1f}", image.COLOR_RED)
+                    img.draw_string(0, img_std_first.height() + idx * str_h, classifier.labels[idx], image.COLOR_WHITE, font_scale, font_thickness)
+                    img.draw_rect(max_labels_length, int(img_std_first.height() + idx * str_h), int(score * max_score_length), 8, image.COLOR_GREEN if score >= emotion_conf_th else image.COLOR_RED, -font_thickness)
+                    img.draw_string(int(max_labels_length + score * max_score_length + 2), int(img_std_first.height() + idx * str_h), f"{score:.1f}", image.COLOR_RED, font_scale, font_thickness)
             # draw on all face
             color = image.COLOR_GREEN if res[0][1] >= emotion_conf_th else image.COLOR_RED
             obj = objs[idxes[i]]
             img.draw_rect(obj.x, obj.y, obj.w, obj.h, color, 1)
-            img.draw_string(obj.x, obj.y, f"{classifier.labels[res[0][0]]}: {res[0][1]:.1f}", color)
+            img.draw_string(obj.x, obj.y, f"{classifier.labels[res[0][0]]}: {res[0][1]:.1f}", color, font_scale, font_thickness)
 
         img.draw_image(0, 0, img_back)
         img.draw_rect(mode_rect[0], mode_rect[1], mode_rect[2], mode_rect[3], image.COLOR_WHITE)
-        img.draw_string(4, img.height() - 20, f"{models_keys[curr_model]}")
+        img.draw_string(4, img.height() - str_h  - str_h // 2, f"{models_keys[curr_model]}", scale=font_scale, thickness=font_thickness)
         disp.show(img)
         x, y, preesed = ts.read()
         if preesed:
@@ -97,8 +114,8 @@ def main(disp):
                 curr_model = (curr_model + 1) % len(models_keys)
                 msg = "switching model ..."
                 size = image.string_size(msg, scale=1.3)
-                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height())//2, msg, image.COLOR_RED, scale=1.3, thickness=-3)
-                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height())//2, msg, image.COLOR_WHITE, scale=1.3)
+                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height())//2, msg, image.COLOR_RED, font_scale, int(font_thickness*2))
+                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height())//2, msg, image.COLOR_WHITE, font_scale, font_thickness)
                 disp.show(img)
                 del detector
                 del landmarks_detector
@@ -111,6 +128,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
+    print(msg)
     img = image.Image(disp.width(), disp.height())
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)

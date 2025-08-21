@@ -1,0 +1,12 @@
+id: yoloworld
+name: YOLO-World
+name[zh]: YOLO-World
+version: 1.0.1
+icon: icon.png
+author: neucrack@Sipeed Ltd
+desc: YOLO World demo
+desc[zh]: YOLO World 演示
+exclude:
+  - data
+  - dist
+  - .gitignore

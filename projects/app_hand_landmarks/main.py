@@ -1,15 +1,19 @@
 from maix import camera, display, image, nn, app, time, touchscreen, sys
 import math
 
-model_id = 1
-models = [
-    "/root/models/hand_landmarks.mud",
-    "/root/models/hand_landmarks_bf16.mud"
-]
-
-cam_w = 320
-cam_h = 240
-if sys.device_name().lower() == "maixcam2":
+if sys.device_id() in ["maixcam", "maixcam-pro"]:
+    model_id = 1
+    models = [
+        "/root/models/hand_landmarks.mud",
+        "/root/models/hand_landmarks_bf16.mud"
+    ]
+    cam_w = 320
+    cam_h = 240
+else:
+    model_id = 0
+    models = [
+        "/root/models/hand_landmarks.mud"
+    ]
     cam_w = 640
     cam_h = 480
 
@@ -81,6 +85,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
+    print(msg)
     img = image.Image(disp.width(), disp.height())
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)

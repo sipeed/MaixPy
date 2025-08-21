@@ -37,6 +37,17 @@ def get_sub_landmarks(points, points_z, idxes):
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
+
 def main(disp):
     global curr_sub
 
@@ -57,8 +68,8 @@ def main(disp):
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
 
     ts = touchscreen.TouchScreen()
-    img_back = image.load("/maixapp/share/icon/ret.png")
-    back_rect = [0, 0, 32, 32]
+    img_back = get_back_btn_img(cam.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
     mode_rect = [0, cam.height() - 26, 100, 30]
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
     mode_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, mode_rect[0], mode_rect[1], mode_rect[2], mode_rect[3])
@@ -102,6 +113,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
+    print(msg)
     img = image.Image(disp.width(), disp.height())
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)

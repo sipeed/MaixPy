@@ -3,6 +3,16 @@ from maix import camera, display, image, nn, app, time, touchscreen
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
 
 def main(disp):
     model = "/root/models/pp_ocr.mud"
@@ -10,8 +20,8 @@ def main(disp):
 
     cam = camera.Camera(ocr.input_width(), ocr.input_height(), ocr.input_format())
     ts = touchscreen.TouchScreen()
-    img_back = image.load("/maixapp/share/icon/ret.png")
-    back_rect = [0, 0, 32, 32]
+    img_back = get_back_btn_img(cam.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
 
     image.load_font("ppocr", "/maixapp/share/font/ppocr_keys_v1.ttf", size = 20)

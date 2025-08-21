@@ -8,6 +8,17 @@ from PoseEstimation import PoseEstimation
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
+
 def to_keypoints_np(obj_points):
     keypoints = np.array(obj_points)
     keypoints = keypoints.reshape((-1, 2))
@@ -15,10 +26,12 @@ def to_keypoints_np(obj_points):
     return keypoints
 
 def main(disp):
-    img_back = image.load("/maixapp/share/icon/ret.png")
     ts = touchscreen.TouchScreen()
     detector = nn.YOLO11(model="/root/models/yolo11n_pose.mud", dual_buff = False)
     cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format(), fps=60)
+    img_back = get_back_btn_img(cam.width())
+    back_rect = [0, 0, img_back.width(), img_back.height()]
+    back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
     pose_estimator = PoseEstimation()
 
     while not app.need_exit():
@@ -33,7 +46,7 @@ def main(disp):
         disp.show(img)
 
         x, y, preesed = ts.read()
-        if is_in_button(x, y, [0, 0, 32, 32]):
+        if is_in_button(x, y, back_rect_disp):
             app.set_exit_flag(True)
 
 image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 32)
