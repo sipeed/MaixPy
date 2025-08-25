@@ -28,8 +28,8 @@ def main(disp):
     btns = {}
     btns["Learn"] = get_learn_btn_rect(2, cam.height(), cam.width(), cam.height(), "Learn")
     btns["< Exit"] = get_learn_btn_rect(2, btns["Learn"][3] + 10, cam.width(), cam.height(), "< Exit")
-    btns["+Class"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - 50, cam.width(), cam.height(), "+Class")
-    btns["+Sample"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - btns["+Class"][3] - 100, cam.width(), cam.height(), "+Sample")
+    btns["+Sample"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - 50, cam.width(), cam.height(), "+Sample")
+    btns["+Class"] = get_learn_btn_rect(2, cam.height() - btns["Learn"][3] - btns["+Sample"][3] - 100, cam.width(), cam.height(), "+Class")
     btns["Clear"] = get_learn_btn_rect(cam.width() - btns["Learn"][2], cam.height(), cam.width(), cam.height(), "Clear")
 
 
@@ -122,7 +122,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)
     while not app.need_exit():

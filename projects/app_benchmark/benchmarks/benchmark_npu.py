@@ -19,14 +19,29 @@ class Bechmark:
         path_11n = "/root/models/yolo11n.mud"
         path_11s = "/root/models/yolo11s.mud"
         path_5s = "/root/models/yolov5s.mud"
+        path_11n_640 = "/root/models/yolo11n_640.mud"
+        path_11s_640 = "/root/models/yolo11s_640.mud"
+        path_11l_640 = "/root/models/yolo11l_640.mud"
         test_items.append((path_11n, nn.YOLO11, False))
         if os.path.exists(path_11s):
             test_items.append((path_11s, nn.YOLO11, False))
         test_items.append((path_5s, nn.YOLOv5, False))
+        if os.path.exists(path_11n_640):
+            test_items.append((path_11n_640, nn.YOLO11, False))
+        if os.path.exists(path_11s_640):
+            test_items.append((path_11s_640, nn.YOLO11, False))
+        if os.path.exists(path_11l_640):
+            test_items.append((path_11l_640, nn.YOLO11, False))
         test_items.append((path_11n, nn.YOLO11, True))
         if os.path.exists(path_11s):
             test_items.append((path_11s, nn.YOLO11, True))
         test_items.append((path_5s, nn.YOLOv5, True))
+        if os.path.exists(path_11n_640):
+            test_items.append((path_11n_640, nn.YOLO11, True))
+        if os.path.exists(path_11s_640):
+            test_items.append((path_11s_640, nn.YOLO11, True))
+        if os.path.exists(path_11l_640):
+            test_items.append((path_11l_640, nn.YOLO11, True))
 
         for (model_path, _class, dual_buff) in test_items:
             print(model_path, _class, dual_buff)
@@ -55,7 +70,6 @@ class Bechmark:
                 t = time.ticks_us()
                 yolo.detect(img, conf_th = 0.5, iou_th = 0.45)
                 t_sum += time.ticks_us() - t
-                time.sleep_ms(1)
             t = t_sum / self.repeat_times
             fps = 1000000 // t
             items[item_name] = f"{t/1000:.1f} ms, {fps} fps"
@@ -113,9 +127,11 @@ class Bechmark:
             scale = (4 if img.height() >= 1080 else 2) if img.height() >= 480 else 1
             thickness = (4 if img.height() >= 1080 else 2) if img.height() >= 480 else 1
             size = image.string_size(msg, scale = scale, thickness=thickness)
-            img.draw_rect(0, (img.height() - size.height()) // 2 - 10, img.width(), size.height() + 20, image.COLOR_RED, thickness=-1)
-            img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale = scale, thickness=thickness)
-            self.disp.show(img)
+            img_disp = img.copy()
+            img_disp.draw_rect(0, (img.height() - size.height()) // 2 - 10, img.width(), size.height() + 20, image.COLOR_RED, thickness=-1)
+            img_disp.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale = scale, thickness=thickness)
+            self.disp.show(img_disp)
+            del img_disp
             input_tensors = tensor.Tensors()
             if sys.device_id() in ["maixcam", "maixcam_pro"] or layer_info.dtype == tensor.DType.FLOAT32: # not integrated preprocess
                 print("preprocess")
@@ -145,7 +161,6 @@ class Bechmark:
                 # model.forward_image(img)
                 model.forward(input_tensors, copy_result = False)
                 t_sum += time.ticks_us() - t
-                time.sleep_ms(1)
             del model
             gc.collect()
             t = t_sum / self.repeat_times
@@ -168,21 +183,22 @@ class Bechmark:
         elif self.disp.height() > 240:
             font_scale = 1.4
             title_font_scale = 2.1
-        img = image.Image(self.disp.width(), self.disp.height(), bg=image.COLOR_BLACK)
-        size = image.string_size("aA!~=?")
-        y = 2
-        ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
-        img.draw_string(2, y , f"AI ISP: {'ON(model use part of NPU)' if ai_isp==1 else 'OFF(model use all NPU)'}", scale=font_scale + 0.2)
-        y += int(size.height() * 1.2 + size.height() * 1.2 // 2)
+        imgs = []
         for k, v in items.items():
-            y += 4
+            img = image.Image(self.disp.width(), self.disp.height(), bg=image.COLOR_BLACK)
+            size = image.string_size("aA!~=?")
+            y = 2
+            ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
+            img.draw_string(2, y , f"AI ISP: {'ON(model use part of NPU)' if ai_isp==1 else 'OFF(model use all NPU)'}", scale=font_scale + 0.2)
+            y += int(size.height() * 1.2 + size.height() * 1.2 // 2)
             img.draw_string(2, y , f"{k}: avg {self.repeat_times} times", scale=font_scale + 0.2)
             y += int(size.height() * 1.2 + size.height() * 1.2 // 2)
             for k, v in v.items():
                 img.draw_string(2, y , f"{k}: {v}", scale=font_scale)
                 y += size.height() + size.height() // 2
+            imgs.append(img)
 
-        return True, img
+        return True, imgs
 
 if __name__ == "__main__":
     from maix import app
