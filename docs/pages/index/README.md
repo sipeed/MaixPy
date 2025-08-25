@@ -132,6 +132,26 @@ h1 {
     border-radius: 0.5em;
     border: 1em solid white;
 }
+.strong2 {
+    font-weight: bolder;
+    color: #c33d45;
+}
+.sub_items {
+    margin-left: 1em;
+}
+.main_items {
+    margin-top: 1em;
+}
+.comment {
+    font-size: 0.7em;
+    color: gray;
+}
+.right {
+    text-align: right;
+}
+.second {
+    font-size: 0.9em;
+}
 @media screen and (min-width: 1280px) {
     .md_page #page_content > div
     {
@@ -622,7 +642,7 @@ MaixVision
 
 ## 性能对比
 
-相比上两代 Maix 系列产品(K210, V831)有限的 NPU 算子支持和内存限制，MaixCAM 在保持超高性价比的同时，性能和体验有了很大的提升。
+这里列出比较重要的软硬件性能参数供选型参考。
 
 <div class="mt-3"></div>
 
@@ -630,47 +650,65 @@ MaixVision
 
 <div class="overflow-auto">
 
-| 特征 | Maix-I K210 | Maix-II v831 | MaixCAM | MaixCAM2 |
-| ------- | ----------- | ------------ | ------- | ------- |
-| CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** | |
-| 内存 | 6MB SRAM | 64MB DDR2 | **256MB DDR3** | |
-| NPU | 0.25Tops@INT8<br>official says 1T but... | 0.25Tops@INT8 | **1Tops@INT8** | |
-| Encoder | ✖ | 1080p@30fps | **2K@30fps** | |
-| 屏幕 | 2.4" 320x240 | 1.3" 240x240 | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| |
-| 触摸屏 | ✖ | ✖ | **2.3" 552x368** | |
-| 摄像头 | 30W | 200W | **500W** | |
-| WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G | |
-| USB    | ✖    | **USB2.0** | **USB2.0** | |
-| 以太网    | ✖    | 100M(选配)   | 100M(选配) | |
-| SD 卡接口 | SPI | **SDIO** | **SDIO** | |
-| BLE    | ✖    | ✖      | **BLE5.4** | |
-| 操作系统     | RTOS | Tina Linux | **Linux + RTOS** | |
-| 编程语言 | C / C++ / MicroPython | C / C++ / **Python3** | C / **C++ / Python3** | |
-| Software | MaixPy | MaixPy3 | **MaixCDK + MaixPy v4 + opencv + numpy + ...**| |
-| PC 软件 | MaixPy IDE | MaixPy3 IDE | **MaixVision** Workstation | |
-| 文档   | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | |
-| 在线 AI 训练 | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 | |
-| 官方应用   | ⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | |
-| AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** | MobileNetv2 **1218fps** |
-| AI 检测(NPU推理部分)   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br><br>YOLOv8n(640x640) 23fps<br><br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**| **YOLOv5s(224x224) 495fps<br>YOLOv5s(320x256) 400fps<br>YOLOv5s(640x480) 106fps<br>YOLOv5s(640x640) 80fps<br><br>YOLO11n(224x224) 1214fps<br>YOLO11n(640x480) 168fps<br>YOLO11n(640x640) 113fps<br><br>YOLO11s(640x480) 87fps<br>YOLO11s(640x640) 62fps** |
-| 易用性     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| 特征      | Maix-I K210 | MaixCAM | MaixCAM2 |
+| --------- | ----------- | ------- | ------- |
+| CPU       | 400MHz RISC-V x2 |  **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** | <span class="strong2">1.2GHz A53 x2(Linux)</span><br>RISC-V 32bit E907(RTT) |
+| 内存      | 6MB SRAM         | **256MB DDR3** | <span class="strong2">1GB / 4GB LPDDR4</span> |
+| NPU       | 0.25Tops@INT8<br>official says 1T but... | **1Tops@INT8** | <span class="strong2">3.2Tops@INT8</span> |
+| Encoder   | ❌               | **2880x1620@30fps H.254/H.265/JPEG** | <span class="strong2">3840*2160@30fps H.254/H.265/JPEG</span> |
+| Decoder   | ❌               | **2880x1620@30fps H.264/JPEG** | **1080p@60fps H.264/JPEG** |
+| 屏幕      | 2.4" 320x240     | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| **2.4" 640x480**<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800 |
+| 触摸屏    | ❌               | **2.3" 552x368**/**2.4" 640x480** | **2.4" 640x480** |
+| 摄像头    | 30W              | **500W(5M)** | <span class="strong2">800W(8M)</span> |
+| AI ISP    | ❌               | ❌           | <span class="strong2">✅</span> |
+| WiFi      | 2.4G             | **WiFi6** 2.4G/5G | **WiFi6** 2.4G/5G |
+| BLE       | ❌               | **BLE5.4** | **BLE5.4** |
+| USB       | ❌               | **USB2.0** | **USB2.0** |
+| 以太网    | ❌               | 100M(选配) | <span class="strong2">100M(板载FPC2RJ45接口)</span> |
+| SD 卡接口 | SPI              | **SDIO** | **SDIO** |
+| 操作系统  | RTOS             | **Linux(BuildRoot) + RTOS** | Linux(<span class="strong2">Ubuntu</span>) + RTT |
+| 编程语言  | C / C++ / MicroPython | C / **C++ / Python3** | C / **C++ / Python3** |
+| 软件包    | MaixPy-v1             | **MaixCDK + MaixPy v4<br>+ opencv + numpy + ...**<br>纯Python包或者手动交叉编译 | **MaixCDK + MaixPy v4<br>+ opencv + numpy + scipy + ...**<br><span class="strong2">大量AArch64预编译包直接安装，支持板上编译和交叉编译</span> |
+| PC 软件   | MaixPy IDE            | **MaixVision** Workstation | **MaixVision** Workstation |
+| 文档             | ⭐️⭐️⭐️⭐️     |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| 在线 AI 训练     | ⭐️⭐️⭐️        |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| 官方应用         | ⭐️             |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| 易用性           | ⭐️⭐️⭐️⭐️      |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| AI 分类(224x224) | MobileNetv1 50fps<br>MobileNetv2 ❌<br>Resnet ❌ | MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** | MobileNetv2 <span class="strong2">1218fps</span><br>Resnet50 <span class="strong2">200fps</span> |
+| AI 检测<div class="comment">仅推理部分 /<br>\[包含前后处理(Python)\] /<br>\[双缓冲模式(Python)\]</div> | <div class="main_items">**YOLOv2**:<div class="sub_items">224x224: 15fps</div></div> |  <div class="main_items">**YOLOv5s**:<div class="sub_items">224x224: **100fps**<br>320x256 **70fps**<br>640x640: **15fps**</div></div>       <div class="main_items">**YOLOv8n**:<div class="sub_items">640x640: **23fps**</div></div>      <div class="main_items">**YOLO11n**:<div class="sub_items">224x224: **175fps**<br>320x224: **120fps**<br>320x320: **95fps**<br>640x640: **23fps**</div></div>                |                <div class="main_items">**YOLOv5s**:<div class="sub_items">224x224: <span class="strong2">495fps</span><br>320x256: <span class="strong2">400fps</span><br>640x480: <span class="strong2">106fps / 73fps / 103fps</span><br>640x640: <span class="strong2">80fps</span></div></div>                <div class="main_items">**YOLO11n**:<div class="sub_items">224x224: <span class="strong2">1214fps</span><br>640x480: <span class="strong2">168fps / 77fps / 143fps</span><br>640x640: <span class="strong2">113fps / 56fps / 98fps</span></div></div>    <div class="main_items">**YOLO11s**:<div class="sub_items">640x480: <span class="strong2">87fps / 53fps / 83fps</span><br>640x640: <span class="strong2">62fps / 39fps / 59fps</span></div></div>   <div class="main_items">**YOLO11l**:<div class="sub_items">640x640: <span class="strong2">19fps / 16fps / 19fps</span></div></div>                     |
+| 大模型           | ❌              |  ❌           |  <span class="strong2">Qwen/DeepSeek 0.5B(fftf: 640ms, 9 tokens/s)<br>Qwen/DeepSeek 1.5B(fftf: 1610ms, 4 tokens/s) <br> VLM(InterVL 1B) <br>更多模型</span> |
+| OpenMV 典型算法 |  <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a>  |                    <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>测试日期: 2025.8.22，更新可能会有优化</div>              |       <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>测试日期: 2025.8.22，更新可能会有优化</div>                             |
+|   <div class="right second">二值化</div>  | 灰度 320x240: 7.4ms (135fps)<br>灰度 640x480: ❌<br>RGB 320x240: 11.3ms (88.5fps)<br>RGB 640x480: ❌ | 灰度 320x240: **3.1ms (326fps)**<br>灰度 640x480: **11ms (90fps)**<br>RGB 320x240: **13.2ms (75fps)**<br>RGB 640x480: **52.8ms (18fps)**        | 灰度 320x240: <span class="strong2">1.3ms (799fps)</span> <br>灰度 640x480: <span class="strong2">4.8ms (206fps)</span><br>RGB 320x240: <span class="strong2">3.4ms (294fps)</span><br>RGB 640x480: <span class="strong2">13.3ms (75fps)</span> |
+|   <div class="right second">找色块</div>        | 320x240: 8.8ms (114fps) <br>640x480: ❌| 320x240: **7ms (143fps)**  <br>640x480: **20ms (50fps)**         | 320x240: <span class="strong2">3.7ms (271fps)</span><br>640x480: <span class="strong2">11.1ms (89fps)</span>  |
+|   <div class="right second">单通道直方图</div>  | 320x240: **7.7ms (130fps)**<br>640x480: ❌ | 320x240: **10.9ms (91fps)**<br>640x480: **42.8ms (23fps)**       | 320x240: <span class="strong2">1.5ms (661fps)</span><br>640x480: <span class="strong2">5.9ms (168fps)</span>    |
+|   <div class="right second">二维码</div>        | 320x240: **130.8ms (7.6fps)** <br>640x480: ❌| 640x480: 136.9ms (7fps)<br>NPU 加速：<br>&nbsp;&nbsp;320x240: **22.1ms (45fps)**<br>&nbsp;&nbsp;640x480: 57.6ms (17fps)  | 640x480: 57.9ms (17fps)<br>NPU 加速：<br>&nbsp;&nbsp;320x240: <span class="strong2">9.2ms (109fps)</span>   <br>&nbsp;&nbsp;640x480: <span class="strong2">23.2ms (43fps)</span> |
+| OpenCV 典型算法     |   | <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>测试日期: 2025.8.22，更新可能会有优化</div>    | <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>测试日期: 2025.8.22，更新可能会有优化</div>  |
+|   <div class="right second">二值化</div>             | ❌  | 灰度 320x240: **2.2ms (463fps)**     <br>灰度 640x480: **7.1ms (140fps)** | 灰度 320x240: <span class="strong2">0.1ms (8174fps)</span>  <br>灰度 640x480: <span class="strong2">0.3ms (2959fps)</span>  |
+|   <div class="right second">灰度图自适应二值化</div> | ❌  | 320x240: **5.8ms (171fps)**     <br>640x480: **21.3ms (46fps)**  | 320x240: <span class="strong2">1.6ms (608fps)</span>  <br>640x480: <span class="strong2">6.3ms (159fps)</span> |
+|   <div class="right second">单通道直方图</div>       | ❌  | 320x240: **1ms (1000fps)**     <br>640x480: **6.2ms (160fps)**   | 320x240: <span class="strong2">0.4ms (2308fps)</span>  <br>640x480: <span class="strong2">1.7ms (604fps)</span>  |
+|   <div class="right second">轮廓提取</div>           | ❌  | 320x240: **2.8ms (351fps)**    <br>640x480: **8.6ms (116fps)**   | 320x240: <span class="strong2">0.4ms (2286fps)</span>  <br>640x480: <span class="strong2">1.4ms (692fps)</span>  |
+<!-- //TODO: 注意！！！ 修改此表请同步修改 ../../../README_ZH.md 和 ../../../README.md ！！！！！！！注意 -->
 
-</div>
-
-<div class="mt-6"></div>
-
-<div>
-
-**MaixCAM-Pro** 相比 MaixCAM 的升级点：
-1. 优化外壳设计，更美观，散热更好
-2. 屏幕升级到2.4寸 640x480分辨率
-3. 板载双路PWM舵机接口，标准PMOD接口，6pin端子接口
-4. 板载AXP2101 PMU，支持锂电池充放电，电量计功能
-5. 板载六轴IMU，qmi8658，可支持视频防抖
-6. 内置1W小喇叭
-7. 增加1/4英寸标准螺纹口，便于安装
-8. 增加辅助照明LED
-9. 增加RTC芯片 BM8653 和 RTC电池
+<!--
+|   <div class="right second">二值化</div>  | - | 灰度 320x240: 3.1ms (326fps)<br>灰度 640x480: 11ms (90fps)<br>RGB 320x240: 13.2ms (75fps)<br>RGB 640x480: 52.8ms (18fps)        | 灰度 320x240: 1.3ms (799fps) <br>灰度 640x480: 4.8ms (206fps)<br>RGB 320x240: 3.4ms (294fps)<br>RGB 640x480: 13.3ms (75fps) |
+|   <div class="right second">边缘检测</div>      | - | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">找色块</div>        | - | 320x240: 7ms (143fps)<br>640x480: 20ms (50fps)              | 320x240: 3.7ms (271fps)  <br>640x480: 11.1ms (89fps)  |
+|   <div class="right second">找直线</div>        | - | 320x240:              | 320x240:    |
+|   <div class="right second">找圆形</div>        | - | 320x240:              | 320x240:    |
+|   <div class="right second">找矩形</div>        | - | 320x240:              | 320x240:    |
+|   <div class="right second">单通道直方图</div>  | - | 320x240:              | 320x240:    |
+|   <div class="right second">二维码</div>        | - | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">Apriltag</div>      | - | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+| OpenCV 典型算法     |  | <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a></div>    | <div class="comment">测试图像参考 <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a></div>  |
+|   <div class="right second">二值化</div>       | ❌  | 灰度：320x240:     <br>640x480:         | 灰度：320x240:   <br>640x480:  |
+|   <div class="right second">灰度图自适应二值化</div> | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">边缘检测</div>           | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">高斯模糊</div>           | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">轮廓提取</div>           | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">霍夫直线</div>           | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">霍夫圆形</div>           | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+|   <div class="right second">单通道直方图</div>       | ❌  | 320x240:     <br>640x480:         | 320x240:   <br>640x480:  |
+ -->
 
 </div>
 
