@@ -50,7 +50,7 @@ try:
 except Exception:
     import traceback
     msg = traceback.format_exc()
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)
     while not app.need_exit():

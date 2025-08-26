@@ -222,7 +222,7 @@ def main(disp, ts):
     image.set_default_font("sourcehansans")
     trans = i18n.Trans(trans_dict)
     tr = trans.tr
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     draw_msg(img, tr, port)
     img.draw_image(0, 0, img_back)
     disp.show(img)
@@ -237,7 +237,7 @@ def main(disp, ts):
             if "Address in use" in err_msg:
                 err_msg = ""
                 port += 1
-                img = image.Image(disp.width(), disp.height())
+                img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
                 draw_msg(img, tr, port)
                 img.draw_image(0, 0, img_back)
                 disp.show(img)
@@ -245,7 +245,7 @@ def main(disp, ts):
                 th.daemon = True
                 th.start()
                 continue
-            img = image.Image(disp.width(), disp.height())
+            img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
             img.draw_string(2, 2, err_msg, image.COLOR_WHITE, scale=0.8)
             img.draw_image(0, 0, img_back)
             disp.show(img)
@@ -264,7 +264,7 @@ if __name__ == '__main__':
         import traceback
         e = traceback.format_exc()
         print(e)
-        img = image.Image(screen.width(), screen.height())
+        img = image.Image(screen.width(), screen.height(), bg=image.COLOR_BLACK)
         img.draw_string(2, 2, e, image.COLOR_WHITE, font="hershey_complex_small", scale=0.6)
         img.draw_image(0, 0, img_back)
         screen.show(img)

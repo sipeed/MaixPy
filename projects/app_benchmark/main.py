@@ -1,7 +1,7 @@
 from maix import camera, display, image, app, time, touchscreen, key
 
 disp = display.Display()
-img = image.Image(disp.width(), disp.height())
+img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
 msg = "loading..."
 size = image.string_size(msg, scale=2, thickness=2)
 img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=2, thickness=2)

@@ -69,7 +69,7 @@ def draw_image(img, angle, dir_cam=False):
     img.draw_string(int(v[2][0]), int(v[2][1]), "z", image.COLOR_GREEN, 1.5)
 
 def show_msg(disp, msg):
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     size = image.string_size(msg, 1.5)
     x = (img.width() - size.width()) // 2
     y = (img.height() - size.height()) // 2
@@ -93,7 +93,7 @@ def main(disp):
     try:
         sensor = imu.IMU("default")
     except Exception:
-        img = image.Image(disp.width(), disp.height())
+        img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
         msg = "Init IMU failed, maybe no IMU"
         size = image.string_size(msg, scale=1.2, font="hershey_complex_small")
         img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 , msg, image.COLOR_WHITE, scale=1.2, font="hershey_complex_small")
@@ -123,7 +123,7 @@ def main(disp):
         # make y axis same with camera(x rotate 90 degree)
         angle.x -= pitch_offset
 
-        img = image.Image(disp.width(), disp.height())
+        img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
         img.draw_string(2, 4, f"pitch: {angle.x:.2f}, roll: {angle.y:.2f}, yaw: {angle.z:.2f}", image.COLOR_WHITE, 1.5)
         img.draw_string(2, 36, f"dt: {int(dt * 1000):3d}ms, temp: {data.temp:.1f}", image.COLOR_WHITE, 1.5)
         draw_image(img, angle, pitch_offset == 90)
@@ -164,7 +164,7 @@ if __name__ == '__main__':
         import traceback
         e = traceback.format_exc()
         print(e)
-        img = image.Image(disp.width(), disp.height())
+        img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
         img.draw_string(2, 2, e, image.COLOR_WHITE, font="hershey_complex_small", scale=0.6)
         disp.show(img)
         while not app.need_exit():

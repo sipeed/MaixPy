@@ -40,7 +40,7 @@ global_application = ''
 global_stream = ''
 global_bitrate = 1000 * 1000
 global_err_msg = ''
-base_img = image.Image(disp.width(), disp.height())
+base_img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
 
 run_last_ms = time.ticks_ms()
 run_cnt = 0

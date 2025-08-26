@@ -2,7 +2,7 @@ from maix import image, display, touchscreen, time, hid, app
 
 disp = display.Display()
 ts = touchscreen.TouchScreen()
-img = image.Image(disp.width(), disp.height())
+img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
 mouse = None
 try:
     mouse = hid.Hid(hid.DeviceType.DEVICE_MOUSE)

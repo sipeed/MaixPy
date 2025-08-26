@@ -1,7 +1,7 @@
 from maix import display, image
 
 disp = display.Display()
-img = image.Image(disp.width(), disp.height())
+img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
 msg = "Loading ..."
 size = image.string_size(msg, scale=2, thickness=2)
 img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, scale=2, color=image.COLOR_WHITE, thickness=2)
@@ -617,7 +617,7 @@ def main():
         import traceback
         e = traceback.format_exc()
         print(e)
-        img = image.Image(disp.width(), disp.height())
+        img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
         img.draw_string(2, 2, e, image.COLOR_WHITE, font="hershey_complex_small", scale=0.6)
         disp.show(img)
         while not app.need_exit():

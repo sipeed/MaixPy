@@ -17,7 +17,7 @@ def get_back_btn_img(width):
 
 def main(disp):
     global pressed_flag, learn_id
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     msg = "loading ..."
     size = image.string_size(msg, scale=2, thickness=2)
     img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, color=image.COLOR_WHITE, scale=2, thickness=2)
@@ -127,7 +127,7 @@ except Exception:
     import traceback
     msg = traceback.format_exc()
     print(msg)
-    img = image.Image(disp.width(), disp.height())
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)
     while not app.need_exit():
