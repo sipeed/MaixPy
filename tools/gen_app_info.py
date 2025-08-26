@@ -27,9 +27,12 @@ apps_info = {}
 for name in os.listdir(apps_dir):
     app_info_str = ""
     app_dir = os.path.join(apps_dir, name)
-    if not os.path.isdir(app_dir):
+    if (not os.path.isdir(app_dir)) or (app_dir.startswith(".") or app_dir.startswith("~")):
         continue
     app_yaml_path = os.path.join(app_dir, "app.yaml")
+    if not os.path.exists(app_yaml_path):
+        print(f"[Warning] {app_yaml_path} file not found")
+        continue
     with open(app_yaml_path, "r") as f:
         app_info = yaml.safe_load(f)
     if app_info["id"] == "launcher":
