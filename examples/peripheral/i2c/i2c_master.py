@@ -4,9 +4,9 @@ from maix import i2c, pinmap, sys, err
 # get pin and i2c number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    scl_pin_name = "IO0_A1"
+    scl_pin_name = "A1"
     scl_i2c_name = "I2C6_SCL"
-    sda_pin_name = "IO0_A0"
+    sda_pin_name = "A0"
     sda_i2c_name = "I2C6_SDA"
     i2c_id = 6
 else:

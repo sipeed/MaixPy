@@ -22,7 +22,7 @@ First, you need to know which pins on your device are available as GPIOs, as sho
 | ------- | ------- | --- |
 | MaixCAM |  | The silkscreen on the board, e.g., `A19`, is the pin name, and `GPIOA19/PWM7` is the function name |
 | MaixCAM-Pro |  | The first name, e.g., `A19`, is the pin name, and `GPIOA19/PWM7` is the corresponding function name |
-| MaixCAM2 |  | The first name, e.g., `IO0_A2`, is the pin name, and `GPIO0_A2/SPI1_CS0` is the corresponding function name |
+| MaixCAM2 |  | The first name, e.g., `A2`, is the pin name, and `GPIOA2/SPI1_CS0` is the corresponding function name, that is, just add `GPIO` prefix for IO name to use `GPIO` funtion |
 
 Note that pins may have other default uses. It's best to avoid these pins. Please refer to the [pinmap](https://www.google.com/search?q=./pinmap.md) documentation for details.
 
@@ -41,13 +41,13 @@ The **correct approach** is to connect an external conversion circuit so the pin
 
 ## GPIO Output Mode
 
-As shown in the LED circuit diagram, we only need to provide a high voltage level to the `A14` (`MaixCAM2` is `IO0_A6`) pin for the LED to turn on:
+As shown in the LED circuit diagram, we only need to provide a high voltage level to the `A14` (`MaixCAM2` is `A6`) pin for the LED to turn on:
 
 ```python
 from maix import gpio, pinmap, time, sys, err
 
-pin_name = "IO0_A6" if sys.device_id() == "maixcam2" else "A14"
-gpio_name = "GPIO0_A6" if sys.device_id() == "maixcam2" else "GPIOA14"
+pin_name = "A6" if sys.device_id() == "maixcam2" else "A14"
+gpio_name = "GPIOA6" if sys.device_id() == "maixcam2" else "GPIOA14"
 
 err.check_raise(pinmap.set_pin_function(pin_name, gpio_name), "set pin failed")
 led = gpio.GPIO(gpio_name, gpio.Mode.OUT)
@@ -81,14 +81,14 @@ while 1:
 
 ## Using the Illumination LED on MaixCAM-Pro
 
-Both `MaixCAM / MaixCAM-Pro` and `MaixCAM2` have a small LED connected to pins `A14` and `IO0_A6`.
-Additionally, the `MaixCAM-Pro` and `MaixCAM2` also have an onboard **illumination LED** connected to pins `B3` and `IO0_A25`, respectively, which turns on with a high voltage and off with a low voltage:
+Both `MaixCAM / MaixCAM-Pro` and `MaixCAM2` have a small LED connected to pins `A14` and `IOA6`.
+Additionally, the `MaixCAM-Pro` and `MaixCAM2` also have an onboard **illumination LED** connected to pins `B3` and `IOA25`, respectively, which turns on with a high voltage and off with a low voltage:
 
 ```python
 from maix import gpio, pinmap, time, sys, err
 
-pin_name = "IO1_A25" if sys.device_id() == "maixcam2" else "B3"
-gpio_name = "GPIO1_A25" if sys.device_id() == "maixcam2" else "GPIOB3"
+pin_name = "B25" if sys.device_id() == "maixcam2" else "B3"
+gpio_name = "B25" if sys.device_id() == "maixcam2" else "GPIOB3"
 
 err.check_raise(pinmap.set_pin_function(pin_name, gpio_name), "set pin failed")
 led = gpio.GPIO(gpio_name, gpio.Mode.OUT)

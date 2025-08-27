@@ -13,8 +13,8 @@ def on_received(serial : uart.UART, data : bytes):
 device_id = sys.device_id()
 if device_id == "maixcam2":
     pin_function = {
-        "IO0_A21": "UART4_TX",
-        "IO0_A22": "UART4_RX"
+        "A21": "UART4_TX",
+        "A22": "UART4_RX"
     }
     device = "/dev/ttyS4"
 else:

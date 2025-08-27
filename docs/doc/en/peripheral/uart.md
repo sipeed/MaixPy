@@ -41,7 +41,7 @@ First, we need to know which pins and I2C interfaces are available on the device
 | ------------ | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | MaixCAM      | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | The board’s silkscreen shows the pin name (e.g., `A19`) and function name (e.g., `UART1_TX`).             |
 | MaixCAM-Pro  | ![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)                              | The first label (e.g., `A19`) is the pin name, corresponding to the function name (e.g., `UART1_TX`).     |
-| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | The first label (e.g., `IO0_A21`) is the pin name, corresponding to the function name (e.g., `UART4_TX`). |
+| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | The first label (e.g., `A21`) is the pin name, corresponding to the function name (e.g., `UART4_TX`). |
 
 Note: Pins may be used for other purposes by default. It’s best to avoid these pins—see the [pinmap](./pinmap.md) documentation.
 
@@ -100,8 +100,8 @@ from maix import uart, pinmap, time, sys, err
 device_id = sys.device_id()
 if device_id == "maixcam2":
     pin_function = {
-        "IO0_A21": "UART4_TX",
-        "IO0_A22": "UART4_RX"
+        "A21": "UART4_TX",
+        "A22": "UART4_RX"
     }
     device = "/dev/ttyS4"
 else:

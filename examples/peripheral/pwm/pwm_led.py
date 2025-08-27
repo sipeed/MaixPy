@@ -4,7 +4,7 @@ from maix import pwm, time, pinmap, sys, err
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO1_A25" # LED light
+    pin_name = "B25" # LED light
     pwm_id = 6
 else:
     pin_name = "A18" # A18 pin

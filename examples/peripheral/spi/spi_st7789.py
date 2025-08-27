@@ -106,17 +106,17 @@ class ST7789(object):
         if device_id == "maixcam2":
             if port == 1:
                 spi_pin_function = {
-                    "IO0_A2": "SPI1_CS0",
-                    "IO0_A1": "SPI1_MISO",
-                    "IO0_A0": "SPI1_MOSI",
-                    "IO0_A4": "SPI1_SCK"
+                    "A2": "SPI1_CS0",
+                    "A1": "SPI1_MISO",
+                    "A0": "SPI1_MOSI",
+                    "A4": "SPI1_SCK"
                 }
             elif port == 2:
                 spi_pin_function = {
-                    "IO1_A21": "SPI2_CS1",
-                    "IO1_A19": "SPI2_MISO",
-                    "IO1_A18": "SPI2_MOSI",
-                    "IO1_A20": "SPI2_SCK"
+                    "B21": "SPI2_CS1",
+                    "B19": "SPI2_MISO",
+                    "B18": "SPI2_MOSI",
+                    "B20": "SPI2_SCK"
                 }
             else:
                 raise ValueError("Only support spi2 and spi4")

@@ -32,13 +32,13 @@ First, we need to know which pins and PWM channels the device provides, as shown
 | ------- | ------- | --- |
 | MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | On the silkscreen, for example, `A19` is the pin name and `PWM7` is the function name |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | The first name, such as `A19`, is the pin name; the corresponding `PWM7` is the function name |
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | The first name, such as `IO1_A25`, is the pin name; the corresponding `PWM6` is the function name |
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | The first name, such as `B25`, is the pin name; the corresponding `PWM6` is the function name |
 
 Note that pins may be used for other purposes by default; it’s best to avoid those pins. See the [pinmap](./pinmap.md) documentation for details.
 
 For example:
 * `MaixCAM/MaixCAM-Pro`: Since `WiFi` uses all pins of `SDIO1`, `PWM4~9` are not recommended for use.
-* `MaixCAM2`: By default, 4 PWM pins can be used directly. The lighting LED can also be controlled by `PWM6`, but note that `PWM6` can only be used for either `IO0_A30` or the lighting LED at one time, not both.
+* `MaixCAM2`: By default, 4 PWM pins can be used directly. The lighting LED can also be controlled by `PWM6`, but note that `PWM6` can only be used for either `A30` or the lighting LED at one time, not both.
 
 
 ## Using PWM in MaixPy to Control LED Brightness
@@ -52,7 +52,7 @@ from maix import pwm, time, pinmap, sys, err
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO1_A25" # LED light
+    pin_name = "B25" # LED light
     pwm_id = 6
 else:
     pin_name = "A18" # A18 pin
@@ -94,7 +94,7 @@ SERVO_MAX_DUTY = 12.5  # 12.5% -> 2.5ms
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO0_A31"
+    pin_name = "A31"
     pwm_id = 7
 else:
     pin_name = "A19"

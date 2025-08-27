@@ -161,7 +161,7 @@ echo "pack and copy MaixPy projects"
 cd ../../../projects
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
-    ./build_all.sh
+    ./build_all.sh maixcam2
 fi
 cd -
 mkdir -p tmp/sys_builtin_files/maixapp/apps
@@ -206,14 +206,28 @@ delete_first_files=tmp/delete_files.txt
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
 echo "Now update system image, need sudo permition to mount rootfs:"
-sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files tmp/${os_version_str}.axp
+sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files
+echo "Complete: os dir: tmp2/axp"
 
 mkdir -p images
-mv tmp/${os_version_str}.axp images/${os_version_str}.axp
-echo "Complete: os file: images/${os_version_str}.axp"
-
 echo "Now convert to binary img file: images/${os_version_str}.img.xz"
 # need install simg2img and xz tool first
-axp2img -i images/${os_version_str}.axp -o images/${os_version_str}.img.xz
+sudo chmod 777 tmp2/axp
+axp2img -i tmp2/axp -o images/${os_version_str}.img.xz
+rm -rf tmp2/out tmp2/temp
+sync
 echo "Complete convert to binary img file: images/${os_version_str}.img.xz"
+
+echo "Now zip axp file"
+out_path=tmp/${os_version_str}.axp
+parent_dir=$(dirname "$out_path")
+name=$(basename $out_path)
+out_path=$(realpath $parent_dir)/$name
+echo "Zipping axp file to $out_path"
+cd tmp2/axp
+zip -r $out_path .
+cd -
+mv $out_path images/${os_version_str}.axp
+sync
+echo "Zip axp file done"
 

@@ -7,10 +7,10 @@ from maix import app, uart, pinmap, time, sys, err
 device_id = sys.device_id()
 if device_id == "maixcam2":
     pin_function = {
-        "IO0_A21": "UART4_TX",
-        "IO0_A22": "UART4_RX"
-        # "IO1_A0": "UART2_TX",
-        # "IO1_A1": "UART2_RX"
+        "A21": "UART4_TX",
+        "A22": "UART4_RX"
+        # "B0": "UART2_TX",
+        # "B1": "UART2_RX"
     }
     device = "/dev/ttyS4"
     # device = "/dev/ttyS2"

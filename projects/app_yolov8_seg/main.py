@@ -17,10 +17,10 @@ def get_back_btn_img(width):
 def main(disp):
     ts = touchscreen.TouchScreen()
     detector = nn.YOLO11(model="/root/models/yolo11n_seg.mud")
+    cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
+
     img_back = get_back_btn_img(cam.width())
     back_rect = [0, 0, img_back.width(), img_back.height()]
-
-    cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
     back_rect_disp = image.resize_map_pos(cam.width(), cam.height(), disp.width(), disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
 
     while not app.need_exit():

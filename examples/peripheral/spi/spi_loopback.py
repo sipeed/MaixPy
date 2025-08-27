@@ -4,10 +4,10 @@ from maix import spi, pinmap, sys, err
 device_id = sys.device_id()
 if device_id == "maixcam2":
     pin_function = {
-        "IO1_A21": "SPI2_CS1",
-        "IO1_A19": "SPI2_MISO",
-        "IO1_A18": "SPI2_MOSI",
-        "IO1_A20": "SPI2_SCK"
+        "B21": "SPI2_CS1",
+        "B19": "SPI2_MISO",
+        "B18": "SPI2_MOSI",
+        "B20": "SPI2_SCK"
     }
     spi_id = 2
 else:
@@ -34,7 +34,7 @@ spidev = spi.SPI(spi_id, spi.Mode.MASTER, 1250000)
 #                  bits=8,                # Bits of SPI, default is 8
 #                  hw_cs=-1,              # use default hardware cs.
 #                  soft_cs="",            # If you want use soft cs, set GPIO name,
-#                                         # e.g.  GPIOA19(MaixCAM), GPIO0_A2(MaixCAM2)
+#                                         # e.g.  GPIOA19(MaixCAM), GPIOA2(MaixCAM2)
 #                                         # you should set pinmap first by yourself.
 #                  cs_active_low=true     # cs pin active low voltage level
 

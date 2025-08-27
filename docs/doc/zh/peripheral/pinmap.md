@@ -63,7 +63,10 @@ MaixPy 支持不同的板型引出的引脚不同，这里提供了每个设备�
 | ------- | ------- | --- | -------------- |
 | MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 板子丝印比如`A19`是引脚名，`GPIOA19/PWM7`是功能名 | 在[硬件资料](https://wiki.sipeed.com/hardware/zh/maixcam/index.html) 中查看 |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | 第一个名如`A19`是引脚名，对应`GPIOA19/PWM7`是功能名 | 在[硬件资料](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam_pro.html) 中查看 |
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`IO0_A2`是引脚名，对应`GPIO0_A2/SPI1_CS0`是功能名  | 在[硬件资料](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2.html) 中查看  |
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`A2`是引脚名，对应`GPIOA2/SPI1_CS0`是功能名  | 在[硬件资料](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2.html) 中查看  |
+
+> 注意，对于 MaixCAM2，原理图以及芯片资料中可能会有 `GPIO1_A25` 这种写法，为了看起来更简洁，我们将其定义成`B25`，是等效的，又比如`GPIO0_A2`对应 `MaixPy`中的`GPIOA2`，`GPIO3_A2`对应`MaixPy`中的`C2`。
+> 即`GPIOn`这里`n`取值`0` 对应了`MaixPy`中定义的`A`，`1`对应了`B`，`GPIO1_A25`的`A25`对应 `MaixPy` 中的`25`即去掉了`A`。
 
 
 ### MaixPy 中映射引脚功能
@@ -138,7 +141,7 @@ print(func)
 | ------- | ------- | ---- | ------- |
 | MaixCAM |  ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 参考 `MaixCAM-Pro` | 1. `UART0`是系统日志+默认串口<br>WiFi(SDIO1 + A26)。<br>2. `A14` 默认是系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. user按键默认系统已经有`key`驱动用来检测按键按下，不建议用`GPIO`读取。<br>4. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。 |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png)  | 1. 参考外壳丝印，比如`29`就是`GPIO`，`RX` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. 同 `MaixCAM`。<br>2. `B3` 接了一个照明`LED` ，高电平使能。|
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 1. 参考外壳丝印, 比如`A4`就是`GPIO`，`U2R` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. `IO1_A25` 接了一个照明`LED`，高电平使能。<br>2. `IO0_A6`引脚接了系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。|
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 1. 参考外壳丝印, 比如`A4`就是`GPIO`，`U2R` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. `B25` 接了一个照明`LED`，高电平使能。<br>2. `A6`引脚接了系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。|
 
 
 

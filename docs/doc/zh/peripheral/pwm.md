@@ -32,13 +32,13 @@ update:
 | ------- | ------- | --- |
 | MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 板子丝印比如`A19`是引脚名，`PWM7`是功能名 |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | 第一个名如`A19`是引脚名，对应`PWM7`是功能名 |
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`IO1_A25`是引脚名，对应`PWM6`是功能名  |
+| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`B25`是引脚名，对应`PWM6`是功能名  |
 
 需要注意的是，引脚默认可能用做其它用途，最好避开这些引脚，请看[pinmap](./pinmap.md) 文档中的说明。
 
 比如：
 * `MaixCAM/MaixCAM-Pro`: 因为`WiFi` 使用了`SDIO1`的所有引脚，所以`PWM4~9`不建议使用。
-* `MaixCAM2`: 默认有 4个 PWM 引脚可以直接使用，照明 LED 也可以用`PWM6` 控制，注意`PWM6` 只能在`IO0_A30`和照明 LED 二选一使用。
+* `MaixCAM2`: 默认有 4个 PWM 引脚可以直接使用，照明 LED 也可以用`PWM6` 控制，注意`PWM6` 只能在`A30`和照明 LED 二选一使用。
 
 
 ## MaixPy 使用 PWM 控制 LED 亮度
@@ -52,7 +52,7 @@ from maix import pwm, time, pinmap, sys, err
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO1_A25" # LED light
+    pin_name = "B25" # LED light
     pwm_id = 6
 else:
     pin_name = "A18" # A18 pin
@@ -95,7 +95,7 @@ SERVO_MAX_DUTY = 12.5  # 12.5% -> 2.5ms
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO0_A31"
+    pin_name = "A31"
     pwm_id = 7
 else:
     pin_name = "A19"

@@ -137,7 +137,7 @@ echo "pack and copy MaixPy projects"
 cd ../../../projects
 if [ $skip_build_apps == 0 ]; then
     chmod +x ./build_all.sh
-    ./build_all.sh
+    ./build_all.sh maixcam
 fi
 cd -
 mkdir -p tmp/sys_builtin_files/maixapp/apps

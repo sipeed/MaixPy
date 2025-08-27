@@ -32,7 +32,7 @@ First, we need to know which pins and I2C interfaces the device has, as shown in
 | ------- | ------- | --- |
 | MaixCAM |  | The silkscreen on the board, e.g., `A15`, is the pin name, and `I2C5_SCL` is the function name |
 | MaixCAM-Pro |  | The first name, e.g., `A15`, is the pin name, and `I2C5_SCL` is the corresponding function name |
-| MaixCAM2 |  | The first name, e.g., `IO0_A1`, is the pin name, and `I2C6_SCL` is the corresponding function name  |
+| MaixCAM2 |  | The first name, e.g., `A1`, is the pin name, and `I2C6_SCL` is the corresponding function name  |
 
 It's important to note that pins might have other default uses. It's best to avoid these pins. Please refer to the [pinmap](https://www.google.com/search?q=./pinmap.md) documentation for details.
 
@@ -51,9 +51,9 @@ from maix import i2c, pinmap, sys, err
 # get pin and i2c number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    scl_pin_name = "IO0_A1"
+    scl_pin_name = "A1"
     scl_i2c_name = "I2C6_SCL"
-    sda_pin_name = "IO0_A0"
+    sda_pin_name = "A0"
     sda_i2c_name = "I2C6_SDA"
     i2c_id = 6
 else:
@@ -101,9 +101,9 @@ import smbus
 # get pin and i2c number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    scl_pin_name = "IO0_A1"
+    scl_pin_name = "A1"
     scl_i2c_name = "I2C6_SCL"
-    sda_pin_name = "IO0_A0"
+    sda_pin_name = "A0"
     sda_i2c_name = "I2C6_SDA"
     i2c_id = 6
 else:

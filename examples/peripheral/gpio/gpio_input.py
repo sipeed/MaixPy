@@ -3,8 +3,8 @@ from maix import gpio, pinmap, time, sys, err
 # get pin and GPIO number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO0_A2"
-    gpio_id = "GPIO0_A2"
+    pin_name = "A2"
+    gpio_id = "GPIOA2"
 else:
     pin_name = "A19"
     gpio_id = "GPIOA19"

@@ -58,7 +58,8 @@ if [ ! -f "$delete_first_files" ]; then
 fi
 
 
-rm -rf tmp2
+rm -rf tmp2/*
+mkdir -p tmp2
 
 # if builtin_files is a xz or tar.xz file, unzip it to tmp2/builtin_files
 if [[ "$builtin_files" == *.tar.xz ]]; then
@@ -182,15 +183,19 @@ rm -rf tmp2/rootfs
 echo "umount raw rootfs done"
 
 # zip axp
-parent_dir=$(dirname "$out_path")
-name=$(basename $out_path)
-out_path=$(realpath $parent_dir)/$name
-echo "Zipping axp file to $out_path"
-mkdir -p $parent_dir
-cd tmp2/axp
-zip -r $out_path .
-cd -
-echo "Zip axp file done"
+if [[ x$out_path != x ]]; then
+    parent_dir=$(dirname "$out_path")
+    name=$(basename $out_path)
+    out_path=$(realpath $parent_dir)/$name
+    echo "Zipping axp file to $out_path"
+    mkdir -p $parent_dir
+    cd tmp2/axp
+    zip -r $out_path .
+    cd -
+    echo "Zip axp file done"
+else
+    echo "not zip axp, files in tmp2/axp"
+fi
 
 echo "Syncing ..."
 sync

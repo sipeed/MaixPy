@@ -8,7 +8,7 @@ SERVO_MAX_DUTY = 12.5  # 12.5% -> 2.5ms
 # get pin and pwm number according to device id
 device_id = sys.device_id()
 if device_id == "maixcam2":
-    pin_name = "IO0_A31"
+    pin_name = "A31"
     pwm_id = 7
 else:
     pin_name = "A19"
