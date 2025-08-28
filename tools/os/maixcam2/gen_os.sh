@@ -214,7 +214,7 @@ echo "Now convert to binary img file: images/${os_version_str}.img.xz"
 # need install simg2img and xz tool first
 sudo chmod 777 tmp2/axp
 axp2img -i tmp2/axp -o images/${os_version_str}.img.xz
-rm -rf tmp2/out tmp2/temp
+rm -rf tmp2/axp/out tmp2/axp/temp
 sync
 echo "Complete convert to binary img file: images/${os_version_str}.img.xz"
 

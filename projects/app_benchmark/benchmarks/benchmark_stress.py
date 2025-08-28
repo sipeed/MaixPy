@@ -14,6 +14,16 @@ from datetime import datetime
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
+def get_back_btn_img(width):
+    ret_width = int(width * 0.1)
+    img_back = image.load("/maixapp/share/icon/ret.png")
+    w, h = (ret_width, img_back.height() * ret_width // img_back.width())
+    if w % 2 != 0:
+        w += 1
+    if h % 2 != 0:
+        h += 1
+    img_back = img_back.resize(w, h)
+    return img_back
 
 class Bechmark:
     name = "Stress"
@@ -32,7 +42,7 @@ class Bechmark:
         self.fps_values = deque(maxlen=self.cpu_temp_record_len)
         self.need_exit = False
         self.cam = None
-        self.cam_res_list = [(1280, 720), (self.disp.width(), self.disp.height()), (1920, 1080), (2560, 1440)]
+        self.cam_res_list = [(self.disp.width(), self.disp.height()), (1280, 720), (1920, 1080), (2560, 1440)]
         self.init_cam(self.cam_res_list[0])
 
     def __del__(self):
@@ -52,6 +62,7 @@ class Bechmark:
         if self.cam is not None:
             del self.cam
             gc.collect()
+            self.cam = None
 
 
     def stress_process(self, model_path, nee_exit, model_fps):
@@ -143,10 +154,10 @@ class Bechmark:
                 self.font_scale = 2.5
                 self.font_thickness = 3
             elif self.cam.height() >= 480:
-                self.font_scale = 2.2
+                self.font_scale = 1.4
                 self.font_thickness = 2
             else:
-                self.font_scale = 1.4
+                self.font_scale = 1
                 self.font_thickness = 1
             self.font_size = image.string_size("aA!~?/", scale = self.font_scale)
             self.ai_isp_on = app.get_sys_config_kv("npu", "ai_isp", "0")
@@ -157,10 +168,7 @@ class Bechmark:
             string_cam_res_size = image.string_size(self.string_cam_res, scale = self.font_scale)
             self.string_cam_res_rect = [0, self.cam.height() - string_cam_res_size.height() - self.button_padding_2x, string_cam_res_size.width() + self.button_padding_2x, string_cam_res_size.height() + self.button_padding_2x]
             self.img_back = image.load("/maixapp/share/icon/ret.png")
-            if self.cam.height() > 480:
-                self.img_back = self.img_back.resize(96, int(96 / self.img_back.width() *self.img_back.height()))
-            elif self.cam.height() > 240:
-                self.img_back = self.img_back.resize(48, int(48 / self.img_back.width() *self.img_back.height()))
+            self.img_back = get_back_btn_img(self.cam.width())
             back_rect = [0, 0, self.img_back.width() + self.button_padding_2x, self.img_back.height() + self.button_padding_2x]
             self.back_rect_disp = image.resize_map_pos(self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
             self.string_cam_res_rect_disp = image.resize_map_pos(self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, self.string_cam_res_rect[0], self.string_cam_res_rect[1], self.string_cam_res_rect[2], self.string_cam_res_rect[3])
@@ -170,6 +178,8 @@ class Bechmark:
         record_path = f"/root/benchmark/benchmark_stress_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt"
         os.makedirs(os.path.dirname(record_path), exist_ok=True)
         f = open(record_path, "w")
+        last_fps_y = 0
+        last_temp_y = 0
         while (not self.need_exit) and (not app.need_exit()):
             if time.ticks_s() - self.last_read_cpu_temp > self.read_interval:
                 self.last_read_cpu_temp = time.ticks_s()
@@ -196,6 +206,29 @@ class Bechmark:
             img.draw_line(0, img.height() - y, img.width(), img.height() - y, image.COLOR_WHITE, thickness=1)
             img.draw_string(0, img.height() - y + 2, "50", image.COLOR_YELLOW, scale=self.font_scale, thickness=self.font_thickness)
 
+            # draw graph
+            # draw cpu temp
+            padding = img.width() // self.cpu_temp_record_len
+            x = img.width() - len(self.cpu_temp_values) * padding + padding // 2
+            last = None
+            last_fps = None
+            for i, temp in enumerate(self.cpu_temp_values):
+                y = img.height() - int((temp - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) * img.height())
+                fps_value = model_fps[0] if i == len(self.cpu_temp_values) - 1 else self.fps_values[i]
+                y2 = (fps_value - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) 
+                y2 = 100 if y2 > 100 else y2
+                y2 = img.height() - int(y2 * img.height())
+                if last is None:
+                    first_record_time = (len(self.cpu_temp_values) - 1) * self.read_interval
+                    if first_record_time > 10:
+                        img.draw_string(x, y, f"{-first_record_time}s", image.COLOR_RED, scale=self.font_scale, thickness=2)
+                else:
+                    img.draw_line(last_fps[0], last_fps[1], x, y2, image.COLOR_PURPLE, self.line_thickness)
+                    img.draw_line(last[0], last[1], x, y, image.COLOR_RED, self.line_thickness)
+                last = [x, y]
+                last_fps = [x, y2]
+                x += padding
+
             # draw info
             y = self.img_back.height() + self.button_padding_2x
             img.draw_string(2, y, f"[CPU] usage: {self.cpu_usage:3.1f}%, temp: {cpu_temp:3.1f} C, freq: {cpu_freq // 1000000}MHz", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
@@ -211,36 +244,22 @@ class Bechmark:
             img.draw_string(2, y, f"[CAM] {self.cam.width()}x{self.cam.height()}, fps: {self.cam.fps()}, {fps:.0f}", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
             img.draw_string(2, y, f"[CAM] {self.cam.width()}x{self.cam.height()}, fps: {self.cam.fps()}, {fps:.0f}", image.COLOR_RED, scale=self.font_scale, thickness=self.font_thickness)
 
-            # draw graph
-            # draw cpu temp
-            padding = img.width() // self.cpu_temp_record_len
-            x = img.width() - len(self.cpu_temp_values) * padding + padding // 2
-            last = None
-            last_fps = None
-            for i, temp in enumerate(self.cpu_temp_values):
-                y = img.height() - int((temp - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) * img.height())
-                y2 = (self.fps_values[i] - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) 
-                y2 = 100 if y2 > 100 else y2
-                y2 = img.height() - int(y2 * img.height())
-                if last is None:
-                    first_record_time = (len(self.cpu_temp_values) - 1) * self.read_interval
-                    if first_record_time > 10:
-                        img.draw_string(x, y, f"{-first_record_time}s", image.COLOR_RED, scale=self.font_scale, thickness=2)
-                else:
-                    img.draw_line(last[0], last[1], x, y, image.COLOR_RED, self.line_thickness)
-                    img.draw_line(last_fps[0], last_fps[1], x, y2, image.COLOR_PURPLE, self.line_thickness)
-                last = (x, y)
-                last_fps = (x, y2)
-                x += padding
-            # draw number
-            msg = f"{cpu_temp:3.1f} C"
-            msg_size = image.string_size(msg, scale=self.font_scale)
-            img.draw_string(last[0] - msg_size.width() - 2, last[1] - msg_size.height() - 2, msg, image.COLOR_RED, scale=self.font_scale, thickness=self.font_thickness * 2)
-            img.draw_string(last[0] - msg_size.width() - 2, last[1] - msg_size.height() - 2, msg, image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness)
+            # draw npu fps number
             msg = f"{model_fps[0]:3.1f}fps"
             msg_size = image.string_size(msg, scale=self.font_scale)
-            img.draw_string(last_fps[0] - msg_size.width() - 2, last_fps[1] - msg_size.height() - 2, msg, image.COLOR_PURPLE, scale=self.font_scale, thickness=self.font_thickness * 2)
-            img.draw_string(last_fps[0] - msg_size.width() - 2, last_fps[1] - msg_size.height() - 2, msg, image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness)
+            last_fps[1] = max(min(last_fps[1], img.height() - msg_size.height() - 2), 0)
+            last_fps_y = last_fps_y * 0.7 + last_fps[1] * 0.3
+            img.draw_string(last_fps[0] - msg_size.width() - 2, int(last_fps_y), msg, image.COLOR_PURPLE, scale=self.font_scale, thickness=self.font_thickness * 2)
+            img.draw_string(last_fps[0] - msg_size.width() - 2, int(last_fps_y), msg, image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness)
+            #draw temp number
+            msg = f"{cpu_temp:3.1f} C"
+            msg_size = image.string_size(msg, scale=self.font_scale)
+            if last[1] >= last_fps[1] - msg_size.height() and last[1] <= last_fps[1] + msg_size.height():
+                last[1] = last_fps[1] + msg_size.height() + 2 if last[1] >= last_fps[1] else last_fps[1] - msg_size.height() - 2
+            last[1] = max(min(last[1], img.height() - msg_size.height() - 2), 0)
+            last_temp_y = last_temp_y * 0.7 + last[1] * 0.3
+            img.draw_string(last[0] - msg_size.width() - 2, int(last_temp_y), msg, image.COLOR_RED, scale=self.font_scale, thickness=self.font_thickness * 2)
+            img.draw_string(last[0] - msg_size.width() - 2, int(last_temp_y), msg, image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness)
 
             # draw buttons
             img.draw_image(0, 0, self.img_back)
@@ -259,9 +278,23 @@ class Bechmark:
                 if is_in_button(x, y, self.back_rect_disp):
                     break
                 elif is_in_button(x, y, self.string_cam_res_rect_disp):
-                    cam_res_curr_idx = (cam_res_curr_idx + 1) % len(self.cam_res_list)
-                    print("switch cam res to", self.cam_res_list[cam_res_curr_idx])
-                    self.init_cam(self.cam_res_list[cam_res_curr_idx])
+                    err_count = 0
+                    while 1:
+                        cam_res_curr_idx = (cam_res_curr_idx + 1) % len(self.cam_res_list)
+                        print("switch cam res to", self.cam_res_list[cam_res_curr_idx])
+                        try:
+                            self.init_cam(self.cam_res_list[cam_res_curr_idx])
+                            break
+                        except Exception as e:
+                            print(f"Init cam with {self.cam_res_list[cam_res_curr_idx]} failed,", e)
+                            err_count += 1
+                            if err_count >= len(self.cam_res_list):
+                                print(f"error {err_count} times, now exit !!")
+                                self.need_exit = True
+                                break
+                            continue
+                    if self.need_exit:
+                        break
                     update_res_vars()
                     print("switch cam res to", self.cam_res_list[cam_res_curr_idx], "success")
             time.sleep_us(100) # release CPU to ensure stress_thread running
