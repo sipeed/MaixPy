@@ -49,7 +49,8 @@ Some devices have a built-in IMU, as shown below:
 | Device Name | Sensor Model | Accelerometer | Gyroscope | Magnetometer | Interface            | Features                                        |
 | ----------- | ------------ | ------------- | --------- | ------------ | -------------------- | ----------------------------------------------- |
 | MaixCAM-Pro | QMI8658      | ✅             | ✅         | ❌            | IIC4<br>Address 0x6B | Low power<br>High stability<br>High sensitivity |
-| MaixCAM     | None ❌       | ❌             | ❌         | ❌            |                      |                                                 |
+| MaixCAM     | None ❌      | ❌             | ❌         | ❌            |                      |                                                 |
+| MaixCAM2    | LSM6DSOWTR   | ✅             | ✅         | ❌            | Built-in driver      | Low power<br>High stability<br>High sensitivity |
 
 Besides using the built-in IMU, you can also connect an external IMU sensor, such as the classic `MPU6050/MPU9150`. Search for the latest and suitable sensors yourself.
 
@@ -57,7 +58,7 @@ In MaixPy, attitude estimation and IMU drivers are separated, so you can use you
 
 ## MaixPy Read IMU Data
 
-Using the built-in `QMI8658` of MaixCAM-Pro as an example, use `maix.imu.IMU` to read:
+Using MaixCAM-Pro as an example, use `maix.imu.IMU` to read:
 
 ```python
 from maix.ext_dev import imu
@@ -66,7 +67,7 @@ from maix.ext_dev import imu
 calibrate_first = False
 
 # default config: acc +-2g 1KHz, gyro +-256rad/s 8KHz
-sensor = imu.IMU("qmi8658", mode=imu.Mode.DUAL,
+sensor = imu.IMU("default", mode=imu.Mode.DUAL,
                               acc_scale=imu.AccScale.ACC_SCALE_2G,
                               acc_odr=imu.AccOdr.ACC_ODR_1000,
                               gyro_scale=imu.GyroScale.GYRO_SCALE_256DPS,
@@ -93,7 +94,7 @@ while True:
 ```
 
 Here, an `IMU` object is constructed, then `read_all` is called to read and print the data.
-Since `qmi8658` has no magnetometer, it's not printed.
+Since the onboard IMU has no magnetometer, it's not printed.
 
 However, note that calibration is needed, as explained below.
 

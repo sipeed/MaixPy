@@ -50,7 +50,7 @@ IMU（Inertial Measurement Unit），即 惯性测量单元，通常由几部分
 | ----- | ----- | ------- | ----- | ---- | ---- | ---  |
 | MaixCAM-Pro | QMI8658 | ✅ | ✅ | ❌ | IIC4<br>地址 0x6B | 低功耗<br>高稳定性<br>高灵敏度 |
 | MaixCAM | 无板载 ❌ | ❌ | ❌ | ❌ | |  |  |
-
+| MaixCAM2 | LSM6DSOWTR | ✅ | ✅ | ❌ | 内置驱动 | 低功耗<br>高稳定性<br>高灵敏度 |
 
 除了使用内置的，你也可以自己外接一个 IMU 传感器，比如经典的`MPU6050/MPU9150`等，可自行查找最新和合适的传感器。
 
@@ -60,7 +60,7 @@ MaixPy 中姿态解算和 IMU 驱动是分开的，所以你可以自己外接�
 
 ## MaixPy 读取 IMU 数据
 
-以 MaixCAM-Pro 自带的`QMI8658` 为例，使用 `maix.imu.IMU` 读取：
+以 MaixCAM-Pro 为例，使用 `maix.imu.IMU` 读取：
 
 ```python
 from maix.ext_dev import imu
@@ -69,7 +69,7 @@ from maix.ext_dev import imu
 calibrate_first = False
 
 # default config: acc +-2g 1KHz, gyro +-256rad/s 8KHz
-sensor = imu.IMU("qmi8658", mode=imu.Mode.DUAL,
+sensor = imu.IMU("default", mode=imu.Mode.DUAL,
                               acc_scale=imu.AccScale.ACC_SCALE_2G,
                               acc_odr=imu.AccOdr.ACC_ODR_1000,
                               gyro_scale=imu.GyroScale.GYRO_SCALE_256DPS,
@@ -97,7 +97,7 @@ while True:
 ```
 
 这里构造了一个`IMU`对象，然后调用`read_all`读取数据，再打印。
-由于`qmi8658` 没有 磁力计，这里没有打印。
+由于板载IMU没有 磁力计，这里没有打印。
 
 
 
