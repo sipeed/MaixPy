@@ -8,11 +8,11 @@ import numpy as np
 class Bechmark:
     name = "NPU"
 
-    def __init__(self, disp : display.Display, ts : touchscreen.TouchScreen):
+    def __init__(self):
         self.warmup_times = 3
         self.repeat_times = 40
-        self.disp = disp
-        self.ts = ts
+        self.disp = display.Display()
+        self.ts = touchscreen.TouchScreen()
 
     def benchmark_yolo_detect_img(self, items):
         test_items = []

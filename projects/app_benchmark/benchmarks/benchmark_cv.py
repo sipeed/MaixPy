@@ -9,11 +9,11 @@ import cv2
 class Bechmark:
     name = "CV"
 
-    def __init__(self, disp : display.Display, ts : touchscreen.TouchScreen):
+    def __init__(self):
         self.warmup_times = 3
         self.repeat_times = 40
-        self.disp = disp
-        self.ts = ts
+        self.disp = display.Display()
+        self.ts = touchscreen.TouchScreen()
 
     def get_img_copy(self, src_img, res):
         if src_img.width() != res[0] or src_img.height() != res[1]:

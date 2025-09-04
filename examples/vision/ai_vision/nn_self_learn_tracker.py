@@ -1,9 +1,14 @@
-from maix import camera, display, app, time, nn, touchscreen, image
+from maix import camera, display, app, time, nn, touchscreen, image, sys
 
 # Initialize variables
-model_path = "/root/models/nanotrack.mud"
-tracker = nn.NanoTrack(model_path)
-print(f"Load NanoTrack model {model_path} success")
+if sys.device_id() == "maixcam2":
+    model_path = "/root/models/mixformer_v2.mud"
+    tracker = nn.MixFormerV2(model_path)
+    print(f"Load MixFormerV2 model {model_path} success")
+else:
+    model_path = "/root/models/nanotrack.mud"
+    tracker = nn.NanoTrack(model_path)
+    print(f"Load NanoTrack model {model_path} success")
 
 disp = display.Display()
 touch = touchscreen.TouchScreen()

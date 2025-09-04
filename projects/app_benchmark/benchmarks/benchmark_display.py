@@ -6,10 +6,10 @@ from maix import image, time, display, touchscreen
 class Bechmark:
     name = "Display"
 
-    def __init__(self, disp : display.Display, ts : touchscreen.TouchScreen):
+    def __init__(self):
         self.repeat_time = 50
-        self.disp = disp
-        self.ts = ts
+        self.disp = display.Display()
+        self.ts = touchscreen.TouchScreen()
 
     def benchmark_show_img(self, img, items):
         # warm up

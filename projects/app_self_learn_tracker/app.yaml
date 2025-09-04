@@ -1,0 +1,13 @@
+id: self_learn_tracker
+name: Self Learn Tracker
+name[zh]: 自学习检测器
+version: 1.1.0
+icon: assets/icon.png
+author: Sipeed Ltd
+desc: Learn and detect and track any object
+desc[zh]: 学习、检测、追踪任意物体
+files:
+  app.yaml: app.yaml
+  assets: assets
+  README.md: README.md
+

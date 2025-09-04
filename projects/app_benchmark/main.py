@@ -1,158 +1,32 @@
 from maix import camera, display, image, app, time, touchscreen, key
+from benchmarks.widgets import StrButton, ImgButton
 
-disp = display.Display()
-img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
-msg = "loading..."
-size = image.string_size(msg, scale=2, thickness=2)
-img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=2, thickness=2)
-disp.show(img)
-del img
+def show_loading(disp):
+    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
+    msg = "loading..."
+    size = image.string_size(msg, scale=2, thickness=2)
+    img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=2, thickness=2)
+    disp.show(img)
+# no much module to import, so not show loading here
+# disp = display.Display()
+# show_loading(disp)
 
 import math
 import os
 import importlib
 import gc
 
+
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
-class StrButton:
-    def __init__(self, label, img_w, img_h, disp_w, disp_h):
-        self.pos = [0, 0]
-        self.last_pushed_time = 0
-        self.pushed = False
-        self.update_vars(label, img_w, img_h, disp_w, disp_h)
-
-    def update_vars(self, label, img_w, img_h, disp_w, disp_h):
-        self.label = label
-        self.img_w = img_w
-        self.img_h = img_h
-        self.disp_w = disp_w
-        self.disp_h = disp_h
-        self.scale = 2 if img_h >= 480 else 1.2
-        self.thickness = 2
-        self.string_size = image.string_size(self.label, scale=self.scale, thickness=self.thickness)
-        self.padding = (self.string_size.height(), self.string_size.height() * 2 // 3)
-        self.padding_2x = (int(self.padding[0] * 2), int(self.padding[1] * 2))
-        self.btn_size = (self.string_size.width() + self.padding_2x[0], self.string_size.height() + self.padding_2x[1])
-        self.set_pos(self.pos)
-
-    def set_pos(self, pos):
-        self.pos = pos
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_lb(self, pos_lb):
-        self.pos = (pos_lb[0], pos_lb[1] - self.btn_size[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_rt(self, pos_rt):
-        self.pos = (pos_rt[0] - self.btn_size[0], pos_rt[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_rb(self, pos_rb):
-        self.pos = (pos_rb[0] - self.btn_size[0], pos_rb[1] - self.btn_size[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pushed(self, pushed):
-        self.pushed = pushed
-        if self.pushed:
-            self.last_pushed_time = time.ticks_ms()
-
-    def draw(self, img):
-        pushed = self.pushed
-        if not pushed and time.ticks_ms() - self.last_pushed_time < 50:
-            pushed = True
-        if pushed:
-            img.draw_rect(self.pos[0] + 1, self.pos[1] + 1, self.btn_size[0] - 1, self.btn_size[1] - 1, image.Color.from_rgb(0, 40, 138), thickness=-1)
-            img.draw_rect(self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1], image.Color.from_rgb(0, 51, 182), thickness=1)
-        else:
-            img.draw_rect(self.pos[0] + 1, self.pos[1] + 1, self.btn_size[0] - 1, self.btn_size[1] - 1, image.Color.from_rgb(30, 83, 219), thickness=-1)
-            img.draw_rect(self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1], image.Color.from_rgb(0, 51, 182), thickness=1)
-        img.set_pixel(self.pos[0], self.pos[1], [31])
-        img.set_pixel(self.pos[0] + self.btn_size[0] - 1, self.pos[1], [31])
-        img.set_pixel(self.pos[0] + self.btn_size[0] - 1, self.pos[1] + self.btn_size[1] - 1, [31])
-        img.set_pixel(self.pos[0], self.pos[1] + self.btn_size[1] - 1, [31])
-        # img.draw_rect(self.pos[0] + self.padding[0], self.pos[1] + self.padding[1], self.string_size.width(), self.string_size.height(), image.COLOR_WHITE, thickness=1)
-        img.draw_string(self.pos[0] + self.padding[0], self.pos[1] + self.padding[1] + 2, self.label, image.COLOR_WHITE, scale=self.scale, thickness=self.thickness)
-
-class ImgButton:
-    def __init__(self, img_path, img_pushed_path, img_w, img_h, disp_w, disp_h, padding = [0, 0]):
-        self.btn_img = image.load(img_path, image.Format.FMT_RGBA8888)
-        self.btn_img_pushed = image.load(img_pushed_path, image.Format.FMT_RGBA8888) if img_pushed_path else self.btn_img
-        self.pos = [0, 0]
-        self.padding = padding
-        self.pushed = False
-        self.last_pushed_time = 0
-        self.update_vars(img_w, img_h, disp_w, disp_h)
-
-    def update_vars(self, img_w, img_h, disp_w, disp_h):
-        btn_img_h = int(img_h * 0.1)
-        btn_img_w = int(btn_img_h * self.btn_img.width() / self.btn_img.height())
-        if btn_img_h % 2 != 0:
-            btn_img_h += 1
-        if btn_img_w % 2 != 0:
-            btn_img_w += 1
-        if btn_img_h != self.btn_img.height() or btn_img_w != self.btn_img.width():
-            self.btn_img = self.btn_img.resize(btn_img_w, btn_img_h, image.Fit.FIT_CONTAIN)
-            self.btn_img_pushed = self.btn_img_pushed.resize(btn_img_w, btn_img_h, image.Fit.FIT_CONTAIN)
-        self.img_w = img_w
-        self.img_h = img_h
-        self.disp_w = disp_w
-        self.disp_h = disp_h
-        self.padding_2x = (int(self.padding[0] * 2), int(self.padding[1] * 2))
-        self.btn_size = (self.btn_img.width() + self.padding_2x[0], self.btn_img.height() + self.padding_2x[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos(self, pos):
-        self.pos = pos
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_lb(self, pos_lb):
-        self.pos = (pos_lb[0], pos_lb[1] - self.btn_size[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_rt(self, pos_rt):
-        self.pos = (pos_rt[0] - self.btn_size[0], pos_rt[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pos_rb(self, pos_rb):
-        self.pos = (pos_rb[0] - self.btn_size[0], pos_rb[1] - self.btn_size[1])
-        self.rect = [self.pos[0], self.pos[1], self.btn_size[0], self.btn_size[1]]
-        self.rect_disp = image.resize_map_pos(self.img_w, self.img_h, self.disp_w, self.disp_h, image.Fit.FIT_CONTAIN, self.rect[0], self.rect[1], self.rect[2], self.rect[3])
-
-    def set_pushed(self, pushed):
-        self.pushed = pushed
-        if self.pushed:
-            self.last_pushed_time = time.ticks_ms()
-
-    def draw(self, img):
-        pushed = self.pushed
-        if not pushed and time.ticks_ms() - self.last_pushed_time < 50:
-            pushed = True
-        if pushed:
-            if img.format() != self.btn_img_pushed.format():
-                self.btn_img_pushed = self.btn_img_pushed.to_format(img.format())
-            img.draw_image(self.pos[0] + self.padding[0], self.pos[1] + self.padding[1], self.btn_img_pushed)
-        else:
-            if img.format() != self.btn_img.format():
-                self.btn_img = self.btn_img.to_format(img.format())
-            img.draw_image(self.pos[0] + self.padding[0], self.pos[1] + self.padding[1], self.btn_img)
-
-
 class Program:
-    def __init__(self, disp):
+    def __init__(self):
         self.showing_result = False
         self.runing_case_obj = None
         self.key_obj = key.Key(self.on_key)
-        self.disp = disp
+        self.disp = display.Display()
+        show_loading(self.disp)
 
     def on_key(self, key_id, state):
         '''
@@ -215,7 +89,7 @@ class Program:
         press_start_pos = [-1, -1]
 
         while not app.need_exit():
-            img = image.Image(disp.width(), disp.height(), image.Format.FMT_RGBA8888, bg=image.Color.from_rgb(31, 31, 31))
+            img = image.Image(self.disp.width(), self.disp.height(), image.Format.FMT_RGBA8888, bg=image.Color.from_rgb(31, 31, 31))
             # draw buttons
             btn_back.draw(img)
             btn_mode.draw(img)
@@ -249,10 +123,32 @@ class Program:
                     curr_idx = (curr_idx + 1) % len(items)
                     print("switch mode")
                 elif is_in_button(x, y, btn_start.rect_disp):
-                    self.runing_case_obj = items[curr_idx](self.disp, ts)
-                    print("run item", self.runing_case_obj.name)
-                    show, imgs = self.runing_case_obj.run()
-                    print(f"run item {self.runing_case_obj.name} end")
+                    print("del disp")
+                    disp_w = self.disp.width()
+                    disp_h = self.disp.height()
+                    del self.disp
+                    del ts
+                    gc.collect()
+                    print("construct item object")
+                    self.runing_case_obj = items[curr_idx]()
+                    case_name = self.runing_case_obj.name
+                    print("run item", case_name)
+                    try:
+                        show, imgs = self.runing_case_obj.run()
+                    except Exception:
+                        import traceback
+                        msg = traceback.format_exc()
+                        print(msg)
+                        img = image.Image(disp_w, disp_h, bg=image.COLOR_BLACK)
+                        img.draw_string(0, 0, msg, image.COLOR_WHITE)
+                        show = True
+                        imgs = [img]
+                    print(f"run item {case_name} end")
+                    del self.runing_case_obj
+                    self.runing_case_obj = None
+                    gc.collect()
+                    self.disp = display.Display()
+                    ts = touchscreen.TouchScreen()
                     # show result
                     if show:
                         print("show result, press any key to exit")
@@ -265,9 +161,14 @@ class Program:
                         btn_back2 = ImgButton("/maixapp/share/icon/ret.png", "/maixapp/share/icon/ret2.png", self.disp.width(), self.disp.height(), self.disp.width(), self.disp.height(), padding=(4, 4))
                         while self.showing_result and not app.need_exit():
                             img0 = imgs[idx]
+                            if type(img0) == str:
+                                msg = img0
+                                img0 = image.Image(self.disp.width(), self.disp.height(), bg=image.COLOR_BLACK)
+                                size = image.string_size(msg, scale=2, thickness=2)
+                                img0.draw_string((img0.width() - size.width()) // 2, (img0.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=2, thickness=2)
                             self.disp.show(img0)
                             if idx not in saved:
-                                save_path = f"/root/benchmark/enchmark_result_{self.runing_case_obj.name}_{max(0, idx)}.png"
+                                save_path = f"/root/benchmark/enchmark_result_{case_name}_{max(0, idx)}.png"
                                 os.makedirs(os.path.dirname(save_path), exist_ok=True)
                                 print(f"save to {save_path}")
                                 img0.save(save_path)
@@ -293,9 +194,6 @@ class Program:
                                         self.showing_result = False
                                     break
                                 time.sleep_ms(50)
-                    del self.runing_case_obj
-                    self.runing_case_obj = None
-                    gc.collect()
                 else:
                     # move left right
                     dx = x - press_start_pos[0]
@@ -312,8 +210,8 @@ class Program:
                 self.disp.show(img)
             except Exception:
                 print("show img failed")
-
-program = Program(disp)
+# del disp
+program = Program()
 try:
     while not app.need_exit():
         program.run()
@@ -321,6 +219,7 @@ except Exception:
     import traceback
     msg = traceback.format_exc()
     print(msg)
+    disp = display.Display()
     img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
     img.draw_string(0, 0, msg, image.COLOR_WHITE)
     disp.show(img)

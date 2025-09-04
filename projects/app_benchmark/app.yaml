@@ -1,7 +1,7 @@
 id: benchmark
 name: Benchmark
 name[zh]: 跑分测试
-version: 1.0.1
+version: 1.0.2
 icon: icon.png
 author: neucrack@Sipeed Ltd
 desc: Hardware and software benchmark
