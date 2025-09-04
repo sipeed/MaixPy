@@ -14,9 +14,10 @@ set -e
 
 function usage() {
     echo "Usage:"
-    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <skip_build_apps> <board_name> [delete_first_files]"
+    echo "      ./gen_os.sh <base_os_filepath> <maixpy_whl_filepath> <builtin_files_dir_path> <skip_build_apps> <board_name> [generate_axp_full] [delete_first_files]"
     echo "skip_build_apps can be 0 or 1"
     echo "board_name can be maixcam or maixcam-pro"
+    echo "generate_axp_full if 0 will only generate boot_parts axp, default 0"
     echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm,"
     echo "you can also create a delete_first.txt in builtin_files_dir and leave this arg empty"
     echo ""
@@ -44,6 +45,7 @@ whl_path=$2
 builtin_files_dir_path=$3
 skip_build_apps=0
 board_name=maixcam
+generate_axp_full=0
 
 # 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
 if [ -n "$4" ]; then
@@ -66,9 +68,18 @@ fi
 
 check_axp2img_command
 
-delete_first_files=""
 if [ -n "$6" ]; then
-    delete_first_files=$6
+    if [ "x$6" == "x1" ]; then
+        generate_axp_full=1
+    elif [ "x$6" != "x0" ]; then
+        echo "generate_axp_full arg should be 0 or 1"
+        exit 1
+    fi
+fi
+
+delete_first_files=""
+if [ -n "$7" ]; then
+    delete_first_files=$7
     if [[ ! -e "$delete_first_files" ]]; then
         echo "Error: delete_first_files $delete_first_files file does not exist"
         exit 1
@@ -121,7 +132,9 @@ rm -rf tmp/delete_files.txt
 sync
 
 # get sudo permission for update_img.sh later
-sudo echo "Need sudo permission for update_img.sh later, grant permission now"
+echo -e "\n\n======================================\nFor MaixCDK/MaixPy maintainer:\n    DON'T forget to update APPs like launcher, settings, app_store in builtin_files !!\n\nNeed sudo permission for update_img.sh later, grant permission now\n======================================\n"
+sudo echo ""
+
 
 # 1. 检查参数 文件或者文件夹是否存在，然后拷贝一份 builtin_files_dir_path 到 tmp，不要影响原目录，检查 base os file 是不是 xz, 如果是解压到临时目录 tmp，并改名为 os_version_str.img，不是则拷贝一份到 tmp 目录下 os_version_str.img
 echo "copy builtin files"
@@ -218,16 +231,35 @@ rm -rf tmp2/axp/out tmp2/axp/temp
 sync
 echo "Complete convert to binary img file: images/${os_version_str}.img.xz"
 
-echo "Now zip axp file"
-out_path=tmp/${os_version_str}.axp
+echo "Now zip boot_parts axp file"
+mkdir -p tmp2/axp2
+rsync -av --exclude='ubuntu_rootfs_sparse.ext4' tmp2/axp/ tmp2/axp2/
+dd if=/dev/zero of=tmp2/axp2/ubuntu_rootfs_sparse.ext4 bs=1M count=20
+out_path=tmp/boot_parts_${os_version_str}.axp
 parent_dir=$(dirname "$out_path")
 name=$(basename $out_path)
 out_path=$(realpath $parent_dir)/$name
 echo "Zipping axp file to $out_path"
-cd tmp2/axp
+cd tmp2/axp2
 zip -r $out_path .
 cd -
-mv $out_path images/${os_version_str}.axp
+mv $out_path images/boot_parts_${os_version_str}.axp
 sync
-echo "Zip axp file done"
+echo "Zip boot_parts axp file done"
 
+if [ $generate_axp_full == 1 ]; then
+    echo "Now zip axp whole system file"
+    out_path=tmp/${os_version_str}.axp
+    parent_dir=$(dirname "$out_path")
+    name=$(basename $out_path)
+    out_path=$(realpath $parent_dir)/$name
+    echo "Zipping axp file to $out_path"
+    cd tmp2/axp
+    zip -r $out_path .
+    cd -
+    mv $out_path images/${os_version_str}.axp
+    sync
+    echo "Zip axp file done"
+else
+    echo "generate_axp_full is 0, Skip generate full axp"
+fi
