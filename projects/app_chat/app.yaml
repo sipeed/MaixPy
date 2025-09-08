@@ -1,0 +1,18 @@
+id: ai_chat
+name: AI Chat
+name[zh]: AI聊天
+version: 1.0.3
+icon: app.png
+author: Sipeed Ltd
+desc: AI Chat
+desc[zh]: AI 聊天
+exclude:
+  - dist
+  - build
+  - .gitignore
+files:
+  - assets/exit.jpg
+  - assets/icon.png
+  - app.yaml
+  - main.py
+  - README.md
