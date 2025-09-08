@@ -60,7 +60,7 @@ class App:
         self.__show_load_info('loading llm..')
         # /root/models/Qwen2.5-0.5B-Instruct/model.mud
         # /root/models/Qwen2.5-1.5B-Instruct/model.mud
-        self.llm = nn.Qwen("/root/models/Qwen2.5-1.5B-Instruct/model.mud")
+        self.llm = nn.Qwen("/root/models/Qwen2.5-0.5B-Instruct/model.mud")
         self.llm.set_system_prompt("You are Qwen, created by Alibaba Cloud. You are a helpful assistant.")
         self.llm.set_reply_callback(self.__llm_on_reply)
         self.llm_last_msg = ""
