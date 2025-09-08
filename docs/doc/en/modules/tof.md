@@ -38,7 +38,7 @@ PMOD_TOF100 is a 100x100 TOF module that can be used for distance measurement or
 | Laser Emitter  | 940nm VCSEL |
 | Frame Rate     | 5~20fps |
 
-After installing the PMOD_TOF100 module, you can use the API provided by MaixPy to obtain the distance data matrix, pseudo-color images, and the minimum, maximum, and center distance values and their corresponding coordinates from the latest frame data. For details, see [Module API Documentation](../../../api/maix/ext_dev/opns303x0.md).
+After installing the PMOD_TOF100 module, you can use the API provided by MaixPy to obtain the distance data matrix, pseudo-color images, and the minimum, maximum, and center distance values and their corresponding coordinates from the latest frame data. For details, see [Module API Documentation](../../../api/maix/ext_dev/tof100.md).
 
 You can also refer to our demo APP to write your application code.
 
