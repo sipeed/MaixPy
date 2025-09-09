@@ -14,6 +14,14 @@ This document provides instructions on how to play audio
 
 ## How to use
 
+### Hardware Support
+
+| Device      | Microphone | Speaker |
+| ----------- | ---------- | ------- |
+| MaixCAM     | ✅          | ❌       |
+| MaixCAM2    | ✅          | ✅       |
+| MaixCAM Pro | ✅          | ✅       |
+
 ### Hardware operation
 
 ![image-20240520134637905](../../../static/image/maixcam_hardware_back.png)
@@ -119,3 +127,83 @@ Steps：
   - `time.sleep_ms(10)` Here there is a loop to wait for the playback to complete, as the playback operation is performed asynchronously, and if the program exits early, then it may result in the audio not being played completely.
 
 4. Done
+
+#### Non-blocking Playback
+
+In scenarios like voice assistants or real-time communication, audio playback usually cannot block the main thread. Therefore, the `Player` can be set to non-blocking mode, and some application-level code can be added to support playback without blocking the main thread. A reference example is shown below:
+
+```python
+from maix import audio, app, time
+import threading
+from queue import Queue, Empty
+
+class StreamPlayer:
+    def __init__(self, sample_rate=16000, channel=1, block:bool=False):
+        self.p = audio.Player(sample_rate=sample_rate, channel=channel, block=block)
+        self.p.volume(50)
+        zero_data = bytes([0] * 4096)
+        self.p.play(zero_data)
+        self.queue = Queue(maxsize=250)
+        self.t = threading.Thread(target=self.__thread, daemon=True)
+        self.t.start()
+
+    def wait_idle_size(self, size:int):
+        while not app.need_exit():
+            idle_frames = self.p.get_remaining_frames()
+            write_frames = size / self.p.frame_size()
+            if idle_frames >= write_frames:
+                break
+            time.sleep_ms(10)
+
+    def __thread(self):
+        while not app.need_exit():
+            try:
+                pcm = self.queue.get(timeout=500)
+                # wait player is idle
+                self.wait_idle_size(len(pcm))
+                self.p.play(pcm)
+            except Empty:
+                continue
+
+    def write(self, pcm:bytes):
+        remain_len = len(pcm)
+        period_bytes = self.p.frame_size() * self.p.period_size()
+        offset = 0
+        while remain_len > 0:
+            write_bytes = period_bytes if period_bytes <= remain_len else period_bytes - remain_len
+            new_pcm = pcm[offset:offset+write_bytes]
+            self.queue.put(new_pcm)
+            remain_len -= write_bytes
+            offset += write_bytes
+
+    def wait_finish(self):
+        total_frames = self.p.period_count() * self.p.period_size()
+        while not app.need_exit():
+            idle_frames = self.p.get_remaining_frames()
+            if idle_frames == total_frames:
+                break
+            time.sleep_ms(10)
+
+if __name__ == '__main__':
+    stream_player = StreamPlayer()
+    with open('/maixapp/share/audio/demo.wav', 'rb') as f:
+        pcm = f.read()
+        t = time.ticks_ms()
+        stream_player.write(pcm)
+        print(f'write pcm data cost {time.ticks_ms() - t} ms')
+
+        t = time.ticks_ms()
+        stream_player.wait_finish()
+        print(f'write play finish cost {time.ticks_ms() - t} ms')
+```
+
+In this example, the `Player` object is set to non-blocking mode via the `block` parameter. Therefore, calling the `play()` method does not block the main thread.
+
+Due to internal buffer size limitations, if the amount of data to play within a certain period exceeds the buffer capacity, `play` may still block. To handle this, you can use the `get_remaining_frames()` method to get the available space in the buffer. Note that this method returns the size in **frames**, which can be converted to **bytes** using `frame_size()`:
+
+```python
+remaining_frames = p.get_remaining_frames()		# unit:frame
+remaining_bytes = p.frame_size(remaining_frames) # unit: bytes
+```
+
+You can move the playback operation to a separate thread and, before calling `play()`, check whether there is enough remaining space in the buffer. This ensures that the main thread will never be blocked.

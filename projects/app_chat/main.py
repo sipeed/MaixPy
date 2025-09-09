@@ -1,4 +1,3 @@
-
 from maix import nn, audio, time, display, app, image, touchscreen
 import threading
 from queue import Queue, Empty
@@ -36,7 +35,10 @@ class App:
             self.vad = None
 
         self.__show_load_info('loading player..')
-        self.player = audio.Player(sample_rate=44100)
+        self.player = audio.Player(sample_rate=44100, block=False)
+        # max buffer size: (period_size * period_count) / sample_rate * 1000 
+        # (160 * 4 * 4200) / 44100 = 60.95s
+        self.player.period_count(4200) 
         self.player.volume(50)
         self.player_queue = Queue(100)
         self.player_thread = threading.Thread(target=self.player_thread_handle, daemon=True)
@@ -76,11 +78,21 @@ class App:
         while not app.need_exit():
             try:
                 pcm = self.player_queue.get(timeout=500)
-                print('play start')
+                t = time.ticks_ms()
+                print('self.player.remaining size1', self.player.get_remaining_frames())
+                while not app.need_exit():
+                    idle_frames = self.player.get_remaining_frames()
+                    write_frames = len(pcm) / self.player.frame_size()
+                    print('idle', idle_frames, 'write', write_frames)
+                    if idle_frames >= write_frames:
+                        break
+                    else:
+                        time.sleep_ms(10)
+                print('wait remain cost', time.ticks_ms() - t)
+                print('idle', self.player.get_remaining_frames(), 'write', len(pcm) / bytes_per_frame)
                 t = time.ticks_ms()
                 self.player.play(pcm)
-                print('player cost', time.ticks_ms() - t)
-                print('play finish')
+                print('play cost', time.ticks_ms() - t)
             except Empty:
                 continue
 

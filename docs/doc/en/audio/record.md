@@ -22,6 +22,14 @@ This document provides instructions on how to use the recording feature, support
 
 The MaixCAM board comes with a built-in microphone, so you can directly use the recording feature.
 
+### Hardware Support
+
+| Device      | Microphone | Speaker |
+| ----------- | ---------- | ------- |
+| MaixCAM     | ✅          | ❌       |
+| MaixCAM2    | ✅          | ✅       |
+| MaixCAM Pro | ✅          | ✅       |
+
 ### How to use
 
 #### Record an Audio File in `PCM`/`WAV` Format

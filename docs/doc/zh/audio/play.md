@@ -14,6 +14,14 @@ update:
 
 ## 使用方法
 
+### 硬件支持情况
+
+| 设备        | 麦克风 | 喇叭 |
+| ----------- | ------ | ---- |
+| MaixCAM     | ✅      | ❌    |
+| MaixCAM2    | ✅      | ✅    |
+| MaixCAM Pro | ✅      | ✅    |
+
 ### 硬件操作
 
 ![image-20240520134637905](../../../static/image/maixcam_hardware_back.png)
@@ -122,3 +130,83 @@ print("play finish!")
   - `time.sleep_ms(10)`这里有一个循环来等待播放完成，因为播放操作是异步执行的，如果提前退出了程序，那么可能导致音频不会完全播放。
 
 4. 完成
+
+#### 非阻塞播放
+
+当做语音助手, 实时通信等场景时通常需要播放音频的过程不能阻塞主线程, 因此可以将`Player`设置为非阻塞模式,并添加一些应用层代码来支持播放时不阻塞主线程的方法. 参考示例如下:
+
+```python
+from maix import audio, app, time
+import threading
+from queue import Queue, Empty
+
+class StreamPlayer:
+    def __init__(self, sample_rate=16000, channel=1, block:bool=False):
+        self.p = audio.Player(sample_rate=sample_rate, channel=channel, block=block)
+        self.p.volume(50)
+        zero_data = bytes([0] * 4096)
+        self.p.play(zero_data)
+        self.queue = Queue(maxsize=250)
+        self.t = threading.Thread(target=self.__thread, daemon=True)
+        self.t.start()
+
+    def wait_idle_size(self, size:int):
+        while not app.need_exit():
+            idle_frames = self.p.get_remaining_frames()
+            write_frames = size / self.p.frame_size()
+            if idle_frames >= write_frames:
+                break
+            time.sleep_ms(10)
+
+    def __thread(self):
+        while not app.need_exit():
+            try:
+                pcm = self.queue.get(timeout=500)
+                # wait player is idle
+                self.wait_idle_size(len(pcm))
+                self.p.play(pcm)
+            except Empty:
+                continue
+
+    def write(self, pcm:bytes):
+        remain_len = len(pcm)
+        period_bytes = self.p.frame_size() * self.p.period_size()
+        offset = 0
+        while remain_len > 0:
+            write_bytes = period_bytes if period_bytes <= remain_len else period_bytes - remain_len
+            new_pcm = pcm[offset:offset+write_bytes]
+            self.queue.put(new_pcm)
+            remain_len -= write_bytes
+            offset += write_bytes
+
+    def wait_finish(self):
+        total_frames = self.p.period_count() * self.p.period_size()
+        while not app.need_exit():
+            idle_frames = self.p.get_remaining_frames()
+            if idle_frames == total_frames:
+                break
+            time.sleep_ms(10)
+
+if __name__ == '__main__':
+    stream_player = StreamPlayer()
+    with open('/maixapp/share/audio/demo.wav', 'rb') as f:
+        pcm = f.read()
+        t = time.ticks_ms()
+        stream_player.write(pcm)
+        print(f'write pcm data cost {time.ticks_ms() - t} ms')
+
+        t = time.ticks_ms()
+        stream_player.wait_finish()
+        print(f'write play finish cost {time.ticks_ms() - t} ms')
+```
+
+这个示例里通过`block`参数将`Player`对象设置为了非阻塞模式, 因此调用`play()`方法时不会阻塞主线程
+
+由于内部的缓存大小的限制, 如果一定时间内播放的数据量大于缓冲量时, 还是会阻塞在`play`方法中, 因此可以通过`get_remaining_frames()`方法来获取buffer剩余空间的大小, 需要注意该方法返回的单位为`帧`, 通过`frame_size()`方法可以将要`帧`转换为`字节`
+
+```python
+remaining_frames = p.get_remaining_frames()		# unit:frame
+remaining_bytes = p.frame_size(remaining_frames) # unit: bytes
+```
+
+可以将播放操作放在另一个线程中, 并且可以播放前检查如果剩余空间足够时, 再调用`play()`来播放, 这样就能保证一定不会阻塞主线程.
