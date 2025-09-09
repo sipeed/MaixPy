@@ -270,6 +270,9 @@ def main(screen):
     screen.show(show_img)
     scan_w = img.width() - img.width() // 4
     scan_h = img.height() - img.height() // 4
+    last_cpu_usage = None
+    last_info = None
+    msg = "Connecting ..."
     while 1:
         scan_img = None
         flush = False
@@ -313,35 +316,48 @@ def main(screen):
             del scanner
             gc.collect()
             scanner = None
-        if pc_info[0] or pc_info[1]:
-            img = image.Image(screen.width(), screen.height(), RGBA)
-            img.draw_rect(0, 0, img.width(), img.height(), COLOR_WHITE, thickness=-1)
-            img.draw_image(img.width() - imgs["img_bg"].width(), img.height() - imgs["img_bg"].height(), imgs["img_bg"])
-            if pc_info[1]:
-                msg = "Get info failed"
-                server_info = f"Server: {server_addr}"
-                size = image.string_size(msg)
-                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 - 10, msg, COLOR_RED)
-                size = image.string_size(server_info)
-                img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 + size.height() + 10, server_info, COLOR_RED)
-            else:
-                if server_changed:
-                    server_changed = False
-                    app.set_app_config_kv("basic", "server_addr", server_addr)
-                info = pc_info[0]
+        if pc_info[0]:
+            last_info = pc_info[0]
+            print(last_info)
+            pc_info[0] = None
+            msg = None
+        elif pc_info[1]:
+            msg = "Get info failed"
+        img = image.Image(screen.width(), screen.height(), RGBA)
+        img.draw_rect(0, 0, img.width(), img.height(), COLOR_WHITE, thickness=-1)
+        img.draw_image(img.width() - imgs["img_bg"].width(), img.height() - imgs["img_bg"].height(), imgs["img_bg"])
+
+        if msg:
+            server_info = f"Server: {server_addr}"
+            size = image.string_size(msg)
+            img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 - 10, msg, COLOR_RED)
+            size = image.string_size(server_info)
+            img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height()) // 2 + size.height() + 10, server_info, COLOR_RED)
+        elif last_info:
+            if server_changed:
+                server_changed = False
+                app.set_app_config_kv("basic", "server_addr", server_addr)
+            try:
                 h = 10
                 size = draw_time(img, 10, h)
                 h += size[1] + 10
-                size = draw_mem_usage(img, 10, h, img.width() - size[0], info['mem'], imgs)
+                size = draw_mem_usage(img, 10, h, img.width() - size[0], last_info['mem'], imgs)
                 h += size[1] + 10
-                size = draw_cpu_usage(img, 10, h, info['cpu']['usage'], imgs)
+                if last_cpu_usage is None:
+                    last_cpu_usage = last_info['cpu']['usage']
+                else:
+                    for i in range(len(last_cpu_usage)):
+                        last_cpu_usage[i] = last_cpu_usage[i] * 0.7 + last_info['cpu']['usage'][i] * 0.3
+                size = draw_cpu_usage(img, 10, h, last_cpu_usage, imgs)
                 h += size[1] + 20
-                size = draw_net_charts(img, 10, h, info['net'], imgs)
+                size = draw_net_charts(img, 10, h, last_info['net'], imgs)
                 h += size[1] + 20
-                size = draw_temp(img, 10, h, info['temp'], imgs)
+                size = draw_temp(img, 10, h, last_info['temp'], imgs)
+            except Exception as e:
+                last_info = None
             show_img = img
             flush = True
-            pc_info[0] = None
+
         if touch_status["setting"]:
             img2 = img.copy()
             draw_settings(img2, pc_info[2], imgs, touch_status, scan_img, scanner_msg)

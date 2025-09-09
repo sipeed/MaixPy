@@ -1,5 +1,5 @@
 from face_tracking import servos
-from maix import image, camera, display, time, nn, touchscreen
+from maix import image, camera, display, time, nn, touchscreen, sys
 
 ### model path
 MODEL = "/root/models/retinaface.mud"
@@ -114,8 +114,12 @@ class Target:
 
 
 if __name__ == '__main__':
-    ROLL_PWM_PIN_NAME = "A17"
-    PITCH_PWM_PIN_NAME = "A16"
+    if sys.device_id() in ["maixcam2"]:
+        ROLL_PWM_PIN_NAME = "B2"
+        PITCH_PWM_PIN_NAME = "B3"
+    else:
+        ROLL_PWM_PIN_NAME = "A17"
+        PITCH_PWM_PIN_NAME = "A16"
     init_pitch = 80             # init position, value: [0, 100], means minimum angle to maxmum angle of servo
     init_roll = 50              # 50 means middle
     PITCH_DUTY_MIN  = 3.5       # The minimum duty cycle corresponding to the range of motion of the y-axis servo.
