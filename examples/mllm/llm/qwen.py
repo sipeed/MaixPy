@@ -8,8 +8,10 @@
 '''
 from maix import nn, err, log, sys
 
-model = "/root/models/Qwen2.5-1.5B-Instruct/model.mud"
-# model = "/root/models/Qwen2.5-0.5B-Instruct/model.mud"
+# see https://wiki.sipeed.com/maixpy/doc/zh/mllm/llm_qwen.html to change model
+# model = "/root/models/Qwen2.5-1.5B-Instruct/model.mud"
+model = "/root/models/Qwen2.5-0.5B-Instruct/model.mud"
+
 log.set_log_level(log.LogLevel.LEVEL_ERROR, color = False)
 
 def show_mem_info():

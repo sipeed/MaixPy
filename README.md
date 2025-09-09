@@ -13,7 +13,7 @@ MaixPy (v4)
     <a href="https://wiki.sipeed.com/maixpy/doc/en/index.html"> Quick Start </a> |
     <a href="https://wiki.sipeed.com/maixpy/en/index.html"> Documentation </a> |
     <a href="https://wiki.sipeed.com/maixpy/api/index.html"> API </a> |
-    <a href="https://wiki.sipeed.com/maixcam-pro"> Hardware </a>
+    <a href="https://wiki.sipeed.com/maixcam"> Hardware </a>
 </h3>
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/sipeed/MaixPy?style=social)](https://github.com/sipeed/MaixPy/stargazers)
@@ -33,7 +33,7 @@ English | [中文](./README_ZH.md)
 
 ## Feature Overview
 
-MaixPy offers simple Python programming combined with powerful edge computing hardware. Integrated hardware peripheral operations, video streaming, AI vision algorithms, and audio algorithms etc. With its plug-and-play design, MaixPy enables you to quickly implement your intelligent projects.
+MaixPy offers simple Python programming combined with powerful edge computing hardware. Integrated hardware peripheral operations, video streaming, AI vision algorithms, audio algorithms, and LLM / VLM etc. With its plug-and-play design, MaixPy enables you to quickly implement your intelligent projects.
 
 Additionally, MaixPy provides the MaixVision IDE, MaixHub online training platform, detailed documentation, and even a C/C++ SDK with identical APIs, ensuring seamless development and production deployment.
 
@@ -98,17 +98,62 @@ MaixVision
 
 ## Hardware platform MaixCAM
 
-And we provide two powerful hardware platform **[MaixCAM](https://wiki.sipeed.com/maixcam)** and **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**, with datasheet register level open.
+And we provide two powerful hardware platform **[MaixCAM2](https://wiki.sipeed.com/maixcam2)**, **[MaixCAM](https://wiki.sipeed.com/maixcam)** and **[MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro)**.
 
 ![MaixCAM](https://wiki.sipeed.com/maixpy/static/image/maixcams.png)
 
-| CPU | NPU | Memory |
-| --- | --- | ------- |
-| - 1GHz RISC-V(Linux)<br>- 700MHz RISCV-V(RTOS)<br>- 25~300MHz 8051(LowPower) | 1Tops@INT8 NPU, support BF16<br>support YOLOv5 YOLOv8 etc.| 256MB DDR3 |
 
-| Connecting | Peripheral | MultiMedia | Buy |
-| ----------- | ----- | --- | ---- |
-|  USB2.0/WiFi6/BLE5.4 | IIC/PWM/SPI/UART/WDT/ADC | - 4M Camera<br>- 2.3" 552x368 Touchscreen<br>- H.264/H.265/MJPEG codec | [Sipeed Official Store](https://wiki.sipeed.com/store) |
+## Performance comparison
+
+K210 and v831 are outdated, they have many limitations in memory, performance, NPU operators missing etc.<br>
+No matter you are using them or new comer, it's recommended to upgrade to MaixCAM and MaixPy v4.<br>
+
+Here's the comparison between them:
+
+| Feature      | Maix-I K210 | MaixCAM | MaixCAM2 |
+| --------- | ----------- | ------- | ------- |
+| CPU       | 400MHz RISC-V x2 |  **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** | <span class="strong2">1.2GHz A53 x2(Linux)</span><br>RISC-V 32bit E907(RTT) |
+| Memory      | 6MB SRAM         | **256MB DDR3** | <span class="strong2">1GB / 4GB LPDDR4</span> |
+| NPU       | 0.25Tops@INT8<br>official says 1T but... | **1Tops@INT8** | <span class="strong2">3.2Tops@INT8</span> |
+| Encoder   | ❌               | **2880x1620@30fps H.254/H.265/JPEG** | <span class="strong2">3840*2160@30fps H.254/H.265/JPEG</span> |
+| Decoder   | ❌               | **2880x1620@30fps H.264/JPEG** | **1080p@60fps H.264/JPEG** |
+| Screen      | 2.4" 320x240     | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| **2.4" 640x480**<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800 |
+| Touchscree    | ❌               | **2.3" 552x368**/**2.4" 640x480** | **2.4" 640x480** |
+| Camera    | 30W              | **500W(5M)** | <span class="strong2">800W(8M)</span> |
+| AI ISP    | ❌               | ❌           | <span class="strong2">✅</span> |
+| WiFi      | 2.4G             | **WiFi6** 2.4G/5G | **WiFi6** 2.4G/5G |
+| BLE       | ❌               | **BLE5.4** | **BLE5.4** |
+| USB       | ❌               | **USB2.0** | **USB2.0** |
+| Ethernet    | ❌               | 100M(Optional) | <span class="strong2">100M(on board FPC, can convert to RJ45 module)</span> |
+| SD Card | SPI              | **SDIO** | **SDIO** |
+| OS  | RTOS             | **Linux(BuildRoot) + RTOS** | Linux(<span class="strong2">Ubuntu</span>) + RTT |
+| Porgraming Language  | C / C++ / MicroPython | C / **C++ / Python3** | C / **C++ / Python3** |
+| SDK    | MaixPy-v1             | **MaixCDK + MaixPy v4<br>+ opencv + numpy + ...**<br>Pure Python package or cross-compile manually | **MaixCDK + MaixPy v4<br>+ opencv + numpy + scipy + ...**<br><span class="strong2">Many AArch64 pre-compiled packages, and support compile on board</span> |
+| PC Software   | MaixPy IDE            | **MaixVision** Workstation | **MaixVision** Workstation |
+| Documentation             | ⭐️⭐️⭐️⭐️     |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| Online AI train       | ⭐️⭐️⭐️        |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| Official APPs         | ⭐️             |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| Ease of use           | ⭐️⭐️⭐️⭐️      |  🌟🌟🌟🌟🌟 | 🌟🌟🌟🌟🌟 |
+| AI classify(224x224) | MobileNetv1 50fps<br>MobileNetv2 ❌<br>Resnet ❌ | MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** | MobileNetv2 <span class="strong2">1218fps</span><br>Resnet50 <span class="strong2">200fps</span> |
+| AI detect<div class="comment">only forward part /<br>\[include pre-post process parts(Python)\] /<br>\[dual buff mode(Python)\]</div> | <div class="main_items">**YOLOv2**:<div class="sub_items">224x224: 15fps</div></div> |  <div class="main_items">**YOLOv5s**:<div class="sub_items">224x224: **100fps**<br>320x256 **70fps**<br>640x640: **15fps**</div></div>       <div class="main_items">**YOLOv8n**:<div class="sub_items">640x640: **23fps**</div></div>      <div class="main_items">**YOLO11n**:<div class="sub_items">224x224: **175fps**<br>320x224: **120fps**<br>320x320: **95fps**<br>640x640: **23fps**</div></div>                |                <div class="main_items">**YOLOv5s**:<div class="sub_items">224x224: <span class="strong2">495fps</span><br>320x256: <span class="strong2">400fps</span><br>640x480: <span class="strong2">106fps / 73fps / 103fps</span><br>640x640: <span class="strong2">80fps</span></div></div>                <div class="main_items">**YOLO11n**:<div class="sub_items">224x224: <span class="strong2">1214fps</span><br>640x480: <span class="strong2">168fps / 77fps / 143fps</span><br>640x640: <span class="strong2">113fps / 56fps / 98fps</span></div></div>    <div class="main_items">**YOLO11s**:<div class="sub_items">640x480: <span class="strong2">87fps / 53fps / 83fps</span><br>640x640: <span class="strong2">62fps / 39fps / 59fps</span></div></div>   <div class="main_items">**YOLO11l**:<div class="sub_items">640x640: <span class="strong2">19fps / 16fps / 19fps</span></div></div>                     |
+| LLM           | ❌              |  ❌           |  <span class="strong2">Qwen/DeepSeek 0.5B(fftf: 640ms, 9 tokens/s)<br>Qwen/DeepSeek 1.5B(fftf: 1610ms, 4 tokens/s) <br> VLM(InterVL 1B) <br>Mode models</span> |
+| OpenMV algorithms |  <div class="comment">test image refer to <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a>  |                    <div class="comment">test image refer to <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>test date: 2025.8.22，update may have optimization</div>              |       <div class="comment">test image refer to <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>test date: 2025.8.22，update may have optimization</div>                             |
+|   <div class="right second">Binary</div>  | Gray 320x240: 7.4ms (135fps)<br>Gray 640x480: ❌<br>RGB 320x240: 11.3ms (88.5fps)<br>RGB 640x480: ❌ | Gray 320x240: **3.1ms (326fps)**<br>Gray 640x480: **11ms (90fps)**<br>RGB 320x240: **13.2ms (75fps)**<br>RGB 640x480: **52.8ms (18fps)**        | Gray 320x240: <span class="strong2">1.3ms (799fps)</span> <br>Gray 640x480: <span class="strong2">4.8ms (206fps)</span><br>RGB 320x240: <span class="strong2">3.4ms (294fps)</span><br>RGB 640x480: <span class="strong2">13.3ms (75fps)</span> |
+|   <div class="right second">Find blobs</div>        | 320x240: 8.8ms (114fps) <br>640x480: ❌| 320x240: **7ms (143fps)**  <br>640x480: **20ms (50fps)**         | 320x240: <span class="strong2">3.7ms (271fps)</span><br>640x480: <span class="strong2">11.1ms (89fps)</span>  |
+|   <div class="right second">1channel histogram</div>  | 320x240: **7.7ms (130fps)**<br>640x480: ❌ | 320x240: **10.9ms (91fps)**<br>640x480: **42.8ms (23fps)**       | 320x240: <span class="strong2">1.5ms (661fps)</span><br>640x480: <span class="strong2">5.9ms (168fps)</span>    |
+|   <div class="right second">QR Code</div>        | 320x240: **130.8ms (7.6fps)** <br>640x480: ❌| 640x480: 136.9ms (7fps)<br>NPU acceleration：<br>&nbsp;&nbsp;320x240: **22.1ms (45fps)**<br>&nbsp;&nbsp;640x480: 57.6ms (17fps)  | 640x480: 57.9ms (17fps)<br>NPU acceleration：<br>&nbsp;&nbsp;320x240: <span class="strong2">9.2ms (109fps)</span>   <br>&nbsp;&nbsp;640x480: <span class="strong2">23.2ms (43fps)</span> |
+| OpenCV algorithms     |   | <div class="comment">test image refer to <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>test date: 2025.8.22，update may have optimization</div>    | <div class="comment">test image refer to <a href="https://github.com/sipeed/MaixPy/tree/main/projects/app_benchmark">Benchmark APP</a><br>test date: 2025.8.22，update may have optimization</div>  |
+|   <div class="right second">Binary</div>             | ❌  | Gray 320x240: **2.2ms (463fps)**     <br>Gray 640x480: **7.1ms (140fps)** | Gray 320x240: <span class="strong2">0.1ms (8174fps)</span>  <br>Gray 640x480: <span class="strong2">0.3ms (2959fps)</span>  |
+|   <div class="right second">Gray adaptive binary</div> | ❌  | 320x240: **5.8ms (171fps)**     <br>640x480: **21.3ms (46fps)**  | 320x240: <span class="strong2">1.6ms (608fps)</span>  <br>640x480: <span class="strong2">6.3ms (159fps)</span> |
+|   <div class="right second">1channel histogram</div>       | ❌  | 320x240: **1ms (1000fps)**     <br>640x480: **6.2ms (160fps)**   | 320x240: <span class="strong2">0.4ms (2308fps)</span>  <br>640x480: <span class="strong2">1.7ms (604fps)</span>  |
+|   <div class="right second">Find Contours</div>           | ❌  | 320x240: **2.8ms (351fps)**    <br>640x480: **8.6ms (116fps)**   | 320x240: <span class="strong2">0.4ms (2286fps)</span>  <br>640x480: <span class="strong2">1.4ms (692fps)</span>  |
+
+## Maix Ecosystem
+
+MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, even cloud platform etc.
+See the picture below:
+
+![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
 
 
 ## Who are using MaixPy?
@@ -128,54 +173,6 @@ And we provide two powerful hardware platform **[MaixCAM](https://wiki.sipeed.co
 * **Contestants** who want to win the competition.
 > MaixPy integrate many functions and easy to use, fasten your work to win the competition in limited time. There are already many contestants win the competition with MaixPy.
 
-
-## Performance comparison
-
-K210 and v831 are outdated, they have many limitations in memory, performance, NPU operators missing etc.<br>
-No matter you are using them or new comer, it's recommended to upgrade to MaixCAM and MaixPy v4.<br>
-
-Here's the comparison between them:
-
-| Feature | Maix-I K210 | Maix-II v831 | MaixCAM |
-| ------- | ----------- | ------------ | ------- |
-| CPU | 400MHz RISC-V x2 | 800MHz ARM7 | **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** |
-| Memory | 6MB SRAM | 64MB DDR2 | **256MB DDR3** |
-| NPU | 0.25Tops@INT8<br>official says 1T but... | 0.25Tops@INT8 | **1Tops@INT8** |
-| Encoder | ✖ | 1080p@30fps | **2K@30fps** |
-| Screen | 2.4" 320x240 | 1.3" 240x240 | **2.28" 552x368** / 5" 1280x720 / 7" 1280x800 / 10“ 1280x800|
-| TouchScreen | ✖ | ✖ | **2.3" 552x368** |
-| Camera | 30W | 200W | **500W** |
-| WiFi   | 2.4G | 2.4G | **WiFi6** 2.4G/5G |
-| USB    | ✖    | **USB2.0** | **USB2.0** |
-| Eth    | ✖    | 100M(Optional)   | 100M(Optional) |
-| SD Interface | SPI | **SDIO** | **SDIO** |
-| BLE    | ✖    | ✖      | **BLE5.4** |
-| OS     | RTOS | Tina Linux | **Linux + RTOS** |
-| Language | C / C++ / MicroPython | C / C++ / **Python3** | C / **C++ / Python3** |
-| Software | MaixPy | MaixPy3 | **MaixCDK + MaixPy v4 + opencv + numpy + ...**|
-| PC software | MaixPy IDE | MaixPy3 IDE | **MaixVision** Workstation |
-| Docs   | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
-| Online AI train | ⭐️⭐️⭐️ |  ⭐️⭐️⭐️⭐️ |  🌟🌟🌟🌟🌟 |
-| Official APPs   | ⭐️⭐️   |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
-| AI classify(224x224) | MobileNetv1 50fps<br>MobileNetv2 ✖<br>Resnet ✖ | MobileNet ✖<br>Resnet18 20fps<br>Resnet50 ✖| MobileNetv2 **130fps**<br>Resnet18 **62fps**<br>Resnet50 **28fps** |
-| AI detect(NPU forward part)   | YOLOv2(224x224) 15fps |  YOLOv2(224x224) 15fps |  **YOLOv5s(224x224) 100fps<br>YOLOv5s(320x256) 70fps<br>YOLOv5s(640x640) 15fps<br>YOLOv8n(640x640) 23fps<br>YOLO11n(224x224)175fps<br>YOLO11n(320x224)120fps<br>YOLO11n(320x320)95fps<br>YOLO11n(640x640)23fps**|
-| Ease of use     | ⭐️⭐️⭐️⭐️ |  ⭐️⭐️⭐️   |  🌟🌟🌟🌟🌟 |
-
-## Maix Ecosystem
-
-MaixPy not only a Python SDK, but have a whole ecosystem, including hardware, software, tools, docs, even cloud platform etc.
-See the picture below:
-
-![](https://wiki.sipeed.com/maixpy/static/image/maix_ecosystem.png)
-
-
-## What difference between MaixPy v1, MaixPy3 and MaixPy v4?
-
-* MaixPy v1 use MicroPython programming language, only support Sipeed Maix-I K210 series hardware, have limited third-party packages.
-* MaixPy3 is designed for Sipeed Maix-II-Dock v831, not a long-term support version.
-* MaixPy v4 use Python programming language, so there's much package we can use directly. MaixPy v4 support new hardware platforms of Sipeed, it's a long-term support version, the future's hardware platforms will support this version. MaixPy v4 have a MaixPy-v1 compatible API, so you can quickly migrate your MaixPy v1 project to MaixPy v4.
-
-(MaixPy v4 Will not support Maix-I K210 series, if you are using Maix-I K210 series, it's recommended to upgrade hardware platform to use this to get more features and better performance.)
 
 ## Compile Source Code
 

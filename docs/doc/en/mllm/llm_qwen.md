@@ -47,7 +47,7 @@ The preceding numbers are line numbers, so if we input `hello world !`, it will 
 
 ### Models and Download Links
 
-By default, the `/root/models` directory in the system already contains the `1.5B` model. If not, you can download it manually.
+By default, the `/root/models` directory in the system already contains the `0.5B` model. If not, you can download it manually.
 
 * **1.5B**:
 

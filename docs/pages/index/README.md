@@ -152,6 +152,119 @@ h1 {
 .second {
     font-size: 0.9em;
 }
+    #page_content .h1 {
+        font-size: 2.2em;
+        font-weight: 800;
+    }
+    .flex_center {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #page_content .card_item {
+        color: #f0f5f9;
+        background: linear-gradient(90deg, #26d0ce, #1a2980);
+        border-radius: 1em;
+        padding: 1em;
+        margin: 1em 0.1em;
+    }
+    #page_content .card_item img {
+        transition: transform 0.4s ease;
+    }
+    #page_content .item2 {
+        width: 90%;
+        align-self: start;
+        background: linear-gradient(-45deg, #c471ed,  #f64f59);
+    }
+    #page_content .item3 {
+        width: 90%;
+        align-self: end;
+        background: linear-gradient(-45deg, #12c2e9, #c471ed);
+    }
+    #page_content .card_item:visited {
+        color: #f0f5f9;
+    }
+    #page_content .card_item:hover {
+        border-radius: 1em;
+        background: linear-gradient(70deg, #26d0ce, #1a2980);
+        padding: 1em;
+        margin: 1em 0.1em;
+    }
+    #page_content .item2:hover {
+        background: linear-gradient(-20deg, #c471ed,  #f64f59);
+    }
+    #page_content .item3:hover {
+        background: linear-gradient(-20deg, #12c2e9, #c471ed);
+    }
+    #page_content .card_item:hover > img {
+        transform: rotate(10deg) scale(1.3) ;
+    }
+    .cams_wrapper {
+        width: 70%;
+    }
+    .mask_wrapper {
+        position: relative;
+    }
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .item_name {
+        font-size: larger;
+        font-weight: 800;
+    }
+    #page_content .btn_blue {
+        margin: 1em;
+        color: white;
+        font-size: 0.9em;
+        border-radius: 0.3em;
+        padding: 0.5em 2em;
+        background-color: #0b4294;
+    }
+    #page_content .btn_blue:visited {
+        color: white;
+    }
+    #page_content .btn_blue:hover {
+        margin: 1em;
+        color: white;
+        font-size: 0.9em;
+        border-radius: 0.3em;
+        padding: 0.5em 2em;
+        background-color: #082a5e;
+    }
+    #page_content .btn_red {
+        margin: 1em;
+        color: white;
+        font-size: 0.9em;
+        border-radius: 0.3em;
+        padding: 0.5em 2em;
+        background-color: #ad3838
+    }
+    #page_content .btn_red:visited {
+        color: white;
+    }
+    #page_content .btn_red:hover {
+        margin: 1em;
+        color: white;
+        font-size: 0.9em;
+        border-radius: 0.3em;
+        padding: 0.5em 2em;
+        background-color: #630606;
+    }
+
+    .dark #page_content .card_item {
+        color: #f0f5f9;
+    }
+    .dark #page_content a.card_item:visited {
+        color: #f0f5f9;
+    }
+    .dark .card_item {
+        background: #292929;
+    }
 @media screen and (min-width: 1280px) {
     .md_page #page_content > div
     {
@@ -166,6 +279,21 @@ h1 {
     .biliiframe {
         width: 100%;
         min-height: 20em;
+    }
+    .cams_wrapper {
+        width: 100%;
+    }
+    #page_content .item1 {
+        flex-direction: column-reverse;
+    }
+    #page_content .item1 img {
+        padding-bottom: 1em;
+    }
+    #page_content .item2 {
+        width: 98%;
+    }
+    #page_content .item3 {
+        width: 98%;
     }
 }
 </style>
@@ -184,7 +312,7 @@ h1 {
 <div id="big_btn_wrapper" class="flex flex-wrap justify-center items-center">
     <a class="btn m-1" href="/doc/zh/index.html">快速开始 🚀📖</a>
     <a class="btn m-1" href="/api/">API 参考 📚</a>
-    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam-pro">硬件平台：MaixCAM 📷</a>
+    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">硬件平台：MaixCAM 📷</a>
     <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">开源代码 ⭐️</a>
     <a class="btn m-1" target="_blank" href="https://maixhub.com/app">应用商店 📦</a>
 </div>
@@ -209,8 +337,6 @@ h1 {
 <div class="mt-6"></div>
 
 <div class="text-gray-400 text-center">
-
-MaixPy-v1 (K210) 用户请查看 <a target="_blank" style="color: #546e7a" href="https://wiki.sipeed.com/soft/maixpy/zh/">MaixPy-v1 文档</a>。 MaixPy v4 不支持 Maix-I Maix-II 系列硬件，请更新到 [MaixCAM](https://wiki.sipeed.com/maixcam-pro) 硬件平台。
 
 喜欢 MaixPy 请给 [ MaixPy 开源项目](https://github.com/sipeed/MaixPy) 点个 Star ⭐️ 以鼓励我们开发更多功能。
 
@@ -308,31 +434,56 @@ MaixVision
 
 ## 性能强劲 MaixCAM 硬件平台
 
-![MaixCAM](/static/image/maixcam_pro.png)
-
 <br>
 
-* **CPU**: 1GHz RISC-V(Linux) + 700MHz RISC-V(RTOS) + 25~300MHz 8051(Low Power)
-* **NPU**: 1Tops@INT8 NPU, 支持 BF16，支持 YOLO11、 YOLOv8、 YOLOv5 等。
-* **内存**: 256MB DDR3。
-* **通信**: USB2.0/WiFi6/BLE5.4。
-* **外设**: IIC/PWM/SPI/UART/WDT/GPIO/ADC
-* **多媒体**：4M 摄像头，2.4" 640x480 高清电容触摸屏，H.264/H.265/MJPEG 2K 硬件编解码。
-* **购买**: 有各种版本硬件提供, 详情查看[商城](https://wiki.sipeed.com/store) （缺货时咨询店家）
-* **更多**: 请看 [MaixCAM](https://wiki.sipeed.com/maixcam) 和 [MaixCAM-Pro](https://wiki.sipeed.com/maixcam-pro) 硬件文档
+目前有`MaixCAM / MaixCAM-Pro` 和 `MaixCAM2` 两代硬件产品，从性能、配件、外观提供不同选择
+
+后文有性能对比
+
+
+
+<div class="flex_center cams_wrapper">
+    <div class="flex flex-row w-full">
+        <a href="https://wiki.sipeed.com/maixcam2" target="_blank" class="flex flex-row items-center justify-around w-full card_item mask_wrapper item1">
+            <div class="item_name">MaixCAM2</div>
+            <img src="https://wiki.sipeed.com/static/image/maixcam2_small.png">
+            <div class="mask"></div>
+        </a>
+    </div>
+    <div class="flex flex-row w-full justify-between">
+        <div class="flex_center flex-row justify-start w-1/2">
+            <a href="https://wiki.sipeed.com/hardware/zh/maixcam/maixcam.html" target="_blank" class="flex_center card_item mask_wrapper item2">
+                <img src="https://wiki.sipeed.com/static/image/maixcam_small.png">
+                <div class="item_name pt-8">MaixCAM</div>
+                <div class="mask"></div>
+            </a>
+        </div>
+        <div class="flex_center flex-row justify-end w-1/2">
+            <a href="https://wiki.sipeed.com/maixcam-pro" target="_blank" class="flex_center card_item mask_wrapper item3">
+                <img src="https://wiki.sipeed.com/static/image/maixcam_pro_small.png">
+                <div class="item_name pt-8">MaixCAM-Pro</div>
+                <div class="mask"></div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- feature 介绍 -->
 
 <div id="feature" class="flex flex-col justify-center items-center">
 
-## 更多特性
+## 部分功能展示
 
 <div class="flex flex-col justify-center items-center w-full">
 
 以下为部分功能简介，更多到[社区](#community)找到更多
 
 基于 MaixPy 提供的丰富 API 可以创造出更多新功能
+
+(LLM/VLM 相关只 MaixCAM2 支持)
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113485669204279&bvid=BV1ncmRYmEDv&cid=26768769718&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="biliiframe"></iframe>
 
@@ -377,15 +528,6 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/maixpy-v1-square.png">
-            <p class="feature">提供 MaixPy-v1 兼容 API</p>
-            <p class="description">快速从MaixPy-v1(K210)迁移到MaixPy-v4</p>
-        </div>
-        <div>
-        </div>
-    </div>
-    <div class="feature_item">
-        <div class="img_video">
             <video playsinline controls autoplay loop muted preload src="/static/video/classifier.mp4"></video>
             <p class="feature">AI 分类</p>
             <p class="description">识别物体类别</p>
@@ -404,9 +546,9 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/face_recognize.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/face_recognition.mp4"></video>
             <p class="feature">AI 人脸识别</p>
-            <p class="description">识别不同人脸特征</p>
+            <p class="description">识别不同人脸特征，表情识别等</p>
         </div>
         <div>
         </div>
@@ -422,7 +564,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/body_keypoint.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/keypoints.mp4"></video>
             <p class="feature">AI 人体关键点检测</p>
             <p class="description">姿态识别、体感游戏</p>
         </div>
@@ -440,7 +582,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/self_learn_classifier.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/self_learn_classifier.mp4"></video>
             <p class="feature">AI 自学习分类器</p>
             <p class="description">无需在PC上训练，在设备上瞬间学习任意物体</p>
         </div>
@@ -467,7 +609,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/monitor.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/streaming.mp4"></video>
             <p class="feature">AI 监控，串流</p>
             <p class="description">安防监控，可串流，甚至可以向直播平台 比如 Bilibili.com 直播</p>
         </div>
@@ -503,7 +645,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/ocr.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/ocr.mp4"></video>
             <p class="feature">OCR</p>
             <p class="description">识别图片中的字符，旧物数字化</p>
         </div>
@@ -512,9 +654,45 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/voice_recognize.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/depth_anything_v2.mp4"></video>
+            <p class="feature">单目深度估计</p>
+            <p class="description">单目摄像头估计深度</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/asr.mp4"></video>
             <p class="feature">语音识别</p>
             <p class="description">实时连续语音识别</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/tts.mp4"></video>
+            <p class="feature">语音合成</p>
+            <p class="description">TTS生成语音，支持多种语言</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/llm.mp4"></video>
+            <p class="feature">离线大语言模型LLM</p>
+            <p class="description">玩全离线跑大语言模型LLM</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/vlm.mp4"></video>
+            <p class="feature">离线视觉大语言模型VLM</p>
+            <p class="description">玩全离线跑视觉大语言模型VLM</p>
         </div>
         <div>
         </div>
@@ -593,7 +771,7 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
-            <img src="/static/image/capture_sky.jpg">
+            <video playsinline controls autoplay loop muted preload src="/static/video/sky.mp4"></video>
             <p class="feature">天文摄影</p>
             <p class="description">搭配1/8"大底传感器+高倍镜头实现天文摄影，支持长曝光模式和RAW 图输出</p>
         </div>
@@ -604,7 +782,16 @@ MaixVision
         <div class="img_video">
             <video playsinline controls autoplay loop muted preload src="/static/video/gyroflow.mp4"></video>
             <p class="feature">陀螺仪增稳</p>
-            <p class="description">板载陀螺仪(仅MaixCAM-Pro) 支持导出 gyroflow 防抖格式，DIY 摄影</p>
+            <p class="description">板载陀螺仪，支持导出 gyroflow 防抖格式，DIY 摄影</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/tof.mp4"></video>
+            <p class="feature">TOF 配件深度测量</p>
+            <p class="description">搭配 TOF 模块实现精准深度测量</p>
         </div>
         <div>
         </div>
@@ -664,7 +851,7 @@ MaixVision
 | WiFi      | 2.4G             | **WiFi6** 2.4G/5G | **WiFi6** 2.4G/5G |
 | BLE       | ❌               | **BLE5.4** | **BLE5.4** |
 | USB       | ❌               | **USB2.0** | **USB2.0** |
-| 以太网    | ❌               | 100M(选配) | <span class="strong2">100M(板载FPC2RJ45接口)</span> |
+| 以太网    | ❌               | 100M(选配) | <span class="strong2">100M(板载FPC, 可外接转RJ45模块)</span> |
 | SD 卡接口 | SPI              | **SDIO** | **SDIO** |
 | 操作系统  | RTOS             | **Linux(BuildRoot) + RTOS** | Linux(<span class="strong2">Ubuntu</span>) + RTT |
 | 编程语言  | C / C++ / MicroPython | C / **C++ / Python3** | C / **C++ / Python3** |
@@ -729,6 +916,7 @@ MaixVision
 | **文档**| [MaixPy 文档](/doc/zh/index.html) |
 | **应用商店**| [maixhub.com/app](https://maixhub.com/app) |
 | **项目分享**| [maixhub.com/share](https://maixhub.com/share) |
+| **GitHub**| [GitHub](https://github.com)搜索 `MaixCAM` 或者 `MaixPy` |
 | **Bilibili**| B站搜索 `MaixCAM` 或者 `MaixPy` |
 | **讨论**| [maixhub.com/discussion](https://maixhub.com/discussion) |
 | **MaixPy issues**| [github.com/sipeed/MaixPy/issues](https://github.com/sipeed/MaixPy/issues) |
@@ -738,18 +926,6 @@ MaixVision
 </div>
 </div>
 
-
-## MaixPy v1, MaixPy3 and MaixPy v4 有什么区别？
-
-<div class="flex flex-col items-center justify-center">
-
-* MaixPy v1 使用 MicroPython 编程语言，仅支持 Sipeed Maix-I K210 系列硬件，有限的第三方包。
-* MaixPy3 专为 Sipeed Maix-II-Dock v831 设计，不是长期支持版本。
-* MaixPy v4 使用 Python 编程语言，因此我们可以直接使用许多包。<br/>MaixPy v4 支持 Sipeed 的新硬件平台，这是一个长期支持版本，未来的硬件平台将支持这个版本。<br>MaixPy v4 有一个 MaixPy-v1 兼容的 API，所以你可以快速将你的 MaixPy v1 项目迁移到 MaixPy v4。
-
-(MaixPy v4 不支持 K210 系列，建议升级硬件平台以使用此版本，以获得更多功能和更好的性能和更方便的编程体验。)
-
-</div>
 
 </div>
 <!-- wrapper end -->
