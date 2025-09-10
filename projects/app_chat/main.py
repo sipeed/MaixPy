@@ -3,6 +3,84 @@ import threading
 from queue import Queue, Empty
 import re
 
+from maix._maix.image import Image
+
+class PagedText:
+    def __init__(self, page_width = -1, page_height = -1):
+        """
+        page_width: 每页宽度
+        page_height: 每页最大行数
+        char_width_func: 一个函数, 输入字符返回宽度 (例如 lambda c: 1 或字典映射)
+        """
+        self.page_width = page_width
+        self.page_height = page_height
+        self.pages = [[]]  # 每个元素是 page, page 是行的列表, 行是 (text, width)
+
+    def reset(self, page_width, page_height):
+        self.page_width = page_width
+        self.page_height = page_height
+        self.pages = [[]]
+
+    def add_text(self, text):
+        current_page = self.pages[-1]
+        if not current_page:
+            current_page.append(("", 0, 0))  # 初始化第一行
+
+        page_height_used = sum(line[2] for line in current_page)
+        
+        for ch in text:
+            line_text, _, line_h = current_page[-1]
+            new_line_text = line_text + ch
+            size = image.string_size(new_line_text)
+            ch_w = size[0]
+            ch_h = size[1]
+    
+            # 尝试放到当前行
+            if ch_w <= self.page_width:
+                # 更新行
+                new_w = ch_w
+                new_h = max(line_h, ch_h)
+                # 替换行
+                current_page[-1] = (new_line_text, new_w, new_h)
+            else:
+                # 需要换行
+                if page_height_used + line_h <= self.page_height:
+                    current_page.append((ch, ch_w, ch_h))
+                    page_height_used += line_h  # 累加上一行高度
+                else:
+                    # 需要换页
+                    self.pages.append([(ch, ch_w, ch_h)])
+                    current_page = self.pages[-1]
+                    page_height_used = ch_h
+
+            page_height_used = sum(line[2] for line in current_page)
+            # print("OVER", line_text, line_w, line_h, page_height_used)
+
+    def clear(self):
+        self.pages = [[]]
+
+    def print(self):
+        for i, page in enumerate(self.pages):
+            print(f"Page {i+1}:")
+            page_height = sum(line[2] for line in page)
+            for line_text, line_width, line_height in page:
+                print(f"  '{line_text}' (w={line_width}, h={line_height})")
+            print(f"  -> total height used = {page_height}")
+            print()
+
+    def draw_last_page_on(self, img:image.Image, color: image.Color = image.COLOR_WHITE):
+        if img.width() != self.page_width or img.height() != self.page_height:
+            return
+
+        current_page = self.pages[-1]
+        if not current_page:
+            return
+
+        height = 0
+        for line_text, _, line_height in current_page:
+            img.draw_string(0, height, line_text, color, wrap_space=0)            
+            height += line_height
+
 class App:
     def __init__(self):
         image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 20)
@@ -74,7 +152,10 @@ class App:
         self.tts_thread = threading.Thread(target=self.tts_thread_handle, daemon=True)
         self.tts_thread.start()
 
+        self.page_text = PagedText()
+
     def player_thread_handle(self):
+        bytes_per_frame = 2
         while not app.need_exit():
             try:
                 pcm = self.player_queue.get(timeout=500)
@@ -82,7 +163,7 @@ class App:
                 print('self.player.remaining size1', self.player.get_remaining_frames())
                 while not app.need_exit():
                     idle_frames = self.player.get_remaining_frames()
-                    write_frames = len(pcm) / self.player.frame_size()
+                    write_frames = len(pcm) / bytes_per_frame
                     print('idle', idle_frames, 'write', write_frames)
                     if idle_frames >= write_frames:
                         break
@@ -110,10 +191,22 @@ class App:
 
     def __llm_on_reply(self, obj, resp):
         print(resp.msg_new, end="")
+        ts_data = self.ts.read()
         img = image.Image(320, 240, bg=image.COLOR_BLACK)
         self.__draw_string_upper_center(img, text="Run LLM..", color=image.COLOR_GREEN)
         # img.draw_string(0, 0, "Run LLM..", image.COLOR_GREEN)
-        img.draw_string(0, 30, resp.msg, image.COLOR_WHITE)
+
+        self.page_text.add_text(resp.msg_new)
+        new_img = image.Image(320, 210, bg=image.COLOR_BLACK)
+        self.page_text.draw_last_page_on(new_img, image.COLOR_WHITE)
+        img.draw_image(0, 30, new_img)
+
+        exit_img_x = 0
+        exit_img_y = 0
+        img.draw_image(exit_img_x, exit_img_y, self.exit_img)
+        if ts_data[2] and 0<=ts_data[0]<=self.exit_img.width() + exit_img_x*2 and 0 <=ts_data[1]<=self.exit_img.height() + exit_img_y*2:
+            print('exit')
+            app.set_exit_flag(True)
         self.disp.show(img)
 
         self.llm_last_msg += resp.msg_new
@@ -207,7 +300,9 @@ class App:
                 if asr_result:
                     img.draw_string(0, 30, asr_result, image.COLOR_WHITE)
                 elif llm_result:
-                    img.draw_string(0, 30, llm_result, image.COLOR_WHITE)
+                    new_img = image.Image(320, 210, bg=image.COLOR_BLACK)
+                    self.page_text.draw_last_page_on(new_img, image.COLOR_WHITE)
+                    img.draw_image(0, 30, new_img)
 
             exit_img_x = 0
             exit_img_y = 0
@@ -247,6 +342,7 @@ class App:
                 status = Status.LLM
             elif status == Status.LLM:
                 if asr_result:
+                    self.page_text.reset(320, 210)
                     llm_result0 = self.llm.send(asr_result)
                     llm_result = llm_result0.msg
                     self.llm.clear_context()

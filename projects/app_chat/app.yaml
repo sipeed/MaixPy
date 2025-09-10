@@ -13,6 +13,7 @@ exclude:
 files:
   - assets/exit.jpg
   - assets/icon.png
+  - app.png
   - app.yaml
   - main.py
   - README.md
