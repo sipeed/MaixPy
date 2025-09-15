@@ -12,6 +12,7 @@ update:
 This document provides instructions on using the built-in TTS functionality to convert text into speech.
 
 TTS Support List:
+
 |       | MaixCAM | MaixCAM Pro | MaixCAM2 |
 | -------- | ------- | ------- | ------- |
 | MeloTTS  | ❌ | ❌ | ✅ |
