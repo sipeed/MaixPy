@@ -215,6 +215,7 @@ program = Program()
 try:
     while not app.need_exit():
         program.run()
+    del program.key_obj
 except Exception:
     import traceback
     msg = traceback.format_exc()

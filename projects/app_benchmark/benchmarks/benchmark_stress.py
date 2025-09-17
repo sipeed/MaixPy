@@ -32,6 +32,7 @@ class Bechmark:
     def __init__(self):
         self.repeat_time = 50
         self.disp = display.Display()
+        self.disp_ui = self.disp.add_channel()
         self.ts = touchscreen.TouchScreen()
         self.read_interval = 2 # s
         self.cpu_temp_record_time = 180 # s
@@ -63,45 +64,12 @@ class Bechmark:
     def destroy_cam(self):
         if self.cam is not None:
             del self.cam
+            del self.disp_ui
             del self.disp
             gc.collect()
             self.cam = None
             self.disp = display.Display()
-
-
-    def stress_process(self, model_path, nee_exit, model_fps):
-        print("stress_process start")
-        self.detector = nn.YOLO11(model=model_path, dual_buff = True)
-        print("stress_process load model ok")
-        img_path = "/maixapp/share/picture/2024.1.1/test_coco_640.jpg"
-        if not os.path.exists(img_path):
-            print(f"Image {img_path} not found!!!, exit")
-            nee_exit.value = 1
-            return
-        print("stress_process load image", img_path)
-        img = image.load(img_path)
-        print("stress_process load image ok")
-        img = img.resize(self.detector.input_width(), self.detector.input_height(), image.Fit.FIT_COVER)
-        print("stress_process resize image ok")
-        fps_window = deque(maxlen=30)
-        err_count = 0
-        last_err_time = 0
-        while nee_exit.value == 0:
-            try:
-                t = time.ticks_ms()
-                objs = self.detector.detect(img, conf_th = 0.5, iou_th = 0.45)
-                fps_now = int(1000 / (time.ticks_ms() - t + 0.000001))
-                fps_window.append(fps_now)
-                model_fps.value = int(np.mean(fps_window))
-                if time.ticks_s() - last_err_time > 20:
-                    err_count = 0
-            except Exception as e:
-                last_err_time = time.ticks_s()
-                print("stress_process error occurrs")
-                err_count += 1
-                if err_count > 5:
-                    raise e
-        print("stress_process exit")
+            self.disp_ui = self.disp.add_channel()
 
     def npu_out_reader(self, pipe, model_fps):
         try:
@@ -115,46 +83,32 @@ class Bechmark:
         finally:
             pipe.close()
 
-    def stress_thread(self):
+    def stress_thread(self, model_name):
         '''
             make sure CPU full load
         '''
         print("stress_thread start")
-        while (not self.need_exit) and (not app.need_exit()):
-            time.sleep_us(100)
-        print("stress_thread exit")
-
-    def run(self):
-        last_ai_isp_config = app.get_sys_config_kv("npu", "ai_isp", "0")
+        cam_res_curr_idx = 0
+        record_path = f"/root/benchmark/benchmark_stress_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt"
+        os.makedirs(os.path.dirname(record_path), exist_ok=True)
+        f = open(record_path, "w")
         while self.restarting:
-            self.restarting = False
-            self.need_exit = False
-            err_msg = None
             disp_err_times = 0
-            model_path = "/root/models/yolo11s.mud"
-            if not os.path.exists(model_path):
-                model_path = "/root/models/yolo11n.mud"
-            model_name = os.path.basename(model_path)
-            # nee_exit = multiprocessing.Value('i', 0)
-            # model_fps = multiprocessing.Value('i', 0)
-            # multiprocess have bug, so use popen
-            # p = multiprocessing.Process(target=self.stress_process, args=(model_path, nee_exit, model_fps), daemon=True)
-            # p = threading.Thread(target=self.stress_process, args=(model_path, nee_exit, model_fps), daemon=True)
-            # p.start()
-            model_fps = [0]
-            run_npu_py = os.path.abspath(os.path.join(os.path.dirname(__file__), "stress_run_npu.py"))
-            command = ["/usr/bin/python", "-u", run_npu_py ]
-            npu_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
-            t_out = threading.Thread(target=self.npu_out_reader, args=(npu_process.stdout, model_fps))
-            t_out.daemon = True
-            t_out.start()
 
-            th = threading.Thread(target=self.stress_thread)
-            th.daemon = True
-            th.start()
-
-            cam_res_curr_idx = 0
-            self.init_cam(self.cam_res_list[cam_res_curr_idx])
+            err_count = 0
+            while 1:
+                try:
+                    self.init_cam(self.cam_res_list[cam_res_curr_idx])
+                    break
+                except Exception as e:
+                    print(f"Init cam with {self.cam_res_list[cam_res_curr_idx]} failed,", e)
+                    err_count += 1
+                    cam_res_curr_idx = (cam_res_curr_idx + 1) % len(self.cam_res_list)
+                    if err_count >= len(self.cam_res_list):
+                        print(f"error {err_count} times, now exit !!")
+                        self.need_exit = True
+                        break
+                    continue
 
             cpu_temp = 0
             self.cpu_usage = 0
@@ -162,16 +116,16 @@ class Bechmark:
             cpu_freq = 0
             npu_freq = 0
             def update_res_vars():
-                if self.cam.height() >= 1440:
+                if self.disp_ui.height() >= 1440:
                     self.font_scale = 5
                     self.font_thickness = 5
-                elif self.cam.height() >= 1080:
+                elif self.disp_ui.height() >= 1080:
                     self.font_scale = 4
                     self.font_thickness = 4
-                elif self.cam.height() >= 720:
+                elif self.disp_ui.height() >= 720:
                     self.font_scale = 2.5
                     self.font_thickness = 3
-                elif self.cam.height() >= 480:
+                elif self.disp_ui.height() >= 480:
                     self.font_scale = 1.4
                     self.font_thickness = 2
                 else:
@@ -182,20 +136,20 @@ class Bechmark:
                 self.font_margin = self.font_size.height() // 2
                 self.button_padding = 15 if self.disp.height() >= 480 else 8
                 self.button_padding_2x = self.button_padding * 2
-                self.btn_cam_res = StrButton("Cam res", self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height())
-                self.btn_cam_res.set_pos_lb((0, self.cam.height()))
+                self.btn_cam_res = StrButton("Cam res", self.disp_ui.width(), self.disp_ui.height(), self.disp.width(), self.disp.height())
+                self.btn_cam_res.set_pos_lb((0, self.disp_ui.height()))
                 if self.support_ai_isp:
-                    self.btn_ai_isp = StrButton(f"AI ISP: {'ON' if self.ai_isp_on else 'OFF'}", self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), True, self.ai_isp_on)
-                    self.btn_ai_isp.set_pos_lb((self.btn_cam_res.rect[2] + self.button_padding, self.cam.height()))
+                    self.btn_ai_isp = StrButton(f"AI ISP: {'ON' if self.ai_isp_on else 'OFF'}", self.disp_ui.width(), self.disp_ui.height(), self.disp.width(), self.disp.height(), True, self.ai_isp_on)
+                    self.btn_ai_isp.set_pos_lb((self.btn_cam_res.rect[2] + self.button_padding, self.disp_ui.height()))
                 self.img_back = image.load("/maixapp/share/icon/ret.png")
-                self.img_back = get_back_btn_img(self.cam.width())
+                self.img_back = get_back_btn_img(self.disp_ui.width())
                 back_rect = [0, 0, self.img_back.width() + self.button_padding_2x, self.img_back.height() + self.button_padding_2x]
-                self.back_rect_disp = image.resize_map_pos(self.cam.width(), self.cam.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
+                self.back_rect_disp = image.resize_map_pos(self.disp_ui.width(), self.disp_ui.height(), self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN, back_rect[0], back_rect[1], back_rect[2], back_rect[3])
+
             update_res_vars()
+
+            self.restarting = False
             touch_pressed = False
-            record_path = f"/root/benchmark/benchmark_stress_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt"
-            os.makedirs(os.path.dirname(record_path), exist_ok=True)
-            f = open(record_path, "w")
             last_fps_y = 0
             last_temp_y = 0
             while (not self.need_exit) and (not app.need_exit()):
@@ -203,14 +157,14 @@ class Bechmark:
                     self.last_read_cpu_temp = time.ticks_s()
                     cpu_temp = sys.cpu_temp()["cpu"]
                     self.cpu_temp_values.append(cpu_temp)
-                    self.fps_values.append(model_fps[0])
+                    self.fps_values.append(self.model_fps[0])
                     self.cpu_usage = sys.cpu_usage()["cpu"]
                     npu_usage = sys.npu_usage()["npu"]
                     cpu_freq = sys.cpu_freq()["cpu0"]
                     npu_freq = sys.npu_freq()["npu0"]
                     f.write(f"{time.time()}, {cpu_temp}, {self.cpu_usage}, {npu_usage}\n")
                     f.flush()
-                img = self.cam.read()
+                img = image.Image(self.disp_ui.width(), self.disp_ui.height(), image.Format.FMT_BGRA8888, bg = image.Color.from_bgra(0, 0, 0, 0))
 
                 # draw lines
                 y = int((80 - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) * img.height())
@@ -232,7 +186,7 @@ class Bechmark:
                 last_fps = None
                 for i, temp in enumerate(self.cpu_temp_values):
                     y = img.height() - int((temp - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) * img.height())
-                    fps_value = model_fps[0] if i == len(self.cpu_temp_values) - 1 else self.fps_values[i]
+                    fps_value = self.model_fps[0] if i == len(self.cpu_temp_values) - 1 else self.fps_values[i]
                     y2 = (fps_value - self.cpu_temp_min) / (self.cpu_temp_max - self.cpu_temp_min) 
                     y2 = 100 if y2 > 100 else y2
                     y2 = img.height() - int(y2 * img.height())
@@ -255,15 +209,15 @@ class Bechmark:
                 img.draw_string(2, y, f"[NPU] usage: {npu_usage:3.1f}%{(', AI ISP: ON' if self.ai_isp_on else ', AI ISP: OFF') if self.support_ai_isp else ''}, freq: {npu_freq // 1000000}MHz", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
                 img.draw_string(2, y, f"[NPU] usage: {npu_usage:3.1f}%{(', AI ISP: ON' if self.ai_isp_on else ', AI ISP: OFF') if self.support_ai_isp else ''}, freq: {npu_freq // 1000000}MHz", image.COLOR_RED, scale=self.font_scale, thickness=self.font_thickness)
                 y += self.font_size.height() + self.font_margin
-                img.draw_string(2, y, f"model FPS: {model_fps[0]:3.1f}, model: {model_name}", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
-                img.draw_string(2, y, f"model FPS: {model_fps[0]:3.1f}, model: {model_name}", image.COLOR_PURPLE, scale=self.font_scale, thickness=self.font_thickness)
+                img.draw_string(2, y, f"model FPS: {self.model_fps[0]:3.1f}, model: {model_name}", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
+                img.draw_string(2, y, f"model FPS: {self.model_fps[0]:3.1f}, model: {model_name}", image.COLOR_PURPLE, scale=self.font_scale, thickness=self.font_thickness)
                 y += self.font_size.height() + self.font_margin
                 fps = time.fps()
                 img.draw_string(2, y, f"[CAM] {self.cam.width()}x{self.cam.height()}, fps: {self.cam.fps()}, {fps:.0f}", image.COLOR_WHITE, scale=self.font_scale, thickness=self.font_thickness * 2)
                 img.draw_string(2, y, f"[CAM] {self.cam.width()}x{self.cam.height()}, fps: {self.cam.fps()}, {fps:.0f}", image.COLOR_RED, scale=self.font_scale, thickness=self.font_thickness)
 
                 # draw npu fps number
-                msg = f"{model_fps[0]:3.1f}fps"
+                msg = f"{self.model_fps[0]:3.1f}fps"
                 msg_size = image.string_size(msg, scale=self.font_scale)
                 last_fps[1] = max(min(last_fps[1], img.height() - msg_size.height() - 2), 0)
                 last_fps_y = last_fps_y * 0.7 + last_fps[1] * 0.3
@@ -286,7 +240,7 @@ class Bechmark:
                     self.btn_ai_isp.draw(img)
 
                 try:
-                    ret = self.disp.show(img)
+                    ret = self.disp_ui.show(img)
                     if ret != err.Err.ERR_NONE:
                         disp_err_times += 1
                         print("disp.show err:", ret)
@@ -296,7 +250,7 @@ class Bechmark:
                     print("show failed")
                     disp_err_times += 1
                 if disp_err_times > 5:
-                    err_msg = "Display show failed"
+                    self.err_msg = "Display show failed"
                     self.need_exit = True
                     break
                 x, y, preesed = self.ts.read()
@@ -314,57 +268,93 @@ class Bechmark:
                     if self.support_ai_isp:
                         self.btn_ai_isp.set_pushed(False)
                     if is_in_button(x, y, self.back_rect_disp):
+                        self.need_exit = True
                         break
                     elif is_in_button(x, y, self.btn_cam_res.rect_disp):
-                        err_count = 0
-                        while 1:
-                            cam_res_curr_idx = (cam_res_curr_idx + 1) % len(self.cam_res_list)
-                            print("switch cam res to", self.cam_res_list[cam_res_curr_idx])
-                            try:
-                                self.init_cam(self.cam_res_list[cam_res_curr_idx])
-                                break
-                            except Exception as e:
-                                print(f"Init cam with {self.cam_res_list[cam_res_curr_idx]} failed,", e)
-                                err_count += 1
-                                if err_count >= len(self.cam_res_list):
-                                    print(f"error {err_count} times, now exit !!")
-                                    self.need_exit = True
-                                    break
-                                continue
-                        if self.need_exit:
-                            break
-                        update_res_vars()
-                        print("switch cam res to", self.cam_res_list[cam_res_curr_idx], "success")
+                        cam_res_curr_idx = (cam_res_curr_idx + 1) % len(self.cam_res_list)
+                        print("switch cam res to", self.cam_res_list[cam_res_curr_idx])
+                        self.restarting = True
+                        break
                     elif self.support_ai_isp and is_in_button(x, y, self.btn_ai_isp.rect_disp):
                         app.set_sys_config_kv("npu", "ai_isp", "0" if self.ai_isp_on else "1")
                         self.restarting = True
                         break
                 time.sleep_us(100) # release CPU to ensure stress_thread running
-            print("main thread exit", self.need_exit, app.need_exit())
-            self.need_exit = True
-            # nee_exit.value = 1
-            # draw message center
-            img = image.Image(self.disp.width(), self.disp.height(), bg=image.Color.from_rgb(31, 31, 31))
             msg = ("Restarting" if self.restarting else "Exiting") + ", please wait..."
+            print("ui thread exit", self.need_exit, app.need_exit(), msg)
+            # draw message center
+            img = image.Image(self.disp_ui.width(), self.disp_ui.height(), bg=image.Color.from_rgb(31, 31, 31))
             size = image.string_size(msg, scale=self.font_scale)
-            img.draw_string((self.disp.width() - size.width()) // 2, (self.disp.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=self.font_scale, thickness=2)
-            self.disp.show(img)
-            # kill p
+            img.draw_string((self.disp_ui.width() - size.width()) // 2, (self.disp_ui.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=self.font_scale, thickness=2)
+            self.disp_ui.show(img)
+        print("stress_thread exit")
+        self.need_exit = True
+
+    def run(self):
+        last_ai_isp_config = app.get_sys_config_kv("npu", "ai_isp", "0")
+        self.need_exit = False
+        self.err_msg = None
+        self.restarting = True
+        disp_err_times = 0
+        model_path = "/root/models/yolo11s.mud"
+        if not os.path.exists(model_path):
+            model_path = "/root/models/yolo11n.mud"
+        model_name = os.path.basename(model_path)
+        self.model_fps = [0]
+        run_npu_py = os.path.abspath(os.path.join(os.path.dirname(__file__), "stress_run_npu.py"))
+        command = ["/usr/bin/python", "-u", run_npu_py ]
+        npu_process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+        t_out = threading.Thread(target=self.npu_out_reader, args=(npu_process.stdout, self.model_fps))
+        t_out.daemon = True
+        t_out.start()
+
+        th = threading.Thread(target=self.stress_thread, args=(model_name,))
+        th.daemon = True
+        th.start()
+
+        cam_res_curr_idx = 0
+
+        while (not self.need_exit) and (not app.need_exit()):
+            try:
+                if self.restarting:
+                    time.sleep_ms(10)
+                    continue
+                img = self.cam.read()
+                ret = self.disp.show(img)
+                if ret != err.Err.ERR_NONE:
+                    disp_err_times += 1
+                    print("disp.show err:", ret)
+                else:
+                    disp_err_times = 0
+            except Exception:
+                print("show failed")
+                disp_err_times += 1
+            time.sleep_ms(10) # release CPU to ensure stress_thread running
+        print("main thread exit", self.need_exit, app.need_exit())
+        self.need_exit = True
+        # nee_exit.value = 1
+        # draw message center
+        img = image.Image(self.disp.width(), self.disp.height(), bg=image.Color.from_rgb(31, 31, 31))
+        msg = ("Restarting" if self.restarting else "Exiting") + ", please wait..."
+        size = image.string_size(msg, scale=self.font_scale)
+        img.draw_string((self.disp.width() - size.width()) // 2, (self.disp.height() - size.height()) // 2, msg, image.COLOR_WHITE, scale=self.font_scale, thickness=2)
+        self.disp.show(img)
+        # kill p
+        if npu_process.poll() is None:
+            npu_process.send_signal(signal.SIGINT)
+            t = time.ticks_ms()
+            while npu_process.poll() is None and time.ticks_ms() - t < 5000:
+                time.sleep_ms(100)
             if npu_process.poll() is None:
-                npu_process.send_signal(signal.SIGINT)
-                t = time.ticks_ms()
-                while npu_process.poll() is None and time.ticks_ms() - t < 5000:
-                    time.sleep_ms(100)
-                if npu_process.poll() is None:
-                    print("stress_process is still alive, kill it")
-                    npu_process.kill()
-            else:
-                print("stress_process exit ok")
-            self.destroy_cam()
+                print("stress_process is still alive, kill it")
+                npu_process.kill()
+        else:
+            print("stress_process exit ok")
+        self.destroy_cam()
 
         app.set_sys_config_kv("npu", "ai_isp", last_ai_isp_config)
-        if err_msg:
-            return True, err_msg
+        if self.err_msg:
+            return True, self.err_msg
         return False, None
 
 if __name__ == "__main__":

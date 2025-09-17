@@ -1,0 +1,10 @@
+id: yolo_obb
+name: YOLO11 OBB
+version: 1.0.2
+author: Sipeed Ltd
+icon: icon.png
+desc: YOLO11 detect objects with orientation.
+files:
+  - icon.png
+  - app.yaml
+  - main.py

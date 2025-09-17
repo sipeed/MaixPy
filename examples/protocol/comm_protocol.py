@@ -5,7 +5,7 @@ from maix.err import Err, check_raise
 APP_CMD_ECHO = 0x01
 
 # APP_ID = "my_app1"
-# app.set_app_id(APP_ID) # for test, temporary sets app id, DO NOT use it when release(pack) APP.
+# app.set_app_id(APP_ID) # Just for test!!! temporary sets app id, DO NOT use it when release(pack) APP.
 
 # init communication object, will init uart or tcp server according to system config
 # we can get current setting by maix.app.get_sys_config_kv("comm", "method")

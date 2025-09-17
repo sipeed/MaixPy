@@ -2,7 +2,6 @@ from maix import protocol
 from maix import app
 from maix.err import Err
 
-APP_ID = "my_app1"
 
 APP_CMD_ECHO = 0x01
 
@@ -15,7 +14,8 @@ def read():
     return b''
 
 
-app.set_app_id(APP_ID)
+# APP_ID = "my_app1"
+# app.set_app_id(APP_ID) # Just for test!!! temporary sets app id, DO NOT use it when release(pack) APP.
 
 p = protocol.Protocol(buff_size = 1024)
 
