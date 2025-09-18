@@ -85,6 +85,7 @@ class App:
         VLM_STOP=3
 
     def __init__(self):
+        self.language = 'zh'
         image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 20)
         image.set_default_font("sourcehansans")
         self.disp = display.Display()
@@ -176,6 +177,17 @@ class App:
             print('exit')
             app.set_exit_flag(True)
 
+        # en/zh
+        size = image.string_size("ZH", scale=2)
+        if self.language == 'zh':
+            img.draw_string(self.disp_w - size.width(), 0, "ZH", image.COLOR_WHITE, scale=2)
+        else:
+            img.draw_string(self.disp_w - size.width(), 0, "EN", image.COLOR_WHITE, scale=2)
+        if ts_data[2] and self.disp_w - size.width()*2<=ts_data[0]<=self.disp_w and 0 <=ts_data[1]<=size.height() * 2:
+            if self.language == 'zh':
+                self.language = 'en'
+            else:
+                self.language = 'zh'
         self.disp.show(img)
 
 
@@ -216,7 +228,11 @@ class App:
             elif sta == self.Status.VLM_START:
                 print('VLM_START')
                 if self.vlm_img:
-                    self.run_vlm(self.vlm_img, 'Describe the picture')
+                    if self.language == 'zh':
+                        msg = '描述这张图片'
+                    else:
+                        msg = 'Describe the picture'
+                    self.run_vlm(self.vlm_img, msg)
                     with self.vlm_thread_lock:
                         self.sta = self.Status.VLM_RUNNING
             elif sta == self.Status.VLM_RUNNING:
