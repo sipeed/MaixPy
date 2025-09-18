@@ -98,15 +98,7 @@ class App:
         self.exit_img = image.load('./assets/exit.jpg')
         ai_isp_on = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
         if ai_isp_on is True:
-            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
-            err_msg = "Please trun off AI ISP first via the Settings app(Settings->AI ISP)"
-            img.draw_string(0, 0, err_msg, image.COLOR_RED)
-            self.disp.show(img)
-            while not app.need_exit():
-                ts_data = self.ts.read()
-                if ts_data[2]:
-                    app.set_exit_flag(True)
-                time.sleep_ms(100)
+            self.show_error("Please trun off AI ISP first via the Settings app(Settings->AI ISP)")
 
         self.__show_load_info('loading vlm..')
         self.vlm = nn.InternVL('/root/models/InternVL2.5-1B/model.mud')
@@ -121,6 +113,26 @@ class App:
         self.page_text = PagedText(self.disp_w, self.disp_h - self.cam.height())
 
         self.sta = self.Status.IDLE
+
+    def show_error(self, msg: str):
+        img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+        err_title = "Error"
+        err_title_scale = 2
+        err_title_size = image.string_size(err_title, scale=err_title_scale)
+        err_title_x = (self.disp_w - err_title_size.width()) // 2
+        err_title_y = err_title_size.height()
+        img.draw_string(err_title_x, err_title_y, err_title, image.COLOR_RED, scale=err_title_scale)
+
+        err_msg = "Please trun off AI ISP first via the Settings app(Settings->AI ISP)"
+        err_msg_scale = 1.5
+        err_msg_size = image.string_size(err_msg, scale=err_msg_scale)
+        img.draw_string(0, err_title_y + err_title_size.height() + err_msg_size.height(), err_msg, image.COLOR_WHITE, scale=err_msg_scale)
+        self.disp.show(img)
+        while not app.need_exit():
+            ts_data = self.ts.read()
+            if ts_data[2]:
+                app.set_exit_flag(True)
+            time.sleep_ms(100)
 
     def __vlm_thread(self, vlm, img:image.Image, msg: str):
         vlm.set_image(img, image.Fit.FIT_CONTAIN)
