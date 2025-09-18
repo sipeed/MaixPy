@@ -1,0 +1,17 @@
+id: ai_vlm
+name: AI VLM
+name[zh]: AI 视觉大模型
+version: 1.0.3
+icon: assets/icon.png
+author: Sipeed Ltd
+desc: AI Vision Language Model
+desc[zh]: AI 视觉大模型
+exclude:
+  - dist
+  - build
+  - .gitignore
+files:
+  - assets
+  - app.yaml
+  - main.py
+  - README.md
