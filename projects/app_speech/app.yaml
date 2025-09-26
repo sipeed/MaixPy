@@ -1,0 +1,14 @@
+id: speech
+name: Speech Recognition
+name[zh]: 语音识别
+version: 1.0.0
+icon: 'assets/voice.json'
+author: Sipeed Ltd
+desc: AI speech recognition
+desc[zh]: AI 语音识别
+files:
+  - assets/exit.jpg
+  - assets/voice.json
+  - app.yaml
+  - main.py
+  - README.md
