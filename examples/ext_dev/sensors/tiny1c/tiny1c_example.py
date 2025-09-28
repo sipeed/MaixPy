@@ -6,12 +6,12 @@ PREVIEW_TEMP = True
 FRAME_NUM = 0
 
 pin_function = {
-    "IO0_A8": "I2C7_SCL",
-    "IO0_A9": "I2C7_SDA",
-    "IO1_A21": "SPI2_CS1",
-    "IO1_A19": "SPI2_MISO",
-    "IO1_A18": "SPI2_MOSI",
-    "IO1_A20": "SPI2_SCK"
+    "A8": "I2C7_SCL",
+    "A9": "I2C7_SDA",
+    "B21": "SPI2_CS1",
+    "B19": "SPI2_MISO",
+    "B18": "SPI2_MOSI",
+    "B20": "SPI2_SCK"
 }
 
 for pin, func in pin_function.items():
