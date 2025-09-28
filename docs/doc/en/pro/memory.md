@@ -37,7 +37,7 @@ You can also use command line tools like `cat /proc/meminfo` or the `free` comma
 
 From the `total` and `used` fields, you can see the total available memory and the memory already used.
 
-Note that the memory shown here is the memory available to Linux user space, which is less than the actual physical memory. For example, for a MaixCAM2 device with 4GiB memory, the default shown here is 2GiB. Why this is so will be explained below.
+Note that the memory shown here is the memory available to Linux user space, which is less than the actual physical memory. For example, for a MaixCAM2 device with 4GiB memory, the default shown here is 1GiB. Why this is so will be explained below.
 
 ---
 
@@ -51,7 +51,7 @@ Because we use a Linux system, memory is divided into several regions based on u
 | Kernel Reserved | Memory reserved for the Linux kernel                                                                                                                                                                                                                                                                                                                       | Adjusted based on physical memory and kernel drivers, e.g., about 80MiB on MaixCAM2               |
 | User Memory     | Used by Linux user-space programs                                                                                                                                                                                                                                                                                                                          | Adjusted based on physical memory and application needs, e.g., about 1.92GiB on MaixCAM2          |
 | CMA Memory      | Contiguous Memory Allocator, used by Linux GPU/image components                                                                                                                                                                                                                                                                                            | Configured according to image-related applications                                                |
-| CMM Memory      | Contiguous Memory Management, vendor- or user-defined contiguous memory region (not a Linux standard). Usually similar in purpose to CMA, but distinguished here as CMM. For example, MaixCAM series do not use standard CMA memory for images but define a custom region for camera, NPU, and other hardware drivers needing frequent large memory access | Allocated based on application needs, e.g., MaixCAM2 defaults to 2GiB, MaixCAM defaults to 128MiB |
+| CMM Memory      | Contiguous Memory Management, vendor- or user-defined contiguous memory region (not a Linux standard). Usually similar in purpose to CMA, but distinguished here as CMM. For example, MaixCAM series do not use standard CMA memory for images but define a custom region for camera, NPU, and other hardware drivers needing frequent large memory access | Allocated based on application needs, e.g., MaixCAM2 defaults to 1GiB, MaixCAM defaults to 128MiB |
 
 The two types of memory to focus on are:
 
@@ -68,7 +68,7 @@ The two types of memory to focus on are:
 | Device   | Hardware Memory Size | Linux Kernel + User Space | CMM Memory | CMA Memory |
 | -------- | -------------------- | ------------------------- | ---------- | ---------- |
 | MaixCAM  | 256MiB               | 151MiB                    | 105MiB     | 0MiB       |
-| MaixCAM2 | 4GiB                 | 2GiB                      | 2GiB       | 0MiB       |
+| MaixCAM2 | 4GiB                 | 1GiB                      | 3GiB       | 0MiB       |
 | MaixCAM2 | 1GiB                 | 512MiB                    | 512MiB     | 0MiB       |
 
 ---
