@@ -21,13 +21,27 @@ y_oft = 0
 wheel_move = 0
 
 count = 0
+direction = 0
 while True:
-    x_oft += 150
-    y_oft += 150
+    if direction == 0:
+        x_oft += 150
+        y_oft += 150
+        if x_oft > 0x7fff:
+            x_oft = 0x7fff
+            y_oft = 0x7fff
+            direction = 1
+    else:
+        x_oft -= 150
+        y_oft -= 150
+        if x_oft < 0:
+            x_oft = 0
+            y_oft = 0
+            direction = 0
+    print(x_oft, y_oft)
     touchpad_set(button, x_oft, y_oft, wheel_move)
-    time.sleep_ms(100)
+    time.sleep_ms(10)
     count += 1
-    if count > 50:
+    if count > 500:
         break
 
 print('OK')

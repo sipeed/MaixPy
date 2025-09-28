@@ -1,21 +1,29 @@
-import os
+import os, sys, app
 
 cmd_restart = "/usr/bin/usb_util stop && /usr/bin/usb_util start"
+device_id = sys.device_id()
 
 def usb_devive(device_list):
-    if os.path.exists("/boot/usb.host"):
-        os.remove("/boot/usb.host")
-    with open("/boot/usb.dev", "w") as f:
-        pass
+    if device_id == "maixcam": # old config way
+        if os.path.exists("/boot/usb.host"):
+            os.remove("/boot/usb.host")
+        with open("/boot/usb.dev", "w") as f:
+            pass
 
-    for device in device_list:
-        dev_path = f"/boot/usb.{device[0]}"
-        if device[1]:
-            with open(dev_path, "w") as f:
-                pass
-        else:
-            if os.path.exists(dev_path):
-                os.remove(dev_path)
+        for device in device_list:
+            if device.startswith("hid_"):
+                device[0] = device[0][4:]
+            dev_path = f"/boot/usb.{device[0]}"
+            if device[1]:
+                with open(dev_path, "w") as f:
+                    pass
+            else:
+                if os.path.exists(dev_path):
+                    os.remove(dev_path)
+    else: # new config way
+        app.set_sys_config_kv("usb", "mode", "device", True)
+        for device in device_list:
+            app.set_sys_config_kv("usb", device[0], "1" if device[1] else "0", True)
 
     ret = os.system(cmd_restart)
     if ret != 0:
@@ -23,10 +31,13 @@ def usb_devive(device_list):
 
 
 def usb_host():
-    if os.path.exists("/boot/usb.dev"):
-        os.remove("/boot/usb.dev")
-    with open("/boot/usb.host", "w") as f:
-        pass
+    if device_id == "maixcam": # old config way
+        if os.path.exists("/boot/usb.dev"):
+            os.remove("/boot/usb.dev")
+        with open("/boot/usb.host", "w") as f:
+            pass
+    else: # new config way
+        app.set_sys_config_kv("usb", "mode", "host", True)
     ret = os.system(cmd_restart)
     if ret != 0:
         raise Exception("set device mode failed")
@@ -48,9 +59,9 @@ if __name__ == "__main__":
     device_list = [
         ["ncm", True],        # NCM virtual network card, faster trhan RNDIS but need manual install driver on windows <=10.
         ["rndis", True],      # RNDIS virtual network card, compatible for Windows and Linux but MacOS not suppot.
-        ["keyboard", False],  # Simulate USB HID keyboard input, then use maix.hid module.
-        ["mouse", False],     # Simulate USB HID mouse input, then use maix.hid module.
-        ["touchpad", False]   # Simulate USB HID touchpad input, then use maix.hid module.
+        ["hid_keyboard", False],  # Simulate USB HID keyboard input, then use maix.hid module.
+        ["hid_mouse", False],     # Simulate USB HID mouse input, then use maix.hid module.
+        ["hid_touchpad", False]   # Simulate USB HID touchpad input, then use maix.hid module.
     ]
 
     if mode == "device":

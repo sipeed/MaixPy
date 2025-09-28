@@ -11,18 +11,19 @@ except Exception as e:
     exit(0)
 
 button = 0
-x_oft = 0
-y_oft = 0
+x_oft = 5
+y_oft = 5
 wheel_move = 0
 
 count = 0
 while True:
-    x_oft += 5
-    y_oft += 5
     mouse.write([button, x_oft, y_oft, wheel_move])
     time.sleep_ms(100)
     count += 1
     if count > 50:
         break
+    elif count > 25:
+        x_oft = -5
+        y_oft = -5
 
 print('OK')

@@ -1,5 +1,5 @@
-id: pose_usb_mario
-name: Pose USB Mario
+id: usb_pose_mario
+name: USB Pose Mario
 version: 1.0.0
 author: Neucrack@Sipeed
 icon: icon.json
