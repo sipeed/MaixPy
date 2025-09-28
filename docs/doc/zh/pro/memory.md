@@ -48,7 +48,7 @@ print(f"内存使用率: {mem.percent}%")
 | 内核预留 | 给 Linux 内核专用的内存 | 根据物理内存大小和内核驱动调整，比如 MaixCAM2 大约 80MiB |
 | 用户内存 | Linux 用户空间程序使用 | 根据物理内存大小和应用程序内存用量调整，比如 MaixCAM2 为 1.92GiB 左右 |
 | CMA 内存 | Contiguous Memory Allocator, 连续内存分配区域，Linux 显卡/图像等使用 | 根据图像相关应用配置 |
-| CMM 内存 | Contiguous Memory Management, 厂商或用户自定义连续内存分配区域，注意这不是 Linux 标准，一般作用和 CMA 类似，为了和CMA区分这里我们姑且称之为 CMM ， 比如 MaixCAM 图像都不用标准 CMA 内存，而是自定义了一块区域给 摄像头/NPU 等硬件驱动使用 | 根据应用使用情况分配，比如 MaixCAM2 默认 2GiB， MaixCAM 默认 128GiB |
+| CMM 内存 | Contiguous Memory Management, 厂商或用户自定义连续内存分配区域，注意这不是 Linux 标准，一般作用和 CMA 类似，为了和CMA区分这里我们姑且称之为 CMM ， 比如 MaixCAM 图像都不用标准 CMA 内存，而是自定义了一块区域给 摄像头/NPU 等硬件驱动使用 | 根据应用使用情况分配，比如 MaixCAM2 默认 2GiB， MaixCAM 默认 128MiB |
 
 这里我们最需要关注的是两种内存：
 * **Linux 用户空间内存**：这是我们代码和应用程序能用到的总内存，比如分配数组、创建对象，加载程序都需要用到这部分内存。
