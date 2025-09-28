@@ -25,6 +25,8 @@ class PagedText:
         page_height_used = sum(line[2] for line in current_page)
         
         for ch in text:
+            if ch == '\n' or ch == '\r':
+                continue
             line_text, _, line_h = current_page[-1]
             new_line_text = line_text + ch
             size = image.string_size(new_line_text)
@@ -99,7 +101,20 @@ class App:
         self.exit_img = image.load('./assets/exit.jpg')
         ai_isp_on = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
         if ai_isp_on is True:
-            self.show_error("Please trun off AI ISP first via the Settings app(Settings->AI ISP)")
+            img = image.Image(320, 240, bg=image.COLOR_BLACK)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need open the Settings app, find the AI ISP option, and select Off."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 0.8)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 0.8)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6)
+            self.disp.show(img)
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                time.sleep_ms(100)
+            exit(0)
 
         self.__show_load_info('loading vlm..')
         self.vlm = nn.InternVL('/root/models/InternVL2.5-1B/model.mud')
@@ -138,7 +153,7 @@ class App:
     def __vlm_thread(self, vlm, img:image.Image, msg: str):
         vlm.set_image(img, image.Fit.FIT_CONTAIN)
         resp = vlm.send(msg)
-        print(resp)
+        print(resp.msg)
         with self.vlm_thread_lock:
             self.sta = self.Status.VLM_STOP
 
@@ -244,7 +259,10 @@ class App:
                     self.sta = self.Status.IDLE
 
             self.show_ui()
+        if self.vlm:
+            self.vlm.cancel()
 
 if __name__ == '__main__':
     appication = App()
     appication.run()
+    print('===========')

@@ -3,8 +3,6 @@ import threading
 from queue import Queue, Empty
 import re
 
-from maix._maix.image import Image
-
 class PagedText:
     def __init__(self, page_width = -1, page_height = -1):
         """
@@ -126,16 +124,21 @@ class App:
         ai_isp_on = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
         if ai_isp_on is True:
             img = image.Image(320, 240, bg=image.COLOR_BLACK)
-            err_msg = "You need edit /boot/configs to set ai_isp_on to 0"
-            err_msg_size = image.string_size(err_msg)
-            img.draw_string((img.width() - err_msg_size.width()) // 2, (img.height() - err_msg_size.height()) // 2, err_msg, image.COLOR_RED)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need open the Settings app, find the AI ISP option, and select Off."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 0.8)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 0.8)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6)
             self.disp.show(img)
             while not app.need_exit():
                 ts_data = self.ts.read()
                 if ts_data[2]:
                     app.set_exit_flag(True)
                 time.sleep_ms(100)
+            exit(0)
         self.whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
+        self.whisper_thread = None
 
         self.__show_load_info('loading llm..')
         # /root/models/Qwen2.5-0.5B-Instruct/model.mud
@@ -189,6 +192,17 @@ class App:
             except Empty:
                 continue
 
+    def _whisper_thread_handle(self, path):
+        self.whisper_results =  self.whisper.transcribe(path)
+
+    def run_whisper(self, path:str):
+        if self.whisper_thread:
+            if self.whisper_thread.is_alive():
+                self.whisper_thread.join()
+                self.whisper_thread = None
+        self.whisper_thread = threading.Thread(target=self._whisper_thread_handle, args=[path])
+        self.whisper_thread.start()
+
     def __llm_on_reply(self, obj, resp):
         print(resp.msg_new, end="")
         ts_data = self.ts.read()
@@ -207,6 +221,7 @@ class App:
         if ts_data[2] and 0<=ts_data[0]<=self.exit_img.width() + exit_img_x*2 and 0 <=ts_data[1]<=self.exit_img.height() + exit_img_y*2:
             print('exit')
             app.set_exit_flag(True)
+            exit(0)
         self.disp.show(img)
 
         self.llm_last_msg += resp.msg_new
@@ -312,7 +327,7 @@ class App:
                 app.set_exit_flag(True)
             self.disp.show(img)
 
-            if status == Status.IDLE:                
+            if status == Status.IDLE:
                 if ts_data[2]:
                     if self.vad:
                         start_vad = not start_vad
@@ -337,9 +352,16 @@ class App:
                 self.__reset_recorder(False)
                 status = Status.TRANSCRIBE
             elif status == Status.TRANSCRIBE:
-                asr_result = self.whisper.transcribe(self.default_wav_path)
-                print(asr_result)
-                status = Status.LLM
+                if not self.whisper_thread:
+                    # 未创建线程, 开运行whisper
+                    self.run_whisper(self.default_wav_path)
+                else:
+                    # 线程结束, whisper出了结果
+                    if not self.whisper_thread.is_alive():
+                        self.whisper_thread = None
+                        asr_result = self.whisper_results
+                        print(asr_result)
+                        status = Status.LLM
             elif status == Status.LLM:
                 if asr_result:
                     self.page_text.reset(320, 210)
