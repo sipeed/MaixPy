@@ -2,7 +2,10 @@ from face_tracking import servos
 from maix import image, camera, display, time, nn, touchscreen, sys
 
 ### model path
-MODEL = "/root/models/retinaface.mud"
+if sys.device_name().lower() == "maixcam2":
+    MODEL = "/root/models/yolo11s_face.mud"
+else:
+    MODEL = "/root/models/retinaface.mud"
 
 
 
@@ -24,7 +27,10 @@ class Target:
         self.ignore = ignore_limit
 
         ### Self.w and self.h must be initialized.
-        self.detector = nn.Retinaface(model=path)
+        if sys.device_name().lower() == "maixcam2":
+            self.detector = nn.YOLO11(model=path)
+        else:
+            self.detector = nn.Retinaface(model=path)
         self.w = self.detector.input_width()
         self.h = self.detector.input_height()
         self.cam = camera.Camera(self.w, self.h)
