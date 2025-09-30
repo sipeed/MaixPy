@@ -1,0 +1,176 @@
+items:
+-   file: README.md
+    label: Brief
+-   collapsed: false
+    items:
+    -   collapsed: false
+        file: maix/err.md
+        label: err
+    -   collapsed: false
+        file: maix/tensor.md
+        label: tensor
+    -   collapsed: false
+        file: maix/image.md
+        label: image
+    -   collapsed: false
+        file: maix/camera.md
+        label: camera
+    -   collapsed: false
+        file: maix/display.md
+        label: display
+    -   collapsed: false
+        file: maix/ext_dev.md
+        items:
+        -   collapsed: false
+            file: maix/ext_dev/imu.md
+            label: imu
+        -   collapsed: false
+            file: maix/ext_dev/qmi8658.md
+            label: qmi8658
+        -   collapsed: false
+            file: maix/ext_dev/cmap.md
+            label: cmap
+        -   collapsed: false
+            file: maix/ext_dev/mlx90640.md
+            label: mlx90640
+        -   collapsed: false
+            file: maix/ext_dev/tof100.md
+            label: tof100
+        -   collapsed: false
+            file: maix/ext_dev/tmc2209.md
+            label: tmc2209
+        -   collapsed: false
+            file: maix/ext_dev/fp5510.md
+            label: fp5510
+        -   collapsed: false
+            file: maix/ext_dev/bm8563.md
+            label: bm8563
+        -   collapsed: false
+            file: maix/ext_dev/pmu.md
+            label: pmu
+        -   collapsed: false
+            file: maix/ext_dev/axp2101.md
+            label: axp2101
+        -   collapsed: false
+            file: maix/ext_dev/lsm6dsowtr.md
+            label: lsm6dsowtr
+        label: ext_dev
+    -   collapsed: false
+        file: maix/nn.md
+        items:
+        -   collapsed: false
+            file: maix/nn/F.md
+            label: F
+        label: nn
+    -   collapsed: false
+        file: maix/audio.md
+        label: audio
+    -   collapsed: false
+        file: maix/network.md
+        items:
+        -   collapsed: false
+            file: maix/network/wifi.md
+            label: wifi
+        label: network
+    -   collapsed: false
+        file: maix/comm.md
+        items:
+        -   collapsed: false
+            file: maix/comm/modbus.md
+            label: modbus
+        label: comm
+    -   collapsed: false
+        file: maix/example.md
+        label: example
+    -   collapsed: false
+        file: maix/log.md
+        label: log
+    -   collapsed: false
+        file: maix/app.md
+        label: app
+    -   collapsed: false
+        file: maix/thread.md
+        label: thread
+    -   collapsed: false
+        file: maix/protocol.md
+        label: protocol
+    -   collapsed: false
+        file: maix/sys.md
+        label: sys
+    -   collapsed: false
+        file: maix/fs.md
+        label: fs
+    -   collapsed: false
+        file: maix/i18n.md
+        label: i18n
+    -   collapsed: false
+        file: maix/time.md
+        label: time
+    -   collapsed: false
+        file: maix/util.md
+        label: util
+    -   collapsed: false
+        file: maix/touchscreen.md
+        label: touchscreen
+    -   collapsed: false
+        file: maix/rtmp.md
+        label: rtmp
+    -   collapsed: false
+        file: maix/tracker.md
+        label: tracker
+    -   collapsed: false
+        file: maix/video.md
+        label: video
+    -   collapsed: false
+        file: maix/uvc.md
+        label: uvc
+    -   collapsed: false
+        file: maix/pipeline.md
+        label: pipeline
+    -   collapsed: false
+        file: maix/http.md
+        label: http
+    -   collapsed: false
+        file: maix/rtsp.md
+        label: rtsp
+    -   collapsed: false
+        file: maix/peripheral.md
+        items:
+        -   collapsed: false
+            file: maix/peripheral/pwm.md
+            label: pwm
+        -   collapsed: false
+            file: maix/peripheral/timer.md
+            label: timer
+        -   collapsed: false
+            file: maix/peripheral/pinmap.md
+            label: pinmap
+        -   collapsed: false
+            file: maix/peripheral/gpio.md
+            label: gpio
+        -   collapsed: false
+            file: maix/peripheral/spi.md
+            label: spi
+        -   collapsed: false
+            file: maix/peripheral/key.md
+            label: key
+        -   collapsed: false
+            file: maix/peripheral/i2c.md
+            label: i2c
+        -   collapsed: false
+            file: maix/peripheral/adc.md
+            label: adc
+        -   collapsed: false
+            file: maix/peripheral/uart.md
+            label: uart
+        -   collapsed: false
+            file: maix/peripheral/hid.md
+            label: hid
+        -   collapsed: false
+            file: maix/peripheral/wdt.md
+            label: wdt
+        label: peripheral
+    -   collapsed: false
+        file: maix/ahrs.md
+        label: ahrs
+    label: maix
