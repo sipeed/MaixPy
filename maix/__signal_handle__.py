@@ -5,6 +5,7 @@ force_exit_timeout = 2
 
 def force_exit():
     print("Force exit now")
+    _maix.util.do_exit_function()
     sys.exit(1)
 
 def signal_handle(signum, frame):
