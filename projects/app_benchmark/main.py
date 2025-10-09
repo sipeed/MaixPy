@@ -96,9 +96,9 @@ class Program:
             btn_start.draw(img)
             # draw item name
             label = items[curr_idx].name
-            label_size = image.string_size(label, scale=title_font_scale, thickness=title_font_scale)
+            label_size = image.string_size(label, scale=title_font_scale, thickness=int(title_font_scale))
             y = (img.height() - label_size.height()) // 2
-            img.draw_string((img.width() - label_size.width()) // 2, y, label, scale=title_font_scale, thickness=title_font_scale)
+            img.draw_string((img.width() - label_size.width()) // 2, y, label, scale=title_font_scale, thickness=int(title_font_scale))
             # draw hint rects
             self.draw_hint_rects(img, curr_idx, len(items), y + label_size.height(), label_size)
             x, y, preesed = ts.read()
