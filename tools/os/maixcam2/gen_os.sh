@@ -115,11 +115,7 @@ set -x
 
 # 设置输出的镜像名字 maixcam2-2025-04-16-maixpy-v4.11.0
 date_now=$(date +"%Y-%m-%d")
-if [[ "$whl_path" == *MaixPy* ]]; then
-    maixpy_version=$(echo "$whl_path" | grep -oP '(?<=MaixPy)[^ ]+')
-else
-    maixpy_version=$(echo "$whl_path" | grep -oP '(?<=maixpy)[^ ]+')
-fi
+maixpy_version=$(echo "$whl_path" | sed -E 's/.*-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
 os_version_str=${board_name}-${date_now}-maixpy-v${maixpy_version}
 
 
