@@ -255,6 +255,7 @@ while not app.need_exit():
 
             # 归一化到8位（0~255）
             img_8bit = cv2.normalize(gray >> 2, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            img_8bit = cv2.rotate(img_8bit, cv2.ROTATE_180)
             img_8bit_raw_min_max = (img_8bit.min(), img_8bit.max())
 
             if enable_x3:
@@ -300,7 +301,7 @@ while not app.need_exit():
 
 
             yuyv = np.frombuffer(image_frame, dtype=np.uint8).reshape((height, width, 2))
-            gray = yuyv[:,:,0]
+            gray = yuyv[::-1,::-1,0]
             gray_raw_min_max = (gray.min(), gray.max())
 
             if enable_x3:
