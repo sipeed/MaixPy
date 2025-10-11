@@ -2,7 +2,7 @@
 
 import struct
 from maix import image
-from maix import time
+from maix import app
 from maix.camera import Camera
 from maix.display import Display
 from maix.touchscreen import TouchScreen
@@ -231,7 +231,8 @@ def find_apriltags(img):
         return True
     else:
         return False
-while 1:
+
+while not app.need_exit():
     img = cam.read()
     if img:
         res = False
