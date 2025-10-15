@@ -1,6 +1,5 @@
 from maix import nn, audio, time, display, app, image, touchscreen
 import threading
-from queue import Queue, Empty
 import re
 
 class PagedText:
@@ -110,16 +109,6 @@ class App:
         except:
             self.vad = None
 
-        self.__show_load_info('loading player..')
-        self.player = audio.Player(sample_rate=44100, block=False)
-        # max buffer size: (period_size * period_count) / sample_rate * 1000 
-        # (160 * 4 * 4200) / 44100 = 60.95s
-        self.player.period_count(4200) 
-        self.player.volume(50)
-        self.player_queue = Queue(100)
-        self.player_thread = threading.Thread(target=self.player_thread_handle, daemon=True)
-        self.player_thread.start()
-
         self.__show_load_info('loading whisper..')
         ai_isp_on = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
         if ai_isp_on is True:
@@ -148,50 +137,8 @@ class App:
         self.llm.set_reply_callback(self.__llm_on_reply)
         self.llm_last_msg = ""
 
-        self.__show_load_info('loading melotts..')
-        self.tts = nn.MeloTTS(model="/root/models/melotts/melotts-zh.mud", speed = 0.8, language='en')
-
-        self.tts_queue = Queue(100)
-        self.tts_thread = threading.Thread(target=self.tts_thread_handle, daemon=True)
-        self.tts_thread.start()
-
         self.page_text = PagedText()
-
-    def player_thread_handle(self):
-        bytes_per_frame = 2
-        while not app.need_exit():
-            try:
-                pcm = self.player_queue.get(timeout=500)
-                t = time.ticks_ms()
-                print('self.player.remaining size1', self.player.get_remaining_frames())
-                while not app.need_exit():
-                    idle_frames = self.player.get_remaining_frames()
-                    write_frames = len(pcm) / bytes_per_frame
-                    print('idle', idle_frames, 'write', write_frames)
-                    if idle_frames >= write_frames:
-                        break
-                    else:
-                        time.sleep_ms(10)
-                print('wait remain cost', time.ticks_ms() - t)
-                print('idle', self.player.get_remaining_frames(), 'write', len(pcm) / bytes_per_frame)
-                t = time.ticks_ms()
-                self.player.play(pcm)
-                print('play cost', time.ticks_ms() - t)
-            except Empty:
-                continue
-
-    def tts_thread_handle(self):
-        while not app.need_exit():
-            try:
-                msg = self.tts_queue.get(timeout=500)
-                print('tts queue get:', msg)
-                t = time.ticks_ms()
-                pcm = self.tts.infer(msg, output_pcm=True)
-                print('tts infer cost', time.ticks_ms() - t)
-                self.player_queue.put(pcm)
-            except Empty:
-                continue
-
+        
     def _whisper_thread_handle(self, path):
         self.whisper_results =  self.whisper.transcribe(path)
 
@@ -228,19 +175,7 @@ class App:
         parts=re.split(r"[,.!?]", self.llm_last_msg)
         # print('parts', parts)
         if len(parts) > 1:
-            if "!" in self.llm_last_msg:
-                push_msg = parts[0] + "!"
-            elif "," in self.llm_last_msg:
-                push_msg = parts[0] + ","
-            elif "." in self.llm_last_msg:
-                push_msg = parts[0] + "."
-            elif "?" in self.llm_last_msg:
-                push_msg = parts[0] + "?"
-            else:
-                push_msg = parts[0]
-                pass
             self.llm_last_msg = parts[-1]
-            self.tts_queue.put(push_msg)
 
     def __show_load_info(self, text: str, x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE):
         if self.disp:
@@ -369,14 +304,12 @@ class App:
                     llm_result = llm_result0.msg
                     self.llm.clear_context()
                     print(llm_result)
-                    status = Status.TTS
-                    asr_result = None
-            elif status == Status.TTS:
-                if self.tts_queue.empty():
                     status = Status.IDLE
+                    asr_result = None
             else:
                 status = Status.IDLE
             time.sleep_ms(5)
+        del self.llm
 
 if __name__ == '__main__':
     appication = App()
