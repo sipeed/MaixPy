@@ -267,4 +267,3 @@ class App:
 if __name__ == '__main__':
     appication = App()
     appication.run()
-    print('===========')

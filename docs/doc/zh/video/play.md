@@ -25,7 +25,7 @@ ffmpeg -i input_video.mp4 -c:v libx264 -x264opts "bframes=0" -c:a aac -strict ex
 一个播放`mp4`视频的示例，视频文件路径为`/root/output.mp4`
 
 ```python
-from maix import video, display, app
+from maix import video, display, app, time
 
 disp = display.Display()
 d = video.Decoder('/root/output.mp4')
@@ -40,6 +40,7 @@ while not app.need_exit():
     img = ctx.image()
     disp.show(img)
     print(f'need wait : {ctx.duration_us()} us')
+    time.sleep_us(ctx.duration_us())
 ```
 
 步骤：

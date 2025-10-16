@@ -39,6 +39,7 @@ while not app.need_exit():
     img = ctx.image()
     disp.show(img)
     print(f'need wait : {ctx.duration_us()} us')
+    time.sleep_us(ctx.duration_us())
 ```
 
 Steps:
