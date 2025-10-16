@@ -261,6 +261,8 @@ class App:
             self.show_ui()
         if self.vlm:
             self.vlm.cancel()
+            del self.vlm
+            self.vlm = None
 
 if __name__ == '__main__':
     appication = App()
