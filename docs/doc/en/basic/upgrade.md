@@ -41,7 +41,7 @@ Backup methods:
 
 | Item          | MaixCAM / MaixCAM-Pro    | MaixCAM2      |
 | --------------- | ---------- | ------ |
-| Flashing Docs      | [MaixCAM System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| Flashing Docs      | [MaixCAM System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2_os.html) |
 | System Storage     | TF Card    | Built-in EMMC (/TF Card)    |
 | TF Card Required   | Yes   | No   |
 | Flashing Method    | USB flashing or card reader flashing   | USB flashing or card reader flashing |

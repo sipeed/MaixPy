@@ -37,7 +37,7 @@ title: MaixCAM MaixPy 升级和烧录系统
 
 | 项目 | MaixCAM / MaixCAM-Pro | MaixCAM2 |
 | --- | --- | --- |
-| 烧录文档 | [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| 烧录文档 | [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2_os.html) |
 | 系统存放位置 | TF 卡 | 内置EMMC(/TF卡) |
 | 必须 TF 卡 | 是 | 否 |
 | 烧录方式 | USB 烧录 或 读卡器烧录 | USB 烧录 或 读卡器烧录 |
