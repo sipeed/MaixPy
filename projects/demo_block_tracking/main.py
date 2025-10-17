@@ -107,9 +107,9 @@ class App:
         font_size = image.string_size(btn_str)
 
         while not app.need_exit():
+            img = self.cam.read()
+            touch_status = self.ts.read()
             if self.status == Status.GET_RETANGLE:
-                img = self.cam.read()
-                touch_status = self.ts.read()
                 if touch_status[2]:  # Finger press detected
                     if not pressing:
                         target.x = touch_status[0]
@@ -141,8 +141,6 @@ class App:
             elif self.status == Status.DETECT:
                 pitch_error = 0
                 roll_error = 0
-                img = self.cam.read()               # Reads an image frame.
-                touch_status = self.ts.read()
                 if touch_status[2]:
                     self.status = Status.GET_RETANGLE
                 img_w = img.width()
@@ -158,7 +156,7 @@ class App:
                     
                     print(b.cx(), b.cy())
                     for i in range(4):
-                        img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED)
+                        img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED, 4)
 
                 if obj_x != -1 and obj_y != -1:
                     center_x = img_w / 2
@@ -182,15 +180,14 @@ class App:
                     app.set_exit_flag(True)
                     break
 
-                t = self.ts.read()
-                img = img.resize(self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN)
-                if self.check_touch_box(t, self.exit_box, 20):
-                    img.draw_image(self.exit_box[0], self.exit_box[1], self.img_exit_touch)
-                    self.need_exit = True
-                else:
-                    img.draw_image(self.exit_box[0], self.exit_box[1], self.img_exit)
+            img = img.resize(self.disp.width(), self.disp.height(), image.Fit.FIT_CONTAIN)
+            if self.check_touch_box(touch_status, self.exit_box, 20):
+                img.draw_image(self.exit_box[0], self.exit_box[1], self.img_exit_touch)
+                self.need_exit = True
+            else:
+                img.draw_image(self.exit_box[0], self.exit_box[1], self.img_exit)
 
-                self.disp.show(img)
+            self.disp.show(img)
 if __name__ == '__main__':
     s = servos.Servos(SERVO_ID, SERVO_PORT_NAME, SERVO_BAUDRATE, SERVO_MIN_POSITION, SERVO_MAX_POSITION)
     pid_pitch = servos.PID(p=pitch_pid[0], i=pitch_pid[1], d=pitch_pid[2], imax=pitch_pid[3])
