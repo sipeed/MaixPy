@@ -1,0 +1,18 @@
+id: imu_ahrs
+name: IMU AHRS
+name[zh]: 姿态解算
+version: 1.0.3
+icon: ''
+author: Sipeed Ltd
+desc: IMU AHRS
+desc[zh]: IMU 姿态解算
+exclude:
+  - dist
+  - build
+  - .gitignore
+files:
+  - assets/icon.png
+  - app.yaml
+  - lsm6dsow.py
+  - main.py
+  - README.md
