@@ -57,12 +57,15 @@ if [ ! -f "$delete_first_files" ]; then
     exit 1
 fi
 
-echo "Umounting raw rootfs"
-umount tmp2/rootfs
-if [ $? -ne 0 ]; then
-    echo "Failed to unmount tmp2/rootfs"
-    exit 2
+if [ -f tmp2/rootfs ];then
+    echo "Umounting raw rootfs"
+    umount tmp2/rootfs
+    if [ $? -ne 0 ]; then
+        echo "Failed to unmount tmp2/rootfs"
+        exit 2
+    fi
 fi
+
 rm -rf tmp2/*
 mkdir -p tmp2
 chmod 777 tmp2
