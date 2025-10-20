@@ -1,0 +1,29 @@
+id: xiaozhi_ai
+name: XiaoZhi Ai
+version: 1.0.3
+author: sipeed
+icon: app.png
+desc: An AI friend
+files:
+  - assets/confused.png
+  - assets/crying.png
+  - assets/delicious.png
+  - assets/embarrassed.png
+  - assets/funny.png
+  - assets/happy.png
+  - assets/laughing.png
+  - assets/loving.png
+  - assets/neutral.png
+  - assets/relaxed.png
+  - assets/sad.png
+  - assets/shocked.png
+  - assets/silly.png
+  - assets/sleepy.png
+  - assets/surprised.png
+  - assets/xiaozhiai.png
+  - deps/libopus.so
+  - deps/opuslib-3.0.1.tar.gz
+  - app.png
+  - app.yaml
+  - main.py
+  - README.md
