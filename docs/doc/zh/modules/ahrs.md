@@ -48,9 +48,9 @@ IMU（Inertial Measurement Unit），即 惯性测量单元，通常由几部分
 
 | 设备名 | 传感器型号 | 加速度计 | 陀螺仪 | 磁力计 | 接口 | 特点 |
 | ----- | ----- | ------- | ----- | ---- | ---- | ---  |
-| MaixCAM-Pro | QMI8658 | ✅ | ✅ | ❌ | IIC4<br>地址 0x6B | 低功耗<br>高稳定性<br>高灵敏度 |
-| MaixCAM | 无板载 ❌ | ❌ | ❌ | ❌ | |  |  |
-| MaixCAM2 | LSM6DSOWTR | ✅ | ✅ | ❌ | 内置驱动 | 低功耗<br>高稳定性<br>高灵敏度 |
+| MaixCAM-Pro | QMI8658 | ✅ 量程: [±2, ±16]g | ✅ 量程: [±16, ±2048]°/s | ❌ | IIC4 地址 0x6B | 低功耗<br>高稳定性<br>高灵敏度 |
+| MaixCAM | 无板载 ❌ | ❌ | ❌ | ❌ | |  |
+| MaixCAM2 | LSM6DSOWTR | ✅ 量程: [±2, ±16]g | ✅ 量程: [±125, ±2000]°/s | ❌ | IIC1 地址 0x6B | 低功耗<br>高稳定性<br>高灵敏度 |
 
 除了使用内置的，你也可以自己外接一个 IMU 传感器，比如经典的`MPU6050/MPU9150`等，可自行查找最新和合适的传感器。
 
@@ -224,7 +224,6 @@ while not app.need_exit():
 
 有关 IMU API 的详细说明请看 [IMU API 文档](../../../api/maix/ext_dev/imu.md)。
 有关 AHRS API 的详细说明请看 [AHRS 文档](../../../api/maix/ahrs.md)。
-
 
 
 

@@ -48,9 +48,9 @@ Some devices have a built-in IMU, as shown below:
 
 | Device Name | Sensor Model | Accelerometer | Gyroscope | Magnetometer | Interface            | Features                                        |
 | ----------- | ------------ | ------------- | --------- | ------------ | -------------------- | ----------------------------------------------- |
-| MaixCAM-Pro | QMI8658      | ✅             | ✅         | ❌            | IIC4<br>Address 0x6B | Low power<br>High stability<br>High sensitivity |
+| MaixCAM-Pro | QMI8658      | ✅ Range: [±2, ±16]g | ✅ Range: [±16, ±2048]°/s | ❌            | IIC4 Address 0x6B | Low power<br>High stability<br>High sensitivity |
 | MaixCAM     | None ❌      | ❌             | ❌         | ❌            |                      |                                                 |
-| MaixCAM2    | LSM6DSOWTR   | ✅             | ✅         | ❌            | Built-in driver      | Low power<br>High stability<br>High sensitivity |
+| MaixCAM2    | LSM6DSOWTR   | ✅ Range: [±2, ±16]g | ✅ Range: [±125, ±2000]°/s | ❌            | IIC1 Address 0x6B | Low power<br>High stability<br>High sensitivity |
 
 Besides using the built-in IMU, you can also connect an external IMU sensor, such as the classic `MPU6050/MPU9150`. Search for the latest and suitable sensors yourself.
 
