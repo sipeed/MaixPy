@@ -1,0 +1,9 @@
+id: app_tof100
+name: tof100
+version: 1.0.0
+author: sipeed
+icon: ''
+desc: based on example
+files:
+  - app.yaml
+  - main.py
