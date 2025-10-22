@@ -320,3 +320,6 @@ After that, open `http://<your_computer_IP>:8000/maixpy/index.html` in your brow
 
 Additionally, if you just want to save a single page for offline viewing, you can press `Ctrl + P` on that page and select "Print as PDF" to save the page as a local PDF file.
 
+## When recording is set to non-blocking mode, no audio data is captured
+
+When recording in non-blocking mode on MaixCam2, after starting recording, you need to wait for the audio data preparation to complete before being able to obtain the data. Therefore, there should be an interval between two recording operations. For example, if you need to record 60ms of audio data, you can call the recording function again every 50ms.
