@@ -1,0 +1,18 @@
+id: app_thermal_tiny1c
+name: thermal_tiny1c
+version: 1.0.0
+author: taorye
+icon: app.png
+desc: bla bla
+files:
+  - app.png
+  - app.yaml
+  - espcn_x2_256x192_u8.axmodel
+  - espcn_x2.mud
+  - espcn_x3_256x192_u8.axmodel
+  - espcn_x3.mud
+  - main_espcn.py
+  - main_x3c.py
+  - main.py
+  - x3c_192x256.axmodel
+  - x3c_192x256.mud
