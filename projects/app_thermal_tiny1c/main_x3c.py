@@ -4,6 +4,7 @@ from maix import time
 
 PREVIEW_TEMP = True
 FRAME_NUM = 0
+Vtemp = 0
 
 pin_function = {
     "A8": "I2C7_SCL",
@@ -31,7 +32,7 @@ for s in slaves:
 # more API see https://wiki.sipeed.com/maixpy/api/maix/peripheral/i2c.html
 
 ###############################################################################
-spidev = spi.SPI(2, spi.Mode.MASTER, 20000000, 1, 1, hw_cs=1)
+spidev = spi.SPI(2, spi.Mode.MASTER, 30000000, 1, 1, hw_cs=1)
 
 BUFF_LEN = 4096
 DUMMY_LEN = 512
@@ -72,8 +73,13 @@ def spi_frame_get(raw_frame: bytearray, frame_byte_size: int, frame_type: int) -
         return -1
 
     global FRAME_NUM
+    global Vtemp
     FRAME_NUM = (rx_Data[480+2] & 0xff) + rx_Data[480+3] * 256
-    print(f"frame num={FRAME_NUM}")
+    shutter_state = rx_Data[480+4]
+    Vtemp = rx_Data[480+5] + rx_Data[480+6] * 256
+    gain_state = rx_Data[480+9]
+    pix_freeze_state = rx_Data[480+12]
+    print(f"frame num={FRAME_NUM}, shutter={shutter_state}, Vtemp={Vtemp}, gain={gain_state}, freeze={pix_freeze_state}")
 
     while frame_byte_size - i > BUFF_LEN:
         tx_Data[0] = continue_cmd
@@ -130,7 +136,7 @@ d = [0x0f, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00,
 
 r = bus.writeto(0x3c, bytes(wh+d))
 print(r)
-time.sleep(1)
+time.sleep(5)
 
 # typedef struct
 # {
@@ -151,6 +157,17 @@ r = bus.writeto(0x3c, bytes(wh+d))
 print(r)
 time.sleep(2)
 
+# print("get_prop_auto_shutter_params------------")
+# d = [0x14, 0x82, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] + [0, 0, 0, 0, 0, 0, 0, 2]
+
+# r = bus.writeto(0x3c, bytes(wh+d))
+# print(r)
+# r = bus.writeto(0x3c, bytes(rh))
+# print(r)
+# rl = d[-2]*256+d[-1]
+# r = bus.readfrom(0x3c, rl)
+# print(r)
+# print("get_prop_auto_shutter_params------------")
 
 if not PREVIEW_TEMP:
     # print("pseudo_color_get")
@@ -241,8 +258,8 @@ cam = camera.Camera(disp.width(), disp.height())    # Manually set resolution
 img = cam.read()
 disp.show(img)
 
-# x3model_name = './x3c_192x256.mud'
-x3model_name = './espcn_x3.mud'
+x3model_name = './x3c_192x256.mud'
+# x3model_name = './espcn_x3.mud'
 
 x3model = nn.NN(x3model_name)
 if x3model_name == './espcn_x3.mud':
@@ -259,14 +276,19 @@ while not app.need_exit():
     gray = np.array([])
     a0 = time.perf_counter()
     if spi_frame_get(image_frame, width*height*2, 0) == 0: #src picture
-        print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
+        # print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
+
+        # if FRAME_NUM % 50 == 0:
+        #     d = [0x0d, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        #     r = bus.writeto(0x3c, bytes(wh+d))
+        #     print(r)
 
         if PREVIEW_TEMP:
             gray = np.frombuffer(image_frame, dtype=np.uint16).reshape((height, width))
-            gray = cv2.rotate(gray, cv2.ROTATE_180)
+            # gray = cv2.rotate(gray, cv2.ROTATE_180)
 
             # 归一化到8位（0~255）
-            img_8bit = cv2.normalize(gray >> 2, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+            img_8bit = cv2.normalize(gray, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
             img_8bit_raw_min_max = (img_8bit.min(), img_8bit.max())
 
             if enable_x3:
@@ -341,7 +363,7 @@ while not app.need_exit():
         # img.draw_image(0, 0, color_img)
         img = color_img
 
-        print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
+        # print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
 
     x, y, pressed = ts.read()
     if not pressed:
