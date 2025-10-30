@@ -259,11 +259,17 @@ class App:
                     self.sta = self.Status.IDLE
 
             self.show_ui()
+            
         if self.vlm:
             self.vlm.cancel()
+            time.sleep_ms(500)  # Make sure the VLM has exited.
             del self.vlm
             self.vlm = None
-
+        del self.cam
+        self.cam = None
+        del self.disp
+        self.disp = None
+        
 if __name__ == '__main__':
     appication = App()
     appication.run()
