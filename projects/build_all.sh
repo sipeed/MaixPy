@@ -8,7 +8,7 @@ set -e
 
 blacklist_linux=()
 blacklist_maixcam=("app_yoloworld" "app_vlm" "app_mono_depth_estimation" "app_chat" "app_speech" "app_imu_lsm6dsow" "app_tof100" "app_thermal_tiny1c")
-blacklist_maixcam2=("app_imu_ahrs")
+blacklist_maixcam2=()
 
 #############################################
 
