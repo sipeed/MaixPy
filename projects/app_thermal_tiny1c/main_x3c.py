@@ -247,6 +247,7 @@ import inspect
 need_exit = 0
 hide_hud = False
 enable_x3 = True
+switch_x3 = False
 ts = touchscreen.TouchScreen()
 
 disp = display.Display()
@@ -258,14 +259,17 @@ cam = camera.Camera(disp.width(), disp.height())    # Manually set resolution
 img = cam.read()
 disp.show(img)
 
-x3model_name = './x3c_192x256.mud'
+# x3model_name = './x3c_192x256.mud'
 # x3model_name = './espcn_x3.mud'
+x3model_name = './sr3_ir_32.mud'
 
 x3model = nn.NN(x3model_name)
 if x3model_name == './espcn_x3.mud':
     output_layer_name = '19'
 elif x3model_name == './x3c_192x256.mud':
     output_layer_name = 'image_output'
+elif x3model_name == './sr3_ir_32.mud':
+    output_layer_name = 'output'
 else:
     raise RuntimeError("Unsupported x3 model")
 
@@ -299,9 +303,26 @@ while not app.need_exit():
                     x3grayimg_np = tensor.tensor_to_numpy_float32(x3graytensor, copy = False).reshape((576, 768))
                 elif x3model_name == './x3c_192x256.mud':
                     x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
+                elif x3model_name[2:5] == './sr3_ir.mud'[2:5]:
+                    x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
                 else:
                     raise RuntimeError("Unsupported x3 model")
                 x3grayimg_np = x3grayimg_np.astype(np.uint8)
+
+                if switch_x3:
+                    switch_x3 = False
+                    if x3model_name == './espcn_x3.mud':
+                        x3model_name = './x3c_192x256.mud'
+                        output_layer_name = 'image_output'
+                    elif x3model_name == './x3c_192x256.mud':
+                        x3model_name = './sr3_ir_32.mud'
+                        output_layer_name = 'output'
+                    elif x3model_name == './sr3_ir_32.mud':
+                        x3model_name = './espcn_x3.mud'
+                        output_layer_name = '19'
+                    else:
+                        raise RuntimeError("Unsupported x3 model")
+                    x3model = nn.NN(x3model_name)
 
 
                 img_8bit = cv2.resize(x3grayimg_np, (disp.width(), disp.height()))
@@ -391,10 +412,20 @@ while not app.need_exit():
                 targetfile = os.path.join(filepath, filename)
                 np.save(targetfile, gray)
                 os.fsync(os.open(targetfile, os.O_RDWR))
+
+                filename = f"gray_{datetime.now().strftime("%Y%m%d_%H%M%S")}_{FRAME_NUM}.npy"
+                targetfile = os.path.join(filepath, filename)
+                np.save(targetfile, gray)
+                os.fsync(os.open(targetfile, os.O_RDWR))
+                filename = f"x3gray_{datetime.now().strftime("%Y%m%d_%H%M%S")}_{FRAME_NUM}.npy"
+                targetfile = os.path.join(filepath, filename)
+                np.save(targetfile, x3grayimg_np)
+                os.fsync(os.open(targetfile, os.O_RDWR))
             elif x >= 0 and x <= 120 and y >= img.height()-40 and y <= img.height(): # Lo-Res
                 enable_x3 = False
             elif x >= img.width()-120 and x <= img.width() and y >= img.height()-40 and y <= img.height(): # Hi-Res
                 enable_x3 = True
+                switch_x3 = True
             elif x >= img.width()//2-60 and x <= img.width()//2+60 and y >= 0 and y <= 40: # Hide HUD
                 hide_hud = True
             elif x >= img.width()//2-60 and x <= img.width()//2+60 and y >= img.height()-40 and y <= img.height(): # Show HUD
@@ -408,6 +439,7 @@ while not app.need_exit():
     if not hide_hud:
         img.draw_string(               10,              10, "Quit(Holding)", image.Color.from_rgb(255, 0 if need_exit == 0 else 255, 0), scale=2, thickness=2)
         img.draw_string(  img.width()-140,              10,       "Capture", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
+        img.draw_string(  img.width()-140,              60,x3model_name[2:], image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(               10, img.height()-20,        "Lo-Res", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(  img.width()-120, img.height()-20,        "Hi-Res", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(img.width()//2-60,              10,      "Hide HUD", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
