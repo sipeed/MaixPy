@@ -280,7 +280,7 @@ while not app.need_exit():
     gray = np.array([])
     a0 = time.perf_counter()
     if spi_frame_get(image_frame, width*height*2, 0) == 0: #src picture
-        # print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
+        print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
 
         # if FRAME_NUM % 50 == 0:
         #     d = [0x0d, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
@@ -305,6 +305,8 @@ while not app.need_exit():
                     x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
                 elif x3model_name[2:5] == './sr3_ir.mud'[2:5]:
                     x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
+                elif x3model_name[2:7] == './sr2.5_ir.mud'[2:7]:
+                    x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((480, 640))
                 else:
                     raise RuntimeError("Unsupported x3 model")
                 x3grayimg_np = x3grayimg_np.astype(np.uint8)
@@ -318,6 +320,12 @@ while not app.need_exit():
                         x3model_name = './sr3_ir_32.mud'
                         output_layer_name = 'output'
                     elif x3model_name == './sr3_ir_32.mud':
+                        x3model_name = './sr2.5_ir32.mud'
+                        output_layer_name = 'output'
+                    elif x3model_name == './sr2.5_ir32.mud':
+                        x3model_name = './sr2.5_ir48.mud'
+                        output_layer_name = 'output'
+                    elif x3model_name == './sr2.5_ir48.mud':
                         x3model_name = './espcn_x3.mud'
                         output_layer_name = '19'
                     else:
@@ -330,9 +338,10 @@ while not app.need_exit():
                 img_8bit = scale_to_range(img_8bit, img_8bit_raw_min_max[0], img_8bit_raw_min_max[1]).astype(np.uint8)
             else:
                 img_8bit = cv2.resize(img_8bit, (disp.width(), disp.height()))
-
+            print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
             # 伪彩色映射（热力图）
             color_img = cv2.applyColorMap(img_8bit, cv2.COLORMAP_MAGMA)  # BGR格式 COLORMAP_HOT COLORMAP_TURBO
+            print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
             color_img = image.cv2image(color_img)
 
             center_pos = (height//2, width//2)

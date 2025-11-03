@@ -14,6 +14,10 @@ files:
   - main_espcn.py
   - main_x3c.py
   - main.py
+  - sr2.5_ir32_int8.axmodel
+  - sr2.5_ir32.mud
+  - sr2.5_ir48_int8.axmodel
+  - sr2.5_ir48.mud
   - sr3_ir_32_int8.axmodel
   - sr3_ir_32.mud
   - x3c_192x256.axmodel
