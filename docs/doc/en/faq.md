@@ -323,3 +323,8 @@ Additionally, if you just want to save a single page for offline viewing, you ca
 ## When recording is set to non-blocking mode, no audio data is captured
 
 When recording in non-blocking mode on MaixCam2, after starting recording, you need to wait for the audio data preparation to complete before being able to obtain the data. Therefore, there should be an interval between two recording operations. For example, if you need to record 60ms of audio data, you can call the recording function again every 50ms.
+
+## The video cannot be decoded, or an error is reported during the decoding process
+
+1. Ensure the video file format is h264 or mp4
+2. If the error persists, try removing the B-frames from the video, keeping only I-frames and P-frames, and then attempt again. You can use the ffmpeg to achieve this: `ffmpeg -i input.mp4 -c:v libx264 -x264-params "bframes=0" output_no_b_frames.mp4`
