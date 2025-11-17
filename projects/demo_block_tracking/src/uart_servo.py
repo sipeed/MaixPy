@@ -237,6 +237,82 @@ class UartServoManager:
 		param_bytes = struct.pack(f">{dtype}", value)
 		self.write_data(servo_id, data_address, param_bytes)
 	
+	def set_id(self, new_servo_id):
+		'''设置舵机ID'''
+		self.write_data_by_name(0xfe, 'SERVO_ID', new_servo_id)
+
+	def get_id(self):
+		'''获取舵机ID'''
+		return self.read_data_by_name(0xfe, 'SERVO_ID')
+
+	def set_position_p(self, servo_id, value):
+		'''设置位置环 P参数'''
+		self.write_data_by_name(servo_id, "CONTROL_P_KP", value)
+
+	def get_position_p(self, servo_id):
+		'''获取位置环 P参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_P_KP')
+
+	def set_position_i(self, servo_id, value):
+		'''设置位置环 I参数'''
+		self.write_data_by_name(servo_id, "CONTROL_P_KI", value)
+
+	def get_position_i(self, servo_id):
+		'''获取位置环 I参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_P_KI')
+
+	def set_position_d(self, servo_id, value):
+		'''设置位置环 D参数'''
+		self.write_data_by_name(servo_id, "CONTROL_P_KD", value)
+
+	def get_position_d(self, servo_id):
+		'''获取位置环 D参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_P_KD')
+
+	def set_position_p(self, servo_id, value):
+		'''设置位置环 P参数'''
+		self.write_data_by_name(servo_id, "CONTROL_P_KP", value)
+
+	def set_speed_p(self, servo_id, value):
+		'''设置速度环 P参数'''
+		self.write_data_by_name(servo_id, "CONTROL_V_KP", value)
+
+	def get_speed_p(self, servo_id):
+		'''获取速度环 P参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_V_KP')
+
+	def set_speed_i(self, servo_id, value):
+		'''设置速度环 I参数'''
+		self.write_data_by_name(servo_id, "CONTROL_V_KI", value)
+
+	def get_speed_i(self, servo_id):
+		'''获取速度环 I参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_V_KI')
+
+	def set_speed_d(self, servo_id, value):
+		'''设置速度环 D参数'''
+		self.write_data_by_name(servo_id, "CONTROL_V_KD", value)
+
+	def get_speed_d(self, servo_id):
+		'''获取速度环 D参数'''
+		return self.read_data_by_name(servo_id, 'CONTROL_V_KD')
+
+	def set_lower_angle(self, servo_id, value):
+		'''设置舵机角度下限'''
+		self.write_data_by_name(servo_id, "ANGLE_LOWERB", value)
+
+	def get_lower_angle(self, servo_id):
+		'''获取舵机角度下限'''
+		return self.read_data_by_name(servo_id, 'ANGLE_LOWERB')
+
+	def set_upper_angle(self, servo_id, value):
+		'''设置舵机角度上限'''
+		self.write_data_by_name(servo_id, "ANGLE_UPPERB", value)
+
+	def get_upper_angle(self, servo_id):
+		'''获取舵机角度上限'''
+		return self.read_data_by_name(servo_id, 'ANGLE_UPPERB')
+
 	def get_legal_position(self, position):
 		'''获取合法的位置'''
 		position = int(position)

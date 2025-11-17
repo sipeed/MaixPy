@@ -18,9 +18,12 @@ class Servos:
         self.uart = uart.UART(device_name, baudrate)
         self.uservo = UartServoManager(self.uart, servo_id_list=id_list)
         self.id_list = id_list
-        for id in id_list:
+        for idx, id in enumerate(id_list):
             self.uservo.torque_enable(id, True)
             self.uservo.set_position(id, 2048, True)
+            # self.uservo.set_lower_angle(id, min_position_list[idx])
+            # self.uservo.set_upper_angle(id, max_position_list[idx])
+
         self.max_position_list = max_position_list
         self.min_position_list = min_position_list
         if len(self.id_list) != len(self.max_position_list) != len(self.min_position_list):
@@ -40,7 +43,7 @@ class Servos:
             position = position if position >= self.min_position_list[0] else self.min_position_list[0]
             position = position if position <= self.max_position_list[0] else self.max_position_list[0]
             self.uservo.set_position(self.pitch_id, position)
-            print(f'set pitch inc:{inc:.2f}', f'position:{position:.2f}', f'range:[{self.min_position_list[0]},{self.max_position_list[0]}]')
+            # print(f'set pitch inc:{inc:.2f}', f'position:{position:.2f}', f'range:[{self.min_position_list[0]},{self.max_position_list[0]}]')
 
     def set_roll(self, inc:float):
         if inc == 0:
@@ -52,7 +55,7 @@ class Servos:
             position = position if position >= self.min_position_list[1] else self.min_position_list[1]
             position = position if position <= self.max_position_list[1] else self.max_position_list[1]
             self.uservo.set_position(self.roll_id, position)
-            print(f'set roll inc:{inc:.2f}', f'position:{position:.2f}', f'range:[{self.min_position_list[1]},{self.max_position_list[1]}]')
+            # print(f'set roll inc:{inc:.2f}', f'position:{position:.2f}', f'range:[{self.min_position_list[1]},{self.max_position_list[1]}]')
 
     def set_yaw(self, inc:float):
         if inc == 0:

@@ -8,8 +8,8 @@ import numpy as np
 SERVO_PORT_NAME =  '/dev/ttyS4' 	    # 舵机串口号
 SERVO_BAUDRATE = 115200 	            # 舵机的波特率
 SERVO_ID = [1, 2] 				        # 舵机ID,依次是pitch，roll，yaw
-SERVO_MIN_POSITION = [1650, 0]          # 舵机位置最小值
-SERVO_MAX_POSITION = [2446, 4096]       # 舵机位置最大值
+SERVO_MIN_POSITION = [1650, 787]          # 舵机位置最小值
+SERVO_MAX_POSITION = [2446, 3496]       # 舵机位置最大值
 value_per_angle = 4096 / 270
 SERVO_ANGLE = [0, 0]                    # 舵机旋转的角度范围
 for i, _ in enumerate(SERVO_ANGLE):
@@ -31,8 +31,8 @@ blobs_thresholds = [[0, 100, -13, 12, 50, 75]]      # 小黄鸭 sc850sl
 blobs_area_threshold = 500              # blob最小面积
 blobs_pixels_threshold = 500            # blob最小像素点
 
-pitch_pid = [0.45, 0.00001, 0.000, 0]    # [P I D I_max]
-roll_pid  = [0.6, 0.01, 0.000, 0]    # [P I D I_max]
+pitch_pid = [0.5, 0.01, 0.000, 0]    # [P I D I_max]
+roll_pid  = [0.8, 0.01, 0.000, 0]    # [P I D I_max]
 
 manual_wb_enable = True                  # 使能手动白平衡，保证找色块时颜色不会随色温变化
 wb_gain_list = [0.0682, 0, 0, 0.04897]   # 手动白平衡增益参数
@@ -75,7 +75,7 @@ def rgb_list_to_lab_list(rgb_list):
 
 class App:
     def __init__(self, gimbal: servos.Gimbal):
-        self.cam = camera.Camera(640, 360)
+        self.cam = camera.Camera(640, 360, fps=60)
         self.disp = display.Display()
         self.ts = touchscreen.TouchScreen()
         self.img_exit = image.load("./assets/exit.jpg").resize(40, 40)
@@ -154,7 +154,7 @@ class App:
                     obj_x = b.cx()
                     obj_y = b.cy()
                     
-                    print(b.cx(), b.cy())
+                    # print(b.cx(), b.cy())
                     for i in range(4):
                         img.draw_line(corners[i][0], corners[i][1], corners[(i + 1) % 4][0], corners[(i + 1) % 4][1], image.COLOR_RED, 4)
 
@@ -163,7 +163,7 @@ class App:
                     center_y = img_h / 2
                     angle_x = (obj_x - center_x) / img_w * CAMERA_FOV_H
                     angle_y = (obj_y - center_y) / img_h * CAMERA_FOV_V
-                    print(f'angle_x:{angle_x:.2f} fov_h:{CAMERA_FOV_H:.2f}', f'angle_y:{angle_y:.2f} fov_v:{CAMERA_FOV_V:.2f}')
+                    # print(f'angle_x:{angle_x:.2f} fov_h:{CAMERA_FOV_H:.2f}', f'angle_y:{angle_y:.2f} fov_v:{CAMERA_FOV_V:.2f}')
 
                     # # 偏移的角度映射到舵机偏移的百分比
                     # pitch_error = (angle_y + SERVO_ANGLE[0] / 2) / SERVO_ANGLE[0] * 100
@@ -173,7 +173,7 @@ class App:
                     pitch_error = angle_y * value_per_angle
                     roll_error = angle_x * value_per_angle
 
-                print(f'pitch_error:{pitch_error:.2f} pitch_angle_range:{SERVO_ANGLE[0]:.2f} roll_error:{roll_error:.2f} roll_angle_range:{SERVO_ANGLE[1]:.2f}')
+                # print(f'pitch_error:{pitch_error:.2f} pitch_angle_range:{SERVO_ANGLE[0]:.2f} roll_error:{roll_error:.2f} roll_angle_range:{SERVO_ANGLE[1]:.2f}')
                 gimbal.run(pitch_error, roll_error, pitch_reverse = pitch_reverse, roll_reverse=roll_reverse)
             
                 if self.need_exit:
@@ -194,59 +194,52 @@ if __name__ == '__main__':
     pid_roll = servos.PID(p=roll_pid[0], i=roll_pid[1], d=roll_pid[2], imax=roll_pid[3])
     gimbal = servos.Gimbal(s, pid_pitch, pid_roll)
 
+    def print_pid(s, id: int):
+        print(f'ID:{id} position p:{s.uservo.get_position_p(id)} i:{s.uservo.get_position_i(id)} d:{s.uservo.get_position_d(id)}')
+        print(f'ID:{id} speed p:{s.uservo.get_speed_p(id)} i:{s.uservo.get_speed_i(id)} d:{s.uservo.get_speed_d(id)}')
+    
+    def print_max_min_angle(s, id: int):
+        print(f'ID:{id} min {s.uservo.get_lower_angle(id)} max:{s.uservo.get_upper_angle(id)}')
+        
+    print_pid(s, 1)
+    print_pid(s, 2)
+    print_max_min_angle(s, 1)
+    print_max_min_angle(s, 2)
+
     if test_get_position_enable:
         s.test_position()
     elif test_set_pitch_position_enable:
-        s.uservo.set_position(1, 2048)
-        while True:
-            pos = s.uservo.get_position(1)
-            if pos:
-                if pos > 2000 and pos < 3100:
-                    break
-            time.sleep_ms(1)
-
-        t = time.ticks_us()
-        s.uservo.set_position(1, 2548)
-        while True:
-            pos = s.uservo.get_position(1)
-            if pos:
-                if pos > 2548-50 and pos < 2548+50:
-                    break
-            time.sleep_ms(1)
-        print('cost', time.ticks_us() - t)
-    elif test_set_roll_position_enable:
-        id = 2
-        angle = 120
-        start_position = 1024
-        dst_position = start_position + angle / 270 * 4096
-        s.uservo.set_position(id, start_position)
-        
-        while True:
-            pos = s.uservo.get_position(id)
-            if pos:
-                if pos > start_position - 25 and pos < start_position + 25:
-                    break
-                print('wait start position, dst position', dst_position,'curr position', pos)
-            time.sleep_ms(100)
-
-        t = time.ticks_us()
-        s.uservo.set_position(id, dst_position)
-        print('run set_position cost', time.ticks_us() - t)
-
-        t = time.ticks_us()
-        while True:
-            pos = s.uservo.get_position(id)
-            if pos:
-                if pos > dst_position-25 and pos < dst_position+100:
-                    break
-                print('wait dst position, dst position', dst_position,'curr position', pos)
-            # time.sleep_ms(1)
-        print('wait cost', time.ticks_us() - t)
-
+        id = SERVO_ID[0]
         while not app.need_exit():
-            pos = s.uservo.get_position(id)
-            print(pos)
-            time.sleep_ms(1000)
+            for position in range(SERVO_MIN_POSITION[id-1], SERVO_MAX_POSITION[id-1], 10):
+                s.uservo.set_position(id, position)
+
+                pos = s.uservo.get_position(id)
+                print(f'id:{id} position:{pos}')
+                time.sleep_ms(10)
+
+            for position in range(SERVO_MAX_POSITION[id-1], SERVO_MIN_POSITION[id-1], -10):
+                s.uservo.set_position(id, position)
+
+                pos = s.uservo.get_position(id)
+                print(f'id:{id} position:{pos}')
+                time.sleep_ms(10)
+    elif test_set_roll_position_enable:
+        id = SERVO_ID[1]
+        while not app.need_exit():
+            for position in range(SERVO_MIN_POSITION[id-1], SERVO_MAX_POSITION[id-1], 10):
+                s.uservo.set_position(id, position)
+
+                pos = s.uservo.get_position(id)
+                print(f'id:{id} set:{position} get:{pos}')
+                time.sleep_ms(10)
+
+            for position in range(SERVO_MAX_POSITION[id-1], SERVO_MIN_POSITION[id-1], -10):
+                s.uservo.set_position(id, position)
+
+                pos = s.uservo.get_position(id)
+                print(f'id:{id} set:{position} get:{pos}')
+                time.sleep_ms(10)
     else:
         a = App(gimbal)
         a.run()
