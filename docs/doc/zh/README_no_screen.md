@@ -119,29 +119,3 @@ while not app.need_exit():        # 一直循环，直到程序退出（可以�
 > 默认例程没有显式编写退出功能，进入应用后按下设备的功能按键即可退出应用。（对于 MaixCAM 是 user 键）
 
 如果想让程序开机自启动，可以修改并运行例程`tools/set_autostart.py`即可。
-
-
-## 下一步
-
-看到这里，如果你觉得不错，**请务必来 [github](https://github.com/sipeed/MaixPy) 给 MaixPy 开源项目点一个 star（需要先登录 github）, 你的 star 和认同是我们不断维护和添加新功能的动力！**
-
-到这里你已经体验了一遍使用和开发流程了，接下来可以学习 `MaixPy` 语法和功能相关的内容，请按照左边的目录进行学习，如果遇到 `API` 使用问题，可以在[API 文档](/api/)中查找。
-
-学习前最好带着自己学习的目的学，比如做一个有趣的小项目，这样学习效果会更好，项目和经验都可以分享到[MaixHub 分享广场](https://maixhub.com/share)，会获得现金奖励哦！
-
-## 常见问题 FAQ
-
-遇到问题可以优先在 [FAQ](./faq.md) 里面找，找不到再在下面的论坛或者群询问，或者在 [MaixPy issue](https://github.com/sipeed/MaixPy/issues) 提交源码问题。
-
-## 分享交流
-
-* **[MaixHub 项目和经验分享](https://maixhub.com/share)** ：分享你的项目和经验，获得现金打赏，获得官方打赏的基本要求：
-  * **可复现型**：较为完整的项目制作复现过程。
-  * **炫耀型**：无详细的项目复现过程，但是项目展示效果吸引人。
-  * Bug 解决经验型：解决了某个难题的过程和具体解决方法分享。
-* [MaixPy 官方论坛](https://maixhub.com/discussion/maixpy)（提问和交流）
-* QQ 群： （建议在 QQ 群提问前先发个帖，方便群友快速了解你需要了什么问题，复现过程是怎样的）
-  * MaixPy (v4) AI 视觉交流大群: 862340358
-* Telegram: [MaixPy](https://t.me/maixpy)
-* MaixPy 源码问题: [MaixPy issue](https://github.com/sipeed/MaixPy/issues)
-* 商业合作或批量购买请联系 support@sipeed.com 。

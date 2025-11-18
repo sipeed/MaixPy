@@ -113,29 +113,3 @@ You can also choose to package the application and share it on the [MaixHub App 
 > The default examples do not include an explicit exit function. Press the device's function button to exit the application (for MaixCAM, it is the user button).
 
 If you want the program to start automatically at boot, you can modify and run the `tools/set_autostart.py` script.
-
-## Next Steps
-
-If you like what you've seen so far, **please make sure to visit [GitHub](https://github.com/sipeed/MaixPy) and give the MaixPy open-source project a star (you need to log in to GitHub first). Your star and support are our motivation to keep maintaining and adding new features!**
-
-You have now completed a basic usage and development process. Next, you can learn more about `MaixPy` syntax and features by following the directory on the left. If you encounter any issues with the `API`, you can find help in the [API Documentation](/api/).
-
-It's best to learn with a specific goal in mind, such as working on an interesting project. This will improve your learning experience. You can also share your projects and experiences on the [MaixHub Sharing Platform](https://maixhub.com/share) to earn cash rewards!
-
-## Frequently Asked Questions (FAQ)
-
-If you encounter any issues, first check the [FAQ](./faq.md). If you can't find a solution, you can ask questions in the forum or group below, or submit a code issue on [MaixPy issue](https://github.com/sipeed/MaixPy/issues).
-
-## Share and Communicate
-
-* **[MaixHub Project and Experience Sharing](https://maixhub.com/share)**: Share your projects and experiences to earn cash rewards. To receive official rewards, your content should meet the following criteria:
-  * **Reproducibility**: A fairly complete project reproduction process.
-  * **Showcase**: Projects without a detailed reproduction process but with an attractive presentation.
-  * Bug Solution Experience: Share your process and specific solution to a difficult problem.
-* [MaixPy Official Forum](https://maixhub.com/discussion/maixpy) (for questions and discussions)
-* QQ Group: (It's recommended to post first before asking in the QQ group so others can quickly understand your problem and reproduction process)
-  * MaixPy (v4) AI Vision Group: 862340358
-* Telegram: [MaixPy](https://t.me/maixpy)
-* MaixPy Code Issues: [MaixPy issue](https://github.com/sipeed/MaixPy/issues)
-* For business cooperation or bulk purchases, please contact support@sipeed.com.
-

@@ -21,20 +21,30 @@ update:
 
 ## Introduction
 
-MaixCAM comes with a default GC4653 camera or optional OS04A10 camera, global shutter camera, or even HDMI to MIPI module, all of which can be used directly through simple API calls.
-
 ## API Documentation
 
 This document introduces commonly used methods. For more API usage, please refer to the documentation of the [maix.camera](/api/maix/camera.html) module.
 
-## Camera Switching
+## Supported Cameras
 
-Currently supported cameras:
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM</span></div>
+MaixCAM comes with a default GC4653 camera or optional OS04A10 camera, global shutter camera, or even HDMI to MIPI module, all of which can be used directly through simple API calls.
 
-* **GC4653**: M12 universal lens, 1/3" sensor, clear image quality, 4M pixels. Suitable for common scenarios such as AI recognition and image processing.
-* **OS04A10**: M12 universal lens, 1/1.8" large sensor, ultra-high image quality, 4M pixels. Suitable for scenarios that require high image quality, such as photography and video recording. Note that it generates more heat.
-* **OV2685**: Lens is not replaceable, 1/5" sensor, 2M pixels, lowest image quality and cost. Generally not recommended.
-* **SC035HGS**: Monochrome global shutter camera, 0.3M monochrome pixels, suitable for capturing fast-moving objects.
+|Camera|Description|
+|---|---|
+|**GC4653**|M12 universal lens, 1/3" sensor, clear image quality, 4M pixels. Suitable for common scenarios such as AI recognition and image processing.|
+|**OS04A10**|M12 universal lens, 1/1.8" large sensor, ultra-high image quality, 4M pixels. Suitable for scenarios that require high image quality, such as photography and video recording. Note that it generates more heat.|
+|**OV2685**|Lens is not replaceable, 1/5" sensor, 2M pixels, lowest image quality and cost. Generally not recommended.|
+|**SC035HGS**|Monochrome global shutter camera, 0.3M monochrome pixels, suitable for capturing fast-moving objects.|
+<br>
+
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
+
+|Camera|Description|
+|---|---|
+|**OS04D10**|M12 universal lens with a 1/3" sensor. Provides clear image quality at 4MP. Well-suited for common applications such as AI recognition and image processing.|
+|**OS04A10**|M12 universal lens with a large 1/1.79" sensor. Delivers ultra-clear 4MP image quality. Ideal for scenarios demanding high visual fidelity. The AI-ISP enhances low-light performance for applications like photography and videography. Note: Heat generation is comparatively higher.|
+|**SC850SL**|M12 universal lens with a large 1/1.8" sensor. Produces ultra-clear 8MP resolution. Designed for high-quality imaging scenarios. Combined with the AI-ISP, it offers excellent night vision capability, making it perfect for photography and video recording.|
 
 The system will switch automatically; just replace the hardware to use.
 
@@ -101,7 +111,7 @@ Different boards and camera modules support different resolutions. Make sure to 
 It’s important to understand that **higher resolution is not always better**—choose the right resolution based on your scenario:
 
 * Photography/Video/Monitoring: Higher resolution can give clearer images.
-  GC4653 and OS04A10 support up to `2560x1440` resolution (i.e. `2K/4M pixels`). But high resolution demands more programming skill and memory. You may consider smaller resolutions such as `1920x1080`, `1280x720`, `640x480`, etc.
+  OS04D10, GC4653 and OS04A10 support up to `2560x1440` resolution (i.e. `2K/4M pixels`). But high resolution demands more programming skill and memory. You may consider smaller resolutions such as `1920x1080`, `1280x720`, `640x480`, etc.
   Note: When running code in **MaixVision**, if you set high resolution (e.g., `2560x1440`), disable the image preview feature in MaixVision to avoid errors due to insufficient memory.
 * AI Recognition / Image Processing: For faster performance, reduce resolution as much as possible while still ensuring recognizability.
 
@@ -121,9 +131,18 @@ Different ratios will result in center cropping.
 
 The camera operates at specific frame rates. MaixPy supports frame rate settings. Supported frame rates vary by module:
 
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM</span></div>
+
 | GC4653                                                 | OS04A10                             | OV2685           | SC035HGS        |
 | ------------------------------------------------------ | ----------------------------------- | ---------------- | --------------- |
 | 2560x1440\@30fps<br>1280x720\@60fps<br>1280x720\@80fps | 2560x1440\@30fps<br>1280x720\@80fps | 1920x1080\@30fps | 640x480\@180fps |
+<br>
+
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
+
+| GC4653 | SC850SL |
+|--------|---------|
+| 2560x1440@30fps<br>1280x720@60fps | 3840x2160@30fps<br>1920x1080@60fps|
 
 Frame rate is set via `width`, `height`, and `fps` when creating `Camera`.
 

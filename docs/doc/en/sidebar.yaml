@@ -1,8 +1,6 @@
 items:
 -   file: README.md
     label: Quick Start
--   file: README_no_screen.md
-    label: Quick Start(no screen)
 -   file: faq.md
     label: FAQ
 

@@ -107,7 +107,8 @@ display.send_to_maixvision(img)
 ## 更换其它型号屏幕
 
 如果想换不同尺寸的屏幕，可以到[商城](https://wiki.sipeed.com/store)咨询购买。
-对于 MaixCAM，目前支持 4 款屏幕和 1 款 MIPI 转 HDMI 模块：
+
+对于 **MaixCAM**，目前支持 4 款屏幕和 1 款 MIPI 转 HDMI 模块：
 * 2.3寸 552x368 分辨率电容触摸屏： MaixCAM 带的屏幕。
 * 2.4寸 640x480 分辨率电容触摸屏： MaixCAM-Pro 带的屏幕。
 * 5寸 854x480 分辨率无触摸屏： 注意无触摸，类似手机屏幕大小。
@@ -140,3 +141,5 @@ display.send_to_maixvision(img)
 
 以上的方式最保险，保证上电前已经设置好了屏幕型号，如果你已经烧录好系统了，也可以修改系统的`/boot/board`文件然后重启。
 > 早期的系统和二进制应用(< 2024.11.25)依赖的是`uEnv.txt`里面的`panel`键值，如果系统和应用比较老旧，修改了`board` 也可以同时将`uEnv.txt`中一同修改。
+
+对于 **MaixCAM2** 目前只支持2.4寸 640x480 分辨率电容触摸屏

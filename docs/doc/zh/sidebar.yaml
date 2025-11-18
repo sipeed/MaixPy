@@ -1,8 +1,6 @@
 items:
 -   file: README.md
     label: 快速开始
--   file: README_no_screen.md
-    label: 快速开始（无屏幕版）
 -   file: faq.md
     label: FAQ 常见问题
 
