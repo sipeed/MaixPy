@@ -1,7 +1,26 @@
 from maix import pinmap
 from maix import i2c, spi
-from maix import time
+from maix import time, app
 from maix import display, app, image, camera, nn, tensor, touchscreen
+
+old_ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
+app.set_sys_config_kv("npu", "ai_isp", "0")
+
+ts = touchscreen.TouchScreen()
+
+disp = display.Display()
+print("display init done")
+print(f"display size: {disp.width()}x{disp.height()}")
+cam = camera.Camera(disp.width(), disp.height())    # Manually set resolution
+                                                    # | 手动设置分辨率
+image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 20)
+# image.set_default_font("sourcehansans")
+img = image.Image(320, 240)
+img.clear()
+init_str = "Initializing.."
+init_str_size = image.string_size(init_str, font="sourcehansans")
+img.draw_string((img.width() - init_str_size.width())//2, (img.height() - init_str_size.height())//2, "Initializing..", image.COLOR_WHITE, font="sourcehansans")
+disp.show(img)
 
 PREVIEW_TEMP = True
 FRAME_NUM = 0
@@ -22,17 +41,6 @@ for pin, func in pin_function.items():
         exit(-1)
 
 ###############################################################################
-disp = display.Display()
-print("display init done")
-print(f"display size: {disp.width()}x{disp.height()}")
-
-img = image.Image(disp.width(), disp.height())
-loading_str = "Initializing..."
-loading_str_size = image.string_size(loading_str, scale=1.5)
-img.draw_string((disp.width() - loading_str_size.width()) // 2, (disp.height() - loading_str_size.height()) // 2, loading_str, image.COLOR_WHITE, scale=1.5)
-disp.show(img)
-
-
 bus = i2c.I2C(7, i2c.Mode.MASTER)
 slaves = bus.scan()
 print("find slaves:")
@@ -249,7 +257,6 @@ def scale_to_range(arr, target_min, target_max):
     scaled_arr = (arr - original_min) / (original_max - original_min) * (target_max - target_min) + target_min
     return scaled_arr
 
-
 import numpy as np
 import cv2
 import time
@@ -258,22 +265,28 @@ import inspect
 need_exit = 0
 hide_hud = False
 enable_x3 = True
-ts = touchscreen.TouchScreen()
+switch_x3 = False
+
 
 # x3model_name = '/root/models/x3c_192x256.mud'
-x3model_name = '/root/models/espcn_x3.mud'
+# x3model_name = '/root/models/espcn_x3.mud'
+x3model_name = '/root/models/sr3_ir_32.mud'
 
 x3model = nn.NN(x3model_name)
 if x3model_name == '/root/models/espcn_x3.mud':
     output_layer_name = '19'
 elif x3model_name == '/root/models/x3c_192x256.mud':
     output_layer_name = 'image_output'
+elif x3model_name == '/root/models/sr3_ir_32.mud' or \
+    x3model_name == '/root/models/sr2.5_ir32.mud' or \
+    x3model_name == '/root/models/sr2.5_ir48.mud':
+    output_layer_name = 'output'
 else:
     raise RuntimeError("Unsupported x3 model")
 
 image_frame = bytearray(width*height*2)
 while not app.need_exit():
-    img = image.Image(disp.width(), disp.height(), bg=image.COLOR_BLACK)
+    img = cam.read()
     img.draw_string(img.width()//2, img.height()//2, "Error: Init Failed.", image.Color.from_rgb(255, 0, 0))
     gray = np.array([])
     a0 = time.perf_counter()
@@ -297,23 +310,45 @@ while not app.need_exit():
                 grayimg = image.cv2image(img_8bit).resize(256, 192)
                 x3graytensors = x3model.forward_image(grayimg)
                 x3graytensor = x3graytensors[output_layer_name]
-                if x3model_name == '/root/models/espcn_x3.mud':
+                if "espcn_x3.mud" in x3model_name:
                     x3grayimg_np = tensor.tensor_to_numpy_float32(x3graytensor, copy = False).reshape((576, 768))
-                elif x3model_name == '/root/models/x3c_192x256.mud':
+                elif "x3c_192x256.mud" in x3model_name:
                     x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
+                elif "sr3_ir_32.mud" in x3model_name:
+                    x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((576, 768))
+                elif "sr2.5_ir32.mud" in x3model_name or "sr2.5_ir48.mud" in x3model_name:
+                    x3grayimg_np = tensor.tensor_to_numpy_uint8(x3graytensor, copy = False).reshape((480, 640))
                 else:
                     raise RuntimeError("Unsupported x3 model")
                 x3grayimg_np = x3grayimg_np.astype(np.uint8)
 
+                if switch_x3:
+                    switch_x3 = False
+                    if x3model_name == '/root/models/espcn_x3.mud':
+                        x3model_name = '/root/models/sr3_ir_32.mud'
+                        output_layer_name = 'output'
+                    if x3model_name == '/root/models/sr3_ir_32.mud':
+                        x3model_name = '/root/models/sr2.5_ir32.mud'
+                        output_layer_name = 'output'
+                    elif x3model_name == '/root/models/sr2.5_ir32.mud':
+                        x3model_name = '/root/models/sr2.5_ir48.mud'
+                        output_layer_name = 'output'
+                    elif x3model_name == '/root/models/sr2.5_ir48.mud':
+                        x3model_name = '/root/models/espcn_x3.mud'
+                        output_layer_name = '19'
+                    else:
+                        raise RuntimeError("Unsupported x3 model")
+                    x3model = nn.NN(x3model_name)
 
                 img_8bit = cv2.resize(x3grayimg_np, (disp.width(), disp.height()))
 
                 img_8bit = scale_to_range(img_8bit, img_8bit_raw_min_max[0], img_8bit_raw_min_max[1]).astype(np.uint8)
             else:
                 img_8bit = cv2.resize(img_8bit, (disp.width(), disp.height()))
-
+            print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
             # 伪彩色映射（热力图）
             color_img = cv2.applyColorMap(img_8bit, cv2.COLORMAP_MAGMA)  # BGR格式 COLORMAP_HOT COLORMAP_TURBO
+            print(f"{inspect.currentframe().f_lineno}: 耗时: {time.perf_counter() - a0:.6f} 秒")
             color_img = image.cv2image(color_img)
 
             center_pos = (height//2, width//2)
@@ -393,10 +428,20 @@ while not app.need_exit():
                 targetfile = os.path.join(filepath, filename)
                 np.save(targetfile, gray)
                 os.fsync(os.open(targetfile, os.O_RDWR))
+
+                filename = f"gray_{datetime.now().strftime("%Y%m%d_%H%M%S")}_{FRAME_NUM}.npy"
+                targetfile = os.path.join(filepath, filename)
+                np.save(targetfile, gray)
+                os.fsync(os.open(targetfile, os.O_RDWR))
+                filename = f"x3gray_{datetime.now().strftime("%Y%m%d_%H%M%S")}_{FRAME_NUM}.npy"
+                targetfile = os.path.join(filepath, filename)
+                np.save(targetfile, x3grayimg_np)
+                os.fsync(os.open(targetfile, os.O_RDWR))
             elif x >= 0 and x <= 120 and y >= img.height()-40 and y <= img.height(): # Lo-Res
                 enable_x3 = False
             elif x >= img.width()-120 and x <= img.width() and y >= img.height()-40 and y <= img.height(): # Hi-Res
                 enable_x3 = True
+                switch_x3 = True
             elif x >= img.width()//2-60 and x <= img.width()//2+60 and y >= 0 and y <= 40: # Hide HUD
                 hide_hud = True
             elif x >= img.width()//2-60 and x <= img.width()//2+60 and y >= img.height()-40 and y <= img.height(): # Show HUD
@@ -410,10 +455,12 @@ while not app.need_exit():
     if not hide_hud:
         img.draw_string(               10,              10, "Quit(Holding)", image.Color.from_rgb(255, 0 if need_exit == 0 else 255, 0), scale=2, thickness=2)
         img.draw_string(  img.width()-140,              10,       "Capture", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
+        img.draw_string(  img.width()-140,              60,x3model_name[2:], image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(               10, img.height()-20,        "Lo-Res", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(  img.width()-120, img.height()-20,        "Hi-Res", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(img.width()//2-60,              10,      "Hide HUD", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
         img.draw_string(img.width()//2-60, img.height()-20,      "Show HUD", image.Color.from_rgb(255, 0, 0), scale=2, thickness=2)
     disp.show(img)
 
+app.set_sys_config_kv("npu", "ai_isp", str(old_ai_isp))
 # /64 - 273.15
