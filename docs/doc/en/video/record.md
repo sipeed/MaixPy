@@ -20,10 +20,10 @@ An example of recording a video in `h265` format.
 from maix import video, image, camera, app, time
 
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
-e = video.Encoder()
+e = video.Encoder(width=cam.width(), height=cam.height())
 f = open('/root/output.h265', 'wb')
 
-record_ms = 2000
+record_ms = 5000
 start_ms = time.ticks_ms()
 while not app.need_exit():
     img = cam.read()
@@ -79,7 +79,7 @@ while not app.need_exit():
 5. Timed 2s exit
 
    ```python
-   record_ms = 2000
+   record_ms = 5000
    start_ms = time.ticks_ms()
    while not app.need_exit():
        if time.ticks_ms() - start_ms > record_ms:
@@ -98,12 +98,12 @@ An example of recording a video in `h265` format.
 from maix import video, time, image, camera, app
 
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
-e = video.Encoder(capture = True)
+e = video.Encoder(width=cam.width(), height=cam.height(), capture = True)
 e.bind_camera(cam)
 
 f = open('/root/output.h265', 'wb')
 
-record_ms = 2000
+record_ms = 5000
 start_ms = time.ticks_ms()
 while not app.need_exit():
     frame = e.encode()

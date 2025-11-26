@@ -20,10 +20,10 @@ update:
 from maix import video, image, camera, app, time
 
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
-e = video.Encoder()
+e = video.Encoder(width=cam.width(), height=cam.height())
 f = open('/root/output.h265', 'wb')
 
-record_ms = 2000
+record_ms = 5000
 start_ms = time.ticks_ms()
 while not app.need_exit():
     img = cam.read()
@@ -77,10 +77,10 @@ while not app.need_exit():
    - `f = open(xxx)`打开并创建一个文件
    - `f.write(frame.to_bytes(False))`将编码结果`frame`转换为`bytes`类型，然后调用`f.write()`将数据写入文件中
 
-5. 定时2s退出
+5. 定时5s退出
 
    ```python
-   record_ms = 2000
+   record_ms = 5000
    start_ms = time.ticks_ms()
    while not app.need_exit():
        if time.ticks_ms() - start_ms > record_ms:
@@ -99,12 +99,12 @@ while not app.need_exit():
 from maix import video, time, image, camera, app
 
 cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)
-e = video.Encoder(capture = True)
+e = video.Encoder(width=cam.width(), height=cam.height(), capture = True)
 e.bind_camera(cam)
 
 f = open('/root/output.h265', 'wb')
 
-record_ms = 2000
+record_ms = 5000
 start_ms = time.ticks_ms()
 while not app.need_exit():
     frame = e.encode()
