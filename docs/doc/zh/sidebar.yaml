@@ -123,6 +123,8 @@ items:
         label: DeepSeek 大语言模型
     -   file: mllm/vlm_internvl.md
         label: InternVL 视觉语言模型
+    -   file: mllm/vlm_qwen3.md
+        label: Qwen3-VL 视觉语言模型
 
 -   label: AI 模型转换和移植
     items:

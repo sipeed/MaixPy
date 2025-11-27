@@ -37,6 +37,7 @@ while not app.need_exit():
     time.sleep(1)
 
 def example1():
+    print('')
     # set prompt
     msg = "请描述图中有什么"
     print(">>", msg)
@@ -44,6 +45,7 @@ def example1():
     err.check_raise(resp.err_code)
 
 def example2():
+    print('')
     msg = "Describe the picture"
     print(">>", msg)
     resp = qwen3_vl.send(msg)
@@ -51,6 +53,7 @@ def example2():
 
 
 def example3():
+    print('')
     url = "http://127.0.0.1:12346"
     headers = {
         "Content-Type": "application/json",

@@ -122,6 +122,8 @@ items:
         label: DeepSeek LLM
     -   file: mllm/vlm_internvl.md
         label: InternVL Vision-Language Model
+    -   file: mllm/vlm_qwen3.md
+        label: Qwen3-VL Vision-Language Model
 
 -   label: AI Model Convertion and Port
     items:
