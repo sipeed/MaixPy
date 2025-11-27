@@ -16,8 +16,9 @@ class App:
         self.disp = display.Display()
         self.disp_w = self.disp.width()
         self.disp_h = self.disp.height()
-
         self.ts = touchscreen.TouchScreen()
+        self.check_memory()
+
         self.asr = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language=self.language)
         self.asr_result:None|str = None
         self.asr_thread:None|threading.Thread = None
@@ -52,6 +53,34 @@ class App:
         self.language_box = [self.disp_w - size.width(), 0, size.width(), size.height()]
 
         self.status = AppStatus.IDLE
+
+    def check_memory(self):
+        from maix import sys
+        ok = False
+        font = "sourcehansans"
+        mem_info = sys.memory_info()
+        if "hw_total" in mem_info:
+            hw_total = mem_info.get("hw_total", 0)
+            print(f"hw_total: {hw_total}({hw_total/1024/1024/1024}G)")
+            if hw_total < 4 * 1024 * 1024 * 1024:       # is not 4g version, try release more memory
+                ok = False
+            else:
+                ok = True
+        if ok == False:
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need the 4GB version of the board to run this application."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6, font=font)
+            self.disp.show(img)
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                time.sleep_ms(100)
+            exit(0)
 
     def run_asr(self, pcm:bytes):
         self.asr_thread_exit = False

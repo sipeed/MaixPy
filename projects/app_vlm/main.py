@@ -23,7 +23,7 @@ class PagedText:
             current_page.append(("", 0, 0))  # 初始化第一行
 
         page_height_used = sum(line[2] for line in current_page)
-        
+
         for ch in text:
             if ch == '\n' or ch == '\r':
                 continue
@@ -32,7 +32,7 @@ class PagedText:
             size = image.string_size(new_line_text)
             ch_w = size[0]
             ch_h = size[1]
-    
+
             # 尝试放到当前行
             if ch_w <= self.page_width:
                 # 更新行
@@ -76,7 +76,7 @@ class PagedText:
 
         height = 0
         for line_text, _, line_height in current_page:
-            img.draw_string(0, height, line_text, color, wrap_space=0)            
+            img.draw_string(0, height, line_text, color, wrap_space=0)
             height += line_height
 
 class App:
@@ -96,6 +96,8 @@ class App:
         self.__show_load_info('loading touchscreen..')
         self.ts = touchscreen.TouchScreen()
         self.cam = camera.Camera(640, 360)
+
+        self.check_memory()
 
         self.exit_img = image.load('./assets/exit.jpg')
         self.ai_isp = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
@@ -142,6 +144,34 @@ class App:
         self.vlm_result:str = ''
         self.page_text = PagedText(self.disp_w, self.disp_h - self.cam.height())
         self.sta = self.Status.IDLE
+
+    def check_memory(self):
+        from maix import sys
+        ok = False
+        font = "sourcehansans"
+        mem_info = sys.memory_info()
+        if "hw_total" in mem_info:
+            hw_total = mem_info.get("hw_total", 0)
+            print(f"hw_total: {hw_total}({hw_total/1024/1024/1024}G)")
+            if hw_total < 4 * 1024 * 1024 * 1024:       # is not 4g version, try release more memory
+                ok = False
+            else:
+                ok = True
+        if ok == False:
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need the 4GB version of the board to run this application."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6, font=font)
+            self.disp.show(img)
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                time.sleep_ms(100)
+            exit(0)
 
     def get_vl_model(self):
         model_list = ["internvl", "qwen3-vl"]
@@ -318,7 +348,7 @@ class App:
                     self.sta = self.Status.IDLE
 
             self.show_ui()
-            
+
         if self.vlm:
             self.vlm.cancel()
             time.sleep_ms(500)  # Make sure the VLM has exited.
@@ -330,7 +360,7 @@ class App:
         self.disp = None
 
         app.set_sys_config_kv("npu", "ai_isp", "1" if self.ai_isp else "0")
-        
+
 if __name__ == '__main__':
     appication = App()
     appication.run()

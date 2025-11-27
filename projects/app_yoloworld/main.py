@@ -39,12 +39,17 @@ class ASR:
 
 class APP:
     def __init__(self, disp):
+        image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 20)
         model = "/root/models/yolo-world_1_class.mud"
         feature = "/root/models/yolo-world_1_class_person.bin"
         labels = "/root/models/yolo-world_1_class_person.txt"
         self.model_valid = os.path.exists(model) and os.path.exists(feature) and os.path.exists(labels)
         self.disp = disp
+        self.disp_w = self.disp.width()
+        self.disp_h = self.disp.height()
         self.ts = touchscreen.TouchScreen()
+
+        self.check_memory()
         if self.model_valid:
             self._init_model(model, feature, labels)
         else:
@@ -53,6 +58,34 @@ class APP:
         self.asr = ASR()
         image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 24)
         # image.set_default_font("sourcehansans")
+
+    def check_memory(self):
+        from maix import sys
+        ok = False
+        font = "sourcehansans"
+        mem_info = sys.memory_info()
+        if "hw_total" in mem_info:
+            hw_total = mem_info.get("hw_total", 0)
+            print(f"hw_total: {hw_total}({hw_total/1024/1024/1024}G)")
+            if hw_total < 4 * 1024 * 1024 * 1024:       # is not 4g version, try release more memory
+                ok = False
+            else:
+                ok = True
+        if ok == False:
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need the 4GB version of the board to run this application."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6, font=font)
+            self.disp.show(img)
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                time.sleep_ms(100)
+            exit(0)
 
     def _init_model(self, model, feature, labels):
         self._destroy_model()
