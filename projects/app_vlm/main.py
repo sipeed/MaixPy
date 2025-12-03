@@ -102,9 +102,10 @@ class App:
         self.exit_img = image.load('./assets/exit.jpg')
         self.ai_isp = bool(int(app.get_sys_config_kv("npu", "ai_isp", "1")))
         if self.ai_isp is True:
-            app.set_sys_config_kv("npu", "ai_isp", False)
+            app.set_sys_config_kv("npu", "ai_isp", "0")
 
         vlm_model = self.get_vl_model()
+        self.support_zh = True
         self.__show_load_info(f'loading {vlm_model}..')
         if vlm_model == "qwen3-vl":
             try:
@@ -130,6 +131,10 @@ class App:
                         app.set_exit_flag(True)
                     time.sleep_ms(100)
                 exit(0)
+        elif vlm_model == 'smolvlm':
+            self.vlm = nn.SmolVLM('/root/models/smolvlm-256m-instruct-maixcam2/model.mud')
+            self.vlm.set_system_prompt("You are a helpful vision-to-text assistant.")
+            self.support_zh = False
         elif vlm_model == 'internvl':
             self.vlm = nn.InternVL('/root/models/InternVL2.5-1B/model.mud')
             self.vlm.set_system_prompt("你是由上海人工智能实验室联合商汤科技开发的书生多模态大模型, 英文名叫InternVL, 是一个有用无害的人工智能助手。")
@@ -174,7 +179,7 @@ class App:
             exit(0)
 
     def get_vl_model(self):
-        model_list = ["internvl", "qwen3-vl"]
+        model_list = ["smolvlm", "internvl", "qwen3-vl"]
         model_list_num = len(model_list)
         ui_box = []
         rect_box = [0, 0, self.disp_w//2, self.disp_h//2]
@@ -210,10 +215,7 @@ class App:
             exit_img_x = 0
             exit_img_y = 0
             img.draw_image(exit_img_x, exit_img_y, self.exit_img)
-
-            if ts_data[2] and 0<=ts_data[0]<=self.exit_img.width()*4 + exit_img_x and 0 <=ts_data[1]<=self.exit_img.height()*4 + exit_img_y:
-                print('exit')
-                app.set_exit_flag(True)
+            self.check_exit()
 
             self.disp.show(img)
             time.sleep_ms(50)
@@ -252,6 +254,16 @@ class App:
         t.start()
         # t.run()
 
+    def check_exit(self):
+        ts_data = self.ts.read()
+        exit_img_x = 0
+        exit_img_y = 0
+        exit_img_w = self.exit_img.width()*8
+        exit_img_h = self.exit_img.height()*8
+        if ts_data[2] and 0<=ts_data[0]<=exit_img_w + exit_img_x and 0 <=ts_data[1]<=exit_img_h + exit_img_y:
+            print('exit')
+            app.set_exit_flag(True)
+
     def show_ui(self):
         img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
         ts_data = self.ts.read()
@@ -276,10 +288,7 @@ class App:
         exit_img_x = 0
         exit_img_y = 0
         img.draw_image(exit_img_x, exit_img_y, self.exit_img)
-
-        if ts_data[2] and 0<=ts_data[0]<=self.exit_img.width()*4 + exit_img_x and 0 <=ts_data[1]<=self.exit_img.height()*4 + exit_img_y:
-            print('exit')
-            app.set_exit_flag(True)
+        self.check_exit()
 
         # en/zh
         size = image.string_size("ZH", scale=2)
@@ -287,11 +296,15 @@ class App:
             img.draw_string(self.disp_w - size.width(), 0, "ZH", image.COLOR_WHITE, scale=2)
         else:
             img.draw_string(self.disp_w - size.width(), 0, "EN", image.COLOR_WHITE, scale=2)
-        if ts_data[2] and self.disp_w - size.width()*2<=ts_data[0]<=self.disp_w and 0 <=ts_data[1]<=size.height() * 2:
-            if self.language == 'zh':
-                self.language = 'en'
-            else:
-                self.language = 'zh'
+
+        if self.support_zh:
+            if ts_data[2] and self.disp_w - size.width()*2<=ts_data[0]<=self.disp_w and 0 <=ts_data[1]<=size.height() * 2:
+                if self.language == 'zh':
+                    self.language = 'en'
+                else:
+                    self.language = 'zh'
+        else:
+            self.language = 'en'
         self.disp.show(img)
 
 
@@ -300,6 +313,7 @@ class App:
         if self.vlm_img:
             self.page_text.add_text(resp.msg_new)
         # self.show_ui()
+        self.check_exit()
 
     def __show_load_info(self, text: str, x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE):
         if self.disp:
@@ -312,25 +326,19 @@ class App:
             img.draw_string(x, y, text, image.COLOR_WHITE)
             self.disp.show(img)
 
-    def __draw_string_upper_center(self, img, y:int=8, text:str="", color:image.Color=image.COLOR_WHITE):
-        x = 0
-        text_size = image.string_size(text)
-        x = (img.width() - text_size.width()) // 2
-        img.draw_string(x, y, text, color)
-
     def run(self):
         while not app.need_exit():
             with self.vlm_thread_lock:
                 sta = self.sta
 
             if sta == self.Status.IDLE:
-                print('IDLE')
+                # print('IDLE')
                 self.vlm_img = self.cam.read()
                 if self.vlm_img:
                     with self.vlm_thread_lock:
                         self.sta = self.Status.VLM_START
             elif sta == self.Status.VLM_START:
-                print('VLM_START')
+                # print('VLM_START')
                 if self.vlm_img:
                     if self.language == 'zh':
                         msg = '简单描述这张图片'
@@ -340,10 +348,10 @@ class App:
                     with self.vlm_thread_lock:
                         self.sta = self.Status.VLM_RUNNING
             elif sta == self.Status.VLM_RUNNING:
-                print('VLM_RUNNING')
+                # print('VLM_RUNNING')
                 self.vlm_img = self.cam.read()
             elif sta == self.Status.VLM_STOP:
-                print('VLM_STOP')
+                # print('VLM_STOP')
                 with self.vlm_thread_lock:
                     self.sta = self.Status.IDLE
 
