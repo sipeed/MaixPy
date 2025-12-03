@@ -125,6 +125,8 @@ items:
         label: InternVL 视觉语言模型
     -   file: mllm/vlm_qwen3.md
         label: Qwen3-VL 视觉语言模型
+    -   file: mllm/lm_lora_sdv1_5.md
+        label: LCM-LoRA-SDv1-5 模型
 
 -   label: AI 模型转换和移植
     items:
