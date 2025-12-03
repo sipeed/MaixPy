@@ -126,6 +126,8 @@ items:
         label: Qwen3-VL Vision-Language Model
     -   file: mllm/lm_lora_sdv1_5.md
         label: LCM-LoRA-SDv1-5 Model
+    -   file: mllm/vlm_smolvlm.md
+        label: SmolVLM Vision-Language Model
 
 -   label: AI Model Convertion and Port
     items:
