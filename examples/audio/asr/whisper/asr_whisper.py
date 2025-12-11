@@ -1,7 +1,8 @@
 from maix import nn, audio
 
 # Only MaixCAM2 supports this model.
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
+lauguage = 'zh' # 'en' or 'zh
+whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language=lauguage)
 
 use_default_file = True
 transcribe_pcm_data = False

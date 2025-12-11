@@ -2,6 +2,7 @@
     YOLO-World detection demo, if you want to detect different classes, please use nn_yolo_world_learn.py to generate feature file.
 '''
 from maix import camera, display, image, nn, app, touchscreen, time, audio
+from sensevoice import SensevoiceClient
 import os
 import gc
 
@@ -22,20 +23,38 @@ def get_back_btn_img(width):
 
 class ASR:
     def __init__(self):
-        self.whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
+        stream = False
+        self.asr = SensevoiceClient("/root/models/sensevoice-maixcam2/model.mud", stream=stream)
+        self.asr.start()
         self.recorder = audio.Recorder(sample_rate=16000, channel=1)
         self.recorder.volume(60)
-
 
     def record_mic(self, time_ms):
         print(f'Recording for {time_ms // 1000} seconds..')
         return self.recorder.record(time_ms)
 
+    def is_ready(self, block=False):
+        if self.asr:
+            return self.asr.is_ready(block=block)
+        else:
+            raise ValueError("ASR is not init")
+
     def transcribe_pcm(self, pcm):
         print('Start transcribing..')
-        res = self.whisper.transcribe_raw(pcm)
-        print('Transcription result:', res)
-        return res.strip().replace(",", " ")
+        if self.asr:
+            res = self.asr.refer(audio_data=pcm)
+            print('Transcription result:', res)
+        else:
+            raise ValueError("ASR is not init")
+        return res
+
+    def __del__(self):
+        print("release asr resource")
+        if self.asr:
+            res = self.asr.stop()
+            print('Transcription result:', res)
+        else:
+            raise ValueError("ASR is not init")
 
 class APP:
     def __init__(self, disp):
@@ -47,17 +66,78 @@ class APP:
         self.disp = disp
         self.disp_w = self.disp.width()
         self.disp_h = self.disp.height()
+
+        self.__show_load_info(f'Init touchscreen..')
         self.ts = touchscreen.TouchScreen()
 
+        self.__show_load_info(f'Check memory..')
         self.check_memory()
+
+        self.__show_load_info(f'Init camera..')
         if self.model_valid:
             self._init_model(model, feature, labels)
         else:
             self.cam = camera.Camera(self.disp.width(), self.disp.height())
             self._update_button_info(self.cam.width(), self.cam.height())
+
         self.asr = ASR()
-        image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 24)
+        loader_count = 0
+        loader_max_count = 34
+        while True:
+            if app.need_exit():
+                break
+
+            if self.asr.is_ready(block=False):
+                break
+
+            time.sleep(1)
+            loader_count += 1
+            loader_count = loader_count if loader_count < loader_max_count else (loader_max_count - 1)
+            self.__show_load_info(f'Init asr model.. {loader_count}/{loader_max_count}', tips='It may wait for a long time.')
+        self.__show_load_info(f'Init asr model.. {loader_max_count}/{loader_max_count}', tips='It may wait for a long time.')
+
         # image.set_default_font("sourcehansans")
+
+    def __show_error_info(self, text: str, x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE, font="sourcehansans"):
+        if self.disp:
+            str_size = image.string_size(text)
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            if x == 0:
+                x = (img.width() - str_size.width()) // 2
+            if y == 0:
+                y = (img.height() - str_size.height()) // 2
+            err_title_msg = "Ops!!!"
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 20, err_title_msg, color, font=font)
+            img.draw_string(x, y + 20, text, color, font=font)
+            img.draw_string(0, 200, err_exit_msg, color, 0.6, font=font)
+            self.disp.show(img)
+
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                    exit(0)
+                time.sleep_ms(100)
+
+    def __show_load_info(self, text: str, tips: str = '', x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE, font="sourcehansans"):
+        if self.disp:
+            str_size = image.string_size(text, font=font)
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            if x == 0:
+                x = (img.width() - str_size.width()) // 2
+            if y == 0:
+                y = (img.height() - str_size.height()) // 2
+            img.draw_string(x, y, text, color, font=font)
+
+            if tips != '':
+                tips_str = f"({tips})"
+                tips_scale = 0.8
+                tips_size = image.string_size(tips_str, scale=tips_scale, font=font)
+                tips_x = (img.width() - tips_size.width()) // 2
+                tips_y = y + str_size.height() + tips_size.height()
+                img.draw_string(tips_x, tips_y, tips_str, color, scale=tips_scale, font=font)
+            self.disp.show(img)
 
     def check_memory(self):
         from maix import sys
@@ -217,6 +297,7 @@ class APP:
                         img.draw_string((img.width() - msg_size[0]) // 2, (img.height() - msg_size[1]) // 2, msg, scale=self.btn_text_scale, thickness=1, color=image.COLOR_RED)
                         self.disp.show(img)
                         new_label = self.asr.transcribe_pcm(pcm)
+                        print('Get new label:', new_label)
                         if new_label:
                             ensure_label = True
                         # clear btn event
