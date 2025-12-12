@@ -2,7 +2,7 @@
     YOLO-World detection demo, if you want to detect different classes, please use nn_yolo_world_learn.py to generate feature file.
 '''
 from maix import camera, display, image, nn, app, touchscreen, time, audio
-from sensevoice import SensevoiceClient
+from maix import sensevoice
 import os
 import gc
 
@@ -24,7 +24,7 @@ def get_back_btn_img(width):
 class ASR:
     def __init__(self):
         stream = False
-        self.asr = SensevoiceClient("/root/models/sensevoice-maixcam2/model.mud", stream=stream)
+        self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=stream)
         self.asr.start()
         self.recorder = audio.Recorder(sample_rate=16000, channel=1)
         self.recorder.volume(60)

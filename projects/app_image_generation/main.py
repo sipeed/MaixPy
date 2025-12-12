@@ -59,38 +59,38 @@ class App:
         if self.ai_isp is True:
             app.set_sys_config_kv("npu", "ai_isp", "0")
 
-        # load lcm_lora_sdv1_5
-        self.__show_load_info('Loading lcm_lora_sdv1_5 module..')
-        lcm_lora_sdv1_5_loader = ModuleLoader('lcm_lora_sdv1_5')
-        lcm_lora_sdv1_5 = None
+        # load sdv1_5
+        self.__show_load_info('Loading sdv1_5 module..')
+        sdv1_5_loader = ModuleLoader('maix.sdv1_5')
+        sdv1_5 = None
         loader_count = 0
         loader_max_count = 56
         while True:
             if app.need_exit():
                 break
 
-            lcm_lora_sdv1_5 = lcm_lora_sdv1_5_loader.try_get_module(block=False)
-            if lcm_lora_sdv1_5 is not None:
+            sdv1_5 = sdv1_5_loader.try_get_module(block=False)
+            if sdv1_5 is not None:
                 break
 
             time.sleep(1)
             loader_count += 1
             loader_count = loader_count if loader_count < loader_max_count else (loader_max_count - 1)
-            self.__show_load_info(f'Loading lcm_lora_sdv1_5 model.. {loader_count}/{loader_max_count}', tips='It may wait for a long time.')
-        self.__show_load_info(f'Loading lcm_lora_sdv1_5 model.. {loader_max_count}/{loader_max_count}', tips='It may wait for a long time.')
+            self.__show_load_info(f'Loading sdv1_5 model.. {loader_count}/{loader_max_count}', tips='It may wait for a long time.')
+        self.__show_load_info(f'Loading sdv1_5 model.. {loader_max_count}/{loader_max_count}', tips='It may wait for a long time.')
 
-        # from lcm_lora_sdv1_5 import SDV1_5
-        self.__show_load_info('Init lcm_lora_sdv1_5 model..', tips='It may wait for a long time.')
-        self.text2img_model = lcm_lora_sdv1_5.SDV1_5("/root/models/lcm-lora-sdv1-5-maixcam2/ax620e_models")
+        # from sdv1_5 import SDV1_5
+        self.__show_load_info('Init sdv1_5 model..', tips='It may wait for a long time.')
+        self.text2img_model = sdv1_5.SDV1_5("/root/models/lcm-lora-sdv1-5-maixcam2/ax620e_models")
         self.text2img_model.init(img2img=True)
 
         # load asr model
         self.__show_load_info('Loading sensevoice module..')
-        sensevoice_loader = ModuleLoader('sensevoice')
+        sensevoice_loader = ModuleLoader('maix.sensevoice')
         sensevoice = sensevoice_loader.try_get_module()
 
         self.__show_load_info('Init asr model..')
-        self.asr = sensevoice.SensevoiceClient("/root/models/sensevoice-maixcam2/model.mud", stream=False)
+        self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=False)
         self.asr.start()
         loader_count = 0
         loader_max_count = 34
@@ -357,7 +357,7 @@ class App:
             img.draw_rect(capture_box[0], capture_box[1], capture_box[2], capture_box[3], image.COLOR_WHITE, 2)
 
             img.draw_rect(text_box[0], text_box[1], text_box[2], text_box[3], image.COLOR_WHITE, 2)
-            img.draw_string(text_box[0], text_box[1], text, image.COLOR_WHITE)
+            img.draw_string(text_box[0]+10, text_box[1]+10, text, image.COLOR_WHITE)
 
             # exit img
             img.draw_image(0, 0, self.exit_img)

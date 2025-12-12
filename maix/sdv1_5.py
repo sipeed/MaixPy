@@ -1,3 +1,7 @@
+from maix import sys
+if sys.device_id().lower() != "maixcam2":
+    raise ValueError("Only maixcam2 platform support this module")
+
 from typing import List, Optional, Tuple, Union
 import os
 import time
@@ -12,6 +16,7 @@ from diffusers.models.autoencoders.vae import DiagonalGaussianDistribution
 from diffusers.models.modeling_outputs import AutoencoderKLOutput
 from diffusers.utils import load_image, make_image_grid
 from diffusers.utils.torch_utils import randn_tensor
+
 ############ Img2Img
 PipelineImageInput = Union[
     Image.Image,
@@ -702,7 +707,7 @@ class SDV1_5:
 
 # model = SDV1_5("/root/models/lcm-lora-sdv1-5-maixcam2/ax620e_models")
 # model.init(img2img=True)
-# model.refer(prompt="A white dog", save_path="/root/txt2img.jpg")
-# model.refer(prompt="Replace the dog with a cat.", init_image_path="/root/ax620e_txt2img_axe.png", seed=1, save_path="/root/img2img.jpg")
+# model.refer(prompt="A white dog", save_path="/root/text2img.jpg")
+# model.refer(prompt="Replace the dog with a cat.", init_image_path="/root/text2img.jpg", seed=0.5, save_path="/root/img2img.jpg")
 
 # model.deinit()

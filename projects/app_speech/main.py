@@ -41,11 +41,11 @@ class App:
         self.check_memory()
 
         self.__show_load_info('Loading sensevoice module..')
-        sensevoice_loader = ModuleLoader('sensevoice')
+        sensevoice_loader = ModuleLoader('maix.sensevoice')
         sensevoice = sensevoice_loader.try_get_module()
 
         self.__show_load_info(f'Init asr model..')
-        self.asr = sensevoice.SensevoiceClient("/root/models/sensevoice-maixcam2/model.mud", stream=False)
+        self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=False)
         self.asr.start()
         loader_count = 0
         loader_max_count = 34
@@ -150,7 +150,7 @@ class App:
         img.draw_string(self.img_record_str_box[0], self.img_record_str_box[1], self.img_record_str, image.COLOR_WHITE)
 
         img.draw_rect(self.text_box[0],self.text_box[1],self.text_box[2],self.text_box[3],image.COLOR_WHITE, 2)
-        img.draw_string(self.text_box[0],self.text_box[1], self.text, image.COLOR_WHITE)
+        img.draw_string(self.text_box[0]+10,self.text_box[1]+10, self.text, image.COLOR_WHITE)
         self.disp.show(img)
 
     def run(self):

@@ -1,10 +1,14 @@
+from maix import sys
+if sys.device_id().lower() != "maixcam2":
+    raise ValueError("Only maixcam2 platform support this module")
+
 import requests, json, os
 import wave
 import numpy as np
 import threading
 from maix import app, time
 
-class SensevoiceClient:
+class Sensevoice:
     def __init__(self, model = "", url="http://0.0.0.0:12347", lauguage="auto", stream=False):
         self.model = model
         self.url = url
@@ -13,6 +17,7 @@ class SensevoiceClient:
         self.thread = None
         self.thread_is_exit = False
         self.thread_exit_code = 0
+        self.heartbeat_thread = None
 
         self.last_ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
         if self.last_ai_isp:
@@ -29,6 +34,20 @@ class SensevoiceClient:
         except:
             return False
 
+    def _send_heartbeat(self):
+        try:
+            response = requests.get(self.url + '/heartbeat')
+            if response.status_code == 200:
+                return True
+        except:
+            return False
+
+    def send_heartbeat_thread(self):
+        while True:
+            if not self._send_heartbeat():
+                print('Send heartbeat failed!')
+            time.sleep(10)
+
     def _start_service(self):
         if not self._check_service():
             os.system("systemctl start sensevoice.service")
@@ -39,6 +58,9 @@ class SensevoiceClient:
             print(f"Waiting for service to start({count})...")
             time.sleep(1)
 
+        if self.heartbeat_thread is None:
+            self.heartbeat_thread = threading.Thread(target=self.send_heartbeat_thread, daemon=True)
+            self.heartbeat_thread.start()
         return True
 
     def _stop_service(self):
@@ -134,31 +156,31 @@ class SensevoiceClient:
             sampwidth = wav_file.getsampwidth()
             framerate = wav_file.getframerate()
             n_frames = wav_file.getnframes()
-            
+
             # Read audio data
             frames = wav_file.readframes(n_frames)
-            
+
             # Convert byte data to numpy array based on sample width
             dtype_map = {1: np.int8, 2: np.int16, 4: np.int32}
             if sampwidth not in dtype_map:
                 raise ValueError(f"Unsupported sample width: {sampwidth}")
-            
+
             dtype = dtype_map[sampwidth]
             audio_data = np.frombuffer(frames, dtype=dtype)
-            
+
             # Reshape for multi-channel audio
             if n_channels > 1:
                 audio_data = audio_data.reshape(-1, n_channels)
-                
+
             # Convert to float32 in range [-1, 1]
             audio_data = audio_data.astype(np.float32) / np.iinfo(dtype).max
-            
+
             # Resample if needed
             if framerate != sr:
                 # You'll need scipy for resampling
                 from scipy import signal
                 audio_data = signal.resample_poly(audio_data, sr, framerate, axis=0)
-                
+
             return audio_data, sr
 
     def load_with_pcm(self, frames, sr=16000, bits=16, channels=1):
@@ -188,7 +210,7 @@ class SensevoiceClient:
         if self.stream:
             print("Streaming mode, use refer_stream() instead.")
             return ""
-        
+
         if path:
             waveform = self.get_wave_form(path)
         elif audio_data:
@@ -201,7 +223,7 @@ class SensevoiceClient:
             "sample_rate": 16000,
             "launguage": "auto"
         }
-        
+
         try:
             response = requests.post(self.url + '/asr', json=data)
             if response.status_code == 200:
@@ -246,42 +268,3 @@ class SensevoiceClient:
         except Exception as e:
             print("Requests failed:", e)
             return ""
-
-# open_microphone = False
-# stream = True
-# model_path = "/root/models/sensevoice-maixcam2"
-# client = SensevoiceClient(model=model_path+"/model.mud", stream=stream)
-# client.start()
-# if client.is_ready(block=True) is False:
-#     print("Failed to start service or model.")
-#     exit()
-
-# if open_microphone:
-#     from maix import audio
-#     recorder = audio.Recorder(sample_rate=16000, channel=1)
-#     recorder.volume(100)
-#     print('Recording for 3 seconds..')
-#     audio_data = recorder.record(3 * 1000)
-#     if not stream:
-#         print('start refer')
-#         text = client.refer(audio_data=audio_data)
-#         print(text)
-#     else:
-#         print('start refer stream')
-#         for text in client.refer_stream(audio_data=audio_data):
-#             print(text)
-# else:
-#     audio_file = "/maixapp/share/audio/demo.wav"
-#     if not stream:
-#         print('start refer')
-#         text = client.refer(path=audio_file)
-#         print(text)
-#     else:
-#         print('start refer stream')
-#         for text in client.refer_stream(path=audio_file):
-#             print(text)
-
-
-# # You can comment out this line of code, which will save time on the next startup. 
-# # But it will cause the background service to continuously occupy CMM memory.
-# client.stop()

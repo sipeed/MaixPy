@@ -14,7 +14,5 @@ files:
   - assets/exit.jpg
   - assets/icon.json
   - app.yaml
-  - lcm_lora_sdv1_5.py
   - main.py
   - README.md
-  - sensevoice.py
