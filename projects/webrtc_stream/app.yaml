@@ -1,0 +1,12 @@
+id: webrtc_stream
+name: WebRTC Stream
+name[zh]: WebRTC 推流
+version: 1.0.0
+author: Sipeed Ltd
+icon: app.png
+desc: WebRTC Stream
+desc[zh]: WebRTC 推流
+files:
+  - assets
+  - app.yaml
+  - main.py
