@@ -155,6 +155,8 @@ items:
         label: RTMP 串流
     -   file: video/uvc_streaming.md
         label: UVC 串流
+    -   file: video/webrtc_streaming.md
+        label: WebRTC 串流
 
 -   label: 网络通信
     items:

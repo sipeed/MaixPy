@@ -155,6 +155,8 @@ items:
         label: RTMP streaming
     -   file: video/uvc_streaming.md
         label: UVC streaming
+    -   file: video/webrtc_streaming.md
+        label: WebRTC streaming
 
 -   label: Network
     items:
