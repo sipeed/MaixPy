@@ -3,7 +3,7 @@ name: WebRTC Stream
 name[zh]: WebRTC 推流
 version: 1.0.0
 author: Sipeed Ltd
-icon: app.png
+icon: assets/app.png
 desc: WebRTC Stream
 desc[zh]: WebRTC 推流
 files:
