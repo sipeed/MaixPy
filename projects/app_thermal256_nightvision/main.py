@@ -19,19 +19,23 @@ def dbg_time(name, t):
 
 # --- 1. 系统配置 ---
 ts = touchscreen.TouchScreen()
-disp = display.Display()
-print(f"display size: {disp.width()}x{disp.height()}")
+cam_w = 640
+cam_h = 480
+
 old_ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
 app.set_sys_config_kv("npu", "ai_isp", "1")
 
-# --- 2. 摄像头初始化 ---
+# --- 2. 摄像头/屏幕初始化 ---
 print("Init Camera...")
 cam = None
 try:
-    cam = camera.Camera(disp.width(), disp.height())
+    cam = camera.Camera(cam_w, cam_h)
     print("Camera Init Success")
 except Exception as e:
     print(f"Camera Init Failed: {e}")
+
+disp = display.Display()
+print(f"display size: {disp.width()}x{disp.height()}")
 
 image.load_font("sourcehansans", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = 20)
 
@@ -405,7 +409,7 @@ while not app.need_exit():
 
         now = time.ticks_ms()
         # 帧率计算修正为 (last, now)
-        print(f"==========={time.ticks_diff(last_frame_ms, now)} ms")
+        # print(f"loop {time.ticks_diff(last_frame_ms, now)} ms")
         last_frame_ms = now
 
     # Mode 1,2,3
