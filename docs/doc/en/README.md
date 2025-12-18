@@ -23,7 +23,7 @@ title: MaixCAM MaixPy Quick Start
 | :-------------------------:| :-------------------------------------------------------------------------------------:|
 |  Tutorial Documentation 📖 | [wiki.sipeed.com/maixpy/en/](https://wiki.sipeed.com/maixpy/en/)                                   |
 | Examples and Source Code <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;"> | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
-|  MaixCAM Hardware 📷 | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) / [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)                                 |
+|  MaixCAM Hardware 📷 | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) </br> [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)  </br>  [wiki.sipeed.com/maixcam2](https://wiki.sipeed.com/maixcam2)|
 |  API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixHub App Store 📦      | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub Sharing Square 🎲 | [maixhub.com/share](https://maixhub.com/share)                                             |

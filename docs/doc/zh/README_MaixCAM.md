@@ -83,6 +83,9 @@ Classifier Result video
 
 **注意：应用只包含了 MaixPy 能实现的一部分功能，使用 MaixPy 能创造更多功能**。
 
+### 登录终端
+
+如果需要登录终端, `MaixCAM` 默认用户名是 `root`，密码是 `root`。
 
 ## 作为串口模块使用
 
@@ -158,6 +161,5 @@ while not app.need_exit():        # 一直循环，直到程序退出（可以�
 > 默认例程没有显式编写退出功能，进入应用后按下设备的功能按键即可退出应用。（对于 MaixCAM 是 user 键）
 
 如果想让程序开机自启动，可以在 `设置 -> 开机启动` 中设置。
-
 
 更多 MaixVision 使用请看 [MaixVision 文档](./basic/maixvision.md)。

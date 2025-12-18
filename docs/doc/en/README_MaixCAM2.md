@@ -70,6 +70,10 @@ Please explore other applications on your own. More applications will be updated
 
 **Note: The applications only include a part of the functionality that MaixPy can achieve. Using MaixPy, you can create even more features.**
 
+### Logging into the Terminal
+
+If you need to log into the terminal, the default username for `MaixCAM2` is `root`, and the password is `sipeed`.
+
 ## Use as a Serial Module
 
 > If you want to use the device as the main controller (or if you don't understand what a serial module is), you can skip this step.

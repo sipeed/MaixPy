@@ -32,6 +32,10 @@ If the virtual network adapter is not detected:
 * Check if the USB connection is loose and whether the USB cable is of good quality; you can try using a better-quality cable.
 * Ensure that the USB port provides sufficient power. You can try another USB port or even another computer if possible.
 
+### Logging into the Terminal
+
+If you need to log into the terminal, the default username for `MaixCAM` is `root`, and the password is `root`.
+
 ## Preparing to Connect the Computer and Device
 
 To enable communication between your computer (PC) and the device (MaixCAM), they need to be on the same local area network. Two methods are provided; we will first use Method 1:

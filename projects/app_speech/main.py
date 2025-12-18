@@ -48,7 +48,7 @@ class App:
         self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=False)
         self.asr.start()
         loader_count = 0
-        loader_max_count = 34
+        loader_max_count = 8
         while True:
             if app.need_exit():
                 break

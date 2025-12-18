@@ -131,9 +131,9 @@ Since you are not providing a certificate, you cannot use your microphone from w
 
 为了简化篇幅这里放了示例客户端代码的链接，自行拷贝。注意大部分情况音频数据要求采样率`16000Hz`， 采样通道为`1`。
 
-`MaixCAM`流式识别点击[这里](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/asr_streaming_websockt_client)获取代码
+`MaixCAM`流式识别点击[这里](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/maix_speech/asr_streaming_websocket_client.py)获取代码
 
-`MaixCAM`非流式识别点击[这里](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/asr_non_streaming_websockt_client)获取代码
+`MaixCAM`非流式识别点击[这里](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/maix_speech/asr_non_streaming_websocket_client.py)获取代码
 
 ```shell
 # 修改服务器地址

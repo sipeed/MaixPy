@@ -75,6 +75,15 @@ class Sensevoice:
         except:
             return "not loaded"
 
+    def _reset_model(self):
+        try:
+            response = requests.post(self.url + '/reset_model')
+            if response.status_code == 200:
+                res = json.loads(response.text)
+                return res["status"]
+        except:
+            return "not loaded"
+
     def _start_model(self):
         try:
             data = {
@@ -92,7 +101,7 @@ class Sensevoice:
 
     def _stop_model(self):
         try:
-            response = requests.post(self.url + '/_stop_model')
+            response = requests.post(self.url + '/stop_model')
             if response.status_code == 200:
                 res = json.loads(response.text)
                 return True if res["status"] == 'not loaded' else False
@@ -129,6 +138,9 @@ class Sensevoice:
 
     def is_ready(self, block=False):
         while not app.need_exit():
+            if self.thread_is_exit:
+                return True if self.thread_exit_code == 0 else False
+
             if self._get_status() == "loaded":
                 return True
             else:
@@ -136,10 +148,6 @@ class Sensevoice:
                     time.sleep(1)
                 else:
                     return False
-
-            if self.thread_is_exit:
-                return True if self.thread_exit_code == 0 else False
-
         return False
 
     def stop(self):
@@ -225,17 +233,20 @@ class Sensevoice:
         }
 
         try:
+            result = ""
             response = requests.post(self.url + '/asr', json=data)
             if response.status_code == 200:
                 res = json.loads(response.text)
                 text = res.get("text", "")
                 if len(text) > 0:
-                    return text[0]
+                    result = text[0]
                 else:
-                    return ""
+                    result = ""
             else:
                 print(f"Requests failed: {response.status_code}")
-                return ""
+                result = ""
+
+            return result
         except Exception as e:
             print("Requests failed:", e)
             return ""
@@ -258,13 +269,15 @@ class Sensevoice:
             "launguage": "auto",
             "step": 0.1,
         }
-        print('start post')
+
         try:
             response = requests.post(self.url + '/asr_stream', json=data, stream=True)
             for line in response.iter_lines():
                 if line:
                     chunk = json.loads(line)
                     yield chunk.get("text", "")
+
+            self._reset_model()
         except Exception as e:
             print("Requests failed:", e)
             return ""

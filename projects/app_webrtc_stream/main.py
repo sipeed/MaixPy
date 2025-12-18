@@ -1,5 +1,4 @@
 from maix import app, webrtc, camera, image, display, touchscreen, time
-import sys
 
 font_size = 16
 image.load_font("font", "/maixapp/share/font/SourceHanSansCN-Regular.otf", size = font_size)
@@ -9,8 +8,12 @@ disp = display.Display()
 ts = touchscreen.TouchScreen()
 
 encoders = ["H.264", "H.265"]
+sensor_size = camera.get_sensor_size()
 bitrates = ["1 Mbps", "2 Mbps", "4 Mbps", "8 Mbps", "16 Mbps", "32 Mbps", "64 Mbps"]
-resolutions = ["720 P", "1080 P", "2 K", "4 K"]
+if sensor_size[0] > 2560:
+    resolutions = ["720 P", "1080 P", "2 K", "4 K"]
+else:
+    resolutions = ["720 P", "1080 P", "2 K"]
 
 choice_encoder = 0
 choice_bitrate = 0

@@ -76,6 +76,9 @@ Classifier Result video
 
 **注意：应用只包含了 MaixPy 能实现的一部分功能，使用 MaixPy 能创造更多功能**。
 
+### 登录终端
+
+如果需要通过登录终端, `MaixCAM2` 默认用户名是 `root`，密码是 `sipeed`。
 
 ## 作为串口模块使用
 

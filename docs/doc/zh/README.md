@@ -30,7 +30,7 @@ title: MaixCAM MaixPy 快速开始
 | :-------------------------: | :-------------------------------------------------------------------------------------:|
 |  MaixPy 教程文档 📖         | [wiki.sipeed.com/maixpy](https://wiki.sipeed.com/maixpy)                                   |
 | MaixPy 例程和源码 <img src="/static/image/github-fill.svg" style="height: 1.5em;vertical-align: middle;">           | [github.com/sipeed/MaixPy](https://github.com/sipeed/MaixPy)                               |
-|  MaixCAM 硬件资料 📷        | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) / [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)                                 |
+|  MaixCAM 硬件资料 📷        | [wiki.sipeed.com/maixcam](https://wiki.sipeed.com/maixcam) </br> [wiki.sipeed.com/maixcam-pro](https://wiki.sipeed.com/maixcam-pro)  </br>  [wiki.sipeed.com/maixcam2](https://wiki.sipeed.com/maixcam2)                             |
 |  MaixPy API 文档 📚        | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixPy 视频和教程 💿        | [B站搜 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5) |
 | MaixHub 应用商店 📦     | [maixhub.com/app](https://maixhub.com/app)                                                 |

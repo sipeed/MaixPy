@@ -93,7 +93,7 @@ class App:
         self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=False)
         self.asr.start()
         loader_count = 0
-        loader_max_count = 34
+        loader_max_count = 8
         while True:
             if app.need_exit():
                 break
@@ -415,7 +415,7 @@ class App:
         if self.disp:
             del self.disp
             self.disp = None
-        
+
         app.set_exit_flag(True)
         app.set_sys_config_kv("npu", "ai_isp", "1" if self.ai_isp else "0")
 

@@ -7,6 +7,10 @@ import os
 import gc
 
 
+global_ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
+if global_ai_isp:
+    app.set_sys_config_kv("npu", "ai_isp", "0")
+
 def is_in_button(x, y, btn_pos):
     return x > btn_pos[0] and x < btn_pos[0] + btn_pos[2] and y > btn_pos[1] and y < btn_pos[1] + btn_pos[3]
 
@@ -82,7 +86,7 @@ class APP:
 
         self.asr = ASR()
         loader_count = 0
-        loader_max_count = 34
+        loader_max_count = 8
         while True:
             if app.need_exit():
                 break
@@ -325,7 +329,11 @@ disp = display.Display()
 try:
     app_instance = APP(disp)
     app_instance.run()
+    if global_ai_isp:
+        app.set_sys_config_kv("npu", "ai_isp", "1")
 except Exception:
+    if global_ai_isp:
+        app.set_sys_config_kv("npu", "ai_isp", "1")
     import traceback
     msg = traceback.format_exc()
     print(msg)

@@ -127,9 +127,9 @@ At this point, the ASR model server is up and running.
 
 For brevity, example client code is provided via the following links. Note that most cases require audio data with a sampling rate of 16000Hz and a single channel:
 
-[`MaixCAMMaixCAM` Streaming Recognition](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/asr_streaming_websockt_client)
+[`MaixCAMMaixCAM` Streaming Recognition](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/maix_speech/asr_streaming_websocket_client.py)
 
-[`MaixCAM` Non-Streaming Recognition](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/asr_non_streaming_websockt_client)
+[`MaixCAM` Non-Streaming Recognition](https://github.com/sipeed/MaixPy/blob/main/examples/audio/asr/maix_speech/asr_non_streaming_websocket_client.py)
 
 ```shell
 # Update server address

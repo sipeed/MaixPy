@@ -45,14 +45,14 @@ class PagedText:
             current_page.append(("", 0, 0))  # 初始化第一行
 
         page_height_used = sum(line[2] for line in current_page)
-        
+
         for ch in text:
             line_text, _, line_h = current_page[-1]
             new_line_text = line_text + ch
             size = image.string_size(new_line_text)
             ch_w = size[0]
             ch_h = size[1]
-    
+
             # 尝试放到当前行
             if ch_w <= self.page_width:
                 # 更新行
@@ -96,7 +96,7 @@ class PagedText:
 
         height = 0
         for line_text, _, line_height in current_page:
-            img.draw_string(0, height, line_text, color, wrap_space=0)            
+            img.draw_string(0, height, line_text, color, wrap_space=0)
             height += line_height
 
 class App:
@@ -148,7 +148,7 @@ class App:
         self.asr.start()
         self.pcm = None
         loader_count = 0
-        loader_max_count = 34
+        loader_max_count = 8
         while True:
             if app.need_exit():
                 break
@@ -317,9 +317,9 @@ class App:
                     self.prompt = "Transcribing ..."
 
             self.show_ui()
-            
+
             time.sleep_ms(5)
-        
+
         if self.llm:
             del self.llm
             self.llm = None
