@@ -60,6 +60,10 @@ class App:
             app.set_sys_config_kv("npu", "ai_isp", "0")
 
         # load sdv1_5
+        if not os.path.exists("/root/models/lcm-lora-sdv1-5-maixcam2/ax620e_models"):
+            self.show_error("You need install lcm-lora-sdv1-5-maixcam2 model from https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2")
+            exit(0)
+
         self.__show_load_info('Loading sdv1_5 module..')
         sdv1_5_loader = ModuleLoader('maix.sdv1_5')
         sdv1_5 = None

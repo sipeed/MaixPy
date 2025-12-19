@@ -500,6 +500,8 @@ class SDV1_5:
             raise ValueError("Only support axmodel, please set backend='axe'")
         self.model_suffix = ".axmodel" if backend == "axe" else ".onnx"
         self.model_dir = model_dir
+        if not os.path.exists(model_dir):
+            raise ValueError(f"Model dir {model_dir} not exists")
         self.backend = backend
         self.is_inited = False
 
