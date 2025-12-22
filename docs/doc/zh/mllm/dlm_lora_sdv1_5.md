@@ -23,7 +23,8 @@ LCM-LoRA-SDv1-5 是一个支持文生图, 图生图的模型, 基于 StableDiffu
 
 ### 模型和下载地址
 
-默认系统`/root/models`目录下如果没有`LCM-LoRA-SDv1-5`模型，需要自行下载。
+MaixPy 目前支持 `LCM-LoRA-SDv1-5`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
+> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/lcm-lora-sdv1-5-maixcam2`
 
   * 内存需求：CMM 内存 1GiB，内存解释请看[内存使用文档](../pro/memory.md)
   * 下载地址：https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2

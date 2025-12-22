@@ -31,7 +31,8 @@ DeepSeek-R1 是深度科技（DeepSeek-AI）研发的大语言模型（LLM），
 
 ### 模型和下载地址
 
-默认系统`/root/models`目录下如果没有模型，可以自行下载。
+MaixPy 目前支持 `deepseek-r1-distill-qwen-1.5B`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
+> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/deepseek-r1-distill-qwen-1.5B-maixcam2`
 
 * **1.5B**:
   * 内存需求：CMM 内存 1.8GiB，内存解释请看[内存使用文档](../pro/memory.md)

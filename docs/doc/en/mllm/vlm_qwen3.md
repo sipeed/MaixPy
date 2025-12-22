@@ -25,8 +25,9 @@ update:
 
 ### Model and Download Address
 
-MaixPy currently supports `Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448`. Due to the large model size, you need to download the model yourself and save it to the `/root/models directory`.
-> !!! IMPORTANT !!! IMPORTANT !!! The model MUST be saved in the `/root/models` directory, otherwise the model cannot be loaded. For example, the save path should be `/root/models/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`
+MaixPy currently supports `Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+
+> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`.
 
 * **2B**:
   * Memory Requirement: 2GiB CMM Memory. Please refer to the Memory Usage Documentation for memory explanation.

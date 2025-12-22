@@ -23,7 +23,9 @@ LCM-LoRA-SDv1-5 is a model that supports text-to-image and image-to-image genera
 
 ### Model and Download Link
 
-If the `LCM-LoRA-SDv1-5` model is not present in the system directory `/root/models` by default, you need to download it manually.
+MaixPy currently supports `LCM-LoRA-SDv1-5`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+
+> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/lcm-lora-sdv1-5-maixcam2`.
 
  * Memory requirement: CMM memory 1 GiB. For details, refer to the [Memory Usage Documentation](../pro/memory.md)
 

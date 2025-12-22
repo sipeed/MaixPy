@@ -26,7 +26,8 @@ MaixPy 中移植了 [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instru
 ### 模型和下载地址
 
 MaixPy 目前支持 `Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
-> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则无法加载模型. 例如保存路径为`/root/models/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`
+> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`
+
 * **2B**:
   * 内存需求： CMM 内存 2GiB，内存解释请看[内存使用文档](../pro/memory.md)
   * 下载地址： [Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2](https://huggingface.co/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2)
