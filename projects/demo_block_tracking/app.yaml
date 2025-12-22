@@ -1,0 +1,19 @@
+id: tracking_block
+name: tracking_block
+version: 1.0.0
+author: sipeed
+icon: ''
+desc: sipeed
+files:
+  - assets/exit_touch.jpg
+  - assets/exit.jpg
+  - src/.trash/串口总线舵机管理器测试.ipynb
+  - src/.trash/packet测试.ipynb
+  - src/.trash/Python实验脚本-串口总线舵机通信.ipynb
+  - src/__init__.py
+  - src/data_table.py
+  - src/packet_buffer.py
+  - src/packet.py
+  - src/uart_servo.py
+  - main.py
+  - servos.py

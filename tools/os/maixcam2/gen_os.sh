@@ -21,6 +21,13 @@ function usage() {
     echo "delete_first_files before copy new builtin files, delete some files, one line one item, format same with command rm,"
     echo "you can also create a delete_first.txt in builtin_files_dir and leave this arg empty"
     echo ""
+    echo "Example:"
+    echo "      ./gen_os.sh AX630C_emmc_arm64_k419_sipeed_maixcam2_ubuntu_rootfs_V3.0.0_20250319114413_20251009154249_glibc.axp \
+                            build/maixpy-4.12.1-cp313-cp313-manylinux2014_aarch64.whl \
+                            maixcam2_builtin_files \
+                            1 \
+                            maixcam2 \
+                            1"
 }
 
 function check_axp2img_command() {
@@ -108,7 +115,7 @@ set -x
 
 # 设置输出的镜像名字 maixcam2-2025-04-16-maixpy-v4.11.0
 date_now=$(date +"%Y-%m-%d")
-maixpy_version=$(echo "$whl_path" | grep -oP '(?<=MaixPy-)[^-]+')
+maixpy_version=$(echo "$whl_path" | sed -E 's/.*-([0-9]+\.[0-9]+\.[0-9]+)-.*/\1/')
 os_version_str=${board_name}-${date_now}-maixpy-v${maixpy_version}
 
 

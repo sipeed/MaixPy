@@ -14,7 +14,7 @@ Find the latest system image files on the [MaixPy Releases page](https://github.
 
 * `maixcam_os_20240401_maixpy_v4.1.0.xz`: MaixCAM system image including MaixPy v4.1.0.
 * `maixcam-pro_os_20240401_maixpy_v4.1.0.xz`: MaixCAM Pro system image including MaixPy v4.1.0.
-* `maixcam2_os_20250801_maixpy_v4.11.0.xz`: MaixCAM2 system image including MaixPy v4.11.0.
+* `maixcam2_os_20250801_maixpy_v4.11.0.xz`: MaixCAM2 system image including MaixPy v4.11.0. Since the MaixCAM system image exceeds 2GB, it will only be available on Sourceforge. Users in China can download it via the shared files in the QQ group.
 
 <span style="color: #e91e63; font-weight: 800">**Make sure to download the system image that corresponds to your device model**</span>. Downloading the wrong image may cause device damage.
 
@@ -41,7 +41,7 @@ Backup methods:
 
 | Item          | MaixCAM / MaixCAM-Pro    | MaixCAM2      |
 | --------------- | ---------- | ------ |
-| Flashing Docs      | [MaixCAM System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| Flashing Docs      | [MaixCAM System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 System Flashing](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2_os.html) |
 | System Storage     | TF Card    | Built-in EMMC (/TF Card)    |
 | TF Card Required   | Yes   | No   |
 | Flashing Method    | USB flashing or card reader flashing   | USB flashing or card reader flashing |

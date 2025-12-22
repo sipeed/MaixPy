@@ -160,7 +160,8 @@ while not app.need_exit():
                 print('qrcode res:{}'.format(url))
                 global_url = url
                 global_status = 0
-
+                del cam
+                cam = None
 
             need_exit = False
             box = [20, 20, img_exit.width(), img_exit.height()]
@@ -174,8 +175,7 @@ while not app.need_exit():
             img.draw_string(0, int(img.height() - (str_height_2 * 3 + 3 * 4)) + str_height_2 + 4, str_scan_tips2, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
             img.draw_string(0, int(img.height()  - (str_height_2 * 3 + 3 * 4)) + str_height_2 * 2 + 4*2, str_scan_tips3, image.Color.from_rgb(0x6e, 0x6e, 0x6e), 2)
             disp.show(img)
-            del cam
-            cam = None
+
             if need_exit:
                 global_status = 0
         except Exception as e:

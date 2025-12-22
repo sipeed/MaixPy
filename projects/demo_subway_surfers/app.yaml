@@ -1,0 +1,9 @@
+id: subway_surfers
+name: Subway Surfers
+version: 1.0.0
+author: sipeed
+icon: app.png
+desc: subway_surfers
+files:
+  - main.py
+  - README.md

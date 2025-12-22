@@ -30,7 +30,9 @@ As mentioned above, since the network structure is the same as Qwen2.5, please r
 
 ### Models and Download Links
 
-By default, if `/root/models` directory in the system have no model, you can download it manually.
+MaixPy currently supports `deepseek-r1-distill-qwen-1.5B-maixcam2`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+
+> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/deepseek-r1-distill-qwen-1.5B-maixcam2`.
 
 * **1.5B**:
 

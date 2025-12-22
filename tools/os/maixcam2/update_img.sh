@@ -57,9 +57,18 @@ if [ ! -f "$delete_first_files" ]; then
     exit 1
 fi
 
+if [ -f tmp2/rootfs ];then
+    echo "Umounting raw rootfs"
+    umount tmp2/rootfs
+    if [ $? -ne 0 ]; then
+        echo "Failed to unmount tmp2/rootfs"
+        exit 2
+    fi
+fi
 
 rm -rf tmp2/*
 mkdir -p tmp2
+chmod 777 tmp2
 
 # if builtin_files is a xz or tar.xz file, unzip it to tmp2/builtin_files
 if [[ "$builtin_files" == *.tar.xz ]]; then

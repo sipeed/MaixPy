@@ -7,8 +7,9 @@ set -e
 # 定义不同平台的黑名单
 
 blacklist_linux=()
-blacklist_maixcam=("app_yoloworld" "app_vlm" "app_mono_depth_estimation", "app_chat", "app_speech")
-blacklist_maixcam2=("app_mouse_simulator")
+blacklist_maixcam=("app_yoloworld" "app_vlm" "app_mono_depth_estimation" "app_chat"
+ "app_speech" "app_thermal256_camera" "app_image_generation" "app_thermal256_nightvision")
+blacklist_maixcam2=()
 
 #############################################
 

@@ -25,13 +25,15 @@ ffmpeg -i input_video.mp4 -c:v libx264 -x264opts "bframes=0" -c:a aac -strict ex
 一个播放`mp4`视频的示例，视频文件路径为`/root/output.mp4`
 
 ```python
-from maix import video, display, app
+from maix import video, display, app, time
 
 disp = display.Display()
 d = video.Decoder('/root/output.mp4')
 print(f'resolution: {d.width()}x{d.height()} bitrate: {d.bitrate()} fps: {d.fps()}')
 d.seek(0)
 while not app.need_exit():
+    t = time.ticks_ms()
+
     ctx = d.decode_video()
     if not ctx:
         d.seek(0)
@@ -39,7 +41,10 @@ while not app.need_exit():
 
     img = ctx.image()
     disp.show(img)
-    print(f'need wait : {ctx.duration_us()} us')
+
+    wait_ms = (ctx.duration_us() // 1000) - (time.ticks_ms() - t)
+    wait_ms = wait_ms if wait_ms > 0 else 0
+    time.sleep_ms(wait_ms)
 ```
 
 步骤：
@@ -85,6 +90,6 @@ while not app.need_exit():
    disp.show(img)
    ```
 
-   - 显示图像时使用`ctx.duration_us()`可以获取每帧图像的时长，单位是微秒
+   - 显示图像时使用`ctx.duration_us()`可以获取每帧图像的时长. 可以用来控制播放速度，单位是微秒
 
 6. 完成，更多`Decoder`的用法请看[API文档](https://wiki.sipeed.com/maixpy/api/maix/video.html)

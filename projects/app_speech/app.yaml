@@ -7,8 +7,7 @@ author: Sipeed Ltd
 desc: AI speech recognition
 desc[zh]: AI 语音识别
 files:
-  - assets/exit.jpg
-  - assets/voice.json
+  - assets
   - app.yaml
   - main.py
   - README.md

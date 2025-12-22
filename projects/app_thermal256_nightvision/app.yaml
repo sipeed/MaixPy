@@ -1,0 +1,12 @@
+id: thermal256_night_vision
+name: Thermal Night Vision
+name[zh]: 热融合夜视仪
+version: 1.0.0
+icon: assets/icon.png
+author: Sipeed Ltd
+desc: Thermal256 Night Vision
+desc[zh]: 热融合夜视仪
+files:
+  - assets
+  - app.yaml
+  - main.py

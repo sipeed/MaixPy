@@ -13,7 +13,7 @@ title: MaixCAM MaixPy 升级和烧录系统
 在 [MaixPy 发布页面](https://github.com/sipeed/MaixPy/releases) 找到最新的系统镜像文件，比如:
 * `maixcam_os_20240401_maixpy_v4.1.0.xz`: MaixCAM 系统镜像，包含了 MaixPy v4.1.0。
 * `maixcam-pro_os_20240401_maixpy_v4.1.0.xz`： MaixCAM Pro 系统镜像，包含了 MaixPy v4.1.0。
-* `maixcam2_os_20250801_maixpy_v4.11.0.xz`： MaixCAM2 系统镜像，包含了 MaixPy v4.11.0。
+* `maixcam2_os_20250801_maixpy_v4.11.0.xz`： MaixCAM2 系统镜像，包含了 MaixPy v4.11.0。由于MaixCAM2系统镜像超过2G, 因此只会放在Sourceforge上, 中国国内用户可以通过QQ群的群共享下载
 <span style="color: #e91e63; font-weight: 800">注意一定要下载对应型号的系统镜像</span>，下载错误可能导致设备损坏。
 
 > 中国国内用户下载速度慢可以用迅雷下载，速度可能会快一些。
@@ -37,7 +37,7 @@ title: MaixCAM MaixPy 升级和烧录系统
 
 | 项目 | MaixCAM / MaixCAM-Pro | MaixCAM2 |
 | --- | --- | --- |
-| 烧录文档 | [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os_maixcam2.html) |
+| 烧录文档 | [MaixCAM 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/os.html) | [MaixCAM2 系统烧录](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2_os.html) |
 | 系统存放位置 | TF 卡 | 内置EMMC(/TF卡) |
 | 必须 TF 卡 | 是 | 否 |
 | 烧录方式 | USB 烧录 或 读卡器烧录 | USB 烧录 或 读卡器烧录 |

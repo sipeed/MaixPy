@@ -108,7 +108,7 @@ display.send_to_maixvision(img)
 
 If you wish to switch to a screen of a different size, you can consult and purchase from the [store](https://wiki.sipeed.com/store).
 
-For MaixCAM, currently, there are 4 types of screens and 1 type of MIPI to HDMI module supported:
+For **MaixCAM**, currently, there are 4 types of screens and 1 type of MIPI to HDMI module supported:
 * 2.3-inch 552x368 resolution capacitive touch screen: The default screen that comes with MaixCAM.
 * 2.4-inch 640x480 resolution capacitive touch screen: The default screen that comes with MaixCAM-Pro.
 * 5-inch 854x480 resolution non-touch screen: Note that this is a non-touch screen, similar in size to a mobile phone screen.
@@ -141,3 +141,4 @@ When replacing the screen, you must also **modify the configuration file**; othe
 The above method is the safest, ensuring the screen model is set correctly before powering on. If you have already burned the system, you can also modify the system’s `/boot/board` file and then reboot.
 > If you use earlier system and binary program(< 2024.11.25), you may have to change `uEnv.txt` too.
 
+For the **MaixCAM2**, only the 2.4-inch 640x480 resolution capacitive touchscreen is currently supported.

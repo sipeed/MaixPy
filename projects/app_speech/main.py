@@ -1,7 +1,26 @@
-from maix import display, nn, touchscreen, app, image, time, audio
-import webrtcvad
-import threading
-import os
+from maix import display, touchscreen, app, image, time, audio
+import importlib, threading
+
+class ModuleLoader():
+    def __load_module(self):
+        self.module = importlib.import_module(self.module_name)
+        self.load_ok = True
+        pass
+    def __init__(self, module_name: str):
+        self.module_name = module_name
+        self.module = None
+        self.load_ok = False
+        self.t = threading.Thread(target=self.__load_module)
+        self.t.start()
+    def try_get_module(self, block = True):
+        if self.load_ok:
+            return self.module
+        if block:
+            while not self.load_ok:
+                time.sleep_ms(100)
+            return self.module
+        else:
+            return None
 
 class AppStatus:
     IDLE = 1,
@@ -17,19 +36,36 @@ class App:
         self.disp_w = self.disp.width()
         self.disp_h = self.disp.height()
 
+        self.__show_load_info(f'Init touchscreen..')
         self.ts = touchscreen.TouchScreen()
-        self.asr = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language=self.language)
-        self.asr_result:None|str = None
-        self.asr_thread:None|threading.Thread = None
-        self.asr_thread_exit:bool = False
-        self.asr_thread_lock = threading.Lock()
+        self.check_memory()
 
-        self.vad = webrtcvad.Vad()
-        self.vad.set_mode(3)
-        self.vad_duration_ms = 30
+        self.__show_load_info('Loading sensevoice module..')
+        sensevoice_loader = ModuleLoader('maix.sensevoice')
+        sensevoice = sensevoice_loader.try_get_module()
 
-        self.recorder = audio.Recorder('/tmp/record.wav', sample_rate=16000, channel=1, block=False)
-        self.recorder.volume(60)
+        self.__show_load_info(f'Init asr model..')
+        self.asr = sensevoice.Sensevoice("/root/models/sensevoice-maixcam2/model.mud", stream=False)
+        self.asr.start()
+        loader_count = 0
+        loader_max_count = 8
+        while True:
+            if app.need_exit():
+                break
+
+            if self.asr.is_ready(block=False):
+                break
+
+            time.sleep(1)
+            loader_count += 1
+            loader_count = loader_count if loader_count < loader_max_count else (loader_max_count - 1)
+            self.__show_load_info(f'Init asr model.. {loader_count}/{loader_max_count}', tips='It may wait for a long time.')
+        self.__show_load_info(f'Init asr model.. {loader_max_count}/{loader_max_count}', tips='It may wait for a long time.')
+
+        self.__show_load_info(f'Init recorder..')
+        self.recorder = audio.Recorder(sample_rate=16000, channel=1, block=False)
+        self.recorder.volume(100)
+        self.pcm = None
         self.recorder_pcm_buffer:None|bytes = None
         self.img_exit = image.load("./assets/exit.jpg").resize(40, 40)
         self.exit_box = [0, 0, self.img_exit.width(), self.img_exit.height()]
@@ -37,48 +73,66 @@ class App:
         self.need_save_pcm = False
         self.title = ''
 
-        btn_color = image.Color.from_rgb(0x08,0x7b,0xa7)
-        self.img_start_record =  image.Image(int(self.disp_w * 0.3), int(self.disp_h * 0.2), bg=btn_color)
-        size = image.string_size("START", 2)
-        self.img_start_record.draw_string((self.img_start_record.width() - size.width())//2, (self.img_start_record.height() - size.height())//2, "START", image.COLOR_WHITE, 2)
-        self.start_record_box = [0, self.disp_h - self.img_start_record.height(), self.img_start_record.width(), self.img_start_record.height()]
-        
-        self.img_stop_record =  image.Image(int(self.disp_w * 0.3), int(self.disp_h * 0.2), bg=btn_color)
-        size = image.string_size("STOP", 2)
-        self.img_stop_record.draw_string((self.img_stop_record.width() - size.width())//2, (self.img_stop_record.height() - size.height())//2, "STOP", image.COLOR_WHITE, 2)
-        self.stop_record_box = [self.disp_w - self.img_stop_record.width(), self.disp_h - self.img_stop_record.height(), self.img_stop_record.width(), self.img_stop_record.height()]
+        self.img_record_str = "Long press me"
+        img_record_str_size = image.string_size(self.img_record_str)
+        self.img_record_str_box = [(self.disp_w - img_record_str_size.width())//2, self.disp_h - img_record_str_size.height() - 20, img_record_str_size.width(), img_record_str_size.height()]
 
-        size = image.string_size("ZH", scale=2)
-        self.language_box = [self.disp_w - size.width(), 0, size.width(), size.height()]
+        self.img_record = image.load("./assets/record.png").resize(96, 96)
+        self.img_record_box = [(self.disp_w - self.img_record.width())//2, (self.disp_h - self.img_record.height() - self.img_record_str_box[3] - 30), self.img_record.width(), self.img_record.height()]
+        self.first_touch_record = False
+        self.first_touch_record_ms = time.ticks_ms()
+        self.long_press_record = False
 
+        self.text = 'No text'
+        self.text_box = [0, self.exit_box[3] + 20, self.disp_w, self.disp_h]
         self.status = AppStatus.IDLE
 
-    def run_asr(self, pcm:bytes):
-        self.asr_thread_exit = False
-        self.asr_thread = threading.Thread(target=self.asr_thread_handle, args=[pcm], daemon=True)
-        self.asr_thread.start()
+    def __show_load_info(self, text: str, tips: str = '', x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE):
+        if self.disp:
+            str_size = image.string_size(text)
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            if x == 0:
+                x = (img.width() - str_size.width()) // 2
+            if y == 0:
+                y = (img.height() - str_size.height()) // 2
+            img.draw_string(x, y, text, color)
 
-    def asr_thread_handle(self, pcm:bytes):
-        self.asr_thread_lock.acquire()
-        frames = self.vad_duration_ms * self.recorder.sample_rate() // 1000 
-        chunk_size = self.recorder.frame_size(frames)
-        voice_start = False
-        new_pcm = bytes()
-        for i in range(0, len(pcm), chunk_size):
-            chunk = pcm[i:i+chunk_size]
-            if not voice_start:
-                if self.vad.is_speech(chunk, self.recorder.sample_rate()):
-                    print('found voice start')
-                    voice_start = True
+            if tips != '':
+                tips_str = f"({tips})"
+                tips_scale = 0.8
+                tips_size = image.string_size(tips_str, scale=tips_scale)
+                tips_x = (img.width() - tips_size.width()) // 2
+                tips_y = y + str_size.height() + tips_size.height()
+                img.draw_string(tips_x, tips_y, tips_str, color, scale=tips_scale)
+            self.disp.show(img)
+
+    def check_memory(self):
+        from maix import sys
+        ok = False
+        font = "sourcehansans"
+        mem_info = sys.memory_info()
+        if "hw_total" in mem_info:
+            hw_total = mem_info.get("hw_total", 0)
+            print(f"hw_total: {hw_total}({hw_total/1024/1024/1024}G)")
+            if hw_total < 4 * 1024 * 1024 * 1024:       # is not 4g version, try release more memory
+                ok = False
             else:
-                new_pcm += chunk
-
-        if self.need_save_pcm:
-            self.save_pcm_to_wav('/root/speech_transcribe.wav', new_pcm)
-
-        self.asr_result = self.asr.transcribe_raw(new_pcm)
-        self.asr_thread_exit = True
-        self.asr_thread_lock.release()
+                ok = True
+        if ok == False:
+            img = image.Image(self.disp_w, self.disp_h, bg=image.COLOR_BLACK)
+            err_title_msg = "Ops!!!"
+            err_msg = "You need the 4GB version of the board to run this application."
+            err_exit_msg = "Tap anywhere on the screen to exit."
+            img.draw_string(0, 0, err_title_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 20, err_msg, image.COLOR_WHITE, 1, font=font)
+            img.draw_string(0, 200, err_exit_msg, image.COLOR_WHITE, 0.6, font=font)
+            self.disp.show(img)
+            while not app.need_exit():
+                ts_data = self.ts.read()
+                if ts_data[2]:
+                    app.set_exit_flag(True)
+                time.sleep_ms(100)
+            exit(0)
 
     def check_touch_box(self, t, box:list, oft:int = 0):
         """This method is used for exiting and you normally do not need to modify or call it.
@@ -89,68 +143,32 @@ class App:
         else:
             return False
 
-    def save_pcm_to_wav(self, file:str, pcm:bytes):
-        tmp_path = '/tmp/tmp.pcm'
-        with open(tmp_path, 'wb') as f:
-            f.write(pcm)
-        os.system(f'echo y | ffmpeg -f s16le -ar 16000 -ac 1 -i {tmp_path} {file}')
-
     def draw_ui(self):
         img = image.Image(self.disp_w, self.disp_h, image.Format.FMT_RGB888, bg=image.COLOR_BLACK)
-        if self.status == AppStatus.IDLE:
-            if self.asr_result:
-                img.draw_string(0, 50, self.asr_result, image.COLOR_WHITE)
-            else:
-                title_size = image.string_size(self.title, 1)
-                img.draw_string((img.width()-title_size.width())//2, (img.height()-title_size.height())//2 - 50, self.title, image.COLOR_WHITE, 1)
-        else:
-            title_size = image.string_size(self.title, 1)
-            img.draw_string((img.width()-title_size.width())//2, (img.height()-title_size.height())//2 - 50, self.title, image.COLOR_WHITE, 1)
         img.draw_image(self.exit_box[0], self.exit_box[1], self.img_exit)
-        img.draw_image(self.start_record_box[0], self.start_record_box[1], self.img_start_record)
-        img.draw_image(self.stop_record_box[0], self.stop_record_box[1], self.img_stop_record)
-        if self.language == 'zh':
-            img.draw_string(self.language_box[0], self.language_box[1], "ZH", image.COLOR_WHITE, scale=2)
-        else:
-            img.draw_string(self.language_box[0], self.language_box[1], "EN", image.COLOR_WHITE, scale=2)
+        img.draw_image(self.img_record_box[0], self.img_record_box[1], self.img_record)
+        img.draw_string(self.img_record_str_box[0], self.img_record_str_box[1], self.img_record_str, image.COLOR_WHITE)
 
+        img.draw_rect(self.text_box[0],self.text_box[1],self.text_box[2],self.text_box[3],image.COLOR_WHITE, 2)
+        img.draw_string(self.text_box[0]+10,self.text_box[1]+10, self.text, image.COLOR_WHITE)
         self.disp.show(img)
 
     def run(self):
         last_loop_ms = time.ticks_ms()
         while not app.need_exit():
             ts_data = self.ts.read()
-
-            if self.status == AppStatus.IDLE:
-                self.title = 'Click START to begin recording.'
-                if self.check_touch_box(ts_data, self.start_record_box):
-                    print('enter AppStatus.RECORDING')
-                    self.status = AppStatus.RECORDING
-            elif self.status == AppStatus.RECORDING:
-                self.title = 'Click STOP to stop recording.'
-                if self.check_touch_box(ts_data, self.stop_record_box):
-                    print('enter AppStatus.TRANSCRIBE')
-                    self.status = AppStatus.TRANSCRIBE
-
-                print('recording..')
-                if not self.recorder_pcm_buffer:
-                    self.recorder_pcm_buffer = self.recorder.record(20)
+            if self.status == AppStatus.RECORDING:
+                if self.pcm is None:
+                    self.pcm = self.recorder.record(-1)
                 else:
-                    self.recorder_pcm_buffer += self.recorder.record(20)
+                    self.pcm += self.recorder.record(-1)
             elif self.status == AppStatus.TRANSCRIBE:
-                self.title = 'Transcribing..'
-                # print('start transcribe..')
-                self.draw_ui()
-                if self.recorder_pcm_buffer:
-                    if self.need_save_pcm:
-                        self.save_pcm_to_wav('/root/speech.wav', self.recorder_pcm_buffer)
-                    self.run_asr(self.recorder_pcm_buffer)
-                    self.recorder_pcm_buffer = None
+                self.text = self.asr.refer(audio_data=self.pcm)
+                self.pcm = None
+                self.status = AppStatus.IDLE
+            else:
+                pass
 
-                if self.asr_thread_exit:
-                    self.status = AppStatus.IDLE
-                    print('get asr result:', self.asr_result)
- 
             if self.need_exit:
                 app.set_exit_flag(True)
                 break
@@ -158,17 +176,22 @@ class App:
             if self.check_touch_box(ts_data, self.exit_box, 20):
                 self.need_exit = True
 
-            if self.check_touch_box(ts_data, self.language_box, 20):
-                self.asr_thread_lock.acquire()
-                if self.language == 'zh':
-                    self.language = 'en'
-                    del self.asr
-                    self.asr = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language=self.language)
-                else:
-                    self.language = 'zh'
-                    del self.asr
-                    self.asr = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language=self.language)
-                self.asr_thread_lock.release()
+            if self.check_touch_box(ts_data, self.img_record_box, 20):
+                if not self.long_press_record:
+                    if not self.first_touch_record:
+                        self.first_touch_record = True
+                        self.first_touch_record_ms = time.ticks_ms()
+                    else:
+                        if time.ticks_ms() - self.first_touch_record_ms >= 100:
+                            self.long_press_record = True
+                            self.text = 'Recording..'
+                            self.status = AppStatus.RECORDING
+            else:
+                if self.long_press_record:
+                    self.long_press_record = False
+                    self.first_touch_record = False
+                    self.status = AppStatus.TRANSCRIBE
+                    self.text = "Transcribing ..."
 
             self.draw_ui()
 
@@ -176,6 +199,10 @@ class App:
                 last_loop_ms = time.ticks_ms()
             else:
                 time.sleep_ms(10)
+
+        if self.asr:
+            self.asr.stop()
+            self.asr = None
 
 if __name__ == '__main__':
     a = App()

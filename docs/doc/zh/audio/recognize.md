@@ -23,6 +23,7 @@ update:
 | ------- | ------- | ----------- | -------- |
 | Whisper | ❌       | ❌           | ✅        |
 | Speech  | ✅       | ✅           | ❌        |
+| Sensevoice  | ❌       | ❌           | ✅       |
 
 ## 使用Whisper做语音转文字
 
@@ -67,6 +68,24 @@ whisper: 开始愉快的探索吧
 ```python
 whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
 ```
+
+## 使用Sensevoice做语音转文字
+
+目前只有`MaixCAM2`支持`Sensevoice`, 并且`Sensevoice`的相关代码都是`python`实现的, 因此只提供了python端的示例
+系统默认没有`Sensevoice`模型，请从[这里](https://huggingface.co/sipeed/sensevoice-maixcam2)自行下载并放置在`/root/models/`目录下
+
+使用前需要启动`sensevoice.service`服务, 启动的命令如下:
+> 需要注意`sensevoice.service`默认是从`/root/models/sensevoice-maixcam2`目录下启动，因此请一定将模型放置在`/root/models/`目录下
+```shell
+systemctl start sensevoice.service
+```
+你也可以手动启动
+```shell
+cd /root/models/sensevoice-maixcam2
+python server.py
+```
+
+启动服务后可以通过http交互的方法完成语音识别, 使用方法请查看示例：[asr_sensevoice.py](https://github.com/sipeed/MaixPy/tree/main/examples/audio/asr/sensevoice/asr_sensevoice.py)
 
 ## Maix-Speech
 

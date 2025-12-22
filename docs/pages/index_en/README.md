@@ -312,7 +312,7 @@ h1 {
 <div id="big_btn_wrapper" class="flex flex-wrap justify-center items-center">
     <a class="btn m-1" href="/doc/zh/index.html">Quick Start 🚀📖</a>
     <a class="btn m-1" href="/api/">API Reference 📚</a>
-    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">Hardware Platform: MaixCAM 📷</a>
+    <a class="btn m-1" target="_blank" href="https://wiki.sipeed.com/maixcam">Hardware Platform: MaixCAM/MaixCAM2 📷</a>
     <a class="btn m-1" target="_blank" href="https://github.com/sipeed/maixpy">Open Source Code ⭐️</a>
     <a class="btn m-1" target="_blank" href="https://maixhub.com/app">App Store 📦</a>
 </div>
@@ -838,10 +838,10 @@ Compared to the limited NPU operator support and memory constraints of the previ
 | --------- | ----------- | ------- | ------- |
 | CPU       | 400MHz RISC-V x2 |  **1GHz RISC-V(Linux)<br>700MHz RISC-V(RTOS)<br>25~300MHz 8051(Low Power)** | <span class="strong2">1.2GHz A53 x2(Linux)</span><br>RISC-V 32bit E907(RTT) |
 | Memory      | 6MB SRAM         | **256MB DDR3** | <span class="strong2">1GB / 4GB LPDDR4</span> |
-| NPU       | 0.25Tops@INT8<br>official says 1T but... | **1Tops@INT8** | <span class="strong2">3.2Tops@INT8</span> |
+| NPU       | 0.25Tops@INT8<br>official says 1T but... | **1Tops@INT8** | <span class="strong2">3.2Tops@INT8</span><br/><span class="strong2">12.8Tops@INT4</span> |
 | Encoder   | ❌               | **2880x1620@30fps H.254/H.265/JPEG** | <span class="strong2">3840*2160@30fps H.254/H.265/JPEG</span> |
 | Decoder   | ❌               | **2880x1620@30fps H.264/JPEG** | **1080p@60fps H.264/JPEG** |
-| Screen      | 2.4" 320x240     | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| **2.4" 640x480**<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800 |
+| Screen      | 2.4" 320x240     | **2.3" 552x368**(MaixCAM)<br/>**2.4" 640x480**(MaixCAM-Pro)<br/>5" 1280x720<br/>7" 1280x800<br/>10“ 1280x800| **2.4" 640x480**|
 | Touchscree    | ❌               | **2.3" 552x368**/**2.4" 640x480** | **2.4" 640x480** |
 | Camera    | 30W              | **500W(5M)** | <span class="strong2">800W(8M)</span> |
 | AI ISP    | ❌               | ❌           | <span class="strong2">✅</span> |

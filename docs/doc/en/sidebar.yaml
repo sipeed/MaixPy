@@ -1,8 +1,6 @@
 items:
 -   file: README.md
     label: Quick Start
--   file: README_no_screen.md
-    label: Quick Start(no screen)
 -   file: faq.md
     label: FAQ
 
@@ -124,6 +122,12 @@ items:
         label: DeepSeek LLM
     -   file: mllm/vlm_internvl.md
         label: InternVL Vision-Language Model
+    -   file: mllm/vlm_qwen3.md
+        label: Qwen3-VL Vision-Language Model
+    -   file: mllm/dlm_lora_sdv1_5.md
+        label: LCM-LoRA-SDv1-5 Image-Generation Model
+    -   file: mllm/vlm_smolvlm.md
+        label: SmolVLM Vision-Language Model
 
 -   label: AI Model Convertion and Port
     items:
@@ -151,6 +155,8 @@ items:
         label: RTMP streaming
     -   file: video/uvc_streaming.md
         label: UVC streaming
+    -   file: video/webrtc_streaming.md
+        label: WebRTC streaming
 
 -   label: Network
     items:

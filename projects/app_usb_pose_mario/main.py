@@ -284,6 +284,7 @@ if __name__ == '__main__':
             scale = 0.6
         msg += "\n\npress button to exit"
         img = image.Image(screen.width(), screen.height())
+        img.clear()
         img.draw_string(2, 2, msg, image.COLOR_WHITE, font="hershey_complex_small", scale=scale)
         screen.show(img)
         while not app.need_exit():

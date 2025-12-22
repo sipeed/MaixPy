@@ -19,7 +19,7 @@ update:
 
 近年来大语言模型（LLM）非常火，给工作生活带来了很大的便利，使用LLM，我们可以跟其对话，从聊天到专业指导都能胜任。
 
-DeepSeek-R1 是深度求索研发的大语言模型（LLM），具备思考功能，功能和 Qwen 类似。
+DeepSeek-R1 是深度科技（DeepSeek-AI）研发的大语言模型（LLM），具备思考功能，功能和 Qwen 类似。
 
 同样也根据参数量分为很多版本，比如 72B 32B 7B 1.5B 等，对于 MaixCAM2 由于内存和算力限制只能跑到 1.5B。
 
@@ -31,7 +31,8 @@ DeepSeek-R1 是深度求索研发的大语言模型（LLM），具备思考功�
 
 ### 模型和下载地址
 
-默认系统`/root/models`目录下如果没有模型，可以自行下载。
+MaixPy 目前支持 `deepseek-r1-distill-qwen-1.5B`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
+> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/deepseek-r1-distill-qwen-1.5B-maixcam2`
 
 * **1.5B**:
   * 内存需求：CMM 内存 1.8GiB，内存解释请看[内存使用文档](../pro/memory.md)

@@ -68,6 +68,27 @@ By default, it recognizes Chinese. To recognize English, pass the language param
 whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
 ```
 
+## Using SenseVoice for Speech-to-Text
+
+Currently, only `MaixCAM2` supports `SenseVoice`, and all SenseVoice-related code is implemented in `Python`, so only Python-side examples are provided.
+By default, the system does not include the `SenseVoice` model. Please download it from [here](https://huggingface.co/sipeed/sensevoice-maixcam2) and place it in the `/root/models/` directory.
+
+Before using it, you need to start the `sensevoice.service `service. The command is as follows:
+> Note that sensevoice.service starts from the `/root/models/sensevoice-maixcam2` directory by default, so make sure the model is placed under `/root/models/.`
+```shell
+systemctl start sensevoice.service
+```
+
+You can also start it manually:
+
+```shell
+cd /root/models/sensevoice-maixcam2
+python server.py
+```
+
+After the service is started, you can perform speech recognition via HTTP interaction.
+For usage, please refer to the example:[asr_sensevoice.py](https://github.com/sipeed/MaixPy/tree/main/examples/audio/asr/sensevoice/asr_sensevoice.py)
+
 ## Maix-Speech
 
 [`Maix-Speech`](https://github.com/sipeed/Maix-Speech) is an offline speech recognition library specifically designed for embedded environments. It has been deeply optimized for speech recognition algorithms, significantly reducing memory usage while maintaining excellent recognition accuracy. For detailed information, please refer to the [Maix-Speech Documentation](https://github.com/sipeed/Maix-Speech/blob/master/usage_zh.md).
