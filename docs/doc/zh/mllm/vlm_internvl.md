@@ -70,6 +70,9 @@ PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
 
 ```shell
 huggingface-cli download sipeed/InternVL2.5-1B-maixcam2--local-dir InternVL2.5-1B-maixcam2
+
+# 或者
+hf download sipeed/InternVL2.5-1B-maixcam2--local-dir InternVL2.5-1B-maixcam2
 ```
 
 ### 运行模型

@@ -82,6 +82,9 @@ PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
 
 ```shell
 huggingface-cli download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
+
+#或者
+hf download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
 ```
 
 ### 运行模型

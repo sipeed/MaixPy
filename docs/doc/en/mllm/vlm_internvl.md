@@ -79,6 +79,8 @@ Then download:
 
 ```shell
 huggingface-cli download sipeed/InternVL2.5-1B-maixcam2 --local-dir InternVL2.5-1B-maixcam2
+# or
+hf download sipeed/InternVL2.5-1B-maixcam2 --local-dir InternVL2.5-1B-maixcam2
 ```
 
 ### Running the Model
