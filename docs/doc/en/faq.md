@@ -328,3 +328,7 @@ When recording in non-blocking mode on MaixCam2, after starting recording, you n
 
 1. Ensure the video file format is h264 or mp4
 2. If the error persists, try removing the B-frames from the video, keeping only I-frames and P-frames, and then attempt again. You can use the ffmpeg to achieve this: `ffmpeg -i input.mp4 -c:v libx264 -x264-params "bframes=0" output_no_b_frames.mp4`
+
+## Can the MaixCam/MaixCam-Pro/MaixCam2 auto focus?
+
+Not supported, MaixCam series cameras can only support manual focus, which means you need to manually turn the camera to focus.

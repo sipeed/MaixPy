@@ -309,3 +309,7 @@ MaixCam2在非阻塞模式下录音时, 开始录音后需要等待录音数据�
 
 1. 确保视频文件格式是`h264`或者`mp4`
 2. 如果仍然报错, 尝试将删除视频中的B帧,只保留I帧和P帧后再次尝试. 可以使用ffmpeg 命令行工具实现: `ffmpeg -i input.mp4 -c:v libx264 -x264-params "bframes=0" output_no_b_frames.mp4`
+
+## MaixCam/MaixCam-Pro/MaixCam2 能否自动对焦
+
+不能, MaixCam系列的摄像头只能支持手动对焦，也就是需要手动去拧镜头来对焦
