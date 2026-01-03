@@ -50,8 +50,9 @@ namespace maix::test
 
 * 首先[编译 MaixPy 源码](./build.md) 通过，保证我们的编译环境没问题。
 * 复制一份 [MaixPy/tools/maix_module](https://github.com/sipeed/MaixPy/tree/main/tools/maix_module) 工程模板到一个新的目录，可以和`MaixPy`放在同一个目录。比如将所有文件和目录复制到了`maix_xxx` 目录下。
-* 在`maix_xxx`目录下，终端执行`python init_files.py`来初始化项目文件。
 * 修改项目名：修改`module_name.txt` 文件，改成你要的模块名称，必须以`maix_`开头，这样方便其它用户能在 [pypi.org](https://pypi.org) 或者 [github.com](https://github.com) 搜索到你的项目。
+* 在`maix_xxx`目录下，终端执行`python init_files.py`来初始化项目文件。
+* 设置MaixCDK目录:`export MAIXCDK_PATH=/home/yourname/MaixCDK`
 * 和 MaixPy 一样执行`python setup.py bdist_wheel linux` 就可以开始为电脑构建。
 * 构建完成后可以直接在项目根目录执行`python -c "import maix_xxx;maix_xxx.basic.print('Li Hua')"`就能运行你的模块函数了。
 * 执行`python setup.py bdist_wheel maixcam` 就可以为`MaixCAM` 构建软件包了。需要注意的是，构建过程种的代码提示文件(pyi文件)只能在给`linux` 平台构建的时候生成，所以在正式发布的时候需要先执行上一步的`linux`平台构建生成代码提示文件，然后再执行本步的命令生成`MaixCAM`平台的软件包。
@@ -60,9 +61,19 @@ namespace maix::test
 * 当你调试好代码后，可以考虑将代码开源到[github.com](https://github.com)，并且上传到[pypi.org](https://pypi.org)（具体上传方法可以看官方文档或者搜索教程，大概就是`pip install twine`然后 `twine upload dist/maix_xxx***.whl`就可以了。），写好后欢迎到[maixhub.com/share](https://maixhub.com/share)来分享告诉大家你的成果！
 
 修改代码：
-正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，在`components/maix/include` 和 `components/maix/src` 下增加源文件，增加 C++ 函数，并且填加注释，然后编译后就直接能调用了，非常简单。
-比如:
-
+正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，在`components/maix/include` 和 `components/maix/src` 下增加源文件，增加 C++ 函数，并且在对应的.hpp填加注释，然后编译后就直接能调用了，非常简单。(注意不要改main的文件)
+比如,
+cpp例子:
+```cpp
+namespace maix_xxx::test
+{//直接在下面写对应的C++函数即可
+    int add(int a, int b)
+    {
+        return a + b;
+    }
+} // namespace maix_xxx
+```
+.hpp头文件例子:
 ```cpp
 namespace maix_xxx::test
 {
