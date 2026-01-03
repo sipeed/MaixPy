@@ -28,20 +28,7 @@ else:
         module_name = f.readline().strip()
 
 def get_build_python_version():
-    version = [0, 0, 0]
-    mk_file = os.path.join("build", "config", "python_version.txt")
-    # 容错：python_version.txt不存在时的默认值（Linux平台默认3.10）
-    if not os.path.exists(mk_file):
-        print("-- Warning: python_version.txt not found, use default 3.10.0")
-        return [3, 10, 0]
-    with open(mk_file, "r", encoding="utf-8") as f:
-        version_str = f.read().split(".")
-        for i in range(0, min(3, len(version_str))):  # 防止版本字符串长度不足
-            version[i] = int(version_str[i])
-    if version[0] == 0 or version[1] == 0 or version[2] == 0:
-        print("-- Get build python version failed! Use default 3.10.0")
-        return [3, 10, 0]
-    return version
+    return [sys.version_info.major, sys.version_info.minor, sys.version_info.micro]
 
 def get_python_version():
     return [sys.version_info.major, sys.version_info.minor, sys.version_info.micro]
