@@ -2,52 +2,52 @@ import os
 import sys
 
 def main():
-    # ===================== 1. 读取并校验模块名 =====================
+    # ===================== 1. Read and validate module name =====================
     try:
         with open("module_name.txt", "r", encoding="utf-8") as f:
             module_name = f.readline().strip()
     except FileNotFoundError:
-        raise Exception("错误：未找到 module_name.txt 文件，请先创建并填写模块名（如 maix_kkk）")
+        raise Exception("Error: module_name.txt file not found. Please create it first and fill in the module name (e.g., maix_kkk)")
     except Exception as e:
-        raise Exception(f"读取 module_name.txt 失败：{e}")
+        raise Exception(f"Failed to read module_name.txt: {e}")
 
-    # 校验模块名必须以 maix_ 开头
+    # Validate module name must start with maix_
     if not module_name.startswith("maix_"):
-        raise Exception("错误：模块名必须以 'maix_' 开头（如 maix_kkk）")
+        raise Exception("Error: Module name must start with 'maix_' (e.g., maix_kkk)")
 
-    # 可选：从命令行指定初始版本号（示例：python generate_module.py 1.0.1）
+    # Optional: Specify initial version number from command line (Example: python init_files.py 1.0.1)
     init_version = sys.argv[1] if len(sys.argv) > 1 else "1.0.0"
     try:
         version_major, version_minor, version_patch = init_version.split(".")
-        # 验证版本号为数字
+        # Verify version number is numeric
         int(version_major), int(version_minor), int(version_patch)
     except ValueError:
-        raise Exception(f"错误：版本号格式无效（请传入如 1.0.0 的格式，当前：{init_version}）")
+        raise Exception(f"Error: Invalid version number format (Please use format like 1.0.0, current: {init_version})")
 
-    # ===================== 2. 生成测试文件（test/test_import.py） =====================
+    # ===================== 2. Generate test file (test/test_import.py) =====================
     def write_test_import_file():
         test_file = "test/test_import.py"
         if os.path.exists(test_file):
-            print(f"提示：{test_file} 已存在，跳过生成")
+            print(f"Note: {test_file} already exists, skip generation")
             return
         try:
             os.makedirs("test", exist_ok=True)
-            content = f"import {module_name}\nprint(f'成功导入模块：{module_name}')"
+            content = f"import {module_name}\nprint(f'Successfully imported module: {module_name}')"
             with open(test_file, "w", encoding="utf-8") as f:
                 f.write(content)
-            print(f"成功生成：{test_file}")
+            print(f"Successfully generated: {test_file}")
         except PermissionError:
-            raise Exception(f"错误：权限不足，无法创建 {test_file}")
+            raise Exception(f"Error: Insufficient permissions to create {test_file}")
         except Exception as e:
-            raise Exception(f"生成测试文件失败：{e}")
+            raise Exception(f"Failed to generate test file: {e}")
 
-    # ===================== 3. 生成模块核心文件（__init__.py / version.py） =====================
+    # ===================== 3. Generate core module files (__init__.py / version.py) =====================
     def write_module_dir():
-        # 生成 __init__.py 内容（修复硬编码扩展模块名）
+        # Generate __init__.py content (Fix hardcoded extension module name)
         init_content = f'''from .version import __version__
 from ._{module_name} import *
 '''
-        # 生成 version.py 内容（动态版本号）
+        # Generate version.py content (Dynamic version number)
         version_content = f'''# Versions should comply with PEP440: https://peps.python.org/pep-0440/
 
 version_major = {version_major}
@@ -57,34 +57,34 @@ version_patch = {version_patch}
 __version__ = "{version_major}.{version_minor}.{version_patch}"
 '''
         try:
-            # 创建模块目录
+            # Create module directory
             os.makedirs(module_name, exist_ok=True)
 
-            # 生成 __init__.py
+            # Generate __init__.py
             init_file = f"{module_name}/__init__.py"
             if not os.path.exists(init_file):
                 with open(init_file, "w", encoding="utf-8") as f:
                     f.write(init_content)
-                print(f"成功生成：{init_file}")
+                print(f"Successfully generated: {init_file}")
             else:
-                print(f"提示：{init_file} 已存在，跳过生成")
+                print(f"Note: {init_file} already exists, skip generation")
 
-            # 生成 version.py
+            # Generate version.py
             version_file = f"{module_name}/version.py"
             if not os.path.exists(version_file):
                 with open(version_file, "w", encoding="utf-8") as f:
                     f.write(version_content)
-                print(f"成功生成：{version_file}")
+                print(f"Successfully generated: {version_file}")
             else:
-                print(f"提示：{version_file} 已存在，跳过生成")
+                print(f"Note: {version_file} already exists, skip generation")
         except PermissionError:
-            raise Exception(f"错误：权限不足，无法创建 {module_name} 目录/文件")
+            raise Exception(f"Error: Insufficient permissions to create {module_name} directory/files")
         except Exception as e:
-            raise Exception(f"生成模块核心文件失败：{e}")
+            raise Exception(f"Failed to generate core module files: {e}")
 
-    # ===================== 4. 生成 C++ 扩展模块文件（hpp/cpp） =====================
+    # ===================== 4. Generate C++ extension module files (hpp/cpp) =====================
     def write_component_dir():
-        # 生成 .hpp 头文件内容
+        # Generate .hpp header file content
         hpp_content = f'''
 #include "maix_basic.hpp"
 
@@ -99,7 +99,7 @@ namespace {module_name}::basic
 
 }} // namespace {module_name}
 '''
-        # 生成 .cpp 源文件内容
+        # Generate .cpp source file content
         cpp_content = f'''#include "{module_name}.hpp"
 
 namespace {module_name}::basic
@@ -111,37 +111,37 @@ namespace {module_name}::basic
 }} // namespace {module_name}
 '''
         try:
-            # 创建目录
+            # Create directories
             include_dir = "components/maix/include"
             src_dir = "components/maix/src"
             os.makedirs(include_dir, exist_ok=True)
             os.makedirs(src_dir, exist_ok=True)
 
-            # 生成 .hpp 文件
+            # Generate .hpp file
             hpp_file = f"{include_dir}/{module_name}.hpp"
             if not os.path.exists(hpp_file):
                 with open(hpp_file, "w", encoding="utf-8") as f:
                     f.write(hpp_content)
-                print(f"成功生成：{hpp_file}")
+                print(f"Successfully generated: {hpp_file}")
             else:
-                print(f"提示：{hpp_file} 已存在，跳过生成")
+                print(f"Note: {hpp_file} already exists, skip generation")
 
-            # 生成 .cpp 文件
+            # Generate .cpp file
             cpp_file = f"{src_dir}/{module_name}.cpp"
             if not os.path.exists(cpp_file):
                 with open(cpp_file, "w", encoding="utf-8") as f:
                     f.write(cpp_content)
-                print(f"成功生成：{cpp_file}")
+                print(f"Successfully generated: {cpp_file}")
             else:
-                print(f"提示：{cpp_file} 已存在，跳过生成")
+                print(f"Note: {cpp_file} already exists, skip generation")
         except PermissionError:
-            raise Exception("错误：权限不足，无法创建 components 目录/文件")
+            raise Exception("Error: Insufficient permissions to create components directory/files")
         except Exception as e:
-            raise Exception(f"生成 C++ 扩展文件失败：{e}")
+            raise Exception(f"Failed to generate C++ extension files: {e}")
 
-    # ===================== 5. 生成 README 文档 =====================
+    # ===================== 5. Generate README documentation =====================
     def write_readme_files():
-        # 英文 README
+        # English README
         readme_en = "README.md"
         if not os.path.exists(readme_en):
             en_content = f"""# MaixPy Module: {module_name}
@@ -163,52 +163,52 @@ namespace {module_name}::basic
 """
             with open(readme_en, "w", encoding="utf-8") as f:
                 f.write(en_content)
-            print(f"成功生成：{readme_en}")
+            print(f"Successfully generated: {readme_en}")
         else:
-            print(f"提示：{readme_en} 已存在，跳过生成")
+            print(f"Note: {readme_en} already exists, skip generation")
 
-        # 中文 README
-        readme_zh = "README_ZH.md"
-        if not os.path.exists(readme_zh):
-            zh_content = f"""# MaixPy 模块：{module_name}
+        # Chinese README (renamed to README_CN.md for consistency)
+        readme_cn = "README_CN.md"
+        if not os.path.exists(readme_cn):
+            cn_content = f"""# MaixPy Module: {module_name}
 
-## 快速开始
-1. 编译模块：`python setup.py bdist_wheel '平台'`
-2. 安装模块：`pip install dist/{module_name}*.whl`
-3. 测试导入：`python test/test_import.py`
+## Quick Start
+1. Compile module: `python setup.py bdist_wheel 'platform'`
+2. Install module: `pip install dist/{module_name}*.whl`
+3. Test import: `python test/test_import.py`
 
-## 开发指引
-- Python 模块根目录：`{module_name}/`
-- C++ 源码文件：`components/maix/src/{module_name}.cpp`
-- C++ 头文件：`components/maix/include/{module_name}.hpp`
-- 版本管理文件：`{module_name}/version.py`
+## Development Guide
+- Python module root directory: `{module_name}/`
+- C++ source file: `components/maix/src/{module_name}.cpp`
+- C++ header file: `components/maix/include/{module_name}.hpp`
+- Version management file: `{module_name}/version.py`
 
-## 待办事项
-- 补充详细的 API 文档
-- 为核心功能添加单元测试
+## TODO
+- Add detailed API documentation
+- Add unit tests for core functions
 """
-            with open(readme_zh, "w", encoding="utf-8") as f:
-                f.write(zh_content)
-            print(f"成功生成：{readme_zh}")
+            with open(readme_cn, "w", encoding="utf-8") as f:
+                f.write(cn_content)
+            print(f"Successfully generated: {readme_cn}")
         else:
-            print(f"提示：{readme_zh} 已存在，跳过生成")
+            print(f"Note: {readme_cn} already exists, skip generation")
 
-    # ===================== 执行所有生成逻辑 =====================
+    # ===================== Execute all generation logic =====================
     write_test_import_file()
     write_module_dir()
     write_component_dir()
     write_readme_files()
 
-    print(f"\n✅ 模块工程骨架生成完成！模块名：{module_name}")
-    print(f"📌 后续步骤：")
-    print(f"   1. 修改 {module_name}/__init__.py 补充自定义接口")
-    print(f"   2. 完善 components/maix/src/{module_name}.cpp 实现业务逻辑")
-    print(f"   3. 执行 python setup.py bdist_wheel '平台' 编译模块")
-    print(f"   4. whl包版本修改:{module_name}/version.py 文件内")
+    print(f"\n✅ Module project skeleton generation completed! Module name: {module_name}")
+    print(f"📌 Next steps:")
+    print(f"   1. Modify {module_name}/__init__.py to add custom interfaces")
+    print(f"   2. Improve components/maix/src/{module_name}.cpp to implement business logic")
+    print(f"   3. Execute python setup.py bdist_wheel 'platform' to compile the module")
+    print(f"   4. Modify whl package version: in {module_name}/version.py file")
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(f"\n❌ 生成失败：{e}")
+        print(f"\n❌ Generation failed: {e}")
         sys.exit(1)

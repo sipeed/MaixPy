@@ -3,7 +3,7 @@ import sys
 import os
 import platform
 import shutil
-import zipfile  # 提前导入，避免maixcam处理时导入失败
+import zipfile
 
 ####################################################################
 # supported platforms
@@ -19,37 +19,31 @@ platform_toolchain_id = {
 }
 ####################################################################
 
-# 容错：处理module_name.txt不存在的情况
-if not os.path.exists("module_name.txt"):
-    print("-- Warning: module_name.txt not found, use default 'maix'")
-    module_name = "maix"
-else:
-    with open("module_name.txt", "r") as f:
-        module_name = f.readline().strip()
+with open("module_name.txt", "r") as f:
+    module_name = f.readline().strip()
 
 def get_build_python_version():
-    return [sys.version_info.major, sys.version_info.minor, sys.version_info.micro]
+    version = [0, 0, 0]
+    mk_file = os.path.join("build", "config", "python_version.txt")
+    with open(mk_file, "r", encoding="utf-8") as f:
+        version_str = f.read().split(".")
+        for i in range(0, 3):
+            version[i] = int(version_str[i])
+    if version[0] == 0 or version[1] == 0 or version[2] == 0:
+        print("-- Get build python version failed!")
+        sys.exit(1)
+    return version
 
 def get_python_version():
     return [sys.version_info.major, sys.version_info.minor, sys.version_info.micro]
 
-def print_py_version_err(build_py_version):
-    print("-- Python version not match build python version!")
-    print("   You can use conda to create a virtual environment with python version:")
-    print("   Download miniconda from https://docs.conda.io/en/latest/miniconda.html")
-    print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
-    print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
-
-# 检查平台配置文件
 board_config_files = {}
 for board in board_names:
     board_config_files[board] = os.path.join("configs", "config_platform_{}.mk".format(board))
     if not os.path.exists(board_config_files[board]):
-        print("-- Warning: Platform config file not found: {}".format(board_config_files[board]))
-        # 不直接退出，仅警告（允许无配置文件编译）
-        board_config_files[board] = None
+        print("-- Platform config file not found: {}".format(board_config_files[board]))
+        sys.exit(1)
 
-# 解析board参数
 board = None
 for name in board_names:
     if name in sys.argv:
@@ -60,225 +54,245 @@ if (not board) and not ("-h" in sys.argv or "--help" in sys.argv or "--help-comm
     print("-- Please specify board name: {}, e.g. python setup.py bdist_wheel linux".format(board_names))
     sys.exit(1)
 
-# 备份dist目录
+# copy dist to dist_old
 if os.path.exists("dist"):
     os.makedirs("dist_old", exist_ok = True)
-    try:
-        shutil.copytree("dist", "dist_old", dirs_exist_ok=True)
-    except Exception as e:
-        print("-- Warning: Copy dist to dist_old failed: {}".format(e))
+    shutil.copytree("dist", "dist_old", dirs_exist_ok=True)
 
-# 清理临时文件
+# delete temp files
 if "--not-clean" not in sys.argv and "--skip-build" not in sys.argv and os.path.exists(f"{module_name}/dl_lib"):
-    try:
-        shutil.rmtree(f"{module_name}/dl_lib")
-    except Exception as e:
-        print("-- Warning: Remove dl_lib failed: {}".format(e))
+    shutil.rmtree(f"{module_name}/dl_lib")
 
-# 检查maixcam的Python版本
+def print_py_version_err(build_py_version):
+    print("-- Python version not match build python version!")
+    print("   You can use conda to create a virtual environment with python version:")
+    print("   Download miniconda from https://docs.conda.io/en/latest/miniconda.html")
+    print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
+    print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
+
+# specially check for maixcam
 py_version = get_python_version()
 if board == "maixcam" and f"{py_version[0]}.{py_version[1]}" != "3.11":
     print_py_version_err([3, 11])
     sys.exit(1)
 
-# 编译C++模块
-build_success = True
-if board and "--skip-build" not in sys.argv:
-    if "debug" in sys.argv:
-        release_str = ""
-        sys.argv.remove("debug")
-    else:
-        release_str = "--release"
-    
-    # 仅当配置文件存在时才编译
-    if board_config_files.get(board):
+if board:
+    # build CPP modules, and copy to build/lib/
+    if "--skip-build" not in sys.argv:
+        if "debug" in sys.argv:
+            release_str = ""
+            sys.argv.remove("debug")
+        else:
+            release_str = "--release"
         cmd = "python project.py build -p {} {} --config-file {}".format(board, release_str, board_config_files[board])
         if "--not-clean" not in sys.argv:
             cmd = "python project.py distclean && " + cmd
         else:
             sys.argv.remove("--not-clean")
         cmd += f" --toolchain-id {platform_toolchain_id[board]}" if board in platform_toolchain_id else ""
-        print("-- Execute build command: {}".format(cmd))
         ret = os.system(cmd)
         if ret != 0:
-            print("-- Warning: Build cpp modules failed! Continue to generate wheel...")
-            build_success = False  # 编译失败不退出，继续生成wheel
-    else:
-        print("-- Warning: No config file for {}, skip build cpp modules".format(board))
+            print("-- Build cpp modules failed!")
+            sys.exit(1)
 
-# 检查Python版本（Linux平台放宽校验：仅警告不退出）
+# check python version
 build_py_version = get_build_python_version()
 print("-- Build Python version: {}.{}.{}".format(build_py_version[0], build_py_version[1], build_py_version[2]))
-print("-- Current Python version: {}.{}.{}".format(py_version[0], py_version[1], py_version[2]))
+print("-- Python version: {}.{}.{}".format(py_version[0], py_version[1], py_version[2]))
 if (py_version[0] != build_py_version[0]) or (py_version[1] != build_py_version[1]):
     print_py_version_err(build_py_version)
-    if board != "linux":  # 仅非Linux平台严格校验
-        sys.exit(1)
-    else:
-        print("-- Warning: Linux platform skip python version check, continue...")
+    sys.exit(1)
 
-# 设置wheel的平台标签
 if board:
+    # specific platform name for wheel package
     sys.argv += ["--python-tag", "cp{}{}".format(build_py_version[0], build_py_version[1])]
-    sys.argv += ["--plat-name", platform_names.get(board, "manylinux2014_x86_64")]  # 默认x86_64
+    # if board in  ["linux"]:
+    sys.argv += ["--plat-name", platform_names[board]]
 
-# 生成pyi stub文件（Linux平台，失败仅警告）
+# generate pyi stub files
 if board == "linux":
     try:
         from pybind11_stubgen import main as pybind11_stubgen_main
-        old_sys_argv = sys.argv
-        sys.path.insert(0, ".")
-        sys.argv = ["pybind11-stubgen", module_name, "-o", "stub"]
-        pybind11_stubgen_main()
-        sys.path.pop(0)
-        sys.argv = old_sys_argv
-        # 复制stub文件
-        stub_src = f"stub/{module_name}"
-        if os.path.exists(stub_src):
-            for root, dirs, files in os.walk(stub_src):
-                for name in files:
-                    if name.endswith(".pyi"):
-                        dst = os.path.join(root[5:], name)
-                        os.makedirs(os.path.dirname(dst), exist_ok=True)
-                        shutil.copy(os.path.join(root, name), dst)
-        else:
-            print("-- Warning: Stub files not generated")
-    except Exception as e:
-        print("-- Warning: Generate stub files failed: {}".format(e))
-        print("-- Install pybind11-stubgen: pip install pybind11-stubgen")
-        # 不退出，继续打包
+    except:
+        print("-- Please install pybind11-stubgen first: pip install pybind11-stubgen")
+        sys.exit(1)
+    old_sys_argv = sys.argv
+    sys.path.insert(0, ".") # to ensure use this folder's maix module but not system's
+    sys.argv = ["pybind11-stubgen", module_name, "-o", "stub"]
+    pybind11_stubgen_main()
+    sys.path.pop(0)
+    sys.argv = old_sys_argv
+    # copy stub/maix/* to maix/ recursively
+    for root, dirs, files in os.walk(f"stub/{module_name}"):
+        for name in files:
+            if name.endswith(".pyi"):
+                dst = os.path.join(root[5:], name)
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copy(os.path.join(root, name), dst)
 
-# 生成API文档（失败仅警告）
-try:
-    maixcdk_path = os.path.abspath(os.environ.get("MAIXCDK_PATH", ""))
-    maixpy_path = os.path.abspath(os.getcwd())
-    if maixcdk_path and maixcdk_path.startswith(maixpy_path):
-        print("-- Warning: MAIXCDK_PATH is in MaixPy folder")
-    if maixcdk_path:
-        ret = os.system(f"python -u components/maix/gen_api.py --doc docs/api --sdk_path {maixcdk_path}")
-        if ret != 0:
-            print("-- Warning: Generate doc file failed")
-    else:
-        print("-- Warning: MAIXCDK_PATH not set, skip generate doc")
-except Exception as e:
-    print("-- Warning: Generate doc failed: {}".format(e))
+# generate api documentation
+                # COMMAND ${python} -u ${CMAKE_CURRENT_SOURCE_DIR}/gen_api.py -o ${maixpy_wrapper_src} --doc ${PROJECT_PATH}/docs/api --sdk_path ${SDK_PATH}
+maixcdk_path = os.path.abspath(os.environ.get("MAIXCDK_PATH", None))
+maixpy_path = os.path.abspath(os.getcwd())
+if maixcdk_path.startswith(maixpy_path):
+    raise Exception("DO NOT put MaixCDK in MaixPy folder, please put MaixCDK in other place and set MAIXCDK_PATH environmenet variable by `export MAIXCDK_PATH=xxxxx`")
+if not maixcdk_path:
+    raise Exception("No environment variable MAIXCDK_PATH, please set first by `export MAIXCDK_PATH=xxxxx`")
+ret = os.system(f"python -u components/maix/gen_api.py --doc docs/api --sdk_path {maixcdk_path}")
+if ret != 0:
+    raise Exception("Generate doc file failed")
 
 # requirement packages
 requirements = []
 
-# 读取README.md（容错）
-long_description = "Sipeed Maix Vision Python SDK"
-if os.path.exists("README.md"):
-    with open("README.md", "r", encoding="utf-8") as fh:
-        long_description = fh.read()
+# Read long description from README.md
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
-# 获取版本号（容错）
-__version__ = "1.0.0"
-version_file = f"{module_name}/version.py"
-if os.path.exists(version_file):
-    with open(version_file, "r", encoding="utf-8") as f:
-        vars = {}
-        exec(f.read(), vars)
-        __version__ = vars.get("__version__", "1.0.0")
+# Get version info from maix/version.py file
+with open(f"{module_name}/version.py", "r", encoding="utf-8") as f:
+    vars = {}
+    exec(f.read(), vars)
+    __version__ = vars["__version__"]
 
 class BinaryDistribution(Distribution):
     """Distribution which always forces a binary package with platform name"""
-    def has_ext_modules(self):  # 修复方法名错误（原foo参数无意义）
+    def has_ext_modules(foo):
         return True
 
-# 查找包（容错）
 pkgs = find_packages()
-if not pkgs:
-    pkgs = [module_name]  # 至少包含主模块
 print("-- found packages: {}".format(pkgs))
 
-# 核心：执行setup生成wheel
 setup(
+    # all keywords see https://setuptools.pypa.io/en/latest/references/keywords.html
+
+    # Package name
     name=module_name,
+
+    # Versions should comply with PEP440: https://peps.python.org/pep-0440/
     version=__version__,
+
     author='Sipeed',
     author_email='support@sipeed.com',
+
     description='Sipeed Maix Vision Python SDK',
     long_description=long_description,
     long_description_content_type="text/markdown",
+
+    # The project's main homepage.
     url='https://github.com/Sipeed/MaixPy',
+
+    # All License should comply with https://spdx.org/licenses/
     license='Apache 2.0',
+
+    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
         'Development Status :: 5 - Production/Stable',
+
+        # Indicate who your project is intended for
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
         'Intended Audience :: Science/Research',
         'Topic :: Software Development :: Embedded Systems',
+
+        # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: Apache Software License',
+
+        # Specify the Python versions you support here. In particular, ensure
+        # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3'
     ],
+
+    # What does your project relate to?
     keywords='Machine vision, AI vision, IOT, AIOT, Edge computing',
+
+    # You can just specify the packages manually here if your project is
+    # simple. Or you can use find_packages().
     packages=pkgs,
+
+    # Alternatively, if you want to distribute just a my_module.py, uncomment
+    # this:
+    #   py_modules=["my_module"],
+
+    # List run-time dependencies here.  These will be installed by pip when
+    # your project is installed. For an analysis of "install_requires" vs pip's
+    # requirements files see:
+    # https://packaging.python.org/en/latest/requirements.html
     install_requires=requirements,
-    extras_require={},
+
+    # List additional groups of dependencies here (e.g. development
+    # dependencies). You can install these using the following syntax,
+    # for example:
+    # $ pip install -e .[dev,test]
+    extras_require={
+        # 'dev': ['check-manifest'],
+        # 'test': ['coverage'],
+    },
+
+    # If there are data files included in your packages that need to be
+    # installed, specify them here.  If using Python 2.6 or less, then these
+    # have to be included in MANIFEST.in as well.
     package_data={
         module_name: ['*.so', "dl_lib/*.so*", "*.pyi", "**/*.pyi", "**/**/*.pyi"]
     },
-    data_files=[],
+
+    # Although 'package_data' is the preferred approach, in some case you may
+    # need to place data files outside of your packages. See:
+    # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
+    # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
+    data_files=[
+	        # ("",["LICENSE","README.md"])
+        ],
+
+    # To provide executable scripts, use entry points in preference to the
+    # "scripts" keyword. Entry points provide cross-platform support and allow
+    # pip to create the appropriate form of executable for the target platform.
     entry_points={
-        'console_scripts': [],
+        'console_scripts': [
+            # 'maix-resize=maix.maix_resize:main_cli',
+            # 'maix_test_hardware=maix.test_hardware:main',
+        ],
+        # 'gui_scripts': [
+        # ],
     },
+
     distclass=BinaryDistribution
 )
 
-# 修复：Linux平台wheel重命名逻辑
-if board and os.path.exists("dist"):
+if board:
     py_tag = "cp{}{}".format(build_py_version[0], build_py_version[1])
-    # 筛选whl文件并按时间排序
-    whl_files = [f for f in os.listdir("dist") if f.endswith(".whl")]
-    if not whl_files:
-        print("-- Error: No wheel file generated in dist directory!")
-        sys.exit(1)
-    
-    whl_files.sort(key=lambda x: os.path.getmtime(os.path.join("dist", x)), reverse=True)
-    old_name = whl_files[0]
-    old_path = os.path.join("dist", old_name)
-
-    # Linux平台重命名为可读格式
-    if board == "linux":
-        new_name = f"{module_name}-{__version__}-{py_tag}-{py_tag}-{platform_names[board]}.whl"
-        new_path = os.path.join("dist", new_name)
-        os.rename(old_path, new_path)
-        print("-- Linux wheel generated: {}".format(new_path))
-    
-    # maixcam平台特殊处理（保持原有逻辑）
-    elif board == "maixcam" and "linux_riscv64" in old_name:
-        # 解压修改WHEEL文件
-        temp_dir = "dist/temp"
-        os.makedirs(temp_dir, exist_ok=True)
-        with zipfile.ZipFile(old_path, "r") as zip_ref:
-            zip_ref.extractall(temp_dir)
-        
-        # 修改WHEEL文件
-        wheel_file = os.path.join(temp_dir, f"{module_name}-{__version__}.dist-info/WHEEL")
-        if os.path.exists(wheel_file):
-            with open(wheel_file, "r", encoding="utf-8") as f:
-                lines = f.readlines()
-            with open(wheel_file, "w", encoding="utf-8") as f:
-                for line in lines:
-                    if line.startswith("Tag:"):
-                        f.write("Tag: py3-none-any\n")
-                    else:
-                        f.write(line)
-        
-        # 重新打包
-        with zipfile.ZipFile(old_path, "w", zipfile.ZIP_DEFLATED) as zip_ref:
-            for root, dirs, files in os.walk(temp_dir):
+    files = os.listdir("dist")
+    # 根据文件编辑时间排序，取最新的文件
+    files.sort(key=lambda x: os.path.getmtime(os.path.join("dist", x)), reverse=True)
+    name = files[0]
+    # if name.endswith(".whl"):
+    #     os.rename(os.path.join("dist", name), os.path.join("dist",
+    #             "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
+    #     )
+    if name.find("linux_riscv64") != -1 or name.find("manylinux2014_") != -1:# 增加linux平台判断，使linux平台和maixcam平台执行相同的whl打包逻辑
+        # pypi not support riscv64 yet, so we have to change to py3-none-any pkg
+        # unzip to dist/temp, change dist-info/WHEEL file
+        # zip back and rename
+        import zipfile
+        with zipfile.ZipFile(os.path.join("dist", name), "r") as zip_ref:
+            zip_ref.extractall("dist/temp")
+        with open("dist/temp/{}-{}.dist-info/WHEEL".format(module_name, __version__), "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        with open("dist/temp/{}-{}.dist-info/WHEEL".format(module_name, __version__), "w", encoding="utf-8") as f:
+            for line in lines:
+                if line.startswith("Tag:"):
+                    f.write("Tag: py3-none-any\n")
+                else:
+                    f.write(line)
+        with zipfile.ZipFile(os.path.join("dist", name), "w") as zip_ref:
+            for root, dirs, files in os.walk("dist/temp"):
                 for file in files:
-                    src = os.path.join(root, file)
-                    dst = os.path.relpath(src, temp_dir)
-                    zip_ref.write(src, dst)
-        
-        # 重命名
-        new_name = f"{module_name}-{__version__}-py3-none-any.whl"
-        new_path = os.path.join("dist", new_name)
-        os.rename(old_path, new_path)
-        shutil.rmtree(temp_dir)
-        print("-- Maixcam wheel generated: {}".format(new_path))
-
-print("-- Build completed! Check dist directory for wheel file.")
+                    zip_ref.write(os.path.join(root, file), os.path.join(root[9:], file))
+        shutil.rmtree("dist/temp")
+        os.rename(os.path.join("dist", name), os.path.join("dist",
+                "{}-{}-py3-none-any.whl".format(module_name, __version__))
+        )
