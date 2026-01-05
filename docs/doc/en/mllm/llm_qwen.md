@@ -7,14 +7,6 @@ update:
     content: Added Qwen code and documentation
 ---
 
-## Supported Devices
-
-| Device    | Supported |
-| --------- | --------- |
-| MaixCAM2  | ✅         |
-| MaixCAM   | ❌         |
-
-
 ## Introduction to Qwen LLM
 
 In recent years, large language models (LLMs) have gained significant popularity, bringing great convenience to work and daily life. With LLMs, we can interact via dialogue, handling everything from casual chatting to professional guidance.
@@ -36,63 +28,25 @@ Qwen actually includes many different models. This document mainly introduces th
 ...
 1987 !
 1988  (space)
-````
+```
 
 The preceding numbers are line numbers, so if we input `hello world !`, it will be encoded as the list `[1568, 1988, 1876, 1988, 1987]`. This is called a `token`. This approach significantly reduces the number of input characters. Of course, this is just a basic introduction; in practice, extra identifier tokens, etc., are also included, and different models may have different token vocabularies and algorithms. Similarly, model outputs are also in tokens, which the program then converts back into human-readable text.
 
 * Context: This refers to the dialogue context — interactions between the user and the model. The utterances are remembered and related to each other.
 * 72B/32B/1.5B/0.5B: These indicate the scale of trainable parameters in the model, with B representing Billion (one billion). The larger the parameters, the better the performance, but they require more memory and run slower.
 
-## Using Qwen on MaixPy MaixCAM
+## Downloading the Model
 
-### Models and Download Links
+Supported models:
 
-By default, the `/root/models` directory in the system already contains the `0.5B` model. If not, you can download it manually.
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [Qwen2.5-0.5B-Instruct-maixcam2]( https://huggingface.co/sipeed/Qwen2.5-0.5B-Instruct-maixcam2) | MaixCAM2 | 4G       |  |
+| [Qwen2.5-1.5B-Instruct-maixcam2](https://huggingface.co/sipeed/Qwen2.5-1.5B-Instruct-maixcam2) | MaixCAM2 | 4G | |
 
-* **1.5B**:
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
-  * Memory requirement: CMM memory 1.8GiB. See [Memory Usage Documentation](../pro/memory.md) for explanation.
-  * Download link: [https://huggingface.co/sipeed/Qwen2.5-1.5B-Instruct-maixcam2](https://huggingface.co/sipeed/Qwen2.5-1.5B-Instruct-maixcam2)
-* **0.5B**:
-
-  * Memory requirement: CMM memory 800MiB. See [Memory Usage Documentation](../pro/memory.md) for explanation.
-  * Download link: [https://huggingface.co/sipeed/Qwen2.5-0.5B-Instruct-maixcam2](https://huggingface.co/sipeed/Qwen2.5-0.5B-Instruct-maixcam2)
-
-### Download Method
-
-First, make sure the download tool is installed:
-
-```
-pip install huggingface_hub
-```
-
-In mainland China, you can use:
-
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-If you're in mainland China, you can set a domestic mirror for faster download speed:
-Linux/MacOS:
-
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-
-Windows:
-CMD terminal: `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
-
-Then download:
-
-```shell
-huggingface-cli download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
-# or
-hf download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
-```
-
-### Running the Model
-
+## Running the Model with MaixPy
 ```python
 from maix import nn, err, log, sys
 

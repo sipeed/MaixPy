@@ -22,70 +22,16 @@ update:
 |         | MaixCAM | MaixCAM Pro | MaixCAM2 |
 | ------- | ------- | ----------- | -------- |
 | Whisper | ❌       | ❌           | ✅        |
-| Speech  | ✅       | ✅           | ❌        |
 | Sensevoice  | ❌       | ❌           | ✅       |
+| Speech  | ✅       | ✅           | ❌        |
 
 ## 使用Whisper做语音转文字
 
-> MaixCAM和MaixCAM Pro不支持使用whisper模型
-
-目前支持`base`尺寸的whisper模型，支持输入单通道、16k采样率的wav音频文件，支持识别中文和英文。下面是使用Whisper识别语音的简单示例：
-
-```python
-from maix import nn
-
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
-
-wav_path = "/maixapp/share/audio/demo.wav"
-
-res = whisper.transcribe(wav_path)
-
-print('res:', res)
-```
-
-注：
-1. 首先需要导入nn模块才能创建Whisper模型对象
-```python
-from maix import nn
-```
-2. 选择需要加载的模型，目前支持base尺寸的whisper模型
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
-```
-3. 准备一个单通道、16k采样率的wav音频文件，并进行推理，推理结果会直接返回
-```python
-wav_path = "/maixapp/share/audio/demo.wav"
-res = whisper.forward(wav_path)
-print('whisper:', res)
-```
-4. 输出结果
-```shell
-whisper: 开始愉快的探索吧
-```
-5. 动手试试吧～
-
-默认为识别中文，如果需要识别英文，在初始化对象时填入language参数
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
-```
+Whisper 的用法见[Whisper 语音识别模型](../mllm/asr_whisper.md)
 
 ## 使用Sensevoice做语音转文字
 
-目前只有`MaixCAM2`支持`Sensevoice`, 并且`Sensevoice`的相关代码都是`python`实现的, 因此只提供了python端的示例
-系统默认没有`Sensevoice`模型，请从[这里](https://huggingface.co/sipeed/sensevoice-maixcam2)自行下载并放置在`/root/models/`目录下
-
-使用前需要启动`sensevoice.service`服务, 启动的命令如下:
-> 需要注意`sensevoice.service`默认是从`/root/models/sensevoice-maixcam2`目录下启动，因此请一定将模型放置在`/root/models/`目录下
-```shell
-systemctl start sensevoice.service
-```
-你也可以手动启动
-```shell
-cd /root/models/sensevoice-maixcam2
-python server.py
-```
-
-启动服务后可以通过http交互的方法完成语音识别, 使用方法请查看示例：[asr_sensevoice.py](https://github.com/sipeed/MaixPy/tree/main/examples/audio/asr/sensevoice/asr_sensevoice.py)
+Sensevoice 的用法见[Whisper 语音识别模型](../mllm/asr_sensevoice.md)
 
 ## Maix-Speech
 

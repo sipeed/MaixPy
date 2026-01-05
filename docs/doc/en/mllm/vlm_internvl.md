@@ -7,13 +7,6 @@ update:
     content: Added InternVL code and documentation
 ---
 
-## Supported Devices
-
-| Device   | Supported |
-| -------- | --------- |
-| MaixCAM2 | ✅         |
-| MaixCAM  | ❌         |
-
 ## Introduction to InternVL
 
 VLM (Vision-Language Model) refers to a vision-language model that allows AI to generate text output based on both text and image input, such as describing the content of an image, meaning the AI has learned to interpret images.
@@ -38,52 +31,17 @@ In the image, we see a vibrant street scene featuring a classic double-decker bu
 ```
 This is the result with a casually set prompt. You can adjust the system and user prompts according to the actual situation.
 
+## Downloading the Model
 
-## Using InternVL in MaixPy MaixCAM
+Supported models:
 
-### Model and Download Link
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [InternVL2.5-1B-maixcam2](https://huggingface.co/sipeed/InternVL2.5-1B-maixcam2) | MaixCAM2 | 4G     |  |
 
-MaixPy currently supports InternVL2.5. By default, a `1B` model is already available under the `/root/models` directory of the system. If not, you can download it manually.
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
-* **1B**:
-
-  * Memory requirement: CMM memory 1GiB. For details, see the [Memory Usage Documentation](../pro/memory.md)
-  * Download link: [https://huggingface.co/sipeed/InternVL2.5-1B-maixcam2](https://huggingface.co/sipeed/InternVL2.5-1B-maixcam2)
-
-### Download Method
-
-Make sure the download tool is installed:
-
-```
-pip install huggingface_hub
-```
-
-Within China, you can use:
-
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-If you are in China, you can set a domestic mirror to speed up the download:
-Linux/MacOS:
-
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-
-Windows:
-CMD terminal: `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
-
-Then download:
-
-```shell
-huggingface-cli download sipeed/InternVL2.5-1B-maixcam2 --local-dir InternVL2.5-1B-maixcam2
-# or
-hf download sipeed/InternVL2.5-1B-maixcam2 --local-dir InternVL2.5-1B-maixcam2
-```
-
-### Running the Model
+## Running the Model with MaixPY
 
 ```python
 from maix import nn, err, log, sys, image, display

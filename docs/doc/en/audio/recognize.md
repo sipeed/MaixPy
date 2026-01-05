@@ -20,74 +20,18 @@ Speech recognition model support list:
 |         | MaixCAM | MaixCAM Pro | MaixCAM2 |
 | ------- | ------- | ----------- | -------- |
 | Whisper | ❌       | ❌           | ✅        |
+| SenseVoice | ❌       | ❌           | ✅        |
 | Speech  | ✅       | ✅           | ❌        |
 
 In addition, we have ported OpenAI's Whisper speech recognition model to the `MaixCAM2`, enabling powerful speech-to-text functionality even on resource-constrained devices.
 
 ## Using Whisper for Speech-to-Text
 
-> Note: MaixCAM and MaixCAM Pro do not support the Whisper model.
-
-Currently, only the base version of the Whisper model is supported. It accepts single-channel WAV audio with a 16kHz sample rate and can recognize both Chinese and English.
-
-```python
-from maix import nn
-
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud")
-
-wav_path = "/maixapp/share/audio/demo.wav"
-
-res = whisper.transcribe(wav_path)
-
-print('whisper:', res)
-```
-
-Notes:
-1. First, import the nn module to create the Whisper model object:
-```python
-from maix import nn
-```
-2. Load the model. Currently, only the `base` version is supported:
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
-```
-3. Prepare a WAV audio file with 1 channel and 16kHz sample rate, and run inference. The result will be returned directly:
-```python
-wav_path = "/maixapp/share/audio/demo.wav"
-res = whisper.forward(wav_path)
-print('whisper:', res)
-```
-4. Sample output:
-```shell
-whisper: Have fun exploring!
-```
-5. Give it a try yourself!
-
-By default, it recognizes Chinese. To recognize English, pass the language parameter when initializing the object.
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base.mud", language="en")
-```
+The usage of Whisper can be found in [Whisper Speech Recognition Model](../mllm/asr_whisper.md)
 
 ## Using SenseVoice for Speech-to-Text
 
-Currently, only `MaixCAM2` supports `SenseVoice`, and all SenseVoice-related code is implemented in `Python`, so only Python-side examples are provided.
-By default, the system does not include the `SenseVoice` model. Please download it from [here](https://huggingface.co/sipeed/sensevoice-maixcam2) and place it in the `/root/models/` directory.
-
-Before using it, you need to start the `sensevoice.service `service. The command is as follows:
-> Note that sensevoice.service starts from the `/root/models/sensevoice-maixcam2` directory by default, so make sure the model is placed under `/root/models/.`
-```shell
-systemctl start sensevoice.service
-```
-
-You can also start it manually:
-
-```shell
-cd /root/models/sensevoice-maixcam2
-python server.py
-```
-
-After the service is started, you can perform speech recognition via HTTP interaction.
-For usage, please refer to the example:[asr_sensevoice.py](https://github.com/sipeed/MaixPy/tree/main/examples/audio/asr/sensevoice/asr_sensevoice.py)
+The usage of Sensevoice can be found in [Sensevoice Speech Recognition Model](../mllm/asr_sensevoice.md)
 
 ## Maix-Speech
 

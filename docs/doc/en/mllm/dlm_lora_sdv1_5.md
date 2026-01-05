@@ -7,31 +7,20 @@ update:
     content: Added LCM-LoRA-SDv1-5 code and documentation
 ---
 
-## Supported Devices
-
-| Device      | Supported |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
-
 ## Introduction to the LCM-LoRA-SDv1-5 Model
 
 LCM-LoRA-SDv1-5 is a model that supports text-to-image and image-to-image generation, based on the StableDiffusion 1.5 LCM project. With this model, you can generate conceptual images for artistic creation—simply provide a text description, and the model will generate an image based on it.
 
-## Running the LCM-LoRA-SDv1-5 Model on MaixPy MaixCAM
+## Downloading the Model
 
-### Model and Download Link
+Supported models:
 
-MaixPy currently supports `LCM-LoRA-SDv1-5`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [lcm-lora-sdv1-5-maixcam2](https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2) | MaixCAM2 | 4G       | Output 256x256 resolution |
+| [lcm-lora-sdv1-5-320x320-maixcam2](https://huggingface.co/sipeed/lcm-lora-sdv1-5-320x320-maixcam2) | MaixCAM2 | 4G       | Output 320x320 resolution |
 
-> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/lcm-lora-sdv1-5-maixcam2`.
-
- * Memory requirement: CMM memory 1 GiB. For details, refer to the [Memory Usage Documentation](../pro/memory.md)
-
- * Download link: https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2
-
-For the download method, refer to the instructions in the [Qwen documentation](../pro/memory.md)
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
 ### Running the Model with MaixPy
 

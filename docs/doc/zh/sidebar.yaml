@@ -117,6 +117,8 @@ items:
 
 -   label: AI 大模型
     items:
+    -   file: mllm/basic.md
+        label: 大模型使用说明
     -   file: mllm/llm_qwen.md
         label: Qwen 大语言模型
     -   file: mllm/llm_deepseek.md
@@ -129,7 +131,12 @@ items:
         label: LCM-LoRA-SDv1-5 图像生成模型
     -   file: mllm/vlm_smolvlm.md
         label: SmolVLM 视觉语言模型
-
+    -   file: mllm/asr_sensevoice.md
+        label: SenseVoice 语音识别模型
+    -   file: mllm/asr_whisper.md
+        label: Whisper 语音识别模型
+    -   file: mllm/tts_melotts.md
+        label: MeloTTS 语音合成模型
 -   label: AI 模型转换和移植
     items:
     -   file: ai_model_converter/maixcam2.md

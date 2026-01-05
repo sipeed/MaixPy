@@ -7,67 +7,23 @@ update:
     content: Added Qwen3-VL code and documentation
 ---
 
-## Supported Devices
-
-| Device   | Supported |
-| -------- | --------- |
-| MaixCAM2 | ✅         |
-| MaixCAM  | ❌         |
-
-
 ## Introduction to Qwen3-VL
 
 `Qwen3-VL` is a visual language model from the Qwen series. Compared to the previous generation, it offers superior text comprehension and generation, deeper visual perception and reasoning, extended context length, enhanced spatial and video dynamic understanding, and stronger agent interaction capabilities.
 
 [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) has been ported to MaixPy.
 
-## Using Qwen3-VL in MaixPy MaixCAM
+## Downloading the Model
 
-### Model and Download Address
+Supported models:
 
-MaixPy currently supports `Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2](https://huggingface.co/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2) | MaixCAM2 | 4G     |  |
 
-> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`.
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
-* **2B**:
-  * Memory Requirement: 2GiB CMM Memory. Please refer to the Memory Usage Documentation for memory explanation.
-  * Download Address: [Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2](https://huggingface.co/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2)
-
-### Download Method
-
-Make sure the download tool is installed:
-
-```
-pip install huggingface_hub
-```
-
-Within China, you can use:
-
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-If you are in China, you can set a domestic mirror to speed up the download:
-Linux/MacOS:
-
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-
-Windows:
-CMD terminal: `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
-
-Then download:
-
-```shell
-huggingface-cli download sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2 --local-dir Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2
-# or
-hf download sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2 --local-dir Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2
-```
-
-
-### Running the Model
+## Running the Model with MaixPy
 
 ```python
 from maix import app, nn, err, image, display, time

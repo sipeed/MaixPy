@@ -7,13 +7,6 @@ update:
     content: Added DeepSeek code and documentation
 ---
 
-## Supported Devices
-
-| Device   | Supported |
-| -------- | --------- |
-| MaixCAM2 | ✅         |
-| MaixCAM  | ❌         |
-
 ## Introduction to the DeepSeek Large Language Model
 
 In recent years, large language models (LLMs) have become extremely popular, bringing great convenience to both work and daily life. With LLMs, we can interact with them in natural conversation, ranging from casual chat to professional guidance.
@@ -24,27 +17,17 @@ Like other models, it comes in various parameter sizes, such as 72B, 32B, 7B, an
 
 The 1.5B version is essentially a distilled version based on Qwen2.5. That means it is fundamentally a Qwen2.5 model, with differences in datasets and training methods. Therefore, the usage is basically the same as Qwen, and we won’t repeat the instructions here.
 
-## Running DeepSeek R1 on MaixPy MaixCAM
+## Downloading the Model
 
-As mentioned above, since the network structure is the same as Qwen2.5, please refer to the [Qwen Documentation](./llm_qwen.md).
+Supported models:
 
-### Models and Download Links
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [deepseek-r1-distill-qwen-1.5B-maixcam2](https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2) | MaixCAM2 | 4G     |  |
 
-MaixPy currently supports `deepseek-r1-distill-qwen-1.5B-maixcam2`. Due to the large size of the model, you need to download the model manually and save it to the `/root/models` directory.
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
-> !!! Important !!! Important !!! The model must be saved in the `/root/models` directory; otherwise, some applications may fail to load it. For example, a valid save path is `/root/models/deepseek-r1-distill-qwen-1.5B-maixcam2`.
-
-* **1.5B**:
-
-  * Memory requirement: CMM memory 1.8GiB. See [Memory Usage Documentation](../pro/memory.md) for explanation.
-  * Download link: https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2
-
-Download method please refer to [Qwen Documentation](./llm_qwen.md).
-
-### Running the Model
-
-Model download link: [https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2](https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2)
-Memory requirement: 2GiB
+### Running the Model with MaixPy
 
 ```python
 from maix import nn, err, log, sys

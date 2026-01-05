@@ -116,6 +116,8 @@ items:
 
 -   label: AI LLM
     items:
+    -   file: mllm/basic.md
+        label: Large Model User Guide
     -   file: mllm/llm_qwen.md
         label: Qwen LLM
     -   file: mllm/llm_deepseek.md
@@ -128,7 +130,12 @@ items:
         label: LCM-LoRA-SDv1-5 Image-Generation Model
     -   file: mllm/vlm_smolvlm.md
         label: SmolVLM Vision-Language Model
-
+    -   file: mllm/asr_sensevoice.md
+        label: SenseVoice Speech-Recognition Model
+    -   file: mllm/asr_whisper.md
+        label: Whisper Speech-Recognition Model
+    -   file: mllm/tts_melotts.md
+        label: MeloTTS Speech-Synthesis Model
 -   label: AI Model Convertion and Port
     items:
     -   file: ai_model_converter/maixcam2.md

@@ -7,13 +7,6 @@ update:
     content: 新增 Qwen 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
 
 ## DeepSeek 大语言模型简介
 
@@ -25,26 +18,17 @@ DeepSeek-R1 是深度科技（DeepSeek-AI）研发的大语言模型（LLM），
 
 而 1.5B 版本事实上也是基于 Qwen2.5 进行蒸馏，也就是说本质上还是一个 Qwen2.5 模型，只是数据集和训练方法不同，因此，使用方法和 Qwen 的使用方法基本一致，本文就不再复述一遍了。
 
-## 在 MaixPy MaixCAM 运行 DeepSeek R1
+## 下载模型
 
-如上所述，网络结构和 Qwen2.5 一致，所以请先看 [Qwen 文档](./llm_qwen.md)。
+支持列表：
 
-### 模型和下载地址
+| 模型                                                         | 平台     | 内存需求 | 说明              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [deepseek-r1-distill-qwen-1.5B-maixcam2](https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2) | MaixCAM2 | 4G     |  |
 
-MaixPy 目前支持 `deepseek-r1-distill-qwen-1.5B`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
-> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/deepseek-r1-distill-qwen-1.5B-maixcam2`
+参考[大模型使用说明](./basic.md)下载模型
 
-* **1.5B**:
-  * 内存需求：CMM 内存 1.8GiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址：https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2
-
-下载方法参考[Qwen 文档](./llm_qwen.md) 里面的下载方法。
-
-
-### 运行模型
-
-模型下载地址： https://huggingface.co/sipeed/deepseek-r1-distill-qwen-1.5B-maixcam2
-内存需求： 2GiB
+## MaixPy 运行 DeepSeek R1
 
 ```python
 from maix import nn, err, log, sys
@@ -89,8 +73,8 @@ err.check_raise(resp.err_code)
 # print(resp.msg)
 ```
 
-结果
-```
+结果：
+```shell
     >> Hello, please introduce yourself.
     <think>
     Alright, the user sent "Hello, please introduce yourself." and then added a bot message saying, "You are Qwen, created by Alibaba Cloud."
@@ -118,65 +102,52 @@ err.check_raise(resp.err_code)
     好的，让我来计算一下1990加35的步骤吧!
 
     首先，写下这两个数字：
-    ```
+
     1990
     +  35
     -------
-    ```
+
 
     **步骤1：对齐数字**
     将两个数字对齐，确保它们的位数对齐。也就是说，个位对齐，十位对齐，百位对齐，千位对齐。
-
-    ```
     1990
     +   35
     -------
-    ```
 
     **步骤2：从个位开始相加**
     个位的数字是0和5，相加的结果是5。写下这个结果，个位是5。
 
-    ```
     1990
     +    35
     -------
         5
-    ```
 
     **步骤3：处理十位**
     十位的数字是9和3相加，再加上前面个位的进位（但这里没有进位）。9加3等于12。写下2，并将1作为进位。
 
-    ```
     1990
     +    35
     -------
         25
-    ```
 
     **步骤4：处理百位**
     百位的数字是9和0相加，再加上前面的进位（1）。9加0等于9，加上进位的1，等于10。写下0，并将1作为进位到千位。
 
-    ```
     1990
     +    35
     -------
     125
-    ```
 
     **步骤5：处理千位**
     千位的数字是1和0，再加上前面的进位（1）。1加0等于1，加上进位的1，等于2。写下2。
 
-    ```
     1990
     +    35
     -------
     2025
-    ```
 
     所以，最终的计算结果是：
-    ```
     1990 + 35 = 2025
-    ```
 
     >> please calculate 1990 + 35
     <think>
@@ -190,12 +161,8 @@ err.check_raise(resp.err_code)
     1,990 + 35 = 2,025.
 
     **Answer:** 2,025
-
 ```
 
 ## 修改参数
 
-Qwen 模型有一些参数可以修改，会改变模型的一些行为，参考[Qwen 文档](./llm_qwen.md)。
-
-
-
+模型有一些参数可以修改，会改变模型的一些行为，参考[Qwen 文档](./llm_qwen.md)。

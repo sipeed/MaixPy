@@ -7,13 +7,6 @@ update:
     content: 新增 InternVL 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
 
 ## InternVL 简介
 
@@ -35,52 +28,22 @@ In the image, we see a vibrant street scene featuring a classic double-decker bu
 
 这里是随便设置的提示词的效果，可以根据实际情况，调整系统提示词和用户提示词。
 
+## 下载模型
 
-## MaixPy MaixCAM 中使用 InternVL
+支持列表：
 
-### 模型和下载地址
+| 模型                                                         | 平台     | 内存需求 | 说明              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [InternVL2.5-1B-maixcam2](https://huggingface.co/sipeed/InternVL2.5-1B-maixcam2) | MaixCAM2 | 4G     |  |
 
-MaixPy 目前支持 InternVL2.5，默认系统`/root/models`目录下已经有`1B`的模型了，如果没有，可以自行下载。
-* **1B**:
-  * 内存需求： CMM 内存 1GiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址： https://huggingface.co/sipeed/InternVL2.5-1B-maixcam2
+参考[大模型使用说明](./basic.md)下载模型
 
-### 下载方法
-
-先保证下载工具安装好：
-```
-pip install huggingface_hub
-```
-中国国内可以
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-如果是中国国内，可以先设置国内镜像，下载速度会更快：
-Linux/MacOS:
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-Windows:
-CMD终端： `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
-
-
-然后下载：
-
-```shell
-huggingface-cli download sipeed/InternVL2.5-1B-maixcam2--local-dir InternVL2.5-1B-maixcam2
-
-# 或者
-hf download sipeed/InternVL2.5-1B-maixcam2--local-dir InternVL2.5-1B-maixcam2
-```
-
-### 运行模型
+## MaixPy 使用 InternVL
 
 ```python
 from maix import nn, err, log, sys, image, display
 
-model = "/root/models/InternVL2.5-1B/model.mud"
+model = "/root/models/InternVL2.5-1B-maixcam2/model.mud"
 log.set_log_level(log.LogLevel.LEVEL_ERROR, color = False)
 disp = display.Display()
 

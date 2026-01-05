@@ -7,62 +7,21 @@ update:
     content: 新增 Qwen3-VL 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
-
 ## Qwen3-VL 简介
 
 Qwen3-VL是Qwen系列的视觉语言模型, 相较上一代版本有更优越的文本理解与生成，更深层次的视觉感知与推理，延长上下文长度，增强空间和视频动态理解，以及更强的代理交互能力.
 
-MaixPy 中移植了 [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct)
+## 下载模型
 
-## MaixPy MaixCAM 中使用 Qwen3-VL
+支持列表：
 
-### 模型和下载地址
+| 模型                                                         | 平台     | 内存需求 | 说明              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2](https://huggingface.co/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2) | MaixCAM2 | 4G     |  |
 
-MaixPy 目前支持 `Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
-> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2`
+参考[大模型使用说明](./basic.md)下载模型
 
-* **2B**:
-  * 内存需求： CMM 内存 2GiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址： [Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2](https://huggingface.co/sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2)
-
-### 下载方法
-
-先保证下载工具安装好：
-```
-pip install huggingface_hub
-```
-中国国内可以
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-如果是中国国内，可以先设置国内镜像，下载速度会更快：
-Linux/MacOS:
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-Windows:
-CMD终端： `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
-
-
-然后下载：
-
-```shell
-huggingface-cli download sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2 --local-dir Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2
-
-# 或者
-hf download sipeed/Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2 --local-dir Qwen3-VL-2B-Instruct-GPTQ-Int4-AX630C-P320-CTX448-maixcam2
-```
-
-### 运行模型
+## MaixPy 使用 Qwen3-VL
 
 ```python
 from maix import app, nn, err, image, display, time

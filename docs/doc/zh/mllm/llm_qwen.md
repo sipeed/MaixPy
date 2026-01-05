@@ -7,13 +7,6 @@ update:
     content: 新增 Qwen 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
 
 ## Qwen 大语言模型简介
 
@@ -43,51 +36,19 @@ Qwen 实际上包含了许多种模型，本文主要介绍 大语言模型（LL
 * 上下文：也就是对话上下文，用户和模型对话，用户一句模型一句，语句之间是有记忆和关联的。
 * 72B/32B/1.5B/0.5B： 反应了模型的可训练参数规模，B表示 Billion(十亿)，参数越大效果越好但是占用内存越大运行速度越慢。
 
+## 下载模型
 
-## MaixPy MaixCAM 中使用 Qwen
+支持列表：
 
-### 模型和下载地址
+| 模型                                                         | 平台     | 内存需求 | 说明              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [Qwen2.5-0.5B-Instruct-maixcam2]( https://huggingface.co/sipeed/Qwen2.5-0.5B-Instruct-maixcam2) | MaixCAM2 | 4G       |  |
+| [Qwen2.5-1.5B-Instruct-maixcam2](https://huggingface.co/sipeed/Qwen2.5-1.5B-Instruct-maixcam2) | MaixCAM2 | 4G | |
 
-默认系统`/root/models`目录下已经有`0.5B`的模型了，如果没有，可以自行下载。
-
-* **1.5B**:
-  * 内存需求：CMM 内存 1.8GiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址：https://huggingface.co/sipeed/Qwen2.5-1.5B-Instruct-maixcam2
-* **0.5B**:
-  * 内存需求： CMM 内存 800MiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址： https://huggingface.co/sipeed/Qwen2.5-0.5B-Instruct-maixcam2
-
-### 下载方法
-
-先保证下载工具安装好：
-```
-pip install huggingface_hub
-```
-中国国内可以
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple huggingface_hub
-```
-
-如果是中国国内，可以先设置国内镜像，下载速度会更快：
-Linux/MacOS:
-```
-export HF_ENDPOINT=https://hf-mirror.com
-```
-Windows:
-CMD终端： `set HF_ENDPOINT=https://hf-mirror.com`
-PowerShell: `$env:HF_ENDPOINT = "https://hf-mirror.com"`
+参考[大模型使用说明](./basic.md)下载模型
 
 
-然后下载：
-
-```shell
-huggingface-cli download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
-
-#或者
-hf download sipeed/Qwen2.5-1.5B-Instruct-maixcam2 --local-dir Qwen2.5-1.5B-Instruct-maixcam2
-```
-
-### 运行模型
+## MaixPy 使用 Qwen
 
 ```python
 from maix import nn, err, log, sys
@@ -105,8 +66,6 @@ def show_mem_info():
 show_mem_info()
 qwen = nn.Qwen(model)
 show_mem_info()
-
-
 
 def on_reply(obj, resp):
     print(resp.msg_new, end="")

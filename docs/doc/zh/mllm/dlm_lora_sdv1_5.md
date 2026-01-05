@@ -7,31 +7,23 @@ update:
     content: 新增 LCM-LoRA-SDv1-5 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
 
 ## LCM-LoRA-SDv1-5 模型简介
 
 LCM-LoRA-SDv1-5 是一个支持文生图, 图生图的模型, 基于 StableDiffusion 1.5 LCM 项目. 我们可以通过这个模型来生成艺术创作的概念图, 只需要输入一段图片的描述文字, 模型便可以基于描述生成一张图片.
 
-## 在 MaixPy MaixCAM 运行 LCM-LoRA-SDv1-5 模型
+## 下载模型
 
-### 模型和下载地址
+支持列表：
 
-MaixPy 目前支持 `LCM-LoRA-SDv1-5`，由于模型较大, 需要自行下载模型并保存到`/root/models`目录下。
-> !!! 注意 !!! 注意 !!! 模型一定要保存到`/root/models`目录下，否则一些应用可能无法加载模型. 例如保存路径为`/root/models/lcm-lora-sdv1-5-maixcam2`
+| 模型                                                         | 平台     | 内存需求 | 说明              |
+| ------------------------------------------------------------ | -------- | -------- | ----------------- |
+| [lcm-lora-sdv1-5-maixcam2](https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2) | MaixCAM2 | 4G       | 输出256x256分辨率 |
+| [lcm-lora-sdv1-5-320x320-maixcam2](https://huggingface.co/sipeed/lcm-lora-sdv1-5-320x320-maixcam2) | MaixCAM2 | 4G       | 输出320x320分辨率 |
 
-  * 内存需求：CMM 内存 1GiB，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址：https://huggingface.co/sipeed/lcm-lora-sdv1-5-maixcam2
+参考[大模型使用说明](./basic.md)下载模型
 
-下载方法参考[Qwen 文档](./llm_qwen.md) 里面的下载方法。
-
-### MaixPy 运行模型
+## MaixPy 运行模型
 
 > 注意:必须要`MaixPy 4.12.3`以上版本才支持
 
@@ -39,8 +31,13 @@ MaixPy 目前支持 `LCM-LoRA-SDv1-5`，由于模型较大, 需要自行下载�
 
 ```python
 from maix import sdv1_5
-
-model = sdv1_5.SDV1_5("/root/models/lcm-lora-sdv1-5-maixcam2/ax620e_models")
+'''
+注：
+1. 如果是MaixPy 4.12.5以下版本则直接传入模型的目录，例如：model_file=/root/models/lcm-lora-sdv1-5-maixcam2
+2. 如果是lcm-lora-sdv1-5-320x320-maixcam2模型，则model_file=/root/models/lcm-lora-sdv1-5-320x320-maixcam2/model.mud
+'''
+model_file = "/root/models/lcm-lora-sdv1-5-maixcam2/model.mud"
+model = sdv1_5.SDV1_5(path) 
 model.init(img2img=True)
 model.refer(prompt="A white dog.", save_path="/root/text2img.jpg")
 model.refer(prompt="Replace the dog with a cat.", init_image_path="/root/text2img.jpg", seed=1, save_path="/root/img2img.jpg")
@@ -117,5 +114,4 @@ python3 launcher.py --init_image ax620e_models/img2img-init.png --isize 256 --mo
 - `--seed`: 随机种子, 代表图片生成时的随机性
 - `-o`: 输出图片名称
 - `--prompt`: 描述文字, 模型基于这里的描述生成图片
-
 

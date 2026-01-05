@@ -1,4 +1,4 @@
-from maix import sys
+from maix import sys, nn, app
 if sys.device_id().lower() != "maixcam2":
     raise ValueError("Only maixcam2 platform support this module")
 
@@ -495,15 +495,25 @@ def get_alphas_cumprod():
     return alphas_cumprod, final_alphas_cumprod, self_timesteps
 
 class SDV1_5:
-    def __init__(self, model_dir, backend="axe"):
-        if backend != "axe":
-            raise ValueError("Only support axmodel, please set backend='axe'")
-        self.model_suffix = ".axmodel" if backend == "axe" else ".onnx"
-        self.model_dir = model_dir
-        if not os.path.exists(model_dir):
-            raise ValueError(f"Model dir {model_dir} not exists")
-        self.backend = backend
+    def __init__(self, model, backend="axe"):
+        self.last_ai_isp = int(app.get_sys_config_kv("npu", "ai_isp", "0"))
+        if self.last_ai_isp:
+            raise ValueError("Please turn off AI ISP first, try: app.set_sys_config_kv('npu', 'ai_isp', '0')")
+
         self.is_inited = False
+        if not os.path.exists(model):
+            raise ValueError(f"Model {model} not exists")
+
+        if not model.endswith(".mud"):
+            raise ValueError(f"Model {model} is not .mud file, try pass in a xxx.mud file")
+
+        self.model_dir = os.path.dirname(model)
+        self.model_mud = nn.MUD(model)
+        self.model_configs = self.model_mud.items
+        self.backend = self.model_configs["extra"]["backend"]
+        if self.backend != "axe":
+            raise ValueError("Only support axmodel, please set backend='axe'")
+        self.model_suffix = ".axmodel" if self.backend == "axe" else ".onnx"
 
     def __del__(self):
         if self.is_inited:
@@ -523,23 +533,22 @@ class SDV1_5:
 
         backend = self.backend.lower()
         model_dir = self.model_dir
-        tokenizer_dir = os.path.join(model_dir, "tokenizer")
-        text_encoder_dir = os.path.join(model_dir, "text_encoder")
+        tokenizer_dir = os.path.join(model_dir, self.model_configs['extra']['tokenizer_dir'])
         model_suffix = ".axmodel" if backend == "axe" else ".onnx"
-        text_encoder_path = os.path.join(text_encoder_dir, f"sd15_text_encoder_sim{model_suffix}")
-        unet_model = os.path.join(model_dir, f"unet{model_suffix}")
-        vae_decoder_model = os.path.join(model_dir, f"vae_decoder{model_suffix}")
-        vae_encoder_model = os.path.join(model_dir, f"vae_encoder{model_suffix}")
+        text_encoder_path = os.path.join(model_dir, self.model_configs['extra']['text_encoder_model'])
+        unet_model = os.path.join(model_dir, self.model_configs['basic']['model_npu'])
+        vae_decoder_model = os.path.join(model_dir, self.model_configs['extra']['vae_decoder_model'])
+        vae_encoder_model = os.path.join(model_dir, self.model_configs['extra']['vae_encoder_model'])
 
         if txt2img:
-            time_input_default = "time_input_txt2img.npy"
+            time_input_default = self.model_configs['extra']['time_input_txt2img']
             time_input_path = time_input or os.path.join(self.model_dir, time_input_default)
             if time_input:
                 time_input_path = resolve_with_base(time_input, model_dir)
             self.txt2img_time_input = np.load(time_input_path)
 
         if img2img:
-            time_input_default = "time_input_img2img.npy"
+            time_input_default = self.model_configs['extra']['time_input_img2img']
             time_input_path = time_input or os.path.join(self.model_dir, time_input_default)
             if time_input:
                 time_input_path = resolve_with_base(time_input, model_dir)
@@ -554,7 +563,11 @@ class SDV1_5:
         self.vae_decoder_session = self.create_session(vae_decoder_model, backend)
         self.tokenizer = CLIPTokenizer.from_pretrained(tokenizer_dir)
         self.text_encoder = self.create_session(text_encoder_path, backend)
-
+        self.img_w = int(self.model_configs['extra']['img_w'])
+        self.img_h = int(self.model_configs['extra']['img_h'])
+        if self.img_w != self.img_h:
+            raise ValueError(f"img_w must equal to img_h, currently img_w = {img_w}, img_h = {img_h}")
+        self.img_size = self.img_w
         self.img2img = img2img
         self.txt2img = txt2img
         self.is_inited = True
@@ -607,7 +620,7 @@ class SDV1_5:
         print(f"text encoder running take {(1000 * (time.time() - running_start)):.1f}ms")
         return prompt_embeds_npy
 
-    def refer(self, prompt, isize=256, init_image_path=None, seed=None, save_path=None):
+    def refer(self, prompt, init_image_path=None, seed=None, save_path=None):
         if not self.is_inited:
             raise ValueError('Model is not inited')
 
@@ -618,9 +631,7 @@ class SDV1_5:
         if not self.txt2img and not is_img2img:
             raise ValueError('You need enable img2img mode, try: init(txt2img=True)')
 
-        if isize != 256:
-            raise ValueError("isize only supports 256")
-
+        isize = self.img_size
         device = torch.device("cpu")
         generator: Optional[torch.Generator] = None
         if seed is not None:

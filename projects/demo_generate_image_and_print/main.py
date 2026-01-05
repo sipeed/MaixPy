@@ -1,7 +1,7 @@
-from PIL.Image import ID
 from maix import camera, time, display, app, image, touchscreen, audio
 import importlib, threading
 import os
+from dp_eh204l import DPEH204L
 
 class ModuleLoader():
     def __load_module(self):
@@ -87,6 +87,7 @@ class App:
         self.__show_load_info('Init sdv1_5 model..', tips='It may wait for a long time.')
         self.text2img_model = sdv1_5.SDV1_5("/root/models/lcm-lora-sdv1-5-maixcam2/model.mud")
         self.text2img_model.init(img2img=True)
+        self.extra_prompt = ''
 
         # load asr model
         self.__show_load_info('Loading sensevoice module..')
@@ -110,6 +111,11 @@ class App:
             loader_count = loader_count if loader_count < loader_max_count else (loader_max_count - 1)
             self.__show_load_info(f'Init asr model.. {loader_count}/{loader_max_count}', tips='It may wait for a long time.')
         self.__show_load_info(f'Init asr model.. {loader_max_count}/{loader_max_count}', tips='It may wait for a long time.')
+
+
+        self.__show_load_info(f'Init dp_eh204l')
+        self.printer = DPEH204L()
+
         self.set_sta(AppStatus.IDLE)
 
     def set_sta(self, new_status):
@@ -257,7 +263,7 @@ class App:
                     pcm += self.recorder.record(-1)
             elif status == Status.TRANSCRIBING:
                 prompt = self.asr.refer(audio_data=pcm)
-                text = prompt
+                text = prompt + self.extra_prompt
                 status = Status.IDLE
                 print(text)
             elif status == Status.RUN_TXT_TO_IMG:
@@ -265,6 +271,9 @@ class App:
                 prompt_img = image.load(save_text2img_path).resize(img_w, img_h)
                 text = 'text to image complete, prompt:\n' + prompt
                 show_img = prompt_img
+                if self.printer:
+                    cmd = self.printer.create_image_cmd_from_path(save_text2img_path)
+                    self.printer.serial_write(cmd)
                 status = Status.IDLE
             elif status == Status.RUN_IMG_TO_IMG:
                 save_path = "/tmp/img2img.jpg"
@@ -272,6 +281,9 @@ class App:
                 prompt_img = image.load(save_path).resize(img_w, img_h)
                 text = 'image to image complete, prompt:\n' + prompt
                 show_img = prompt_img
+                if self.printer:
+                    cmd = self.printer.create_image_cmd_from_path(save_path)
+                    self.printer.serial_write(cmd)
                 status = Status.IDLE
             elif status == Status.RUN_CAMERA:
                 cam_img = self.cam.read()

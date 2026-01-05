@@ -7,30 +7,22 @@ update:
     content: Added SmolVLM code and documentation
 ---
 
-## Supported Devices
-
-| Device   | Supported |
-| -------- | --------- |
-| MaixCAM2 | ✅         |
-| MaixCAM  | ❌         |
-
 ## Introduction to SmolVLM
 
 VLM (Vision-Language Model) refers to models that can take text + image input and output text, such as describing the content in an image—essentially enabling the AI to “see.”
 SmolVLM currently supports English only.
 
-## Using SmolVLM in MaixPy MaixCAM
+## Downloading the Model
 
-### Model and Download Address
+Supported models:
 
-If the `SmolVLM` model is not present in the default `/root/models` directory, you need to download it manually.
- * Memory requirement: CMM memory 300MB. For more information, see [the memory usage documentation](../pro/memory.md)
+| Model                                                         | Platform     | Memory Requirement | Description              |
+| ------------------------------------------------------------ | -------- | -------- | ---- |
+| [smolvlm-256m-instruct-maixcam2](https://huggingface.co/sipeed/smolvlm-256m-instruct-maixcam2) | MaixCAM2 | 1G       |      |
 
- * Download link: https://huggingface.co/sipeed/smolvlm-256m-instruct-maixcam2
+Refer to the [Large Model User Guide](./basic.md) to download the model.
 
-The download method is the same as described in [the Qwen documentation](./llm_qwen.md)
-
-### Running the Model
+## Running the Model with MaixPy
 
 ```python
 from maix import nn, err, log, sys, image, display

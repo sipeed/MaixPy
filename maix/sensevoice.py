@@ -6,7 +6,7 @@ import requests, json, os
 import wave
 import numpy as np
 import threading
-from maix import app, time
+from maix import app, time, nn
 
 class Sensevoice:
     def __init__(self, model = "", url="http://0.0.0.0:12347", lauguage="auto", stream=False):
@@ -25,6 +25,17 @@ class Sensevoice:
 
         if not os.path.exists(model):
             raise ValueError(f'Model {self.model} is not existed!')
+
+        self.model_mud = nn.MUD(model)
+        self.model_configs = self.model_mud.items
+        server_path = self.model_configs.get('extra', {}).get('server', '/root/models/sensevoice_maixcam2/server.py')
+        model_dir = os.path.dirname(self.model)
+        service_env_path = self.model_configs.get('extra', {}).get('sensevoice_service_env')
+        self._create_service_environment_file(model_dir, os.path.join(model_dir, server_path), os.path.join(model_dir, service_env_path))
+
+    def _create_service_environment_file(self, working_dir: str, server_path: str, env_file_path: str = "/tmp/sensevoice.service.env"):
+        os.system(f"echo 'WORK_DIR={os.path.realpath(working_dir)}' > {os.path.realpath(env_file_path)}")
+        os.system(f"echo 'SERVER_FILE={os.path.realpath(server_path)}' >> {os.path.realpath(env_file_path)}")
 
     def _check_service(self):
         try:
@@ -92,6 +103,7 @@ class Sensevoice:
                 "language": self.launguage,
                 "stream": self.stream
             }
+
             response = requests.post(self.url + '/start_model', json=data)
             if response.status_code == 200:
                 res = json.loads(response.text)

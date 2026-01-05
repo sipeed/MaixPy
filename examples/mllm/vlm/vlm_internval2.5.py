@@ -7,7 +7,7 @@
 '''
 from maix import nn, err, log, sys, image, display
 
-model = "/root/models/InternVL2.5-1B/model.mud"
+model = "/root/models/InternVL2.5-1B-maixcam2/model.mud"
 log.set_log_level(log.LogLevel.LEVEL_ERROR, color = False)
 disp = display.Display()
 

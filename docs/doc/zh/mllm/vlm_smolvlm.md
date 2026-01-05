@@ -7,31 +7,22 @@ update:
     content: 新增 SmolVLM 代码和文档
 ---
 
-## 支持的设备
-
-| 设备      | 是否支持 |
-| -------- | ------- |
-| MaixCAM2 | ✅ |
-| MaixCAM  | ❌ |
-
 
 ## SmolVLM 简介
 
-VLM(Vision-Language Model) 即视觉语言模型，可以通过文字+图像输入，让 AI 输出文字，比如让 AI 描述图像中的内容，即 AI 学会了看图。
-SmolVLM 目前只支持英文。
+VLM(Vision-Language Model) 即视觉语言模型，可以通过文字+图像输入，让 AI 输出文字，比如让 AI 描述图像中的内容，即 AI 学会了看图。 SmolVLM 目前只支持英文。
 
-## MaixPy MaixCAM 中使用 SmolVLM
+## 下载模型
 
-### 模型和下载地址
+支持列表：
 
-默认系统`/root/models`目录下如果没有`SmolVLM`模型，需要自行下载。
+| 模型                                                         | 平台     | 内存需求 | 说明 |
+| ------------------------------------------------------------ | -------- | -------- | ---- |
+| [smolvlm-256m-instruct-maixcam2](https://huggingface.co/sipeed/smolvlm-256m-instruct-maixcam2) | MaixCAM2 | 1G       |      |
 
-  * 内存需求：CMM 内存 300M，内存解释请看[内存使用文档](../pro/memory.md)
-  * 下载地址：https://huggingface.co/sipeed/smolvlm-256m-instruct-maixcam2
+参考[大模型使用说明](./basic.md)下载模型
 
-下载方法参考[Qwen 文档](./llm_qwen.md) 里面的下载方法。
-
-### 运行模型
+## MaixPy 使用 SmolVLM
 
 ```python
 from maix import nn, err, log, sys, image, display
