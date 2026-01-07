@@ -3,6 +3,7 @@ import sys
 import os
 import platform
 import shutil
+import zipfile
 
 ####################################################################
 # supported platforms
@@ -272,7 +273,7 @@ if board:
     #     os.rename(os.path.join("dist", name), os.path.join("dist",
     #             "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
     #     )
-    if name.find("linux_riscv64") != -1:
+    if name.find("linux_riscv64") != -1 or name.find("manylinux2014_") != -1:# 增加linux平台判断，使linux平台和maixcam平台执行相同的whl打包逻辑
         # pypi not support riscv64 yet, so we have to change to py3-none-any pkg
         # unzip to dist/temp, change dist-info/WHEEL file
         # zip back and rename
@@ -295,4 +296,3 @@ if board:
         os.rename(os.path.join("dist", name), os.path.join("dist",
                 "{}-{}-py3-none-any.whl".format(module_name, __version__))
         )
-
