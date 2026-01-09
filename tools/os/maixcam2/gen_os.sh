@@ -53,6 +53,7 @@ builtin_files_dir_path=$3
 skip_build_apps=0
 board_name=maixcam
 generate_axp_full=0
+package_method="7z"
 
 # 如果提供了第五个参数且不为空，则将 skip_build_apps 设置为 1
 if [ -n "$4" ]; then
@@ -73,7 +74,7 @@ if [ -n "$5" ]; then
     fi
 fi
 
-check_axp2img_command
+# check_axp2img_command
 
 if [ -n "$6" ]; then
     if [ "x$6" == "x1" ]; then
@@ -229,14 +230,15 @@ echo "Now update system image, need sudo permition to mount rootfs:"
 sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files
 echo "Complete: os dir: tmp2/axp"
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p images
-echo "Now convert to binary img file: images/${os_version_str}.img.xz"
-# need install simg2img and xz tool first
+echo "Now convert to binary img file: images/${os_version_str}.img.${package_method}"
 sudo chmod 777 tmp2/axp
-axp2img -i tmp2/axp -o images/${os_version_str}.img.xz
+# axp2img
+python ${SCRIPT_DIR}/axp-tools/axp_tools/axp2img.py -i tmp2/axp -o images/${os_version_str}.img.${package_method}
 rm -rf tmp2/axp/out tmp2/axp/temp
 sync
-echo "Complete convert to binary img file: images/${os_version_str}.img.xz"
+echo "Complete convert to binary img file: images/${os_version_str}.img.${package_method}"
 
 echo "Now zip boot_parts axp file"
 mkdir -p tmp2/axp2

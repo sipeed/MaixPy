@@ -123,6 +123,14 @@ def compress_to_xz_auto(src_path, dst_path, threads=0):
         with open(src_path, 'rb') as src, lzma.open(dst_path, 'wb') as dst:
             shutil.copyfileobj(src, dst)
 
+def compress_to_7z_auto(src_path, dst_path, threads=0):
+    if shutil.which("7z"):
+        print("Compress with system's 7z command")
+        cmd = ["7z", "a", "-v2g", "-mx9", f"-mmt{threads}", dst_path, src_path]
+        subprocess.run(cmd, check=True)
+    else:
+        print("7z command not found")
+
 def check_env():
     if not shutil.which("simg2img"):
         print("[ERROR] simg2img command not found, please install first")
@@ -135,7 +143,10 @@ def axp2img(arg_input, arg_output):
     if not check_env():
         return -1
 
-    file_name = os.path.splitext(os.path.basename(arg_input))[0]
+    file_name = os.path.splitext(os.path.basename(arg_output))[0]
+    while file_name.endswith(".img"):
+        file_name = os.path.splitext(file_name)[0]
+
     if os.path.isfile(arg_input):
         input_dir = os.path.abspath(os.path.dirname(arg_input))
         temp_dir = os.path.join(input_dir, "temp")
@@ -153,7 +164,7 @@ def axp2img(arg_input, arg_output):
     if not arg_output:
         arg_output = os.path.join(out_dir, f"{file_name}.img.xz")
 
-    supported_format = [".xz", ".img"]
+    supported_format = [".xz", ".img", ".7z"]
     format = os.path.splitext(arg_output)[1]
     if format not in supported_format:
         print(f"Not support output format {format}, supported: {supported_format}")
@@ -251,7 +262,14 @@ def axp2img(arg_input, arg_output):
         print("xz compress complete, remove img file")
         os.remove(out_img_path)
         print("xz file saved to", arg_output)
-
+    elif arg_output.endswith(".7z"):
+        print("\nCompress to 7z format:")
+        print("                   from:", out_img_path)
+        print("                     to:", arg_output)
+        compress_to_7z_auto(out_img_path, arg_output)
+        print("7z compress complete, remove img file")
+        os.remove(out_img_path)
+        print("7z file saved to", arg_output)
     if temp_dir:
         shutil.rmtree(temp_dir)
 
