@@ -42,7 +42,8 @@ def config_page():
 
         screen_w, screen_h = disp.width(), disp.height()
 
-        btn_exit = [20, 15, 52, 52]
+        pad = 15
+        btn_exit = [20 - pad, 15 - pad, 52 + pad * 2, 52 + pad * 2]
         img_exit = image.load("./assets/exit.jpg").resize(52, 52)
         img_exit_p = image.load("./assets/exit_touch.jpg").resize(52, 52)
 
@@ -135,7 +136,7 @@ def config_page():
                 if in_box(t, btn_on) and not running:
                     is_busy = True
                     subprocess.call(["systemctl", "enable", "--now", "tailscaled.service"])
-                    proc = subprocess.Popen(["tailscale", "up"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+                    proc = subprocess.Popen(["tailscale", "up", "--accept-dns=false"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
                     for _ in range(15):
                         line = proc.stdout.readline()
                         if "https://login.tailscale.com" in line:
@@ -381,8 +382,8 @@ def start_streaming():
             continue
 
         t = ts.read()
-
-        box_exit = [20, 15, img_exit.width(), img_exit.height()]
+        pad = 15
+        box_exit = [20 - pad, 15 - pad, img_exit.width() - pad * 2, img_exit.height() - pad * 2]
         if in_box(t, box_exit):
             img.draw_image(box_exit[0], box_exit[1], img_exit_touch)
             need_exit = True
