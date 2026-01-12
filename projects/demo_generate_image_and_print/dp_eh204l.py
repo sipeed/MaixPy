@@ -176,14 +176,14 @@ def ordered_dithering(image, bayer_size=4):
 
 
 class DPEH204L:
-    def __init__(self):
+    def __init__(self, w:int = 39, h:int = 39, dpi:int = 203):
         pinmap.set_pin_function("B0", "UART2_TX")
         pinmap.set_pin_function("B1", "UART2_RX")
 
         device = "/dev/ttyS2"
         self.serial = uart.UART(device, 1500000)
-        self.max_w = 384
-        self.max_h = 256
+        self.max_w = int(dpi / 25.4 * w)
+        self.max_h = int(dpi / 25.4 * h)
 
     def serial_write(self, label_data:bytes):
         curr_baudrate = self.serial.get_baudrate()
@@ -462,7 +462,11 @@ class DPEH204L:
         label_data += self.start_label(0, 0, self.max_w, self.max_h)
         
         # 绘制边框
-        x = (self.max_w - img.width()) // 2
+        ## 居中
+        # x = (self.max_w - img.width()) // 2
+        # y = (self.max_h - img.height()) // 2
+        ## 左对齐
+        x = 0
         y = (self.max_h - img.height()) // 2
         label_data += self.draw_bitmap(x, y, img.width(), img.height(), data=bitmap)
 
@@ -476,7 +480,7 @@ class DPEH204L:
 
     def create_image_cmd_from_path(self, path:str):
         img0 = cv2.imread(path)
-        img_resize = cv2.resize(img0, (224, 224))
+        img_resize = cv2.resize(img0, (244, 244))
         new_img = atkinson_dithering(img_resize)
         img = image.cv2image(new_img, bgr=True, copy=False)
         return self.create_image_cmd(img)
@@ -490,29 +494,14 @@ class DPEH204L:
 if __name__ == "__main__":
     """主函数：创建并保存/打印示例标签"""
     d = DPEH204L()
-
-    img_path = '/maixapp/share/picture/2024.1.1/cat_224.jpg'
-    # img0 = cv2.imread(img_path)
-    # # t = time.time()
-    # # new_img = multi_level_dithering(img0)
-    # # print('multi_level_dithering cost:', time.time() - t)
     
-    # # t = time.time()
-    # # new_img = atkinson_dithering(img0)
-    # # print('atkinson_dithering cost:', time.time() - t)
-
-    # # t = time.time()
-    # # new_img = ordered_dithering(img0)
-    # # print('ordered_dithering cost:', time.time() - t)
-
-    # t = time.time()
-    # new_img = floyd_steinberg_dithering(img0)
-    # print('floyd_steinberg_dithering cost:', time.time() - t)
-
-    # img_show = image.cv2image(new_img, bgr=True, copy=False)
-    # img_show.to_format(image.Format.FMT_RGB888).save('/root/test.jpg')
-    # img = img_show
+    # 波特率只需要设置一次,掉电保存
     # d.set_baudrate(1843200)
 
+    # 更换纸张类型后执行一次,掉点保存
+    # cmd = d.label_calibration()
+    # d.serial_write(cmd)
+
+    img_path = '/maixapp/share/picture/2024.1.1/cat_224.jpg'
     cmd = d.create_image_cmd_from_path(img_path)
     d.serial_write(cmd)
