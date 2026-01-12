@@ -7,15 +7,18 @@ import zipfile
 
 ####################################################################
 # supported platforms
-board_names = ["linux", "maixcam"]
+# 1. 新增 maixcam2 到支持的平台列表中
+board_names = ["linux", "maixcam", "maixcam2"]  # 修改点：添加 maixcam2
 platform_names = {
     # use correspond docker to compile https://github.com/pypa/manylinux
     "linux": "manylinux2014_{}".format(platform.machine().replace("-", "_").replace(".", "_").lower()),
     "m2dock": "linux_armv7l",
     "maixcam": "linux_riscv64",
+    "maixcam2": "linux_arrch64",  # 修改点：添加 maixcam2 对应的平台名称
 }
 platform_toolchain_id = {
-    "maixcam": "musl_t-hread"
+    "maixcam": "musl_t-hread",
+    "maixcam2": "cross-gcc-11.3"  # 修改点：添加 maixcam2 对应的工具链ID
 }
 ####################################################################
 
@@ -70,10 +73,14 @@ def print_py_version_err(build_py_version):
     print("       conda create -n python{}.{} python={}.{}".format(build_py_version[0], build_py_version[1], build_py_version[0], build_py_version[1]))
     print("       conda activate python{}.{}".format(build_py_version[0], build_py_version[1]))
 
-# specially check for maixcam
+# specially check for maixcam and maixcam2
 py_version = get_python_version()
 if board == "maixcam" and f"{py_version[0]}.{py_version[1]}" != "3.11":
     print_py_version_err([3, 11])
+    sys.exit(1)
+# 修改点：新增 maixcam2 的 Python 版本强制检测（要求 3.13）
+if board == "maixcam2" and f"{py_version[0]}.{py_version[1]}" != "3.13":
+    print_py_version_err([3, 13])
     sys.exit(1)
 
 if board:
@@ -273,7 +280,7 @@ if board:
     #     os.rename(os.path.join("dist", name), os.path.join("dist",
     #             "MaixPy-{}-{}-{}-{}.whl".format(__version__, py_tag, py_tag, platform_names[board]))
     #     )
-    if name.find("linux_riscv64") != -1 or name.find("manylinux2014_") != -1:# 增加linux平台判断，使linux平台和maixcam平台执行相同的whl打包逻辑
+    if True:# 所有平台都打包whl文件
         # pypi not support riscv64 yet, so we have to change to py3-none-any pkg
         # unzip to dist/temp, change dist-info/WHEEL file
         # zip back and rename

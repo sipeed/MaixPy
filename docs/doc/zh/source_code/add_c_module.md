@@ -9,8 +9,8 @@ title: 给 MaixCAM MaixPy 添加一个 C/C++ 模块
 
 ## 通用函数封装
 
-如果你想封装的函数实现的功能不依赖 MaixPy 的其它功能，直接使用 Python 使用 C/C++ 添加模块的通用方法，具体方法可以自行百度，比如 ffi， ctype 等
-> 欢迎 PR 添加方法
+如果你想封装的函数实现的功能不依赖 MaixPy 的其它功能，直接使用 Python 使用 C/C++ 添加模块的通用方法，具体方法可以查看:
+https://maixhub.com/share/114
 
 ## 如果你的模块还想依赖 MaixPy 的其它基础 API
 
