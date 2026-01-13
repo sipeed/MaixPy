@@ -1,5 +1,5 @@
 from face_tracking import servos
-from maix import image, camera, display, time, nn, touchscreen, sys
+from maix import image, camera, display, time, nn, touchscreen, sys, app
 
 ### model path
 if sys.device_name().lower() == "maixcam2":
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     total_uesd_time = 0
     total_fps = 0
     t0 = time.ticks_ms()
-    while not target.is_need_exit():
+    while not target.is_need_exit() and not app.need_exit():
         ltime = time.ticks_ms()
 
         # get target error
