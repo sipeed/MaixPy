@@ -78,7 +78,7 @@ def main(disp):
         if is_in_button(x, y, back_rect_disp):
             app.set_exit_flag(True)
         if is_in_button(x, y, model_rect_disp):
-            model_id = (model_id + 1) % 2
+            model_id = (model_id + 1) % len(models)
             msg = "switching model ..."
             size = image.string_size(msg, scale=1.3)
             img.draw_string((img.width() - size.width()) // 2, (img.height() - size.height())//2, msg, image.COLOR_RED, scale=1.3, thickness=-3)
