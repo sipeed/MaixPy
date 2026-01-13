@@ -186,7 +186,7 @@ if [ $skip_build_apps == 0 ]; then
 fi
 cd -
 mkdir -p tmp/sys_builtin_files/maixapp/apps
-cp -r ../../../projects/apps/* tmp/sys_builtin_files/maixapp/apps
+cp -r ../../../projects/maixcam2_apps/* tmp/sys_builtin_files/maixapp/apps
 
 # 4. 打包 MaixCDK 写的应用，进入 $MAIXCDK_PATH/projects， 执行 build_all.sh，生成 apps 目录，将内容全部拷贝到 tmp/sys_builtin_files/apps 目录
 echo "pack and copy MaixCDK projects"
@@ -196,8 +196,8 @@ if [ $skip_build_apps == 0 ]; then
     ./build_all.sh maixcam2
 fi
 cd -
-if [ -d $MAIXCDK_PATH/projects/apps/ ]; then
-    cp -r $MAIXCDK_PATH/projects/apps/* tmp/sys_builtin_files/maixapp/apps
+if [ -d $MAIXCDK_PATH/projects/maixcam2_apps/ ]; then
+    cp -r $MAIXCDK_PATH/projects/maixcam2_apps/* tmp/sys_builtin_files/maixapp/apps
 fi
 
 # 5. 生成 tmp/sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py tmp/sys_builtin_files/maixapp/apps

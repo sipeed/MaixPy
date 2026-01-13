@@ -186,6 +186,6 @@ tools/os/*/img_root
 tools/os/*/img_boot
 tools/os/*/images
 projects/apps/
-
+projects/*_apps/
 
 .vscode*

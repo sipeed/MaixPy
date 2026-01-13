@@ -43,6 +43,14 @@ function platform_setting()
 	esac
 }
 
+if [ -n "$1" ]; then
+    platform="$1"
+else
+    platform_setting
+fi
+
+apps_dir=${platform}_apps
+
 function build_start()
 {
     # test_script $1
@@ -58,22 +66,17 @@ function build_start()
         maixcdk distclean
         maixcdk release -p "$platform" --toolchain-id default
     fi
-    mkdir -p ../apps
-    cp -r dist/pack/* ../apps
+    mkdir -p ../${apps_dir}
+    cp -r dist/pack/* ../${apps_dir}
     cd ..
 }
 
-if [ -n "$1" ]; then
-    platform="$1"
-else
-    platform_setting
-fi
 
 # 获取当前平台对应的黑名单数组
 blacklist_var="blacklist_${platform}[@]"
 blacklist=("${!blacklist_var}")
 
-rm -rf apps/
+rm -rf ${apps_dir}/
 
 for dir in */; do
   if [ -d "$dir" ]; then
