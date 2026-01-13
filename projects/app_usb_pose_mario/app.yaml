@@ -1,5 +1,6 @@
 id: usb_pose_mario
 name: USB Pose Mario
+name[zh]: 姿态控制键盘
 version: 1.0.0
 author: Neucrack@Sipeed
 icon: icon.json

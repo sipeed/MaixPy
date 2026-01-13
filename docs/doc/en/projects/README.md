@@ -38,6 +38,58 @@ Searching for `MaixPy` or `MaixCAM` on [GitHub](https://github.com) can also lea
 
 These are usually complete projects that include source code, documentation, demo videos, and more.
 
+### Built-in Applications
+
+Applications pre-installed on platforms such as `MaixCAM`, `MaixCAM Pro`, and `MaixCAM2`
+
+| Built-in Application        | Supported Platforms        | Description      | Documentation         |
+| --------------- | ------------------------------------ | -------------------------------------- | ------------ |
+| Benchmark | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Tests the comprehensive performance of CPU/NPU and other hardware            | [Docs]() |
+| Local Chat | `MaixCAM2`                           | Offline chat                           | [Docs]() |
+| Desktop Monitor | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Host performance monitoring widget       | [Docs]() |
+| Face Emotion | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Emotion recognition              | [Docs]() |
+| Face Landmarks | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Keypoint recognition                | [Docs]() |
+| Face Recognizer | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Face recognition                               | [Docs]() |
+| Face tracking | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Face tracking                               | [Docs]() |
+| Gesture Classifier | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Recognizes different gestures                         | [Docs]() |
+| Hand Landmarks | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Hand keypoint detection                       | [Docs]() |
+| HTTP File Browser | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | View and download files via a browser               | [Docs]() |
+| Human Pose | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Human pose recognition                           | [Docs]() |
+| Pose Classifier | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Recognizes different human poses                     | [Docs]() |
+| Image Generation | `MaixCAM2`                           | Text-to-image, image-to-image                         | [Docs]() |
+| IMU AHRS | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Calculates IMU data                         | [Docs]() |
+| MaixHub Client | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Interacts with MaixHub                          | [Docs]() |
+| Depth Estimation | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Monocular depth estimation                           | [Docs]() |
+| Mouse Simulator | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Uses the device as a mouse                     | [Docs]() |
+| OCR     | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Text recognition                               | [Docs]() |
+| RTMP Live | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTMP streaming                              | [Docs]() |
+| RTSP Stream | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTSP streaming                              | [Docs]() |
+| Scan QR Code | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Scans and recognizes barcodes, QR codes, Apriltag labels | [Docs]() |
+| Self Learn Classifier | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Learns and classifies targets                         | [Docs]() |
+| Self Learn Tracker | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Learns and detects targets                         | [Docs]() |
+| Speech Recognition | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Speech-to-text                             | [Docs]() |
+| Thermal256 Camera | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External thermal imaging module                         | [Docs]() |
+| Thermal Night Vision | `MaixCAM2`                           | Fusion of thermal imaging and AI night vision                 | [Docs]() |
+| Tracker Counter | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | People/object counting                               | [Docs]() |
+| USB Hand Contrl | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Controls the mouse via gestures                       | [Docs]() |
+| USB Pose Mario | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Controls the keyboard via human pose                   | [Docs]() |
+| Local VLM | `MaixCAM2`                           | Image-to-text                                 | [Docs]() |
+| WebRTC Stream | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | WebRTC streaming                             | [Docs]() |
+| YOLO11 OBB | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Image detection with rotation angle                | [Docs]() |
+| YOLO11 Seg | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Image segmentation                               | [Docs]() |
+| YOLO-World      | `MaixCAM2`                           | YOLO-World detection                        | [Docs]() |
+| Camera      | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Photo taking, video recording                            | [Docs]() |
+| Photos      | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Displays photos                | [Docs]() |
+| AI Classifier | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI classification                                 | [Docs]() |
+| AI Detector | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI detection                                 | [Docs]() |
+| Find blobs | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Finds color blobs                                 | [Docs]() |
+| Line tracking | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Find line                                 | [Docs]() |
+| Speech Recognition | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Speech-to-text                             | [Docs]() |
+| Thermal Camera | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External infrared camera module (PMOD_Thermal32)    | [Docs]() |
+| ToF Camera | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External ToF module (ToF100)                    | [Docs]() |
+| UVC Camera | `MaixCAM`, `MaixCAM Pro`             | Serves as a USB camera                        | [Docs]() |
+
+
 ### Tools
 
 * [MaixPy-UI-Lib](https://github.com/aristorechina/MaixPy-UI-Lib): A lightweight UI library developed with MaixPy, written in pure Python. It supports a variety of widgets, is easy to use and extend, and includes many example codes such as LAB/HSV offline threshold tuning tools.

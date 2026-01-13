@@ -1,5 +1,6 @@
 id: usb_hand_ctrl
 name: USB Hand Contrl
+name[zh]: 手势控制鼠标
 version: 1.0.0
 author: Neucrack@Sipeed
 icon: icon.json

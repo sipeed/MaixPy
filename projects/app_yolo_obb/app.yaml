@@ -1,5 +1,6 @@
 id: yolo_obb
 name: YOLO11 OBB
+name[zh]: OBB 检测
 version: 1.0.2
 author: Sipeed Ltd
 icon: icon.png
