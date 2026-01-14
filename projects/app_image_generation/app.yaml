@@ -10,7 +10,7 @@ exclude:
   - dist
   - build
   - .gitignore
-files:
+include:
   - assets/exit.jpg
   - assets/icon.json
   - app.yaml

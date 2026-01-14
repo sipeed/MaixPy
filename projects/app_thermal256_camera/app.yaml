@@ -6,7 +6,7 @@ icon: assets/thermal.json
 author: Sipeed Ltd
 desc: Thermal Camera
 desc[zh]: 热成像仪
-files:
+include:
   - assets/thermal.json
   - app.yaml
   - main.py

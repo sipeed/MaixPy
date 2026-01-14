@@ -21,7 +21,7 @@ Speech recognition model support list:
 | ------- | ------- | ----------- | -------- |
 | Whisper | ❌       | ❌           | ✅        |
 | SenseVoice | ❌       | ❌           | ✅        |
-| Speech  | ✅       | ✅           | ❌        |
+| Speech  | ✅       | ✅           | ✅        |
 
 In addition, we have ported OpenAI's Whisper speech recognition model to the `MaixCAM2`, enabling powerful speech-to-text functionality even on resource-constrained devices.
 

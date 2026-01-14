@@ -1,0 +1,13 @@
+# one line per file
+# the former's API will be register first in pybind11 module
+# to avoid `ImportError: arg(): could not convert default argument *** into a Python object (type not registered yet?)` error
+# comment starts with #
+
+maix_err.hpp
+maix_tensor.hpp
+maix_image_def.hpp
+maix_image_obj.hpp
+maix_image_color.hpp
+maix_image.hpp
+maix_camera.hpp
+maix_display.hpp

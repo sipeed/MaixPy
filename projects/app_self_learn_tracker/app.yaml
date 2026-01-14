@@ -6,7 +6,7 @@ icon: assets/icon.png
 author: Sipeed Ltd
 desc: Learn and detect and track any object
 desc[zh]: 学习、检测、追踪任意物体
-files:
+include:
   app.yaml: app.yaml
   assets: assets
   README.md: README.md

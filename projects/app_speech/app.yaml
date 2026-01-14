@@ -6,7 +6,7 @@ icon: 'assets/voice.json'
 author: Sipeed Ltd
 desc: AI speech recognition
 desc[zh]: AI 语音识别
-files:
+include:
   - assets
   - app.yaml
   - main.py

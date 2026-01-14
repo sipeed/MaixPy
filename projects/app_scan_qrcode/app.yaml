@@ -6,7 +6,7 @@ icon: assets/scan.json
 author: Sipeed Ltd
 desc: Scan the qrcode/apriltag in camera screen and send the result of the qrcode from the communication module(Default is uart).
 desc[zh]: 扫描摄像头画面中的二维码或者Apriltag，并用通信模块(默认是uart)发送二维码的识别结果
-files:
+include:
   app.yaml: app.yaml
   assets: assets
   README.md: README.md

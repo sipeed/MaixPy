@@ -6,7 +6,7 @@ icon: assets/icon.png
 author: Sipeed Ltd
 desc: Thermal256 Night Vision
 desc[zh]: 热融合夜视仪
-files:
+include:
   - assets
   - app.yaml
   - main.py

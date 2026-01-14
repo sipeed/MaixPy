@@ -6,7 +6,7 @@ author: Sipeed Ltd
 icon: assets/app.json
 desc: WebRTC Stream
 desc[zh]: WebRTC 推流
-files:
+include:
   - assets
   - app.yaml
   - main.py
