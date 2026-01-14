@@ -1,5 +1,3 @@
-
-build
+data
+__pycache__
 dist
-/CMakeLists.txt
-

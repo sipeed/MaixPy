@@ -46,25 +46,25 @@ title: MaixCAM MaixPy 项目实战 介绍和汇总
 
 | 内置应用                                               | 已支持的平台 | 说明 | 文档           |
 | ------------------------------------------------------------ | ------------ | -------- | -------------- |
-| 跑分测试     | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 测试CPU/NPU等硬件的综合性能 | [说明文档]() |
-| 本地聊天 | `MaixCAM2` | 离线语音聊天 | [说明文档]() |
-| 桌面监视器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 主机性能监控小工具 | [说明文档]() |
-| 人脸情绪 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 情绪识别 | [说明文档]() |
-| 人脸关键点 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 关键点识别 | [说明文档]() |
-| 人脸识别 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸识别 | [说明文档]() |
-| 人脸追踪 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸追踪 | [说明文档]() |
+| 跑分测试     | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 测试CPU/NPU等硬件的综合性能 | [说明文档](https://maixhub.com/app/188) |
+| 本地聊天 | `MaixCAM2` | 离线语音聊天 | [说明文档](https://maixhub.com/app/187) |
+| 桌面监视器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 主机性能监控小工具 | [说明文档](https://maixhub.com/app/13) |
+| 人脸情绪 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 情绪识别 | [说明文档](https://maixhub.com/app/189) |
+| 人脸关键点 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 关键点识别 | [说明文档](https://maixhub.com/app/186) |
+| 人脸识别 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸识别 | [说明文档](https://maixhub.com/app/190) |
+| 人脸追踪 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸追踪 | [说明文档](https://maixhub.com/app/31) |
 | 手势分类 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 识别不同的手势 | [说明文档]() |
 | 手关键点 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 手部的关键点检测 | [说明文档]() |
-| HTTP 文件浏览器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过浏览器查看和下载文件 | [说明文档]() |
-| 人体姿态 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人体姿态识别 | [说明文档]() |
+| HTTP 文件浏览器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过浏览器查看和下载文件 | [说明文档](https://maixhub.com/app/59) |
+| 人体姿态 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人体姿态识别 | [说明文档](https://maixhub.com/app/191) |
 | 人体姿态分类 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 识别不同的人体姿态 | [说明文档]() |
 | 图像生成 | `MaixCAM2` | 文生图, 图生图 | [说明文档]() |
 | 姿态解算 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 解算 IMU 数据 | [说明文档]() |
-| MaixHub 客户端 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 与MaixHub交互 | [说明文档]() |
+| MaixHub 客户端 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 与MaixHub交互 | [说明文档](https://maixhub.com/app/48) |
 | 深度估计 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 单目深度估计 | [说明文档]() |
 | 鼠标模拟 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 将设备作为鼠标使用 | [说明文档]() |
 | 文字识别 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 文字识别 | [说明文档]() |
-| RTMP 直播 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTMP 推流 | [说明文档]() |
+| RTMP 直播 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTMP 推流 | [说明文档](https://maixhub.com/app/35) |
 | RTSP 推流 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTSP 推流 | [说明文档]() |
 | 扫描二维码 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 扫描和识别条形码, 二维码, Apriltag标签 | [说明文档]() |
 | 自学习分类 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 学习目标并分类 | [说明文档]() |
@@ -90,6 +90,7 @@ title: MaixCAM MaixPy 项目实战 介绍和汇总
 | 热成像仪        | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 外接红外摄像头模组(PMOD_Thermal32)     | [说明文档]() |
 | ToF相机         | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 外接ToF模组(ToF100)                    | [说明文档]() |
 | UVC相机         | `MaixCAM`, `MaixCAM Pro` | 作为 usb 摄像头 | [说明文档]() |
+| OCR识别         | `MaixCAM`, `MaixCAM Pro`,`MaixCAM2` | 文本识别| [说明文档](https://maixhub.com/app/70) |
 
 
 
