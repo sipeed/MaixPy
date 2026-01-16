@@ -5,7 +5,7 @@ version: 1.0.1
 author: Taorye@Sipeed
 icon: icon.json
 desc: Detect human body 17 keypoints and then classify the pose.
-files:
+include:
   - app.yaml
   - icon.json
   - main.py

@@ -5,7 +5,7 @@ version: 1.0.0
 author: Taorye@Sipeed
 icon: icon.png
 desc: Classify the hand gesture.
-files:
+include:
   - app.yaml
   - icon.png
   - main.py

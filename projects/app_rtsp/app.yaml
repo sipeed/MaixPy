@@ -6,7 +6,7 @@ icon: assets/app.png
 author: Sipeed Ltd
 desc: RTSP stream
 desc[zh]: RTSP 推流
-files:
+include:
   app.yaml: app.yaml
   assets: assets
   README.md: README.md

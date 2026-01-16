@@ -5,6 +5,6 @@ version: 1.0.0
 author: Neucrack@Sipeed
 icon: icon.json
 desc: detect hand status and simulate touchpad input through USB
-files:
+inclede:
   - main.py
   - icon.json
