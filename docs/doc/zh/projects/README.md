@@ -54,7 +54,7 @@ title: MaixCAM MaixPy 项目实战 介绍和汇总
 | 人脸识别 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸识别 | [说明文档](https://maixhub.com/app/190) |
 | 人脸追踪 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人脸追踪 | [说明文档](https://maixhub.com/app/31) |
 | 手势分类 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 识别不同的手势 | [说明文档](https://maixhub.com/app/192) |
-| 手关键点 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 手部的关键点检测 | [说明文档](https://maixhub.com/app/192) |
+| 手关键点 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 手部的关键点检测 | [说明文档](https://maixhub.com/app/227) |
 | HTTP 文件浏览器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过浏览器查看和下载文件 | [说明文档](https://maixhub.com/app/59) |
 | 人体姿态 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人体姿态识别 | [说明文档](https://maixhub.com/app/191) |
 | 人体姿态分类 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 识别不同的人体姿态 | [说明文档](https://maixhub.com/app/193) |
@@ -71,15 +71,15 @@ title: MaixCAM MaixPy 项目实战 介绍和汇总
 | 自学习检测器 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 学习目标并检测 | [说明文档](https://maixhub.com/app/62) |
 | 语音识别 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 语音转文本 | [说明文档](https://maixhub.com/app/65) |
 | 热成像仪256 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 外接热成像模组 | [说明文档](https://maixhub.com/app/208) |
-| 热融合夜视仪 | `MaixCAM2` | 热成像仪与AI夜视的融合 | [说明文档](https://maixhub.com/app/210) |
+| 热融合夜视仪 | `MaixCAM2` | 热成像仪与AI夜视的融合 | [说明文档](https://maixhub.com/app/228) |
 | 跟踪计数 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 人流计数 | [说明文档](https://maixhub.com/app/61) |
-| 手势控制鼠标 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过手势控制鼠标 | [说明文档]() |
+| 手势控制鼠标 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过手势控制鼠标 | [说明文档](https://maixhub.com/app/223) |
 | 姿态控制键盘 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 通过人体姿态控制键盘 | [说明文档](https://maixhub.com/app/178) |
 | 本地视觉大模型 | `MaixCAM2` | 图生文 | [说明文档](https://maixhub.com/app/194) |
 | WebRTC 推流 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | WebRTC推流 | [说明文档](https://maixhub.com/app/202) |
 | OBB 检测 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 图像检测,结果带旋转角度 | [说明文档](https://maixhub.com/app/203) |
 | YOLO11 分割 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 图像分割 | [说明文档](https://maixhub.com/app/204) |
-| YOLO-World | `MaixCAM2` | YOLO-World 检测 | [说明文档](https://maixhub.com/app/205) |
+| YOLO-World | `MaixCAM2` | YOLO-World 检测 | [说明文档](https://maixhub.com/app/229) |
 | 相机 | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 拍照, 录像 | [说明文档](https://maixhub.com/app/221) |
 | 相册            | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 显示照片     | [说明文档](https://maixhub.com/app/222) |
 | AI 分类器       | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI分类                                 | [说明文档](https://maixhub.com/app/211) |
@@ -91,8 +91,8 @@ title: MaixCAM MaixPy 项目实战 介绍和汇总
 | 热成像仪        | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 外接红外摄像头模组(PMOD_Thermal32)     | [说明文档](https://maixhub.com/app/218) |
 | ToF相机         | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | 外接ToF模组(ToF100)       | [说明文档](https://maixhub.com/app/219) |
 | UVC相机         | `MaixCAM`, `MaixCAM Pro` | 作为 usb 摄像头 | [说明文档](https://maixhub.com/app/220) |
-| 应用商店         | `MaixCAM`, `MaixCAM Pro` | 安装其他应用 | [说明文档]() |
-| 设置        | `MaixCAM`, `MaixCAM Pro` | 修改系统设置 | [说明文档]() |
+| 应用商店         | `MaixCAM`, `MaixCAM Pro` | 安装其他应用 | [说明文档](https://maixhub.com/app/225) |
+| 设置        | `MaixCAM`, `MaixCAM Pro` | 修改系统设置 | [说明文档](https://maixhub.com/app/224) |
 
 
 

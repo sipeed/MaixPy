@@ -5,7 +5,7 @@ version: 1.0.2
 author: Neucrack@Sipeed
 icon: icon.png
 desc: Hand Landmarks detect hand keypoints
-files:
+include:
   - icon.png
   - app.yaml
   - main.py
