@@ -5,7 +5,7 @@ version: 1.0.2
 author: Sipeed Ltd
 icon: icon.png
 desc: YOLO11 detect objects with orientation.
-files:
+include:
   - icon.png
   - app.yaml
   - main.py
