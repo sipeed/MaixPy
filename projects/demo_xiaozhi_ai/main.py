@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os, importlib, subprocess, sys
+import ssl      # Load the correct openssl
 from maix import audio, image, app, display, time, fs, key
 
 BG_COLOR = image.COLOR_WHITE
