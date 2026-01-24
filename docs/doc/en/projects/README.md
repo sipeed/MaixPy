@@ -46,15 +46,15 @@ Here is the translation of the table into English:
 
 | Built-in Application | Supported Platforms | Description | Documentation |
 | :--- | :--- | :--- | :--- |
-| **Benchmark** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Tests the comprehensive performance of hardware such as CPU/NPU | [Documentation](https://maixhub.com/app/188) |
+| **Benchmark Test** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Tests comprehensive performance of CPU/NPU and other hardware | [Documentation](https://maixhub.com/app/188) |
 | **Local Chat** | `MaixCAM2` | Offline voice chat | [Documentation](https://maixhub.com/app/187) |
-| **Desktop Monitor** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Host performance monitoring tool | [Documentation](https://maixhub.com/app/13) |
-| **Facial Expression** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Emotion recognition | [Documentation](https://maixhub.com/app/189) |
+| **Desktop Monitor** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Host performance monitoring gadget | [Documentation](https://maixhub.com/app/13) |
+| **Facial Emotion** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Emotion recognition | [Documentation](https://maixhub.com/app/189) |
 | **Facial Key Points** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Key point recognition | [Documentation](https://maixhub.com/app/186) |
 | **Face Recognition** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Face recognition | [Documentation](https://maixhub.com/app/190) |
 | **Face Tracking** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Face tracking | [Documentation](https://maixhub.com/app/31) |
-| **Hand Gesture Classification** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Recognize different hand gestures | [Documentation](https://maixhub.com/app/192) |
-| **Hand Key Points** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Hand key point detection | [Documentation](https://maixhub.com/app/192) |
+| **Gesture Classification** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Recognize different gestures | [Documentation](https://maixhub.com/app/192) |
+| **Hand Key Points** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Hand key point detection | [Documentation](https://maixhub.com/app/227) |
 | **HTTP File Browser** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | View and download files via browser | [Documentation](https://maixhub.com/app/59) |
 | **Human Pose** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Human pose recognition | [Documentation](https://maixhub.com/app/191) |
 | **Human Pose Classification** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Recognize different human poses | [Documentation](https://maixhub.com/app/193) |
@@ -62,8 +62,8 @@ Here is the translation of the table into English:
 | **Pose Calculation** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | IMU data calculation | [Documentation](https://maixhub.com/app/128) |
 | **MaixHub Client** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Interact with MaixHub | [Documentation](https://maixhub.com/app/48) |
 | **Depth Estimation** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Monocular depth estimation | [Documentation](https://maixhub.com/app/195) |
-| **Mouse Simulation** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Use the device as a mouse | [Documentation](https://maixhub.com/app/196) |
-| **Text Recognition (OCR)** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Text recognition | [Documentation](https://maixhub.com/app/70) |
+| **Mouse Simulation** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Use device as a mouse | [Documentation](https://maixhub.com/app/196) |
+| **Text Recognition** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Text recognition (OCR) | [Documentation](https://maixhub.com/app/70) |
 | **RTMP Live Streaming** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTMP streaming | [Documentation](https://maixhub.com/app/35) |
 | **RTSP Streaming** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | RTSP streaming | [Documentation](https://maixhub.com/app/197) |
 | **QR Code Scanner** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Scan and recognize barcodes, QR codes, Apriltag | [Documentation](https://maixhub.com/app/199) |
@@ -71,26 +71,26 @@ Here is the translation of the table into English:
 | **Self-learning Detector** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Learn targets and detect | [Documentation](https://maixhub.com/app/62) |
 | **Speech Recognition** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Speech to text | [Documentation](https://maixhub.com/app/65) |
 | **Thermal Camera 256** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External thermal imaging module | [Documentation](https://maixhub.com/app/208) |
-| **Thermal Fusion Night Vision** | `MaixCAM2` | Fusion of thermal camera and AI night vision | [Documentation](https://maixhub.com/app/210) |
-| **Tracking & Counting** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | People counting | [Documentation](https://maixhub.com/app/61) |
+| **Thermal Fusion Night Vision** | `MaixCAM2` | Fusion of thermal camera and AI night vision | [Documentation](https://maixhub.com/app/228) |
+| **Tracking Count** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | People flow counting | [Documentation](https://maixhub.com/app/61) |
 | **Gesture Control Mouse** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Control mouse via gestures | [Documentation](https://maixhub.com/app/223) |
-| **Pose Control Keyboard** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Control keyboard via human posture | [Documentation](https://maixhub.com/app/178) |
-| **Local Visual LLM** | `MaixCAM2` | Image-to-Text | [Documentation](https://maixhub.com/app/194) |
+| **Pose Control Keyboard** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Control keyboard via human pose | [Documentation](https://maixhub.com/app/178) |
+| **Local Visual LLM** | `MaixCAM2` | Image-to-text | [Documentation](https://maixhub.com/app/194) |
 | **WebRTC Streaming** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | WebRTC streaming | [Documentation](https://maixhub.com/app/202) |
 | **OBB Detection** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Image detection with rotation angle | [Documentation](https://maixhub.com/app/203) |
 | **YOLO11 Segmentation** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Image segmentation | [Documentation](https://maixhub.com/app/204) |
-| **YOLO-World** | `MaixCAM2` | YOLO-World detection | [Documentation](https://maixhub.com/app/205) |
-| **Camera** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Take photos and record videos | [Documentation](https://maixhub.com/app/221) |
+| **YOLO-World** | `MaixCAM2` | YOLO-World detection | [Documentation](https://maixhub.com/app/229) |
+| **Camera** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Take photos, record videos | [Documentation](https://maixhub.com/app/221) |
 | **Album** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Display photos | [Documentation](https://maixhub.com/app/222) |
-| **AI Classifier** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI Classification | [Documentation](https://maixhub.com/app/211) |
-| **AI Detector** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI Detection | [Documentation](https://maixhub.com/app/213) |
-| **Find Color Blob** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Find color blocks | [Documentation](https://maixhub.com/app/33) |
-| **Line Patrol** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Find straight lines | [Documentation](https://maixhub.com/app/215) |
+| **AI Classifier** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI classification | [Documentation](https://maixhub.com/app/211) |
+| **AI Detector** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | AI detection | [Documentation](https://maixhub.com/app/213) |
+| **Find Color Blocks** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Find color blocks | [Documentation](https://maixhub.com/app/33) |
+| **Line Patrol** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Find lines | [Documentation](https://maixhub.com/app/215) |
 | **Speech Recognition (Maix-Speech)** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | Speech to text | [Documentation](https://maixhub.com/app/216) |
 | **Speech Recognition (AI LLM)** | `MaixCAM2` | Speech to text | [Documentation](https://maixhub.com/app/217) |
 | **Thermal Camera** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External thermal camera module (PMOD_Thermal32) | [Documentation](https://maixhub.com/app/218) |
 | **ToF Camera** | `MaixCAM`, `MaixCAM Pro`, `MaixCAM2` | External ToF module (ToF100) | [Documentation](https://maixhub.com/app/219) |
-| **UVC Camera** | `MaixCAM`, `MaixCAM Pro` | Act as a USB camera | [Documentation](https://maixhub.com/app/220) |
+| **UVC Camera** | `MaixCAM`, `MaixCAM Pro` | Act as USB camera | [Documentation](https://maixhub.com/app/220) |
 | **App Store** | `MaixCAM`, `MaixCAM Pro` | Install other applications | [Documentation](https://maixhub.com/app/225) |
 | **Settings** | `MaixCAM`, `MaixCAM Pro` | Modify system settings | [Documentation](https://maixhub.com/app/224) |
 
