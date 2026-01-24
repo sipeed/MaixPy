@@ -1,5 +1,0 @@
-config BUILD_WITH_MAIXPY
-	bool "Used to indicate that maixpy ​​is compiling"
-	default y
-	help
-        application code can use this macro to do special process when compiling MaixPy.
