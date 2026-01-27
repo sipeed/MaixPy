@@ -389,12 +389,10 @@ main() {
     check_exists "$BOOTFS_PATH"
     check_exists "$ROOTFS_PATH"
     check_root
-
-    umount tmp2/sd/sd_boot &> /dev/null
-    umount tmp2/sd/sd_rootfs &> /dev/null
-    umount tmp2/sd/ubuntu_rootfs &> /dev/null
-    umount tmp2/sd/bootfs &> /dev/null
-
+    umount tmp2/sd/sd_boot &> /dev/null || echo ""
+    umount tmp2/sd/sd_rootfs &> /dev/null || echo ""
+    umount tmp2/sd/ubuntu_rootfs &> /dev/null || echo ""
+    umount tmp2/sd/bootfs &> /dev/null || echo ""
     print_info "Converting $ROOTFS_PATH to $ROOTFS_RAW_PATH..."
     if [ $DISABLE_ROOTFS_SIMG2IMG -eq 1 ]; then
         print_warning "Skip convert $ROOTFS_PATH to $ROOTFS_RAW_PATH..."
@@ -461,11 +459,11 @@ main() {
 
     print_info "Unmounting..."
     sleep 2
-    umount tmp2/sd/sd_boot &> /dev/null
-    umount tmp2/sd/sd_rootfs &> /dev/null
-    umount tmp2/sd/ubuntu_rootfs &> /dev/null
-    umount tmp2/sd/bootfs &> /dev/null
-    losetup -d $DEVICE &> /dev/null
+    umount tmp2/sd/sd_boot &> /dev/null || echo ""
+    umount tmp2/sd/sd_rootfs &> /dev/null || echo ""
+    umount tmp2/sd/ubuntu_rootfs &> /dev/null || echo ""
+    umount tmp2/sd/bootfs &> /dev/null || echo ""
+    losetup -d $DEVICE &> /dev/null || echo ""
 
     print_info "Compressing sd.img..."
     if [ $DISABLE_COMPRESS_IMAGE -eq 1 ]; then
