@@ -136,7 +136,7 @@ class App:
             self.vlm.set_system_prompt("You are a helpful vision-to-text assistant.")
             self.support_zh = False
         elif vlm_model == 'internvl':
-            self.vlm = nn.InternVL('/root/models/InternVL2.5-1B/model.mud')
+            self.vlm = nn.InternVL('/root/models/InternVL2.5-1B-maixcam2/model.mud')
             self.vlm.set_system_prompt("你是由上海人工智能实验室联合商汤科技开发的书生多模态大模型, 英文名叫InternVL, 是一个有用无害的人工智能助手。")
         else:
             exit(0)

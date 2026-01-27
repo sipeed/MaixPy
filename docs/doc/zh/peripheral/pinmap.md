@@ -141,7 +141,7 @@ print(func)
 | ------- | ------- | ---- | ------- |
 | MaixCAM |  ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 参考 `MaixCAM-Pro` | 1. `UART0`是系统日志+默认串口<br>WiFi(SDIO1 + A26)。<br>2. `A14` 默认是系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. user按键默认系统已经有`key`驱动用来检测按键按下，不建议用`GPIO`读取。<br>4. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。 |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png)  | 1. 参考外壳丝印，比如`29`就是`GPIO`，`RX` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. 同 `MaixCAM`。<br>2. `B3` 接了一个照明`LED` ，高电平使能。|
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 1. 参考外壳丝印, 比如`A4`就是`GPIO`，`U2R` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. `B25` 接了一个照明`LED`，高电平使能。<br>2. `A6`引脚接了系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。|
+| MaixCAM2 | ![maixcam2_io](https://wiki.sipeed.com/hardware/assets/maixcam/maixcam2_pins.jpg) | 1. 参考外壳丝印, 比如`A4`就是`GPIO`，`U2R` 就是串口；<br>2. `6pin` 默认`UART`和`I2C` | 1. `B25` 接了一个照明`LED`，高电平使能。<br>2. `A6`引脚接了系统状态灯，初始化为`GPIO`后可以当作普通输出`GPIO`使用。<br>3. 再次强调 IO 是`3.3v`电平，不要直接接`5v`电压。|
 
 
 

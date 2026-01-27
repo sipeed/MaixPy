@@ -32,7 +32,7 @@ First, we need to know which pins and PWM channels the device provides, as shown
 | ------- | ------- | --- |
 | MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | On the silkscreen, for example, `A19` is the pin name and `PWM7` is the function name |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | The first name, such as `A19`, is the pin name; the corresponding `PWM7` is the function name |
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | The first name, such as `B25`, is the pin name; the corresponding `PWM6` is the function name |
+| MaixCAM2 | ![maixcam2_io](https://wiki.sipeed.com/hardware/assets/maixcam/maixcam2_pins.jpg) | The first name, such as `B25`, is the pin name; the corresponding `PWM6` is the function name |
 
 Note that pins may be used for other purposes by default; it’s best to avoid those pins. See the [pinmap](./pinmap.md) documentation for details.
 
