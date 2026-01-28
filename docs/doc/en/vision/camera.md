@@ -305,8 +305,7 @@ MaixCAM uses M12 lens by default and supports lens replacement. Notes:
 4. Want a zoom lens? Buy M12 zoom lens.
 5. Default is manual focus. Auto-focus lenses require driver support; MaixCAM lacks AF circuit—you may need to write control program.
 
-## Use USB Camera
-
+## Use USB Camera (UVC)
 Besides built-in MIPI camera, you can use USB camera.
 
 Steps:
