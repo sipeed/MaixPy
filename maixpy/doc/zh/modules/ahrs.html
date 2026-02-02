@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy 读取 IMU 加速度计和角速度计进行姿态解算 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2025-07-08", "update": [{"date": "2025-07-08", "author": "neucrack", "version": "1.0.0", "content": "增加姿态解算代码支持和文档"}], "ts": 1751932800, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/modules/ahrs.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/modules/ahrs.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/depth_anything.html"><span class="label">Depth-Anything 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo_world.html"><span class="label">YOLO-World 检测任意物体</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 大模型</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/basic.html"><span class="label">大模型使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_qwen.html"><span class="label">Qwen 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_deepseek.html"><span class="label">DeepSeek 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_internvl.html"><span class="label">InternVL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 图像生成模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_smolvlm.html"><span class="label">SmolVLM 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_sensevoice.html"><span class="label">SenseVoice 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_whisper.html"><span class="label">Whisper 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/tts_melotts.html"><span class="label">MeloTTS 语音合成模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 模型转换和移植</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam2.html"><span class="label">ONNX 模型转给 MaixCAM2 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/webrtc_streaming.html"><span class="label">WebRTC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">片外模块</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/modules/ahrs.html"><span class="label">IMU AHRS 姿态检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/bluetooth.html"><span class="label">蓝牙</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战和开源项目</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和开源项目汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/memory.html"><span class="label">内存使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy 读取 IMU 加速度计和角速度计进行姿态解算</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2025-07-08">
+                                    2025-07-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/modules/ahrs.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2025-07-08</td>
+                                                    <td>1.0.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        增加姿态解算代码支持和文档
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="IMU-%E7%AE%80%E4%BB%8B">IMU 简介</h2>
+<p>IMU（Inertial Measurement Unit），即 惯性测量单元，通常由几部分组成：</p>
+<ul>
+<li>加速度计：测量线性加速度，包括重力加速度。</li>
+<li>陀螺仪：测量角速度（绕轴的转动）。</li>
+<li>磁力计（可选）：测量磁场方向，用于辅助航向角（Yaw）计算。</li>
+</ul>
+<p>利用这几个传感器的数据，我们可以计算出设备的姿态，沿着设备三个轴旋转的角度，也叫欧拉角。<br />
+比如我们的设备如下图， <code>z</code>轴朝上， <code>y</code>轴朝前， <code>x</code>轴朝右，这是一个右手坐标系：</p>
+
+<pre class="language-none"><code class="language-none"> ^z  / y(front)
+ |  /
+ | /
+ . ————————&gt; x(right)
+</code></pre>
+<p>这里以<code>x</code>为轴心旋转的角度就叫<code>俯仰角</code>（<code>pitch</code>）。<br />
+这里以<code>y</code>为轴心旋转的角度就叫<code>横滚角</code>（<code>roll</code>）。<br />
+这里以<code>z</code>为轴心旋转的角度就叫<code>偏航角</code>（<code>yaw</code>）。</p>
+<p>这样一个传感器+读取+姿态解算+输出的系统我们可以称为<code>AHRS</code>(	Attitude and Heading Reference System/ 姿态与航向参考系统)。</p>
+<p>得到这三个角就知道了我们的设备先在是什么姿态了，就可以用在很多场景，比如：</p>
+<ul>
+<li>无人机</li>
+<li>平衡车</li>
+<li>机器人</li>
+<li>体感控制</li>
+<li>防抖</li>
+<li>方向检测，震动检测</li>
+<li>动作判断，手势识别，行为分析（还可以结合AI模型使用）</li>
+</ul>
+<h2 id="%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81">硬件支持</h2>
+<p>部分设备内置了 IMU，如下：</p>
+<table>
+<thead>
+<tr>
+  <th>设备名</th>
+  <th>传感器型号</th>
+  <th>加速度计</th>
+  <th>陀螺仪</th>
+  <th>磁力计</th>
+  <th>接口</th>
+  <th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>MaixCAM-Pro</td>
+  <td>QMI8658</td>
+  <td>✅ 量程: [±2, ±16]g</td>
+  <td>✅ 量程: [±16, ±2048]°/s</td>
+  <td>❌</td>
+  <td>IIC4 地址 0x6B</td>
+  <td>低功耗<br>高稳定性<br>高灵敏度</td>
+</tr>
+<tr>
+  <td>MaixCAM</td>
+  <td>无板载 ❌</td>
+  <td>❌</td>
+  <td>❌</td>
+  <td>❌</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>MaixCAM2</td>
+  <td>LSM6DSOWTR</td>
+  <td>✅ 量程: [±2, ±16]g</td>
+  <td>✅ 量程: [±125, ±2000]°/s</td>
+  <td>❌</td>
+  <td>IIC1 地址 0x6B</td>
+  <td>低功耗<br>高稳定性<br>高灵敏度</td>
+</tr>
+</tbody>
+</table>
+<p>除了使用内置的，你也可以自己外接一个 IMU 传感器，比如经典的<code>MPU6050/MPU9150</code>等，可自行查找最新和合适的传感器。</p>
+<p>MaixPy 中姿态解算和 IMU 驱动是分开的，所以你可以自己外接传感器驱动，仍然可以调用姿态解算算法。</p>
+<h2 id="MaixPy-%E8%AF%BB%E5%8F%96-IMU-%E6%95%B0%E6%8D%AE">MaixPy 读取 IMU 数据</h2>
+<p>以 MaixCAM-Pro 为例，使用 <code>maix.imu.IMU</code> 读取：</p>
+
+<pre class="language-python"><code class="language-python">from maix.ext_dev import imu
+
+# Force calibrate first
+calibrate_first = False
+
+# default config: acc +-2g 1KHz, gyro +-256rad/s 8KHz
+sensor = imu.IMU(&quot;default&quot;, mode=imu.Mode.DUAL,
+                              acc_scale=imu.AccScale.ACC_SCALE_2G,
+                              acc_odr=imu.AccOdr.ACC_ODR_1000,
+                              gyro_scale=imu.GyroScale.GYRO_SCALE_256DPS,
+                              gyro_odr=imu.GyroOdr.GYRO_ODR_8000)
+
+# for gyro have bias, we need to calibrate first
+if calibrate_first or not sensor.calib_gyro_exists():
+    print(&quot;\n\nNeed calibrate fisrt&quot;)
+    print(&quot;now calibrate, please !! don't move !! device, wait for 10 seconds&quot;)
+    # calib_gyro will auto calculate and save bias,
+    # the next time use load_calib_gyro load
+    sensor.calib_gyro(10000)
+else:
+    sensor.load_calib_gyro()
+
+while True:
+    data = sensor.read_all(calib_gryo = True, radian = False)
+    msg = &quot;acc: {:10.4f}, {:10.4f}, {:10.4f}, gyro: {:10.4f}, {:10.4f}, {:10.4f}, temp: {:4.1f}&quot;.format(
+        data.acc.x, data.acc.y, data.acc.z,
+        data.gyro.x, data.gyro.y, data.gyro.z,
+        data.temp
+    )
+    print(msg)
+
+</code></pre>
+<p>这里构造了一个<code>IMU</code>对象，然后调用<code>read_all</code>读取数据，再打印。<br />
+由于板载IMU没有 磁力计，这里没有打印。</p>
+<p>不过这里有一点需要注意，那就是校准数据，下面进行说明。</p>
+<h2 id="%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86">数据校准</h2>
+<h3 id="%E9%99%80%E8%9E%BA%E4%BB%AA%E6%A0%A1%E5%87%86">陀螺仪校准</h3>
+<p>为什么需要校准陀螺仪：<br />
+如果不校准， 设备静止时我们认为陀螺仪未转动，几 <code>gyro</code> <code>x, y, z</code> 三个轴均应该为<code>0</code>，但是实际我们会发现有误差，即使静止也会有值。这也叫<code>零飘</code>。</p>
+<p>上面的代码可以看到，第一次需要进行一次<code>calib_gyro</code>，这是对陀螺仪数据进行一次校准，原理很简单：<br />
+所以我们连续采集多次求平均值，并记录下来（这里<code>calib_gyro(10000)</code>采集了<code>10s</code>并且将计算过后的值保存到了<code>/maixapp/share/misc</code>目录下。<br />
+下次我们用<code>load_calib_gyro</code>方法就会从这个文件加载了，而不用每次都校准。</p>
+<p>然后在读取数据时<code>read_all(calib_gryo = True)</code>，内部会读取数据后自动减去偏差值再返回，当然你也可以是设置<code>calib_gyro = False</code>然后自己手动减。</p>
+<h3 id="%E5%8A%A0%E9%80%9F%E5%BA%A6%E6%A0%A1%E5%87%86">加速度校准</h3>
+<p>理论加速度也是需要校准的，但是影响不如陀螺仪那么大，本文不进行说明，可自行搜索学习。</p>
+<h3 id="%E7%A3%81%E5%8A%9B%E8%AE%A1%E6%A0%A1%E5%87%86">磁力计校准</h3>
+<p>同样，磁力计也需要校准，比如常见的椭球校准法，本文不进行说明，可自行搜索学习。</p>
+<h2 id="%E5%A7%BF%E6%80%81%E8%A7%A3%E7%AE%97">姿态解算</h2>
+<p>得到传感器数值后，通过一个姿态解算算法就能得到设备的姿态角度（欧拉角）。</p>
+<h3 id="%E8%A7%A3%E7%AE%97%E5%8E%9F%E7%90%86%E7%AE%80%E4%BB%8B">解算原理简介</h3>
+<ul>
+<li>理论上我们用陀螺仪即可知道相对上一时刻旋转了多少度，即 <code>角速度 * 时间dt = 旋转角度</code>。不过只能短时间信任，由于陀螺仪精度问题，时间长了会累积误差。</li>
+<li>加速度计的原理其实是测量重力G，由于重力可以认为方向和大小恒定，当设备静止或者匀速时，通过加速度计我们可以知道设备的相对于大地坐标系的绝对旋转角度。<br />
+所以我们利用这个特性，长时间上用加速度测量的角度作为基准，短时间相信陀螺仪，他们互补。</li>
+<li>但是当设备沿着垂直于重力的方向旋转，加速度计就无法检测到了，所以只能靠陀螺仪，时间长了可能就会有误差（漂移）。</li>
+<li>所以一般可以利用磁力计，因为磁力计指向地球南北，刚好弥补了加速计的问题。</li>
+</ul>
+<h3 id="%E5%A7%BF%E6%80%81%E8%A7%A3%E7%AE%97%E7%AE%97%E6%B3%95">姿态解算算法</h3>
+<p>算法有很多，MaixPy 内置了一个 <strong>Mahony 互补滤波</strong> 算法，精简快速， 使用方法：<br />
+完整代码在 <a href="https://github.com/sipeed/MaixPy/tree/main/examples/ext_dev/sensors/imu"  target="_blank">MaixPy/examples/ext_dev/sensors/imu/imu_ahrs_mahony.py</a> 中</p>
+
+<pre class="language-python"><code class="language-python">'''
+    Mahony AHRS get device euler angle demo.
+    Full Application code see:
+    https://github.com/sipeed/MaixPy/tree/main/projects/app_imu_ahrs
+'''
+
+from maix import ahrs, app, time
+from maix.ext_dev import imu
+
+# P of PI controller, a larger P (proportional gain) leads to faster response,
+# but it increases the risk of overshoot and oscillation.
+kp = 2
+
+# I of PI controller, a larger I (integral gain) helps to eliminate steady-state errors more quickly,
+# but it can accumulate error over time, potentially causing instability or slow drift.
+ki = 0.01
+
+# Force calibrate first
+calibrate_first = False
+
+
+# default config: acc +-2g 1KHz, gyro +-256rad/s 8KHz
+sensor = imu.IMU(&quot;&quot;, mode=imu.Mode.DUAL,
+                                    acc_scale=imu.AccScale.ACC_SCALE_2G,
+                                    acc_odr=imu.AccOdr.ACC_ODR_1000,
+                                    gyro_scale=imu.GyroScale.GYRO_SCALE_256DPS,
+                                    gyro_odr=imu.GyroOdr.GYRO_ODR_8000)
+ahrs_filter = ahrs.MahonyAHRS(kp, ki)
+
+# for gyro have bias, we need to calibrate first
+if calibrate_first or not sensor.calib_gyro_exists():
+    print(&quot;\n\nNeed calibrate fisrt&quot;)
+    print(&quot;now calibrate, please !! don't move !! device, wait for 10 seconds&quot;)
+    # calib_gyro will auto calculate and save bias,
+    # the next time use load_calib_gyro load
+    sensor.calib_gyro(10000)
+else:
+    sensor.load_calib_gyro()
+
+# time.sleep(3)
+last_time = time.ticks_s()
+while not app.need_exit():
+    # get imu data
+    data = sensor.read_all(calib_gryo = True, radian = True)
+
+    # calculate angles
+    t = time.ticks_s()
+    dt = t - last_time
+    last_time = t
+    # print(f&quot;{data.mag.x:8.2f}, {data.mag.y:8.2f}, {data.mag.z:8.2f}, {data.gyro.z:8.2f}&quot;)
+    angle = ahrs_filter.get_angle(data.acc, data.gyro, data.mag, dt, radian = False)
+
+    #  ^z  / y(front)
+    #  |  /
+    #  | /
+    #  . ————————&gt; x(right)
+    # this demo's axis
+
+    # x axis same with camera
+    # angle.y -= 90
+
+    print(f&quot;pitch: {angle.x:8.2f}, roll: {angle.y:8.2f}, yaw: {angle.z:8.2f}, dt: {int(dt*1000):3d}ms, temp: {data.temp:.1f}&quot;)
+
+    # time.sleep_ms(1)
+
+</code></pre>
+<p>可以看到，通过<code>get_angle</code>函数，将原始数据传入即可得到欧拉角，磁力计没有默认全为 0 即可。</p>
+<p>这里可能你也注意到了有一个 <code>PI</code> 控制器，用来调节灵敏度，可以自己尝试不同值看效果（可以自行学习 PID 概念和参数确定方法）：</p>
+<ul>
+<li><code>kp</code>: PI 控制器的 P。值越大响应越快，不过容易超调。</li>
+<li><code>ki</code>: PI 控制器的 I。值越大响应越快，不过太大会导致不稳定和漂移。</li>
+</ul>
+<p>以及初始化时其它参数，比如陀螺仪测量范围默认是<code>[-256degree/s, 256degree/s]</code>，如果你旋转速度过大超过这个范围就会出现转了 100度但是只检测到转了 60度这种情况。<br />
+所以参数都要根据你际应用场景进行修改，另外不同参数可能灵敏度和噪声也会不同。</p>
+<h2 id="API-%E6%96%87%E6%A1%A3">API 文档</h2>
+<p>有关 IMU API 的详细说明请看 <a href="../../../api/maix/ext_dev/imu.html"  >IMU API 文档</a>。<br />
+有关 AHRS API 的详细说明请看 <a href="../../../api/maix/ahrs.html"  >AHRS 文档</a>。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/kit/microscope.html">
+                            <span class="icon"></span>
+                            <span class="label">显微镜套件</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/modules/temp_humi.html">
+                            <span class="label">温湿度传感器</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy FAQ(常见问题) - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/faq.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/faq.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO11/v8/v5 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/depth_anything.html"><span class="label">Depth-Anything 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo_world.html"><span class="label">YOLO-World 检测任意物体</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 大模型</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/basic.html"><span class="label">大模型使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_qwen.html"><span class="label">Qwen 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_deepseek.html"><span class="label">DeepSeek 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_internvl.html"><span class="label">InternVL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 图像生成模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_smolvlm.html"><span class="label">SmolVLM 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_sensevoice.html"><span class="label">SenseVoice 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_whisper.html"><span class="label">Whisper 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/tts_melotts.html"><span class="label">MeloTTS 语音合成模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 模型转换和移植</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam2.html"><span class="label">ONNX 模型转给 MaixCAM2 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/webrtc_streaming.html"><span class="label">WebRTC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/ahrs.html"><span class="label">IMU AHRS 姿态检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/bluetooth.html"><span class="label">蓝牙</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战和开源项目</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和开源项目汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/memory.html"><span class="label">内存使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy FAQ(常见问题)</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/faq.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <blockquote class="spoiler warning">
+<p> 此页面列出了 MaixPy 相关的常见问题和解决方案，如果你遇到了问题，请先在这里找寻答案。<br />
+另外还有其它途径：</p>
+<ul>
+<li><a href="https://maixhub.com/discussion"  target="_blank">MaixHub 讨论版块</a>: 交流讨论，支持红包打赏。</li>
+<li><a href="https://github.com/sipeed/MaixPy/issues?q="  target="_blank">MaixPy issue</a>: 源码相关问题。</li>
+<li><a href="https://wiki.sipeed.com/hardware/zh/maixcam/faq.html"  target="_blank">MaixCAM 硬件 FAQ</a>: MaixCAM 硬件常见问题。</li>
+</ul>
+</blockquote>
+<h2 id="MaixVision-%E6%97%A0%E6%B3%95%E6%90%9C%E7%B4%A2%E5%88%B0%E8%AE%BE%E5%A4%87%EF%BC%9F">MaixVision 无法搜索到设备？</h2>
+<p>先确认连接方式是 WiFi 还是 USB 线，<br />
+<strong>WiFi</strong>:</p>
+<ul>
+<li>确认 WiFi 是否正确连接上并且获取到 IP 地址， 可以在 <code>设置-&gt;设备信息</code> 或者<code>设置-&gt;WiFi</code> 里面看到 <code>ip</code>。</li>
+</ul>
+<p><strong>USB线</strong>:</p>
+<ul>
+<li>确保设备通过 Type-C 数据线连接到电脑，设备处于开机状态并且进入了功能选择界面。</li>
+<li>确保设备驱动已经安装：<ul>
+<li>Windows 下可以在<code>设备管理器</code>中查看是否有 USB 虚拟网卡设备，如果有感叹号则是去动没有安装好，按照<a href="./index.html"  >快速开始</a> 中的方法安装驱动即可。</li>
+<li>Linux 下可以通过<code>ifconfig</code>或者<code>ip addr</code>查看是否有<code>usb0</code>设备或者<code>lsusb</code>查看所有 USB 设备。 Linux 已经自带去动，所以识别不到检查硬件连接，设备系统是否是最新，以及设备是否已经正常启动即可。</li>
+<li>Mac OS 同 Linux 方法，或者在<code>系统设置</code> -&gt; <code>网络</code> 里面看有没有 usb 网卡。</li>
+</ul>
+</li>
+<li>另外 检查 USB 线缆的质量，换一个高质量的线缆。</li>
+<li>另外 检查电脑 USB 口的质量，比如实测某些小主机 USB 口 EMI 设计太糟糕，外接一个质量好点的 USB HUB 反而可以使用了，也可以换 USB 口 或者直接换台电脑。</li>
+</ul>
+<h2 id="MaixVision-%E8%BF%90%E8%A1%8C%E6%91%84%E5%83%8F%E5%A4%B4%E4%BE%8B%E7%A8%8B%E6%98%BE%E7%A4%BA%E5%9B%BE%E5%83%8F%E5%8D%A1%E9%A1%BF">MaixVision 运行摄像头例程显示图像卡顿</h2>
+<p>默认配的 GC4653 摄像头最高帧率为 30 帧，摄像头例程正常情况下 MaixVision 的显示肉眼不会有卡顿感，如果卡顿，首先考虑传输问题：</p>
+<ul>
+<li>检查网络连接质量，比如 WiFi。</li>
+<li>如果用的 USB 连接，检查 USB 线质量， 电脑 USB 口质量，可以尝试换台电脑或者 USB 口 或者 USB 线缆尝试对比。</li>
+</ul>
+<h2 id="MaixVision-MacOS-%E6%97%A0%E6%B3%95%E8%BF%90%E8%A1%8C">MaixVision MacOS 无法运行</h2>
+<p>对于 MacOS，由于前期还没有用开发者账号签名，可能会遇到 提示权限不足或者文件损坏问题，<br />
+请参考<a href="https://maixhub.com/discussion/100301"  target="_blank">这里</a> 解决（在终端中执行命令sudo xattr -dr com.apple.quarantine /Applications/应用名称.app来移除这个属性）。</p>
+<h2 id="%E6%AD%A4%E4%BA%A7%E5%93%81%E9%80%82%E5%90%88%E9%87%8F%E4%BA%A7%E5%90%97">此产品适合量产吗</h2>
+<p>答案：适合。</p>
+<ul>
+<li>软件上使用 Python 即可稳定运行，方便开发也可靠。</li>
+<li>软件上另外支持和 MaixPy 相同 API 的 C++ SDK（MaixCDK），满足高效率和稳定要求。</li>
+<li>硬件上提供各种形式的 PCB 和外壳，核心板和整板都有，芯片供货稳定，如果有量产需求可以联系 support@sipeed.com 咨询。</li>
+<li>量大价更优。</li>
+</ul>
+<h2 id="MaixPy-v4-%E5%92%8C-v1-v3-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F">MaixPy v4 和 v1 v3 有什么区别？</h2>
+<ul>
+<li>MaixPy v4 使用 Python 语言，是吸取了 v1 v3 经验的集大成之作，有更好的配套软件和生态，更多的功能，更简单的使用方式和更完善的文档；硬件有很大提升的同时加个和另外两者的硬件价格想当甚至更便宜；另外也做了兼容 K210 的使用体验和 API，方便用户从 v1 快速迁移到 v4。</li>
+<li>v1 使用了 Micropython 语言，有很多局限性，比如第三方库支持有限；同时受限于 Maix-I (K210) 的硬件性能，内存不够用，AI 模型支持有限，很多编解码不支持硬件加速等缺点。</li>
+<li>v3 也是使用了 Python 语言，基于 Maix-II-Dock (v831) 硬件，硬件 AI 模型支持有限，而且全志的基础生态不够开放，API 也不够完善，此版本仅作为 Maix-II-Dock (v831)上面使用，不会继续更新。</li>
+</ul>
+<h2 id="MaixPy-%E7%9B%AE%E5%89%8D%E5%8F%AA%E6%94%AF%E6%8C%81-MaixCAM-%E5%90%97%EF%BC%8C%E7%94%A8%E5%85%B6%E5%AE%83%E5%90%8C%E6%AC%BE%E8%8A%AF%E7%89%87%E7%9A%84%E6%9D%BF%E5%AD%90%E8%A1%8C%E4%B8%8D%E8%A1%8C%EF%BC%9F">MaixPy 目前只支持 MaixCAM 吗，用其它同款芯片的板子行不行？</h2>
+<p>MaixPy 目前仅支持 MaixCAM 系列板子，其它同款芯片的板子也不支持（包括 Sipeed 的同款芯片板子 比如 LicheeRV-Nano），强烈不建议尝试，导致设备损坏（比如冒烟烧屏等）后果自负。</p>
+<p>未来 Sipeed 出的 Maix 系列的产品都将继续得到 MaixPy 支持，目前如果 MaixCAM 有什么无法满足的需求，可以到 <a href="https://maixhub.com/discussion"  target="_blank">MaixHub 讨论版块</a> 提出需求或者发送邮件到 support@sipeed.com.</p>
+<h2 id="%E5%8F%AF%E4%BB%A5%E7%94%A8%E9%99%A4%E4%BA%86%E5%AE%98%E6%96%B9%E6%90%AD%E9%85%8D%E7%9A%84%E6%91%84%E5%83%8F%E5%A4%B4%E6%88%96%E8%80%85%E5%B1%8F%E5%B9%95%E4%BB%A5%E5%A4%96%E7%9A%84%E8%87%AA%E5%B7%B1%E7%9A%84%E6%91%84%E5%83%8F%E5%A4%B4%E6%88%96%E8%80%85%E5%B1%8F%E5%B9%95%E5%90%97%EF%BC%9F">可以用除了官方搭配的摄像头或者屏幕以外的自己的摄像头或者屏幕吗？</h2>
+<p>不建议这样操作，除非你有够丰富的软硬件知识和经验，否则可能导致设备损坏。</p>
+<p>官方搭配的配件对应的软硬件是调教过的，表现效果是最好的，上手即可使用，其它配件可能接口不同，驱动不同，软件不同，需要自己去调教，这是一个非常复杂的过程，不建议尝试。</p>
+<p>当然，如果你是大佬，我们也欢迎你提交 PR！</p>
+<h2 id="%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%9E%8B%E6%8A%A5%E9%94%99-cvimodel-built-for-xxxcv181x-CANNOT-run-on-platform-cv181x">运行模型报错 cvimodel built for xxxcv181x CANNOT run on platform cv181x</h2>
+<p>解析模型文件失败了，一般情况是模型文件损坏造成的，确保你的模型文件是没有损坏的。<br />
+比如：</p>
+<ul>
+<li>用编辑器编辑了二进制文件导致文件损坏。比如用 maixvision 打开了 cvimodel 文件，由于 maixvision 的自动保存功能会破坏二进制文件，所以不要用 maixvision 等文本编辑器打开二进制文件并保存（后面 MaixVision 会修复这个问题，即去掉 maixvision 的自动保存功能）。</li>
+<li>如果是从网上下载的，保证下载没有出问题，一般网上的文件提供 sha256sum/md5 校验值，下载下来后可以对比一下，具体方法请自行搜索或者问 ChatGPT。</li>
+<li>如果是来自压缩包，请确认解压过程没有出错，可以从压缩包重新解压一遍保证中间没有出错。</li>
+<li>保证传输到设备的过程没有造成文件损坏，可以对比一下设备中的文件和电脑中的文件 sha256sum 值，具体方法请自性搜索或者问 ChatGPT。</li>
+</ul>
+<h2 id="%E4%B8%8A%E7%94%B5%E5%90%AF%E5%8A%A8%E9%BB%91%E5%B1%8F%EF%BC%8C%E5%B1%8F%E5%B9%95%E6%97%A0%E6%98%BE%E7%A4%BA">上电启动黑屏，屏幕无显示</h2>
+<p>请看 <a href="https://wiki.sipeed.com/hardware/zh/maixcam/faq.html"  target="_blank">MaixCAM FAQ</a></p>
+<h2 id="%E9%80%9A%E8%BF%87-USB-%E8%BF%9E%E6%8E%A5%E4%BA%86%E7%94%B5%E8%84%91%E5%92%8C-MaixCAM-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%B5%E8%84%91%E6%B2%A1%E6%9C%89%E5%87%BA%E7%8E%B0%E4%B8%B2%E5%8F%A3%EF%BC%9F">通过 USB 连接了电脑和 MaixCAM 为什么电脑没有出现串口？</h2>
+<p>MaixCAM 的 USB 口是芯片的 USB2.0 接口，不是 USB 转串口接口，所以插上电脑不会出现串口，这是正常现象。<br />
+没有 USB 转串口怎么通信呢？<br />
+默认 USB 会模拟出 USB 网卡，所以当你将 USB 插上电脑时会出现虚拟网卡，按照 <a href="./index.html"  >快速开始</a> 中的说明可以使用 MaixVision 与 MaixCAM 通信实现代码运行、图像预览、文件管理等功能。<br />
+另外，因为 USB 模拟了网卡，所以你也可以用通用的 SSH 软件连接 MaixCAM，实现通信。<br />
+或者你也可以连接 WiFi 和电脑在同一个局域网下通信。</p>
+<p>如果你要使用串口，分为两种情况：</p>
+<ol>
+<li>串口和电脑通信：需要自行购买任意一款 USB 转串口模块来连接电脑的 USB 和板子的串口（对于MaixCAM 是 UART0 的 A16(TX) 和 A17(RX) 引脚，或者连接 MaixCAM 套餐送的 USB 转接板引出的两个 TX RX 引脚，也是 A16 A17 引脚，是等效的）</li>
+<li>串口和其它 MCU/SOC 通信: 直接连接 MaixCAM 的 A16(TX)和 A17(RX) 到 单片机的 RX 和 TX 引脚即可。</li>
+</ol>
+<h2 id="%E7%BA%A2%E8%89%B2%E5%B1%8F%E5%B9%95%EF%BC%8C%E6%8F%90%E7%A4%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5%EF%BC%8C%E8%AF%B7%E6%9F%A5%E7%9C%8BFAQ">红色屏幕，提示初始化显示失败，请查看FAQ</h2>
+<p>从子面意思可以看到是显示驱动初始化失败了。<br />
+MaixCAM 的底层的显示驱动目前（2024.7）是和摄像头驱动绑定在一起初始化的，所以遇到这个问题多半是摄像头驱动初始化失败了。<br />
+解决方法：</p>
+<ul>
+<li>尝试更新到最新的系统，安装最新的运行库（重要！！！）因为运行库需要和系统里面的驱动配合工作，版本不一致可能会出错，所以更新到最新的镜像安装最新运行库即可一般就能解决。</li>
+<li>有可能是多个进程一起企图占用驱动，最简单粗暴的方法就是重启。</li>
+<li>硬件上摄像头连接有问题，检查摄像头硬件连接，以及摄像头是否损坏。</li>
+</ul>
+<h2 id="Runtime%E3%80%81MaixPy%E3%80%81%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E5%8D%87%E7%BA%A7%E5%93%AA%E4%B8%AA%EF%BC%9F">Runtime、MaixPy、系统镜像有什么区别，我应该升级哪个？</h2>
+<ul>
+<li><strong>Runtime</strong> 是运行时环境，系统很多功能依赖这个，包括 MaixPy 也依赖此环境，遇到无法运行程序的问题首先联网检查更新这个。</li>
+<li>系统镜像包含了基本的操作系统、硬件驱动、内置应用，以及 MaixPy 固件等，是基础环境，最好是保持最新, 特别是在<a href="https://github.com/sipeed/MaixPy/releases"  target="_blank">Release</a>页面中版本更新中提到了系统有更新，则强烈建议更新系统，因为有些 MaixPy 功能可能依赖系统里面的驱动。</li>
+</ul>
+<blockquote>
+<p>更新系统会格式化所有之前的数据，更新前请备份好设备系统中有用的数据。</p>
+</blockquote>
+<ul>
+<li><strong>MaixPy</strong> 是运行 MaixPy 程序的依赖库，如果不需要更新系统功能，以及更新日志中没有提到系统有重要更新比如驱动，那可以单独更新 MaixPy 即可，不过以防有驱动变化，最好是直接重新烧录系统。</li>
+</ul>
+<h2 id="%E5%8A%A0%E8%BD%BD-MUD-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-%2A%2A%2A%2A%2A.cvimodel-not-exists%EF%BC%8C-load-model-failed">加载 MUD 模型文件报错 *****.cvimodel not exists， load model failed</h2>
+<ul>
+<li>检查设备中（注意不是电脑里面，需要传到设备里面去）是否真的存在你加载的 .mud 文件。</li>
+<li>检查你写的模型路径写错没有。</li>
+<li>如果你改过文件名，需要注意： MUD 文件是一个模型描述文件，可以用文本编辑器编辑，实际的模型文件是 .cvimodel 文件（对于MaixCAM)，.mud 文件中指定了 .cvimodel 的文件名和路径，所以如果你改动了 <code>.cvimodel</code>的文件名，那么也要修改<code>.mud</code>文件中的<code>model</code>路径，比如这里 Yolov5 模型的 mud：</li>
+</ul>
+
+<pre class="language-ini"><code class="language-ini">[basic]
+type = cvimodel
+model = yolov5s_224_int8.cvimodel
+
+[extra]
+model_type = yolov5
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+anchors = 10,13, 16,30, 33,23, 30,61, 62,45, 59,119, 116,90, 156,198, 373,326
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+</code></pre>
+<p>这里制定了 <code>model</code> 为相对这个<code>.mud</code>文件目录的 <code>yolov5s_224_int8.cvimodel</code> 文件为模型文件，如果你改了<code>yolov5s_224_int8.cvimodel</code> 为其它名，那也需要改这里。</p>
+<h2 id="MaixVision-import-maix-%E6%98%BE%E7%A4%BA%E7%BA%A2%E8%89%B2%E6%B3%A2%E6%B5%AA%E7%BA%BF-%26quot%3Bmaix%26quot%3B-is-not-accessed">MaixVision import maix 显示红色波浪线 &quot;maix&quot; is not accessed</h2>
+<p>MaixVision 显示 <code>no maix moudle</code> <code>&quot;maix&quot; is not accessed</code> 或者 <code>Import &quot;maix&quot; could not be resolved</code>。</p>
+<p>这是 MaixVision 的代码提示功能报错找不到 maix 模块。<br />
+这里需要搞清楚一个概念： MaixVision 的代码提示依赖的是电脑本地的 Python 包，代码运行依赖的设备端的 Python 包，所以要让 MaixVision 能够提示就要在电脑上也安装 Python 和 <code>MaixPy</code> 包。具体请看<a href="./basic/maixvision.html"  >MaixVision 使用文档</a>。</p>
+<h2 id="MaixVision-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E4%BB%A3%E7%A0%81">MaixVision 如何编写多个文件，一个文件导入另一个文件的代码</h2>
+<p>仔细阅读 <a href="./basic/maixvision.html"  >MaixVision 使用文档</a>。</p>
+<h2 id="MaixCAM-%E5%90%AF%E5%8A%A8%E9%9D%9E%E5%B8%B8%E7%BC%93%E6%85%A2%EF%BC%8C%E7%94%9A%E8%87%B3%E8%B6%85%E8%BF%87%E4%BA%86-1-%E5%88%86%E9%92%9F%EF%BC%8C%E6%88%96%E8%80%85%E5%B1%8F%E5%B9%95%E5%9C%A8%E9%97%AA%E5%8A%A8">MaixCAM 启动非常缓慢，甚至超过了 1 分钟，或者屏幕在闪动</h2>
+<p>多半是由于供电不足造成的， MaixCAM 需要 5v 150mA~500mA 左右的电压和点流，如果你遇到了这种现象，可以使用 USB 转 TTL 模块连接 MaixCAM 的串口到电脑，可以看到<code>Card did not respond to voltage select! : -110</code> 这样的字样，说明供电不足，换一个更加的稳定的供电设备即可。<br />
+对于 MaixCAM，在开机会有 400mA 的电流，待机且屏幕有显示需要 250mA，全速运行 AI 模型需要 400mA~500mA 的电流，所以保证电源的稳定性十分重要！</p>
+<h2 id="MaixCAM-%E9%BB%91%E5%B1%8F%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%EF%BC%8C%E6%88%96%E8%80%85%E5%8D%A1%E5%9C%A8-LOGO-%E7%95%8C%E9%9D%A2">MaixCAM 黑屏无法启动，或者卡在 LOGO 界面</h2>
+<p>参考<a href="https://wiki.sipeed.com/hardware/zh/maixcam/faq.html"  target="_blank">MaixCAM FAQ</a></p>
+<h2 id="MaixVision-%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E4%B8%80%E7%9B%B4%E2%80%9C%E5%8D%A1%E5%9C%A8%E2%80%9C-start-running-...">MaixVision 启动程序一直“卡在“ start running ...</h2>
+<p>MaixVision 的日志输出窗口在开始启动程序是会打印一句<code>start running ...</code>代表程序开始发送到设备并开始执行，<br />
+后面再打印（输出）什么取决于你的程序，比如你调用了<code>print(&quot;hello&quot;)</code> 则会打印<code>hello</code>，如果你的程序没有任何打印那就不会有任何日志。。。<br />
+所以实际上不是卡住了，而是你的程序就没有输出过任何东西，自然也就不会显示任何日志了，可以尝试在自己的程序中加<code>print(&quot;xxx&quot;)</code>来打印，这也是我们调试程序最简单的方法。</p>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A1%AC%E4%BB%B6%E6%9C%89-256MB-%E5%86%85%E5%AD%98%EF%BC%8C%E5%9C%A8%E7%B3%BB%E7%BB%9F%E9%87%8C%E5%8F%AA%E8%83%BD%E7%94%A8-128MB-%E5%86%85%E5%AD%98%E5%91%A2%EF%BC%9F">为什么硬件有 256MB 内存，在系统里只能用 128MB 内存呢？</h2>
+<p>因为其它内存给底层驱动和内核预留了，用于摄像头、屏幕、硬件编解码、NPU 等驱动使用，可以通过 <code>cat /sys/kernel/debug/ion/cvi_carveout_heap_dump/summary</code> 看到驱动使用的内存（算能特有，叫 ION 内存），以及其它内存可以通过<code>cat /proc/meminfo</code>看到，如果你想调整内存分配，需要自己编译系统，修改系统的<code>LicheeRV-Nano-Buildbuild/boards/sg200x/sg2002_licheervnano_sd/memmap.py</code> 文件中的 <code>ION_SIZE</code> 来调整（看<a href="./pro/compile_os.html"  >定制系统文档</a>）。</p>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C%E5%BA%93%EF%BC%8C%E6%8F%90%E7%A4%BA%E9%94%99%E8%AF%AF-%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%21">为什么无法安装运行库，提示错误 请求失败!</h2>
+<ul>
+<li>请保证设备已经成功连接到互联网，可以换一个手机热点试试。</li>
+<li>确保系统镜像是烧录的最新的。</li>
+<li>如果提示 DNS 解析失败，可能时网络 DNS 设置问题，可以换一个手机热点试试，或者手动修改 <code>/boot/resolv.conf</code>(只修改这个文件需要重启) 和 <code>/etc/resolv.conf</code>（修改了这个文件不用重启，重启就是把前者拷贝覆盖到这个文件）中的 DNS 服务器设置。</li>
+<li>确保你是从 Sipeed 购买的正版 MaixCAM。</li>
+<li>咨询客服，带上系统版本可以 device_key （可以连接上 MaixVision 点击断开连接按钮后看到，有屏幕的也可以在<code>系统设置-&gt;系统信息</code>中看到）</li>
+</ul>
+<h2 id="%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99%3A-type-not-registered-yet%3F">编译报错: type not registered yet?</h2>
+
+<pre class="language-none"><code class="language-none">from ._maix.peripheral.key import add_default_listener
+ImportError: arg(): could not convert default argument into a Python object (type not registered yet?). #define
+</code></pre>
+<p>显示有对象没有定义成 python 对象，在 MaixPy 中一般是由于自动扫描API生成时的顺序问题造成的，比如在<code>a.hpp</code>中有一个<code>@maixpy</code>声明的<code>API</code>， 在<code>b.hpp</code> 中有另一个<code>API</code>而且参数使用了<code>a.hpp</code>中的定义，那么可以说<code>b.hpp</code>需要依赖<code>a.hpp</code>，但目前<code>MaixPy</code>的编译脚本不会做依赖关系扫描，所以需要在<code>MaixPy</code>项目中的<code>components/maix/headers_priority.txt</code>文件中手动指定一下，<code>a.hpp</code>在<code>b.hpp</code>前面扫描就可以了。</p>
+<h2 id="MaixVision-%E7%94%BB%E9%9D%A2%E6%9C%89%E5%BB%B6%E8%BF%9F">MaixVision 画面有延迟</h2>
+<p>一般情况下应该是因为用了 WiFi 传输，信号不好时或者图像分辨率过大时就会有延迟。<br />
+解决方法就是：</p>
+<ul>
+<li>更换有线方式连接，具体看快速入门文档。</li>
+<li>减小图像分辨率，在代码中 <code>disp.show(img)</code> <code>img</code> 的分辨率小一点。</li>
+</ul>
+<h2 id="%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8%E6%97%B6%E6%8F%90%E7%A4%BA%3A-Runtime-error%3A-mmf-vi-init-failed">运行应用时提示: Runtime error: mmf vi init failed</h2>
+<p>提示信息的意思是摄像头初始化失败了，可能的原因有:1. 摄像头被其他应用占用了; 2. 摄像头没有排线松了; 3. 没有安装运行库</p>
+<p>解决步骤：</p>
+<ol>
+<li>检查maixvision的程序和板子自带程序是否同时运行，确保只有一个地方占用摄像头(注：一般情况连接maixvision后板子自带的程序会主动退出)</li>
+<li>将摄像头排线取下来重新插一下</li>
+<li>更新最新的运行库</li>
+</ol>
+<h2 id="%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8%E6%97%B6%E6%8F%90%E7%A4%BA%EF%BC%9A%3Ccode%3Emaix-multi-media-driver-released%3C/code%3E%E6%88%96%E8%80%85%3Ccode%3Emaix-multi-media-driver-destroyed%3C/code%3E">运行应用时提示：<code>maix multi-media driver released</code>或者<code>maix multi-media driver destroyed</code></h2>
+<p>这不是错误日志，这是多媒体框架释放资源时的提示信息，一般在程序退出时会打印</p>
+<h2 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87">为什么不能显示中文</h2>
+<p>默认只有英文字体，如果要显示中文，需要更换中文字体，具体请看<a href="./vision/image_ops.md#%E4%B8%AD%E6%96%87%E6%94%AF%E6%8C%81%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E4%BD%93"  >基本图像操作 中文支持和自定义字体 部分</a></p>
+<h2 id="%E7%A8%8B%E5%BA%8F%E9%80%80%E5%87%BA%E5%B9%B6%E6%8F%90%E7%A4%BA-app-exit-with-code%3A-1%2C-log-in-/maixapp/tmp/last_run.log">程序退出并提示 app exit with code: 1, log in /maixapp/tmp/last_run.log</h2>
+<p>这是因为程序出错异常退出了，需要尝试看日志来找到问题所在。<br />
+看日志方法：</p>
+<ul>
+<li>方法一： 出错后立即查看 <code>/maixapp/tmp/last_run.log</code> 文件，查看方式：<ol>
+<li>MaixVision 运行 <code>MaixPy/examples/tools/show_last_run_log.py</code> 代码查看。</li>
+<li>在 ssh 终端中 <code>cat /maixapp/tmp/last_run.log</code> 查看。</li>
+</ol>
+</li>
+<li>方法二：<ul>
+<li>先使用 MaixVision 连接上设备以让所有占用显示和摄像头的程序退出。</li>
+<li>然后通过 ssh 连接设备进入 ssh 终端，进入方法见<a href="./basic/linux_basic.html"  >Linux 基础</a> 中描述。</li>
+<li>执行命令手动运行程序<ul>
+<li>如果是 Python 程序 <code>cd /maixapp/apps/xxx &amp;&amp; python main.py</code> 这里 <code>xxx</code>是出错应用的 ID。</li>
+<li>如果不是 Python 程序 <code>cd /maixapp/apps/xxx &amp;&amp; ./xxx</code> 这里 <code>xxx</code>是出错应用的 ID。</li>
+</ul>
+</li>
+<li>仔细查看日志看有没有报错，注意报错可能不在最后一行，可以从后往前仔细查找。</li>
+</ul>
+</li>
+<li>方法三：如果是 Python 编写的应用，使用 MaixVision 运行源码查看运行错误并修正，注意报错可能不在最后一行，可以从后往前仔细查找。</li>
+</ul>
+<h2 id="%E5%A6%82%E4%BD%95%E8%AF%BB%E5%86%99-SD/TF-%E5%8D%A1%EF%BC%8C%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE%E5%88%B0-SD/TF-%E5%8D%A1">如何读写 SD/TF 卡，保存数据到 SD/TF 卡</h2>
+<p>MaixPy 基于 Linux 和 标准 Python3，操作系统在 SD/TF 卡上，同时文件系统也在 SD 卡上，保存和读取数据都从文件系统操作。<br />
+使用 Python 的标准 API 即可操作，比如读取文件：</p>
+
+<pre class="language-python"><code class="language-python">with open(&quot;/root/a.txt&quot;, &quot;r&quot;) as f:
+  content = f.read()
+  print(content)
+</code></pre>
+<p>类似的，其它在文档中没介绍的功能可以尝试搜一艘是不是 Python 自带的库，可以直接调用。</p>
+<h2 id="%E5%8F%96%E5%9B%BE%E6%97%B6%E5%87%BA%E7%8E%B0%3Ccode%3Ecamera-read-timeout%3C/code%3E%E7%9A%84%E9%94%99%E8%AF%AF">取图时出现<code>camera read timeout</code>的错误</h2>
+<p>这可能是在取图时摄像头缓存的图片缓存区没有新图片,导致取图超时.大部分情况是由于读图太快, 或者有多个Camera通道在同时读图时会遇到, 例如将一个Camera通道绑定到Rtsp服务后, 又在另一个线程从第二个Camera通道取图. 解决方法是捕获到异常后稍等片刻再次尝试取图, 参考代码:</p>
+
+<pre class="language-python"><code class="language-python">img = None
+try:
+    img = cam.read()
+except:
+    time.sleep_ms(10)
+    continue
+</code></pre>
+<h2 id="%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E5%87%BA%E7%8E%B0-CVI_VENC_GetStream-failed-with-0xc0078012">程序运行时出现 CVI_VENC_GetStream failed with 0xc0078012</h2>
+<p>这是因为上次程序没有正常退出，导致venc模块资源没有释放，再次启动应用就拿不到venc的资源了。 目前解决方法是：</p>
+<ol>
+<li>重启系统</li>
+<li>关掉maixvision的预览视图，或者切换到png流</li>
+</ol>
+<p>由于这是底层框架上遗留的问题，目前只能从应用层解决，尽量保证程序正常的退出</p>
+<h2 id="%E5%A6%82%E4%BD%95%E5%8D%B8%E8%BD%BD%E5%B7%B2%E7%BB%8F%E5%AE%89%E8%A3%85%E7%9A%84%E5%BA%94%E7%94%A8">如何卸载已经安装的应用</h2>
+<p>在开发板 <code>应用商店</code> 中可以直接卸载已经安装的应用，请看<a href="./basic/app.html"  >应用使用文档</a>。</p>
+<h2 id="%E7%94%BB%E9%9D%A2%E6%80%8E%E4%B9%88%E5%BE%88%E6%A8%A1%E7%B3%8A%EF%BC%8C%E5%83%8F%E5%8A%A0%E4%BA%86%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%E4%B8%80%E6%A0%B7">画面怎么很模糊，像加了高斯模糊一样</h2>
+<p>对于 MaixCAM， 镜头是需要手动对焦的，物理上拧镜头即可实现调焦。</p>
+<h2 id="No-module-named-%27lcd%27-%27sensor%27%EF%BC%8COpenMV-%E7%9A%84%E4%BB%A3%E7%A0%81%E5%A6%82%E4%BD%95%E7%A7%BB%E6%A4%8D/%E5%85%BC%E5%AE%B9-OpenMV-%E7%9A%84%E4%BB%A3%E7%A0%81">No module named 'lcd' 'sensor'，OpenMV 的代码如何移植/兼容 OpenMV 的代码</h2>
+<p>MaixPy (v4) 兼容了 OpenMV 和 MaixPy-v1 的代码，都放到了<code>maix.v1</code>模块下，比如 OpenMV 和 MaixPy-v1 中：</p>
+
+<pre class="language-python"><code class="language-python">import lcd, sensor
+</code></pre>
+<p>在 MaixPy (v4) 中：</p>
+
+<pre class="language-python"><code class="language-python">from maix.v1 import lcd, sensor
+</code></pre>
+<p>或者直接导入所有兼容包（不推荐，程序可读性变差）：</p>
+
+<pre class="language-python"><code class="language-python">from maix.v1 import *
+import lcd, sensor
+</code></pre>
+<p>最新的 MaixPy 兼容 OpenMV/MaixPy-v1 的方式是在新 API 的基础上封装了一个兼容层，源码在<a href="https://github.com/sipeed/MaixPy/tree/main/maix/v1"  target="_blank">https://github.com/sipeed/MaixPy/tree/main/maix/v1</a>。<br />
+所以<strong>强烈推荐升级到新的 MaixPy API</strong>，API 更丰富而且更高效。<br />
+如果一定要用旧的 API 而且发现某个 API 官方没有实现，可以尝试修改上述源码支持，底层调用新的API即可，然后提交贡献到<a href="https://github.com/sipeed/MaixPy"  target="_blank">https://github.com/sipeed/MaixPy</a> 即可，方法可以参考<a href="./source_code/contribute.html"  >参与 MaixPy 项目文档</a></p>
+<h2 id="MaixCAM-%E8%87%AA%E5%B8%A6%E7%9A%84%E7%9B%B8%E6%9C%BA-APP-%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87%E5%92%8C%E8%A7%86%E9%A2%91%E5%AD%98%E5%9C%A8%E5%93%AA%E5%84%BF%EF%BC%8C%E6%80%8E%E4%B9%88%E5%AF%BC%E5%87%BA%E5%88%B0%E7%94%B5%E8%84%91">MaixCAM 自带的相机 APP 拍摄的照片和视频存在哪儿，怎么导出到电脑</h2>
+<p>MaixCAM 自带的<strong>相机</strong>应用拍摄的照片和视频可以在自带的<strong>相册</strong>应用看到照片，点击<code>Info</code>按钮可以看到照片路径。<br />
+通过 <a href="./basic/maixvision.html"  >MaixVision 的文件管理功能</a> 或者其它拷贝工具（比如scp 或者 winscp）即可拷贝到电脑上。</p>
+<h2 id="%E6%B2%A1%E6%9C%89%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%96%87%E6%A1%A3%E6%9C%89%E7%A6%BB%E7%BA%BF%E7%89%88%E6%9C%AC%E5%90%97">没有网络，文档有离线版本吗</h2>
+<p>有的。</p>
+<p>提供 HTML 格式的离线文档，到<a href="https://github.com/sipeed/MaixPy/releases"  target="_blank">MaixPy release 页面</a> 找到<code>maixpy_v*.*.*_doc.zip</code> 下载。<br />
+解压后有<code>html</code>文件夹，保证电脑安装了<code>Python</code>，执行下面的<code>chmod +x ./view_doc.sh &amp;&amp; view_doc.sh</code>(Linux/MacOS)或者<code>view_doc.bat</code>(Windows)。<br />
+然后访问<code>http://电脑IP:8000/maixpy/index.html</code>即可离线查看文档。</p>
+<p>另外如果你只是想离线查看某一篇文档，你也可以在文档页面按<code>Ctrl+ P</code> 选择打印为 PDF 来保存单页面为 PDF到本地。</p>
+<h2 id="%E5%BD%95%E9%9F%B3%E6%97%B6%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F%E5%90%8E%2C-%E5%BD%95%E9%9F%B3%E6%B2%A1%E6%9C%89%E6%95%B0%E6%8D%AE">录音时设置为非阻塞模式后, 录音没有数据</h2>
+<p>MaixCam2在非阻塞模式下录音时, 开始录音后需要等待录音数据准备完成后才能拿到数据。因此两次录音之间需要间隔一段时间. 比如如果需要录入60ms的录音数据, 可以每50ms再调用一次录音函数.</p>
+<h2 id="%E8%A7%86%E9%A2%91%E6%97%A0%E6%B3%95%E8%A7%A3%E7%A0%81%2C-%E6%88%96%E8%80%85%E5%9C%A8%E8%A7%A3%E7%A0%81%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%8F%90%E7%A4%BA%E5%87%BA%E9%94%99">视频无法解码, 或者在解码过程中提示出错</h2>
+<ol>
+<li>确保视频文件格式是<code>h264</code>或者<code>mp4</code></li>
+<li>如果仍然报错, 尝试将删除视频中的B帧,只保留I帧和P帧后再次尝试. 可以使用ffmpeg 命令行工具实现: <code>ffmpeg -i input.mp4 -c:v libx264 -x264-params &quot;bframes=0&quot; output_no_b_frames.mp4</code></li>
+</ol>
+<h2 id="MaixCam/MaixCam-Pro/MaixCam2-%E8%83%BD%E5%90%A6%E8%87%AA%E5%8A%A8%E5%AF%B9%E7%84%A6">MaixCam/MaixCam-Pro/MaixCam2 能否自动对焦</h2>
+<p>不能, MaixCam系列的摄像头只能支持手动对焦，也就是需要手动去拧镜头来对焦</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/index.html">
+                            <span class="icon"></span>
+                            <span class="label">快速开始</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/basic/upgrade.html">
+                            <span class="label">升级和烧录系统</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

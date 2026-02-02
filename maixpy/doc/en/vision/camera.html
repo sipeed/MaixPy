@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>MaixCAM MaixPy Camera Usage - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2025-07-28", "update": [{"date": "2025-07-28", "author": "neucrack & lxo", "version": "1.2.0", "content": "Add AWB and lens usage doc."}, {"date": "2024-10-24", "author": "neucrack", "version": "1.1.0", "content": "Added USB camera support instructions"}, {"date": "2024-08-21", "author": "YWJ", "version": "1.0.1", "content": "Fixed some bugs in the document, added some content"}, {"date": "2024-04-03", "author": "neucrack", "version": "1.0.0", "content": "Initial version of the document"}], "ts": 1753660800, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/vision/camera.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/vision/camera.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/upgrade.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App Usage and Development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_barcodes.html"><span class="label">Barcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO11/v8/v5 object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_landmarks.html"><span class="label">Face multi landmarks detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_emotion.html"><span class="label">Face emotion</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/detect_obb.html"><span class="label">Detect with angle(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_landmarks.html"><span class="label">Hand landmarks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_pose_classification.html"><span class="label">Human pose classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_gesture_classification.html"><span class="label">Hand geature classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/depth_anything.html"><span class="label">Depth-Anything Monocular Depth Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolo_world.html"><span class="label">YOLO-World deten any object</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online AI training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov5.html"><span class="label">YOLOv5 model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolov8.html"><span class="label">YOLO11/v8 model offline training</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/deploy_online_recognition.html"><span class="label">Deploy online speech recognition</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI LLM</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/basic.html"><span class="label">Large Model User Guide</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_qwen.html"><span class="label">Qwen LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_deepseek.html"><span class="label">DeepSeek LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_internvl.html"><span class="label">InternVL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 Image-Generation Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_smolvlm.html"><span class="label">SmolVLM Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_sensevoice.html"><span class="label">SenseVoice Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_whisper.html"><span class="label">Whisper Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/tts_melotts.html"><span class="label">MeloTTS Speech-Synthesis Model</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Model Convertion and Port</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam2.html"><span class="label">ONNX model to MaixCAM2's</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">ONNX model to MaixCAM's</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/datasets.html"><span class="label">Where to find models & datasets</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/customize_model.html"><span class="label">Customize new AI model</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/uvc_streaming.html"><span class="label">UVC streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/webrtc_streaming.html"><span class="label">WebRTC streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Comm</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/maix_protocol.html"><span class="label">Maix APP communicate protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/modbus.html"><span class="label">Modbus communication</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/key.html"><span class="label">Key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/no_translate.html?ref=/doc/zh/moudles/microscope.html&from=/doc/en/moudles/microscope.html"><span class="label">Microscope kit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/ahrs.html"><span class="label">IMU AHRS Attitude Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/pmu.html"><span class="label">Power Management Unit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/fp5510.html"><span class="label">Voice Coil Motor FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/spilcd.html"><span class="label">SPI LCD Screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/bluetooth.html"><span class="label">Bluetooth</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/memory.html"><span class="label">Memory Usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>MaixCAM MaixPy Camera Usage</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="Last modify date: 2025-07-28">
+                                    2025-07-28
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/vision/camera.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>Update history</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Version</th>
+                                                <th>Author</th>
+                                                <th>Update content</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2025-07-28</td>
+                                                    <td>1.2.0</td>
+                                                    <td>neucrack & lxo</td>
+                                                    <td>
+                                                    
+                                                        Add AWB and lens usage doc.
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2024-10-24</td>
+                                                    <td>1.1.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        Added USB camera support instructions
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2024-08-21</td>
+                                                    <td>1.0.1</td>
+                                                    <td>YWJ</td>
+                                                    <td>
+                                                    
+                                                        Fixed some bugs in the document, added some content
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2024-04-03</td>
+                                                    <td>1.0.0</td>
+                                                    <td>neucrack</td>
+                                                    <td>
+                                                    
+                                                        Initial version of the document
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="Introduction">Introduction</h2>
+<h2 id="API-Documentation">API Documentation</h2>
+<p>This document introduces commonly used methods. For more API usage, please refer to the documentation of the <a href="/maixpy/api/maix/camera.html"  >maix.camera</a> module.</p>
+<h2 id="Supported-Cameras">Supported Cameras</h2>
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM</span></div>
+MaixCAM comes with a default GC4653 camera or optional OS04A10 camera, global shutter camera, or even HDMI to MIPI module, all of which can be used directly through simple API calls.
+<table>
+<thead>
+<tr>
+  <th>Camera</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>GC4653</strong></td>
+  <td>M12 universal lens, 1/3&quot; sensor, clear image quality, 4M pixels. Suitable for common scenarios such as AI recognition and image processing.</td>
+</tr>
+<tr>
+  <td><strong>OS04A10</strong></td>
+  <td>M12 universal lens, 1/1.8&quot; large sensor, ultra-high image quality, 4M pixels. Suitable for scenarios that require high image quality, such as photography and video recording. Note that it generates more heat.</td>
+</tr>
+<tr>
+  <td><strong>OV2685</strong></td>
+  <td>Lens is not replaceable, 1/5&quot; sensor, 2M pixels, lowest image quality and cost. Generally not recommended.</td>
+</tr>
+<tr>
+  <td><strong>SC035HGS</strong></td>
+  <td>Monochrome global shutter camera, 0.3M monochrome pixels, suitable for capturing fast-moving objects.</td>
+</tr>
+</tbody>
+</table>
+<br>
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
+<table>
+<thead>
+<tr>
+  <th>Camera</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>OS04D10</strong></td>
+  <td>M12 universal lens with a 1/3&quot; sensor. Provides clear image quality at 4MP. Well-suited for common applications such as AI recognition and image processing.</td>
+</tr>
+<tr>
+  <td><strong>OS04A10</strong></td>
+  <td>M12 universal lens with a large 1/1.79&quot; sensor. Delivers ultra-clear 4MP image quality. Ideal for scenarios demanding high visual fidelity. The AI-ISP enhances low-light performance for applications like photography and videography. Note: Heat generation is comparatively higher.</td>
+</tr>
+<tr>
+  <td><strong>SC850SL</strong></td>
+  <td>M12 universal lens with a large 1/1.8&quot; sensor. Produces ultra-clear 8MP resolution. Designed for high-quality imaging scenarios. Combined with the AI-ISP, it offers excellent night vision capability, making it perfect for photography and video recording.</td>
+</tr>
+</tbody>
+</table>
+<p>The system will switch automatically; just replace the hardware to use.</p>
+<h2 id="Lens-Cap">Lens Cap</h2>
+<p>The lens cap is for dust protection. <strong>Please remove the lens cap!!</strong> before use.</p>
+<h2 id="Adjusting-Camera-Focus">Adjusting Camera Focus</h2>
+<p>MaixCAM is equipped with a <strong>manual focus lens</strong> by default. You can physically rotate the lens to adjust focus.<br />
+If you find the <strong>image is blurry</strong>, try rotating the lens (clockwise and counterclockwise) to focus until the image is clear.</p>
+<h2 id="Getting-Image-from-the-Camera">Getting Image from the Camera</h2>
+<p>Use MaixPy to easily acquire images:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+
+cam = camera.Camera(640, 480)
+
+while 1:
+    img = cam.read()
+    print(img)
+</code></pre>
+<p>Here we import the <code>camera</code> module from <code>maix</code>, create a <code>Camera</code> object with specified width and height, and then continuously read images in a loop. The default image format is <code>RGB</code>. For <code>BGR</code> or other formats, see the API documentation.</p>
+<p>You can also get grayscale images:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, image
+cam = camera.Camera(640, 480, image.Format.FMT_GRAYSCALE)	# Set output to grayscale image
+</code></pre>
+<p>Or get NV21 images:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, image
+cam = camera.Camera(640, 480, image.Format.FMT_YVU420SP)	# Set output to NV21 image
+</code></pre>
+<h2 id="Set-Camera-Resolution">Set Camera Resolution</h2>
+<p>Specify width and height directly in the code:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(width=640, height=480)
+</code></pre>
+<p>or</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera()
+cam.set_resolution(width=640, height=480)
+</code></pre>
+<h3 id="Choosing-Resolution-Size">Choosing Resolution Size</h3>
+<p>Different boards and camera modules support different resolutions. Make sure to use <strong>even number values</strong>.</p>
+<p>It’s important to understand that <strong>higher resolution is not always better</strong>—choose the right resolution based on your scenario:</p>
+<ul>
+<li><p>Photography/Video/Monitoring: Higher resolution can give clearer images.<br />
+OS04D10, GC4653 and OS04A10 support up to <code>2560x1440</code> resolution (i.e. <code>2K/4M pixels</code>). But high resolution demands more programming skill and memory. You may consider smaller resolutions such as <code>1920x1080</code>, <code>1280x720</code>, <code>640x480</code>, etc.<br />
+Note: When running code in <strong>MaixVision</strong>, if you set high resolution (e.g., <code>2560x1440</code>), disable the image preview feature in MaixVision to avoid errors due to insufficient memory.</p>
+</li>
+<li><p>AI Recognition / Image Processing: For faster performance, reduce resolution as much as possible while still ensuring recognizability.</p>
+<ul>
+<li><code>640x480</code>: VGA resolution; large enough for most AI recognition and clear image processing. Demands more from MaixCAM; easier for MaixCAM2.</li>
+<li><code>320x320</code>: Square resolution; suitable for some AI models, but will have black borders on rectangle screens.</li>
+<li><code>320x240</code>: QVGA resolution; easy for algorithms, and still meets clarity needs.</li>
+<li><code>320x224</code>: Both width and height are multiples of 32; suitable for small resolution AI input and displays well on <code>552x368</code> screen.</li>
+<li><code>224x224</code>: Square, both dimensions are multiples of 32; fits small resolution AI models like <code>MobileNetV2</code>, <code>MobileNetV3</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Aspect-Ratio-of-Resolution">Aspect Ratio of Resolution</h3>
+<p>Aspect ratio affects field of view. For example, sensor max is <code>2560x1440</code> (16:9). Using <code>640x480</code> changes to 4:3, reducing field of view. To maximize view, choose resolution matching sensor's aspect ratio, e.g., <code>1280x720</code>, <code>2560x1440</code>.</p>
+<p>Different ratios will result in center cropping.</p>
+<h2 id="Set-Camera-Frame-Rate">Set Camera Frame Rate</h2>
+<p>The camera operates at specific frame rates. MaixPy supports frame rate settings. Supported frame rates vary by module:</p>
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM</span></div>
+<table>
+<thead>
+<tr>
+  <th>GC4653</th>
+  <th>OS04A10</th>
+  <th>OV2685</th>
+  <th>SC035HGS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>2560x1440@30fps<br>1280x720@60fps<br>1280x720@80fps</td>
+  <td>2560x1440@30fps<br>1280x720@80fps</td>
+  <td>1920x1080@30fps</td>
+  <td>640x480@180fps</td>
+</tr>
+</tbody>
+</table>
+<br>
+<div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
+<table>
+<thead>
+<tr>
+  <th>GC4653</th>
+  <th>SC850SL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>2560x1440@30fps<br>1280x720@60fps</td>
+  <td>3840x2160@30fps<br>1920x1080@60fps</td>
+</tr>
+</tbody>
+</table>
+<p>Frame rate is set via <code>width</code>, <code>height</code>, and <code>fps</code> when creating <code>Camera</code>.</p>
+<h3 id="Set-Frame-Rate-to-30fps">Set Frame Rate to 30fps</h3>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(640, 480, fps=30)
+# or
+cam = camera.Camera(1920, 1280)  # Above 1280x720 will auto use 30fps
+</code></pre>
+<h3 id="Set-Frame-Rate-to-60fps">Set Frame Rate to 60fps</h3>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(640, 480, fps=60)
+# or
+cam = camera.Camera(640, 480)  # ≤1280x720 defaults to 80fps
+</code></pre>
+<h3 id="Set-Frame-Rate-to-80fps">Set Frame Rate to 80fps</h3>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(640, 480, fps=80)
+</code></pre>
+<p>Notes:</p>
+<ol>
+<li>If size &gt; <code>1280x720</code>, e.g., <code>camera.Camera(1920, 1080, fps=60)</code>, then <code>fps</code> param is ignored and stays at 30fps.</li>
+<li>60/80fps images may shift by a few pixels compared to 30fps—consider correcting this if precise alignment is needed.</li>
+<li>60/80fps and 30fps share ISP config—image quality may vary slightly.</li>
+<li>Some camera setups can't handle 80fps—may show visual artifacts. Switch back to 60fps if needed.</li>
+</ol>
+<h2 id="Image-Correction">Image Correction</h2>
+<p>For fisheye or distortion, use <code>lens_corr</code> under <code>Image</code> to correct. Adjust the <code>strength</code> value for best results.</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display, app, time
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+while not app.need_exit():
+    t = time.ticks_ms()
+    img = cam.read() 
+    img = img.lens_corr(strength=1.5)  # Adjust strength until distortion is gone
+    disp.show(img)
+</code></pre>
+<p>Note: This is software-based correction and consumes time. You may also use non-distorted lenses (ask vendor).</p>
+<h2 id="Skip-Initial-Frames">Skip Initial Frames</h2>
+<p>During initialization, camera may output unstable images. Skip first few frames using <code>skip_frames</code>:</p>
+
+<pre class="language-python"><code class="language-python">cam = camera.Camera(640, 480)
+cam.skip_frames(30)           # Skip first 30 frames
+</code></pre>
+<h2 id="Display-Camera-Image">Display Camera Image</h2>
+<p>MaixPy provides the <code>display</code> module for easy image display:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera, display
+
+cam = camera.Camera(640, 480)
+disp = display.Display()
+
+while 1:
+    img = cam.read()
+    disp.show(img)
+</code></pre>
+<h2 id="Set-Camera-Parameters">Set Camera Parameters</h2>
+<h3 id="Set-Exposure-Time">Set Exposure Time</h3>
+<p>Note: Setting exposure time switches to manual exposure. To revert to auto mode, run <code>cam.exp_mode(camera.AeMode.Auto)</code></p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera()
+cam.exposure(1000)
+</code></pre>
+<h3 id="Set-Gain">Set Gain</h3>
+<p>Note: Setting gain switches to manual exposure. Custom gain only works in manual mode.</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera()
+cam.gain(100)
+</code></pre>
+<h3 id="Set-White-Balance">Set White Balance</h3>
+<p>Usually auto white balance suffices. For color-sensitive scenarios, manually set it:</p>
+<p>Set <code>awb_mode</code> to <code>Manual</code>, then set gain for <code>R</code>, <code>Gr</code>, <code>Gb</code>, <code>B</code> channels. Range: <code>[0.0, 1.0]</code>.</p>
+<p>Default gain values:</p>
+<ul>
+<li><code>MaixCAM</code>: <code>[0.134, 0.0625, 0.0625, 0.1239]</code></li>
+<li><code>MaixCAM2</code>: <code>[0.0682, 0, 0, 0.04897]</code></li>
+</ul>
+<p>Usually only <code>R</code> and <code>B</code> need adjustment.</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera()
+cam.awb_mode(camera.AwbMode.Manual)
+cam.set_wb_gain([0.134, 0.0625, 0.0625, 0.1239])
+</code></pre>
+<h3 id="Setting-Lower-Capture-Latency">Setting Lower Capture Latency</h3>
+<p>You can reduce image capture latency by setting the buff_num parameter. However, note that changing this parameter affects the image buffer size, and setting it too low may lead to image loss.</p>
+<p>For MaixCam, due to limitations in the internal software framework, even if buff_num is set to 1, there will still be at least a double-buffering mechanism in place. In testing, the minimum achievable capture latency is around 30+ ms.</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(buff_num=1)         # Use only 1 buffer
+</code></pre>
+<h3 id="Set-Brightness%2C-Contrast%2C-Saturation">Set Brightness, Contrast, Saturation</h3>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera()
+cam.luma(50)		    # Brightness [0, 100]
+cam.constrast(50)		# Contrast [0, 100]
+cam.saturation(50)		# Saturation [0, 100]
+</code></pre>
+<h3 id="Read-Raw-Image">Read Raw Image</h3>
+<p>To read raw <code>bayer</code> image data for processing or debugging:</p>
+
+<pre class="language-python"><code class="language-python">from maix import camera
+cam = camera.Camera(raw=true)
+raw_img = cam.read_raw()
+print(raw_img)
+</code></pre>
+<p>For viewing on PC, use script like <a href="https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py"  target="_blank">bayer_to_tiff</a>.</p>
+<h2 id="Change-Lens">Change Lens</h2>
+<p>MaixCAM uses M12 lens by default and supports lens replacement. Notes:</p>
+<ol>
+<li>Ensure new lens is M12.</li>
+<li>Different lenses have different flange back distances. Default lens mount has fixed height—check compatibility.</li>
+<li>Avoid scratching sensor surface. Blow dust gently, clean with lens paper only if necessary.</li>
+<li>Want a zoom lens? Buy M12 zoom lens.</li>
+<li>Default is manual focus. Auto-focus lenses require driver support; MaixCAM lacks AF circuit—you may need to write control program.</li>
+</ol>
+<h2 id="Use-USB-Camera-%28UVC%29">Use USB Camera (UVC)</h2>
+<p>Besides built-in MIPI camera, you can use USB camera.</p>
+<p>Steps:</p>
+<ul>
+<li>Set <code>USB Mode</code> to <code>HOST</code> in system settings. Without screen, use script <code>examples/tools/maixcam_switch_usb_mode.py</code>.</li>
+<li>As of 2024.10.24, <code>maix.camera</code> module <strong>does not</strong> support USB camera. Refer to <a href="./opencv.html"  >Using USB Camera with OpenCV</a>.</li>
+</ul>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/vision/display.html">
+                            <span class="icon"></span>
+                            <span class="label">Screen usage</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/vision/image_ops.html">
+                            <span class="label">Image control</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
