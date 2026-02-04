@@ -56,7 +56,7 @@ items:
     -   file: vision/classify.md
         label: AI object classification
     -   file: vision/yolov5.md
-        label: YOLO11/v8/v5 object detection
+        label: YOLO object detection
     -   file: vision/face_detection.md
         label: Face and keypoints detection
     -   file: vision/face_landmarks.md
@@ -94,7 +94,7 @@ items:
     -   file: vision/customize_model_yolov5.md
         label: YOLOv5 model offline training
     -   file: vision/customize_model_yolov8.md
-        label: YOLO11/v8 model offline training
+        label: YOLO26/YOLO11/v8 model offline training
 
 
 -   label: AI audio

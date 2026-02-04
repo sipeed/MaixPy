@@ -1,5 +1,5 @@
 ---
-title: 为 MaixCAM MaixPy 离线训练 YOLO11/YOLOv8/YOLO26 模型，自定义检测物体、关键点检测
+title: 为 MaixCAM MaixPy 离线训练 YOLO26/YOLO11/YOLOv8 模型，自定义检测物体、关键点检测
 update:
   - date: 2024-06-21
     version: v1.0
@@ -108,15 +108,14 @@ MaixPy/MaixCDK 目前支持了 YOLO26 / YOLOv8 / YOLO11 检测 以及 YOLOv8-pos
 | 分割 YOLO11-seg |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|
 | 旋转框 YOLOv8-obb |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`|`/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_1_output_0`<br>`/model.22/Sigmoid_output_0`|
 | 旋转框 YOLO11-obb |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_1_output_0`<br>`/model.23/Sigmoid_output_0`|
+| 检测 YOLO26 |`/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv_output_0 /model.23/one2one_cv2.1/one2one_cv2.1.2/Conv_output_0 /model.23/one2one_cv2.2/one2one_cv2.2.2/Conv_output_0 /model.23/one2one_cv3.0/one2one_cv3.0.2/Conv_output_0 /model.23/one2one_cv3.1/one2one_cv3.1.2/Conv_output_0 /model.23/one2one_cv3.2/one2one_cv3.2.2/Conv_output_0`|同MaixCAM2|
 |YOLOv8/YOLO11 检测输出节点图| ![](../../assets/yolo11_detect_nodes.png) | ![](../../assets/yolov8_out.jpg)|
 |YOLOv8/YOLO11 pose 额外输出节点 | ![](../../assets/yolo11_pose_node.png) | 见上图 pose 分支|
 |YOLOv8/YOLO11 seg 额外输出节点 | ![](../../assets/yolo11_seg_node.png) | ![](../../assets/yolo11_seg_node.png)|
 |YOLOv8/YOLO11 OBB 额外输出节点 | ![](../../assets/yolo11_obb_node.png) | ![](../../assets/yolo11_out_obb.jpg)|
+|检测 YOLO26 输出节点图 | ![](../../assets/yolo26_out.png) | 同MaixCAM2 |
 
 
-| 模型 | 节点名 | 节点图 |
-| -- | --- | --- |
-| 检测 YOLO26 | `/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv_output_0 /model.23/one2one_cv2.1/one2one_cv2.1.2/Conv_output_0 /model.23/one2one_cv2.2/one2one_cv2.2.2/Conv_output_0 /model.23/one2one_cv3.0/one2one_cv3.0.2/Conv_output_0 /model.23/one2one_cv3.1/one2one_cv3.1.2/Conv_output_0 /model.23/one2one_cv3.2/one2one_cv3.2.2/Conv_output_0` |![](../../assets/yolo26_out.png) |
 
 
 ### 转换脚本
@@ -417,5 +416,4 @@ scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 ## 上传分享到 MaixHub
 
 到 [MaixHub 模型库](https://maixhub.com/model/zoo?platform=maixcam) 上传并分享你的模型，可以多提供几个分辨率供大家选择。
-
 

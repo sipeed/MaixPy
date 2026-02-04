@@ -1,5 +1,5 @@
 ---
-title: MaixPy  使用 YOLOv5 / YOLOv8 / YOLO11  / YOLO26 模型进行目标检测
+title: MaixPy  使用 YOLO 模型进行目标检测
 ---
 
 
@@ -11,7 +11,7 @@ title: MaixPy  使用 YOLOv5 / YOLOv8 / YOLO11  / YOLO26 模型进行目标检�
 
 ## MaixPy 中使用目标检测
 
-MaixPy 默认提供了 `YOLOv5` 和 `YOLOv8` 和 `YOLO11` 模型，可以直接使用：
+MaixPy 默认提供了 `YOLOv5` , `YOLOv8` , `YOLO11` , `YOLO26` 模型，可以直接使用：
 > YOLOv8 需要 MaixPy >= 4.3.0。
 > YOLO11 需要 MaixPy >= 4.7.0。
 > YOLO26 需要 MaixPy >= 4.12.5。
@@ -65,7 +65,7 @@ YOLO11: [https://maixhub.com/model/zoo/453](https://maixhub.com/model/zoo/453)
 
 分辨率越大精度越高，但是运行耗时越长，根据你的应用场景选择合适的即可。
 
-## YOLOv5 和 YOLOv8 和 YOLO11 用哪个？
+## YOLOv5 , YOLOv8 , YOLO11 , YOLO26 用哪个？
 
 这里提供的 `YOLOv5s` 和 `YOLOv8n` 和 `YOLO11n` 和 `YOLO26n` 三种模型，`YOLOv5s`模型更大，`YOLOv8n YOLO11n YOLO26n`速度快一点点， 精度按照官方数据来说`YOLO26n > YOLO11n > YOLOv8n > YOLOv5s`，可以实际测试根据自己的实际情况选择。
 

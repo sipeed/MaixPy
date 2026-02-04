@@ -56,7 +56,7 @@ items:
     -   file: vision/classify.md
         label: AI 物体分类
     -   file: vision/yolov5.md
-        label: YOLO11/v8/v5 物体检测
+        label: YOLO 物体检测
     -   file: vision/face_detection.md
         label: 人脸及关键点检测
     -   file: vision/face_landmarks.md
@@ -94,7 +94,7 @@ items:
     -   file: vision/customize_model_yolov5.md
         label: 离线训练 YOLOv5 模型
     -   file: vision/customize_model_yolov8.md
-        label: 离线训练 YOLO11/YOLOv8 模型
+        label: 离线训练 YOLO26/YOLO11/YOLOv8 模型
 
 -   label: AI 听觉
     items:

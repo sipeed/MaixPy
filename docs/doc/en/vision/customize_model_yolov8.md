@@ -1,5 +1,5 @@
 ---
-title: Offline Training YOLO11/YOLOv8/YOLO26 Models for MaixCAM with MaixPy:Custom Object Detection & Keypoint Detection
+title: Offline Training YOLO26/YOLO11/YOLOv8 Models for MaixCAM with MaixPy:Custom Object Detection & Keypoint Detection
 update:
   - date: 2024-06-21
     version: v1.0
@@ -95,14 +95,12 @@ For YOLO11 / YOLOv8, MaixPy supports two node selection schemes, chosen based on
 | YOLO11-seg Segmentation |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`<br>`output1`|
 | YOLOv8-obb Oriented BBox |`/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`|`/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_1_output_0`<br>`/model.22/Sigmoid_output_0`|
 | YOLO11-obb Oriented BBox |`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`|`/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_1_output_0`<br>`/model.23/Sigmoid_output_0`|
+| YOLO26 Detection |`/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv_output_0 /model.23/one2one_cv2.1/one2one_cv2.1.2/Conv_output_0 /model.23/one2one_cv2.2/one2one_cv2.2.2/Conv_output_0 /model.23/one2one_cv3.0/one2one_cv3.0.2/Conv_output_0 /model.23/one2one_cv3.1/one2one_cv3.1.2/Conv_output_0 /model.23/one2one_cv3.2/one2one_cv3.2.2/Conv_output_0`|Same as MaixCAM2|
 |YOLOv8/YOLO11 Detection Output Nodes| ![](../../assets/yolo11_detect_nodes.png) | ![](../../assets/yolov8_out.jpg)|
 |YOLOv8/YOLO11 Pose Extra Output Node | ![](../../assets/yolo11_pose_node.png) | See pose branch above |
 |YOLOv8/YOLO11 Seg Extra Output Node | ![](../../assets/yolo11_seg_node.png) | ![](../../assets/yolo11_seg_node.png)|
 |YOLOv8/YOLO11 OBB Extra Output Node | ![](../../assets/yolo11_obb_node.png) | ![](../../assets/yolo11_out_obb.jpg)|
-
-| Model | Node Names | Node Diagram |
-| -- | --- | --- |
-| YOLO26 Detection | `/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv_output_0 /model.23/one2one_cv2.1/one2one_cv2.1.2/Conv_output_0 /model.23/one2one_cv2.2/one2one_cv2.2.2/Conv_output_0 /model.23/one2one_cv3.0/one2one_cv3.0.2/Conv_output_0 /model.23/one2one_cv3.1/one2one_cv3.1.2/Conv_output_0 /model.23/one2one_cv3.2/one2one_cv3.2.2/Conv_output_0` |![](../../assets/yolo26_out.png) |
+|YOLO26 Detection  Output Nodes | ![](../../assets/yolo26_out.png) | Same as MaixCAM2 |
 
 ### Conversion Scripts
 *One-click YOLO26 conversion script (run in container):*
