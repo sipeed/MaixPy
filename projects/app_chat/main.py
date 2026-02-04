@@ -233,6 +233,10 @@ class App:
 
         self.llm_last_msg += resp.msg_new
 
+        if app.need_exit():
+            self.llm.cancel()
+
+
     def __show_load_info(self, text: str, tips: str = '', x:int = 0, y:int = 0, color:image.Color=image.COLOR_WHITE):
         if self.disp:
             str_size = image.string_size(text)
@@ -321,6 +325,7 @@ class App:
             time.sleep_ms(5)
 
         if self.llm:
+            self.llm.cancel()
             del self.llm
             self.llm = None
 

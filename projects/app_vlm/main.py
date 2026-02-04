@@ -136,7 +136,7 @@ class App:
             self.vlm.set_system_prompt("You are a helpful vision-to-text assistant.")
             self.support_zh = False
         elif vlm_model == 'internvl':
-            self.vlm = nn.InternVL('/root/models/InternVL2.5-1B/model.mud')
+            self.vlm = nn.InternVL('/root/models/InternVL2.5-1B-maixcam2/model.mud')
             self.vlm.set_system_prompt("你是由上海人工智能实验室联合商汤科技开发的书生多模态大模型, 英文名叫InternVL, 是一个有用无害的人工智能助手。")
         else:
             exit(0)
@@ -147,6 +147,7 @@ class App:
         self.vlm_img: image.Image | None = None
         self.vlm_thread_lock = threading.Lock()
         self.vlm_result:str = ''
+        self.vlm_thread = None
         self.page_text = PagedText(self.disp_w, self.disp_h - self.cam.height())
         self.sta = self.Status.IDLE
 
@@ -250,8 +251,8 @@ class App:
 
     def run_vlm(self, img: image.Image, msg: str):
         self.page_text.clear()
-        t = threading.Thread(target=self.__vlm_thread, args=[self.vlm, img, msg], daemon=True)
-        t.start()
+        self.vlm_thread = threading.Thread(target=self.__vlm_thread, args=[self.vlm, img, msg], daemon=True)
+        self.vlm_thread.start()
         # t.run()
 
     def check_exit(self):
@@ -289,24 +290,28 @@ class App:
         exit_img_y = 0
         img.draw_image(exit_img_x, exit_img_y, self.exit_img)
         self.check_exit()
-
         # en/zh
         size = image.string_size("ZH", scale=2)
         if self.language == 'zh':
             img.draw_string(self.disp_w - size.width(), 0, "ZH", image.COLOR_WHITE, scale=2)
         else:
             img.draw_string(self.disp_w - size.width(), 0, "EN", image.COLOR_WHITE, scale=2)
-
+        
         if self.support_zh:
-            if ts_data[2] and self.disp_w - size.width()*2<=ts_data[0]<=self.disp_w and 0 <=ts_data[1]<=size.height() * 2:
+            if ts_data[2] and self.disp_w - size.width()*4<=ts_data[0]<=self.disp_w and 0 <=ts_data[1]<=size.height()*4:
                 if self.language == 'zh':
                     self.language = 'en'
                 else:
                     self.language = 'zh'
+                if self.vlm:
+                    self.vlm.cancel()
+                    if isinstance(self.vlm_thread, threading.Thread) and self.vlm_thread.is_alive():
+                        self.vlm_thread.join()
+                    self.page_text.clear()
         else:
             self.language = 'en'
-        self.disp.show(img)
 
+        self.disp.show(img)
 
     def __vlm_on_reply(self, obj, resp):
         print(resp.msg_new)

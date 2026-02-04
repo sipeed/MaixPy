@@ -41,7 +41,7 @@ First, we need to know which pins and I2C interfaces are available on the device
 | ------------ | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | MaixCAM      | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | The board’s silkscreen shows the pin name (e.g., `A19`) and function name (e.g., `UART1_TX`).             |
 | MaixCAM-Pro  | ![maixcam\_pro\_io](/static/image/maixcam_pro_io.png)                              | The first label (e.g., `A19`) is the pin name, corresponding to the function name (e.g., `UART1_TX`).     |
-| MaixCAM2     | ![maixcam2\_io](/static/image/maixcam2_io.png)                                     | The first label (e.g., `A21`) is the pin name, corresponding to the function name (e.g., `UART4_TX`). |
+| MaixCAM2     | ![maixcam2\_io](https://wiki.sipeed.com/hardware/assets/maixcam/maixcam2_pins.jpg)                                     | The first label (e.g., `A21`) is the pin name, corresponding to the function name (e.g., `UART4_TX`). |
 
 Note: Pins may be used for other purposes by default. It’s best to avoid these pins—see the [pinmap](./pinmap.md) documentation.
 
@@ -305,7 +305,7 @@ print(content)
 
 ### Binary Communication Protocol
 
-The character protocol above has a clear characteristic of using visible characters to transmit data. The advantage is simplicity and human readability. However, it uses an inconsistent number of characters and larger data volumes. For example, `$10,20*` and `$1000,2000*` have varying lengths, with `1000` using 4 characters, which means 4 bytes. We know an unsigned short integer (`uint16`) can represent values ranging from `0~65535` using only two bytes. This reduces the transmission data. 
+The character protocol above has a clear characteristic of using visible characters to transmit data. The advantage is simplicity and human readability. However, it uses an inconsistent number of characters and larger data volumes. For example, `$10,20*` and `$1000,2000*` have varying lengths, with `1000` using 4 characters, which means 4 bytes. We know an unsigned short integer (`uint16`) can represent values ranging from `0~65535` using only two bytes. This reduces the transmission data.
 
 We also know visible characters can be converted to binary via ASCII tables, such as `$1000` being `0x24 0x31 0x30 0x30 0x30` in binary, requiring 5 bytes. If we directly encode `1000` in binary as `0x03E8`, we can send `0x24 0x03 0xE8` in just 3 bytes, reducing communication overhead.
 

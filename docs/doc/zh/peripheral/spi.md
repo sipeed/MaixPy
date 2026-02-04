@@ -72,7 +72,7 @@ SPI 是非常常见的通信接口，通过 SPI 接口，SoC 能控制各式各�
 | ------- | ------- | --- |
 | MaixCAM | ![](https://wiki.sipeed.com/hardware/zh/lichee/assets/RV_Nano/intro/RV_Nano_3.jpg) | 板子丝印比如`A24`是引脚名，`SPI4_CS`是功能名 |
 | MaixCAM-Pro | ![maixcam_pro_io](/static/image/maixcam_pro_io.png) | 第一个名如`A24`是引脚名，对应`SPI4_CS`是功能名 |
-| MaixCAM2 | ![maixcam2_io](/static/image/maixcam2_io.png) | 第一个名如`B21`是引脚名，对应`SPI2_CS1`是功能名  |
+| MaixCAM2 | ![maixcam2_io](https://wiki.sipeed.com/hardware/assets/maixcam/maixcam2_pins.jpg) | 第一个名如`B21`是引脚名，对应`SPI2_CS1`是功能名  |
 
 需要注意的是，引脚默认可能用做其它用途，最好避开这些引脚，请看[pinmap](./pinmap.md) 文档中的说明。
 
