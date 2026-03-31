@@ -1,12 +1,15 @@
-id: thermal256_camera
-name: Thermal256 Camera
-name[zh]: 热成像仪256
+id: thermal160_camera
+name: Thermal160 Camera
+name[zh]: 热成像仪160
 version: 1.0.0
-icon: assets/thermal.json
+icon: ''
 author: Sipeed Ltd
 desc: Thermal Camera
 desc[zh]: 热成像仪
 include:
   - assets/thermal.json
   - app.yaml
+  - main.py
+files:
+  - assets/thermal.json
   - main.py

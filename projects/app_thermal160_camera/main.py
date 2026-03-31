@@ -3,6 +3,7 @@ import time
 from typing import Tuple
 
 import numpy as np
+import cv2
 from maix import app, image, display, touchscreen
 from maix.peripheral import uart
 from maix.sys import device_name
@@ -115,6 +116,11 @@ def main() -> None:
             dtype=np.uint8
         )
         color_buf = np.zeros((PMOD_H, PMOD_W, 3), dtype=np.uint8)
+
+        # 预分配显示缓冲区，避免循环内频繁创建对象导致撕裂
+        disp_w, disp_h = disp.width(), disp.height()
+        disp_buffer = np.zeros((disp_h, disp_w, 3), dtype=np.uint8)
+
         buffer = bytearray()
         skip = 0
         frame_count = 0
@@ -193,24 +199,24 @@ def main() -> None:
                     if skip <= SKIP_COUNT:
                         skip += 1
                     else:
-                        try:
-                            img = image.from_bytes(
-                                PMOD_W, PMOD_H, image.Format.FMT_GRAYSCALE, frame_data
-                            )
-                        except (TypeError, ValueError) as e:
-                            img = image.from_bytes(
-                                PMOD_W, PMOD_H, image.Format.FMT_GRAYSCALE, bytes(frame_data)
-                            )
+                        # 直接将帧数据转为 numpy 数组，避免创建 Image 对象
+                        gray_np = np.frombuffer(frame_data, dtype=np.uint8).reshape(PMOD_H, PMOD_W)
 
                         if CMAP:
-                            img.gaussian(1)
-                            gray_np = image.image2cv(
-                                img, ensure_bgr=False, copy=False
-                            ).squeeze()
-                            np.take(lut, gray_np, axis=0, out=color_buf)
-                            img_disp = image.cv2image(color_buf, bgr=False, copy=False)
+                            # 高斯模糊（使用 OpenCV 加速）
+                            gray_blurred = cv2.GaussianBlur(gray_np, (3, 3), 1)
+                            # 颜色映射到预分配缓冲区
+                            np.take(lut, gray_blurred, axis=0, out=color_buf)
+                            # 直接缩放到显示缓冲区，避免中间对象创建
+                            cv2.resize(color_buf, (disp_w, disp_h), dst=disp_buffer, interpolation=cv2.INTER_LINEAR)
                         else:
-                            img_disp = img
+                            # 灰度图：先缩放单通道，然后复制到三通道
+                            gray_resized = cv2.resize(gray_np, (disp_w, disp_h), interpolation=cv2.INTER_LINEAR)
+                            disp_buffer[:,:,0] = gray_resized
+                            disp_buffer[:,:,1] = gray_resized
+                            disp_buffer[:,:,2] = gray_resized
+                        # 创建显示图像（统一处理）
+                        img_disp = image.cv2image(disp_buffer, bgr=False, copy=False)
                         capture_start = True
                         disp.show(img_disp)
 
