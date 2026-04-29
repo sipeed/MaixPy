@@ -31,3 +31,4 @@
 
 * MaixCAM2 兼容性：程序包含针对 MaixCAM2 的波特率切换指令 (0x44)，使用其他串口设备时请根据实际通讯协议修改 HardwareHAL 类。
 * 资源释放：程序通过 finally 块确保在退出时安全释放 UART 资源。
+* 当 MaixCam2 仅由电池供电时，如果 TN160 在 MaixCam2 上电前已连接到 MaixCam2，则 MaixCam2 上电后需要手动按下 TN160 的RST复位按键。
