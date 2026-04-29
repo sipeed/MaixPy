@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>使用RVV加速 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/pro/rvv.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/pro/rvv.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用使用-开发-商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 语法</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/depth_anything.html"><span class="label">Depth-Anything 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo_world.html"><span class="label">YOLO-World 检测任意物体</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练 AI 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov5.html"><span class="label">离线训练 YOLOv5 模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolov8.html"><span class="label">离线训练 YOLO26/YOLO11/YOLOv8 模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 大模型</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/basic.html"><span class="label">大模型使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_qwen.html"><span class="label">Qwen 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_deepseek.html"><span class="label">DeepSeek 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_internvl.html"><span class="label">InternVL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 图像生成模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_smolvlm.html"><span class="label">SmolVLM 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_sensevoice.html"><span class="label">SenseVoice 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_whisper.html"><span class="label">Whisper 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/tts_melotts.html"><span class="label">MeloTTS 语音合成模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 模型转换和移植</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam2.html"><span class="label">ONNX 模型转给 MaixCAM2 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">ONNX 模型转给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">哪里找模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植新模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/webrtc_streaming.html"><span class="label">WebRTC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/ahrs.html"><span class="label">IMU AHRS 姿态检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/bluetooth.html"><span class="label">蓝牙</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战和开源项目</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">介绍和开源项目汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/memory.html"><span class="label">内存使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>使用RVV加速</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/pro/rvv.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="License">License</h2>
+<p>Copyright (C) 2026 ywj <a href="mailto:yangwenjie1231@qq.com"  >yangwenjie1231@qq.com</a></p>
+<p>This library is free software; you can redistribute it and/or modify it<br />
+under the terms of the GNU Lesser General Public License as published by<br />
+the Free Software Foundation.</p>
+<p>This library is distributed in the hope that it will be useful,<br />
+but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
+GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public<br />
+License along with this library.  If not, see <a href="https://www.gnu.org/licenses/"  target="_blank">https://www.gnu.org/licenses/</a>.</p>
+<p>SPDX-License-Identifier: LGPL-3.0</p>
+<h1 id="sg2002_rvv-v0.1.0-%E2%80%94-%E9%A6%96%E6%AC%A1%E5%BC%80%E6%BA%90%E5%8F%91%E5%B8%83">sg2002_rvv v0.1.0 — 首次开源发布</h1>
+<p>仓库地址：<a href="https://github.com/yangwenjie1231/sg2002_rvv/releases"  target="_blank">https://github.com/yangwenjie1231/sg2002_rvv/releases</a>记得给个star，手动狗头<br />
+发布日期：2026-03-03</p>
+<p>概述<br />
+本次发布公开了 sg2002_rvv 的实现、示例、测试与文档。项目旨在为 RISC‑V 向量扩展（RVV）相关研究与工程提供参考实现与可复现的基准。</p>
+<p>主要变更</p>
+<ul>
+<li>初始开源：公开 src/, examples/, scripts/, docs/</li>
+<li>添加础构建脚本与单元测试</li>
+<li>提供性能基准脚本与示例数据</li>
+</ul>
+<p>许可<br />
+本仓库采用LGPL3.0 许可（请见 LICENSE 文件）。</p>
+<p>贡献<br />
+欢迎通过 Issues 和 Pull Requests 参与贡献。详细指南请见 CONTRIBUTING.md。</p>
+<p>联系方式<br />
+维护者：yangwenjie1231（<a href="https://github.com/yangwenjie1231%EF%BC%89"  target="_blank">https://github.com/yangwenjie1231%EF%BC%89</a></p>
+<h1 id="%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94">性能对比</h1>
+<p><img src="https://maixhub.com/public/sharing/24278-2a9ef5bc220a4c0d8fc973c12f55f93f.jpg" alt="" /></p>
+<ul>
+<li>导入示例</li>
+</ul>
+
+<pre class="language-python"><code class="language-python">try:
+    import rvv
+    # 检查rvv模块是否有必要的函数
+    if hasattr(rvv, 'add') and hasattr(rvv, 'sub') and hasattr(rvv, 'norm_l2'):
+        _RVV_AVAILABLE = True
+        print(&quot;✓ RVV硬件加速可用&quot;)
+    else:
+        _RVV_AVAILABLE = False
+        rvv = None
+        print(&quot;⚠ RVV模块存在但缺少必要函数，将使用CPU降级计算&quot;)
+except ImportError:
+    _RVV_AVAILABLE = False
+    rvv = None
+    print(&quot;⚠ RVV模块不可用，将使用CPU降级计算，并尝试自动安装RVV依赖&quot;)
+    try:
+        import os
+        os.system('pip install --force-reinstall ./clib/rvv-0.1.3-py3-none-any.whl')
+        try:
+            import rvv
+            _RVV_AVAILABLE = True
+            print(&quot;✓ RVV模块已安装，将使用RVV硬件加速&quot;)
+        except ImportError:
+            print(&quot;⚠ RVV模块安装后启动失败，请手动安装&quot;)
+    except ImportError:
+        print(&quot;⚠ 无法自动安装RVV依赖，请手动安装&quot;)
+
+</code></pre>
+<h1 id="rvv-API-%E6%96%87%E6%A1%A3%EF%BC%88SG2002-/-C906FDV-/-RVV-0.7.1%EF%BC%89">rvv API 文档（SG2002 / C906FDV / RVV 0.7.1）</h1>
+<p>本文档描述 <code>rvv</code> Python 扩展模块的公共 API。</p>
+<ul>
+<li>模块名：<code>rvv</code></li>
+<li>目标平台：RISC-V（SG2002 / C906FDV），支持 RVV 0.7.1 时会启用矢量加速</li>
+<li>数据类型：<strong>仅支持 float32</strong></li>
+<li>设计目标：<ul>
+<li><strong>兼容 NumPy 的 N 维数组（ndarray）作为输入</strong></li>
+<li>在内部自动转换为适合 RVV/kernel 处理的格式（float32 + C 连续）</li>
+<li>在 NumPy 可用时返回 <code>numpy.ndarray</code>（pybind11 <code>py::array_t&lt;float&gt;</code>）</li>
+</ul>
+</li>
+<li>编译参考：基于<a href="https://github.com/Taoxuan-168/Auto-bind-Python-from-CC-"  target="_blank">https://github.com/Taoxuan-168/Auto-bind-Python-from-CC-</a>并修改了部分代码</li>
+</ul>
+<blockquote>
+<p>安装提示：wheel 本身不依赖 NumPy（<code>install_requires=[]</code>）。<br />
+但若要传入 <code>numpy.ndarray</code>、或运行与 NumPy 的对比测试，需要目标环境安装 NumPy。</p>
+</blockquote>
+<hr />
+<h2 id="1.-%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89">1. 输入数据模型（重要）</h2>
+<p><code>rvv</code> 的所有函数都基于 <strong>buffer protocol</strong>（PEP 3118）读取输入。</p>
+<h3 id="1.1-%E6%94%AF%E6%8C%81%E7%9A%84%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B">1.1 支持的输入类型</h3>
+<p>以下输入通常都可以：</p>
+<ul>
+<li><code>numpy.ndarray(dtype=np.float32)</code></li>
+<li>其他实现了 buffer protocol 的对象（如某些张量库/自定义 buffer）</li>
+</ul>
+<h3 id="1.2-%E5%BC%BA%E5%88%B6%E8%A6%81%E6%B1%82">1.2 强制要求</h3>
+<ul>
+<li><strong>dtype 必须是 float32</strong><ul>
+<li>PEP3118 <code>format == 'f'</code></li>
+<li><code>itemsize == 4</code></li>
+</ul>
+</li>
+<li><strong>必须是 C-contiguous（行主序连续）</strong><ul>
+<li>若为非连续/切片视图（stride 不满足连续布局），将抛出异常</li>
+</ul>
+</li>
+</ul>
+<h3 id="1.3-%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99">1.3 自动转换规则</h3>
+<p>内部的 <code>as_f32_buffer()</code> 会优先尝试 NumPy 路径：</p>
+<ul>
+<li><code>py::array_t&lt;float, c_style | forcecast&gt;</code></li>
+</ul>
+<p>这意味着：</p>
+<ul>
+<li>如果 NumPy 可用，且你传入 <code>float64</code> 或非连续数组，它会复制/转换为连续的 <code>float32</code> 再计算。</li>
+<li>如果 NumPy 不可用，则只能走通用 buffer 路径，此时不满足上述要求会直接报错。</li>
+</ul>
+<hr />
+<h2 id="2.-%E5%90%91%E9%87%8F%E8%BF%90%E7%AE%97-API%EF%BC%881-D%EF%BC%89">2. 向量运算 API（1-D）</h2>
+<h3 id="2.1-%3Ccode%3Ervv.add%28a%2C-b%29--%26gt%3B-ndarray%5Bfloat32%5D%3C/code%3E">2.1 <code>rvv.add(a, b) -&gt; ndarray[float32]</code></h3>
+<p><strong>功能</strong>：逐元素加法。</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>a</code>：1-D float32 buffer（期望 <code>ndim=1</code>）</li>
+<li><code>b</code>：1-D float32 buffer（期望 <code>ndim=1</code>）</li>
+</ul>
+<p><strong>返回</strong>：</p>
+<ul>
+<li><code>out</code>：1-D <code>float32</code> 数组，长度与 <code>a</code> 相同</li>
+</ul>
+<p><strong>错误</strong>：</p>
+<ul>
+<li><code>ValueError</code>：<ul>
+<li><code>a</code> 或 <code>b</code> 维度不是 1：<code>&quot;a must have ndim=1, got ndim=...&quot;</code></li>
+<li><code>a</code> 与 <code>b</code> 长度不同：<code>&quot;add: a and b must have the same length&quot;</code></li>
+<li>输入不是 C-contiguous：<code>&quot;a must be C-contiguous float32 buffer&quot;</code></li>
+</ul>
+</li>
+<li><code>TypeError</code>：<ul>
+<li>输入不是 float32：例如 <code>format!='f'</code> 或 <code>itemsize!=4</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.arange(8, dtype=np.float32)
+b = np.ones(8, dtype=np.float32)
+print(rvv.add(a, b))
+</code></pre>
+<hr />
+<h3 id="2.2-%3Ccode%3Ervv.sub%28a%2C-b%29--%26gt%3B-ndarray%5Bfloat32%5D%3C/code%3E">2.2 <code>rvv.sub(a, b) -&gt; ndarray[float32]</code></h3>
+<p><strong>功能</strong>：逐元素减法。</p>
+<ul>
+<li>语义：<code>out[i] = a[i] - b[i]</code></li>
+<li>参数/返回/错误与 <code>add</code> 相同，长度必须一致。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.arange(8, dtype=np.float32)
+b = np.ones(8, dtype=np.float32)
+print(rvv.sub(a, b))
+</code></pre>
+<hr />
+<h3 id="2.3-%3Ccode%3Ervv.scale%28a%2C-k%29--%26gt%3B-ndarray%5Bfloat32%5D%3C/code%3E">2.3 <code>rvv.scale(a, k) -&gt; ndarray[float32]</code></h3>
+<p><strong>功能</strong>：向量按标量缩放。</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>a</code>：1-D float32 buffer</li>
+<li><code>k</code>：Python <code>float</code></li>
+</ul>
+<p><strong>返回</strong>：</p>
+<ul>
+<li><code>out</code>：1-D float32 数组</li>
+</ul>
+<p><strong>错误</strong>：</p>
+<ul>
+<li><code>ValueError</code> / <code>TypeError</code>：同 <code>add</code> 的 dtype/contiguous/ndim 校验</li>
+</ul>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.arange(8, dtype=np.float32)
+print(rvv.scale(a, 0.5))
+</code></pre>
+<hr />
+<h3 id="2.4-%3Ccode%3Ervv.dot%28a%2C-b%29--%26gt%3B-float%3C/code%3E">2.4 <code>rvv.dot(a, b) -&gt; float</code></h3>
+<p><strong>功能</strong>：点积（内积）。</p>
+<ul>
+<li>语义：<code>sum_i a[i] * b[i]</code></li>
+</ul>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>a</code>：1-D float32 buffer</li>
+<li><code>b</code>：1-D float32 buffer</li>
+</ul>
+<p><strong>返回</strong>：</p>
+<ul>
+<li>Python <code>float</code></li>
+</ul>
+<p><strong>错误</strong>：</p>
+<ul>
+<li><code>ValueError</code>：长度不一致：<code>&quot;dot: a and b must have the same length&quot;</code></li>
+<li>dtype/连续性/ndim 错误同上</li>
+</ul>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.arange(8, dtype=np.float32)
+print(rvv.dot(a, a))
+</code></pre>
+<hr />
+<h3 id="2.5-%3Ccode%3Ervv.norm_l2%28a%29--%26gt%3B-float%3C/code%3E">2.5 <code>rvv.norm_l2(a) -&gt; float</code></h3>
+<p><strong>功能</strong>：L2 范数（欧几里得范数）。</p>
+<ul>
+<li>定义：<code>sqrt(dot(a, a))</code></li>
+</ul>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>a</code>：1-D float32 buffer</li>
+</ul>
+<p><strong>返回</strong>：</p>
+<ul>
+<li>Python <code>float</code></li>
+</ul>
+<p><strong>数值误差说明（重要）</strong>：</p>
+<p><code>dot</code> 和 <code>norm</code> 都是“归约”运算（reduction）。<br />
+当向量很大时（例如 1e6 长度），由于不同实现的归约顺序不同（RVV 分块、标量循环、NumPy/BLAS 向量化等），最终结果可能与 NumPy 有<strong>很小的相对误差</strong>。</p>
+<p>建议比较时使用相对误差（例如 <code>1e-4 ~ 1e-3</code>）而不是严格相等。</p>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.random.randn(1000000).astype(np.float32)
+print(rvv.norm_l2(a))
+</code></pre>
+<hr />
+<h2 id="3.-%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97-API%EF%BC%882-D%EF%BC%89">3. 矩阵运算 API（2-D）</h2>
+<h3 id="3.1-%3Ccode%3Ervv.matmul%28A%2C-B%29--%26gt%3B-ndarray%5Bfloat32%5D%3C/code%3E">3.1 <code>rvv.matmul(A, B) -&gt; ndarray[float32]</code></h3>
+<p><strong>功能</strong>：矩阵乘法。</p>
+<ul>
+<li>输入：<ul>
+<li><code>A</code>：形状 <code>(m, k)</code></li>
+<li><code>B</code>：形状 <code>(k, n)</code></li>
+</ul>
+</li>
+<li>输出：<ul>
+<li><code>C</code>：形状 <code>(m, n)</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>A</code>：2-D float32 buffer（<code>ndim=2</code>，C-contiguous，行主序）</li>
+<li><code>B</code>：2-D float32 buffer（<code>ndim=2</code>，C-contiguous，行主序）</li>
+</ul>
+<p><strong>返回</strong>：</p>
+<ul>
+<li><code>C</code>：2-D float32 数组</li>
+</ul>
+<p><strong>错误</strong>：</p>
+<ul>
+<li><code>ValueError</code>：<ul>
+<li>维度不是 2：<code>&quot;A must have ndim=2, got ndim=...&quot;</code></li>
+<li>形状不匹配：<ul>
+<li><code>&quot;matmul: shape mismatch: A is (m,k) but B is (k2,n)&quot;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong>：</p>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+A = np.random.randn(2, 3).astype(np.float32)
+B = np.random.randn(3, 4).astype(np.float32)
+C = rvv.matmul(A, B)
+print(C.shape)
+</code></pre>
+<hr />
+<h2 id="4.-%E6%80%A7%E8%83%BD%E5%BB%BA%E8%AE%AE">4. 性能建议</h2>
+<ul>
+<li>确保输入是 <strong>float32</strong> 且 <strong>C-contiguous</strong>，避免不必要的复制。</li>
+<li>大数组上，<code>add/sub/scale</code> 通常更容易看到 RVV 性能收益。</li>
+<li><code>matmul</code> 是否快于 NumPy 取决于 NumPy 是否链接了高性能 BLAS（嵌入式环境中 NumPy 常常没有或性能有限）。</li>
+</ul>
+<hr />
+<h2 id="5.-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E4%B8%8E%E6%8E%92%E6%9F%A5">5. 常见错误与排查</h2>
+<h3 id="5.1-%3Ccode%3E...-must-be-float32-compatible-buffer-...%3C/code%3E">5.1 <code>... must be float32-compatible buffer ...</code></h3>
+<p>说明输入不是 float32。</p>
+<p>解决：</p>
+
+<pre class="language-python"><code class="language-python">x = x.astype(np.float32, copy=False)
+</code></pre>
+<h3 id="5.2-%3Ccode%3E...-must-be-C-contiguous-float32-buffer%3C/code%3E">5.2 <code>... must be C-contiguous float32 buffer</code></h3>
+<p>说明输入是切片/转置等非连续视图。</p>
+<p>解决：</p>
+
+<pre class="language-python"><code class="language-python">x = np.ascontiguousarray(x, dtype=np.float32)
+</code></pre>
+<h3 id="5.3-%3Ccode%3Eadd/sub/dot%3A-a-and-b-must-have-the-same-length%3C/code%3E">5.3 <code>add/sub/dot: a and b must have the same length</code></h3>
+<p>说明向量长度不一致。</p>
+<hr />
+<h2 id="6.-%E4%B8%8E%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB%EF%BC%88%E4%BE%9B%E5%BC%80%E5%8F%91%E8%80%85%EF%BC%89">6. 与实现对应关系（供开发者）</h2>
+<ul>
+<li>Python 绑定：<code>rvv_ext/main/src/bind_rvv.cpp</code></li>
+<li>C++ 公共接口声明：<code>rvv_ext/main/include/rvv.hpp</code></li>
+<li>RVV 0.7.1 实现：<code>rvv_ext/main/src/rvv_rvv071.cpp</code>（仅在 <code>__riscv_vector</code> 下编译）</li>
+<li>标量实现：<code>rvv_ext/main/src/rvv_scalar.cpp</code></li>
+</ul>
+<hr />
+<h2 id="7.-%E6%9C%80%E5%B0%8F%E7%A4%BA%E4%BE%8B%EF%BC%88%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8%EF%BC%89">7. 最小示例（组合使用）</h2>
+
+<pre class="language-python"><code class="language-python">import numpy as np
+import rvv
+
+a = np.arange(8, dtype=np.float32)
+b = np.arange(8, dtype=np.float32)
+
+c = rvv.add(a, b)
+d = rvv.sub(a, b)
+e = rvv.scale(a, 2.0)
+
+print(c)
+print(d)
+print(e)
+print(rvv.dot(a, b))
+print(rvv.norm_l2(a))
+
+A = np.arange(6, dtype=np.float32).reshape(2, 3)
+B = np.arange(12, dtype=np.float32).reshape(3, 4)
+print(rvv.matmul(A, B))
+</code></pre>
+<h1 id="%E4%BB%A5%E4%B8%8B%E6%98%AF%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E5%8F%AF%E4%BB%A5%E5%8F%82%E8%80%83%E7%9A%84">以下是二次开发可以参考的</h1>
+<h1 id="rvv-%28SG2002/C906-RVV-%E5%8A%A0%E9%80%9F%E7%9A%84-NumPy-%E8%BF%90%E7%AE%97%29">rvv (SG2002/C906 RVV 加速的 NumPy 运算)</h1>
+<p>此文件夹包含一个小型的 C++/pybind11 Python 扩展，提供 <strong>NumPy 兼容</strong> 的向量/矩阵运算，并为 SG2002 (C906) 提供 <strong>RVV 0.7.1</strong> 快速路径。</p>
+<blockquote>
+<p>目标 Python：<strong>3.11.6</strong>（对应 SDK 组件 <code>python3_lib_maixcam_musl_3.11.6</code>）。</p>
+</blockquote>
+<hr />
+<h2 id="%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%81%87%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%85%B3%E9%94%AE%E7%82%B9">你可能会遇到的几个关键点</h2>
+<ul>
+<li>一定要在项目根目录 <code>rvv_ext/</code> 执行构建，不要在 <code>rvv_ext/main/</code> 里执行。<ul>
+<li>否则会生成 <code>rvv_ext/main/build/...</code> 的配置并导致输出看起来“无限循环”。</li>
+</ul>
+</li>
+<li>必须设置 SDK 环境变量：<ul>
+<li><code>MY_SDK_PATH=/root/xmusic/Auto-bind-Python-from-CC--main/Auto-bind-Python-from-CC--main</code></li>
+<li>不设置会报找不到 <code>/tools/cmds</code>。</li>
+</ul>
+</li>
+<li>交叉编译时 <code>TOOLCHAIN_PATH</code> <strong>必须是绝对路径</strong>，否则 CMake 会报：<ul>
+<li><code>TOOLCHAIN_PATH set error: ...</code></li>
+</ul>
+</li>
+<li><code>distclean</code> 会删除 <code>build/</code>，之后不能直接 <code>cmake --build build ...</code>，否则会报：<ul>
+<li><code>Error: could not load cache</code></li>
+<li>必须先重新执行 <code>python3 project.py build</code> 生成 <code>build/CMakeCache.txt</code>。</li>
+</ul>
+</li>
+<li>嵌入式 Linux 上通常 <strong>无法编译/安装 NumPy</strong>。本库 <strong>wheel 安装不依赖 NumPy</strong>（<code>install_requires=[]</code>）。<ul>
+<li>但如果你要对比 NumPy 的结果/速度，需要目标环境能装 NumPy。</li>
+</ul>
+</li>
+<li><code>norm_l2</code> / <code>dot</code> 在超大向量（例如 1e6）上可能与 NumPy 有轻微差异（归约顺序导致浮点误差），应使用相对误差比较，而不是严格相等。</li>
+</ul>
+<hr />
+<h2 id="%E8%BE%93%E5%85%A5%E7%BA%A6%E6%9D%9F%EF%BC%88%E4%B8%8E-NumPy-%E5%85%BC%E5%AE%B9%E7%9A%84%E5%85%B3%E9%94%AE%E7%82%B9%EF%BC%89">输入约束（与 NumPy 兼容的关键点）</h2>
+<p>本库的绑定实现位于 <code>main/src/bind_rvv.cpp</code>，核心行为如下：</p>
+<ul>
+<li>所有运算都是 <strong>float32-only</strong></li>
+<li>输入接受：<ul>
+<li>NumPy 可用时：优先将输入转换为 <strong><code>float32 + C-contiguous</code></strong>（<code>py::array_t&lt;float, c_style|forcecast&gt;</code>）<ul>
+<li>这意味着 <code>float64</code> 或非连续数组会发生 <strong>复制/转换</strong>（这是为了兼容性与稳定性）</li>
+</ul>
+</li>
+<li>NumPy 不可用时：走 <strong>buffer protocol</strong> 路径<ul>
+<li>要求 buffer 的 <code>format == 'f'</code> 且 <code>itemsize == 4</code></li>
+<li>要求 <strong>严格 C-contiguous</strong>（否则会抛 <code>ValueError</code>）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>如果你希望“零拷贝”并获得最佳性能，建议在调用前确保：</p>
+
+<pre class="language-python"><code class="language-python">x = np.ascontiguousarray(x, dtype=np.float32)
+</code></pre>
+<hr />
+<h2 id="IDE-%E4%BB%A3%E7%A0%81%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8/%E7%B1%BB%E5%9E%8B%E6%8F%90%E7%A4%BA%EF%BC%89">IDE 代码提示（自动补全/类型提示）</h2>
+<p>由于 <code>rvv</code> 是 <strong>二进制扩展模块</strong>（<code>rvv.so</code>），IDE 无法像纯 Python 一样从源码推断函数签名。<br />
+本项目已通过 <strong>PEP 561</strong> 的方式提供类型提示：</p>
+<ul>
+<li><code>rvv_ext/rvv.pyi</code>：模块存根（stub），为 <code>add/sub/scale/dot/norm_l2/matmul</code> 提供签名与说明</li>
+<li><code>rvv_ext/py.typed</code>：标记文件，告知工具/IDE “该包携带类型信息”</li>
+</ul>
+<p>并且在打包 wheel 时会把它们一并打入 whl（见 <code>rvv_ext/setup.py</code>）。</p>
+<h3 id="%E6%96%B9%E5%BC%8F-A%EF%BC%9A%E5%AE%89%E8%A3%85-wheel-%E5%90%8E%E8%8E%B7%E5%BE%97%E6%8F%90%E7%A4%BA%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89%E4%BD%86%E6%88%91%E6%87%92%E5%BE%97%E6%89%93%E5%8C%85%E4%BA%86">方式 A：安装 wheel 后获得提示（推荐）但我懒得打包了</h3>
+<p>在目标机/开发机安装生成的 wheel 后，IDE 通常会自动读取 <code>.pyi</code>，为 <code>import rvv</code> 提供补全：</p>
+
+<pre class="language-bash"><code class="language-bash">pip install --no-deps --force-reinstall dist/*.whl
+</code></pre>
+<h3 id="%E6%96%B9%E5%BC%8F-B%EF%BC%9A%E5%9C%A8%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%9B%B4%E6%8E%A5%E5%BC%80%E5%8F%91%E6%97%B6%E8%8E%B7%E5%BE%97%E6%8F%90%E7%A4%BA">方式 B：在源码目录直接开发时获得提示</h3>
+<p>如果你暂时不安装 wheel，而是在源码目录直接写代码：</p>
+<ul>
+<li>确保 IDE 的解释器/项目索引能看到 <code>rvv_ext/rvv.pyi</code></li>
+<li>可在 PyCharm 中将 <code>rvv_ext/</code> 目录标记为 <strong>Sources Root</strong>（或加入 <code>PYTHONPATH</code>）</li>
+</ul>
+<blockquote>
+<p>注意：无论哪种方式，运行时导入仍然是 <code>import rvv</code>。</p>
+</blockquote>
+<hr />
+<h2 id="%E4%B8%BB%E8%A6%81%E7%9B%AE%E6%A0%87">主要目标</h2>
+<ul>
+<li>直接接受 <strong>NumPy <code>ndarray</code> / buffer-protocol</strong> 输入。</li>
+<li>内部将输入转换为 <strong>float32 + C连续</strong> 缓冲区（内核期望的格式）。</li>
+<li>当可用时使用 RVV（RISC-V 向量扩展）实现（<code>__riscv_vector</code>）。</li>
+<li>提供标量回退，以便相同的源码可以在非 RISC-V 主机上构建/测试。</li>
+</ul>
+<hr />
+<h2 id="Python-API%EF%BC%88%E6%A6%82%E8%A7%88%EF%BC%89">Python API（概览）</h2>
+<p>顶层模块名为 <code>rvv</code>：</p>
+<ul>
+<li><code>rvv.add(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.sub(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.scale(a, k) -&gt; ndarray</code></li>
+<li><code>rvv.dot(a, b) -&gt; float</code></li>
+<li><code>rvv.norm_l2(a) -&gt; float</code></li>
+<li><code>rvv.matmul(A, B) -&gt; ndarray</code></li>
+</ul>
+<p>更完整的 API 文档请见：<code>lib/rvvapi.md</code>。</p>
+<hr />
+<h2 id="%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%BC%8F%E9%80%89%E6%8B%A9%EF%BC%9A%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%EF%BC%88MaixCam%EF%BC%89-vs-%E4%B8%BB%E6%9C%BA%E6%B5%8B%E8%AF%95%EF%BC%88Linux%EF%BC%89">构建模式选择：交叉编译（MaixCam） vs 主机测试（Linux）</h2>
+<p>项目在 <code>main/CMakeLists.txt</code> 中支持两类构建模式：</p>
+<ul>
+<li><strong>交叉编译到 SG2002（推荐）</strong>：启用 <code>MaixCam</code><ul>
+<li>会启用 RVV ISA flags（如 <code>-march=rv64imafdcv0p7xthead</code>）</li>
+<li>会链接 SDK 的 <code>python3_lib_maixcam_musl_3.11.6</code> 头文件/库，避免 <code>Python.h</code> 缺失</li>
+</ul>
+</li>
+<li><strong>主机 Linux 测试</strong>：启用 <code>Linux</code><ul>
+<li>先尝试 system <code>Python.h</code>（<code>python3-dev</code>），找不到则回退到 SDK python 组件</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>经验：如果你看到 <code>fatal error: Python.h: No such file or directory</code>，说明当前构建模式没有拿到 Python 开发头。</p>
+</blockquote>
+<hr />
+<h2 id="%E4%BD%BF%E7%94%A8-Auto-bind-Python-from-CC--main-%E6%9E%84%E5%BB%BA-%28Linux%29">使用 Auto-bind-Python-from-CC--main 构建 (Linux)</h2>
+<p>此项目使用与 <code>Auto-bind-Python-from-CC--main/examples/demo</code> 相同的构建系统。</p>
+<h3 id="0%29-%E8%AE%BE%E7%BD%AE-SDK-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88%E5%BF%85%E9%A1%BB%EF%BC%89">0) 设置 SDK 环境变量（必须）</h3>
+
+<pre class="language-bash"><code class="language-bash">export MY_SDK_PATH=/root/xmusic/Auto-bind-Python-from-CC--main/Auto-bind-Python-from-CC--main
+</code></pre>
+<h3 id="1%29-%E6%89%93%E5%BC%80-menuconfig">1) 打开 menuconfig</h3>
+
+<pre class="language-bash"><code class="language-bash">cd /root/xmusic/rvv_ext
+python3 project.py menuconfig
+</code></pre>
+<h3 id="2%29-%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7%E9%93%BE%EF%BC%88%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%88%B0-SG2002%EF%BC%89">2) 配置工具链（交叉编译到 SG2002）</h3>
+<ul>
+<li><code>-mcpu=c906fdv</code></li>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+<li><code>-mcmodel=medany</code></li>
+<li><code>-mabi=lp64d</code></li>
+</ul>
+<h4 id="%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%B8%8D%E4%BD%BF%E7%94%A8-menuconfig-%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE">替代方案：不使用 menuconfig 进行配置</h4>
+<p>您也可以通过标志进行配置：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py config \
+  --toolchain /root/xmusic/host-tools/gcc/riscv64-linux-musl-x86_64/bin \
+  --toolchain-prefix riscv64-unknown-linux-musl-
+</code></pre>
+<p>或者通过此项目顶级 <code>CMakeLists.txt</code> 使用的环境变量：</p>
+
+<pre class="language-bash"><code class="language-bash">export MY_TOOLCHAIN_PATH=/root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin
+</code></pre>
+<h3 id="3%29-%E6%9E%84%E5%BB%BA-%2B-wheel-%E5%8C%85">3) 构建 + wheel 包</h3>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py build
+</code></pre>
+<p>产物：</p>
+<ul>
+<li>编译的扩展：<code>build/main/libmain.so</code></li>
+<li>Wheel 包：<code>dist/*.whl</code></li>
+</ul>
+<h3 id="4%29-%E5%BF%AB%E9%80%9F-RVV-%E5%90%AF%E7%94%A8%E6%A3%80%E6%9F%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89">4) 快速 RVV 启用检查（可选）</h3>
+<p>在执行 <code>python3 project.py build</code> 后，检查构建日志中的编译命令行是否包含：</p>
+<ul>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+</ul>
+<p>如果存在该标志，<code>__riscv_vector</code> 应该被定义，RVV 实现（<code>rvv_rvv071.cpp</code>）将会被编译。</p>
+<h2 id="Python-API">Python API</h2>
+<p>顶层模块名为 <code>rvv</code>。<br />
+  <code>/root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin</code><br />
+  （请根据您实际的工作空间路径调整前缀 <code>/root/xmusic</code>）</p>
+<ul>
+<li><code>CONFIG_TOOLCHAIN_PREFIX</code> =<br />
+<code>riscv64-unknown-linux-musl-</code></li>
+</ul>
+<p>然后选择 RISCV64 目标（MaixCam）。</p>
+<p>当启用 <code>MaixCam</code> 时，此项目的 <code>main/CMakeLists.txt</code> 已经注入了 SG2002 所需的 RVV 标志：</p>
+<ul>
+<li><code>-mcpu=c906fdv</code></li>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+<li><code>-mcmodel=medany</code></li>
+<li><code>-mabi=lp64d</code></li>
+</ul>
+<h4 id="%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%B8%8D%E4%BD%BF%E7%94%A8-menuconfig-%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE">替代方案：不使用 menuconfig 进行配置</h4>
+<p>您也可以通过标志进行配置：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py config \
+  --toolchain /root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin \
+  --toolchain-prefix riscv64-unknown-linux-musl-
+</code></pre>
+<p>或者通过此项目顶级 <code>CMakeLists.txt</code> 使用的环境变量：</p>
+
+<pre class="language-bash"><code class="language-bash">export MY_TOOLCHAIN_PATH=/root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin
+</code></pre>
+<h3 id="3%29-%E6%9E%84%E5%BB%BA-%2B-wheel-%E5%8C%85">3) 构建 + wheel 包</h3>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py build
+</code></pre>
+<p>产物：</p>
+<ul>
+<li>编译的扩展：<code>build/main/libmain.so</code></li>
+<li>Wheel 包：<code>dist/*.whl</code></li>
+</ul>
+<h3 id="4%29-%E5%BF%AB%E9%80%9F-RVV-%E5%90%AF%E7%94%A8%E6%A3%80%E6%9F%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89">4) 快速 RVV 启用检查（可选）</h3>
+<p>在执行 <code>python3 project.py build</code> 后，检查构建日志中的编译命令行是否包含：</p>
+<ul>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+</ul>
+<p>如果存在该标志，<code>__riscv_vector</code> 应该被定义，RVV 实现（<code>rvv_rvv071.cpp</code>）将会被编译。</p>
+<h2 id="Python-API">Python API</h2>
+<p>顶层模块名为 <code>rvv</code>。</p>
+<ul>
+<li><code>rvv.add(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.sub(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.scale(a, k) -&gt; ndarray</code></li>
+<li><code>rvv.dot(a, b) -&gt; float</code></li>
+<li><code>rvv.norm_l2(a) -&gt; float</code></li>
+<li><code>rvv.matmul(A, B) -&gt; ndarray</code></li>
+</ul>
+<p>所有数组输入都会在内部转换为 <code>float32</code> 和 C 连续格式。</p>
+<h2 id="%E6%B5%8B%E8%AF%95">测试</h2>
+<h2 id="%E6%B5%8B%E8%AF%95">测试</h2>
+<p>测试位于 <code>rvv_ext/tests</code> 目录，需要 NumPy + pytest。</p>
+
+<pre class="language-bash"><code class="language-bash">python3 -c &quot;import rvv; import numpy as np; a=np.arange(8,dtype=np.float32); print(rvv.add(a,a)); print(rvv.dot(a,a))&quot;
+</code></pre>
+<hr />
+<h2 id="%E6%B5%8B%E8%AF%95%E4%B8%8E%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%EF%BC%88%E4%B8%8D%E4%BE%9D%E8%B5%96-pytest%EF%BC%89">测试与性能对比（不依赖 pytest）</h2>
+<p>运行：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 tests/test_rvv.py
+</code></pre>
+<h3 id="%E8%BF%90%E8%A1%8C-%3Ccode%3Ecmake---build-build-...%3C/code%3E-%E6%97%B6%E5%87%BA%E7%8E%B0-%26quot%3BError%3A-could-not-load-cache%26quot%3B-%E9%94%99%E8%AF%AF">运行 <code>cmake --build build ...</code> 时出现 &quot;Error: could not load cache&quot; 错误</h3>
+<p>当 CMake 缓存（<code>build/CMakeCache.txt</code>）缺失时会发生这种情况。<br />
+常见原因：</p>
+<ul>
+<li>您运行了 <code>python3 project.py distclean</code> 然后<strong>没有</strong>重新运行 CMake 配置步骤。</li>
+<li><code>build/</code> 目录被删除或为空。</li>
+</ul>
+<p>解决方法：</p>
+
+<pre class="language-bash"><code class="language-bash">cd /path/to/rvv_ext
+
+# 重新运行配置（生成 build/CMakeCache.txt）
+python3 project.py build
+
+# 然后编译
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+</code></pre>
+<h3 id="%3Ccode%3Esetup.py%3C/code%3E-%E6%98%BE%E7%A4%BA-%3Ccode%3ENative-library-not-found%3A-build/main/libmain.so%3C/code%3E"><code>setup.py</code> 显示 <code>Native library not found: build/main/libmain.so</code></h3>
+<p>这意味着您还没有构建扩展（或者它被构建到了不同的文件夹中）。</p>
+<p>检查：</p>
+<p>当 CMake 缓存（<code>build/CMakeCache.txt</code>）缺失时会发生这种情况。<br />
+常见原因：</p>
+<ul>
+<li>您运行了 <code>python3 project.py distclean</code> 然后<strong>没有</strong>重新运行 CMake 配置步骤。</li>
+<li><code>build/</code> 目录被删除或为空。</li>
+</ul>
+<p>解决方法：</p>
+
+<pre class="language-bash"><code class="language-bash">cd /path/to/rvv_ext
+
+# 重新运行配置（生成 build/CMakeCache.txt）
+python3 project.py build
+
+# 然后编译
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+</code></pre>
+<h3 id="%3Ccode%3Esetup.py%3C/code%3E-%E6%98%BE%E7%A4%BA-%3Ccode%3ENative-library-not-found%3A-build/main/libmain.so%3C/code%3E"><code>setup.py</code> 显示 <code>Native library not found: build/main/libmain.so</code></h3>
+<p>这意味着您还没有构建扩展（或者它被构建到了不同的文件夹中）。</p>
+<p>检查：</p>
+
+<pre class="language-bash"><code class="language-bash">find build -maxdepth 4 -name 'libmain.so' -o -name '*.so' | sort
+</code></pre>
+<p>如果 <code>libmain.so</code> 存在但不在 <code>build/main/</code> 下，请相应地调整 <code>setup.py</code> 中的 <code>SO_FILE_PATH</code>。</p>
+<h2 id="%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E5%91%BD%E4%BB%A4%EF%BC%88%E5%B5%8C%E5%85%A5%E5%BC%8F-Linux%EF%BC%89">复制粘贴命令（嵌入式 Linux）</h2>
+<h3 id="A%29-%E5%9C%A8%E5%BD%93%E5%89%8D%E6%9C%BA%E5%99%A8%E4%B8%8A%E6%9E%84%E5%BB%BA-wheel-%E5%8C%85%EF%BC%88%E5%AE%89%E8%A3%85%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81-NumPy%EF%BC%89">A) 在当前机器上构建 wheel 包（安装时不需要 NumPy）</h3>
+<h3 id="A%29-%E5%9C%A8%E5%BD%93%E5%89%8D%E6%9C%BA%E5%99%A8%E4%B8%8A%E6%9E%84%E5%BB%BA-wheel-%E5%8C%85%EF%BC%88%E5%AE%89%E8%A3%85%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81-NumPy%EF%BC%89">A) 在当前机器上构建 wheel 包（安装时不需要 NumPy）</h3>
+
+<pre class="language-bash"><code class="language-bash">cd /home/ywj/ywj2/rvv_ext   # 根据您的实际路径调整
+
+# (可选) 完全清理：这会移除 build/ 和 CMakeCache.txt
+python3 project.py distclean
+
+# 1) 配置 CMake（重新创建 build/ 和 build/CMakeCache.txt）
+python3 project.py build
+
+# 健全性检查（配置后应该存在）
+ls -la build/CMakeCache.txt
+
+# 2) 编译扩展共享库（创建 build/main/libmain.so）
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+
+# 健全性检查（编译后应该存在）
+ls -la build/main/libmain.so
+
+# 3) 构建 wheel 包（创建 dist/*.whl）
+python3 setup.py bdist_wheel
+
+# 4) 列出 wheel 包
+ls -la dist
+</code></pre>
+<blockquote>
+<p>如果您只想清理编译的对象但保留 CMake 缓存，请优先使用：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py clean
+</code></pre>
+<p>而不是 <code>distclean</code>。</p>
+</blockquote>
+<h4 id="%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%B8%8D%E4%BD%BF%E7%94%A8-menuconfig-%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE">替代方案：不使用 menuconfig 进行配置</h4>
+<blockquote>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py clean
+</code></pre>
+<p>而不是 <code>distclean</code>。</p>
+</blockquote>
+<h4 id="%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%B8%8D%E4%BD%BF%E7%94%A8-menuconfig-%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE">替代方案：不使用 menuconfig 进行配置</h4>
+<p>您也可以通过标志进行配置：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py config \
+  --toolchain /root/xmusic/host-tools/gcc/riscv64-linux-musl-x86_64/bin \
+  --toolchain-prefix riscv64-unknown-linux-musl-
+</code></pre>
+<p>或者通过此项目顶级 <code>CMakeLists.txt</code> 使用的环境变量：</p>
+
+<pre class="language-bash"><code class="language-bash">export MY_TOOLCHAIN_PATH=/root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin
+</code></pre>
+<h3 id="3%29-%E6%9E%84%E5%BB%BA-%2B-wheel-%E5%8C%85">3) 构建 + wheel 包</h3>
+
+<pre class="language-bash"><code class="language-bash">export MY_TOOLCHAIN_PATH=/root/xmusic/toolchains/maixcam/host-tools/gcc/riscv64-linux-musl-x86_64/bin
+</code></pre>
+<h3 id="3%29-%E6%9E%84%E5%BB%BA-%2B-wheel-%E5%8C%85">3) 构建 + wheel 包</h3>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py build
+</code></pre>
+<p>产物：</p>
+<ul>
+<li>编译的扩展：<code>build/main/libmain.so</code></li>
+<li>Wheel 包：<code>dist/*.whl</code></li>
+</ul>
+<h3 id="4%29-%E5%BF%AB%E9%80%9F-RVV-%E5%90%AF%E7%94%A8%E6%A3%80%E6%9F%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89">4) 快速 RVV 启用检查（可选）</h3>
+<p>在执行 <code>python3 project.py build</code> 后，检查构建日志中的编译命令行是否包含：</p>
+<ul>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+</ul>
+<p>如果存在该标志，<code>__riscv_vector</code> 应该被定义，RVV 实现（<code>rvv_rvv071.cpp</code>）将会被编译。</p>
+<h2 id="Python-API">Python API</h2>
+<p>在执行 <code>python3 project.py build</code> 后，检查构建日志中的编译命令行是否包含：</p>
+<ul>
+<li><code>-march=rv64imafdcv0p7xthead</code></li>
+</ul>
+<p>如果存在该标志，<code>__riscv_vector</code> 应该被定义，RVV 实现（<code>rvv_rvv071.cpp</code>）将会被编译。</p>
+<h2 id="Python-API">Python API</h2>
+<p>顶层模块名为 <code>rvv</code>。</p>
+<ul>
+<li><code>rvv.add(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.sub(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.scale(a, k) -&gt; ndarray</code></li>
+<li><code>rvv.dot(a, b) -&gt; float</code></li>
+<li><code>rvv.norm_l2(a) -&gt; float</code></li>
+<li><code>rvv.matmul(A, B) -&gt; ndarray</code></li>
+<li><code>rvv.sub(a, b) -&gt; ndarray</code></li>
+<li><code>rvv.scale(a, k) -&gt; ndarray</code></li>
+<li><code>rvv.dot(a, b) -&gt; float</code></li>
+<li><code>rvv.norm_l2(a) -&gt; float</code></li>
+<li><code>rvv.matmul(A, B) -&gt; ndarray</code></li>
+</ul>
+<p>所有数组输入都会在内部转换为 <code>float32</code> 和 C 连续格式。</p>
+<h2 id="%E6%B5%8B%E8%AF%95">测试</h2>
+<p>测试位于 <code>rvv_ext/tests</code> 目录，需要 NumPy + pytest。</p>
+<h2 id="%E6%B5%8B%E8%AF%95">测试</h2>
+<p>测试位于 <code>rvv_ext/tests</code> 目录，需要 NumPy + pytest。</p>
+
+<pre class="language-bash"><code class="language-bash">pytest -q
+</code></pre>
+<p>在 SG2002 上，您还可以运行微基准测试：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 tests/bench_perf.py
+</code></pre>
+<h2 id="%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4">故障排除</h2>
+<h3 id="%E8%BF%90%E8%A1%8C-%3Ccode%3Ecmake---build-build-...%3C/code%3E-%E6%97%B6%E5%87%BA%E7%8E%B0-%26quot%3BError%3A-could-not-load-cache%26quot%3B-%E9%94%99%E8%AF%AF">运行 <code>cmake --build build ...</code> 时出现 &quot;Error: could not load cache&quot; 错误</h3>
+<p>当 CMake 缓存（<code>build/CMakeCache.txt</code>）缺失时会发生这种情况。<br />
+常见原因：</p>
+<ul>
+<li>您运行了 <code>python3 project.py distclean</code> 然后<strong>没有</strong>重新运行 CMake 配置步骤。</li>
+<li><code>build/</code> 目录被删除或为空。</li>
+</ul>
+<p>常见原因：</p>
+<ul>
+<li>您运行了 <code>python3 project.py distclean</code> 然后<strong>没有</strong>重新运行 CMake 配置步骤。</li>
+<li><code>build/</code> 目录被删除或为空。</li>
+</ul>
+<p>解决方法：</p>
+
+<pre class="language-bash"><code class="language-bash">cd /path/to/rvv_ext
+
+# Re-run configure (generates build/CMakeCache.txt)
+python3 project.py build
+python3 project.py build
+
+# Then compile
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+</code></pre>
+<h3 id="%3Ccode%3Esetup.py%3C/code%3E-%E6%98%BE%E7%A4%BA-%3Ccode%3ENative-library-not-found%3A-build/main/libmain.so%3C/code%3E"><code>setup.py</code> 显示 <code>Native library not found: build/main/libmain.so</code></h3>
+<p>这意味着您还没有构建扩展（或者它被构建到了不同的文件夹中）。</p>
+<p>检查：</p>
+
+<pre class="language-bash"><code class="language-bash">find build -maxdepth 4 -name 'libmain.so' -o -name '*.so' | sort
+</code></pre>
+<p>如果 <code>libmain.so</code> 存在但不在 <code>build/main/</code> 下，请相应地调整 <code>setup.py</code> 中的 <code>SO_FILE_PATH</code>。</p>
+<h2 id="%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E5%91%BD%E4%BB%A4%EF%BC%88%E5%B5%8C%E5%85%A5%E5%BC%8F-Linux%EF%BC%89">复制粘贴命令（嵌入式 Linux）</h2>
+<h3 id="A%29-%E5%9C%A8%E5%BD%93%E5%89%8D%E6%9C%BA%E5%99%A8%E4%B8%8A%E6%9E%84%E5%BB%BA-wheel-%E5%8C%85%EF%BC%88%E5%AE%89%E8%A3%85%E6%97%B6%E4%B8%8D%E9%9C%80%E8%A6%81-NumPy%EF%BC%89">A) 在当前机器上构建 wheel 包（安装时不需要 NumPy）</h3>
+
+<pre class="language-bash"><code class="language-bash">cd /home/ywj/ywj2/rvv_ext   # adjust to your real path
+
+# (Optional) full clean: this removes build/ and CMakeCache.txt
+python3 project.py distclean
+python3 project.py distclean
+
+# 1) Configure CMake (re-creates build/ and build/CMakeCache.txt)
+python3 project.py build
+
+# 健全性检查（配置后应该存在）
+ls -la build/CMakeCache.txt
+
+# 2) Compile the extension shared library (creates build/main/libmain.so)
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+
+# Sanity check (should exist after compile)
+ls -la build/main/libmain.so
+
+# 3) Build wheel (creates dist/*.whl)
+python3 setup.py bdist_wheel
+
+# 4) List wheel
+ls -la build/CMakeCache.txt
+
+# 2) Compile the extension shared library (creates build/main/libmain.so)
+cmake --build build --target main -- -j&quot;$(nproc)&quot;
+
+# Sanity check (should exist after compile)
+ls -la build/main/libmain.so
+
+# 3) Build wheel (creates dist/*.whl)
+python3 setup.py bdist_wheel
+
+# 4) List wheel
+ls -la dist
+</code></pre>
+<blockquote>
+<p>如果您只想清理编译的对象但保留 CMake 缓存，请优先使用：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py clean
+</code></pre>
+<p>而不是 <code>distclean</code>。</p>
+</blockquote>
+<blockquote>
+<p>如果您只想清理编译的对象但保留 CMake 缓存，请优先使用：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 project.py clean
+</code></pre>
+<p>而不是 <code>distclean</code>。</p>
+</blockquote>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
