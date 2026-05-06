@@ -57,11 +57,23 @@ def _draw_exit_button(canvas) -> None:
 
 # Cached install button hit rect, computed in _build_splash when button=True.
 _install_btn_rect: tuple[int, int, int, int] | None = None
+_home_speak_btn_rect: tuple[int, int, int, int] | None = None
+_mic_btn_rect: tuple[int, int, int, int] | None = None
 
 
 def get_install_btn_rect() -> tuple[int, int, int, int] | None:
     """Return (x, y, w, h) of the install button, or None if not yet built."""
     return _install_btn_rect
+
+
+def get_home_speak_btn_rect() -> tuple[int, int, int, int] | None:
+    """Return (x, y, w, h) of home 'PRESS TO SPEAK' button."""
+    return _home_speak_btn_rect
+
+
+def get_mic_btn_rect() -> tuple[int, int, int, int] | None:
+    """Return (x, y, w, h) of microphone hold-to-talk button."""
+    return _mic_btn_rect
 
 
 def _build_splash(text: str, glow_rgb: tuple, core_rgb: tuple,
@@ -153,24 +165,87 @@ def _get_wifi_ip() -> str | None:
 
 
 def show_home_icon(disp) -> None:
+    global _home_speak_btn_rect
     ip = _get_wifi_ip()
     ip_label = f"http://{ip}:18800" if ip else ""
-    key = ("PRESS TO START", "home", ip_label)
+    key = ("PRESS TO SPEAK", "home_btn", ip_label)
     canvas = _home_cache.get(key)
     if canvas is None:
-        canvas = _build_splash("PRESS TO START", (40, 140, 220), (125, 225, 255))
+        canvas = _build_splash("PRESS TO SPEAK", (40, 140, 220), (125, 225, 255),
+                               button=True, pressed=False)
+        _home_speak_btn_rect = _install_btn_rect
         if ip_label:
             W, H = config.DISP_W, config.DISP_H
-            bottom_reserve = max(72, int(H * 0.22))
-            image.set_default_font(FONT_NAME_LARGE)
-            _, th_title = image.string_size("PRESS TO START")
-            title_y = H - bottom_reserve + (bottom_reserve - th_title) // 3
+            btn = _home_speak_btn_rect
             image.set_default_font(FONT_NAME)
             tw, th = image.string_size(ip_label)
             x = (W - tw) // 2
-            gap = max(4, int(H * 0.1))
-            y = title_y - th - gap
+            if btn is not None:
+                bx, by, bw, bh = btn
+                gap = max(10, int(H * 0.05))
+                y = by - th - gap
+            else:
+                bottom_reserve = max(72, int(H * 0.22))
+                y = H - bottom_reserve - th - max(6, int(H * 0.02))
             canvas.draw_string(x, y, ip_label, image.Color.from_rgb(100, 160, 255))
+        _home_cache[key] = canvas
+    disp.show(canvas)
+
+
+def show_record_screen(disp, pressed: bool = False) -> None:
+    """Record page with a centered microphone button."""
+    global _mic_btn_rect
+    key = ("record_screen", "pressed" if pressed else "idle")
+    canvas = _home_cache.get(key)
+    if canvas is None:
+        W, H = config.DISP_W, config.DISP_H
+        canvas = image.Image(W, H, image.Format.FMT_RGB888)
+        bg = image.Color.from_rgb(8, 12, 24)
+        canvas.draw_rect(0, 0, W, H, bg, thickness=-1)
+
+        cx, cy = W // 2, int(H * 0.40)
+        r_outer = max(32, int(min(W, H) * 0.15))
+        r_inner = max(24, int(r_outer * 0.72))
+        ring = image.Color.from_rgb(90, 165, 255)
+        fill = image.Color.from_rgb(40, 95, 180)
+
+        canvas.draw_circle(cx, cy, r_outer, ring, thickness=3)
+        canvas.draw_circle(cx, cy, r_inner, fill, thickness=-1)
+
+        # Simple mic glyph (capsule + stem + base)
+        cap_w = max(12, int(r_inner * 0.52))
+        cap_h = max(16, int(r_inner * 0.78))
+        cap_x = cx - cap_w // 2
+        cap_y = cy - int(cap_h * 0.62)
+        mic_col = image.Color.from_rgb(225, 240, 255)
+        canvas.draw_rect(cap_x, cap_y, cap_w, cap_h, mic_col, thickness=-1)
+        canvas.draw_circle(cx, cap_y, cap_w // 2, mic_col, thickness=-1)
+        stem_top = cap_y + cap_h + 2
+        stem_h = max(8, int(r_inner * 0.35))
+        canvas.draw_line(cx, stem_top, cx, stem_top + stem_h, mic_col, thickness=3)
+        base_w = max(16, int(r_inner * 0.8))
+        by = stem_top + stem_h + 2
+        canvas.draw_line(cx - base_w // 2, by, cx + base_w // 2, by, mic_col, thickness=3)
+
+        image.set_default_font(FONT_NAME_LARGE)
+        title = "HOLD TO RECORD"
+        tw, _ = image.string_size(title)
+        canvas.draw_string((W - tw) // 2, int(H * 0.63), title, image.Color.from_rgb(190, 220, 255))
+
+        image.set_default_font(FONT_NAME)
+        hint1 = "Please configure asr first"
+        tw1, _ = image.string_size(hint1)
+        canvas.draw_string((W - tw1) // 2, int(H * 0.76), hint1, image.Color.from_rgb(140, 165, 200))
+
+        url = "https://wiki.sipeed.com/rvclaw"
+        url_lines, _ = _wrap(url, max_lines=2, max_w=max(1, W - 2 * max(6, int(W * 0.03))))
+        for i, line in enumerate(url_lines):
+            tw2, _ = image.string_size(line)
+            canvas.draw_string((W - tw2) // 2, int(H * 0.87) + i * max(14, int(H * 0.05)),
+                               line, image.Color.from_rgb(105, 130, 170))
+
+        _draw_exit_button(canvas)
+        _mic_btn_rect = (cx - r_outer, cy - r_outer, r_outer * 2, r_outer * 2)
         _home_cache[key] = canvas
     disp.show(canvas)
 

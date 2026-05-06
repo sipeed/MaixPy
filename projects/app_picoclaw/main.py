@@ -25,6 +25,7 @@ from ui import (
     StreamingRenderer, show_home_icon,
     show_install_prompt, animate_installing,
     get_exit_btn_rect, get_install_btn_rect,
+    get_home_speak_btn_rect, show_record_screen, get_mic_btn_rect,
 )
 
 
@@ -50,22 +51,36 @@ async def main():
                  get_exit_btn_rect(), config.DISP_W, config.DISP_H)
 
     on_home_screen = False
+    on_record_screen = False
     voice_touch_active = False
 
     def exit_button_tapped() -> bool:
-        nonlocal voice_touch_active
+        nonlocal voice_touch_active, on_home_screen, on_record_screen
         p = touch.consume_press()
         if p is None:
             if voice_touch_active and not touch.is_pressing():
                 voice_touch_active = False
             return False
         if Touch.in_rect(p, get_exit_btn_rect()):
+            if on_record_screen:
+                logger.debug("record screen: back tapped at %s, return home", p)
+                voice_touch_active = False
+                show_home_icon(disp)
+                on_record_screen = False
+                on_home_screen = True
+                return False
             return True
         if on_home_screen:
-            ex, ey, ew, eh = get_exit_btn_rect()
-            pad = max(16, int(min(config.DISP_W, config.DISP_H) * 0.06))
-            exit_zone = (ex - pad, ey - pad, ew + pad * 2, eh + pad * 2)
-            if not Touch.in_rect(p, exit_zone):
+            speak_btn = get_home_speak_btn_rect()
+            if speak_btn is not None and Touch.in_rect(p, speak_btn):
+                show_record_screen(disp, pressed=True)
+                on_record_screen = True
+                on_home_screen = False
+                logger.debug("home screen: speak tapped at %s", p)
+                return False
+        if on_record_screen:
+            mic_btn = get_mic_btn_rect()
+            if mic_btn is not None and Touch.in_rect(p, mic_btn):
                 voice_touch_active = True
         return False
 
@@ -124,6 +139,7 @@ async def main():
 
     show_home_icon(disp)
     on_home_screen = True
+    on_record_screen = False
 
     recorder = audio.Recorder(sample_rate=SAMPLE_RATE, channel=AUDIO_CHANNELS)
     recorder.volume(RECORDER_VOLUME)
@@ -190,12 +206,13 @@ async def main():
             logger.error("Transcription failed: %s", e)
             return ""
 
-    async def stream_agent_until_interrupt(text: str) -> tuple[str, list[str], bool]:
+    async def stream_agent_until_interrupt(text: str) -> tuple[str, list[str], bool, str | None]:
         logger.debug("Asking PicoClaw...")
         tool_names: list[str] = []
         fragments: list[str] = []
         answer_started = False
         interrupted = False
+        interrupt_reason: str | None = None
 
         start_anim(animate_thinking(disp, tool_names))
 
@@ -235,8 +252,9 @@ async def main():
 
         async def wait_exit_interrupt():
             while not app.need_exit():
-                if exit_button_tapped():
-                    logger.debug("streaming: exit tapped")
+                p = touch.consume_press()
+                if p is not None and Touch.in_rect(p, get_exit_btn_rect()):
+                    logger.debug("streaming: back tapped at %s", p)
                     return True
                 await asyncio.sleep(0.03)
             return False
@@ -258,13 +276,15 @@ async def main():
 
             if exit_task in done:
                 interrupted = True
-                logger.debug("PicoClaw exited via touch, returning home")
+                interrupt_reason = "back_to_record"
+                logger.debug("PicoClaw exited via touch, returning record screen")
                 try:
                     await agent.close()
                 except Exception as e:
                     logger.debug("agent.close on exit: %s", e)
             elif interrupt_task in done and not stream_task.done():
                 interrupted = True
+                interrupt_reason = "key_interrupt"
                 logger.debug("PicoClaw interrupted, ready for next input")
                 try:
                     await agent.close()
@@ -282,37 +302,41 @@ async def main():
             if not answer_started:
                 stop_anim()
 
-        return current_answer(), tool_names, interrupted
+        return current_answer(), tool_names, interrupted, interrupt_reason
 
-    async def _active_cycle():
+    async def _active_cycle() -> str:
         """Run one complete voice interaction cycle."""
         try:
             pcm_all = await record_audio_until_release()
             if pcm_all is None:
-                return
+                return "record"
 
             result = await transcribe_audio(pcm_all)
             stop_anim()
             if result is None:
-                return
+                return "record"
             if not result:
                 await show_no_speech(disp)
-                return
+                return "record"
 
-            answer, _tool_names, interrupted = await stream_agent_until_interrupt(result)
+            answer, _tool_names, interrupted, interrupt_reason = await stream_agent_until_interrupt(result)
             if interrupted:
-                return
+                if interrupt_reason == "back_to_record":
+                    return "record"
+                return "home"
 
             if answer:
                 logger.debug("PicoClaw response: %s", answer)
             else:
                 await show_error(disp, "No response")
-                return
+                return "record"
 
             while not key.is_pressed() and not app.need_exit():
                 if exit_button_tapped():
-                    return
+                    return "home"
                 await asyncio.sleep(0.05)
+
+            return "record"
 
         finally:
             try:
@@ -324,14 +348,25 @@ async def main():
         while not app.need_exit():
             if exit_button_tapped():
                 break
-            if not key.is_pressed() and not voice_touch_active:
+
+            if on_home_screen:
+                await asyncio.sleep(0.03)
+                continue
+
+            if on_record_screen and not key.is_pressed() and not voice_touch_active:
                 await asyncio.sleep(0.05)
                 continue
 
-            on_home_screen = False
-            await _active_cycle()
-            show_home_icon(disp)
-            on_home_screen = True
+            on_record_screen = False
+            next_screen = await _active_cycle()
+            if next_screen == "record":
+                show_record_screen(disp)
+                on_record_screen = True
+                on_home_screen = False
+            else:
+                show_home_icon(disp)
+                on_home_screen = True
+                on_record_screen = False
 
     except KeyboardInterrupt:
         logger.info("Exit")
