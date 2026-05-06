@@ -1,0 +1,12 @@
+id: picoclaw
+name: PicoClaw
+name[zh]: PicoClaw
+version: 1.0.0
+icon: img/icon.png
+author: Sipeed Ltd
+desc: PicoClaw
+desc[zh]: PicoClaw
+files:
+  app.yaml: app.yaml
+  asr: asr
+  img: img
