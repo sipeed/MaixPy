@@ -23,6 +23,8 @@ items:
         label: Auto start
     -   file: basic/view_src_code.md
         label: View API source code
+    -   file: basic/picoclaw.md
+        label: PicoClaw usage
 
 -   label: Basic images and algorithms
     items:
@@ -261,5 +263,4 @@ items:
         label: MaixCDK development
     -   file: pro/compile_os.md
         label: Build OS
-
 
