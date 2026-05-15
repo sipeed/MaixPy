@@ -101,7 +101,7 @@ Classifier Result video
   .. details::方法二在不同电脑系统中驱动安装方法：
     :open: true
     默认会有两种 USB 虚拟网卡驱动（NCM 和 RNDIS驱动），以满足不同系统的需求，你也可以在设备端`设置`应用 -> `USB设置` 里面关掉不用的虚拟网卡：
-    * **Windows**: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动**有一个能用就行**。
+    * **Windows**: windows 所有系统会自动安装 RNDIS 驱动， 仅 Win11 会自动安装 NCM 驱动，两种驱动**有一个能用就行**。如果 RNDIS 驱动没有自动安装，可以参考 [RNDIS 驱动安装教程](https://wiki.sipeed.com/hardware/zh/maixsense/maixsense-a075v/install_drivers.html)。
       * 打开任务管理器 -> 性能，可以看到一个虚拟的以太网，并且可以看到 ip 比如 `10.131.167.100` 是电脑的 ip, 设备的 ip 是最后一位改为`1` 即 `10.131.167.1`。如果是 Win11 则会看到两个虚拟网卡，随便选择一个 IP 使用即可。
       * 另外也可以打开电脑的 `设备管理器`（搜索栏搜索`设备管理器`）， RNDIS 和 NCM 驱动被正确安装的效果：
         ![RNDIS ok](../../static/image/windows_rndis_ok.png) ![NCM ok](../../static/image/windows_ncm_ok.png)

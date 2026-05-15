@@ -43,7 +43,7 @@ To enable communication between your computer (PC) and the device (MaixCAM), the
 .. details::Method 2 involves driver installation on different computer systems:
     :open: true
     There are two default USB virtual network adapter drivers (NCM and RNDIS) to meet the needs of different systems:
-    * **Windows**: All Windows systems will automatically install the RNDIS driver. Only Win11 will automatically install the NCM driver. **Either one that works is fine** (NCM is faster than RNDIS).
+    * **Windows**: All Windows systems will automatically install the RNDIS driver. Only Win11 will automatically install the NCM driver. **Either one that works is fine** (NCM is faster than RNDIS). If the RNDIS driver is not installed automatically, see the [RNDIS driver installation guide](https://wiki.sipeed.com/hardware/zh/maixsense/maixsense-a075v/install_drivers.html).
       * Open Task Manager -> Performance, and you will see a virtual Ethernet connection with an IP, for example, `10.131.167.100` is the computer's IP, and the device's IP is the same except the last digit changed to `1`, i.e., `10.131.167.1`. If it's Win11, you will see two virtual network adapters; you can use any one of the IPs.
       * Additionally, you can open the `Device Manager` on your computer (search `Device Manager` in the search bar). If the RNDIS and NCM drivers are correctly installed, **either one that works is fine**:
         ![RNDIS ok](../../static/image/rndis_windows.jpg) ![NCM ok](../../static/image/windows_ncm_ok.png)

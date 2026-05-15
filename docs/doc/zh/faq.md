@@ -17,7 +17,7 @@ title: MaixCAM MaixPy FAQ(常见问题)
 **USB线**:
 * 确保设备通过 Type-C 数据线连接到电脑，设备处于开机状态并且进入了功能选择界面。
 * 确保设备驱动已经安装：
-  * Windows 下可以在`设备管理器`中查看是否有 USB 虚拟网卡设备，如果有感叹号则是去动没有安装好，按照[快速开始](./README.md) 中的方法安装驱动即可。
+  * Windows 下可以在`设备管理器`中查看是否有 USB 虚拟网卡设备，如果有感叹号则是驱动没有安装好，按照[快速开始](./README.md) 中的方法安装驱动即可；如果需要手动安装 RNDIS 驱动，可以参考 [RNDIS 驱动安装教程](https://wiki.sipeed.com/hardware/zh/maixsense/maixsense-a075v/install_drivers.html)。
   * Linux 下可以通过`ifconfig`或者`ip addr`查看是否有`usb0`设备或者`lsusb`查看所有 USB 设备。 Linux 已经自带去动，所以识别不到检查硬件连接，设备系统是否是最新，以及设备是否已经正常启动即可。
   * Mac OS 同 Linux 方法，或者在`系统设置` -> `网络` 里面看有没有 usb 网卡。
 * 另外 检查 USB 线缆的质量，换一个高质量的线缆。
