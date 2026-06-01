@@ -1,0 +1,5 @@
+{
+    "import": "config_en",
+    "class": "md_page",
+    "name": "MaixPy Pages"
+}
