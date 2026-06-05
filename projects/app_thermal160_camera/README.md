@@ -1,6 +1,6 @@
 # MaixCAM Thermal160 实时热成像监控
 
-这是一个基于 MaixPy v4 的 MaixCAM2 Thermal160 实时热成像应用。程序通过 UART 接收 160x120 热成像帧，解析帧尾温度 telemetry，并实时渲染伪彩画面、中心点温度、最高/最低点和 NUC 状态。
+这是一个基于 MaixPy v4 的 MaixCAM2 Thermal160 实时热成像应用。程序通过 UART 接收 160x120 热成像帧，解析帧尾温度 telemetry，并实时渲染伪彩画面、中心点温度、最高/最低点和 NUC 状态。应用内置 24 小时历史记录模式，不再需要单独安装 history app。
 
 ## 硬件要求
 
@@ -35,6 +35,8 @@ THERMAL_RESET_ACTIVE_LEVEL = 1
 
 * `SKIP_COUNT = 10`：启动后跳过的初始帧数。
 * `STARTUP_GRACE_SEC = 3.0`：启动等待页到 `Device not found` 的延迟。
+* `LONG_PRESS_SEC = 0.8`：长按右下角进入历史记录界面的触发时间。
+* `SAMPLE_INTERVAL_SEC = 1.0`：历史记录采样间隔。
 * `THERMAL_RESET_ASSERT_SEC = 0.12`：A9 复位保持时间。
 * `THERMAL_RESET_RELEASE_DELAY_SEC = 0.40`：释放复位后的等待时间。
 
@@ -49,15 +51,25 @@ THERMAL_RESET_ACTIVE_LEVEL = 1
 
 注意：像素区允许出现合法的 `0xFF`。同步逻辑不能再用“payload 中出现 `0xFF` 就重同步”的旧方案，而是通过 telemetry 合理性和下一帧帧头位置校验。
 
-## 历史记录应用
+## 历史记录模式
 
-24 小时温度趋势记录已拆成独立应用包：
+实时界面下：
 
-```text
-../maix-thermal160_camera_history/
-```
+* 短按右下角：切换伪彩色表。
+* 长按右下角约 `0.8s`：进入历史记录界面。
 
-该包会每秒记录温度到 CSV，并支持一键保存完整历史 PNG。
+历史记录界面下：
+
+* 左上角 `BACK`：返回实时热成像界面。
+* 右上角 `SAVE`：保存完整历史趋势图 PNG。
+
+程序启动后会每秒后台记录一次温度到 CSV，进入 history 界面不会中断实时 UART 读取。
+
+输出目录固定在当前 app 安装目录下：
+
+* MaixCam2 安装运行时目录：`/maixapp/apps/thermal160_camera/output/`
+* CSV：`/maixapp/apps/thermal160_camera/output/history_YYYYmmdd_HHMMSS.csv`
+* PNG：`/maixapp/apps/thermal160_camera/output/trend_YYYYmmdd_HHMMSS.png`
 
 ## 注意事项
 

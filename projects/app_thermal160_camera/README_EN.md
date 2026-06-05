@@ -1,6 +1,6 @@
 # MaixCAM Thermal160 Real-time Thermal Imaging
 
-This is a MaixPy v4 Thermal160 live-view app for MaixCAM2. It receives 160x120 thermal frames over UART, parses the tail telemetry, and renders pseudo-color live video with center temperature, min/max markers, and NUC status.
+This is a MaixPy v4 Thermal160 live-view app for MaixCAM2. It receives 160x120 thermal frames over UART, parses the tail telemetry, and renders pseudo-color live video with center temperature, min/max markers, and NUC status. The 24-hour history recorder is now built into this app, so no separate history app is required.
 
 ## Hardware Requirements
 
@@ -35,6 +35,8 @@ Adjust the following constants at the top of the code as needed:
 
 * `SKIP_COUNT = 10`: Initial frames skipped after startup.
 * `STARTUP_GRACE_SEC = 3.0`: Delay before showing `Device not found`.
+* `LONG_PRESS_SEC = 0.8`: Long-press time for entering the history screen from the lower-right button.
+* `SAMPLE_INTERVAL_SEC = 1.0`: History sampling interval.
 * `THERMAL_RESET_ASSERT_SEC = 0.12`: A9 reset assert time.
 * `THERMAL_RESET_RELEASE_DELAY_SEC = 0.40`: Delay after releasing reset.
 
@@ -49,15 +51,25 @@ The expected UART data format is:
 
 Note: valid pixel data may contain `0xFF`. The parser must not resync only because `0xFF` appears in the pixel payload. It validates frame alignment using telemetry plausibility and the next-frame header position.
 
-## History Recorder App
+## History Mode
 
-The 24-hour temperature history recorder is a separate app package:
+On the live-view screen:
 
-```text
-../maix-thermal160_camera_history/
-```
+* Short-press the lower-right button: switch color map.
+* Long-press the lower-right button for about `0.8s`: enter the history screen.
 
-It records one temperature sample per second to CSV and supports one-tap full-history PNG export.
+On the history screen:
+
+* `BACK` in the upper-left corner: return to live view.
+* `SAVE` in the upper-right corner: save a full-history trend PNG.
+
+The app records one sample per second to CSV in the background. Entering the history screen does not stop UART reading.
+
+Output files are stored under this installed app directory:
+
+* MaixCam2 installed app output directory: `/maixapp/apps/thermal160_camera/output/`
+* CSV: `/maixapp/apps/thermal160_camera/output/history_YYYYmmdd_HHMMSS.csv`
+* PNG: `/maixapp/apps/thermal160_camera/output/trend_YYYYmmdd_HHMMSS.png`
 
 ## Notes
 
