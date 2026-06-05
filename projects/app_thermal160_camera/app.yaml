@@ -10,3 +10,8 @@ include:
   - assets/thermal.json
   - app.yaml
   - main.py
+files:
+  - assets\thermal.json
+  - main.py
+  - README_EN.md
+  - README.md
