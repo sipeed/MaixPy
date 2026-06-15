@@ -87,7 +87,7 @@ Purchase Links:[Sipeed Taobao](https://item.taobao.com/item.htm?id=846226367137)
 
 Please select the documentation corresponding to your hardware platform to proceed:
 
-|硬件平台|上手文档|
+| Hardware Platform | Getting Started Guide |
 |-|-|
 |MaixCAM Lite|[Quick Start MaixCAM(Screenless Version)](./README_no_screen.md)|
 |MaixCAM/MaixCAM Pro|[Quick Start MaixCAM](./README_MaixCAM.md)|

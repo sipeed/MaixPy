@@ -4,7 +4,7 @@ items:
 -   file: faq.md
     label: FAQ 常见问题
 
--   label: 基础
+-   label: Maix AI相机开发环境
     collapsed: false
     items:
     -   file: basic/upgrade.md
@@ -26,14 +26,22 @@ items:
     -   file: basic/picoclaw.md
         label: PicoClaw 使用
 
--   label: 基础图像和算法
+-   label: 硬件与算法基础使用
     items:
+    -   file: audio/record.md
+        label: 录入音频
+    -   file: audio/play.md
+        label: 播放音频
     -   file: vision/display.md
         label: 屏幕使用
     -   file: vision/camera.md
         label: 摄像头使用
     -   file: vision/image_ops.md
         label: 基本图像操作
+    -   file: video/record.md
+        label: 录像
+    -   file: video/play.md
+        label: 播放视频
     -   file: vision/touchscreen.md
         label: 触摸屏使用
     -   file: vision/find_blobs.md
@@ -91,19 +99,9 @@ items:
         label: Depth-Anything 单目深度估计
     -   file: vision/yolo_world.md
         label: YOLO-World 检测任意物体
-    -   file: vision/maixhub_train.md
-        label: MaixHub 在线训练 AI 模型
-    -   file: vision/customize_model_yolov5.md
-        label: 离线训练 YOLOv5 模型
-    -   file: vision/customize_model_yolov8.md
-        label: 离线训练 YOLO26/YOLO11/YOLOv8 模型
 
 -   label: AI 听觉
     items:
-    -   file: audio/record.md
-        label: 录入音频
-    -   file: audio/play.md
-        label: 播放音频
     -   file: audio/recognize.md
         label: 语音实时识别
     -   file: audio/digit.md
@@ -139,33 +137,24 @@ items:
         label: Whisper 语音识别模型
     -   file: mllm/tts_melotts.md
         label: MeloTTS 语音合成模型
--   label: AI 模型转换和移植
+-   label: AI 模型本地NPU部署
     items:
     -   file: ai_model_converter/maixcam2.md
         label: ONNX 模型转给 MaixCAM2 用
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
+    -   file: ai_model_converter/onnx_export.md
+        label: 裁剪 ONNX 模型节点教程
     -   file: pro/datasets.md
         label: 哪里找模型和数据集
     -   file: pro/customize_model.md
         label: 移植新模型
+    -   file: vision/customize_model_yolov5.md
+        label: 离线训练 YOLO 模型
+    -   file: vision/maixhub_train.md
+        label: MaixHub 在线训练 AI 模型
 
--   label: 视频
-    items:
-    -   file: video/record.md
-        label: 录像
-    -   file: video/play.md
-        label: 播放视频
-    -   file: video/jpeg_streaming.md
-        label: JPEG 串流
-    -   file: video/rtsp_streaming.md
-        label: RTSP 串流
-    -   file: video/rtmp_streaming.md
-        label: RTMP 串流
-    -   file: video/uvc_streaming.md
-        label: UVC 串流
-    -   file: video/webrtc_streaming.md
-        label: WebRTC 串流
+# -   label: YOLO模型零算法基础入门使用
 
 -   label: 网络通信
     items:
@@ -188,6 +177,16 @@ items:
         label: Maix 应用通信协议
     -   file: comm/modbus.md
         label: Modbus 通信协议
+    -   file: video/jpeg_streaming.md
+        label: JPEG 串流
+    -   file: video/rtsp_streaming.md
+        label: RTSP 串流
+    -   file: video/rtmp_streaming.md
+        label: RTMP 串流
+    -   file: video/uvc_streaming.md
+        label: UVC 串流
+    -   file: video/webrtc_streaming.md
+        label: WebRTC 串流
 
 -   label: 片上外设
     items:
