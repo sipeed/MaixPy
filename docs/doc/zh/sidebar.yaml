@@ -149,7 +149,7 @@ items:
         label: 哪里找模型和数据集
     -   file: pro/customize_model.md
         label: 移植新模型
-    -   file: vision/customize_model_yolov5.md
+    -   file: vision/customize_model_yolo.md
         label: 离线训练 YOLO 模型
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
@@ -173,6 +173,8 @@ items:
 
 -   label: 通信协议
     items:
+    -   file: modules/bluetooth.md
+        label: 蓝牙协议
     -   file: comm/maix_protocol.md
         label: Maix 应用通信协议
     -   file: comm/modbus.md
@@ -262,5 +264,12 @@ items:
         label: 使用 MaixCDK 开发
     -   file: pro/compile_os.md
         label: 编译系统
+
+
+
+
+
+
+
 
 
