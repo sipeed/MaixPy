@@ -33,9 +33,9 @@ Currently, two download methods are provided: `cloud storage download` and `Hugg
 
 ### Cloud Storage Download
 
-[Download Images (Baidu Netdisk)](https://pan.baidu.com/s/1r4ECNlaTVxhWIafNBZOztg) Extraction code:`vjex`
+[Download Images (Baidu Netdisk)](https://pan.baidu.com/s/1nk60bNu5QhdNAsp7e_c-xw) Extraction code:`dshn`
 
-[Download Images (MEGA)](https://mega.nz/folder/01IEDZQb#3ktByGkFMn_x6jDxMLbK4w)
+[Download Images (MEGA)](https://mega.nz/folder/1tolGbba#ki5_NgGIc_omAv0zRU19Lg)
 
 From the `List of supported large models` above, locate the required model and download it from the cloud storage.
 For example, for the `lcm-lora-sdv1-5-maixcam2` model, download a file similar to `lcm-lora-sdv1-5-maixcam2-202601051759.zip`, The suffix `202601051759` indicates the model packaging time.
