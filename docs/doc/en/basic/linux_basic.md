@@ -40,7 +40,7 @@ Here we mainly discuss transferring files through the network. Other methods can
 
 The terminal is a tool for communicating with and operating the Linux system, similar to Windows' `cmd` or `PowerShell`.
 
-For example, we can enter `ssh root@maixcam-xxxx.local` in the Terminal tool on a Windows system with PowerShell or on a Linux system. You can find the specific name in the device's `Settings->Device Information`, which allows us to connect to the device through the terminal (both username and password are `root` or `root` and `sipeed`).
+For example, we can enter `ssh root@maixcam-xxxx.local` in the Terminal tool on a Windows system with PowerShell or on a Linux system. You can find the specific name in the device's `Settings->Device Information`, which allows us to connect to the device through the terminal (the username and password of MaixCam and MaixCam Pro are both `root`; for MaixCam2, the username is `root` and the password is `sipeed`).
 
 Then, we can operate the device by entering commands. For instance, the `ls` command can list the files in the current directory of the device, while `cd` is used to switch to a different directory (similar to clicking folders in file management on a computer),
 
