@@ -79,7 +79,7 @@ Here, we only cover the basic usage of `bleak` for Bluetooth. If you have more d
 
 ## Usage Method (Legacy, Not Recommended)
 
-> Note: `MaixPy v4.12.3` and earlier versions are supported
+> Note: `MaixPy v4.12.3` and earlier versions require support in this way. Later versions use the SDIO protocol, so soldering the resistor array is no longer necessary.
 
 ### Preparation
 
@@ -137,7 +137,7 @@ btmon
 
 ## Other reference
 
-* [使用MaixCAM的蓝牙功能 · 硬件篇](https://maixhub.com/share/58)
-* [使用MaixCAM的蓝牙功能 · 软件篇](https://maixhub.com/share/62)
+* [Using MaixCAM’s Bluetooth Functionality · Software](https://maixhub.com/share/58)
+* [Using Bluetooth on MaixCAM · Software](https://maixhub.com/share/62)
 
 

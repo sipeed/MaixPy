@@ -33,9 +33,9 @@ update:
 
 ### 网盘下载
 
-[下载镜像(百度网盘)](https://pan.baidu.com/s/1r4ECNlaTVxhWIafNBZOztg) 提取码:`vjex`
+[下载镜像(百度网盘)](https://pan.baidu.com/s/1nk60bNu5QhdNAsp7e_c-xw) 提取码:`dshn`
 
-[下载镜像(MEGA)](https://mega.nz/folder/01IEDZQb#3ktByGkFMn_x6jDxMLbK4w)
+[下载镜像(MEGA)](https://mega.nz/folder/1tolGbba#ki5_NgGIc_omAv0zRU19Lg)
 
 在上面`大模型支持列表`中找到需要的模型，从网盘中找到对应的模型并下载. 以`lcm-lora-sdv1-5-maixcam2`模型为例，找到类似`lcm-lora-sdv1-5-maixcam2-202601051759.zip`的文件并下载， 后缀`202601051759`是打包模型的时间。
 
