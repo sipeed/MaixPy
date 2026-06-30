@@ -338,4 +338,269 @@ For example, the coordinates detected by an AI detection application after ident
 * [[MaixCam] Experience 2: UART Serial Communication](https://blog.csdn.net/ButterflyBoy0/article/details/140577441)
 * For more, search online for resources.
 
+## MaixCAM UART Troubleshooting Guide
+
+> Applicable models: MaixCAM / MaixCAM-Pro / MaixCAM2
+> Reference document: [MaixPy UART Serial Port Usage Guide](https://wiki.sipeed.com/maixpy/doc/zh/peripheral/uart.html)
+
+### Table of Contents
+
+1. [Quick Troubleshooting Flowchart](#1-quick-troubleshooting-flowchart)
+2. [Issue-Based Troubleshooting](#2-issue-based-troubleshooting)
+   - [Completely Unable to Communicate (No Data Sent or Received)](#21-completely-unable-to-communicate-no-data-sent-or-received)
+   - [Can Send but Cannot Receive](#22-can-send-but-cannot-receive)
+   - [Can Receive but Cannot Send](#23-can-receive-but-cannot-send)
+   - [Received Garbled Data](#24-received-garbled-data)
+   - [Data Loss or Incomplete Data](#25-data-loss-or-incomplete-data)
+   - [USB-Related Issues](#26-usb-related-issues)
+   - [Boot-Related Issues](#27-boot-related-issues)
+3. [Pin-to-UART Mapping Quick Reference](#3-pin-to-uart-mapping-quick-reference)
+4. [Code Templates and Examples](#4-code-templates-and-examples)
+5. [FAQ](#5-faq)
+
+### 1. Quick Troubleshooting Flowchart
+
+```
+UART communication abnormal
+├── 1. Is the hardware wiring correct?
+│   ├── Is GND shared?
+│   ├── Are RX/TX cross-connected? (A TX → B RX)
+│   └── Is the Type-C adapter board inserted in the correct orientation? (MaixCAM-specific issue)
+├── 2. Is the pin function configured correctly?
+│   ├── Did you use pinmap to set the pin function to UART?
+│   └── Is the pin conflicting with another function (Wi-Fi, SPI, etc.)?
+├── 3. Are the parameters consistent?
+│   ├── Is the baud rate matched?
+│   ├── Are data bits / parity / stop bits consistent?
+│   └── Are you using the recommended baud rate 115200?
+├── 4. Is the code correct?
+│   ├── Is the UART device path correct? (/dev/ttyS0, /dev/ttyS1...)
+│   ├── Are you using read and set_received_callback at the same time? (Do not mix them)
+│   └── Did you add sleep to release CPU?
+└── 5. Other possibilities
+    ├── Is UART0 pulled low and causing boot failure?
+    └── Are you using an unsupported baud rate?
+```
+
+### 2. Issue-Based Troubleshooting
+
+#### 2.1 Completely Unable to Communicate (No Data Sent or Received)
+
+**Troubleshooting steps:**
+
+| Step | Check Item | Action |
+|------|------------|--------|
+| ① | **Wiring check** | Confirm GND is shared and RX/TX are cross-connected (A TX → B RX, A RX → B TX) |
+| ② | **Type-C adapter orientation** | On MaixCAM, if you are using the USB-exposed UART, the Type-C plug orientation can swap RX/TX. Try flipping the Type-C connector and retrying. |
+| ③ | **Pin function mapping** | Non-default UART pins must be configured first with `pinmap.set_pin_function()` |
+| ④ | **UART device path** | Use `uart.list_devices()` to confirm the actual device path. It is usually `/dev/ttyS*`, where `*` is the UART number |
+| ⑤ | **Baud rate match** | Both sides must use the same baud rate; the recommended setting is **115200** |
+
+**Common code mistakes:**
+```python
+# ❌ Wrong: using the UART directly without setting the pin function
+serial_dev = uart.UART("/dev/ttyS1", 115200)
+
+# ✅ Correct: set the pin function first
+from maix import uart, pinmap, err
+err.check_raise(pinmap.set_pin_function("A19", "UART1_TX"), "Failed")
+err.check_raise(pinmap.set_pin_function("A18", "UART1_RX"), "Failed")
+serial_dev = uart.UART("/dev/ttyS1", 115200)
+```
+
+#### 2.2 Can Send but Cannot Receive
+
+**Troubleshooting steps:**
+
+| Step | Check Item | Action |
+|------|------------|--------|
+| ① | **RX pin wiring** | Confirm the local RX pin is connected to the other side’s TX pin |
+| ② | **RX pin function mapping** | Both TX and RX need to be mapped in `pinmap`; setting only TX is not enough |
+| ③ | **read parameters** | Check the `read()` timeout parameter; `timeout=0` may return immediately with no data |
+| ④ | **Callback conflict** | If `set_received_callback()` is used, **do not call `read()`** afterward, or data reading will fail |
+| ⑤ | **Whether the other side is actually sending** | Use a logic analyzer or multimeter to confirm that the other side’s TX pin is outputting signals |
+
+**Recommended read methods:**
+```python
+# Method 1: polling read (recommended for beginners)
+while not app.need_exit():
+    data = serial.read()       # read(-1, 0): returns immediately if data is available
+    if data:
+        print("Received:", data)
+    time.sleep_ms(1)           # release CPU; this is necessary
+
+# Method 2: blocking read
+data = serial.read(len=-1, timeout=-1)  # wait until data is received
+
+# Method 3: callback (do not use read at the same time)
+def on_received(serial, data):
+    print("Received:", data)
+serial.set_received_callback(on_received)
+while not app.need_exit():
+    time.sleep_ms(100)
+```
+
+#### 2.3 Can Receive but Cannot Send
+
+| Step | Check Item | Action |
+|------|------------|--------|
+| ① | **TX pin wiring** | Confirm the local TX pin is connected to the other side’s RX pin |
+| ② | **TX pin function mapping** | Check whether `pinmap` has been set for the TX function |
+| ③ | **Data type** | `write_str()` sends strings; `write()` sends bytes. Make sure you use the correct function |
+| ④ | **UART initialization** | Confirm `UART()` was created successfully without errors |
+
+**Sending data type notes:**
+```python
+# Send a string
+serial.write_str("Hello")
+
+# Send a byte stream
+serial.write(b'\x01\x02\x03')
+
+# Convert a string to bytes
+serial.write("Hello".encode("utf-8"))
+
+# Send Chinese text (must be encoded)
+serial.write("你好".encode("utf-8"))  # → b'\xe5\xa5\xbd'
+```
+
+#### 2.4 Received Garbled Data
+
+**The most common cause is a baud rate mismatch!**
+
+| Check Item | Explanation |
+|------------|-------------|
+| **Baud rate mismatch** | Both sides must use the same baud rate; this is the most common cause |
+| **Unsupported baud rate** | The chip has precision requirements for baud rate; non-standard rates may cause bit errors. **115200 is strongly recommended.** |
+| **Encoding mismatch** | If the other side sends GBK-encoded data but you decode it as UTF-8, it will look garbled |
+| **Level mismatch** | If the other side uses 5 V TTL logic and MaixCAM uses 3.3 V, you need a level shifter |
+
+**Baud rate accuracy notes (MaixCAM2):**
+
+The underlying clock is 200 MHz, and the divider formula is:
+```
+baud = uart_clk / (fractional_divider × 16)
+```
+For example, at `115200`, the divider is set to `108.5`, and the precision error is only **0.0064%**, which is fully usable.
+
+> ⚠️ **MaixCAM / MaixCAM-Pro: only 115200 has been verified as reliable. Other baud rates may have a high error rate.**
+
+#### 2.5 Data Loss or Incomplete Data
+
+| Check Item | Explanation |
+|------------|-------------|
+| **read without sleep** | The loop should include `time.sleep_ms(1)` to release CPU |
+| **read length limit** | `read(len=10)` returns at most 10 bytes; any extra data may be lost |
+| **Buffer overflow** | The other side sends too fast or your processing is too slow, causing the buffer to overflow |
+| **Incomplete frame protocol** | Without frame header/frame tail/checksum handling, packet sticking / splitting may occur |
+| **Mixing callback and read** | Using both `set_received_callback()` and `read()` at the same time can break data reading |
+
+**Ways to prevent data loss:**
+```python
+# Method 1: fixed length + timeout (recommended for fixed-length protocols)
+data = serial.read(len=10, timeout=1000)  # read 10 bytes, wait up to 1 second
+
+# Method 2: accumulate in a loop (suitable for variable-length protocols)
+buffer = b''
+while not app.need_exit():
+    data = serial.read()
+    if data:
+        buffer += data
+        # Parse buffer according to frame header and tail
+        while b'$' in buffer and b'*' in buffer:
+            start = buffer.index(b'$')
+            end = buffer.index(b'*', start)
+            frame = buffer[start+1:end]
+            buffer = buffer[end+1:]
+            print("Parsed frame:", frame)
+    time.sleep_ms(1)
+```
+
+#### 2.6 USB-Related Issues
+
+> **Q: Why doesn’t a serial device appear when I plug the board into a computer via USB?**
+
+**A:** The MaixCAM USB port is a **USB function port** (network/storage), not a USB-to-UART port. By default, it is exposed as a USB network adapter.
+
+**Solutions:**
+- To access the board’s terminal from a computer → use **SSH** (`ssh root@<device_ip>`)
+- To communicate with the board through UART from a computer → use an additional **USB-to-UART adapter board**, connecting the board’s UART pins
+
+```
+Computer ──USB──> [USB-to-UART adapter] ──TX/RX/GND──> MaixCAM UART pins
+```
+
+#### 2.7 Boot-Related Issues
+
+MaixCAM / MaixCAM-Pro have two special limitations for **UART0**:
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| **Boot failure** | The UART0 TX pin (A16) is externally pulled low | Check whether A16 is pulled low; keep it floating or use a level shifter |
+| **Boot log interference** | UART0 prints logs during boot until `serial ready` appears | The MCU side should discard the initial boot data, or use UART1 instead |
+| **UART0 is occupied by the system** | UART0 is the default `maix protocol` port and system terminal | If you run into issues, switch to UART1 |
+
+> ⚠️ **If you are using a 3.3 V to 5 V level shifter, make sure the TX line is not pulled low by default. This is a chip characteristic: TX low = boot failure.**
+
+### 3. Pin-to-UART Mapping Quick Reference
+
+#### MaixCAM / MaixCAM-Pro
+
+| UART | TX Pin | RX Pin | Device Path | Notes |
+|------|--------|--------|-------------|-------|
+| UART0 | A16 | A17 | `/dev/ttyS0` | USB-exposed same UART; system log port; prints boot logs |
+| UART1 | A19 | A18 | `/dev/ttyS1` | Recommended for custom communication |
+
+> **Note:** Pins may be used for other purposes by default (such as SPI or Wi-Fi). Please refer to the [PINMAP documentation](https://wiki.sipeed.com/maixpy/doc/zh/peripheral/pinmap.html) before using them.
+
+#### MaixCAM2
+
+| UART | TX Pin | RX Pin | Device Path | Notes |
+|------|--------|--------|-------------|-------|
+| UART0 | U0T | U0R | `/dev/ttyS0` | System terminal and log port |
+| UART1 | — | — | `/dev/ttyS1` | — |
+| UART2 | B0 | B1 | `/dev/ttyS2` | — |
+| UART3 | — | — | `/dev/ttyS3` | — |
+| UART4 | A21 | A22 | `/dev/ttyS4` | Default onboard pins |
+
+### 4. Code Templates and Examples
+
+```python
+from maix import uart, pinmap, err
+
+# Example: configure non-default UART pins
+err.check_raise(pinmap.set_pin_function("A19", "UART1_TX"), "Failed to set TX")
+err.check_raise(pinmap.set_pin_function("A18", "UART1_RX"), "Failed to set RX")
+
+serial = uart.UART("/dev/ttyS1", 115200)
+serial.write_str("Hello MaixPy")
+```
+
+```python
+from maix import uart, app, time
+
+serial = uart.UART("/dev/ttyS0", 115200)
+
+while not app.need_exit():
+    data = serial.read()
+    if data:
+        print("Received:", data)
+    time.sleep_ms(1)
+```
+
+### 5. FAQ
+
+| # | Question | Answer |
+|---|----------|--------|
+| 1 | The computer does not detect a serial port when I plug in USB? | This is normal. The USB port is for network/storage functions, not serial communication. Use SSH or an additional USB-to-UART adapter. |
+| 2 | Is there a difference between Type-C inserted normally or reversed? | **Yes, on MaixCAM.** Reversing the connector can swap RX/TX. If communication fails, try flipping the Type-C connector. |
+| 3 | Which baud rate should I use? | **115200** is the recommended and most reliable rate across all supported models. |
+| 4 | Which should I choose: UART0 or UART1? | **UART1 is recommended.** UART0 is the system serial port and may print boot logs, be occupied by the system, or cause boot issues if TX is pulled low. |
+| 5 | What is the difference between `write_str` and `write`? | `write_str` sends a string (`str`), while `write` sends a byte stream (`bytes`). Use `write` with `encode()` for Chinese or binary data. |
+| 6 | Can `read` and callback be used together? | **No.** If you use `set_received_callback()`, do not call `read()` as well, or data reading may fail. |
+| 7 | How can I find the correct UART device path? | `from maix import uart; print(uart.list_devices())` |
+| 8 | What are the strange characters printed during UART0 boot? | Those are system boot logs. Discard them until `serial ready` appears. |
+| 9 | I added a level shifter but the board still won’t boot? | Check whether UART0 TX (A16) is being pulled low by default. In this chip, TX low can prevent booting. Keep it floating or use a proper level shifter. |
+| 10 | Why does Chinese text appear garbled when sending? | Ensure the data is encoded as UTF-8 before sending and decoded as UTF-8 on the receiving side. |
+
 
