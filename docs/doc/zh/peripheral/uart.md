@@ -327,6 +327,244 @@ print(b)
 * [[MaixCam]使用心得二：UART串口通信](https://blog.csdn.net/ButterflyBoy0/article/details/140577441)
 * 更多请自行互联网搜索
 
+## MaixCAM UART 串口排查指南
+
+> 适用型号：MaixCAM / MaixCAM-Pro / MaixCAM2
+> 参考文档：[MaixPy UART 串口使用介绍](https://wiki.sipeed.com/maixpy/doc/zh/peripheral/uart.html)
+
+### 目录
+
+1. [快速排查流程图](#1-快速排查流程图)
+2. [问题分类排查](#2-问题分类排查)
+   - [完全无法通信（收发均无数据）](#21-完全无法通信收发均无数据)
+   - [能发不能收](#22-能发不能收)
+   - [能收不能发](#23-能收不能发)
+   - [收到乱码](#24-收到乱码)
+   - [数据丢失或不完整](#25-数据丢失或不完整)
+   - [USB 口相关问题](#26-usb-口相关问题)
+   - [开机异常问题](#27-开机异常问题)
+3. [引脚与串口映射速查表](#3-引脚与串口映射速查表)
+4. [代码模板与示例](#4-代码模板与示例)
+5. [FAQ 快问快答](#5-faq-快问快答)
+
+### 快速排查流程图
+
+```
+串口通信异常
+├── 1. 硬件接线是否正确？
+│   ├── GND 是否共地？
+│   ├── RX/TX 是否交叉连接？（A的TX → B的RX）
+│   └── Type-C 转接板是否正插？（MaixCAM 独有问题）
+├── 2. 引脚功能是否设置？
+│   ├── 是否用 pinmap 设置了引脚功能为 UART？
+│   └── 引脚是否与其它功能（WiFi、SPI等）冲突？
+├── 3. 参数是否一致？
+│   ├── 波特率是否匹配？
+│   ├── 数据位 / 校验位 / 停止位是否一致？
+│   └── 是否使用了推荐波特率 115200？
+├── 4. 代码是否正确？
+│   ├── 串口设备路径是否正确？（/dev/ttyS0, /dev/ttyS1...）
+│   ├── 是否同时使用了 read 和 set_received_callback？（不可混用）
+│   └── 是否加了 sleep 释放 CPU？
+└── 5. 其它
+    ├── 是否是 UART0 且被拉低导致无法开机？
+    └── 是否使用了不支持的波特率？
+```
+
+### 问题分类排查
+
+#### 完全无法通信（收发均无数据）
+
+**排查步骤：**
+
+| 步骤 | 检查项 | 操作 |
+|------|--------|------|
+| ① | **接线检查** | 确认 GND 共地，RX/TX 交叉连接（A的TX→B的RX，A的RX→B的TX） |
+| ② | **Type-C 转接板方向** | MaixCAM 使用 USB 引出的串口时，Type-C 正插和反插会让 RX/TX 交换。**尝试将 Type-C 翻转一面再插** |
+| ③ | **引脚功能映射** | 非默认串口引脚必须先用 `pinmap.set_pin_function()` 设置功能 |
+| ④ | **串口设备路径** | 用 `uart.list_devices()` 确认实际设备路径，一般 `/dev/ttyS*` 中 `*` 就是串口号 |
+| ⑤ | **波特率匹配** | 两端波特率必须一致，推荐 **115200** |
+
+**常见代码错误：**
+```python
+# ❌ 错误：没有设置引脚功能就直接使用
+serial_dev = uart.UART("/dev/ttyS1", 115200)
+
+# ✅ 正确：先设置引脚功能
+from maix import uart, pinmap, err
+err.check_raise(pinmap.set_pin_function("A19", "UART1_TX"), "Failed")
+err.check_raise(pinmap.set_pin_function("A18", "UART1_RX"), "Failed")
+serial_dev = uart.UART("/dev/ttyS1", 115200)
+```
+
+### 能发不能收
+
+**排查步骤：**
+
+| 步骤 | 检查项 | 操作 |
+|------|--------|------|
+| ① | **RX 引脚接线** | 确认本端的 RX 引脚连接到了对方的 TX 引脚 |
+| ② | **RX 引脚功能映射** | TX 和 RX 都需要设置 pinmap，不能只设 TX |
+| ③ | **read 参数** | 检查 `read()` 的 `timeout` 参数，`timeout=0` 可能返回空 |
+| ④ | **回调冲突** | 如果设置了 `set_received_callback`，**不要再调用 `read()`**，否则会读取出错 |
+| ⑤ | **对方是否在发送** | 用逻辑分析仪或万用表确认对方 TX 引脚有信号输出 |
+
+**推荐读取方式：**
+```python
+# 方式一：轮询读取（推荐新手）
+while not app.need_exit():
+    data = serial.read()       # read(-1, 0)：有数据立即返回
+    if data:
+        print("收到:", data)
+    time.sleep_ms(1)           # 释放 CPU，必须加！
+
+# 方式二：阻塞读取
+data = serial.read(len=-1, timeout=-1)  # 一直等到收到数据才返回
+
+# 方式三：回调函数（不能同时用 read）
+def on_received(serial, data):
+    print("收到:", data)
+serial.set_received_callback(on_received)
+while not app.need_exit():
+    time.sleep_ms(100)
+```
+
+### 能收不能发
+
+| 步骤 | 检查项 | 操作 |
+|------|--------|------|
+| ① | **TX 引脚接线** | 确认本端 TX 连接到对方 RX |
+| ② | **TX 引脚功能映射** | 检查 pinmap 是否设置了 TX 功能 |
+| ③ | **数据类型** | `write_str()` 发送字符串，`write()` 发送 bytes，确认使用的函数正确 |
+| ④ | **串口初始化** | 确认 `UART()` 对象创建成功，没有报错 |
+
+**发送数据类型说明：**
+```python
+# 发送字符串
+serial.write_str("Hello")
+
+# 发送字节流
+serial.write(b'\x01\x02\x03')
+
+# 字符串转字节流
+serial.write("Hello".encode("utf-8"))
+
+# 中文发送（必须 encode）
+serial.write("你好".encode("utf-8"))  # → b'\xe5\xa5\xbd'
+```
+
+### 收到乱码
+
+**最大概率原因：波特率不匹配！**
+
+| 排查项 | 说明 |
+|--------|------|
+| **波特率不一致** | 两端必须使用相同波特率，最常见原因是写错了其中一端的波特率 |
+| **使用了不支持的波特率** | 芯片对波特率有精度要求，非标波特率可能导致误码，**强烈推荐 115200** |
+| **编码不一致** | 对方发的是 GBK 编码，你用 UTF-8 解码就会乱码 |
+| **电平不匹配** | 对方是 5V TTL 电平，MaixCAM 是 3.3V，需要电平转换 |
+
+**波特率精度说明（MaixCAM2）：**
+
+底层时钟 200MHz，分频公式：
+```
+baud = uart_clk / (小数分频 × 16)
+```
+例如 115200 时，分频器设置为 108.5，精度误差仅 **0.0064%**，完全可用。
+
+> ⚠️ **MaixCAM / MaixCAM-Pro：仅验证 115200 可靠可用，其它波特率误码率可能很高。**
+
+### 数据丢失或不完整
+
+| 排查项 | 说明 |
+|--------|------|
+| **read 时没有加 sleep** | 循环中必须加 `time.sleep_ms(1)` 释放 CPU |
+| **read 的 len 参数限制** | `read(len=10)` 最多只返回 10 字节，超出部分可能丢失 |
+| **缓冲区溢出** | 对方发送太快、处理太慢，导致缓冲区溢出 |
+| **帧协议不完整** | 没有帧头帧尾校验，导致粘包/拆包问题 |
+| **回调和 read 混用** | 设置了 callback 又调用 read，会导致数据读取出错 |
+
+**防止数据丢失的读取模式：**
+```python
+# 方式一：指定长度 + 超时（推荐定长协议）
+data = serial.read(len=10, timeout=1000)  # 读 10 字节，最多等 1 秒
+
+# 方式二：循环拼接（适合变长协议）
+buffer = b''
+while not app.need_exit():
+    data = serial.read()
+    if data:
+        buffer += data
+        # 按帧头帧尾解析 buffer
+        while b'$' in buffer and b'*' in buffer:
+            start = buffer.index(b'$')
+            end = buffer.index(b'*', start)
+            frame = buffer[start+1:end]
+            buffer = buffer[end+1:]
+            print("解析到帧:", frame)
+    time.sleep_ms(1)
+```
+
+### USB 口相关问题
+
+> **Q：为什么插上 USB 电脑没出现串口设备？**
+
+**A：** MaixCAM 的 USB 口是 **USB 功能**（网络/存储），**不是 USB 转串口**。默认虚拟成 USB 网卡。
+
+**解决方案：**
+- 电脑访问终端 → 使用 **SSH** 连接（`ssh root@<设备IP>`）
+- 电脑串口通信 → 需要额外购买 **USB 转 UART 转接板**，连接板子的串口引脚
+
+```
+电脑 ──USB──> [USB转UART转接板] ──TX/RX/GND──> MaixCAM 串口引脚
+```
+
+### 开机异常问题
+
+MaixCAM / MaixCAM-Pro 的 **UART0** 有两个特殊限制：
+
+| 问题 | 原因 | 解决 |
+|------|------|------|
+| **无法开机** | UART0 的 TX 引脚（A16）被外部电路拉低 | 检查 A16 是否被拉低，保持浮空或使用电平转换芯片 |
+| **开机日志干扰通信** | UART0 开机会打印日志，直到出现 `serial ready` | 单片机端需丢弃开机阶段的数据；或改用 UART1 |
+| **UART0 被系统占用** | UART0 是默认的 `maix protocol` 串口和系统终端 | 遇到问题建议换用 UART1 |
+
+> ⚠️ **如果你做了 3.3V 转 5V 电平转换电路，务必确保 TX 默认不是拉低状态！这是芯片特性，TX 拉低 = 无法开机。**
+
+### 引脚与串口映射速查表 MaixCAM / MaixCAM-Pro
+
+| 串口 | TX 引脚 | RX 引脚 | 设备路径 | 备注 |
+|------|---------|---------|----------|------|
+| UART0 | A16 | A17 | `/dev/ttyS0` | USB 口引出的同一个串口；系统日志串口；开机打印日志 |
+| UART1 | A19 | A18 | `/dev/ttyS1` | 推荐用于自定义通信 |
+
+> **注意：** 引脚默认可能用作其它用途（如 SPI、WiFi），使用前请查看 [PINMAP 文档](https://wiki.sipeed.com/maixpy/doc/zh/peripheral/pinmap.html)。
+
+### MaixCAM2
+
+| 串口 | TX 引脚 | RX 引脚 | 设备路径 | 备注 |
+|------|---------|---------|----------|------|
+| UART0 | U0T | U0R | `/dev/ttyS0` | 系统终端和日志串口 |
+| UART1 | — | — | `/dev/ttyS1` | — |
+| UART2 | B0 | B1 | `/dev/ttyS2` | — |
+| UART3 | — | — | `/dev/ttyS3` | — |
+| UART4 | A21 | A22 | `/dev/ttyS4` | 板上默认引脚 |
+
+### FAQ 快问快答
+
+| # | 问题 | 回答 |
+|---|------|------|
+| 1 | 插上 USB 电脑识别不到串口？ | 正常，USB 口是网络/存储功能，不是串口。需用 SSH 连接或额外的 USB 转 UART 转接板。 |
+| 2 | Type-C 正插反插有区别吗？ | **MaixCAM 有区别！** 正插和反插会交换 RX/TX，通信不上时试试翻转 Type-C。 |
+| 3 | 推荐用哪个波特率？ | **115200**，这是唯一在所有型号上都验证可靠的波特率。 |
+| 4 | UART0 和 UART1 选哪个？ | **推荐 UART1**。UART0 是系统串口，有开机日志干扰、系统占用、TX 拉低无法开机等问题。 |
+| 5 | write_str 和 write 有什么区别？ | `write_str` 发送字符串（str），`write` 发送字节流（bytes）。中文/二进制数据用 `write` + `encode()`。 |
+| 6 | read 和 callback 能同时用吗？ | **不能！** 设置了 `set_received_callback` 就不要再调用 `read()`，否则读取出错。 |
+| 7 | 怎么知道我的串口设备路径？ | `from maix import uart; print(uart.list_devices())` |
+| 8 | 串口0开机打印的乱码是什么？ | 那是系统启动日志，到 `serial ready` 为止。单片机端需丢弃这部分数据。 |
+| 9 | 接了电平转换板但无法开机？ | 检查 UART0 TX（A16）是否被默认拉低，芯片特性：TX 拉低 = 无法开机。保持浮空或使用电平转换芯片。 |
+| 10 | 发送中文出现乱码？ | 确保发送时 `encode("utf-8")`，接收端也要用 UTF-8 解码。 |
+
 
 
 
