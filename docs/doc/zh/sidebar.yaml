@@ -145,6 +145,8 @@ items:
         label: ONNX 模型转给 MaixCAM 用
     -   file: ai_model_converter/onnx_export.md
         label: 裁剪 ONNX 模型节点教程
+    -   file: ai_model_converter/web_converter.md
+        label: 图形化模型转换平台
     -   file: pro/datasets.md
         label: 哪里找模型和数据集
     -   file: pro/customize_model.md
@@ -264,7 +266,6 @@ items:
         label: 使用 MaixCDK 开发
     -   file: pro/compile_os.md
         label: 编译系统
-
 
 
 

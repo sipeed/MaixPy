@@ -143,6 +143,10 @@ items:
         label: ONNX model to MaixCAM2's
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
+    -   file: ai_model_converter/onnx_export.md
+        label: Trim ONNX model output nodes
+    -   file: ai_model_converter/web_converter.md
+        label: Convert YOLO models with Web UI
     -   file: pro/datasets.md
         label: Where to find models & datasets
     -   file: pro/customize_model.md
@@ -262,4 +266,3 @@ items:
         label: MaixCDK development
     -   file: pro/compile_os.md
         label: Build OS
-
