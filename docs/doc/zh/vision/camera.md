@@ -138,7 +138,7 @@ cam.set_resolution(width=640, height=480)
 
 <div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
 
-| GC4653 | SC850SL |
+| OS04D10 | SC850SL |
 |--------|---------|
 | 2560x1440@30fps<br>1280x720@60fps | 3840x2160@30fps<br>1920x1080@60fps|
 

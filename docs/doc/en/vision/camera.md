@@ -140,7 +140,7 @@ The camera operates at specific frame rates. MaixPy supports frame rate settings
 
 <div align="center"><span style="color: #c33d45; font-weight: bold;">MaixCAM2</span></div>
 
-| GC4653 | SC850SL |
+| OS04D10 | SC850SL |
 |--------|---------|
 | 2560x1440@30fps<br>1280x720@60fps | 3840x2160@30fps<br>1920x1080@60fps|
 
