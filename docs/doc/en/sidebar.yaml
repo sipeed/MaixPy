@@ -140,26 +140,28 @@ items:
 -   label: Local deployment of AI models
     items:
     -   file: ai_model_converter/ai_model_deploy.md
-        label: AI model download and deployment guide
+        label: AI model download, debugging, and deployment guide
     -   file: pro/datasets.md
         label: Where to find models & datasets
-    -   file: vision/maixhub_train.md
-        label: MaixHub online AI training
     -   file: vision/customize_model_yolo.md
         label: YOLO model offline training
-    -   file: ai_model_converter/maixcam2.md
-        label: Convert ONNX model for MaixCAM2
-    -   file: ai_model_converter/maixcam.md
-        label: Convert ONNX model for MaixCAM
-    -   file: ai_model_converter/onnx_export.md
-        label: Trim ONNX model output nodes
-    -   file: ai_model_converter/web_converter.md
-        label: Convert YOLO models with Web UI
-    -   file: pro/customize_model.md
-        label: Port a new AI model
-
-
-        
+    -   file: ai_model_converter/online_converter.md
+        label: MaixHub online YOLO conversion
+    -   file: vision/maixhub_train.md
+        label: MaixHub online YOLO training
+    -   label: Advanced Operations
+        collapsed: true
+        items:
+        -   file: ai_model_converter/maixcam2.md
+            label: Convert ONNX model for MaixCAM2
+        -   file: ai_model_converter/maixcam.md
+            label: Convert ONNX model for MaixCAM
+        -   file: ai_model_converter/onnx_export.md
+            label: Trim ONNX model output nodes
+        -   file: ai_model_converter/web_converter.md
+            label: Self-host the Web converter
+        -   file: pro/customize_model.md
+            label: Port a new AI model
 -   label: Network
     items:
     -   file: network/network_settings.md

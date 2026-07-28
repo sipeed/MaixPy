@@ -140,23 +140,28 @@ items:
 -   label: AI 模型本地部署
     items:
     -   file: ai_model_converter/ai_model_deploy.md
-        label: AI 模型下载和部署指南
+        label: AI 模型下载、调试和部署指南
     -   file: pro/datasets.md
         label: 哪里找模型和数据集
-    -   file: vision/maixhub_train.md
-        label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolo.md
         label: 离线训练 YOLO 模型
-    -   file: ai_model_converter/maixcam2.md
-        label: ONNX 模型转换为 MaixCAM2 模型
-    -   file: ai_model_converter/maixcam.md
-        label: ONNX 模型转换为 MaixCAM 模型
-    -   file: ai_model_converter/onnx_export.md
-        label: 裁剪 ONNX 模型输出节点
-    -   file: ai_model_converter/web_converter.md
-        label: 使用网页工具转换 YOLO 模型
-    -   file: pro/customize_model.md
-        label: 移植新的 AI 模型
+    -   file: ai_model_converter/online_converter.md
+        label: MaixHub 在线转换 YOLO 模型
+    -   file: vision/maixhub_train.md
+        label: MaixHub 在线训练 YOLO 模型
+    -   label: 进阶操作
+        collapsed: true
+        items:
+        -   file: ai_model_converter/maixcam2.md
+            label: ONNX 模型转换为 MaixCAM2 模型
+        -   file: ai_model_converter/maixcam.md
+            label: ONNX 模型转换为 MaixCAM 模型
+        -   file: ai_model_converter/onnx_export.md
+            label: 裁剪 ONNX 模型输出节点
+        -   file: ai_model_converter/web_converter.md
+            label: 私有部署网页转换平台
+        -   file: pro/customize_model.md
+            label: 移植新的 AI 模型
 
 # -   label: YOLO模型零算法基础入门使用
 
