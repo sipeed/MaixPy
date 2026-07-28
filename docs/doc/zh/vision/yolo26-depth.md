@@ -30,7 +30,7 @@ from maix import app, camera, display, image, nn
 cmap = image.CMap.JET
 # 可选校准参数: d_real = exp(cal_a * log(d_raw) + cal_b), 默认不校准(1.0, 0.0)
 CAL_A, CAL_B = 1.0,0.0
-model = nn.YOLO26Depth(model="/root/yolo26n-depth.mud", dual_buff=True)
+model = nn.YOLO26Depth(model="/root/models/yolo26n_depth_640x480.mud", dual_buff=True)
 
 cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
 disp = display.Display()
@@ -84,7 +84,7 @@ log(d_real) = a * log(d_raw) + b      =>   d_real = exp(a * log(d_raw) + b)
 **① 脚本内容**：
 
 ```python
-"""YOLO26-depth 自动采集 + 校准拟合脚本 
+"""YOLO26-depth 自动采集 + 校准拟合脚本
 操作:
   屏幕显示目标距离与实时中心深度, 物体放到目标距离后点击屏幕记录
   采完所有距离后自动拟合: d_real = exp(a * log(d_raw) + b)
@@ -94,7 +94,7 @@ import math
 import numpy as np
 from maix import app, camera, display, image, nn, touchscreen, time
 
-MODEL = "/root/yolo26n-depth.mud"
+MODEL = "/root/models/yolo26n_depth_640x480.mud"
 DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
 FRAMES_PER_SAMPLE = 10
 SETTLE_FRAMES = 5
@@ -264,9 +264,9 @@ else:
 **③编写转换配置:**
 ```json
 {
-  "input": "./yolo26s-depth_640x480.onnx",
+  "input": "./yolo26n_depth_640x480.onnx",
   "output_dir": "./output",
-  "output_name": "yolo26s-depth_640x480.axmodel",
+  "output_name": "yolo26n_depth_640x480_npu.axmodel",
   "model_type": "ONNX",
   "target_hardware": "AX620E",
   "npu_mode": "NPU2",
@@ -309,7 +309,10 @@ else:
   }
 }
 ```
-其中量化数据集calib_data.zip可以放几张COCO数据集
+**注意事项**:
+1. 量化数据集`calib_data.zip`可以放几张COCO数据集
+2. `npu_mode`可以设置为`NPU1`, `output_name`添加`vnpu`后缀, 代表使用VNPU, 这时候模型速度会稍微慢些, 但是可以在设置中启动`AI-ISP`获取更好的摄像头画质
+3. `npu_mode`也可以设置为`NPU2`, `output_name`添加`npu`后缀, 代表使用完整的NPU, 这时候模型速度最快, 但是必须在设置中关闭`AI-ISP`才能使用.
 
 **④开始转换:**
 
@@ -322,8 +325,8 @@ pulsar2 build --config config.json
 ```mud
 [basic]
 type = axmodel
-model_npu = yolo26n-depth_640x480_npu.axmodel
-model_vnpu = yolo26n-depth_640x480_vnpu.axmodel
+model_npu = yolo26n_depth_640x480_npu.axmodel
+model_vnpu = yolo26n_depth_640x480_vnpu.axmodel
 
 [extra]
 model_type = yolo26_depth

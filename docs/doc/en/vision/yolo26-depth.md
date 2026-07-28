@@ -30,7 +30,7 @@ from maix import app, camera, display, image, nn
 cmap = image.CMap.JET
 # Optional calibration parameters: d_real = exp(cal_a * log(d_raw) + cal_b), no calibration by default (1.0, 0.0)
 CAL_A, CAL_B = 1.0,0.0
-model = nn.YOLO26Depth(model="/root/yolo26n-depth.mud", dual_buff=True)
+model = nn.YOLO26Depth(model="/root/models/yolo26n_depth_640x480.mud", dual_buff=True)
 
 cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
 disp = display.Display()
@@ -94,7 +94,7 @@ import math
 import numpy as np
 from maix import app, camera, display, image, nn, touchscreen, time
 
-MODEL = "/root/yolo26n-depth.mud"
+MODEL = "/root/models/yolo26n_depth_640x480.mud"
 DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
 FRAMES_PER_SAMPLE = 10
 SETTLE_FRAMES = 5
@@ -264,9 +264,9 @@ else:
 **③Write the conversion config:**
 ```json
 {
-  "input": "./yolo26s-depth_640x480.onnx",
+  "input": "./yolo26n_depth_640x480.onnx",
   "output_dir": "./output",
-  "output_name": "yolo26s-depth_640x480.axmodel",
+  "output_name": "yolo26n_depth_640x480.axmodel",
   "model_type": "ONNX",
   "target_hardware": "AX620E",
   "npu_mode": "NPU2",
@@ -309,7 +309,10 @@ else:
   }
 }
 ```
-The quantization dataset calib_data.zip can contain a few COCO dataset images
+**Notes**:
+1. The quantization dataset calib_data.zip can contain a few COCO dataset images
+2. You can set `npu_mode` to `NPU1` and add the `vnpu` suffix to output_name — that means it's using the VNPU. The model will be a bit slower, but you can turn on `AI-ISP` in settings to get better camera quality.
+3. You can also set `npu_mode` to `NPU2` and add the `npu` suffix to output_name — that means it's using the full NPU. This gives you the fastest model speed, but you have to turn off `AI-ISP` in settings for it to work.
 
 **④Start conversion:**
 
@@ -322,8 +325,8 @@ pulsar2 build --config config.json
 ```mud
 [basic]
 type = axmodel
-model_npu = yolo26n-depth_640x480_npu.axmodel
-model_vnpu = yolo26n-depth_640x480_vnpu.axmodel
+model_npu = yolo26n_depth_640x480_npu.axmodel
+model_vnpu = yolo26n_depth_640x480_vnpu.axmodel
 
 [extra]
 model_type = yolo26_depth
