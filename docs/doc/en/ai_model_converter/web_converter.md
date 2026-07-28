@@ -1,8 +1,10 @@
 ---
-title: Graphical Model Conversion Platform
+title: Self-hosted Graphical Model Conversion Platform
 ---
 
 ## Introduction
+
+If you only need to convert common YOLO Detect models, use the [online graphical model conversion platform](./online_converter.md) first. It does not require installing Python, Docker, or model-conversion images on your computer. Use this self-hosted guide when you need private intranet deployment, full control of the conversion server, platform-source debugging, or when uploading model files to the online service is not suitable.
 
 After reading the previous model-conversion guides, have all those commands started to blur together? Exporting ONNX, locating output nodes, trimming the model, preparing calibration images, editing configuration files, and running Docker commands—missing a single parameter can send you back through the whole process. Sometimes converting a trained `.pt` model feels harder than training it in the first place.
 
@@ -24,7 +26,7 @@ The platform currently supports the following devices and models:
 
 > Classification, segmentation, pose estimation, and OBB tasks are not currently supported. For other models or custom conversion parameters, use the manual conversion methods described in the previous guides.
 
-## Get the Conversion Platform
+## Get the Self-hosted Platform
 
 Maix Converter Platform is open source. Its source code is available at [github.com/sipeed/maix_converter_platform](https://github.com/sipeed/maix_converter_platform).
 
