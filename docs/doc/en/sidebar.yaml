@@ -143,12 +143,12 @@ items:
         label: AI model download, debugging, and deployment guide
     -   file: pro/datasets.md
         label: Where to find models & datasets
-    -   file: vision/maixhub_train.md
-        label: MaixHub online AI training
     -   file: vision/customize_model_yolo.md
         label: YOLO model offline training
     -   file: ai_model_converter/online_converter.md
-        label: Convert YOLO models online
+        label: MaixHub online YOLO conversion
+    -   file: vision/maixhub_train.md
+        label: MaixHub online YOLO training
     -   label: Advanced Operations
         collapsed: true
         items:

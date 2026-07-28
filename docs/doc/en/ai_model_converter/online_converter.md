@@ -1,5 +1,5 @@
 ---
-title: Online Graphical Model Conversion Platform
+title: Convert YOLO Models Online
 ---
 
 ## Introduction
@@ -15,12 +15,14 @@ The platform currently supports the following devices and models:
 | Item | Supported |
 | --- | --- |
 | Target devices | MaixCAM, MaixCAM Pro, MaixCAM2 |
-| Model types | YOLO26, YOLO11, YOLOv8, YOLOv5/YOLOv5u |
+| Model types | YOLO26, YOLO11, YOLOv8, YOLOv5u |
 | Tasks | Object detection (Detect) |
 | Input models | `.onnx` |
 | Calibration dataset | A `.zip` file containing 20-100 `.jpg`, `.png`, or `.bmp` images, no larger than 100MB |
 
 > Classification, segmentation, pose estimation, and OBB tasks are not currently supported. For other models or custom conversion parameters, use the manual conversion methods described in the previous guides, or self-host the conversion platform and modify it as needed.
+>
+> YOLOv5u models belong to the newer Ultralytics `ultralytics` repository. Use `nn.YOLOv8` directly in the inference code, not `nn.YOLOv5`.
 
 ## Open the Online Platform
 
@@ -62,17 +64,7 @@ yolo export model=best.pt format=onnx imgsz=240,320 opset=17 simplify=True
 
 Replace `model` with the path to your `.pt` file, and set `imgsz` to the input resolution you will use on the device. After export, `best.onnx` is usually generated in the same directory.
 
-If the model was trained with the legacy YOLOv5 repository, run this command from the YOLOv5 project directory:
-
-```shell
-python export.py --weights best.pt --include onnx --img 224 320    # MaixCAM, 320x224
-python export.py --weights best.pt --include onnx --img 480 640    # MaixCAM2, 640x480
-python export.py --weights best.pt --include onnx --img 240 320    # MaixCAM2, 320x240
-```
-
 After exporting, use Netron or another ONNX viewer to confirm that the model has a fixed input shape and that it matches the width and height entered on the platform.
-
-> Note the difference between YOLOv5u and YOLOv5: YOLOv5u refers to the YOLOv5u models in the newer Ultralytics `ultralytics` repository and is exported with the `yolo export ...` command. YOLOv5 refers to the YOLOv5 models from the original `ultralytics/yolov5` repository and is usually exported with that repository's `export.py` script.
 
 ## Prepare the Model and Calibration Dataset
 
@@ -171,7 +163,7 @@ while not app.need_exit():
     disp.show(img)
 ```
 
-For YOLO26 or YOLO11, replace `nn.YOLOv8` with the corresponding MaixPy model interface. For YOLOv5u models from the newer Ultralytics `ultralytics` repository, use `nn.YOLOv8` directly in the inference code; do not use `nn.YOLOv5`. The `nn.YOLOv5` interface is for YOLOv5 models trained with the original `ultralytics/yolov5` repository.
+For YOLO26 or YOLO11, replace `nn.YOLOv8` with the corresponding MaixPy model interface.
 
 ## Notes
 

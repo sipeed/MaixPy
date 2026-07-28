@@ -1,5 +1,5 @@
 ---
-title: 在线图形化模型转换平台
+title: 在线转换 YOLO 模型
 ---
 
 ## 简介
@@ -15,12 +15,14 @@ MaixCAM 模型转换工具是 Sipeed 部署好的网页模型转换服务。你�
 | 项目 | 支持范围 |
 | --- | --- |
 | 目标设备 | MaixCAM、MaixCAM Pro、MaixCAM2 |
-| 模型类型 | YOLO26、YOLO11、YOLOv8、YOLOv5/YOLOv5u |
+| 模型类型 | YOLO26、YOLO11、YOLOv8、YOLOv5u |
 | 任务类型 | 目标检测（Detect） |
 | 输入模型 | `.onnx` |
 | 量化数据集 | 包含 20～100 张 `.jpg`、`.png` 或 `.bmp` 图片的 `.zip` 文件，不能大于 100MB |
 
 > 当前暂不支持分类、分割、姿态检测和 OBB 等任务。其他模型或者需要自定义转换参数时，请使用前面介绍的手动转换方法，或自行私有部署转换平台后按需修改。
+>
+> YOLOv5u 属于 Ultralytics 新版 `ultralytics` 仓库中的模型，推理代码直接使用 `nn.YOLOv8` 即可，不要使用 `nn.YOLOv5`。
 
 ## 打开在线平台
 
@@ -62,17 +64,7 @@ yolo export model=best.pt format=onnx imgsz=240,320 opset=17 simplify=True
 
 其中 `model` 替换为你的 `.pt` 文件路径，`imgsz` 设置为模型部署时使用的输入分辨率。导出完成后通常会在同目录生成 `best.onnx`。
 
-如果使用的是 YOLOv5 官方旧版仓库训练的模型，可以在 YOLOv5 工程目录中执行：
-
-```shell
-python export.py --weights best.pt --include onnx --img 224 320    # MaixCAM, 320x224
-python export.py --weights best.pt --include onnx --img 480 640    # MaixCAM2, 640x480
-python export.py --weights best.pt --include onnx --img 240 320    # MaixCAM2, 320x240
-```
-
 导出后建议用 Netron 或其它 ONNX 查看工具确认模型输入尺寸是固定尺寸，并且与后续在平台中填写的宽度、高度一致。
-
-> 注意区分 YOLOv5u 和 YOLOv5：YOLOv5u 指 Ultralytics 新版 `ultralytics` 仓库中的 YOLOv5u 模型，使用 `yolo export ...` 命令导出；YOLOv5 指原 `ultralytics/yolov5` 仓库中的 YOLOv5 模型，通常使用该仓库的 `export.py` 脚本导出。
 
 ## 准备模型和量化数据集
 
@@ -169,7 +161,7 @@ while not app.need_exit():
     disp.show(img)
 ```
 
-如果转换的是 YOLO26 或 YOLO11，请将示例中的 `nn.YOLOv8` 换成对应的 MaixPy 模型接口。YOLOv5u 属于 Ultralytics 新版 `ultralytics` 仓库中的模型，推理代码直接使用 `nn.YOLOv8` 即可，不要使用 `nn.YOLOv5`；`nn.YOLOv5` 是给原 `ultralytics/yolov5` 仓库训练出来的 YOLOv5 模型使用的。
+如果转换的是 YOLO26 或 YOLO11，请将示例中的 `nn.YOLOv8` 换成对应的 MaixPy 模型接口。
 
 ## 注意事项
 

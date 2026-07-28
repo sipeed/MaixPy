@@ -143,12 +143,12 @@ items:
         label: AI 模型下载、调试和部署指南
     -   file: pro/datasets.md
         label: 哪里找模型和数据集
-    -   file: vision/maixhub_train.md
-        label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolo.md
         label: 离线训练 YOLO 模型
     -   file: ai_model_converter/online_converter.md
-        label: 在线转换 YOLO 模型
+        label: MaixHub 在线转换 YOLO 模型
+    -   file: vision/maixhub_train.md
+        label: MaixHub 在线训练 YOLO 模型
     -   label: 进阶操作
         collapsed: true
         items:
