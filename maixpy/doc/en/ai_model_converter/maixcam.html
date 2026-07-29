@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>Convert an ONNX Model to a Model Usable by MaixCAM MaixPy (MUD) - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/ai_model_converter/maixcam.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/ai_model_converter/maixcam.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Maix AI Camera Environment</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/upgrade.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App Usage and Development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python syntax</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/picoclaw.html"><span class="label">PicoClaw usage</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Basics of Hardware and Algorithm Usage</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_barcodes.html"><span class="label">Barcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_landmarks.html"><span class="label">Face multi landmarks detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_emotion.html"><span class="label">Face emotion</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/detect_obb.html"><span class="label">Detect with angle(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_landmarks.html"><span class="label">Hand landmarks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_pose_classification.html"><span class="label">Human pose classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_gesture_classification.html"><span class="label">Hand geature classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/depth_anything.html"><span class="label">Depth-Anything Monocular Depth Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolo_world.html"><span class="label">YOLO-World deten any object</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/ai_classify.html"><span class="label">AI classify</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/deploy_online_recognition.html"><span class="label">Deploy online speech recognition</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI LLM</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/basic.html"><span class="label">Large Model User Guide</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_qwen.html"><span class="label">Qwen LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_deepseek.html"><span class="label">DeepSeek LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_internvl.html"><span class="label">InternVL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 Image-Generation Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_smolvlm.html"><span class="label">SmolVLM Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_sensevoice.html"><span class="label">SenseVoice Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_whisper.html"><span class="label">Whisper Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/tts_melotts.html"><span class="label">MeloTTS Speech-Synthesis Model</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">Local deployment of AI models</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/ai_model_deploy.html"><span class="label">AI model download, debugging, and deployment guide</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/datasets.html"><span class="label">Where to find models & datasets</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolo.html"><span class="label">YOLO model offline training</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/online_converter.html"><span class="label">MaixHub online YOLO conversion</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">MaixHub online YOLO training</span><span class=""></span></a></li>
+<li class="active_parent no_link"><a><span class="label">Advanced Operations</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam2.html"><span class="label">Convert ONNX model for MaixCAM2</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">Convert ONNX model for MaixCAM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/onnx_export.html"><span class="label">Trim ONNX model output nodes</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/web_converter.html"><span class="label">Self-host the Web converter</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/customize_model.html"><span class="label">Port a new AI model</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Communication protocol</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/bluetooth.html"><span class="label">Bluetooth Protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/maix_protocol.html"><span class="label">Maix APP communicate protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/modbus.html"><span class="label">Modbus communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/uvc_streaming.html"><span class="label">UVC streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/webrtc_streaming.html"><span class="label">WebRTC streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/key.html"><span class="label">Key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/kit/microscope.html"><span class="label">Microscope kit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/ahrs.html"><span class="label">IMU AHRS Attitude Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/pmu.html"><span class="label">Power Management Unit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/fp5510.html"><span class="label">Voice Coil Motor FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/spilcd.html"><span class="label">SPI LCD Screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/bluetooth.html"><span class="label">Bluetooth</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Intro & Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/memory.html"><span class="label">Memory Usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>Convert an ONNX Model to a Model Usable by MaixCAM MaixPy (MUD)</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/ai_model_converter/maixcam.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <blockquote>
+<p>For MaixCAM2 model conversion, see the <a href="./maixcam2.html"  >MaixCAM2 model conversion documentation</a></p>
+</blockquote>
+<h2 id="Introduction">Introduction</h2>
+<p>A model trained on a PC cannot be used directly on MaixCAM / MaixCAM-Pro. It must first be converted to the <code>.cvimodel</code> format supported by the device, with a matching <code>.mud</code> model description file. This page uses a YOLOv8 detection model as an example and walks through the complete ONNX-to-MaixCAM conversion flow.</p>
+<h2 id="Model-File-Formats-Supported-by-MaixCAM">Model File Formats Supported by MaixCAM</h2>
+<p>MUD (Model Universal Description) is a model description file supported by MaixPy. It unifies model loading across different platforms. It is essentially a plain-text <code>ini</code> file and can be edited with a text editor.</p>
+<p>For MaixCAM / MaixCAM-Pro, the actual model file is <code>.cvimodel</code>, while the <code>.mud</code> file describes the model path, model type, preprocessing parameters, and label list. A common file pair is:</p>
+
+<pre class="language-text"><code class="language-text">yolov8n.mud
+yolov8n_int8.cvimodel
+</code></pre>
+<p>Place the <code>.mud</code> and <code>.cvimodel</code> files in the same directory to avoid path mistakes.</p>
+<h2 id="Prepare-the-ONNX-Model">Prepare the ONNX Model</h2>
+<p>The goal of this section is to obtain a <code>.onnx</code> file that <code>tpu-mlir</code> can read. ONNX usually comes from one of these sources:</p>
+<ol>
+<li><strong>Exported after training</strong>: for example, after training YOLOv8 / YOLO11 and obtaining a <code>.pt</code> file, follow the ONNX export section in <a href="../vision/customize_model_yolov8.html"  >Offline Training YOLO Models</a>. MaixCAM commonly uses <code>320x224</code>; use a fixed input size instead of dynamic input shapes.</li>
+<li><strong>Exported from another framework</strong>: for example, PyTorch or TensorFlow. Make sure the exported ONNX has a fixed input shape and can be opened in Netron.</li>
+<li><strong>Provided by a third party</strong>: you can start from the ONNX file directly, but you need to confirm that the license allows usage and that the model structure is suitable for MaixCAM.</li>
+</ol>
+<p>If <code>.mud</code> and <code>.cvimodel</code> files are already available, the model has already been converted for MaixCAM and can be deployed directly. This conversion flow is not required.</p>
+<p>Place the ONNX file in a separate working directory and name it <code>model.onnx</code>. Then open it with <a href="https://netron.app/"  target="_blank">Netron</a> and record the following information:</p>
+<table>
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Verification method</th>
+  <th>Subsequent use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Input node name</td>
+  <td>Check the input node area in Netron; a common name is <code>images</code></td>
+  <td>Input parameter for the ONNX extraction command</td>
+</tr>
+<tr>
+  <td>Input shape</td>
+  <td>Check the input node shape in Netron, for example <code>1x3x224x320</code></td>
+  <td><code>--input_shapes</code> parameter in <code>model_transform.py</code></td>
+</tr>
+<tr>
+  <td>Candidate output nodes</td>
+  <td>Check the final output nodes before post-processing</td>
+  <td>Output parameters for the ONNX extraction command and <code>--output_names</code> in <code>model_transform.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>Also confirm that the model operators are supported by <code>tpu-mlir</code>. MaixCAM uses the <code>cv181x</code> processor. If conversion reports an unsupported operator, adjust the model structure during training/export, or use a model structure already supported by MaixPy.</p>
+<h2 id="Find-Suitable-Quantization-Output-Nodes">Find Suitable Quantization Output Nodes</h2>
+<p>The goal of this section is to generate <code>export.onnx</code>, which is used by the conversion command later.</p>
+<p>Many detection models contain post-processing nodes at the end of the ONNX graph. These nodes are usually better handled by CPU code. Quantizing the full ONNX may increase quantization error or cause conversion failure, so first choose suitable output nodes and extract a smaller ONNX.</p>
+<p>Use the following table to select output nodes for common model types. For the basis of the YOLO node selection, see <a href="../vision/customize_model_yolov8.html"  >Offline Training YOLO Models - Output Node Selection</a>. For YOLOv5 and classification model trimming principles, see <a href="./onnx_export.html"  >ONNX Node Trimming Tutorial</a>.</p>
+<table>
+<thead>
+<tr>
+  <th>Model type</th>
+  <th>Recommended output node choice</th>
+  <th>Next step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>YOLOv8 detection</td>
+  <td>For MaixCAM, use <code>/model.22/dfl/conv/Conv_output_0</code> and <code>/model.22/Sigmoid_output_0</code></td>
+  <td>Copy the node names and extract ONNX</td>
+</tr>
+<tr>
+  <td>YOLO11 detection</td>
+  <td>For MaixCAM, use <code>/model.23/dfl/conv/Conv_output_0</code> and <code>/model.23/Sigmoid_output_0</code></td>
+  <td>Copy the node names and extract ONNX</td>
+</tr>
+<tr>
+  <td>YOLOv5 detection</td>
+  <td>Commonly uses three detection head outputs, such as <code>/model.24/m.0/Conv_output_0</code>, <code>/model.24/m.1/Conv_output_0</code>, <code>/model.24/m.2/Conv_output_0</code></td>
+  <td>Copy the node names and extract ONNX</td>
+</tr>
+<tr>
+  <td>pose / seg / obb models</td>
+  <td>These models have more output nodes</td>
+  <td>Use the MaixCAM scheme in <a href="../vision/customize_model_yolov8.html"  >Offline Training YOLO Models</a></td>
+</tr>
+<tr>
+  <td>Classification model</td>
+  <td>Use the final classification output; if the graph ends with <code>softmax</code>, use the output before <code>softmax</code></td>
+  <td>Record that node name</td>
+</tr>
+</tbody>
+</table>
+<p>If your node names are not exactly the same, use Netron to find nodes at the same position and with the same meaning instead of copying the names mechanically. After confirming the input node name and output node names, install the tools needed for extraction and simplification:</p>
+
+<pre class="language-bash"><code class="language-bash">pip install onnx onnxsim
+</code></pre>
+<p>For a YOLOv8 detection model, run:</p>
+
+<pre class="language-bash"><code class="language-bash">python -c &quot;import onnx,sys; onnx.utils.extract_model(sys.argv[1], sys.argv[2], [s.strip() for s in sys.argv[3].split(',')], [s.strip() for s in sys.argv[4].split(',')])&quot; model.onnx tmp_extract.onnx &quot;images&quot; &quot;/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0&quot;
+onnxsim tmp_extract.onnx export.onnx
+</code></pre>
+<p>Replace:</p>
+<ul>
+<li><code>model.onnx</code> with your original ONNX file name.</li>
+<li><code>&quot;images&quot;</code> with the input node name shown in Netron.</li>
+<li><code>&quot;/model.22/dfl/conv/Conv_output_0,...</code> with your selected output node names, separated by English commas.</li>
+</ul>
+<p>After the command succeeds, <code>export.onnx</code> is generated in the current directory. All later <code>--model_def ./export.onnx</code> commands refer to this extracted and simplified ONNX file. For a more complete extraction explanation, see <a href="./onnx_export.html"  >ONNX Node Extraction Tutorial</a>.</p>
+<h2 id="Install-the-Model-Conversion-Environment">Install the Model Conversion Environment</h2>
+<p>MaixCAM model conversion uses Sophgo <a href="https://github.com/sophgo/tpu-mlir"  target="_blank">tpu-mlir</a>. Use Docker to avoid host environment conflicts.</p>
+<p>If Docker is not installed, follow <a href="https://docs.docker.com/engine/install/ubuntu/"  target="_blank">Docker's official documentation</a>. After installation, run the following command. If it prints a version number, Docker is ready:</p>
+
+<pre class="language-shell"><code class="language-shell">docker --version
+</code></pre>
+<p>Then pull the conversion image:</p>
+
+<pre class="language-shell"><code class="language-shell">docker pull sophgo/tpuc_dev:latest
+</code></pre>
+<p>If pulling the image fails, download and load the image archive according to the official tpu-mlir instructions:</p>
+
+<pre class="language-shell"><code class="language-shell">wget https://sophon-file.sophon.cn/sophon-prod-s3/drive/24/06/14/12/sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+docker load -i sophgo-tpuc_dev-v3.2_191a433358ad.tar.gz
+</code></pre>
+<p>Then check the actual image name:</p>
+
+<pre class="language-shell"><code class="language-shell">docker images | grep tpuc
+</code></pre>
+<p>Enter your model conversion work directory and run the container:</p>
+
+<pre class="language-shell"><code class="language-shell">mkdir -p ~/maixcam_convert
+cd ~/maixcam_convert
+docker run --privileged --rm -it -v &quot;$PWD&quot;:/workspace -w /workspace sophgo/tpuc_dev:latest
+</code></pre>
+<p>If your image name is not <code>sophgo/tpuc_dev:latest</code>, replace it with the actual name shown by <code>docker images</code>. Inside the container, the current directory is <code>/workspace</code>. Put <code>export.onnx</code>, the test image, and calibration images in this directory for the following steps.</p>
+<p>Install and check <code>tpu-mlir</code> inside the container:</p>
+
+<pre class="language-shell"><code class="language-shell">pip install tpu_mlir
+model_transform.py --help
+</code></pre>
+<p>If <code>model_transform.py --help</code> prints the help message, the environment is ready.</p>
+<h2 id="Convert-the-ONNX-Model-to-cvimodel">Convert the ONNX Model to cvimodel</h2>
+<p>Before conversion, prepare these files in the working directory:</p>
+
+<pre class="language-text"><code class="language-text">.
+├── export.onnx
+├── test.jpg
+└── images/
+    ├── 0001.jpg
+    ├── 0002.jpg
+    └── ...
+</code></pre>
+<table>
+<thead>
+<tr>
+  <th>File</th>
+  <th>How to prepare it</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>export.onnx</code></td>
+  <td>Generated by extracting and simplifying ONNX in the previous step</td>
+  <td>Input model for <code>model_transform.py</code></td>
+</tr>
+<tr>
+  <td><code>test.jpg</code></td>
+  <td>Any test image that matches the model scenario</td>
+  <td>Used to compare ONNX and MLIR outputs during conversion</td>
+</tr>
+<tr>
+  <td><code>images/</code></td>
+  <td>20 to 200 representative real-scene images</td>
+  <td>Calibration dataset for INT8 quantization</td>
+</tr>
+</tbody>
+</table>
+<p>Images closer to the actual deployment scene usually produce more stable INT8 results.</p>
+<h3 id="Generate-the-MLIR-Intermediate-File">Generate the MLIR Intermediate File</h3>
+<p>For a YOLOv8 detection model, run <code>model_transform.py</code> first:</p>
+
+<pre class="language-bash"><code class="language-bash">model_transform.py \
+--model_name yolov8n \
+--model_def ./export.onnx \
+--input_shapes [[1,3,224,320]] \
+--mean &quot;0,0,0&quot; \
+--scale &quot;0.00392156862745098,0.00392156862745098,0.00392156862745098&quot; \
+--keep_aspect_ratio \
+--pixel_format rgb \
+--channel_format nchw \
+--output_names &quot;/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0&quot; \
+--test_input ./test.jpg \
+--test_result yolov8n_top_outputs.npz \
+--tolerance 0.99,0.99 \
+--mlir yolov8n.mlir
+</code></pre>
+<p>After success, you will get <code>yolov8n.mlir</code>, <code>yolov8n_in_f32.npz</code>, and <code>yolov8n_top_outputs.npz</code>. The deploy command uses these files next.</p>
+<p>Important parameters:</p>
+<table>
+<thead>
+<tr>
+  <th>Parameter</th>
+  <th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>--model_name</code></td>
+  <td>Model name used for generated intermediate files, such as <code>yolov8n</code></td>
+</tr>
+<tr>
+  <td><code>--model_def</code></td>
+  <td>The extracted ONNX, for example <code>./export.onnx</code></td>
+</tr>
+<tr>
+  <td><code>--input_shapes</code></td>
+  <td>Model input shape in <code>[N,C,H,W]</code>, for example <code>[[1,3,224,320]]</code></td>
+</tr>
+<tr>
+  <td><code>--mean</code> / <code>--scale</code></td>
+  <td>Preprocessing parameters; keep them consistent with training and export</td>
+</tr>
+<tr>
+  <td><code>--output_names</code></td>
+  <td>ONNX output node names; must match the nodes used when extracting <code>export.onnx</code></td>
+</tr>
+<tr>
+  <td><code>--test_input</code></td>
+  <td>Test image path, such as <code>./test.jpg</code></td>
+</tr>
+<tr>
+  <td><code>--test_result</code></td>
+  <td>Output comparison result used by the next step</td>
+</tr>
+<tr>
+  <td><code>--mlir</code></td>
+  <td>Generated MLIR intermediate file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Generate-an-INT8-cvimodel">Generate an INT8 cvimodel</h3>
+<p>On MaixCAM, INT8 is usually preferred because it is faster and uses less memory. First generate the calibration table:</p>
+
+<pre class="language-bash"><code class="language-bash">run_calibration.py yolov8n.mlir \
+--dataset ./images \
+--input_num 50 \
+-o yolov8n_cali_table
+</code></pre>
+<p><code>--input_num</code> is the number of images used for calibration and cannot be larger than the number of images in <code>images/</code>. Beginners can start with about 50 real-scene images.</p>
+<p>Then generate the <code>.cvimodel</code>:</p>
+
+<pre class="language-bash"><code class="language-bash">model_deploy.py \
+--mlir yolov8n.mlir \
+--quantize INT8 \
+--quant_input \
+--calibration_table yolov8n_cali_table \
+--processor cv181x \
+--test_input yolov8n_in_f32.npz \
+--test_reference yolov8n_top_outputs.npz \
+--tolerance 0.9,0.6 \
+--model yolov8n_int8.cvimodel
+</code></pre>
+<p>After successful execution, <code>yolov8n_int8.cvimodel</code> is generated in the current directory.</p>
+<p>If INT8 conversion fails, first check whether the output nodes, input shape, preprocessing parameters, and calibration images are correct. If it still cannot pass, try BF16:</p>
+
+<pre class="language-bash"><code class="language-bash">model_deploy.py \
+--mlir yolov8n.mlir \
+--quantize BF16 \
+--processor cv181x \
+--test_input yolov8n_in_f32.npz \
+--test_reference yolov8n_top_outputs.npz \
+--model yolov8n_bf16.cvimodel
+</code></pre>
+<p>BF16 usually preserves accuracy more easily, but it is often slower and uses more memory than INT8. Use it mainly for debugging or special accuracy requirements.</p>
+<h2 id="Write-the-%3Ccode%3Emud%3C/code%3E-File">Write the <code>mud</code> File</h2>
+<p>The <code>.mud</code> and <code>.cvimodel</code> files must be in the same directory. For <code>yolov8n_int8.cvimodel</code>, create <code>yolov8n.mud</code>:</p>
+
+<pre class="language-ini"><code class="language-ini">[basic]
+type = cvimodel
+model = yolov8n_int8.cvimodel
+
+[extra]
+model_type = yolov8
+input_type = rgb
+mean = 0, 0, 0
+scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+</code></pre>
+<p>Modify these fields for your own model:</p>
+<table>
+<thead>
+<tr>
+  <th>Parameter</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>model</code></td>
+  <td>The <code>.cvimodel</code> file name, such as <code>yolov8n_int8.cvimodel</code></td>
+</tr>
+<tr>
+  <td><code>model_type</code></td>
+  <td>Model type supported by MaixPy, such as <code>yolov5</code>, <code>yolov8</code>, <code>yolo11</code>, or <code>classifier</code></td>
+</tr>
+<tr>
+  <td><code>mean</code> / <code>scale</code></td>
+  <td>Preprocessing parameters; keep them consistent with training, export, and conversion</td>
+</tr>
+<tr>
+  <td><code>labels</code></td>
+  <td>Class names; the count and order must match the training dataset exactly</td>
+</tr>
+</tbody>
+</table>
+<p>For example, if you trained a digit detector with classes <code>0</code> to <code>9</code>, write:</p>
+
+<pre class="language-ini"><code class="language-ini">labels = 0,1,2,3,4,5,6,7,8,9
+</code></pre>
+<h2 id="Deploy-to-the-Device-and-Verify-Quickly">Deploy to the Device and Verify Quickly</h2>
+<p>MaixPy usually loads the <code>.mud</code> file. The <code>.mud</code> file then points to the actual <code>.cvimodel</code> file. The simplest approach is to put both files in the same directory:</p>
+
+<pre class="language-text"><code class="language-text">/root/models/yolov8n.mud
+/root/models/yolov8n_int8.cvimodel
+</code></pre>
+<p>Then first confirm that the model can be loaded:</p>
+
+<pre class="language-python"><code class="language-python">from maix import nn
+
+model = nn.NN(&quot;/root/models/yolov8n.mud&quot;)
+print(model)
+</code></pre>
+<p>If the model type is already supported by MaixPy, prefer the wrapped API. For example, for YOLO, see the <a href="../vision/yolov5.html"  >YOLO object detection documentation</a>:</p>
+
+<pre class="language-python"><code class="language-python">from maix import nn
+
+detector = nn.YOLOv8(model=&quot;/root/models/yolov8n.mud&quot;, dual_buff=True)
+</code></pre>
+<h2 id="Debug-Checklist">Debug Checklist</h2>
+<p>If the model cannot be loaded or the result is wrong, check these items first:</p>
+<ol>
+<li>Whether the <code>.mud</code> and <code>.cvimodel</code> files are in the same directory, and whether <code>model</code> in the <code>.mud</code> file uses the correct file name.</li>
+<li>Whether the path used on the device really exists, such as <code>/root/models/yolov8n.mud</code>.</li>
+<li>Whether <code>labels</code> exactly matches the class count and class order used during training.</li>
+<li>Whether <code>model_type</code> is supported by MaixPy, such as <code>yolov5</code>, <code>yolov8</code>, <code>yolo11</code>, or <code>classifier</code>.</li>
+<li>Whether input resolution, <code>mean</code>, <code>scale</code>, and RGB/BGR order match training, export, and conversion settings.</li>
+<li>Whether ONNX output nodes, the extraction command, and <code>--output_names</code> in <code>model_transform.py</code> are exactly the same.</li>
+<li>If you are not sure whether the problem is the model or your code, test with a MaixHub model or a built-in model first. After an official model runs correctly, debug your own model.</li>
+</ol>
+<p>After these basic checks pass, continue with the specific model documentation or conversion workflow.</p>
+<h2 id="Write-Post-processing-Code">Write Post-processing Code</h2>
+<p>If the model type is already supported by MaixPy, such as YOLO or a classifier, you usually do not need to write post-processing manually. Use the corresponding MaixPy API directly.</p>
+<p>If MaixPy does not yet wrap your model type, implement post-processing according to the model outputs:</p>
+<ul>
+<li><strong>Quick verification</strong>: use <code>maix.nn.NN</code> to load the <code>.mud</code> file, call <code>forward</code> or <code>forward_image</code>, and write post-processing in Python. See <a href="../pro/customize_model.html"  >Porting a New Model</a> for the full workflow.</li>
+<li><strong>Formal integration</strong>: add a model decoding class in <code>MaixCDK</code> so both <code>MaixCDK</code> and <code>MaixPy</code> can use it with better performance. You can refer to the <a href="https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp"  target="_blank">YOLOv5 source code</a>, add the corresponding <code>hpp</code> file, complete the <code>@maixpy</code> annotations, and rebuild MaixPy.</li>
+</ul>
+<p>After adding support for a new model, you can submit a Pull Request to the main <code>MaixPy</code> repository or share your model on <a href="https://maixhub.com/share"  target="_blank">MaixHub</a>.</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/ai_model_converter/maixcam2.html">
+                            <span class="icon"></span>
+                            <span class="label">Convert ONNX model for MaixCAM2</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/ai_model_converter/onnx_export.html">
+                            <span class="label">Trim ONNX model output nodes</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

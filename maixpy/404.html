@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html lang="zh"  class=" md_page ">
+
+<head>
+     
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="generator" content="teedoc">
+        <meta name="theme" content="teedoc-plugin-theme-default">
+    
+     
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser"><script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/maixpy/static/js/theme_default/pre_main.js"></script><link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/><script src="/maixpy/static/js/theme_default/jquery.min.js"></script><script src="/maixpy/static/js/theme_default/split.js"></script><link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/><link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+    
+    
+        <title>MaixPy</title>
+    
+    
+<script>
+  function getQueryVariable(variable)
+  {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+              var pair = vars[i].split("=");
+              if(pair[0] == variable){return pair[1];}
+      }
+      return(false);
+  }
+  var jump = getQueryVariable("jump");
+  var from = getQueryVariable("from");
+  var pageLang = a=document.getElementsByTagName("html")[0].lang.toLowerCase(); // en -> zh-cn
+  var browerLang =(navigator.language || navigator.browserLanguage).toLowerCase();    // zh-cn
+  if(!from){
+    from = document.referrer;
+  }
+  if(pageLang && browerLang!=pageLang){
+    var idx = browerLang.indexOf("-");
+    if(!jump){
+      if(idx > 0){ // zh-cn, jump to /zh_CN/404.html?jump=1
+        var url = "/" + browerLang.substr(0, idx) + "_" + browerLang.substr(idx + 1).toUpperCase() + "/404.html?jump=1&from="+from;
+        window.location.href=url;
+      }else{       // /zh/404.html?jump=5
+        var url = "/" + browerLang + "/404.html?jump=5&from="+from;
+        window.location.href=url;
+      }
+    }else if(jump == "1"){ // /zh-CN/404.html?jump=2
+      var url = "/" + browerLang.substr(0, idx) + "-" + browerLang.substr(idx + 1).toUpperCase() + "/404.html?jump=2&from="+from;
+      window.location.href=url;
+    }else if(jump == "2"){ // /zh-cn/404.html?jump=3
+      var url = "/" + browerLang.substr(0, idx) + "-" + browerLang.substr(idx + 1).toLowerCase() + "/404.html?jump=3&from="+from;
+      window.location.href=url;
+    }else if(jump == "3"){ // /zh_cn/404.html?jump=4
+      var url = "/" + browerLang.substr(0, idx) + "_" + browerLang.substr(idx + 1).toLowerCase() + "/404.html?jump=4&from="+from;
+      window.location.href=url;
+    }else if(jump == "4"){ // /zh/404.html?jump=5
+      var url = "/" + browerLang.substr(0, idx) + "/404.html?jump=5&from="+from;
+      window.location.href=url;
+    }
+  }
+</script>
+
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": false, "update": [], "ts": 0, "author": "", "brief": "", "cover": "", "layout": "404.html"}</script>
+</head>
+<body class="type_page">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class=""><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/en/404.html">English</a></li>
+<li class="active"><a  href="/maixpy/404.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="page_wrapper">
+        <div id="page_content">
+            <div>
+                
+  
+    <h1 style="width: 100%; text-align: center;">404 页面未找到</h1>
+  
+  
+    
+  
+  
+  <div style="text-align:center;padding:1em;">
+      <a class="btn" id="previous_btn">返回上一页</a> <a class="btn" href="/maixpy/">首页</a>
+  </div>
+  <script>
+    var btn = document.getElementById("previous_btn");
+    btn.onclick = function(){
+      if(from.indexOf("/404.html") >= 0){
+        from = "/";
+      }
+      window.location.href=from;
+    };
+  </script>
+  
+
+            </div>
+        </div>
+        <a id="to_top" href="#"></a>
+        <div id="page_footer">
+            <div id="footer">
+                
+                <div id="footer_top">
+                    <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://twitter.com/SipeedIO">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+                </div>
+                <div id="footer_bottom">
+                    <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+    
+</body>
+</html>
