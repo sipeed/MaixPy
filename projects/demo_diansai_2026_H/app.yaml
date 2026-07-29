@@ -1,0 +1,20 @@
+id: diansai2026_h
+name: 2026 diansai h
+name[zh]: 2026年电赛 H题
+version: 0.1.0
+icon: app.png
+author: liuargo
+desc: Detect and display the calibrated position of a steel ball.
+desc[zh]: 检测并显示钢珠在摆杆上的标定位置。
+files:
+  - models/yolo26_all_maixcam_yolo26_480_160/yolo26_all_tensor_info.txt
+  - models/yolo26_all_maixcam_yolo26_480_160/yolo26_all.cvimodel
+  - models/yolo26_all_maixcam_yolo26_480_160/yolo26_all.mud
+  - models/yolo26_all_maixcam2_yolo26_640_160/yolo26_all_npu.axmodel
+  - models/yolo26_all_maixcam2_yolo26_640_160/yolo26_all_vnpu.axmodel
+  - models/yolo26_all_maixcam2_yolo26_640_160/yolo26_all.mud
+  - app.yaml
+  - ball_position.py
+  - main.py
+  - README.md
+  - app.png
