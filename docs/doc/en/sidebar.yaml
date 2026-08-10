@@ -89,6 +89,8 @@ items:
         label: Hand geature classifier
     -   file: vision/depth_anything.md
         label: Depth-Anything Monocular Depth Estimation
+    -   file: vision/yolo26-depth.md
+        label: Monocular Depth Estimation with YOLO26-depth
     -   file: vision/yolo_world.md
         label: YOLO-World deten any object
     -   file: vision/maixhub_train.md
