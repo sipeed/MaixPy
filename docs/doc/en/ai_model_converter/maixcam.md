@@ -8,6 +8,10 @@ title: Convert an ONNX Model to a Model Usable by MaixCAM MaixPy (MUD)
 
 A model trained on a PC cannot be used directly on MaixCAM / MaixCAM-Pro. It must first be converted to the `.cvimodel` format supported by the device, with a matching `.mud` model description file. This page uses a YOLOv8 detection model as an example and walks through the complete ONNX-to-MaixCAM conversion flow.
 
+This page is intended for readers who are familiar with Python and Docker and can inspect ONNX inputs and outputs with Netron. The complete workflow uses only a YOLOv8 detection model as its example.
+
+Note: If you run into a conversion problem and ask for help in a QQ group, on the forum, or on GitHub, do not merely say “Why did the conversion fail?” and attach a screenshot of the error. Include the model type, input size, number of classes, ONNX input and output nodes and their shapes, the complete conversion command or configuration file, the conversion tool and MaixPy versions, and the complete log from the start of conversion through the error. This information helps others diagnose the problem accurately.
+
 ## Model File Formats Supported by MaixCAM
 
 MUD (Model Universal Description) is a model description file supported by MaixPy. It unifies model loading across different platforms. It is essentially a plain-text `ini` file and can be edited with a text editor.
@@ -57,7 +61,21 @@ Use the following table to select output nodes for common model types. For the b
 | pose / seg / obb models | These models have more output nodes | Use the MaixCAM scheme in [Offline Training YOLO Models](../vision/customize_model_yolov8.md) |
 | Classification model | Use the final classification output; if the graph ends with `softmax`, use the output before `softmax` | Record that node name |
 
-If your node names are not exactly the same, use Netron to find nodes at the same position and with the same meaning instead of copying the names mechanically. After confirming the input node name and output node names, install the tools needed for extraction and simplification:
+The node names in the table come from commonly used Ultralytics export versions. They are only navigation hints and cannot replace shape validation. Layer numbers may change between model versions, so use Netron to find nodes at equivalent positions and with equivalent semantics.
+
+For the YOLOv8 Detect output scheme used in this page, the number of candidate boxes for an `H×W` input is:
+
+```text
+N = (H/8 × W/8) + (H/16 × W/16) + (H/32 × W/32)
+```
+
+For example, with a `320×224` input, `N = 1470`. For an 80-class model, the two outputs represent four bounding-box regression values and 80 class scores, so their shapes are `[1,4,1470]` and `[1,80,1470]`.
+
+The 80 classification channels come from the 80 classes in the COCO reference model; for a custom model, this dimension must instead be its own class count `C`. The four regression values are the DFL-processed distances from each candidate location to the left, top, right, and bottom sides of its bounding box.
+
+Do not proceed with conversion if the node names look similar but the shapes, number of outputs, or semantics do not match.
+
+After confirming the input node name and output node names, install the tools needed for extraction and simplification:
 
 ```bash
 pip install onnx onnxsim
@@ -297,6 +315,8 @@ If the model cannot be loaded or the result is wrong, check these items first:
 5. Whether input resolution, `mean`, `scale`, and RGB/BGR order match training, export, and conversion settings.
 6. Whether ONNX output nodes, the extraction command, and `--output_names` in `model_transform.py` are exactly the same.
 7. If you are not sure whether the problem is the model or your code, test with a MaixHub model or a built-in model first. After an official model runs correctly, debug your own model.
+
+When asking for help, provide the ONNX export command, model task and class count, input and output names and shapes, complete conversion command, tool versions, MUD file, MaixPy / system version, and complete error log.
 
 After these basic checks pass, continue with the specific model documentation or conversion workflow.
 
