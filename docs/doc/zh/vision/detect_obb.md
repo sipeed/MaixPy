@@ -42,7 +42,7 @@ while not app.need_exit():
 
 
 默认的模型是 YOLO11 官方的`15`类模型，分类标签如下：
-```python
+```text
 plane, ship, storage tank, baseball diamond, tennis court, basketball court, ground track field, harbor, bridge, large vehicle, small vehicle, helicopter, roundabout, soccer ball field, swimming pool
 ```
 在`/root/models/yolo11n_obb.mud`文件中也能看到。
@@ -60,13 +60,10 @@ plane, ship, storage tank, baseball diamond, tennis court, basketball court, gro
 
 ### 导出模型给 MaixCAM 使用
 
-根据 [YOLO11/YOLOv8 自定义模型](./customize_model_yolov8.md) 即可将 ONNX 模型转换为 MaixCAM 可以使用的 MUD 模型。
+先按[在电脑训练 YOLO 检测模型](./customize_model_yolo.md)准备数据并完成训练。旋转框暂不支持网页转换，需要继续使用对应板子的手动转换文档，将 ONNX 转为 MaixCAM 可以使用的 MUD 模型。
 注意：转换时需要注意输出层的输出名不要弄错。
 
 ### 训练自己的 OBB 模型
 
 根据[YOLO11 官方训练文档](https://docs.ultralytics.com/datasets/obb/dota-v2/) 准备自己的数据集，然后进行训练即可。
-
-
-
 

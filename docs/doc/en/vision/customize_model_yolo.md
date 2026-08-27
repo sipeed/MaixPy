@@ -1,246 +1,122 @@
 ---
-title: Offline Training YOLO Models for MaixCAM MaixPy, Custom Object Detection and Keypoint Detection
-update:
-  - date: 2024-06-21
-    version: v1.0
-    author: neucrack
-    content: Initial documentation
-  - date: 2024-10-10
-    version: v2.0
-    author: neucrack
-    content: Added YOLO11 support
-  - date: 2025-07-01
-    version: v3.0
-    author: neucrack
-    content: Added MaixCAM2 support
-  - date: 2026-02-04
-    version: v4.0
-    author: Tao
-    content: Added YOLO26 support
+title: Train a YOLO Detection Model on a Computer
 ---
 
-## Introduction
+This guide continues with the apple example. You will train YOLO11 on a computer, get `best.pt`, and export `best.onnx` for the board converter.
 
-By default, the official firmware provides detection for 80 object classes. If these do not meet your needs, you can train your own object detection model by setting up a training environment on your own computer or server.
+For the easiest first project, use [online training on MaixHub](./maixhub_train.md). Computer training requires Python, but it keeps your data on your computer and gives you control over training.
 
-YOLOv8 / YOLO11 not only support object detection, but also `yolov8-pose` / `YOLO11-pose` for keypoint detection. In addition to the official human pose keypoints, you can also create your own keypoint dataset to train detection for specific objects and their keypoints.
+## Prepare the dataset first
 
-Since YOLOv8 and YOLO11 mainly differ in their internal network structure, while preprocessing and postprocessing remain the same, the training and conversion steps for YOLOv8 and YOLO11 are identical. The only difference is the output node names.
+Follow [Prepare a Model and Dataset](../pro/datasets.md) to arrange the pictures, labels, and `data.yaml`. The standard folder layout is explained there, so this page starts with installing the training tool.
 
-## Prerequisites
+## Install the training tool
 
-This article explains how to perform custom training, but assumes you already have some basic knowledge. If not, please learn the following first:
+YOLO is a family of object-detection models. This guide uses the training tool provided by Ultralytics.
 
-* This article does not explain how to install the training environment. Please search for and install a PyTorch training environment yourself.
-* This article does not explain basic machine learning concepts or Linux fundamentals.
-* The environment described in this article is based on a Linux desktop system. For Windows, please use a WSL2 environment, which supports X11. Please search for related information yourself.
+Install Python 3 from the [Python website](https://www.python.org/downloads/); Python 3.11 is recommended. On Windows, select **Add Python to PATH** during installation so the terminal can find it.
 
-## Workflow and Goal of This Article
-
-This is a workflow that requires zero algorithm background. As long as you know how to use Docker and how to annotate data, you can get your custom YOLO model running perfectly on MaixCAM/MaixCAM2 within 12 hours after receiving the device.
-
-To use our model in MaixPy (MaixCAM), the following process is required:
-
-* Set up the training environment. This article skips that part; please search for how to set up a PyTorch training environment.
-* Clone the [YOLO11/YOLOv8/YOLO26](https://github.com/ultralytics/ultralytics) source code locally.
-* Prepare the dataset and convert it into the format required by the YOLO11 / YOLOv8 / YOLO26 project.
-* Train the model and obtain an `onnx` model file, which is also the final output of this article.
-* Convert the `onnx` model into a `MUD` file supported by MaixPy. This process is described in detail in the model conversion articles:
-  * [MaixCAM Model Conversion](../ai_model_converter/maixcam.md)
-  * [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md)
-* Use MaixPy to load and run the model.
-
-## Install Docker
-
-Refer to the [official Docker installation documentation](https://docs.docker.com/engine/install/ubuntu/) for installation.
-
-For example:
+Open PowerShell on Windows, or Terminal on macOS or Linux. Check Python:
 
 ```shell
-# Install basic software dependencies required by docker
-sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-# Add official repository
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-# Install docker
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+python --version
 ```
 
-Next, install the environment for exporting ONNX nodes.
-
-## Where to Find Datasets for Training
-
-See [Where to Find Datasets](../pro/datasets.md)
-
-## Prepare the Model Conversion Environment
-
-> Please reserve 100 GB of disk space for Docker, otherwise the conversion process may fail.  
-> Note: Different versions of ultralytics export different nodes from the pt model file. Changing the version arbitrarily may cause the postprocessing code to mismatch the model outputs, making the model unusable. Therefore, please strictly use the version specified in the Dockerfile for exporting.
-
-### Create the ONNX Export Environment
-
-```Dockerfile
-# Build based on Python 3.10 slim image
-FROM python:3.10-slim
-
-# Set system and Python environment variables
-ENV DEBIAN_FRONTEND=noninteractive \
-    PIP_NO_CACHE_DIR=1 \
-    PYTHONUNBUFFERED=1 \
-    MPLCONFIGDIR=/tmp/matplotlib
-
-# Set container working directory to /app
-WORKDIR /app
-
-# Update apt source, install system dependencies and clean cache to reduce image size
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    wget \
-    curl \
-    libglib2.0-0 \
-    libsm6 \
-    libxrender1 \
-    libxext6 \
-    libgl1 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Upgrade pip and install CPU version of PyTorch related libraries
-RUN pip install --upgrade pip && \
-    pip install \
-    torch torchvision torchaudio \
-    --index-url https://download.pytorch.org/whl/cpu
-
-# Install specified version of ultralytics framework and dependencies
-RUN pip install \
-    ultralytics==8.3.240 \
-    ultralytics-thop==2.0.18
-
-# Clone YOLOv5 source code and install project requirements
-RUN git clone https://github.com/ultralytics/yolov5.git &&  \
-    pip install -r /app/yolov5/requirements.txt 
-
-# Run environment inspection check
-RUN yolo checks
-
-# Switch working directory to /workspace
-WORKDIR /workspace
-
-# Default startup command for container is bash shell
-CMD ["/bin/bash"]
-```
-
-> Create a new `Dockerfile` in an empty folder, then run `docker build -t onnx-export .` to build the image.  
-> Note: The `Dockerfile` file has no extension.
-
-## Reference Articles
-
-Since this is a fairly general workflow, this article only provides an overview. For details, please refer to the official **[YOLO26 / YOLO11 / YOLOv8 code and documentation](https://github.com/ultralytics/ultralytics)** (**recommended**), and search for related training tutorials. The final goal is to export an ONNX file.
-
-If you find any good articles worth recommending, feel free to update this document and submit a PR.
-
-## Export the ONNX Model
-
-Run the Docker environment:
+If you see `Python 3...`, install the training tool. If `python` is not found, use `python3` in the commands instead.
 
 ```shell
-docker run -it --rm  -v ./:/workspace   -w /workspace   --network=host   onnx-export:latest
+python -m pip install ultralytics==8.4.104
 ```
 
-> For `yolov8n` / `yolo11n` / `yolo26`, use the `yolo` command line to export:  
-> `yolo export model=./yolo11n.pt format=onnx`  
-> Please replace `./yolo11n.pt` with your own trained pt file.
+Check the installation:
+
+```shell
+yolo checks
+```
+
+If the terminal prints the Python and environment information, training can start. If `yolo` is not found, close and reopen the terminal, then try again.
+
+## Run 3 rounds to check the data
+
+This command trains for only three rounds. Its purpose is to find bad paths, images, or labels quickly:
+
+```shell
+yolo detect train model=yolo11n.pt data=/full/path/to/apple_dataset/data.yaml epochs=3 imgsz=640 project=runs/apple name=check exist_ok=True
+```
+
+`yolo11n.pt` is a small starter model. `epochs=3` means the tool reads the training set three times. `imgsz=640` means it processes the pictures at 640 pixels for training. Keep these values for the first check.
+
+If the command finishes and creates `runs/apple/check`, the dataset format is usable. The first run downloads `yolo11n.pt`, so the computer must be online.
+
+## Train the model
+
+Now train for 100 rounds:
+
+```shell
+yolo detect train model=yolo11n.pt data=/full/path/to/apple_dataset/data.yaml epochs=100 imgsz=640 project=runs/apple name=model exist_ok=True
+```
+
+When training ends, use:
+
+```text
+runs/apple/model/weights/best.pt
+```
+
+`best.pt` comes from the round with the best validation result, which may not be the final round.
+
+## Test with a new picture
+
+Choose an apple picture that was not used for training:
+
+```shell
+yolo detect predict model=runs/apple/model/weights/best.pt source=/path/to/test.jpg save=True
+```
+
+The terminal prints where it saved the result. Open that image and check the label and box.
+
+If training pictures work but new ones do not, add pictures with different apples, backgrounds, and lighting. More training rounds usually cannot replace missing variety.
+
+## Export ONNX
+
+The board converter cannot use `.pt` directly, so export it as `.onnx`.
+
+> **Compatibility note for this example**
 >
-> For `yolov5s` (the model used by MaixHub online training), use:  
-> `python /app/yolov5/export.py --weights ./yolov5s.pt --include onnx --img 640 480`  
-> Please replace `./yolov5s.pt` with your own trained pt file.
+> This YOLO11 route uses `ultralytics==8.4.104`. Keep `opset=17` and `dynamic=False` in the commands below. Other models or conversion routes may require different versions and settings; follow their own documentation instead of copying these values.
 
-Here, the input resolution is specified again. The model was trained with `640x640`, but we redefine the resolution to improve runtime speed. We use `640x480` here because its aspect ratio is closer to the MaixCAM2 screen, making display more convenient. For MaixCAM, you can use `320x224`. You can choose the resolution according to your needs.
+For MaixCAM and MaixCAM Pro, a common size is `320x224`:
 
-## Convert to a Model and MUD File Supported by MaixCAM
-
-MaixPy/MaixCDK currently support YOLO26 / YOLOv8 / YOLO11 detection, as well as YOLOv8-pose / YOLO11-pose keypoint detection, YOLOv8-seg / YOLO11-seg segmentation, and YOLOv8-obb / YOLO11-obb rotated bounding box detection (2026.2.4).
-
-### Output Node Selection
-
-Pay attention to selecting the correct output nodes (**note that your model values may not be exactly the same; refer to the figures below and find the corresponding nodes**):
-
-For YOLO11 / YOLOv8, MaixPy supports two output node selection schemes, and you can choose according to the hardware platform.
-
-After determining the output nodes, you need to trim the ONNX model. For details, see [ONNX Model Node Trimming Tutorial].
-
-| Model and Features | Option 1 | Option 2 |
-| -- | --- | --- |
-| Applicable Devices | **MaixCAM2** (recommended)<br>MaixCAM (slightly slower than Option 2) | **MaixCAM** (recommended) |
-| Features | More computation is handled by CPU postprocessing, making quantization less likely to fail; speed is slightly slower than Option 2 | More computation is handled by the NPU and participates in quantization |
-| Notes | None | Quantization fails on MaixCAM2 in actual tests |
-| Detection YOLOv5s | `/model.24/m.0/Conv_output_0`<br>`/model.24/m.1/Conv_output_0`<br>`/model.24/m.2/Conv_output_0` | Same as MaixCAM2 |
-| Detection YOLOv8 | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0` | `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0` |
-| Detection YOLO11 | `/model.23/Concat_output_0`<br>`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0` |
-| Keypoints YOLOv8-pose | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0` | `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0` |
-| Keypoints YOLO11-pose | `/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0` |
-| Segmentation YOLOv8-seg | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0`<br>`output1` | `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_output_0`<br>`/model.22/Concat_output_0`<br>`output1` |
-| Segmentation YOLO11-seg | `/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0`<br>`output1` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_output_0`<br>`/model.23/Concat_output_0`<br>`output1` |
-| Rotated Box YOLOv8-obb | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0`<br>`/model.22/Concat_output_0` | `/model.22/dfl/conv/Conv_output_0`<br>`/model.22/Sigmoid_1_output_0`<br>`/model.22/Sigmoid_output_0` |
-| Rotated Box YOLO11-obb | `/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0`<br>`/model.23/Concat_3_output_0`<br>`/model.23/Concat_output_0` | `/model.23/dfl/conv/Conv_output_0`<br>`/model.23/Sigmoid_1_output_0`<br>`/model.23/Sigmoid_output_0` |
-| Detection YOLO26 | `/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv_output_0 /model.23/one2one_cv2.1/one2one_cv2.1.2/Conv_output_0 /model.23/one2one_cv2.2/one2one_cv2.2.2/Conv_output_0 /model.23/one2one_cv3.0/one2one_cv3.0.2/Conv_output_0 /model.23/one2one_cv3.1/one2one_cv3.1.2/Conv_output_0 /model.23/one2one_cv3.2/one2one_cv3.2.2/Conv_output_0` | Same as MaixCAM2 |
-| YOLOv8/YOLO11 detection output node diagram | ![](../../assets/yolo11_detect_nodes.png) | ![](../../assets/yolov8_out.jpg) |
-| Extra output nodes for YOLOv8/YOLO11 pose | ![](../../assets/yolo11_pose_node.png) | See the pose branch in the figure above |
-| Extra output nodes for YOLOv8/YOLO11 seg | ![](../../assets/yolo11_seg_node.png) | ![](../../assets/yolo11_seg_node.png) |
-| Extra output nodes for YOLOv8/YOLO11 OBB | ![](../../assets/yolo11_obb_node.png) | ![](../../assets/yolo11_out_obb.jpg) |
-| Detection YOLO26 output node diagram | ![](../../assets/yolo26_out.png) | Same as MaixCAM2 |
-
-### Tutorial for Converting to NPU-Specific Model Files
-
-Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) and [MaixCAM2 Model Conversion](../ai_model_converter/maixcam2.md) to convert the model.
-
-### Modify the MUD File
-
-For object detection, the MUD file is as follows (`model_type` should be changed to `yolo11` for YOLO11 and to `yolo26` for YOLO26):
-
-MaixCAM/MaixCAM-Pro:
-```ini
-[basic]
-type = cvimodel
-model = yolov8n.cvimodel
-
-[extra]
-model_type = yolov8
-input_type = rgb
-mean = 0, 0, 0
-scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
+```shell
+yolo export model=runs/apple/model/weights/best.pt format=onnx imgsz=224,320 opset=17 simplify=True dynamic=False
 ```
 
-MaixCAM2:
-```ini
-[basic]
-type = axmodel
-model_npu = yolo11n_640x480_npu.axmodel
-model_vnpu = yolo11n_640x480_vnpu.axmodel
+For MaixCAM2, start with `320x240`:
 
-[extra]
-model_type = yolo11
-type=detector
-input_type = rgb
-labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove, skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, couch, potted plant, bed, dining table, toilet, tv, laptop, mouse, remote, keyboard, cell phone, microwave, oven, toaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush
-
-input_cache = true
-output_cache = true
-input_cache_flush = false
-output_cache_inval = true
-
-mean = 0,0,0
-scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
+```shell
+yolo export model=runs/apple/model/weights/best.pt format=onnx imgsz=240,320 opset=17 simplify=True dynamic=False
 ```
 
-Replace `labels` with the classes you trained on.
+For smaller objects, MaixCAM2 can use `640x480`, but it runs more slowly:
 
-For keypoint detection (`yolov8-pose`), change `type=pose`.  
-For segmentation (`yolov8-seg`), change `type=seg`.  
-For oriented bounding boxes (`yolov8-obb`), change `type=obb`.
+```shell
+yolo export model=runs/apple/model/weights/best.pt format=onnx imgsz=480,640 opset=17 simplify=True dynamic=False
+```
 
-## Upload and Share on MaixHub
+The size order in these commands is **height,width**. A successful export creates `best.onnx` next to `best.pt`.
 
-Go to the [MaixHub Model Zoo](https://maixhub.com/model/zoo?platform=maixcam) to upload and share your model. It is recommended to provide several resolutions for others to choose from.
+`opset` is the ONNX rule version; keep it at `17` for this route. `dynamic=False` fixes the input size, and `simplify=True` simplifies the model structure. Keep all three settings.
+
+## Convert and run on the board
+
+1. Use [Convert a YOLO Model Online](../ai_model_converter/online_converter.md) to convert `best.onnx` into a board model package.
+2. Follow [Upload the model](../ai_model_converter/ai_model_deploy.md#upload-the-model) and test it.
+
+When the camera image shows the correct label and box, training, conversion, and board deployment are complete. You may then [share it on MaixHub](../ai_model_converter/ai_model_deploy.md#optional-share-on-maixhub), but sharing is not required.
+
+## Other YOLO versions
+
+To try YOLO26 or YOLOv8, replace the starter model with `yolo26n.pt` or `yolov8n.pt`. Check the documentation for that model before reusing version or export settings.
+
+The old YOLOv5 from the `ultralytics/yolov5` repository is different from the newer YOLOv5u and cannot use this simple web-conversion route. For an old project, use [manual conversion for MaixCAM](../ai_model_converter/maixcam.md) or [MaixCAM2](../ai_model_converter/maixcam2.md). YOLO11 is recommended for a new project.
+
+Pose, segmentation, and oriented boxes use different annotation formats and are not supported by this online conversion route. See [Body Keypoints](./body_key_points.md), [Semantic Segmentation](./segmentation.md), or [Oriented Bounding Boxes](./detect_obb.md).

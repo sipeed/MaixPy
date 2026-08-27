@@ -1,39 +1,122 @@
 ---
-title: MaixCAM MaixPy 训练模型哪里能找到模型和数据集
+title: 准备模型和数据集
 ---
 
-## 哪里找 MaixPy MaixCAM 直接能使用的模型
+想让板子识别苹果，有两条路：直接使用别人做好的模型，或者准备自己的图片并训练。先选一条，不需要两边都做。
 
-到[MaixHub 模型库](https://maixhub.com/model/zoo) 筛选对应的硬件平台即可找到。
+## 不训练：直接使用现成模型
 
-如果只是想验证功能，先用系统内置模型最省时间。设备系统一般会在 `/root/models` 目录内置常用模型，不需要额外下载，直接在代码里引用对应的 `.mud` 文件即可。
+如果只是想快速体验，按下面的顺序找：
 
-如果需要更多模型，可以进入 [MaixHub 模型库](https://maixhub.com/model/zoo?platform=maixcam2)，筛选 MaixCAM2 平台，下载模型包。下载后重点确认文件里是否包含：
+1. 在板子的 `/root/models` 中查看系统自带的模型。
+2. 到 [MaixHub 模型库](https://maixhub.com/model/zoo)，先选择自己的板子型号，再找需要的模型。
+3. 下载前确认说明中明确写着支持你的板子。
 
-- `.mud`：模型描述文件，MaixPy 代码通常加载这个文件。
-- `.axmodel`：实际运行在 MaixCAM2 上的模型文件。
-- 示例代码或说明文件：如果模型库页面提供了示例，优先按示例运行。
+找到后直接按[模型获取、上板和运行](../ai_model_converter/ai_model_deploy.md#把模型传到板子)操作，不需要再准备数据集或训练。
 
-## 数据集有什么用
+如果没有找到合适的模型，再继续下面的“自己训练”路线。下载别人制作的模型时，也要查看许可证。许可证就是作者写明的使用、修改和分享规则。
 
-可以先到[MaixHub 模型库](https://maixhub.com/model/zoo)看看有没有你需要的模型，如果没有，你可以自己训练模型，训练模型需要数据集，数据集就是用来训练模型的。
+## 自己训练：准备初始模型
 
-## 转换已有的模型给 MaixCAM MaixPy 使用
+训练不是从空白开始，需要先拿一个已经学过通用物体的基础模型作为起点。本文用体积较小的 YOLO11 模型 `yolo11n.pt`，适合第一次练习。
 
-MaixPy 默认支持了一些模型框架，比如 YOLOv8/YOLO11/Mobilenet 等等，所以只要是这些框架训练的模型，只需要导出成 ONNX 格式再转换为 MaixCAM 支持的格式后 MaixPy MaixCAM 就可以使用了。
+不用另外寻找下载地址：开始训练时，训练工具会自动下载 `yolo11n.pt`。电脑需要联网，并在命令中保持这个文件名即可。如果自动下载失败，也可以从 [Ultralytics 模型页面](https://docs.ultralytics.com/models/yolo11/)手动下载，再把文件路径填到训练命令的 `model=` 后面。
 
-一些常见的数据，不自己训练，网上可以找到开源分享的训练好的预训练模型，比如 YOLO11/YOLOv8/YOLOv5 就会有很多，比如[这里](https://github.com/Eric-Canas/qrdet/releases)可以下载到检测二维码的 YOLOv8 与训练模型(qrdet-*.pt)，直接拿来导出成 ONNX 格式再转换为 [MaixCAM 支持的格式](https://maixhub.com/model/zoo/480)即可。
+这里的 `yolo11n.pt` 只是电脑训练用的起点，不是能直接放进板子的模型。训练完成后，还要导出并转换，具体步骤见[在电脑训练 YOLO 检测模型](../vision/customize_model_yolo.md)。
 
-转换方法看[MaixCAM 模型转换文档](../ai_model_converter/maixcam.md)。
+## 自己训练：准备数据集
 
-## 哪里找数据集
+数据集就是“训练要看的图片”和“每张图片的正确答案”。对于目标检测，正确答案是图片中物体的名称和位置。
 
-* 方法一：去算法官方官方找数据集。
-比如对于 YOLO11/YOLOv8， [YOLO 官方文档-数据集](https://docs.ultralytics.com/datasets/) 中可以看到有很多开源数据集，按照其文档使用一行命令就能快速训练。同样导出 ONNX 格式再转换为 MaixCAM 支持的格式即可。
-* 方法二：去数据集网站获取。
-比如 [Kaggle](https://www.kaggle.com/datasets/riondsilva21/hand-keypoint-dataset-26k)、 [roboflow](https://universe.roboflow.com/)等等。
-* 方法三：找开源数据集制作成模型训练脚本（比如 YOLO）支持的格式。
+### 第一步：拍摄图片
 
+最好用最终运行模型的板子拍照。这样训练时看到的画面，更接近板子以后真正看到的画面。
 
+以苹果检测为例，不要只拍白桌子中间的一个红苹果，还要拍：
 
+- 不同品种、大小和颜色的苹果。
+- 苹果在画面边缘、远处或被挡住一部分的情况。
+- 不同桌面、房间和光线。
+- 没有苹果的背景，以及容易被认错的红色物体。
 
+先用一小批图片跑通流程，再根据识别失败的画面补图片。图片是否接近真实使用场景，比盲目追求数量更重要。
+
+### 第二步：给图片标注
+
+画框也叫“标注”，就是用矩形框出图片里的每个目标，并写上类别名称。
+
+可以选择这些免费工具：
+
+- [MaixHub 在线训练](../vision/maixhub_train.md)：直接在网页中画框，适合想少安装软件的新手。
+- [Make Sense](https://www.makesense.ai/)：打开网页就能用，可以导出 YOLO 格式。
+- [AnyLabeling](https://github.com/vietanhdev/anylabeling)：免费的开源桌面工具，支持画框和辅助标注。
+- [CVAT](https://app.cvat.ai/)：有免费网页版，适合图片较多或多人一起标注的项目。
+
+在电脑上训练时，导出格式选择 **Ultralytics YOLO Detection**。这是训练工具约定的一种文件摆放方式，不是另一种模型。
+
+标注时注意：
+
+- 方框尽量贴近目标边缘，不要带入太多背景。
+- 一张图片中有三个苹果，就画三个框。
+- 同一种目标始终使用同一个名称，例如一直用 `apple`。
+- 图片中出现了要识别的目标，就必须标出来，不能漏掉。
+
+### 第三步：分成训练集和验证集
+
+把大约 80% 的图片放进训练集，剩下约 20% 放进验证集：
+
+- **训练集**：模型用这些图片学习。
+- **验证集**：训练过程中用这些没参与学习的图片检查效果。
+
+同一张图片不能放进两边，几乎相同的连拍也不要拆到两边。验证集尽量使用板子在真实环境中拍摄的图片。
+
+### 第四步：按标准目录摆放
+
+整理后的数据集应是下面的样子。这里最重要的是 `train` 和 `val` 的位置：
+
+```text
+apple_dataset/
+├── images/
+│   ├── train/       # 训练图片
+│   └── val/         # 验证图片
+├── labels/
+│   ├── train/       # 训练图片对应的标注
+│   └── val/         # 验证图片对应的标注
+└── data.yaml
+```
+
+标注工具会为每张图片生成一个同名的 `.txt` 文件。例如：
+
+```text
+images/train/apple_001.jpg
+labels/train/apple_001.txt
+```
+
+图片和标注必须同名，并分别放在对应的 `images` 和 `labels` 文件夹中。没有任何目标的背景图片，也放在 `images` 中，并为它准备一个同名的空 `.txt` 文件。
+
+最后创建 `data.yaml`，告诉训练工具图片放在哪里、类别叫什么：
+
+```yaml
+path: /你的完整路径/apple_dataset
+train: images/train
+val: images/val
+
+names:
+  0: apple
+```
+
+把 `path` 换成电脑上 `apple_dataset` 的完整路径。多个类别继续写 `1:`、`2:`，顺序要与标注工具中的类别顺序一致。
+
+整理好后，可以选择 [MaixHub 在线训练](../vision/maixhub_train.md)或[在电脑训练 YOLO 检测模型](../vision/customize_model_yolo.md)。
+
+## 也可以使用公开数据集
+
+可以到 [Ultralytics 数据集列表](https://docs.ultralytics.com/datasets/)、[Roboflow Universe](https://universe.roboflow.com/) 或 [Kaggle Datasets](https://www.kaggle.com/datasets)搜索。
+
+下载前确认三件事：数据允许怎样使用、内容是不是目标检测、能不能导出为 Ultralytics YOLO Detection 格式。公开图片可以补充训练集，但不能代替板子在真实场景中拍到的图片。
+
+## 转换模型时还会用到另一批图片
+
+网页转换会另外要求 20 到 100 张真实场景图片。这些图片只帮助转换工具适配板子，不参与训练，因此不用画框。
+
+直接挑选图片并压缩成 ZIP 即可。不要把它和上面的训练集、验证集混在一起，具体要求见[网页转换 YOLO 模型](../ai_model_converter/online_converter.md#准备转换参考图片)。

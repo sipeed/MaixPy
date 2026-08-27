@@ -84,9 +84,7 @@ YOLO11: [https://maixhub.com/model/zoo/453](https://maixhub.com/model/zoo/453)
 
 ## 离线训练自己的目标检测模型
 
-强烈建议先使用 MaixHub 在线训练模型，此种方式难度比较大，不建议新手一来就碰这个方式。
-此种方式有些许默认你知道的知识文中不会提，遇到问题多上网搜索学习。
-请看 [离线训练YOLOv5模型](./customize_model_yolov5.md) 或者 [离线训练 YOLOv8/YOLO11/YOLO26 模型](./customize_model_yolov8.md)
+建议先使用 MaixHub 在线训练；如果想自己控制训练过程，请看合并后的[在电脑训练 YOLO 检测模型](./customize_model_yolo.md)。文档会从准备图片和标注开始，一直讲到板子运行和 MaixHub 分享。
 
 
 ## 附录：80分类

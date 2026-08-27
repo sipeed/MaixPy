@@ -1,190 +1,93 @@
 ---
-title: Convert YOLO Models Online
+title: Convert a YOLO Model Online
 ---
 
-## Introduction
+A `.pt` or `.onnx` model made on a computer cannot run directly on MaixCAM. The MaixHub online converter creates the `.mud`, `.cvimodel`, or `.axmodel` files needed by the board, without installing a conversion environment on your computer.
 
-The MaixCAM model conversion tool is a Web model-conversion service hosted by Sipeed. You do not need to install Docker, Pulsar2, or TPU-MLIR locally. Prepare the ONNX model file and calibration image dataset, create a conversion job on the page, wait for the platform to finish, and download the result.
+## Check whether the model is supported
 
-The online platform is suitable for quickly converting common YOLO Detect models and generating model files that can be deployed directly on MaixCAM, MaixCAM Pro, or MaixCAM2. If you need private intranet deployment, a self-managed conversion environment, or cannot upload model files to the online service, see [Self-hosted Graphical Model Conversion Platform](./web_converter.md).
+The website currently supports MaixCAM, MaixCAM Pro, and MaixCAM2 with these object-detection models:
 
-## Current Support
+- YOLO26
+- YOLO11
+- YOLOv8
+- YOLOv5u
 
-The platform currently supports the following devices and models:
+Object detection means finding objects and drawing boxes. Classification, pose, segmentation, oriented boxes, and old YOLOv5 are not supported by this route. Use one of the manual conversion links at the end for those models.
 
-| Item | Supported |
-| --- | --- |
-| Target devices | MaixCAM, MaixCAM Pro, MaixCAM2 |
-| Model types | YOLO26, YOLO11, YOLOv8, YOLOv5u |
-| Tasks | Object detection (Detect) |
-| Input models | `.onnx` |
-| Calibration dataset | A `.zip` file containing 20-100 `.jpg`, `.png`, or `.bmp` images, no larger than 100MB |
+YOLOv5u is the newer YOLOv5 in the Ultralytics tool. It differs from models trained with the old `ultralytics/yolov5` repository. If the source is unclear, ask the model author which version it is.
 
-> Classification, segmentation, pose estimation, and OBB tasks are not currently supported. For other models or custom conversion parameters, use the manual conversion methods described in the previous guides, or self-host the conversion platform and modify it as needed.
+## If you only have PT, export ONNX first
+
+`.pt` is the training result. `.onnx` is the format accepted by the website. Skip this section if you already have an `.onnx` file.
+
+> **Compatibility note for this route**
 >
-> YOLOv5u models belong to the newer Ultralytics `ultralytics` repository. Use `nn.YOLOv8` directly in the inference code, not `nn.YOLOv5`.
+> For the YOLO detection models supported by this page, use `ultralytics==8.4.104` and keep `opset=17` and `dynamic=False` in the export command. Other models or conversion routes may have different requirements; follow their own documentation.
 
-## Open the Online Platform
-
-Open the online model conversion platform in a browser:
-
-[MaixHub Converter tool](https://maixhub.com/toolbox)
-
-## Export a PT Model to ONNX
-
-The online platform only accepts `.onnx` models. If your training result is a `.pt` weight file, export it to ONNX on your computer before uploading it to the platform.
-
-For YOLO26, YOLO11, YOLOv8, or YOLOv5u models trained with Ultralytics, use `ultralytics==8.4.104` for both training and ONNX export. Pinning this version avoids model-structure or output-node differences from other Ultralytics releases, which may cause conversion failures later.
-
-Install the specified export tools first:
+Install the export tools:
 
 ```shell
-pip install ultralytics==8.4.104 ultralytics-thop onnx onnxslim onnxruntime
+python -m pip install ultralytics==8.4.104 ultralytics-thop onnx onnxslim onnxruntime
 ```
 
-Then choose the input resolution for the target device. The previous model-conversion guides recommend `320x224` for MaixCAM, and `640x480` or `320x240` for MaixCAM2. These resolutions are described as "width x height", while the Ultralytics `imgsz` argument is written as "height,width".
-
-For MaixCAM, export an ONNX model with `320x224` input:
+Assume the trained file is named `best.pt`. For MaixCAM and MaixCAM Pro, run:
 
 ```shell
-yolo export model=best.pt format=onnx imgsz=224,320 opset=17 simplify=True
+yolo export model=best.pt format=onnx imgsz=224,320 opset=17 simplify=True dynamic=False
 ```
 
-For MaixCAM2, export an ONNX model with `640x480` input:
+For MaixCAM2, run:
 
 ```shell
-yolo export model=best.pt format=onnx imgsz=480,640 opset=17 simplify=True
+yolo export model=best.pt format=onnx imgsz=240,320 opset=17 simplify=True dynamic=False
 ```
 
-To improve runtime speed on MaixCAM2 with a smaller input, you can also export `320x240`:
+This creates `best.onnx` next to `best.pt`. The size order is **height,width**. `opset=17` selects the ONNX rule version, while `dynamic=False` fixes the input size. Keep the other settings unchanged as well.
 
-```shell
-yolo export model=best.pt format=onnx imgsz=240,320 opset=17 simplify=True
-```
+## Prepare conversion images
 
-Replace `model` with the path to your `.pt` file, and set `imgsz` to the input resolution you will use on the device. After export, `best.onnx` is usually generated in the same directory.
+Choose 20 to 100 pictures from the real environment where the model will run. For an apple model used on a table, include different tables, lighting, and apple positions.
 
-After exporting, use Netron or another ONNX viewer to confirm that the model has a fixed input shape and that it matches the width and height entered on the platform.
+These pictures only help the converter adapt the model to the board. They do not retrain the model, so they need no boxes or label files.
 
-## Prepare the Model and Calibration Dataset
-
-The platform only accepts `.onnx` model files. It uses the ONNX model's own static input shape for later processing and conversion, and does not resize the model after upload. Decide the final deployment input resolution when exporting the ONNX model.
-
-The calibration dataset must be packaged as a `.zip` file containing images only; annotation files are not required. The archive must contain 20-100 images, supported image formats are `.jpg`, `.png`, and `.bmp`, and the uploaded ZIP file must be no larger than 100MB.
-
-Images may be stored directly in the archive:
+Put the pictures directly in a ZIP file:
 
 ```text
-dataset.zip
-  000001.jpg
-  000002.jpg
-  000003.jpg
+apple_images.zip
+├── 001.jpg
+├── 002.jpg
+├── 003.png
+└── ...
 ```
 
-Calibration images should resemble the model's actual deployment environment. For example, if the model will process camera images, prefer images captured by a similar camera under realistic conditions. Prepare 20-50 images for a quick workflow check, then increase the number toward 100 for final conversion as needed.
+The ZIP file must be no larger than 100 MB and must contain 20 to 100 images.
 
-## Create a Conversion Job
+The website receives both your model and images. If they contain private or confidential information, do not upload them; use manual local conversion instead.
 
-Open the Web page and complete the form from top to bottom:
+## Create a conversion task
 
-![Create a MaixHub conversion job](../../assets/maixhub_converter_create_job.jpg)
+1. Open the [MaixHub toolbox](https://maixhub.com/toolbox) and enter the model converter.
+2. Choose your board, YOLO version, and object detection.
+3. Upload `best.onnx` and the image ZIP.
+4. Check the labels. If the website does not read them automatically, enter them in the same order used for training.
+5. Start conversion. Download the result after the page reports success.
 
-The platform usually detects the labels stored in the model automatically. If it does not, enter the labels manually.
+The task may wait in a queue. Do not submit duplicate tasks while it is still running.
 
-![Set MaixHub model labels](../../assets/maixhub_converter_labels.jpg)
+## Check and run the result
 
-Click **Start Conversion** after completing the form. The page displays upload progress, the current job status, and live conversion logs. Conversion time depends on the model size, calibration image count, and the server job queue.
+Unzip the download. A MaixCAM or MaixCAM Pro package should contain `.mud` and `.cvimodel`. A MaixCAM2 package should contain `.mud` and one or two `.axmodel` files.
 
-Wait for the conversion to complete.
+Upload every file from the package, not only `.mud`. Then follow [Upload the model](./ai_model_deploy.md#upload-the-model) and [Run the model](./ai_model_deploy.md#run-the-model).
 
-![MaixHub conversion job completed](../../assets/maixhub_converter_job_done.jpg)
+If the camera shows the correct labels and boxes, conversion and board testing are complete. You may [share it on MaixHub](./ai_model_deploy.md#optional-share-on-maixhub), but sharing is optional.
 
-## Download the Conversion Result
+## If conversion fails
 
-After a successful conversion, the **Download Result** button becomes available. Click it to download a ZIP archive containing the generated model files.
+- **Fails immediately after upload:** confirm that the file is `.onnx`, the YOLO version is supported, and the model has a fixed input size.
+- **Not enough images:** the number entered on the page cannot exceed the actual number of images in the ZIP.
+- **Conversion succeeds but no boxes appear:** test the same `.onnx` on your computer first. If it also fails there, return to training or export.
+- **Files cannot be uploaded to an external service:** use manual local conversion.
 
-![Download MaixHub conversion result](../../assets/maixhub_converter_download_result.jpg)
-
-A MaixCAM2 result normally contains:
-
-```text
-model_name.mud
-model_name_npu.axmodel
-model_name_vnpu.axmodel
-```
-
-A MaixCAM or MaixCAM Pro result normally contains:
-
-```text
-model_name.mud
-model_name.cvimodel
-```
-
-## Transfer the Model Files to MaixCAM / MaixCAM Pro / MaixCAM2
-
-1. Open MaixVision and connect to the device.
-
-2. Open the device file manager.
-
-![MaixVision device file manager](../../assets/maixvision_file_manager.jpg)
-
-3. Create a `my_models` folder under the `root` directory to store the converted model.
-
-![Create my_models folder in MaixVision](../../assets/maixvision_create_my_models.jpg)
-
-4. Click the `my_models` folder to enter it.
-
-![Enter my_models folder in MaixVision](../../assets/maixvision_enter_my_models.jpg)
-
-5. Upload the converted files to `my_models`. For MaixCAM / MaixCAM Pro, upload the `.mud` and `.cvimodel` files. For MaixCAM2, upload the `.mud` and `.axmodel` files.
-
-![Upload model files in MaixVision](../../assets/maixvision_upload_model_files.jpg)
-
-6. Write the inference code.
-
-The following example uses YOLOv8.
-
-Assume the `.mud` file you just obtained is `model_4090.mud`.
-
-```python
-from maix import app, camera, display, image, nn
-
-detector = nn.YOLOv8(model="/root/my_models/model_4090.mud", dual_buff=True)
-cam = camera.Camera(detector.input_width(), detector.input_height(), detector.input_format())
-disp = display.Display()
-
-while not app.need_exit():
-    img = cam.read()
-    objs = detector.detect(img, conf_th=0.5, iou_th=0.45)
-    for obj in objs:
-        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color=image.COLOR_RED)
-        msg = f"{detector.labels[obj.class_id]}: {obj.score:.2f}"
-        img.draw_string(obj.x, obj.y, msg, color=image.COLOR_RED)
-    disp.show(img)
-```
-
-For YOLO26 or YOLO11, replace `nn.YOLOv8` with the corresponding MaixPy model interface.
-
-## Notes
-
-- Confirm the source and license of the model before uploading it. Do not upload models you are not allowed to use.
-- The online platform only accepts ONNX models. If you have a `.pt` weight file, export it to ONNX first.
-- The calibration dataset must contain 20-100 `.jpg`, `.png`, or `.bmp` images, and the ZIP file must be no larger than 100MB.
-- If the model or dataset contains sensitive information, use the [self-hosted graphical model conversion platform](./web_converter.md) on your own server.
-- Conversion jobs may wait in a queue. Runtime depends on model size, calibration image count, and server load.
-- Download the result promptly after conversion succeeds to avoid job expiration or cleanup.
-- The online platform mainly targets common YOLO Detect conversion. Use self-hosting if you need to modify Docker images, toolchain parameters, or result-generation logic.
-
-## FAQ
-
-### Not Enough Calibration Images
-
-The **Image Count** value must be between 20 and 100 and cannot exceed the number of valid images in the uploaded ZIP archive. If the archive contains only 50 images, do not set the value to 100.
-
-### Incorrect Classes in a Custom Model
-
-The platform tries to read class names from ONNX metadata. If the deployed model reports incorrect class names or counts, check whether `labels` in the generated `.mud` file matches the trained model.
-
-### Conversion Job Failed
-
-Check the live log on the page first and confirm that the model format, YOLO version, input resolution, and calibration image count are correct. If the log reports unsupported operators, abnormal output nodes, or quantization failure, go back to the training, ONNX export, or manual conversion flow for diagnosis.
+For unsupported models, see [manual conversion for MaixCAM2](./maixcam2.md), [manual conversion for MaixCAM](./maixcam.md), or [port an unsupported model](../pro/customize_model.md). These advanced routes require dedicated conversion tools and knowledge of model inputs and outputs.

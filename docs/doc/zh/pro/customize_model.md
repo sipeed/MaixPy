@@ -1,5 +1,5 @@
 ---
-title: 为 MaixCAM MaixPy 添加新的 AI 模型
+title: 移植 MaixPy 未支持的模型
 update:
     - date: 2024-11-01
       author: neucrack
@@ -12,18 +12,31 @@ update:
 
 除了 MaixPy 自带的 AI 算法和模型外， MaixPy 有很大的扩展能力，你可以自己添加新的算法和模型。
 
+> 这是一篇进阶文档。如果只是换成自己的识别类别，不需要“移植新模型”。请从[模型获取、上板和运行](../ai_model_converter/ai_model_deploy.md)开始；普通 YOLO 检测可以直接训练并使用网页转换。
+
 因为视觉应用比较多，以下将分为视觉应用和其它应用进行讲解。
 
 
-## 如果 MaixPy 已经支持的框架，只是数据集不同
+## 如果只是换识别类别，不需要移植
 
-比如 MaixPy 已经支持了 YOLO11 检测，但是你的数据集不同，这种情况下，你只需要准备好数据集，然后训练模型，导出模型即可。
+例如 MaixPy 已经能运行 YOLO11 检测，而你只是想把“识别人和汽车”换成“识别火焰和烟雾”，模型种类没有变。这种情况不用阅读本文后面的代码：
 
-还有一个偷懒的最快的方式，就是先去网上找找有没有人已经训练好了模型或者开源了模型，下载转一下格式就能用了，或者基于其继续训练。
-举个例子:
-比如要识别火焰，在网上一搜，找到[Abonia1/YOLOv8-Fire-and-Smoke-Detection](https://github.com/Abonia1/YOLOv8-Fire-and-Smoke-Detection) 这个项目分享了基于 YOLOv8 的火焰和烟雾检测模型，下载下来，导出成 ONNX 格式再转换为 MaixPy 支持的格式即可。
+1. 先到 [MaixHub 模型库](https://maixhub.com/model/zoo)找现成模型。
+2. 没找到就按[准备模型和数据集](./datasets.md)收集图片。
+3. 使用 [MaixHub 在线训练](../vision/maixhub_train.md)，或者[在电脑训练 YOLO](../vision/customize_model_yolo.md)。
+4. 自己训练得到 ONNX 后，使用[网页转换](../ai_model_converter/online_converter.md)。
+5. 最后按[上板运行教程](../ai_model_converter/ai_model_deploy.md#把模型传到板子)完成测试。
 
-可以上传到[MaixHub 模型库](https://maixhub.com/model/zoo)分享给更多人使用，也可以找其他人分享的模型。
+只有 MaixPy 还没有这种模型的运行接口时，才需要继续往下看“移植”。移植就是自己补上图片处理、模型运行和结果解析代码。
+
+## 继续前先认识几个词
+
+- **前处理**：模型计算前，先把图片缩放、换颜色顺序或调整数值范围。
+- **后处理**：把模型吐出的数字变成人能用的结果，例如类别、分数和方框。
+- **NPU**：板子里专门加速 AI 计算的部分。
+- **MUD**：一个文本说明文件，记录实际模型文件、标签以及前处理参数。MaixPy 通常从它开始加载模型。
+
+下面的内容适合已经能运行 MaixPy 程序，并且知道自己模型输入、输出含义的用户。
 
 ## 在 Python 层面添加视觉 AI 模型和算法
 
@@ -40,10 +53,10 @@ detector = nn.YOLO11(model="/root/models/yolo11n.mud", dual_buff = True)
 
 img = image.Image(detector.input_width(), detector.input_height(), detector.input_format())
 objs = detector.detect(img, conf_th = 0.5, iou_th = 0.45)
-    for obj in objs:
-        img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
-        msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
-        img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
+for obj in objs:
+    img.draw_rect(obj.x, obj.y, obj.w, obj.h, color = image.COLOR_RED)
+    msg = f'{detector.labels[obj.class_id]}: {obj.score:.2f}'
+    img.draw_string(obj.x, obj.y, msg, color = image.COLOR_RED)
 ```
 
 可以看到先构建`YOLO11`对象读取模型，然后将图片传给`detect`方法识别，每一步内部分别做了：
@@ -193,7 +206,3 @@ del input_tensors_li
 可以参考 [YOLO11](https://github.com/sipeed/MaixCDK/blob/main/components/nn/include/maix_nn_yolo11.hpp) 的源码写即可。
 
 另外， 用 C++ 写的好处是不光可以给 C++ 使用，也可以给 MaixPy 使用，只需要给类添加`@maixpy maix.nn.YOLO11` 这样的注释，编译后就能用在`MaixPy`通过`maix.nn.YOLO11`调用了，是不是非常方便。
-
-
-
-

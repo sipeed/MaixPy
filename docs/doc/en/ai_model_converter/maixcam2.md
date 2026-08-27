@@ -1,8 +1,10 @@
 ---
-title: Convert ONNX Model to a Model Usable by MaixCAM2 MaixPy (MUD)
+title: Manually Convert for MaixCAM2
 ---
 
 > For MaixCAM / MaixCAM-Pro model conversion, please refer to the [MaixCAM Model Conversion Documentation](./maixcam.md)
+
+> This is an advanced guide. For a common YOLO detection model, use the [online converter](./online_converter.md) first. It does not require Docker. Continue here only when the online converter does not support the model or you need custom settings.
 
 ## Introduction
 
@@ -53,7 +55,7 @@ Just place all three files in the same directory for use.
 
 The goal of this section is to obtain a `.onnx` file that Pulsar2 can read. ONNX usually comes from one of these sources:
 
-1. **Exported after training**: for example, after training YOLO11 / YOLOv8 and obtaining a `.pt` file, follow the ONNX export section in [Offline Training YOLO Models](../vision/customize_model_yolov8.md). For MaixCAM2, use a fixed input size such as `640x480` or `320x240`; do not use dynamic input shapes.
+1. **Exported after training**: after training YOLO11 / YOLOv8 and obtaining a `.pt` file, follow [Train a YOLO Detection Model on a Computer](../vision/customize_model_yolo.md). For MaixCAM2, use a fixed input size such as `640x480` or `320x240`; do not use dynamic input shapes.
 2. **Exported from another framework**: for example, PyTorch or TensorFlow. Make sure the exported ONNX has a fixed input shape and can be opened in Netron.
 3. **Provided by a third party**: you can start from the ONNX file directly, but you need to confirm that the license allows usage and that the model structure is suitable for MaixCAM2.
 
@@ -75,12 +77,12 @@ The goal of this section is to generate `export.onnx`, which is used by the conv
 
 Many detection models contain post-processing nodes at the end of the ONNX graph. These nodes are usually better handled by CPU code. Quantizing the full ONNX may increase quantization error or cause conversion failure, so first choose suitable output nodes and extract a smaller ONNX.
 
-Use the following table to select output nodes for common model types. For the basis of the YOLO node selection, see [Offline Training YOLO Models - Output Node Selection](../vision/customize_model_yolov8.md). For classification model trimming principles, see [ONNX Node Trimming Tutorial](./onnx_export.md).
+Use the following table to select output nodes for common model types. For classification and other models, see the [ONNX Node Trimming Tutorial](./onnx_export.md).
 
 | Model type | Recommended output node choice | Next step |
 | --- | --- | --- |
 | YOLO11 / YOLOv8 detection | For MaixCAM2, use the `/model.xx/Concat...` output nodes and leave decoding / NMS to MaixPy post-processing | Use the common node table below |
-| YOLO11 / YOLOv8 pose / seg / obb | These models have more output nodes | Use the MaixCAM2 scheme in [Offline Training YOLO Models](../vision/customize_model_yolov8.md) |
+| YOLO11 / YOLOv8 pose / seg / obb | These models have more output nodes | Confirm the nodes in the task-specific guide, then follow the trimming tutorial |
 | Classification model | Use the final classification output; if the graph ends with `softmax`, use the output before `softmax` | Record that node name |
 
 Common MaixCAM2 output nodes for YOLO detection:

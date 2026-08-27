@@ -54,5 +54,4 @@ You may notice that `dual_buff` is used for model initialization (default value 
 
 ## Customizing Your Own Object Segmentation Model
 
-The provided models are based on the 80 categories from the COCO dataset. If this does not meet your needs, you can train your own specific object detection and segmentation model. Follow the instructions in [Offline Training YOLOv8/YOLO11](./customize_model_yolov8.md) to use the official YOLOv8/YOLO11 model training method, and then convert it to a model format supported by MaixCAM.
-
+The provided models use the 80 COCO classes. If they do not meet your needs, first read [Train a YOLO Detection Model on a Computer](./customize_model_yolo.md) for the shared data and training workflow, then follow the official YOLO segmentation format. Segmentation needs task-specific annotation and manual conversion.

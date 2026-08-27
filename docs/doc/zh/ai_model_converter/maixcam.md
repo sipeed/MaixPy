@@ -1,8 +1,10 @@
 ---
-title: 将 ONNX 模型转换为 MaixCAM MaixPy 可以使用的模型（MUD）
+title: 手动转换给 MaixCAM 用
 ---
 
 > MaixCAM2 模型转换请看 [MaixCAM2 模型转换文档](./maixcam2.md)
+
+> 这是进阶文档。普通 YOLO 检测模型请先使用[网页转换](./online_converter.md)，不需要安装 Docker。只有网页不支持模型或需要自定义参数时，才继续阅读本文。
 
 ## 简介
 
@@ -25,7 +27,7 @@ yolov8n_int8.cvimodel
 
 本节的目标是先得到一个可以被 `tpu-mlir` 读取的 `.onnx` 文件。ONNX 一般来自下面几种情况：
 
-1. **自己训练后导出**：例如 YOLOv8 / YOLO11 训练得到 `.pt` 文件后，按 [离线训练 YOLO 模型](../vision/customize_model_yolov8.md) 中的“导出 ONNX 模型”步骤导出。MaixCAM 常用输入尺寸为 `320x224`，建议使用固定输入尺寸，不要使用动态输入尺寸。
+1. **自己训练后导出**：例如 YOLOv8 / YOLO11 训练得到 `.pt` 文件后，按[在电脑训练 YOLO 检测模型](../vision/customize_model_yolo.md)导出。MaixCAM 常用输入尺寸为 `320x224`，建议使用固定输入尺寸，不要使用动态输入尺寸。
 2. **其它训练框架导出**：例如 PyTorch、TensorFlow 等框架训练后导出 ONNX。导出后需要确认模型输入尺寸固定，并且输入、输出节点可以在 Netron 中正常查看。
 3. **第三方提供的 ONNX**：可以直接从 ONNX 开始转换，但需要确认模型授权可用，并且模型结构适合在 MaixCAM 上运行。
 
@@ -47,14 +49,14 @@ yolov8n_int8.cvimodel
 
 很多检测模型在 ONNX 末尾带有后处理节点，这些节点通常更适合由 CPU 处理。直接把完整 ONNX 拿去量化，可能会导致量化误差变大或转换失败。因此需要先选择合适的输出节点，再裁剪 ONNX。
 
-可按下表选择常见模型的输出节点。节点选择依据可参考 [离线训练 YOLO 模型 - 输出节点选择](../vision/customize_model_yolov8.md)；YOLOv5 和分类模型的裁剪原则可参考 [裁剪 ONNX 模型节点教程](./onnx_export.md)。
+可按下表选择常见模型的输出节点。YOLOv5、分类模型和其他模型的裁剪方法可参考[裁剪 ONNX 模型节点教程](./onnx_export.md)。
 
 | 模型类型 | 推荐输出节点选择 | 下一步 |
 | --- | --- | --- |
 | YOLOv8 检测模型 | MaixCAM 推荐使用 `/model.22/dfl/conv/Conv_output_0` 和 `/model.22/Sigmoid_output_0` | 复制节点名后裁剪 ONNX |
 | YOLO11 检测模型 | MaixCAM 推荐使用 `/model.23/dfl/conv/Conv_output_0` 和 `/model.23/Sigmoid_output_0` | 复制节点名后裁剪 ONNX |
 | YOLOv5 检测模型 | 常见为三个检测头输出，例如 `/model.24/m.0/Conv_output_0`、`/model.24/m.1/Conv_output_0`、`/model.24/m.2/Conv_output_0` | 复制节点名后裁剪 ONNX |
-| pose / seg / obb 模型 | 输出节点数量更多，按 [离线训练 YOLO 模型](../vision/customize_model_yolov8.md) 的“输出节点选择”表选择 MaixCAM 方案 | 复制对应节点名后再裁剪 |
+| pose / seg / obb 模型 | 输出节点数量更多，需要按对应任务文档确认 | 复制对应节点名后再按裁剪教程操作 |
 | 分类模型 | 一般取最后一层分类输出；如果末尾有 `softmax`，建议取 `softmax` 前一层输出 | 记录该输出节点名 |
 
 如果你的节点名称和表格不完全一致，请用 Netron 找到位置相同、含义相同的输出节点，而不是机械复制。确定输入节点名和输出节点名后，先安装裁剪和简化 ONNX 需要的工具：

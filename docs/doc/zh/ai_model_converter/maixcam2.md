@@ -1,8 +1,10 @@
 ---
-title: 将 ONNX 模型转换为 MaixCAM2 MaixPy 可以使用的模型（MUD）
+title: 手动转换给 MaixCAM2 用
 ---
 
 > MaixCAM / MaixCAM-Pro 模型转换请看[MaixCAM 模型转换文档](./maixcam.md)
+
+> 这是进阶文档。普通 YOLO 检测模型请先使用[网页转换](./online_converter.md)，不需要安装 Docker。只有网页不支持模型或需要自定义参数时，才继续阅读本文。
 
 ## 简介
 
@@ -22,7 +24,7 @@ MUD（模型统一描述文件， model universal description file）是 MaixPy 
 
 本节的目标是先得到一个可以被 Pulsar2 读取的 `.onnx` 文件。ONNX 一般来自下面几种情况：
 
-1. **自己训练后导出**：例如 YOLO11 / YOLOv8 训练得到 `.pt` 文件后，按 [离线训练 YOLO 模型](../vision/customize_model_yolov8.md) 中的“导出 ONNX 模型”步骤导出。MaixCAM2 建议先使用固定输入尺寸，例如 `640x480` 或 `320x240`，不要使用动态输入尺寸。
+1. **自己训练后导出**：例如 YOLO11 / YOLOv8 训练得到 `.pt` 文件后，按[在电脑训练 YOLO 检测模型](../vision/customize_model_yolo.md)导出。MaixCAM2 建议先使用固定输入尺寸，例如 `640x480` 或 `320x240`，不要使用动态输入尺寸。
 2. **其它训练框架导出**：例如 PyTorch、TensorFlow 等框架训练后导出 ONNX。导出后需要确认模型输入尺寸固定，并且输入、输出节点可以在 Netron 中正常查看。
 3. **第三方提供的 ONNX**：可以直接从 ONNX 开始转换，但需要确认模型授权可用，并且模型结构适合在 MaixCAM2 上运行。
 
@@ -45,12 +47,12 @@ MUD（模型统一描述文件， model universal description file）是 MaixPy 
 
 很多检测模型在 ONNX 末尾带有后处理节点，这些节点通常更适合由 CPU 处理。直接把完整 ONNX 拿去量化，可能会导致量化误差变大或转换失败。因此需要先选择合适的输出节点，再裁剪 ONNX。
 
-可按下表选择常见模型的输出节点。节点选择依据可参考 [离线训练 YOLO 模型 - 输出节点选择](../vision/customize_model_yolov8.md)；分类模型的裁剪原则可参考 [裁剪 ONNX 模型节点教程](./onnx_export.md)。
+可按下表选择常见模型的输出节点。分类模型和其他模型的裁剪方法可参考[裁剪 ONNX 模型节点教程](./onnx_export.md)。
 
 | 模型类型 | 推荐输出节点选择 | 下一步 |
 | --- | --- | --- |
 | YOLO11 / YOLOv8 检测模型 | MaixCAM2 推荐使用 `/model.xx/Concat...` 这组输出节点，即把解码和 NMS 留给 MaixPy 后处理 | 参考下方常用节点表 |
-| YOLO11 / YOLOv8 pose / seg / obb | 输出节点数量更多，按 [离线训练 YOLO 模型](../vision/customize_model_yolov8.md) 的“输出节点选择”表选择 MaixCAM2 方案 | 复制对应节点名后再裁剪 |
+| YOLO11 / YOLOv8 pose / seg / obb | 输出节点数量更多，需要按对应任务文档确认 | 复制对应节点名后再按裁剪教程操作 |
 | 分类模型 | 一般取最后一层分类输出；如果末尾有 `softmax`，建议取 `softmax` 前一层输出 | 记录该输出节点名 |
 
 常见 YOLO 检测模型在 MaixCAM2 上可以先使用下面节点：
