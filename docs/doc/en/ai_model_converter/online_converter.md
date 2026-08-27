@@ -13,7 +13,7 @@ The website currently supports MaixCAM, MaixCAM Pro, and MaixCAM2 with these obj
 - YOLOv8
 - YOLOv5u
 
-Object detection means finding objects and drawing boxes. Classification, pose, segmentation, oriented boxes, and old YOLOv5 are not supported by this route. Use one of the manual conversion links at the end for those models.
+Object detection means finding objects and marking their locations. Classification, pose, segmentation, oriented boxes, and old YOLOv5 are not supported by this route. Use one of the manual conversion links at the end for those models.
 
 YOLOv5u is the newer YOLOv5 in the Ultralytics tool. It differs from models trained with the old `ultralytics/yolov5` repository. If the source is unclear, ask the model author which version it is.
 
@@ -49,7 +49,7 @@ This creates `best.onnx` next to `best.pt`. The size order is **height,width**. 
 
 Choose 20 to 100 pictures from the real environment where the model will run. For an apple model used on a table, include different tables, lighting, and apple positions.
 
-These pictures only help the converter adapt the model to the board. They do not retrain the model, so they need no boxes or label files.
+These pictures only help the converter adapt the model to the board. They do not retrain the model, so include only the images; no annotation files are needed.
 
 Put the pictures directly in a ZIP file:
 
@@ -90,4 +90,4 @@ If the camera shows the correct labels and boxes, conversion and board testing a
 - **Conversion succeeds but no boxes appear:** test the same `.onnx` on your computer first. If it also fails there, return to training or export.
 - **Files cannot be uploaded to an external service:** use manual local conversion.
 
-For unsupported models, see [manual conversion for MaixCAM2](./maixcam2.md), [manual conversion for MaixCAM](./maixcam.md), or [port an unsupported model](../pro/customize_model.md). These advanced routes require dedicated conversion tools and knowledge of model inputs and outputs.
+For unsupported models, see [manual conversion for MaixCAM](./maixcam.md), [manual conversion for MaixCAM2](./maixcam2.md), or [port an unsupported model](../pro/customize_model.md). These advanced routes require dedicated conversion tools and knowledge of model inputs and outputs.

@@ -154,9 +154,9 @@ items:
         -   file: ai_model_converter/maixcam2.md
             label: 手动转换给 MaixCAM2 用
         -   file: ai_model_converter/onnx_export.md
-            label: 裁剪 ONNX 模型输出节点
+            label: 裁剪 ONNX 模型节点教程
         -   file: ai_model_converter/web_converter.md
-            label: 私有部署网页转换平台
+            label: 私有部署图形化模型转换平台
         -   file: pro/customize_model.md
             label: 移植 MaixPy 未支持的模型
 

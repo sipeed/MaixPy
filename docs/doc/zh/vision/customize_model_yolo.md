@@ -117,7 +117,7 @@ yolo export model=runs/apple/model/weights/best.pt format=onnx imgsz=480,640 ops
 
 ## 使用其它 YOLO 版本
 
-想换成 YOLO26 或 YOLOv8，只需把训练命令中的基础模型改为 `yolo26n.pt` 或 `yolov8n.pt`。其余步骤相同。
+想换成 YOLO26 或 YOLOv8，可以把训练命令中的基础模型改为 `yolo26n.pt` 或 `yolov8n.pt`。但不要直接照搬本页的工具版本和导出参数，请先查看对应模型的说明。
 
 旧 `ultralytics/yolov5` 仓库训练的 YOLOv5 与新版 YOLOv5u 输出不同，目前不能使用简单网页转换。维护旧项目时，请使用 [MaixCAM 手动转换](../ai_model_converter/maixcam.md)或[MaixCAM2 手动转换](../ai_model_converter/maixcam2.md)。新项目建议使用 YOLO11。
 

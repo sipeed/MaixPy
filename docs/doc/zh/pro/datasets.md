@@ -43,13 +43,13 @@ title: 准备模型和数据集
 
 ### 第二步：给图片标注
 
-画框也叫“标注”，就是用矩形框出图片里的每个目标，并写上类别名称。
+标注就是用矩形框出图片里的每个目标，并写上类别名称。
 
 可以选择这些免费工具：
 
-- [MaixHub 在线训练](../vision/maixhub_train.md)：直接在网页中画框，适合想少安装软件的新手。
+- [MaixHub 在线训练](../vision/maixhub_train.md)：直接在网页中标注，适合想少安装软件的新手。
 - [Make Sense](https://www.makesense.ai/)：打开网页就能用，可以导出 YOLO 格式。
-- [AnyLabeling](https://github.com/vietanhdev/anylabeling)：免费的开源桌面工具，支持画框和辅助标注。
+- [AnyLabeling](https://github.com/vietanhdev/anylabeling)：免费的开源桌面工具，支持矩形标注和辅助标注。
 - [CVAT](https://app.cvat.ai/)：有免费网页版，适合图片较多或多人一起标注的项目。
 
 在电脑上训练时，导出格式选择 **Ultralytics YOLO Detection**。这是训练工具约定的一种文件摆放方式，不是另一种模型。
@@ -117,6 +117,6 @@ names:
 
 ## 转换模型时还会用到另一批图片
 
-网页转换会另外要求 20 到 100 张真实场景图片。这些图片只帮助转换工具适配板子，不参与训练，因此不用画框。
+网页转换会另外要求 20 到 100 张真实场景图片。这些图片只帮助转换工具适配板子，不参与训练，因此不用标注。
 
 直接挑选图片并压缩成 ZIP 即可。不要把它和上面的训练集、验证集混在一起，具体要求见[网页转换 YOLO 模型](../ai_model_converter/online_converter.md#准备转换参考图片)。

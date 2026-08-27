@@ -174,7 +174,6 @@ for layer in model.inputs_info():
     t = tensor.tensor_from_numpy_float32(data)
     input_tensors.add_tensor(layer.name, t, True, True)
 outputs = model.forward(input_tensors, copy_result = False, dual_buff_wait=True)
-del input_tensors_li
 ```
 这样就实现了传裸数据给模型了。
 

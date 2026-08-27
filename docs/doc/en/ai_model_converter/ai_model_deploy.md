@@ -11,7 +11,7 @@ You do not need to learn every file format before starting. Pick the route that 
 ## Pick a route
 
 - **Just want to try the board:** download a ready-to-use model from the [MaixHub model zoo](https://maixhub.com/model/zoo), choosing your board first.
-- **Want to recognize your own objects with the least setup:** use [online training on MaixHub](../vision/maixhub_train.md). The website guides you through taking pictures, drawing boxes, and training.
+- **Want to recognize your own objects with the least setup:** use [online training on MaixHub](../vision/maixhub_train.md). The website guides you through taking pictures, annotating them, and training.
 - **Want to train on your own computer:** follow [Train a YOLO Detection Model on a Computer](../vision/customize_model_yolo.md). It continues through conversion and board testing.
 - **Already have a computer-trained model:** use the [online converter](./online_converter.md) to make a board model package.
 - **Already downloaded a package made for MaixCAM or MaixCAM2:** skip training and conversion, and continue with [Upload the model](#upload-the-model).
@@ -117,4 +117,4 @@ Models trained online on MaixHub can be shared from the training project without
 - **Runs but draws no boxes:** check that the model version matches `nn.YOLO...`, then test the original model on your computer.
 - **Wrong label names:** check that label order matches the training project.
 
-For models not supported by the online converter, see [manual conversion for MaixCAM2](./maixcam2.md), [manual conversion for MaixCAM](./maixcam.md), or [port an unsupported model](../pro/customize_model.md).
+For models not supported by the online converter, see [manual conversion for MaixCAM](./maixcam.md), [manual conversion for MaixCAM2](./maixcam2.md), or [port an unsupported model](../pro/customize_model.md).

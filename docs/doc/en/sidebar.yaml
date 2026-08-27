@@ -151,9 +151,9 @@ items:
         -   file: ai_model_converter/maixcam2.md
             label: Manually Convert for MaixCAM2
         -   file: ai_model_converter/onnx_export.md
-            label: Trim ONNX Model Output Nodes
+            label: Tutorial on Trimming Nodes from an ONNX Model
         -   file: ai_model_converter/web_converter.md
-            label: Self-host the Web Converter
+            label: Self-hosted Graphical Model Conversion Platform
         -   file: pro/customize_model.md
             label: Port an Unsupported Model
 

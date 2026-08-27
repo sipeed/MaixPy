@@ -2,7 +2,7 @@
 title: Train Online with MaixHub
 ---
 
-This guide uses an apple detector as an example. You will collect pictures, draw boxes, and train on MaixHub without installing training tools on your computer.
+This guide uses an apple detector as an example. You will collect pictures, annotate them, and train on MaixHub without installing training tools on your computer.
 
 Before starting, prepare your board, MaixVision, and a MaixHub account. Connect the board to the internet.
 
@@ -28,9 +28,9 @@ The model learns from the training set. The validation set checks whether it can
 
 Change the apple, position, background, and lighting. Include a few tables with no apple, so the model does not mistake a red cup for one. See [Prepare a Model and Dataset](../pro/datasets.md) for more tips.
 
-## Draw a box around every apple
+## Annotate every apple
 
-Open the annotation page. Draw a rectangle close to the edge of each apple, then select `apple`.
+Open the annotation page. Mark each apple with a rectangle close to its edge, then select `apple`.
 
 Draw one box for every apple in the picture. Annotate both training and validation sets. A missed apple gives the model a contradictory answer, so check a few random pictures before starting training.
 

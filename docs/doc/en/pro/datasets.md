@@ -43,13 +43,13 @@ Start with a small dataset to test the whole process. Add more pictures when you
 
 ### Step 2: annotate the images
 
-Drawing boxes is called **annotation**. Draw a rectangle around every object and give it a class name.
+Annotation means drawing a rectangle around every object and giving it a class name.
 
 These tools are free to use:
 
-- [MaixHub online training](../vision/maixhub_train.md): draw boxes in the browser; the simplest choice for beginners.
+- [MaixHub online training](../vision/maixhub_train.md): annotate in the browser; the simplest choice for beginners.
 - [Make Sense](https://www.makesense.ai/): works in a browser and exports YOLO format.
-- [AnyLabeling](https://github.com/vietanhdev/anylabeling): an open-source desktop tool with box drawing and assisted annotation.
+- [AnyLabeling](https://github.com/vietanhdev/anylabeling): an open-source desktop tool that supports rectangle annotation and assisted labeling.
 - [CVAT](https://app.cvat.ai/): offers a free web plan and is useful for larger or team projects.
 
 For computer training, export as **Ultralytics YOLO Detection**. This is a standard way to arrange the image and annotation files; it is not another model.
@@ -117,6 +117,6 @@ Before downloading, check its license, confirm that it is an object-detection da
 
 ## Conversion needs a separate set of pictures
 
-The online converter also asks for 20 to 100 real-scene images. These pictures help the converter adapt the model to the board; they do not train it and do not need boxes.
+The online converter also asks for 20 to 100 real-scene images. These pictures help the converter adapt the model to the board; they do not train it and do not need annotation.
 
 Put those pictures in a ZIP file. Keep them separate from the training and validation folders. See [Prepare conversion images](../ai_model_converter/online_converter.md#prepare-conversion-images) for the exact requirements.
