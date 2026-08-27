@@ -1,8 +1,10 @@
 ---
-title: Convert ONNX Model to a Format Usable by MaixCAM / MaixPy (MUD)
+title: Manually Convert for MaixCAM
 ---
 
 > For MaixCAM2 model conversion, please refer to the [MaixCAM2 Model Conversion Documentation](./maixcam2.md).
+
+> This is an advanced guide. For a common YOLO detection model, use the [online converter](./online_converter.md) first. It does not require Docker. Continue here only when the online converter does not support the model or you need custom settings.
 
 
 ## Introduction
@@ -49,7 +51,7 @@ For example, in `YOLOv5`:
 
 There are three `conv` layers, with subsequent calculations handled by the CPU. For quantization, use the outputs of these `conv` layers as the final outputs of the model. The output names in this case are `/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0`.
 
-YOLO11/YOLOv8: Please refer to [Offline Training YOLO11/YOLOv8](../vision/customize_model_yolov8.md).
+For common YOLO detection models, start with [Train a YOLO Detection Model on a Computer](../vision/customize_model_yolo.md). Use this manual converter only when the online converter does not support your model or you need custom settings.
 
 For classification models, it is generally sufficient to take the name of the last output layer. However, if there is a `softmax` layer, it is recommended not to include `softmax` in the model. Instead, take the output of the layer before `softmax`. In the diagram below, there is no `softmax` layer, so the final layer can be used directly.
 
@@ -235,4 +237,3 @@ If you modify the `mud` file based on supported models, you can directly use the
 2. **Option 2:** In `MaixCDK`, refer to [YOLOv5 source code](https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp), add a new `hpp` file, and create a class to process your model. Modify all functions and class `@maixpy` annotations, compile the `MaixPy` project, and call the new class to run the model in `MaixPy`.
 
 You can submit the source code (Pull Request) to the main `MaixPy` repository to contribute to the community and share new models on [MaixHub](https://maixhub.com/share) for rewards ranging from 30 to 2000 yuan based on quality!
-

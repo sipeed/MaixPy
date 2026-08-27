@@ -43,7 +43,7 @@ In this example, the `YOLO11` model is used to load an OBB model. After detectin
 
 The default model is the official YOLO11 15-class model with the following labels:
 
-```python
+```text
 plane, ship, storage tank, baseball diamond, tennis court, basketball court, ground track field, harbor, bridge, large vehicle, small vehicle, helicopter, roundabout, soccer ball field, swimming pool
 ```
 
@@ -61,10 +61,9 @@ For an introduction to the official `YOLO11` OBB models, refer to [YOLO11 OBB](h
 
 ### Exporting the Model for MaixCAM
 
-Follow the [YOLO11/YOLOv8 Custom Models](./customize_model_yolov8.md) guide to convert an ONNX model into a MUD model compatible with MaixCAM.  
+First read [Train a YOLO Detection Model on a Computer](./customize_model_yolo.md) for the shared data and training workflow. Oriented-box models need their own annotation format and manual conversion.
 **Note:** Ensure the output names of the model's layers are correctly configured during conversion.
 
 ### Training Your Own OBB Model
 
 Refer to the [YOLO11 Official Training Documentation](https://docs.ultralytics.com/datasets/obb/dota-v2/) to prepare your dataset and train your own OBB model.
-

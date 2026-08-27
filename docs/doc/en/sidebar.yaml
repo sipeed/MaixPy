@@ -93,14 +93,6 @@ items:
         label: Monocular Depth Estimation with YOLO26-depth
     -   file: vision/yolo_world.md
         label: YOLO-World deten any object
-    -   file: vision/maixhub_train.md
-        label: MaixHub online AI training
-    -   file: vision/customize_model_yolov5.md
-        label: YOLOv5 model offline training
-    -   file: vision/customize_model_yolov8.md
-        label: YOLO26/YOLO11/v8 model offline training
-
-
 -   label: AI audio
     items:
     -   file: audio/record.md
@@ -140,16 +132,26 @@ items:
         label: Whisper Speech-Recognition Model
     -   file: mllm/tts_melotts.md
         label: MeloTTS Speech-Synthesis Model
--   label: AI Model Convertion and Port
+-   label: Train, Convert and Deploy
     items:
-    -   file: ai_model_converter/maixcam2.md
-        label: ONNX model to MaixCAM2's
-    -   file: ai_model_converter/maixcam.md
-        label: ONNX model to MaixCAM's
+    -   file: ai_model_converter/ai_model_deploy.md
+        label: Get, Upload and Run a Model
     -   file: pro/datasets.md
-        label: Where to find models & datasets
-    -   file: pro/customize_model.md
-        label: Customize new AI model
+        label: Prepare a Model and Dataset
+    -   file: vision/maixhub_train.md
+        label: Train Online with MaixHub
+    -   file: vision/customize_model_yolo.md
+        label: Train a YOLO Detection Model on a Computer
+    -   file: ai_model_converter/online_converter.md
+        label: Convert a YOLO Model Online
+    -   label: Advanced
+        items:
+        -   file: ai_model_converter/maixcam.md
+            label: Manually Convert for MaixCAM
+        -   file: ai_model_converter/maixcam2.md
+            label: Manually Convert for MaixCAM2
+        -   file: pro/customize_model.md
+            label: Port an Unsupported Model
 
 
 -   label: Video
@@ -216,7 +218,7 @@ items:
 
 -   label: Off-chip modules
     items:
-    -   file: moudles/microscope.md
+    -   file: kit/microscope.md
         label: Microscope kit
     -   file: modules/ahrs.md
         label: IMU AHRS Attitude Estimation
@@ -265,4 +267,3 @@ items:
         label: MaixCDK development
     -   file: pro/compile_os.md
         label: Build OS
-

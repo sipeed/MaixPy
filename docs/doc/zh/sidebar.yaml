@@ -93,12 +93,6 @@ items:
         label: YOLO26-Depth 单目深度估计
     -   file: vision/yolo_world.md
         label: YOLO-World 检测任意物体
-    -   file: vision/maixhub_train.md
-        label: MaixHub 在线训练 AI 模型
-    -   file: vision/customize_model_yolov5.md
-        label: 离线训练 YOLOv5 模型
-    -   file: vision/customize_model_yolov8.md
-        label: 离线训练 YOLO26/YOLO11/YOLOv8 模型
 
 -   label: AI 听觉
     items:
@@ -141,16 +135,26 @@ items:
         label: Whisper 语音识别模型
     -   file: mllm/tts_melotts.md
         label: MeloTTS 语音合成模型
--   label: AI 模型转换和移植
+-   label: 训练、转换和部署
     items:
-    -   file: ai_model_converter/maixcam2.md
-        label: ONNX 模型转给 MaixCAM2 用
-    -   file: ai_model_converter/maixcam.md
-        label: ONNX 模型转给 MaixCAM 用
+    -   file: ai_model_converter/ai_model_deploy.md
+        label: 模型获取、上板和运行
     -   file: pro/datasets.md
-        label: 哪里找模型和数据集
-    -   file: pro/customize_model.md
-        label: 移植新模型
+        label: 准备模型和数据集
+    -   file: vision/maixhub_train.md
+        label: MaixHub 在线训练模型
+    -   file: vision/customize_model_yolo.md
+        label: 在电脑训练 YOLO 检测模型
+    -   file: ai_model_converter/online_converter.md
+        label: 网页转换 YOLO 模型
+    -   label: 进阶操作
+        items:
+        -   file: ai_model_converter/maixcam.md
+            label: 手动转换给 MaixCAM 用
+        -   file: ai_model_converter/maixcam2.md
+            label: 手动转换给 MaixCAM2 用
+        -   file: pro/customize_model.md
+            label: 移植 MaixPy 未支持的模型
 
 -   label: 视频
     items:
@@ -265,5 +269,3 @@ items:
         label: 使用 MaixCDK 开发
     -   file: pro/compile_os.md
         label: 编译系统
-
-

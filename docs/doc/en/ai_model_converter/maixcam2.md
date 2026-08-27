@@ -1,8 +1,10 @@
 ---
-title: Convert ONNX Model to a Model Usable by MaixCAM2 MaixPy (MUD)
+title: Manually Convert for MaixCAM2
 ---
 
 > For MaixCAM / MaixCAM-Pro model conversion, please refer to the [MaixCAM Model Conversion Documentation](./maixcam.md)
+
+> This is an advanced guide. For a common YOLO detection model, use the [online converter](./online_converter.md) first. It does not require Docker. Continue here only when the online converter does not support the model or you need custom settings.
 
 ## Introduction
 
@@ -66,7 +68,7 @@ Example: `YOLOv5`
 Here we see three `conv` layers. Post-conv computations are handled by the CPU. Thus, we set these three `conv` outputs as model outputs:
 `/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0`.
 
-For YOLO11/YOLOv8, see [Offline Training YOLO11/YOLOv8](../vision/customize_model_yolov8.md).
+For common YOLO detection models, start with [Train a YOLO Detection Model on a Computer](../vision/customize_model_yolo.md). Use this manual converter only when the online converter does not support your model or you need custom settings.
 
 For classification models, the final output is usually enough. If there’s a `softmax`, it’s recommended to exclude it and take the output before `softmax`:
 
@@ -184,4 +186,3 @@ If MaixPy doesn't support your model, define your own `extra` fields and write d
 * Or, for better performance and reusable integration, write C++ logic in `MaixCDK`, see [YOLOv5 example](https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp).
 
 Once done, consider submitting a PR to `MaixPy` or share your model on [MaixHub](https://maixhub.com/share) to earn rewards ranging from ¥30 to ¥2000!
-

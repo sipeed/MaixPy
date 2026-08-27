@@ -74,7 +74,7 @@ It is highly recommended to start with MaixHub online training—offline trainin
 
 This method assumes you have basic relevant knowledge (which will not be covered in this article). Search online for solutions if you encounter problems.
 
-See [Offline Training of YOLOv5 Models](./customize_model_yolov5.md) or [Offline Training of YOLOv8/YOLO11/YOLO26 Models](./customize_model_yolov8.md) for details.
+For custom detection, start with [Prepare a Model and Dataset](../pro/datasets.md), then follow [Train a YOLO Detection Model on a Computer](./customize_model_yolo.md).
 
 ## Appendix: 80 Object Categories
 The 80 object categories of the COCO dataset are as follows:

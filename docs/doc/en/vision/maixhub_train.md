@@ -1,52 +1,74 @@
 ---
-title: Using MaixHub to Train AI Models for MaixCAM MaixPy
-update:
-  - date: 2024-04-03
-    author: neucrack
-    version: 1.0.0
-    content: Initial document
+title: Train Online with MaixHub
 ---
 
-## Introduction
+This guide uses an apple detector as an example. You will collect pictures, draw boxes, and train on MaixHub without installing training tools on your computer.
 
-MaixHub offers the functionality to train AI models online, directly within a browser. This eliminates the need for expensive hardware, complex development environments, or coding skills, making it highly suitable for beginners as well as experts who prefer not to delve into code.
+Before starting, prepare your board, MaixVision, and a MaixHub account. Connect the board to the internet.
 
-## Basic Steps to Train a Model Using MaixHub
+## Create a project
 
-### Identify the Data and Model Types
+Sign in to [MaixHub](https://maixhub.com), open model training, and create a project.
 
-To train an AI model, you first need to determine the type of data and model. As of April 2024, MaixHub provides models for image data including `Object Classification Models` and `Object Detection Models`. Object classification models are simpler than object detection models, as the latter require marking the position of objects within images, which can be more cumbersome. Object classification merely requires identifying what is in the image without needing coordinates, making it simpler and recommended for beginners.
+Choose **image detection** as the project type. A detection model finds each apple and draws a box around it. An image-classification model only decides what the whole picture contains and cannot show the object's position.
 
-### Collect Data
+Choose your actual target board: MaixCAM, MaixCAM Pro, or MaixCAM2. A result built for the wrong board cannot run directly.
 
-As discussed in AI basics, training a model requires a dataset for the AI to learn from. For image training, you need to create a dataset and upload images to it.
+## Add a class and pictures
 
-Ensure the device is connected to the internet (WiFi).
-Open the MaixHub app on your device and choose to collect data to take photos and upload them directly to MaixHub. You need to create a dataset on MaixHub first, then click on device upload data, which will display a QR code. Scan this QR code with your device to connect to MaixHub.
+Create a dataset and add the class `apple`. The final model keeps the class names and their order, so do not change them halfway through the project.
 
-It's important to distinguish between training and validation datasets. To ensure the performance during actual operation matches the training results, the validation dataset must be of the same image quality as those taken during actual operation. It's also advisable to use images taken by the device for the training set. If using internet images, restrict them to the training set only, as the closer the dataset is to actual operational conditions, the better.
+Using the board to collect pictures is recommended:
 
-### Annotate Data
+1. Select the training set on the MaixHub data-collection page and create a QR code.
+2. Open the MaixHub app on the board, scan the code, and take pictures to upload.
+3. Return to the website, select the validation set, create a new QR code, and take a different group of pictures.
 
-For classification models, images are annotated during upload by selecting the appropriate category for each image.
+The model learns from the training set. The validation set checks whether it can handle pictures it did not learn from. Never put the same photo in both sets.
 
-For object detection models, after uploading, you need to manually annotate each image by marking the coordinates, size, and category of the objects to be recognized.
-This annotation process can also be done offline on your own computer using software like labelimg, then imported into MaixHub using the dataset import feature.
-Utilize shortcuts during annotation to speed up the process. MaixHub will also add more annotation aids and automatic annotation tools in the future (there is already an automatic annotation tool available for videos that you can try).
+Change the apple, position, background, and lighting. Include a few tables with no apple, so the model does not mistake a red cup for one. See [Prepare a Model and Dataset](../pro/datasets.md) for more tips.
 
-### Train the Model
+## Draw a box around every apple
 
-Select training parameters, choose the corresponding device platform, select maixcam, and wait in the training queue. You can monitor the training progress in real-time and wait for it to complete.
+Open the annotation page. Draw a rectangle close to the edge of each apple, then select `apple`.
 
-### Deploy the Model
+Draw one box for every apple in the picture. Annotate both training and validation sets. A missed apple gives the model a contradictory answer, so check a few random pictures before starting training.
 
-Once training is complete, you can use the deploy function in the MaixHub app on your device to scan a code and deploy.
-The device will automatically download and run the model, storing it locally for future use.
+## Start training
 
-If you find the recognition results satisfactory, you can share the model to the model library with a single click for others to use.
+Create a training task, choose the dataset and the correct board, and use the recommended settings for the first run.
 
-## How to Use
+After training finishes, inspect the validation pictures:
 
-Please visit [MaixHub](https://maixhub.com) to register an account, then log in. There are video tutorials on the homepage for learning.
+- Was every apple found?
+- Are the boxes close to the apples?
+- Are there unwanted boxes on the background?
+- Does a different kind of apple still work?
 
-Note that if the tutorial uses the M2dock development board, the process is similar for MaixCAM, although the MaixHub application on the device might differ slightly. The overall process is the same, so please apply the knowledge flexibly.
+If one type of scene often fails, add more pictures of that scene and train again. More training rounds alone may not fix missing data.
+
+## Download and run the model
+
+Open the deployment page for the training result. Follow the QR-code deployment instructions, or choose manual deployment and download the model package.
+
+For manual deployment, unzip the package:
+
+- MaixCAM or MaixCAM Pro: upload the `.mud` and `.cvimodel` files.
+- MaixCAM2: upload the `.mud` file and every `.axmodel` file in the package.
+
+Use MaixVision to upload them to `/root/models` on the board. The package usually includes `main.py`. Open it, make sure its model path points to the uploaded `.mud` file, and run it.
+
+Point the camera at an apple. If the screen shows `apple`, a score, and a box, training and deployment worked. If there is no example code, use the [general run example](../ai_model_converter/ai_model_deploy.md#run-the-model).
+
+## Optional: share the model
+
+First test with another apple, background, and lighting. Once it works in real scenes, training and deployment are complete.
+
+If you want other users to download or discuss it, choose **Share to Model Zoo** in the training project. Describe its purpose, suitable distance, and known limits, and add a picture of it running on the board. Credit any public images and their licenses.
+
+## Troubleshooting
+
+- **Training cannot start:** check that both sets contain enough pictures and that all targets are annotated.
+- **Works on the website but not on the board:** rebuild the validation set with real pictures from the board and add failed scenes.
+- **Model file not found:** confirm that the files are in `/root/models` and check the `.mud` filename in the code.
+- **Want control over training commands:** follow [Train a YOLO Detection Model on a Computer](./customize_model_yolo.md), then use online conversion.

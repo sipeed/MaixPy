@@ -1,8 +1,10 @@
 ---
-title: 将 ONNX 模型转换为 MaixCAM2 MaixPy 可以使用的模型（MUD）
+title: 手动转换给 MaixCAM2 用
 ---
 
 > MaixCAM / MaixCAM-Pro 模型转换请看[MaixCAM 模型转换文档](./maixcam.md)
+
+> 第一次转换普通 YOLO 检测模型，请先用[网页转换](./online_converter.md)，不需要安装 Docker。本文是在线工具不支持或需要自定义参数时使用的进阶路线。
 
 ## 简介
 
@@ -66,7 +68,7 @@ scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 
 可以看到这里有三个`conv`，后面的计算均由 CPU 进行，我们量化时就采取这几个`conv`的输出作为模型的最后输出，在这里输出名分别叫`/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0`。
 
-YOLO11/YOLOv8 请看[离线训练 YOLO11/YOLOv8](../vision/customize_model_yolov8.md).
+YOLO26/YOLO11/YOLOv8/YOLOv5 请先看[在电脑训练 YOLO 检测模型](../vision/customize_model_yolo.md)。
 
 分类模型一般来说取最后一个输出名称就行，不过如果有`osftmax`的话，建议不把`softmax`包含在模型里面，即取`softmax`前一层的输出名，下图是没有`softmax`层的所以直接取最后一层即可。
 ![](../../assets/mobilenet_top.png)
@@ -344,7 +346,4 @@ scale = 0.00392156862745098, 0.00392156862745098, 0.00392156862745098
 * 二：**适合正式封装，让`MaixCDK`和`MaixPy`都可以调用而且运行效率更高**。在`MaixCDK`中，可以参考[YOLOv5 的源码](https://github.com/sipeed/MaixCDK/blob/71d5b3980788e6b35514434bd84cd6eeee80d085/components/nn/include/maix_nn_yolov5.hpp), 新增一个`hpp`文件，增加一个处理你的模型的类，并且修改所有函数和类的`@maixpy`注释，编写好了编译`MaixPy`项目，即可在`MaixPy`中调用新增的类来运行模型了。
 
 支持了新模型后还可以将源码提交（Pull Request）到主`MaixPy`仓库中，成为`MaixPy`项目的一员，为社区做贡献，也可以到 [MaixHub 分享](https://maixhub.com/share) 分享你新支持的模型，根据质量可以获得最少 `30元` 最高 `2000元` 的打赏！
-
-
-
 
