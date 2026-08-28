@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Real-time voice recognition
+title: Real-time voice recognition
 update:
   - date: 2024-10-08
     author: 916BGAI

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 实现 OCR 图片文字识别
+title: OCR 文字识别
 ---
 
 ## OCR 简介
@@ -230,7 +230,6 @@ model_deploy.py \
 --model ${net_name}_int8.cvimodel
 
 ```
-
 
 
 

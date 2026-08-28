@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 识别 Apriltag 标签
+title: AprilTag 识别
 update:
   - date: 2024-04-03
     author: lxowalle

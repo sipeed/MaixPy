@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Video Streaming WebRTC Push Streaming
+title: WebRTC streaming
 update:
   - date: 2025-12-12
     author: 916BGAI

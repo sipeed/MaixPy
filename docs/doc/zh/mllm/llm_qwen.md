@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 Qwen 大语言模型
+title: Qwen 大语言模型
 update:
   - date: 2025-05-28
     author: neucrack
@@ -14,7 +14,7 @@ update:
 
 Qwen（通义千问）是阿里巴巴集团旗下阿里云研发的开源大语言模型（LLM）和多模态模型（LMM）系列，旨在推动通用人工智能（AGI）的发展。自2023年首次发布以来，Qwen 仍然在保持迭代，并在多个自然语言处理和多模态任务中展现出卓越性能。
 
-更多详细介绍可以自行搜索或到[Qwen官网](https://qwen.readthedocs.io/zh-cn/latest/)查看。
+模型能力、版本区别和提示词示例可以查阅 [Qwen 官方文档](https://qwen.readthedocs.io/zh-cn/latest/)。
 
 Qwen 实际上包含了许多种模型，本文主要介绍 大语言模型（LLM） Qwen 的使用。
 
@@ -198,4 +198,3 @@ pulsar2 llm_build --input_path Qwen2.5-0.5B-Instruct  --output_path models/Qwen2
 ```
 
 可以根据你的需求修改。
-

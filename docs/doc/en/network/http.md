@@ -1,14 +1,14 @@
 ---
-title: Using HTTP Network Communication with MaixPy MaixCAM
+title: http communication
 ---
 
 ## Introduction
 
-HTTP is an application layer network protocol based on TCP. Through it, we can send and receive information to and from network servers, such as retrieving webpage content from a web server. For more information, you can search for HTTP.
+HTTP is the communication method commonly used by websites and web APIs. A device sends a request, and the server returns a status, text, an image, or other data. For example, MaixCAM can fetch configuration data or upload sensor results over HTTP.
 
 ## Using HTTP Requests in MaixPy
 
-Since MaixPy is based on Python, you can directly use the built-in `requests` library. The `requests` library is a very robust and user-friendly library, so it won't be elaborated on here. Please search for related documentation and tutorials for more information.
+MaixPy can use Python's `requests` library directly. This page demonstrates a common GET request. For query parameters, file uploads, timeouts, and other options, see the [`requests` quick start](https://requests.readthedocs.io/en/latest/user/quickstart/).
 
 Here is an example of fetching the homepage content of `https://example.com`.
 
@@ -27,4 +27,3 @@ print("")
 print("-- text:", response.text)
 print("")
 ```
-

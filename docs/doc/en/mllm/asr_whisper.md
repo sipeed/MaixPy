@@ -1,5 +1,5 @@
 ---
-title: Running the Whisper Model on MaixPy MaixCAM
+title: Whisper Speech-Recognition Model
 update:
   - date: 2026-01-05
     author: lxowalle
@@ -9,57 +9,33 @@ update:
 
 ## Whisper Model Overview
 
-Whisper is a general-purpose speech recognition model open-sourced by OpenAI, designed for tasks such as multilingual speech recognition and speech translation.
-Currently, the Whisper model ported to MaixCAM2 is the `base` version. It supports input WAV audio files with mono channel and 16 kHz sample rate, and can recognize Chinese and English.
+Whisper is an open-source speech-recognition model from OpenAI that converts speech into text. MaixCAM2 currently supports the `base` version for Chinese and English.
 
-## Downloading the Model
+## Download the Model
 
-Supported models:
+| Model | Platform | Memory Required | Description |
+| --- | --- | --- | --- |
+| [whisper-base-maixcam2](https://huggingface.co/sipeed/whisper-base-maixcam2) | MaixCAM2 | 1 GB | base |
 
-| Model                                                         | Platform     | Memory Requirement | Description              |
-| ------------------------------------------------------------ | -------- | -------- | ----------------- |
-| [whisper-base-maixcam2](https://huggingface.co/sipeed/whisper-base-maixcam2) | MaixCAM2 | 1G      | base |
+Follow the [Large Model User Guide](./basic.md) to download and extract the model.
 
-Refer to the [Large Model User Guide](./basic.md) to download the model.
+## Run the Model with MaixPy
 
-## Running the Model with MaixPy
+Prepare a mono WAV file sampled at 16 kHz. Mono means one audio channel; 16 kHz means 16,000 samples per second.
 
-Currently, only the base-size Whisper model is supported. It accepts mono, 16 kHz WAV audio files and supports Chinese and English recognition.
-Below is a simple example demonstrating how to use Whisper for speech recognition:
+Make sure the model and audio paths match their actual locations on the device, then run:
 
 ```python
 from maix import nn
 
-whisper = nn.Whisper(model="/root/models/whisper-base-maixcam2/whisper-base.mud")
+whisper = nn.Whisper(
+    model="/root/models/whisper-base/whisper-base.mud",
+    language="en",
+)
 
 wav_path = "/maixapp/share/audio/demo.wav"
-
-res = whisper.transcribe(wav_path)
-
-print('res:', res)
+text = whisper.transcribe(wav_path)
+print("result:", text)
 ```
 
-Notes:
-1. First, import the nn module to create a Whisper model object:
-```python
-from maix import nn
-```
-2. Select the model to load. Currently, only the base-size Whisper model is supported:
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base-maixcam2/whisper-base.mud")
-```
-3. Prepare a mono, 16 kHz WAV audio file and run inference. The recognition result will be returned directly:
-```python
-wav_path = "/maixapp/share/audio/demo.wav"
-res = whisper.forward(wav_path)
-print('whisper:', res)
-```
-4. Output result:
-```shell
-whisper: 开始愉快的探索吧
-```
-
-By default, the model recognizes Chinese.
-To recognize English, specify the `language` parameter when initializing the object:
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base-maixcam2.mud", language="en")
+Use `language="zh"` for Chinese or `language="en"` for English. If a file-not-found error appears, check both the `.mud` model path and WAV audio path.

@@ -1,5 +1,5 @@
 ---
-title: MaixVision -- MaixCAM MaixPy Programming IDE + Graphical Block Programming
+title: MaixVision usage
 ---
 
 ## Introduction
@@ -19,9 +19,9 @@ Visit the [MaixVision homepage](https://wiki.sipeed.com/maixvision) to download.
 
 Before using MaixVision for programming, complete the device connection steps in the quick start guide that matches your device:
 
-* [Quick Start MaixCAM2](../README_MaixCAM2.html#Preparing-to-Connect-Computer-and-Device)
-* [Quick Start MaixCAM](../README_MaixCAM.html#Preparing-to-Connect-Computer-and-Device)
-* [Quick Start MaixCAM screenless version](../README_no_screen.html#Preparing-to-Connect-the-Computer-and-Device)
+* [Quick Start MaixCAM2](../README_MaixCAM2.md)
+* [Quick Start MaixCAM](../README_MaixCAM.md)
+* [Quick Start MaixCAM screenless version](../README_no_screen.md)
 
 After the device is connected, you can use MaixVision for MaixPy programming and online running.
 

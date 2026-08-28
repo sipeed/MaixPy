@@ -1,5 +1,5 @@
 ---
-title: Compiling a System for MaixCAM MaixPy
+title: Build OS
 ---
 
 ## Why Customize the System?

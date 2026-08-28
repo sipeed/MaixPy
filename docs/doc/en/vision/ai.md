@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Basic Knowledge of AI Vision
+title: AI vision knowledge
 update:
   - date: 2024-04-03
     author: neucrack
@@ -15,10 +15,8 @@ Then, the visual AI we use is generally based on the `deep neural network learni
 
 ## Using Visual AI in MaixPy
 
-Using visual AI in MaixPy is very simple. By default, commonly used AI models are provided, and you can use them directly without having to train the models yourself. You can find the `maixcam` models in the [MaixHub Model Library](https://maixhub.com/model/zoo).
+MaixPy provides runtime APIs for common vision models. For a first test, you do not need to train a model. Select your board in the [MaixHub model zoo](https://maixhub.com/model/zoo) and download a ready-made model.
 
-Additionally, the underlying APIs have been well-encapsulated, and you only need to make simple calls to implement them.
+If no ready-made model recognizes your target, use [MaixHub online training](./maixhub_train.md) or train on a computer. See [Get, Upload and Run a Model](../ai_model_converter/ai_model_deploy.md) for the complete route.
 
-If you want to train your own model, you can start with [MaixHub Online Training](https://maixhub.com/model/training/project). On the online platform, you can train models just by clicking, without the need to purchase expensive machines, set up complex development environments, or write code, making it very suitable for beginners and also for experienced users who are too lazy to read code.
-
-Generally, once you have obtained the model file, you can transfer it to the device and call the MaixPy API to use it. The specific calling methods are discussed in the following sections.
+After preparing the model, upload the complete model package to the device and load it with the matching MaixPy API. The classification, detection, and recognition guides that follow provide working code.

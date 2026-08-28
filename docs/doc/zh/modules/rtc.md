@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 RTC 模块
+title: RTC 时钟模块使用
 ---
 
 
@@ -7,7 +7,6 @@ MaixCAM-Pro 板载了一个 RTC 模块，默认上电会自动同步系统时间
 
 所以一般情况不需要手动操作 RTC，直接使用系统的时间 API 获取时间即可。
 
-如果一定要手动操作 RTC，请看[bm8653 RTC 模块使用](./bm8653.md)（手动操作前可以在系统 `/etc/init.d`目录下把 RTC 和 NTP 相关服务删掉以禁用自动同步。
+如果一定要手动操作 RTC，请看 [BM8563 RTC 使用说明](./bm8653.md)。手动操作前，可以停用系统中的 RTC 和 NTP 自动同步服务，避免系统同时修改时间。
 
 > MaixCAM 无板载 RTC。
-

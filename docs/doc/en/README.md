@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Quick Start
+title: Quick Start
 ---
 
 <style>
@@ -26,7 +26,7 @@ title: MaixCAM MaixPy Quick Start
 |  API Documentation 📚 | [wiki.sipeed.com/maixpy/api/](https://wiki.sipeed.com/maixpy/api/index.html)               |
 | MaixHub App Store 📦      | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub Sharing Square 🎲 | [maixhub.com/share](https://maixhub.com/share)                                             |
-| Open Source Projects 📡             | GitHub Search：[MaixCAM](https://github.com/search?q=maixcam&type=repositoriese) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositoriese) / [MaixPy](https://github.com/search?q=maixpy&type=repositoriese)  |
+| Open Source Projects 📡             | GitHub Search: [MaixCAM](https://github.com/search?q=maixcam&type=repositories) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositories) / [MaixPy](https://github.com/search?q=maixpy&type=repositories)  |
 
 </div>
 <div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
@@ -43,53 +43,33 @@ title: MaixCAM MaixPy Quick Start
 
 ## Choose Your Device First
 
-There are several MaixCAM series products. If this is your first time using one, check the model name on the package, order page, or device enclosure first, then open the corresponding getting-started guide. Choosing the right guide first can save a lot of detours.
+>! **Confirm your device model, then open only the matching quick-start guide below. The three device types use different startup and connection steps.** You can find the model name on the package, order page, or device enclosure.
 
-| Device Model | Product Image | Getting Started |
+| Your Device | Product Image | Open This Guide Now |
 | --- | --- | --- |
-| MaixCAM2 | ![MaixCAM2](/static/image/maixcam2_front_back.png) | [Quick Start MaixCAM2](./README_MaixCAM2.md) |
-| MaixCAM / MaixCAM-Pro | ![MaixCAM / MaixCAM-Pro](/static/image/maixcams.png) | [Quick Start MaixCAM](./README_MaixCAM.md) |
-| MaixCAM Lite / screenless version | ![MaixCAM Lite / screenless version](/static/image/maixcam.png) | [Quick Start MaixCAM screenless version](./README_no_screen.md) |
+| **MaixCAM2** | ![MaixCAM2](/static/image/maixcam2_front_back.png) | **[👉 Open MaixCAM2 Quick Start](./README_MaixCAM2.md)** |
+| **MaixCAM / MaixCAM-Pro** | ![MaixCAM / MaixCAM-Pro](/static/image/maixcams.png) | **[👉 Open MaixCAM Quick Start](./README_MaixCAM.md)** |
+| **MaixCAM Lite / another screenless version** | ![MaixCAM Lite / screenless version](/static/image/maixcam.png) | **[👉 Open Screenless Quick Start](./README_no_screen.md)** |
 
 <iframe style="width:100%;min-height:30em" src="https://www.youtube.com/embed/qV1lw0UVUYI?si=g3xUX5v3iT9r7RxJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## Before Start
+## Before You Start
 
-* Please **carefully** follow the steps outlined in this document. Do not skip any sections, and compare your actions accordingly.
-* **Pay close attention** to the table of contents on the left. Be sure to read through the basic sections thoroughly and patiently.
-* **Before asking questions**, first search the documentation in the left-hand table of contents and review the [FAQ](./faq.md).
-* This document is the `MaixPy v4 Tutorial`. Be mindful not to confuse it with the [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html) (K210 series), and ensure you are referring to the correct documentation.
+- This is the `MaixPy v4` documentation for the MaixCAM series. For K210 devices, use the [MaixPy v1 documentation](https://wiki.sipeed.com/soft/maixpy/zh/index.html).
+- Boards from other product lines cannot use the same system and programs just because they use a similar chip.
+- Videos are useful for seeing the general process, but follow the latest documentation for current buttons and settings.
+- If something does not work, check the relevant step and the [FAQ](./faq.md) first.
 
-## Get a MaixCAM/MaixCAM2 Device
+## What to Learn After Quick Start
 
-![maixcam2](/static/image/maixcam2_front_back.png)
+After following the guide for your device and successfully running an example, choose the next topic that matches your goal:
 
+- **Write your first MaixPy program:** start with [Using MaixVision](./basic/maixvision.md) and [Python Fundamentals](./basic/python.md) in the Basic section.
+- **Use the camera, display, or common algorithms:** choose a topic from Basic Image Processing and Algorithms.
+- **Run or train an AI model:** start with AI Vision or Train, Convert and Deploy.
+- **Put your program in the device menu:** see [App Development and App Store](./basic/app.md).
 
-Basic Information:[MaixCAM2 Introduction & Resources](https://wiki.sipeed.com/hardware/en/maixcam/maixcam2.html)
-Purchase Links:[Sipeed Taobao](https://item.taobao.com/item.htm?id=846226367137) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460)
-<br>
-
-![maixcam_pro](../../static/image/maixcam_pro.png)
-
-**MaixCAM** currently has several versions. Choose according to your needs:
-
-| | |
-|---|---|
-|**MaixCAM-Pro**(Recommended)|Baisc Infomation:[MaixCAM-Pro Introduction & Resources](https://wiki.sipeed.com/maixcam-pro)<br>Purchase Links:[Sipeed Taobao](https://item.taobao.com/item.htm?id=846226367137) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460)|
-|**MaixCAM**|Baisc Infomation:[MaixCAM Introduction & Resources](https://wiki.sipeed.com/maixcam)<br>Purchase Links:[Sipeed Taobao](https://item.taobao.com/item.htm?id=784724795837) or [Sipeed AliExpress](https://www.aliexpress.com/store/911876460)|
-|**MaixCAM-Lite**(Not Recommended)|Screenless and caseless version, more affordable. Not recommended for learning/development, but may be considered for mass production.|
-
-<br>
-
->! Note that currently only the MaixCAM development board is supported. Other development boards with the same chip are not supported, including Sipeed's development boards with the same chip. Please be careful not to purchase the wrong board, which could result in unnecessary waste of time and money.
-
- ## Next Steps
-
- If you like what you've seen so far, **please be sure to give the MaixPy open-source project a star on [GitHub](https://github.com/sipeed/MaixPy) (you need to log in to GitHub first). Your star and recognition is the motivation for us to continue maintaining and adding new features!**
-
- Up to this point, you've experienced the usage and development workflow. Next, you can learn about `MaixPy` syntax and related features. Please follow the left sidebar to learn. If you have any questions about using the API, you can look it up in the [API documentation](/api/).
-
- It's best to learn with a specific purpose in mind, such as working on an interesting small project. This way, the learning effect will be better. You can share your projects and experiences on the [MaixHub Share Plaza](https://maixhub.com/share) and receive cash rewards!
+Use the [API documentation](/api/) to look up function parameters and return values. Learning is easier with a small goal, such as reading a QR code or detecting an apple.
 
 
 ## Frequently Asked Questions (FAQ)
@@ -98,10 +78,10 @@ If you encounter any problems, please check the [FAQ](./faq.md) first. If you ca
 
  ## Share and Discuss
 
- * **[MaixHub Project and Experience Sharing](https://maixhub.com/share)**: Share your projects and experiences, and receive cash rewards. The basic requirements for receiving official rewards are:
-   * **Reproducible**: A relatively complete process for reproducing the project.
-   * **Showcase**: No detailed project reproduction process, but an attractive project demonstration.
-   * **Bug-solving experience**: Sharing the process and specific solution for resolving a particular issue.
+ * **[MaixHub Project and Experience Sharing](https://maixhub.com/share)**: Share your projects and practical experience for a chance to receive an official cash reward. MaixHub especially welcomes these types of posts:
+   * **Step-by-step tutorial**: Provide enough instructions for other people to build the project themselves.
+   * **Project showcase**: Full build instructions are not required; focus on the project's creative idea and real-world result.
+   * **Problem-solving experience**: Describe the problem, how you investigated it, and the solution that worked.
  * [MaixPy Official Forum](https://maixhub.com/discussion/maixpy) (for asking questions and discussion)
  * Telegram: [MaixPy](https://t.me/maixpy)
  * MaixPy Source Code Issues: [MaixPy issue](https://github.com/sipeed/MaixPy/issues)

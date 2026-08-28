@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 升级和烧录系统
+title: 升级和烧录系统
 ---
 
 ## 系统和 MaixPy 介绍

@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 DeepSeek R1 大语言模型
+title: DeepSeek 大语言模型
 update:
   - date: 2025-05-28
     author: neucrack

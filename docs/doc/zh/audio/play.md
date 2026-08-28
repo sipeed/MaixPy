@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 播放音频
+title: 播放音频
 update:
   - date: 2024-05-20
     author: lxowalle

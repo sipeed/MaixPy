@@ -1,6 +1,5 @@
-
 ---
-title: MaixCAM MaixPy 快速开始
+title: 快速开始
 ---
 
 <style>
@@ -34,7 +33,7 @@ title: MaixCAM MaixPy 快速开始
 | MaixPy 视频和教程 💿        | [B站搜 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam&from_source=webtop_search&spm_id_from=333.1007&search_source=5) |
 | MaixHub 应用商店 📦     | [maixhub.com/app](https://maixhub.com/app)                                                 |
 | MaixHub 分享广场 🎲       | [maixhub.com/share](https://maixhub.com/share)                                             |
-| 开源项目 📡             | GitHub 搜：[MaixCAM](https://github.com/search?q=maixcam&type=repositoriese) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositoriese) / [MaixPy](https://github.com/search?q=maixpy&type=repositoriese)  |
+| 开源项目 📡             | GitHub 搜：[MaixCAM](https://github.com/search?q=maixcam&type=repositories) / [MaixCAM2](https://github.com/search?q=maixcam2&type=repositories) / [MaixPy](https://github.com/search?q=maixpy&type=repositories)  |
 
 </div>
 <div style="font-size: 1.2em;padding:1em; text-align:center; color: white">
@@ -51,56 +50,33 @@ title: MaixCAM MaixPy 快速开始
 
 ## 先选择你的设备
 
-MaixCAM 系列型号较多，如果你是第一次使用，先看包装、订单名称或者设备外壳上的型号，再进入对应的上手文档。找对型号后再继续往下看视频和教程，可以少走很多弯路。
+>! **先确认设备型号，再点击下面对应的快速开始。三种设备的启动和连接方法不同，请不要混着看。** 型号可以在包装、订单名称或设备外壳上找到。
 
-| 设备型号 | 产品图 | 上手文档 |
+| 你的设备 | 产品图 | 现在打开这篇教程 |
 | --- | --- | --- |
-| MaixCAM2 | ![MaixCAM2](/static/image/maixcam2_front_back.png) | [快速开始 MaixCAM2](./README_MaixCAM2.md) |
-| MaixCAM / MaixCAM-Pro | ![MaixCAM / MaixCAM-Pro](/static/image/maixcams.png) | [快速开始 MaixCAM](./README_MaixCAM.md) |
-| MaixCAM Lite / 无屏幕版本 | ![MaixCAM Lite / 无屏幕版本](/static/image/maixcam.png) | [快速开始 MaixCAM 无屏幕版本](./README_no_screen.md) |
+| **MaixCAM2** | ![MaixCAM2](/static/image/maixcam2_front_back.png) | **[👉 打开 MaixCAM2 快速开始](./README_MaixCAM2.md)** |
+| **MaixCAM / MaixCAM-Pro** | ![MaixCAM / MaixCAM-Pro](/static/image/maixcams.png) | **[👉 打开 MaixCAM 快速开始](./README_MaixCAM.md)** |
+| **MaixCAM Lite / 其他无屏幕版本** | ![MaixCAM Lite / 无屏幕版本](/static/image/maixcam.png) | **[👉 打开无屏幕版快速开始](./README_no_screen.md)** |
 
-## 写在前面
+## 开始前了解这些
 
-* 请**仔细**阅读按照下面文档的步骤，不要遗漏内容，对比进行操作。
-* **左边目录**请仔细查看，基础部分一定要耐心阅读完。
-* **提问前**先在左边目录仔细查找文档，以及看[FAQ](./faq.md)。
-* 本文档是`MaixPy v4 教程文档`，注意与 [MaixPy-v1](https://wiki.sipeed.com/soft/maixpy/zh/index.html)（k210系列）区别开，勿错看文档。
-* 也可以参考下面的视频上手教程，注意视频内容有更正在**评论区和弹幕会补充，以最新的文档为准**。更多视频教程可从 [B站搜索 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam) 查看。
+- 本站是 `MaixPy v4` 文档，适用于 MaixCAM 系列。K210 系列请看 [MaixPy v1 文档](https://wiki.sipeed.com/soft/maixpy/zh/index.html)。
+- 即使芯片型号相同，其他开发板也不能直接使用本文档中的系统和程序。
+- 视频适合快速了解操作，具体按钮和参数请以最新文档为准。更多视频可以在 [B 站搜索 MaixCAM 或 MaixPy](https://search.bilibili.com/all?keyword=maixcam)。
+- 遇到问题时，先查看对应步骤和 [FAQ](./faq.md)。
+
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112865415531014&bvid=BV1vcvweCEEe&cid=500001630687957&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="min-height:20em; width: 90%"></iframe>
 
+## 完成快速开始后学什么
 
-## 获得 MaixCAM/MaixCAM2 设备
+按照设备对应的快速开始文档完成开机、联网和运行例程后，可以根据目标继续：
 
-![maixcam2](/static/image/maixcam2_front_back.png)
+- **第一次写 MaixPy 程序**：先看左侧“基础”栏目中的 [MaixVision 使用](./basic/maixvision.md)和 [Python 基础知识](./basic/python.md)。
+- **想使用摄像头、屏幕或常见算法**：从左侧“基础图像和算法”选择需要的功能。
+- **想运行或训练 AI 模型**：从左侧“AI 视觉”和“训练、转换和部署”开始。
+- **想把程序放到设备菜单中**：查看[应用开发和应用商店](./basic/app.md)。
 
-
-基础资料:[MaixCAM2 介绍和资料](https://wiki.sipeed.com/hardware/zh/maixcam/maixcam2.html)
-购买链接:[Sipeed 淘宝](https://item.taobao.com/item.htm?id=846226367137) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460)
-<br>
-
-![maixcam_pro](../../static/image/maixcam_pro.png)
-
-
-**MaixCAM**目前有几个版本，根据自己的需求买：
-
-| | |
-|---|---|
-|**MaixCAM-Pro**（推荐）|基础资料:[MaixCAM-Pro 介绍和资料](https://wiki.sipeed.com/maixcam-pro)<br>购买链接:[Sipeed 淘宝](https://item.taobao.com/item.htm?id=846226367137) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460)|
-|**MaixCAM**|基础资料:[MaixCAM 介绍和资料](https://wiki.sipeed.com/maixcam)<br>购买链接:[Sipeed 淘宝](https://item.taobao.com/item.htm?id=784724795837) 或者 [Sipeed 速卖通](https://www.aliexpress.com/store/911876460)|
-|**MaixCAM-Lite**（不推荐）|无屏幕和外壳版本，价格更便宜，学习开发不建议购买，量产可以考虑购买。|
-
-<br>
-
->! 注意，目前只支持 MaixCAM 系列开发板，其它同型号芯片的开发板均不支持，包括 Sipeed 的同型号芯片开发板，请注意不要买错造成不必要的时间和金钱浪费。
-
-
-## 下一步
-
-看到这里，如果你觉得不错，**请务必来 [github](https://github.com/sipeed/MaixPy) 给 MaixPy 开源项目点一个 star（需要先登录 github）, 你的 star 和认同是我们不断维护和添加新功能的动力！**
-
-到这里你已经体验了一遍使用和开发流程了，接下来可以学习 `MaixPy` 语法和功能相关的内容，请按照左边的目录进行学习，如果遇到 `API` 使用问题，可以在[API 文档](/api/)中查找。
-
-学习前最好带着自己学习的目的学，比如做一个有趣的小项目，这样学习效果会更好，项目和经验都可以分享到[MaixHub 分享广场](https://maixhub.com/share)，会获得现金奖励哦！
+函数的参数和返回值可以在 [API 文档](/api/)中查询。带着一个具体目标学习会更容易，例如先做一个识别二维码或检测苹果的小项目。
 
 ## 常见问题 FAQ
 
@@ -108,10 +84,10 @@ MaixCAM 系列型号较多，如果你是第一次使用，先看包装、订单
 
 ## 分享交流
 
-* **[MaixHub 项目和经验分享](https://maixhub.com/share)** ：分享你的项目和经验，获得现金打赏，获得官方打赏的基本要求：
-  * **可复现型**：较为完整的项目制作复现过程。
-  * **炫耀型**：无详细的项目复现过程，但是项目展示效果吸引人。
-  * Bug 解决经验型：解决了某个难题的过程和具体解决方法分享。
+* **[MaixHub 项目和经验分享](https://maixhub.com/share)**：欢迎分享你的项目和实践经验，还有机会获得官方现金奖励。官方主要鼓励以下三类内容：
+  * **完整教程**：提供比较完整的制作步骤，让其他人可以跟着做出来。
+  * **作品展示**：不要求提供完整的制作步骤，重点展示项目的创意和实际效果。
+  * **问题解决经验**：记录遇到的问题、排查过程和最终解决方法。
 * [MaixPy 官方论坛](https://maixhub.com/discussion/maixpy)（提问和交流）
 * QQ 群： （建议在 QQ 群提问前先发个帖，方便群友快速了解你需要了什么问题，复现过程是怎样的）
   * MaixPy (v4) AI 视觉交流大群: 862340358

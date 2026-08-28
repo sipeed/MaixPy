@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Object Tracking and Counting (e.g., Pedestrian Counting)
+title: Object tracking and counting
 ---
 
 ## Introduction to Object Tracking
@@ -43,4 +43,3 @@ valid_class_id = [0]       # classes used in the detection model
 ```
 
 The `tracker_bytetrack_count.py` example adds pedestrian counting. To keep it simple, the example only implements counting for people walking from top to bottom. If a person is below the yellow area and their trajectory crosses into the yellow area, they are counted as crossing from top to bottom. You can write custom logic based on your specific application scenario.
-

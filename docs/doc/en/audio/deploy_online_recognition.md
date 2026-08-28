@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Deploy online speech recognition
+title: Deploy online speech recognition
 update:
   - date: 2024-12-23
     author: lxowalle
@@ -28,20 +28,20 @@ git clone https://github.com/k2-fsa/sherpa-onnx.git
 
 #### Install Dependencies
 
-```python
+```shell
 pip install numpy
 pip install websockets
 ```
 
 #### Install the `sherpa-onnx` Package
 
-```python
+```shell
 pip install sherpa-onnx
 ```
 
 If GPU support is required, install the CUDA-enabled package:
 
-```python
+```shell
 pip install sherpa-onnx==1.10.16+cuda -f https://k2-fsa.github.io/sherpa/onnx/cuda.html
 
 # For users in China
@@ -50,7 +50,7 @@ pip install sherpa-onnx==1.10.16+cuda -f https://k2-fsa.github.io/sherpa/onnx/cu
 
 If the package is unavailable or installation fails, build and install from the source:
 
-```python
+```shell
 cd sherpa-onnx
 export SHERPA_ONNX_CMAKE_ARGS="-DSHERPA_ONNX_ENABLE_GPU=ON"
 python3 setup.py install
@@ -60,7 +60,7 @@ If a GPU is available but `CUDA` is not installed, refer to the installation gui
 
 #### Verify the Installation of `sherpa-onnx`
 
-```python
+```shell
 python3 -c "import sherpa_onnx; print(sherpa_onnx.__version__)"
 
 # Expected output:

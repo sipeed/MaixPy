@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 语音实时识别
+title: 语音实时识别
 update:
   - date: 2024-10-08
     author: 916BGAI

@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 VLM InternVL 视觉语言模型
+title: InternVL 视觉语言模型
 update:
   - date: 2025-06-05
     author: neucrack

@@ -1,5 +1,5 @@
 ---
-title: 参与 MaixCAM MaixPy 文档修改和贡献代码
+title: 贡献文档和代码
 ---
 
 ## 参与 MaixPy 文档修改
@@ -30,5 +30,4 @@ title: 参与 MaixCAM MaixPy 文档修改和贡献代码
 * 等待管理员审核通过后，你的修改就会合并到 MaixPy 源码仓库中了。
 
 > 需要注意的是 MaixPy 的代码大多数是从 [MaixCDK](https://github.com/sipeed/MaixCDK) 自动生成的，所以如果你修改 C/C++ 源码，很有可能你需要先修改这个仓库。
-
 

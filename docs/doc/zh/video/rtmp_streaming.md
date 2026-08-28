@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 视频流 RTMP 推流
+title: RTMP 串流
 update:
   - date: 2024-05-20
     author: lxowalle
@@ -160,4 +160,4 @@ while True:
 
 运行代码，就能在直播间看到`maixcam`的画面了，如果发现直播没有显示，可以尝试先关闭直播间，再重新打开直播间，再运行代码。
 
-动手试试吧～ 
+动手试试吧～

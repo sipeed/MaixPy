@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 I2C
+title: I2C
 update:
   - date: 2025-08-08
     author: Neucrack
@@ -22,7 +22,7 @@ update:
 * 控制设备，比如设置摄像头参数。
 * 两个设备通信。
 
-关于 I2C 基础知识，网上有很多好教程，本文不展开讲解，请自行搜索学习。
+本页重点讲 MaixPy 的实际用法。第一次使用时，只要知道 `SCL` 是时钟线、`SDA` 是数据线，并且同一总线上的每个从设备需要有不同地址即可。
 
 
 ## 选择合适的 I2C 使用
@@ -121,4 +121,3 @@ err.check_raise(pinmap.set_pin_function(sda_pin_name, sda_i2c_name), "set pin fa
 
 bus = smbus.SMBus(i2c_id)
 ```
-

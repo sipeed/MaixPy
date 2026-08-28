@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy SPI LCD Screen
+title: SPI LCD Screen
 update:
   - date: 2024-12-02
     author: 916BGAI

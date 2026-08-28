@@ -1,5 +1,5 @@
 ---
-title: MaixCAM2 MaixPy 使用 Depth-Anything 单目估计深度距离
+title: Depth-Anything 单目深度估计
 update:
   - date: 2025-06-09
     version: v1.0
@@ -63,4 +63,3 @@ MaixCAM2 实机运行效果：
 
 由于模型需要的算力比较大，默认采用的分辨率为 448x336, 如果你期望使用其它分辨率，可以到[MaixHub 模型库](https://maixhub.com/model/zoo?platform=maixcam2)下载现有的其它分辨率的，如果 MaixHub 也没有你要的分辨率，可以自己转换模型。
 对于 MaixCAM2，转换模型 参考[模型量化文档](../ai_model_converter/maixcam2.md) 以及 [huggingface.co/AXERA-TECH/Depth-Anything-V2](https://huggingface.co/AXERA-TECH/Depth-Anything-V2/tree/main) 和 [github.com/AXERA-TECH/DepthAnythingV2.axera](https://github.com/AXERA-TECH/DepthAnythingV2.axera)（注意 这个工程里 config.json 中输入是 BGR，建议改成MaixPy 默认使用的 RGB）。
-

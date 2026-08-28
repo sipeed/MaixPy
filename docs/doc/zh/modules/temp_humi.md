@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 读取温湿度传感器
+title: 温湿度传感器
 ---
 
 ## 简介
@@ -17,4 +17,3 @@ title: MaixCAM MaixPy 读取温湿度传感器
 完整的代码在 [MaixPy/examples/ext_dev/sensors](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/sensors) 目录下， 找到`si7021` 的例程即可。
 
 注意系统镜像需要 `>= 2024.6.3_maixpy_v4.2.1` 版本。
-

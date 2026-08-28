@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 关键词识别
+title: 关键词识别
 update:
   - date: 2024-10-08
     author: 916BGAI

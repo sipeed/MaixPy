@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 LCM-LoRA-SDv1-5 模型
+title: LCM-LoRA-SDv1-5 图像生成模型
 update:
   - date: 2025-12-03
     author: lxowalle
@@ -114,4 +114,3 @@ python3 launcher.py --init_image ax620e_models/img2img-init.png --isize 256 --mo
 - `--seed`: 随机种子, 代表图片生成时的随机性
 - `-o`: 输出图片名称
 - `--prompt`: 描述文字, 模型基于这里的描述生成图片
-

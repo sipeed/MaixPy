@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Video Streaming UVC Streaming / As a UVC camera to display custom image
+title: UVC streaming
 update:
   - date: 2024-12-20
     author: taorye

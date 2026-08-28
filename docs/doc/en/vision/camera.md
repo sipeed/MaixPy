@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Camera Usage
+title: Camera usage
 update:
   - date: 2024-04-03
     author: neucrack
@@ -312,4 +312,3 @@ Steps:
 
 * Set `USB Mode` to `HOST` in system settings. Without screen, use script `examples/tools/maixcam_switch_usb_mode.py`.
 * As of 2024.10.24, `maix.camera` module **does not** support USB camera. Refer to [Using USB Camera with OpenCV](./opencv.md).
-

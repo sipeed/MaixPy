@@ -1,12 +1,12 @@
 ---
-title: Using WebSocket with MaixPy MaixCAM
+title: websocket communication
 ---
 
 ## Introduction
 
-Similar to sockets, WebSocket enables long-lived communication connections and supports communication with web pages.
+WebSocket keeps a connection open between a client and server, allowing either side to send a message at any time. It is useful for real-time control, status updates, and two-way communication between a device and a web page.
 
-Since MaixPy is based on Python, you can use the commonly available Python `websockets` and `asyncio` modules. For more detailed information, please refer to the documentation and tutorials available online.
+MaixPy can use Python's `websockets` and `asyncio` modules. The sections below provide client and server examples. See the [`websockets` documentation](https://websockets.readthedocs.io/) for more connection options.
 
 ## WebSocket Client
 
@@ -70,4 +70,3 @@ asyncio.get_event_loop().run_until_complete(start_server)
 print("Start server loop")
 asyncio.get_event_loop().run_forever()
 ```
-

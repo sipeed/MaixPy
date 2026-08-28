@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 基于手部关键点检测结果进行进行手势分类
+title: 手势分类器
 ---
 
 
@@ -122,8 +122,8 @@ print(f"pred: {y_pred}, conf: {y_conf}")
 且保证长度相等，元素一一对应，否则会报错。
 
 ```python
-# 初始化，加载
-def __init__(self, clf: LinearSVC=LinearSVC(), X=None, Y=None, pretrained=False)
+# 构造函数签名：
+# def __init__(self, clf=LinearSVC(), X=None, Y=None, pretrained=False):
 
 # 使用默认参数的 LinearSVC 进行初始化
 clfm = LinearSVCManager(X=X_train, Y=y_train)

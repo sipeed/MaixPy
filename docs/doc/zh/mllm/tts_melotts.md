@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 MeloTTS 模型
+title: MeloTTS 语音合成模型
 update:
   - date: 2025-08-15
     author: lxowalle

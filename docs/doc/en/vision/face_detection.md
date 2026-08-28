@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Face Detection and Keypoint Detection
+title: Face and keypoints detection
 ---
 
 ## Introduction

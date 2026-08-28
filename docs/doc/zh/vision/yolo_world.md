@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM2 使用 YOLO World 模型实现无需训练检测任意目标
+title: YOLO-World 检测任意物体
 ---
 
 ## YOLO World 硬件平台支持情况
@@ -185,7 +185,6 @@ cd /root
 ### 其它参考
 
 如果你想更深入了解移植过程，可以看[再谈 YOLO World 部署](https://zhuanlan.zhihu.com/p/721856217)
-
 
 
 

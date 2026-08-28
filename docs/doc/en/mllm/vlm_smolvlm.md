@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM Running SmolVLM Visual Language Model
+title: SmolVLM Vision-Language Model
 update:
   - date: 2025-12-03
     author: lxowalle

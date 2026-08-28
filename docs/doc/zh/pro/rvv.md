@@ -441,7 +441,7 @@ x = np.ascontiguousarray(x, dtype=np.float32)
 
 并且在打包 wheel 时会把它们一并打入 whl（见 `rvv_ext/setup.py`）。
 
-### 方式 A：安装 wheel 后获得提示（推荐）但我懒得打包了
+### 方式 A：安装 wheel 后获得提示（推荐）
 
 在目标机/开发机安装生成的 wheel 后，IDE 通常会自动读取 `.pyi`，为 `import rvv` 提供补全：
 

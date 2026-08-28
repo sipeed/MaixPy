@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy UART 串口使用介绍
+title: UART 串口
 update:
   - date: 2024-03-07
     author: Neucrack
@@ -29,13 +29,13 @@ update:
 * 硬件包括：
   * 3 个引脚： `GND`， `RX`， `TX`，通信双发**交叉连接** `RX` `TX`， 即一方 `TX` 发送到另一方的 `RX`， 双方 `GND` 连接到一起。
   * 控制器，一般在芯片内部，也叫 `UART` 外设，一般一个芯片有一个或者多个 `UART` 控制器，每个控制器有相对应的引脚。
-* 串口通信协议： 为了让双方能顺利通信，规定了一套协议，即以什么样的时序通信，具体可以自行学习，常见的参数有 波特率 校验位等，波特率是我们用得最多的参数。
+* 串口参数：通信双方必须使用相同的波特率、数据位、停止位和校验方式。本页示例使用最常见的 `115200 8N1`，也就是波特率 115200、8 个数据位、无校验、1 个停止位。
 
 
 通过板子的串口，可以和其它单片机或者 SOC 进行数据通信，比如可以在 MaixCAM 上实现人体检测功能，检测到坐标后通过串口发送给 STM32/Arduino 单片机。
 
 
-## 选择合适的 I2C 使用
+## 选择合适的 UART 使用
 
 首先我们需要知道设备有哪些引脚和 I2C，如图：
 
@@ -188,7 +188,7 @@ print(bytes_content, type(bytes_content))
 serial.write(bytes_content)
 ```
 这里 `pack("<i", num)` 把 `num`编码为`int`类型即`4字节`的有符号数，`<`符号意思是小端编码，低位在前，这里`num = 10`，十六进制 `4 字节`表示就是`0x0000000A`，小端就是把低字节`0x0A`放在前面，得到一个`b'\x0A\x00\x00\x00'`的字节类型数据。
-> 这里只举例使用`i`编码`int`类型的数据，还有其它类型比如`B`表示`unsigned char`等等，更多的`struct.pack`格式化用法可以自行搜索`python struct pack`。
+> 这里的 `i` 表示 4 字节有符号整数，`B` 表示 1 字节无符号整数。其他格式见 [Python struct 格式表](https://docs.python.org/3/library/struct.html#format-characters)。
 
 这样最终发送的就是`AA BB CC DD 0A 00 00 00 FF`二进制数据了。
 
@@ -300,7 +300,7 @@ print(content)
 
 另外这里`0x03E8`两个字节低位是`0xE8`，先发送低位`0xE8`我们称之为小端编码，反之则是大端编码，两个皆可，双方规定一致即可。
 
-在 MaixPy 中，要将一个数值转换成 bytes 类型也很简单，使用`struct.pack`函数即可，比如这里的`0x03E8`也就是十进制的`1000`，我们用
+在 MaixPy 中，可以用 `struct.pack` 把数值转换成 `bytes`。例如，`0x03E8` 对应十进制的 `1000`：
 ```python
 from struct import pack
 b = pack("<H", 1000)
@@ -308,12 +308,12 @@ print(b)
 ```
 这里`<H`表示小端编码，`H`表示一个 `uint16`类型的数据，最终得到`b'\xe8\x03'`的 bytes 类型数据。
 
-同样的，二进制协议也可以有 帧头，数据内容，校验值，帧尾等，也可以不要帧尾，而是设计一个帧长的字段，看个人喜好即可。
+二进制协议通常还会加入帧头、数据、校验值和帧尾。也可以用“数据长度”代替帧尾，但通信双方必须使用同一种格式。
 
 
 
 
-### MaixPy MaixPy 内置通信协议
+### MaixPy 内置通信协议
 
 另外 MaixPy 也内置了一个通信协议可以直接使用，使用这个协议可以实现串口甚至 TCP 来切换应用、控制应用、获取应用发出的数据等。
 
@@ -325,7 +325,7 @@ print(b)
 * [【MaixPy/MaixCAM】视觉利器 -- MaixCAM 入门教程二](https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.337.search-card.all.click) 看串口讲解部分
 * [视觉模块和STM32如何进行串口通信](https://www.bilibili.com/video/BV175vWe5EfV/?spm_id_from=333.337.search-card.all.click&vd_source=6c974e13f53439d17d6a092a499df304)
 * [[MaixCam]使用心得二：UART串口通信](https://blog.csdn.net/ButterflyBoy0/article/details/140577441)
-* 更多请自行互联网搜索
+* 更多协议设计方法可以继续阅读[Maix 应用通信协议](../comm/maix_protocol.md)。
 
 ## MaixCAM UART 串口排查指南
 
@@ -334,19 +334,20 @@ print(b)
 
 ### 目录
 
-1. [快速排查流程图](#快速排查流程图)
-2. [问题分类排查](#问题分类排查)
-   - [完全无法通信（收发均无数据）](#完全无法通信（收发均无数据）)
-   - [能发不能收](#能发不能收)
-   - [能收不能发](#能收不能发)
-   - [收到乱码](#收到乱码)
-   - [数据丢失或不完整](#数据丢失或不完整)
-   - [USB 口相关问题](#USB-口相关问题)
-   - [开机异常问题](#开机异常问题)
-3. [引脚与串口映射速查表](#引脚与串口映射速查表-MaixCAM-/-MaixCAM-Pro)
-4. [代码模板与示例](#代码模板与示例)
-5. [FAQ 快问快答](#FAQ-快问快答)
+1. [快速排查流程图](#uart-quick-check)
+2. [问题分类排查](#uart-issue-check)
+   - [完全无法通信（收发均无数据）](#uart-no-communication)
+   - [能发不能收](#uart-cannot-receive)
+   - [能收不能发](#uart-cannot-send)
+   - [收到乱码](#uart-garbled)
+   - [数据丢失或不完整](#uart-data-loss)
+   - [USB 口相关问题](#uart-usb)
+   - [开机异常问题](#uart-boot)
+3. [引脚与串口映射速查表](#uart-pin-map)
+4. [代码模板与示例](#uart-code-examples)
+5. [FAQ 快问快答](#uart-faq)
 
+<a id="uart-quick-check"></a>
 ### 快速排查流程图
 
 ```
@@ -371,8 +372,10 @@ print(b)
     └── 是否使用了不支持的波特率？
 ```
 
+<a id="uart-issue-check"></a>
 ### 问题分类排查
 
+<a id="uart-no-communication"></a>
 #### 完全无法通信（收发均无数据）
 
 **排查步骤：**
@@ -397,6 +400,7 @@ err.check_raise(pinmap.set_pin_function("A18", "UART1_RX"), "Failed")
 serial_dev = uart.UART("/dev/ttyS1", 115200)
 ```
 
+<a id="uart-cannot-receive"></a>
 ### 能发不能收
 
 **排查步骤：**
@@ -429,6 +433,7 @@ while not app.need_exit():
     time.sleep_ms(100)
 ```
 
+<a id="uart-cannot-send"></a>
 ### 能收不能发
 
 | 步骤 | 检查项 | 操作 |
@@ -453,6 +458,7 @@ serial.write("Hello".encode("utf-8"))
 serial.write("你好".encode("utf-8"))  # → b'\xe5\xa5\xbd'
 ```
 
+<a id="uart-garbled"></a>
 ### 收到乱码
 
 **最大概率原因：波特率不匹配！**
@@ -474,6 +480,7 @@ baud = uart_clk / (小数分频 × 16)
 
 > ⚠️ **MaixCAM / MaixCAM-Pro：仅验证 115200 可靠可用，其它波特率误码率可能很高。**
 
+<a id="uart-data-loss"></a>
 ### 数据丢失或不完整
 
 | 排查项 | 说明 |
@@ -505,6 +512,7 @@ while not app.need_exit():
     time.sleep_ms(1)
 ```
 
+<a id="uart-usb"></a>
 ### USB 口相关问题
 
 > **Q：为什么插上 USB 电脑没出现串口设备？**
@@ -519,6 +527,7 @@ while not app.need_exit():
 电脑 ──USB──> [USB转UART转接板] ──TX/RX/GND──> MaixCAM 串口引脚
 ```
 
+<a id="uart-boot"></a>
 ### 开机异常问题
 
 MaixCAM / MaixCAM-Pro 的 **UART0** 有两个特殊限制：
@@ -531,6 +540,7 @@ MaixCAM / MaixCAM-Pro 的 **UART0** 有两个特殊限制：
 
 > ⚠️ **如果你做了 3.3V 转 5V 电平转换电路，务必确保 TX 默认不是拉低状态！这是芯片特性，TX 拉低 = 无法开机。**
 
+<a id="uart-pin-map"></a>
 ### 引脚与串口映射速查表 MaixCAM / MaixCAM-Pro
 
 | 串口 | TX 引脚 | RX 引脚 | 设备路径 | 备注 |
@@ -550,6 +560,7 @@ MaixCAM / MaixCAM-Pro 的 **UART0** 有两个特殊限制：
 | UART3 | — | — | `/dev/ttyS3` | — |
 | UART4 | A21 | A22 | `/dev/ttyS4` | 板上默认引脚 |
 
+<a id="uart-code-examples"></a>
 ### 代码模板与示例
 
 ```python
@@ -575,6 +586,7 @@ while not app.need_exit():
     time.sleep_ms(1)
 ```
 
+<a id="uart-faq"></a>
 ### FAQ 快问快答
 
 | # | 问题 | 回答 |
@@ -589,6 +601,3 @@ while not app.need_exit():
 | 8 | 串口0开机打印的乱码是什么？ | 那是系统启动日志，到 `serial ready` 为止。单片机端需丢弃这部分数据。 |
 | 9 | 接了电平转换板但无法开机？ | 检查 UART0 TX（A16）是否被默认拉低，芯片特性：TX 拉低 = 无法开机。保持浮空或使用电平转换芯片。 |
 | 10 | 发送中文出现乱码？ | 确保发送时 `encode("utf-8")`，接收端也要用 UTF-8 解码。 |
-
-
-

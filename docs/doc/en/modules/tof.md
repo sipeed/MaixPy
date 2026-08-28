@@ -1,5 +1,5 @@
 ---
-title: Using TOF Modules for Distance Measurement and Terrain Detection with MaixCAM and MaixPy
+title: TOF
 ---
 
 ## Demo

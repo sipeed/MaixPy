@@ -1,5 +1,5 @@
 ---
-title: MaixPy / MaixCAM 触摸屏使用方法
+title: 触摸屏使用
 ---
 
 ## 简介
@@ -104,5 +104,4 @@ while not app.need_exit():
     img.draw_circle(x, y, 1, image.Color.from_rgb(255, 255, 255), 2)
     disp.show(img, fit=image.Fit.FIT_CONTAIN)
 ```
-
 

@@ -1,5 +1,5 @@
 ---
-title: Using AI Models for Object Classification in MaixCAM MaixPy
+title: AI object classification
 ---
 
 ## Object Classification Concept
@@ -46,8 +46,7 @@ If you want to train a classification model for specific images, visit [MaixHub]
 
 ## Offline Training for Your Own Classification Model
 
-For offline training, you need to set up your environment. Search for keywords such as `PyTorch classification model training` or `Mobilenet` for guidance.
+Offline training requires a framework such as PyTorch. Follow that framework's image-classification guide to train a model such as MobileNet or ResNet. This page continues from the export and conversion steps after training.
 After training the model, export it in ONNX format, then refer to the [MaixCAM Model Conversion Documentation](../ai_model_converter/maixcam.md) to convert it into a model format supported by MaixCAM. Finally, use the `nn.Classifier` class mentioned above to load the model.
 
 The classification model can be Mobilenet or another model like ResNet. During model conversion, it's best to extract the layer just before `softmax` as the final output layer because the `classifier.classify(img, softmax=True)` function has `softmax` enabled by default—this means the function will perform a `softmax` calculation on the results. Therefore, the model itself doesn't need a `softmax` layer. However, if the model does include a `softmax` layer, you can specify not to execute it again by using: `classifier.classify(img, softmax=False)`.
-

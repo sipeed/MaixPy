@@ -1,5 +1,5 @@
 ---
-title: Running the MeloTTS Model on MaixPy MaixCAM
+title: MeloTTS Speech-Synthesis Model
 update:
   - date: 2025-08-15
     author: lxowalle

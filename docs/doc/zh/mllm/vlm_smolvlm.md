@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 SmolVLM 视觉语言模型
+title: SmolVLM 视觉语言模型
 update:
   - date: 2025-12-03
     author: lxowalle

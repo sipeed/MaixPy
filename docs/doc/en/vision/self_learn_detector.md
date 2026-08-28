@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Self-learning Tracker
+title: Self-learning detector
 update:
   - date: 2024-04-03
     author: neucrack
@@ -64,7 +64,7 @@ Use the `maix.nn.MixFormerV2` class. After initializing the object, first call t
 from maix import nn
 
 model_path = "/root/models/nanotrack.mud"
-tracker = nn.MixFormerV2(model_path, update_interval = 200, int lost_find_interval = 60)
+tracker = nn.MixFormerV2(model_path, update_interval=200, lost_find_interval=60)
 tracker.init(img, x, y, w, h)
 pos = tracker.track(img, threshold=0.5)
 ```

@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 SenseVoice 模型
+title: SenseVoice 语音识别模型
 update:
   - date: 2026-01-05
     author: lxowalle

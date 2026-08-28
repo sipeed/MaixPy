@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy develop source code guide
+title: Build source code
 ---
 
 ## Get source code

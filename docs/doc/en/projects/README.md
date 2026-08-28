@@ -1,13 +1,10 @@
 ---
-title: Introduction and Summary of MaixCAM MaixPy Project Practices
+title: Apps and Project Collection
 ---
 
 ## Introduction
 
-This section provides:
-
-* Several common project practice examples for community members to reference and replicate, as well as to inspire more and better applications and projects.
-* Some open-source projects from community members for learning and reference.
+This page collects three kinds of resources: apps you can install, projects you can reproduce, and tools or projects with public source code. An app is not necessarily open source; check its details page to see whether source code is available.
 
 Besides this document, there are several other ways to find MaixPy-based projects:
 
@@ -34,13 +31,13 @@ Besides project sharing, you can also find runnable applications in the [MaixHub
 Searching for `MaixPy` or `MaixCAM` on [GitHub](https://github.com) can also lead you to many high-quality open-source projects.
 
 
-## Open Source Project Summary
+## Apps and Project Collection
 
-These are usually complete projects that include source code, documentation, demo videos, and more.
+The list includes built-in or installable apps, community projects, and open-source tools. The available material varies: some entries provide only usage instructions, while others also provide source code, build notes, or a demo video.
 
 ### Built-in Applications
 
-Applications pre-installed on platforms such as `MaixCAM`, `MaixCAM Pro`, and `MaixCAM2`
+These apps are built into or commonly used on `MaixCAM`, `MaixCAM Pro`, and `MaixCAM2`. Being listed here means the app is available to view or use; it does not mean its source code is public.
 
 | Built-in Application | Supported Platforms | Description | Documentation |
 | :--- | :--- | :--- | :--- |

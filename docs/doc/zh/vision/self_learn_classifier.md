@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 自学习分类器
+title: 自学习分类器
 ---
 
 
@@ -79,4 +79,3 @@ labels = classifier.load("/root/my_classes.bin")
 ## dual_buff 双缓冲区加速
 
 你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 视频流 UVC 推流 / 化身 UVC 摄像头显示自定义内容
+title: UVC 串流
 update:
   - date: 2024-12-20
     author: taorye

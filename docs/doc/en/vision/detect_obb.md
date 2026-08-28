@@ -1,5 +1,5 @@
 ---
-tite: Target Detection with Rotation Angles (OBB, Oriented Bounding Box)
+title: Detect with angle(OBB)
 update:
     - date: 2024-12-20
       version: v1.0

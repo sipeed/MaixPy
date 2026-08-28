@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Microscope Kit
+title: Microscope kit
 ---
 
 ![maixcam microscope](../../assets/maixcam_microscope.png)
@@ -22,4 +22,3 @@ For more details, check out the **[documentation](https://wiki.sipeed.com/micros
 ![](../../assets/maixcam_microscope_demo.png)
 
 ![](../../assets/maixcam_microscope_demo2.png)
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Playback Audio
+title: Playing audio
 update:
   - date: 2024-05-20
     author: lxowalle

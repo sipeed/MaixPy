@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 开发源代码指南
+title: 构建 MaixPy 源码
 ---
 ## 准备源码
 ### 获取 MaixCDK 源码

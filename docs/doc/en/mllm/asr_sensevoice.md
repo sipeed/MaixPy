@@ -1,5 +1,5 @@
 ---
-title: Running the SenseVoice Model on MaixPy MaixCAM
+title: SenseVoice Speech-Recognition Model
 update:
   - date: 2026-01-05
     author: lxowalle

@@ -1,5 +1,5 @@
 ---
-title: 3D Coordinate Detection of 21 Hand Keypoints with MaixPy MaixCAM
+title: Hand landmarks
 update:
     - date: 2024-12-31
       version: v1.0

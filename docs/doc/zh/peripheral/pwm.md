@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 PWM
+title: PWM
 update:
   - date: 2025-08-08
     author: Neucrack
@@ -21,7 +21,7 @@ update:
 * 控制无刷电机旋转速度。
 * 控制灯光亮度（PWM 调光）。
 
-关于更多 PWM 基础知识，网上有很多好教程，本文不展开讲解，请自行搜索学习。
+本页重点讲 MaixPy 的实际用法。第一次使用时，只要知道“频率”决定每秒重复多少次，“占空比”决定一个周期内高低电平各持续多久即可。
 
 
 ## 选择合适的 PWM 使用
@@ -130,6 +130,4 @@ for i in range(100):
 ## API 文档
 
 更多 API 看 [PWM API 文档](https://wiki.sipeed.com/maixpy/api/maix/peripheral/pwm.html)
-
-
 

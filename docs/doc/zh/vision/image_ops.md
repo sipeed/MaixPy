@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 图像基础操作
+title: 基本图像操作
 update:
   - date: 2024-04-03
     author: neucrack
@@ -31,7 +31,7 @@ MaixPy 提供基础图像模块`image`，里面最重要的就是`image.Image`�
 
 ## 创建图像
 
-创建图像很简单，只需要指定图像的宽度和高度以及图像格式即可：
+创建图像时需要指定宽度、高度和像素格式：
 ```python
 from maix import image
 
@@ -371,8 +371,6 @@ print(img)
 ## 更多基础 API 使用方法
 
 更多 API 使用方法请参考 [maix.image](/api/maix/image.html) 模块的文档。
-
-
 
 
 

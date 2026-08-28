@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Image Semantic Segmentation
+title: Image semantic segmentation
 ---
 
 ## Introduction

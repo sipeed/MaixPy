@@ -1,5 +1,5 @@
 ---
-title: MaixPy  使用 YOLO 模型进行目标检测
+title: YOLO 物体检测
 ---
 
 

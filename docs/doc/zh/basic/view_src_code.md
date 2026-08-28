@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 如何找到 MaixPy API 对应的源码
+title: 查看 API 对应源码
 ---
 
 ## 简介
@@ -86,7 +86,6 @@ int my_func(int a, int b)
 ## 如何贡献代码
 
 如果你发现 MaixPy 有未完成的 API， 或者有 bug， 欢迎修改后提交 PR（Pull Request）到 MaixPy 仓库，具体提交方法看 [贡献文档和代码](../source_code/contribute.md)
-
 
 
 

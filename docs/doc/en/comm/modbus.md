@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Using Modbus Protocol
+title: Modbus communication
 ---
 
 ## Introduction to Modbus
@@ -202,4 +202,3 @@ master_thread(None)
 ```
 
 This example demonstrates using UART1 as the master to read register values from a slave device.
-

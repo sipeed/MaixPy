@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 摄像头使用
+title: 摄像头使用
 update:
   - date: 2024-04-03
     author: neucrack
@@ -310,4 +310,3 @@ MaixCAM 默认配备了 M12 通用镜头，支持更换镜头。更换镜头时�
 方法：
 * 先在开发板设置里面`USB设置`中选择`USB 模式`为`HOST`模式。如果没有屏幕，可以用`examples/tools/maixcam_switch_usb_mode.py`脚本进行设置。
 * `maix.camera` 模块目前(2024.10.24) 还不支持 USB 摄像头，不过你可以参考 [OpenCV 使用 USB 摄像头](./opencv.md)。
-

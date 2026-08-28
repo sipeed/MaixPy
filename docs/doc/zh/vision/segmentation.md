@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 图像语义分割
+title: 图像语义分割
 ---
 
 ## 简介

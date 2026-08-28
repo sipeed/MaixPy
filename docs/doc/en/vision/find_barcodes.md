@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Barcode Recognition
+title: Barcode identity
 update:
   - date: 2024-12-16
     author: lxowalle

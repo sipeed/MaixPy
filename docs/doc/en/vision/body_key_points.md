@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Human Pose Keypoint Detection
+title: Human critical point detection
 ---
 
 ## Introduction
@@ -38,7 +38,7 @@ You can also find the code in the [MaixPy/examples/vision](https://github.com/si
 
 Since `YOLOv8-Pose` is used here, the `YOLOv8` class is also used, with the only difference being the model file compared to `YOLOv8` object detection. The same applies to `YOLO11`. The `detect` function returns an additional `points` value, which is a list of `int` containing `17` keypoints. The points are arranged in order; for example, the first value is the x-coordinate of the nose, the second value is the y-coordinate of the nose, and so on:
 
-```python
+```text
 1. Nose
 2. Left Eye
 3. Right Eye

@@ -1,4 +1,7 @@
-# MaixPy: Object Detection with YOLO Models
+---
+title: YOLO object detection
+---
+
 ## Concept of Object Detection
 Object detection refers to identifying the positions and categories of targets in images or videos—for example, detecting objects like apples and airplanes in an image and marking their locations.
 

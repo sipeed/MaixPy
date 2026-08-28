@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 人手部 21 个关键点三维坐标检测
+title: 手部关键点检测
 update:
     - date: 2024-12-31
       version: v1.0
@@ -37,7 +37,7 @@ Classifier Result video
 
 ## MaixPy MaixCAM 中使用手关键点检测
 
-在 **MaixPy** 中已经内置了该算法(移植于 mediapipe，有兴趣可自行学习)，可以方便地使用（**固件版本必须 >= 4.9.3**)，此例程也可以在[MaixPy/examples](https://github.com/sipeed/maixpy)目录中找到：
+MaixPy 已经内置了移植自 MediaPipe 的手部关键点算法。使用前请确认固件版本不低于 `4.9.3`。完整例程也可以在 [MaixPy examples](https://github.com/sipeed/MaixPy)中找到：
 ```python
 from maix import camera, display, image, nn, app
 
@@ -106,7 +106,7 @@ objs = detector.detect(img, conf_th = 0.7, iou_th = 0.45, conf_th2 = 0.8, landma
 上面的方法需要你会自己使用 pytorch 修改训练模型，以及量化转模型格式比较麻烦。
 这里提供另外一种简单很多的曲线救国的方式，无需自己搭建环境训练和模型转换：
 * 同上一个方法获取手相对于手左上角顶点的坐标。
-* 基于这些点生成一幅图，不同的点可以用不同的颜色，具体请自行思考和尝试生成什么样的图比较好。
+* 把关键点绘制成一张图，例如用不同颜色区分指尖、关节和手腕，再交给图像分类模型。
 * 将生成的图片上传到[MaixHub.com](https://maixhub.com) 创建分类模型项目，在线训练，选择 MaixCAM 平台。
 * 一键训练，完成后得到模型，后台会自动训练并转换成 MaixCAM 支持的格式。
 * 修改例程，识别到关键点后，按照同样的方法生成图片，然后传给你训练的分类模型进行识别得到结果。

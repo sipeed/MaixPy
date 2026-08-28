@@ -1,5 +1,5 @@
 ---
-title: MaixCAM2 MaixPy Monocular Depth Estimation with YOLO26-depth
+title: Monocular Depth Estimation with YOLO26-depth
 update:
   - date: 2026-08-08
     version: v1.0

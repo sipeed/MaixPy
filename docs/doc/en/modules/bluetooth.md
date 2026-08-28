@@ -1,5 +1,5 @@
 ---
-title: MaixCAM Bluetooth Instructions
+title: Bluetooth
 update:
   - date: 2025-04-08
     author: lxowalle
@@ -93,7 +93,7 @@ The position for soldering the 0-ohm resistors on MaixCAM Pro is shown below:
 
 ![](../../assets/maixcam_pro_enable_ble.png)
 
-> Note: The following section demonstrates basic Bluetooth usage via the command line. For more advanced development needs, we encourage you to explore further on your own!
+> The following section demonstrates basic Bluetooth use from the command line. Building a complete Bluetooth application also requires choosing a profile and handling pairing, permissions, and reconnect behavior.
 
 ## Enabling Bluetooth
 
@@ -139,5 +139,3 @@ btmon
 
 * [Using MaixCAM’s Bluetooth Functionality · Software](https://maixhub.com/share/58)
 * [Using Bluetooth on MaixCAM · Software](https://maixhub.com/share/62)
-
-

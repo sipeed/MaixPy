@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Face Recognition
+title: Face recognition
 ---
 
 ## Introduction to Face Recognition
@@ -79,5 +79,4 @@ You may have noticed that the model initialization uses `dual_buff` (which defau
 ## Replacing Other Default Recognition Models
 
 The recognition model (for distinguishing different individuals) uses `mobilenetv2` and the [insight face resnet50](https://maixhub.com/model/zoo/462) model. If these do not meet accuracy requirements, other models can be substituted. You may need to train a new model or find a pre-trained model compatible with MaixCAM, such as other models from [insightface](https://github.com/deepinsight/insightface). For conversion instructions, refer to the [MaixCAM model conversion documentation](../ai_model_converter/maixcam.md), and follow existing `.mud` files as examples.
-
 

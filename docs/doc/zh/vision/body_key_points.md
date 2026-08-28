@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 检测人体关键点姿态检测
+title: 人体关键点检测
 ---
 
 
@@ -39,7 +39,7 @@ while not app.need_exit():
 
 可以看到因为用了`YOLOv8-Pose` 所以这里直接用了`YOLOv8`这个类，和`YOLOv8`物体检测模型只是模型文件不同， `YOLO11`同理，然后就是`detect`函数返回的结果多了`points`值，是一个`int`类型的`list`列表，一共`17`个点，按次序依次排列，比如第一个值是鼻子的 x 坐标， 第二个值是鼻子的 y 坐标，依次为：
 
-```python
+```text
 1. 鼻子（Nose）
 2. 左眼（Left Eye）
 3. 右眼（Right Eye）
@@ -74,5 +74,3 @@ while not app.need_exit():
 ## dual_buff 双缓冲区加速
 
 你可能注意到这里模型初始化使用了`dual_buff`（默认值就是 `True`），使能 `dual_buff` 参数可以加快运行效率，提高帧率，具体原理和使用注意点见 [dual_buff 介绍](./dual_buff.md)。
-
-

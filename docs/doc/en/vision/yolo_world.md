@@ -1,5 +1,5 @@
 ---
-title: Using YOLO World Model on MaixPy MaixCAM2 for Detection of Any Target Without Training
+title: YOLO-World deten any object
 ---
 
 ## YOLO World Hardware Platform Support
@@ -175,4 +175,3 @@ Here, the three parameters are:
 * After completion, the model file will be available in the `out` directory, compressed. Simply extract and use it.
 
 Model generation takes time, so be patient.
-

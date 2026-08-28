@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Basic Image Operations
+title: Image control
 update:
 
 - date: 2024-04-03
@@ -27,7 +27,7 @@ We all know that the three colors `RGB` can synthesize any color, so in most cas
 
 ## Creating an Image
 
-Creating an image is very simple, you only need to specify the width and height of the image, and the image format:
+To create an image, specify its width, height, and pixel format:
 
 ```
 from maix import image
@@ -154,7 +154,7 @@ img.draw_string(2, 2, "Hello! Hello, world!", image.Color.from_rgba(255, 0, 0))
 
 disp.show(img)
 while not app.need_exit():
-time.sleep(1)
+    time.sleep(1)
 ```
 Load the font file, then set the default font, or you can set the default font without setting the default font, and set the parameters in the writing function:
 ```python
@@ -358,4 +358,3 @@ Since memory copying is involved, this method is relatively time-consuming and s
 ## More Basic API Usage
 
 For more API usage, please refer to the documentation of the maix.image module.
-

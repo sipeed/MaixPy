@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Maix 应用通信协议
+title: Maix 应用通信协议
 ---
 
 
@@ -28,7 +28,7 @@ sscanf(buff, "$%d", &value);
 可以看到字符协议为了发送`123`这个数值，用了`4`个字节，而且接收方还要做解析将字符串转为 int 类型，用二进制协议则可以减少传输的字节数量而且接收方也更好处理。
 我们发送`0x24 0x7B` 即可， `0x24` 即 `$` 的十六进制表示（查 ASCII 码表）， `0x7B` 即 十进制`123`的十六进制表示，可以看到这里只发送了两个字节就完成了字符协议 4 个字节完成的工作，同时接收放直接读取第二个字节`0x7B` 就能使用这个值，比如 C 语言中直接`uint8_t value = buff[1]`;
 
-当然这里只是简单说明让你理解两者，实际还需要根据不同使用场景两者各有优势，以及还会加其它考虑比如校验值等，这里就不多说了，可以自行思考和学习以及在下面的 Maix 通信协议实践。
+这只是为了说明两种协议的区别。实际设计还要考虑可读性、传输效率和校验方式。本页后面的 Maix 应用通信协议已经处理了这些问题，第一次使用时可以直接按示例收发数据。
 
 ## Maix 应用通信协议
 
@@ -39,8 +39,7 @@ Maix 应用通信协议是一个应用层通信协议，传输层基于 UART 或
 
 完整的协议定义在 [Maix 应用通信协议标准](https://wiki.sipeed.com/maixcdk/doc/zh/convention/protocol.html)。 （写到 MaixCDK 文档中是因为 MaixCDK 也同样使用这份协议）
 
-没有接触过通信协议可能看起来有点困难，结合下面的例子多看几遍就能理解了。
-在 `MaixPy` 这边已经封装好了`API`，可以很简单地使用，在其它单片机或者芯片上可能需要实现一下协议，可以在[Maix 应用通信协议标准](https://wiki.sipeed.com/maixcdk/doc/zh/convention/protocol.html) 附录找找有没有对应的实现。
+如果没有接触过通信协议，可以先跳过协议格式，直接运行下面的发送示例。MaixPy 已经封装了收发 API；其他单片机需要自行解析时，可以使用[协议标准附录中的参考实现](https://wiki.sipeed.com/maixcdk/doc/zh/convention/protocol.html)。
 
 
 比如我们现在有一个物体检测，我们想检测到物体后通过串口发送给其它设备（比如 STM32 单片机或者 Arduino 单片机），告诉其我们检测到了什么物体，坐标是多少。
@@ -114,5 +113,3 @@ while not app.need_exit():
 ```
 
 如果是其它设备比如`STM32`或者`Arduino`则可以参考 [Maix 应用通信协议标准](https://wiki.sipeed.com/maixcdk/doc/zh/convention/protocol.html) 附录中的 C 语言函数进行编解码。
-
-

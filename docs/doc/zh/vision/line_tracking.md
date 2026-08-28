@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 寻找直线
+title: 寻找直线
 update:
   - date: 2024-05-09
     author: lxowalle
@@ -131,7 +131,7 @@ while 1:
 
    ```python
    # 方法1
-   cam = camera.Camera(320, 240， image.Format.FMT_GRAYSCALE)    # MaixPy v4.2.1后支持
+   cam = camera.Camera(320, 240, image.Format.FMT_GRAYSCALE)    # MaixPy v4.2.1 后支持
    gray_img = cam.read()										# 获取灰度图
    
    # 方法2
@@ -191,6 +191,3 @@ AA CA AC BB 0E 00 00 00 E1 09 FC 01 01 00 E9 01 6F 01 57 00 C1 C6
 - `FC 01 01 00 E9 01 6F 01 57 00`：直线的两端坐标和角度信息，每个值用小端格式的2字节表示。`FC 01`和`01 00`表示第一个端点坐标为(508, 1)，`E9 01`和`6F 01`表示第二个端点坐标为(489, 367)，`57 00`表示直线与x轴的角度为87度
 
 - ` C1 C6`：CRC 校验值，用以校验帧数据在传输过程中是否出错
-
-
-

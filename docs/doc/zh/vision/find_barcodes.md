@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 条形码识别
+title: 条形码识别
 update:
   - date: 2024-12-16
     author: lxowalle

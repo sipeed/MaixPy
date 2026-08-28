@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Use OpenCV
+title: OpenCV usage
 ---
 
 ## Introduction
@@ -178,4 +178,3 @@ while not app.need_exit():
     img = image.cv2image(frame, bgr=True, copy=False)
     disp.show(img)
 ```
-

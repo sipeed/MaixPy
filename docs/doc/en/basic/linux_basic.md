@@ -1,5 +1,5 @@
 ---
-title: Basic Knowledge of Linux
+title: Linux fundamentals
 ---
 
 ## Introduction
@@ -10,7 +10,7 @@ The latest MaixPy supports running Linux on the MaixCAM hardware, so the underly
 
 ## Why Linux System is Needed
 
-Specific reasons can be researched individually. Here are a few examples in simplified terms that may not sound too technical but are easy for beginners to understand:
+You can think of Linux as the operating system that manages the device's hardware, files, and programs. It gives MaixCAM several practical benefits:
 * In microcontrollers, our program is usually a loop, but with Linux, we can run multiple programs simultaneously, each appearing to run independently, where the actual execution is handled by the operating system.
 * With a large community of Linux-based developers, required functionalities and drivers can be easily found without the need to implement them from scratch.
 * Linux offers a rich set of accompanying software tools for convenient development and debugging. Some Linux common tools not mentioned in this tutorial can theoretically be used as well.
@@ -34,7 +34,7 @@ Since the device has Linux and a file system, how do we send files to it?
 
 For MaixPy, we offer MaixVision for file management in future versions. Before that, you can use the following method:
 
-Here we mainly discuss transferring files through the network. Other methods can be explored on your own by searching for "transferring files to Linux":
+This section covers the most common network-transfer methods. For normal development, you can also use the device file manager in MaixVision.
 * Ensure the device and computer are connected to the same local network, for example:
   * When the MaixCAM's USB port is connected to the computer, a virtual network card is created which can be seen in the device manager on the computer, and the device's IP can be found in the device's `Settings -> Device Information`.
   * Alternatively, connect to the same local network on the device through `Settings -> WiFi`.
@@ -65,7 +65,7 @@ dev         linuxrc     opt         sbin        var
 etc         lost+found  proc        sys
 ```
 
-For more command learning, please search for `Linux command line usage tutorials` on your own. This is just to introduce beginners to basic concepts so that when developers mention them, they can understand what they mean.
+The rest of this page lists commands commonly used with MaixCAM. Use a full Linux command-line course when you need deeper knowledge; you do not need to memorize every command for normal MaixPy development.
 
 ## Run shell commands on MaixCAM
 
@@ -661,4 +661,3 @@ Xen is an open-source virtualization platform that supports multiple operating s
 #### VirtualBox
 
 VirtualBox is an open-source virtualization software that can run on multiple operating systems.
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Audio Record
+title: Audio recording
 update:
   - date: 2024-05-20
     author: lxowalle
@@ -91,7 +91,7 @@ r.reset(True)
 
 while not app.need_exit():
     data = r.record(50)
-    // Your application
+    # Process the recorded data here
     time.sleep_ms(50)
 
 print("finish!")
@@ -128,7 +128,7 @@ r.reset(True)
 while not app.need_exit():
     data = r.record(50)
     print(f'record {len(data)} bytes')
-    // Your application
+    # Process the recorded data here
     time.sleep_ms(50)
 ```
 

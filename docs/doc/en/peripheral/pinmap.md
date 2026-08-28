@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Pinmap Usage Introduction
+title: PINMAP
 update:
   - date: 2024-06-11
     author: iawak9lkm

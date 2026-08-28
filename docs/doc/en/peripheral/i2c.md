@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Using I2C
+title: I2C
 update:
   - date: 2025-08-08
     author: Neucrack

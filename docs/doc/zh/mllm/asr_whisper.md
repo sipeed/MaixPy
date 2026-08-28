@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 Whisper 模型
+title: Whisper 语音识别模型
 update:
   - date: 2026-01-05
     author: lxowalle
@@ -9,54 +9,33 @@ update:
 
 ## Whisper 模型简介
 
-Whisper是OpenAI公司开源的一个通用语音识别模型，用于多语言识别、语音翻译等任务。目前MaixCAM2移植的 Whisper 模型为`base`版本，支持输入单通道、16k采样率的wav音频文件，支持识别中文和英文。
+Whisper 是 OpenAI 开源的通用语音识别模型，可以把语音转换成文字。MaixCAM2 目前支持 `base` 版本，可识别中文和英文。
 
 ## 下载模型
 
-支持列表：
+| 模型 | 平台 | 内存需求 | 说明 |
+| --- | --- | --- | --- |
+| [whisper-base-maixcam2](https://huggingface.co/sipeed/whisper-base-maixcam2) | MaixCAM2 | 1 GB | base |
 
-| 模型                                                         | 平台     | 内存需求 | 说明              |
-| ------------------------------------------------------------ | -------- | -------- | ----------------- |
-| [whisper-base-maixcam2](https://huggingface.co/sipeed/whisper-base-maixcam2) | MaixCAM2 | 1G      | base |
-
-参考[大模型使用说明](./basic.md)下载模型
+按照[大模型使用说明](./basic.md)下载并解压模型。
 
 ## MaixPy 运行模型
 
-目前支持`base`尺寸的whisper模型，支持输入单通道、16k采样率的wav音频文件，支持识别中文和英文。下面是使用Whisper识别语音的简单示例：
+先准备一个单声道、16 kHz 采样率的 WAV 文件。单声道表示只有一个音频通道；16 kHz 表示每秒采样 16000 次。
+
+确认模型和音频路径与设备上的实际位置一致，然后运行：
 
 ```python
 from maix import nn
 
-whisper = nn.Whisper(model="/root/models/whisper-base-maixcam2/whisper-base.mud")
+whisper = nn.Whisper(
+    model="/root/models/whisper-base/whisper-base.mud",
+    language="zh",
+)
 
 wav_path = "/maixapp/share/audio/demo.wav"
-
-res = whisper.transcribe(wav_path)
-
-print('res:', res)
+text = whisper.transcribe(wav_path)
+print("result:", text)
 ```
 
-注：
-1. 首先需要导入nn模块才能创建Whisper模型对象
-```python
-from maix import nn
-```
-2. 选择需要加载的模型，目前支持base尺寸的whisper模型
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base/whisper-base-maixcam2.mud")
-```
-3. 准备一个单通道、16k采样率的wav音频文件，并进行推理，推理结果会直接返回
-```python
-wav_path = "/maixapp/share/audio/demo.wav"
-res = whisper.forward(wav_path)
-print('whisper:', res)
-```
-4. 输出结果
-```shell
-whisper: 开始愉快的探索吧
-```
-
-默认为识别中文，如果需要识别英文，在初始化对象时填入language参数
-```python
-whisper = nn.Whisper(model="/root/models/whisper-base-maixcam2/whisper-base.mud", language="en")
+`language="zh"` 表示识别中文。识别英文时改成 `language="en"`。如果提示找不到文件，请检查 `.mud` 模型路径和 WAV 音频路径。

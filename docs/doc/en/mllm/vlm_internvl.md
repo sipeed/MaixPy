@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM Running VLM InternVL Vision-Language Model
+title: InternVL Vision-Language Model
 update:
   - date: 2025-06-05
     author: neucrack

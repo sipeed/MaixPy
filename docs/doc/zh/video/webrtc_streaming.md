@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 视频流 WebRTC 推流
+title: WebRTC 串流
 update:
   - date: 2025-12-11
     author: 916BGAI

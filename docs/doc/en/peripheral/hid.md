@@ -1,5 +1,5 @@
 ---
-title: Introduction to Using MaixCAM MaixPy USB HID (as device)
+title: HID
 ---
 
 
@@ -102,4 +102,3 @@ while True:
     if count > 50:
         break
 ```
-

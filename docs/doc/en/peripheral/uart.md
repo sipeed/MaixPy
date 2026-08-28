@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy UART Serial Port Usage Introduction
+title: UART
 update:
   - date: 2024-03-07
     author: Neucrack
@@ -33,7 +33,7 @@ A serial port is a communication method that includes both hardware and communic
 
 Through the board’s serial port, you can communicate with other microcontrollers or SoCs. For example, MaixCAM can perform human detection and send the detected coordinates to an STM32/Arduino via the serial port.
 
-## Choosing the Appropriate I2C to Use
+## Choosing the Appropriate UART to Use
 
 First, we need to know which pins and I2C interfaces are available on the device, as shown below:
 
@@ -321,7 +321,7 @@ print(b)
 
 Here, `<H` indicates little-endian encoding, with `H` denoting a `uint16` data type, resulting in `b'\xe8\x03'` as bytes.
 
-Similarly, binary protocols can have a frame header, data content, checksum, frame tail, or a frame length field instead of a frame tail, based on preference.
+Binary protocols usually include a frame header, data, a checksum, and a frame tail. You can use a data-length field instead of a frame tail, but both sides must use the same format.
 
 ### Built-in MaixPy Communication Protocol
 
@@ -336,7 +336,7 @@ For example, the coordinates detected by an AI detection application after ident
 * [【MaixPy/MaixCAM】Visual Tool -- MaixCAM Beginner Tutorial 2](https://www.bilibili.com/video/BV1vcvweCEEe/?spm_id_from=333.337.search-card.all.click) Watch the serial port explanation section
 * [How to Communicate via Serial Port between Visual Module and STM32](https://www.bilibili.com/video/BV175vWe5EfV/?spm_id_from=333.337.search-card.all.click&vd_source=6c974e13f53439d17d6a092a499df304)
 * [[MaixCam] Experience 2: UART Serial Communication](https://blog.csdn.net/ButterflyBoy0/article/details/140577441)
-* For more, search online for resources.
+* For protocol design, continue with the [Maix application communication protocol](../comm/maix_protocol.md).
 
 ## MaixCAM UART Troubleshooting Guide
 
@@ -345,19 +345,20 @@ For example, the coordinates detected by an AI detection application after ident
 
 ### Table of Contents
 
-1. [Quick Troubleshooting Flowchart](#1.-Quick-Troubleshooting-Flowchart)
-2. [Issue-Based Troubleshooting](#2.-Issue-Based-Troubleshooting)
-   - [Completely Unable to Communicate (No Data Sent or Received)](#2.1-Completely-Unable-to-Communicate-%28No-Data-Sent-or-Received%29)
-   - [Can Send but Cannot Receive](#2.2-Can-Send-but-Cannot-Receive)
-   - [Can Receive but Cannot Send](#2.3-Can-Receive-but-Cannot-Send)
-   - [Received Garbled Data](#2.4-Received-Garbled-Data)
-   - [Data Loss or Incomplete Data](#2.5-Data-Loss-or-Incomplete-Data)
-   - [USB-Related Issues](#2.6-USB-Related-Issues)
-   - [Boot-Related Issues](#2.7-Boot-Related-Issues)
-3. [Pin-to-UART Mapping Quick Reference](#3.-Pin-to-UART-Mapping-Quick-Reference)
-4. [Code Templates and Examples](#4.-Code-Templates-and-Examples)
-5. [FAQ](#5.-FAQ)
+1. [Quick Troubleshooting Flowchart](#uart-quick-check)
+2. [Issue-Based Troubleshooting](#uart-issue-check)
+   - [Completely Unable to Communicate (No Data Sent or Received)](#uart-no-communication)
+   - [Can Send but Cannot Receive](#uart-cannot-receive)
+   - [Can Receive but Cannot Send](#uart-cannot-send)
+   - [Received Garbled Data](#uart-garbled)
+   - [Data Loss or Incomplete Data](#uart-data-loss)
+   - [USB-Related Issues](#uart-usb)
+   - [Boot-Related Issues](#uart-boot)
+3. [Pin-to-UART Mapping Quick Reference](#uart-pin-map)
+4. [Code Templates and Examples](#uart-code-examples)
+5. [FAQ](#uart-faq)
 
+<a id="uart-quick-check"></a>
 ### 1. Quick Troubleshooting Flowchart
 
 ```
@@ -382,8 +383,10 @@ UART communication abnormal
     └── Are you using an unsupported baud rate?
 ```
 
+<a id="uart-issue-check"></a>
 ### 2. Issue-Based Troubleshooting
 
+<a id="uart-no-communication"></a>
 #### 2.1 Completely Unable to Communicate (No Data Sent or Received)
 
 **Troubleshooting steps:**
@@ -408,6 +411,7 @@ err.check_raise(pinmap.set_pin_function("A18", "UART1_RX"), "Failed")
 serial_dev = uart.UART("/dev/ttyS1", 115200)
 ```
 
+<a id="uart-cannot-receive"></a>
 #### 2.2 Can Send but Cannot Receive
 
 **Troubleshooting steps:**
@@ -440,6 +444,7 @@ while not app.need_exit():
     time.sleep_ms(100)
 ```
 
+<a id="uart-cannot-send"></a>
 #### 2.3 Can Receive but Cannot Send
 
 | Step | Check Item | Action |
@@ -464,6 +469,7 @@ serial.write("Hello".encode("utf-8"))
 serial.write("你好".encode("utf-8"))  # → b'\xe5\xa5\xbd'
 ```
 
+<a id="uart-garbled"></a>
 #### 2.4 Received Garbled Data
 
 **The most common cause is a baud rate mismatch!**
@@ -485,6 +491,7 @@ For example, at `115200`, the divider is set to `108.5`, and the precision error
 
 > ⚠️ **MaixCAM / MaixCAM-Pro: only 115200 has been verified as reliable. Other baud rates may have a high error rate.**
 
+<a id="uart-data-loss"></a>
 #### 2.5 Data Loss or Incomplete Data
 
 | Check Item | Explanation |
@@ -516,6 +523,7 @@ while not app.need_exit():
     time.sleep_ms(1)
 ```
 
+<a id="uart-usb"></a>
 #### 2.6 USB-Related Issues
 
 > **Q: Why doesn’t a serial device appear when I plug the board into a computer via USB?**
@@ -530,6 +538,7 @@ while not app.need_exit():
 Computer ──USB──> [USB-to-UART adapter] ──TX/RX/GND──> MaixCAM UART pins
 ```
 
+<a id="uart-boot"></a>
 #### 2.7 Boot-Related Issues
 
 MaixCAM / MaixCAM-Pro have two special limitations for **UART0**:
@@ -542,6 +551,7 @@ MaixCAM / MaixCAM-Pro have two special limitations for **UART0**:
 
 > ⚠️ **If you are using a 3.3 V to 5 V level shifter, make sure the TX line is not pulled low by default. This is a chip characteristic: TX low = boot failure.**
 
+<a id="uart-pin-map"></a>
 ### 3. Pin-to-UART Mapping Quick Reference
 
 #### MaixCAM / MaixCAM-Pro
@@ -563,6 +573,7 @@ MaixCAM / MaixCAM-Pro have two special limitations for **UART0**:
 | UART3 | — | — | `/dev/ttyS3` | — |
 | UART4 | A21 | A22 | `/dev/ttyS4` | Default onboard pins |
 
+<a id="uart-code-examples"></a>
 ### 4. Code Templates and Examples
 
 ```python
@@ -588,6 +599,7 @@ while not app.need_exit():
     time.sleep_ms(1)
 ```
 
+<a id="uart-faq"></a>
 ### 5. FAQ
 
 | # | Question | Answer |
@@ -602,4 +614,3 @@ while not app.need_exit():
 | 8 | What are the strange characters printed during UART0 boot? | Those are system boot logs. Discard them until `serial ready` appears. |
 | 9 | I added a level shifter but the board still won’t boot? | Check whether UART0 TX (A16) is being pulled low by default. In this chip, TX low can prevent booting. Keep it floating or use a proper level shifter. |
 | 10 | Why does Chinese text appear garbled when sending? | Ensure the data is encoded as UTF-8 before sending and decoded as UTF-8 on the receiving side. |
-

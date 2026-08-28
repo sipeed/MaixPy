@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 网络设置 WiFi 设置
+title: 网络设置
 ---
 
 
@@ -50,7 +50,6 @@ nameserver 223.6.6.6 # aliyun China
 实际系统用的配置文件路径是`/etc/resolv.conf`， 这个文件在开机时会被自动拷贝到`/etc/resolv.conf`，所以修改后直接重启最简单。
 
 不想重启的话需要同时修改这两个文件。
-
 
 
 

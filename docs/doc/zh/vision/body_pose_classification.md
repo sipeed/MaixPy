@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 基于yolo11 pose估计人体关键点初步分类人体姿态
+title: 人体姿态分类器
 ---
 
 

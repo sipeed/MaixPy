@@ -10,11 +10,11 @@ items:
     -   file: basic/upgrade.md
         label: Burning system
     -   file: basic/app.md
-        label: App Usage and Development
+        label: App Development and App Store
     -   file: basic/maixvision.md
         label: MaixVision usage
     -   file: basic/python.md
-        label: Python syntax
+        label: Python Fundamentals
     -   file: basic/linux_basic.md
         label: Linux fundamentals
     -   file: basic/python_pkgs.md
@@ -107,6 +107,8 @@ items:
         label: Keyword recognition
     -   file: audio/synthesis.md
         label: Speech synthesis
+    -   file: audio/ai_classify.md
+        label: AI audio classification
     -   file: audio/deploy_online_recognition.md
         label: Deploy online speech recognition
 
@@ -248,7 +250,7 @@ items:
 -   label: Projects
     items:
     -   file: projects/README.md
-        label: Intro & Collection
+        label: Apps and Project Collection
     -   file: projects/line_tracking_robot.md
         label: Line tracking robot
     -   file: projects/face_tracking.md

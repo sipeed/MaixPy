@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Continuous Chinese digit recognition
+title: Continuous Chinese digit recognition
 update:
   - date: 2024-10-08
     author: 916BGAI

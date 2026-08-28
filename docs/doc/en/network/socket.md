@@ -1,12 +1,12 @@
 ---
-title: Using Socket for TCP/UDP Communication with MaixPy MaixCAM
+title: socket communication
 ---
 
 ## Introduction to Sockets
 
-Sockets are software abstractions for TCP/UDP communication. Through socket interfaces, we can perform TCP/UDP communication.
+`socket` is the program interface for TCP or UDP communication. TCP establishes a connection and preserves delivery order. UDP has less overhead but packets may be lost or arrive out of order.
 
-Since MaixPy is based on Python, we can directly use the built-in `socket` library for communication. For more documentation and tutorials, please search online.
+MaixPy can use Python's built-in `socket` library directly. See the [Python socket documentation](https://docs.python.org/3/library/socket.html) for all parameters.
 
 Here, we introduce simple usage methods. With these example codes, you can perform basic TCP and UDP communication on MaixPy MaixCAM. Remember to modify the IP address and port number according to your actual situation.
 
@@ -128,4 +128,3 @@ def udp_receive(ip, port):
 # Call the function
 udp_receive('0.0.0.0', 8080)
 ```
-

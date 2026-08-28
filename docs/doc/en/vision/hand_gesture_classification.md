@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Hand Gesture Classification Based on Hand Keypoint Detection
+title: Hand geature classifier
 ---
 
 
@@ -122,8 +122,8 @@ Both Initialization or Loading must provide valid X and Y (corresponding feature
 And their lengths must be equal and correspond to each other, or an error will occur.
 
 ```python
-# Initialization, Loading
-def __init__(self, clf: LinearSVC=LinearSVC(), X=None, Y=None, pretrained=False)
+# Constructor signature:
+# def __init__(self, clf=LinearSVC(), X=None, Y=None, pretrained=False):
 
 # Initialize with default LinearSVC parameters
 clfm = LinearSVCManager(X=X_train, Y=y_train)

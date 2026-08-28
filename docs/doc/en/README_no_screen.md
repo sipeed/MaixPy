@@ -4,9 +4,9 @@ title: MaixCAM MaixPy Screenless Edition Quick Start
 
 ## About This Document
 
-As mentioned in the [Quick Start Guide](./README.md), it is **strongly recommended** to purchase the version with a screen for development, as it provides a better development experience, including using the built-in APP, accessing apps from the MaixHub App Store, and easier debugging (e.g., common settings can be completed directly by touching the screen interface, and images can be viewed in real-time).
+A model with a screen lets you use built-in apps, change common settings, and view the camera image directly, which is helpful for first-time development. A screenless model is often used for cost-sensitive or large deployments and requires more setup from a computer.
 
-However, if you are unable to purchase the version with a screen or require a screenless version for mass production, please refer to this document.
+Continue with this page if you are using MaixCAM Lite or another screenless model.
 
 ## Getting a MaixCAM Device
 
@@ -24,7 +24,7 @@ If you did not purchase a TF card, you will need to flash the system onto your o
 
 Use a `Type-C` data cable to connect the `MaixCAM` device to provide power and wait for the device to boot.
 
-**Firstly**: Ensure that the USB cable is of good quality and that the USB port on your computer is reliable (power supply >= 5V 500mA, normal interference resistance). The first boot may take about 20 seconds, after which your computer will detect one or two virtual network adapters (visible in your computer's network manager).
+Use a reliable USB data cable and make sure the computer's USB port can provide at least `5V 500mA`. On the first startup, wait about 20 seconds. One or two USB network adapters should then appear in the computer's network settings.
 
 If the virtual network adapter is not detected:
 * Ensure that you purchased the TF card package. If you have confirmed that the TF card is inserted into the device, try [updating to the latest system](./basic/os.md).
@@ -38,9 +38,9 @@ If you need to log into the terminal, the default username for `MaixCAM` is `roo
 
 ## Preparing to Connect the Computer and Device
 
-To enable communication between your computer (PC) and the device (MaixCAM), they need to be on the same local area network. Two methods are provided; we will first use Method 1:
+MaixVision connects to the device over a network. For a screenless model, start with USB and configure WiFi later if needed:
 * **Method 1**: Wired connection. The device connects to the computer via a USB cable, and it will be recognized as a virtual USB network adapter, placing it on the same local area network as the computer. If you encounter issues, refer to the [FAQ](./faq.md) for common problems.
-.. details::Method 2 involves driver installation on different computer systems:
+.. details::Driver installation for Method 1 on different operating systems:
     :open: true
     There are two default USB virtual network adapter drivers (NCM and RNDIS) to meet the needs of different systems:
     * **Windows**: All Windows systems will automatically install the RNDIS driver. Only Win11 will automatically install the NCM driver. **Either one that works is fine** (NCM is faster than RNDIS). If the RNDIS driver is not installed automatically, see the [RNDIS driver installation guide](https://wiki.sipeed.com/hardware/zh/maixsense/maixsense-a075v/install_drivers.html).
@@ -76,7 +76,7 @@ In MaixVision, modify the `tools/wifi_connect.py` script with your SSID and PASS
 
 ### Upgrading the Runtime Library
 
-**This step is very important!!!** If this step is not completed, other applications and features may not function properly (e.g., crashing).
+The runtime provides basic features required by apps. Without the latest version, a program may fail to run or may close unexpectedly.
 
 * First, ensure that the WiFi connection from the previous step is completed and that you have an IP address with internet access.
 * Run the `tools/install_runtime.py` script from the MaixVision examples to install the latest runtime library.
@@ -97,13 +97,11 @@ disp = display.Display()          # Create a display object and initialize the s
 cam = camera.Camera(640, 480)     # Create a camera object, manually setting the resolution to 640x480, and initialize the camera
 while not app.need_exit():        # Keep looping until the program exits (can exit by pressing the device's function button or clicking the stop button in MaixVision)
     img = cam.read()              # Read the camera feed into the img variable, print(img) can be used to print img details
-    disp.show
-
-(img)                # Display img on the screen
+    disp.show(img)                # Display img on the screen
 ```
 * `yolov5.py` detects objects in the camera feed, draws bounding boxes around them, and displays them on the screen. It supports detecting 80 different objects. For more details, see [YOLOv5 Object Detection](./vision/yolov5.md).
 
-You can try other examples on your own.
+After these examples work, choose other examples that match what you want to build.
 
 > If you experience image lag when using the camera examples, it may be due to poor network connection, low-quality USB cable, or poor USB port quality on the host. Try changing the connection method or using a different cable, USB port, or computer.
 

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Video Stream JPEG Streaming / Sending Images to Server
+title: JPEG streaming
 update:
   - date: 2024-04-03
     author: neucrack
@@ -137,5 +137,4 @@ Steps:
    - `stream.write(jpg)` writes the image format to the server and the `http` server will send this image to the `http` client.
 
 6. 6. Done, after running the code above, you can see the video stream directly through your browser, the default address is `http://device_ip:8000`. Open your browser and take a look!
-
 

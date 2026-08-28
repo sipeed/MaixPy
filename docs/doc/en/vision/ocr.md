@@ -1,5 +1,5 @@
 ---
-title: OCR Image Text Recognition with MaixCAM MaixPy
+title: OCR
 ---
 
 ## Introduction to OCR

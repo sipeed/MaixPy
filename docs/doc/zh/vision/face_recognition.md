@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 人脸识别
+title: 人脸识别
 ---
 
 ## 人脸识别简介
@@ -82,5 +82,4 @@ recognizer.save_faces("/root/faces.bin")
 ## 更换其它默认识别模型
 
 这里识别模型（区分不同人）用了 `mobilenetv2` 和 [insight face resnet50](https://maixhub.com/model/zoo/462) 模型，如果不满足精度要求，可以更换成其它模型，需要自己训练或者找其它训练好的模型转换成 MaixCAM 支持的模型即可，比如 [insightface](https://github.com/deepinsight/insightface)的其它模型， 转换方法看[MaixCAM 模型转换文档](../ai_model_converter/maixcam.md)， mud 文件参考以有的文件写即可。
-
 

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Add extra Python packages.
+title: Add python packages
 ---
 
 ## Introduction
@@ -45,4 +45,3 @@ Solutions:
 * **Method 1:** Find the source code of the corresponding package, cross-compile it into a `.whl` installation package on your computer, and then copy it to the device and use `pip install xxxx.whl` to install it. The toolchain used for compilation is the same as the one used by [MaixCDK](https://github.com/sipeed/MaixCDK/blob/main/platforms/maixcam.yaml).
 * **Method 2:** According to the [compilation system](../pro/compile_os.md), before compiling, you can execute `make menuconfig` in the `buildroot` directory to check if the Python interpreter's extra packages contain the software you need. After selecting it, you can recompile the system image to include the package.
 > If you successfully compile and test a package using Method 2 and find it necessary to integrate into the system, feel free to provide feedback through [issues](https://github.com/sipeed/maixpy/issues).
-

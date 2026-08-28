@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy QR Code Recognition
+title: QRcode identity
 update:
   - date: 2024-04-03
     author: lxowalle

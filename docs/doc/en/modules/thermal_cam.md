@@ -1,5 +1,5 @@
 ---
-title: Using Thermal Infrared Image Sensors with MaixCAM and MaixPy
+title: Thermal imaging
 ---
 
 ## Demo

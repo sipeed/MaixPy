@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 AI 模型进行物体分类
+title: AI 物体分类
 ---
 
 ## 物体分类概念
@@ -46,8 +46,7 @@ Classifier Result video
 
 ## 离线训练自己的分类模型
 
-离线训练需要自己搭建环境，请自行搜索 `PyTorch 分类模型训练` `Mobilenet`等相关关键字进行参考。
+离线训练需要安装 PyTorch 等训练框架，并按框架的图像分类教程训练 MobileNet、ResNet 等模型。本页从训练完成后的模型导出和转换开始说明。
 训练好模型后导出 onnx 格式的模型，然后参考 [MaixCAM 模型转换文档](../ai_model_converter/maixcam.md) 转换为 MaixCAM 支持的模型格式，最后使用上面的`nn.Classifier`类加载模型即可。
 
 这里分类模型可以是 mobilenet 也可以是 其它模型比如 Resnet 等，模型转换时最好提取 `softmax`前一层作为最后的输出层，因为`classifier.classify(img, softmax=True)` 识别函数的`softmax`参数默认为`True`，即会对结果计算一次`softmax`，所以模型就不用`softmax`这一层了，当然如果模型包含了`softmax`层，也可以指定不再执行一遍`softmax`： `classifier.classify(img, softmax=False)`。
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy SPI LCD 屏幕
+title: SPI LCD 屏幕
 update:
   - date: 2024-12-02
     author: 916BGAI
@@ -128,7 +128,7 @@ while not app.need_exit():
 [ 1030.753696] graphics fb0: fb_st7789 frame buffer, 320x240, 150 KiB video memory, 4 KiB buffer memory, fps=62, spi2.0 at 80 MHz
 ```
 
-- 接下来使用屏幕就很简单了，只需要在创建 `Display` 实例时指定对应的 `fb` 设备即可。然后就可以按照正常方法使用 `SPI` 屏幕了 （[MaixPy 屏幕使用](https://wiki.sipeed.com/maixpy/doc/zh/vision/display.html)）。
+- 驱动生成 `/dev/fb0` 后，在创建 `Display` 时传入这个设备路径。后续绘图方法与内置屏幕相同，见 [MaixPy 屏幕使用](https://wiki.sipeed.com/maixpy/doc/zh/vision/display.html)。
 
 ```python
 disp = display.Display(device="/dev/fb0")

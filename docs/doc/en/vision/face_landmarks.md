@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Face 478 Keypoints Detection
+title: Face multi landmarks detection
 update:
   - date: 2025-01-08
     version: v1.0
@@ -116,4 +116,3 @@ def get_sub_landmarks(points, points_z, idxes):
 sub_xy, sub_z = get_sub_landmarks(res.points, res.points_z, sub_146_idxes)
 landmarks_detector.draw_face(img, sub_xy, len(sub_z), sub_z)
 ```
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 屏幕使用
+title: 屏幕使用
 update:
   - date: 2024-03-31
     author: neucrack

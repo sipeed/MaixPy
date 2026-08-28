@@ -1,10 +1,10 @@
 ---
-title: Using Flask to Build an HTTP Web Server with MaixPy MaixCAM
+title: Flask Web server
 ---
 
 ## Introduction
 
-MaixPy is based on Python, so you can use the Python library Flask to quickly set up a web server. As it is a common Python library, you can find specific uses and methods online, so they won't be elaborated on here.
+Flask lets MaixCAM provide a web page or HTTP API. For example, a browser can display device status, or another program can send commands to the device. This page shows a minimal server; see the [Flask quick start](https://flask.palletsprojects.com/en/stable/quickstart/) for routing and request-handling options.
 
 If you only want to create a page that displays camera images, you can also refer to the HTTP image server method in [JPEG Streaming](../video/jpeg_streaming.md).
 

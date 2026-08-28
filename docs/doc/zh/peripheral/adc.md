@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy ADC 使用介绍
+title: ADC 模数转换
 update:
   - date: 2024-06-11
     author: iawak9lkm
@@ -28,7 +28,7 @@ ADC 外设一般有两个主要参数：分辨率和参考电压。
 
 ## MaixPy 中使用 ADC
 
-通过 MaixPy 使用 ADC 很简单：
+下面用一个最小示例读取 ADC：
 
 ```python
 from maix.peripheral import adc
@@ -102,4 +102,3 @@ MaixCAM ADC 外设内部参考电压Vref为 1.5V，实际使用时会有些许�
   ```
 
   现在将结果传递给 `adc.ADC()` 的第三个参数，你将获得一个高精度的 ADC。
-

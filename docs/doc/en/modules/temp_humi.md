@@ -1,5 +1,5 @@
 ---
-title: Reading Temperature and Humidity Sensors with MaixCAM MaixPy
+title: Temperature and humidity
 ---
 
 ## Introduction
@@ -17,4 +17,3 @@ Connect the `SCL` / `SDA` pins of the sensor to the corresponding `SCL` / `SDA` 
 The complete code can be found in the [MaixPy/examples/ext_dev/sensors](https://github.com/sipeed/MaixPy/blob/main/examples/ext_dev/sensors) directory. Look for the `si7021` example.
 
 **Note**: The system image version must be `>= 2024.6.3_maixpy_v4.2.1`.
-

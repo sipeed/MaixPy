@@ -1,5 +1,5 @@
 ---
-title: Using MQTT with MaixPy MaixCAM for Message Subscription and Publishing
+title: MQTT communication
 ---
 
 ## MQTT Introduction
@@ -18,8 +18,6 @@ Communication process:
 
 ## Using MQTT in MaixPy MaixCAM
 
-The `paho-mqtt` module can be used for this purpose. You can look up the usage of `paho-mqtt` online or refer to the examples in the [MaixPy/examples](https://github.com/sipeed/MaixPy/tree/main/examples/network) repository.
+MaixPy can use the `paho-mqtt` module. Start with the [MaixPy MQTT examples](https://github.com/sipeed/MaixPy/tree/main/examples/network), then see the [paho-mqtt documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/) when you need more connection, authentication, or subscription options.
 
 If you are using an older system, you might need to manually install the `paho-mqtt` package. Installation instructions can be found in the [Adding Extra Python Packages](../basic/python_pkgs.md) guide.
-
-

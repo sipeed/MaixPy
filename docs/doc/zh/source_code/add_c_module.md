@@ -1,5 +1,5 @@
 ---
-title: 给 MaixCAM MaixPy 添加一个 C/C++ 模块
+title: 使用 C/C++ 写一个模块
 ---
 
 ## 简介
@@ -24,7 +24,7 @@ https://maixhub.com/share/114
 * 当你调试好后如果觉得自己填加的功能不错，可以考虑合并到官方的仓库，具体方法可以搜索引擎搜索"github 提交 PR"相关关键词学习。
 
 修改代码：
-正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，增加 C++ 函数，并且填加注释，然后编译后 MaixPy 中就能调用了，非常简单。
+按照[查看 MaixPy API 源码](../basic/view_src_code.md)中的方式增加 C++ 函数和注释。编译时，工具会根据注释生成对应的 Python 接口。
 
 比如：
 ```cpp
@@ -41,8 +41,7 @@ namespace maix::test
 }
 ```
 
-没错，直接写一个 C++ 语法的函数，注意这里加了一个`@maixpy` 的注释，编译时会自动生成 Python 函数，就是这么简单！
-然后就能通过`maix.test.add(1, 2)` 来调用函数了。
+这里的 `@maixpy` 注释告诉生成工具 Python 接口的名称。编译完成后，就能通过 `maix.test.add(1, 2)` 调用这个函数。
 
 ### 方法二
 
@@ -61,7 +60,7 @@ namespace maix::test
 * 当你调试好代码后，可以考虑将代码开源到[github.com](https://github.com)，并且上传到[pypi.org](https://pypi.org)（具体上传方法可以看官方文档或者搜索教程，大概就是`pip install twine`然后 `twine upload dist/maix_xxx***.whl`就可以了。），写好后欢迎到[maixhub.com/share](https://maixhub.com/share)来分享告诉大家你的成果！
 
 修改代码：
-正如 [查看 MaixPy API 源码](../basic/view_src_code.md) 问种所描述的查看和修改源码的方式，在`components/maix/include` 和 `components/maix/src` 下增加源文件，增加 C++ 函数，并且在对应的.hpp填加注释，然后编译后就直接能调用了，非常简单。(注意不要改main的文件)
+按照[查看 MaixPy API 源码](../basic/view_src_code.md)中的方式，在 `components/maix/include` 和 `components/maix/src` 下增加源文件和 C++ 函数，并在对应的 `.hpp` 文件中添加接口注释。编译后即可从 Python 调用。不要修改 `main` 文件。
 比如,
 cpp例子:
 ```cpp
@@ -90,7 +89,5 @@ namespace maix_xxx::test
 
 没错，直接写一个 C++ 语法的函数，注意这里加了一个`@maix_xxx` 的注释，编译时会自动生成 Python 函数，就是这么简单！
 然后就能通过`maix_xxx.test.add(1, 2)` 来调用函数了。
-
-
 
 

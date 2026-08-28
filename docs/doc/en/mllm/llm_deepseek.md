@@ -1,5 +1,5 @@
 ---
-title: Running the DeepSeek R1 Large Language Model on MaixPy MaixCAM
+title: DeepSeek LLM
 update:
   - date: 2025-05-28
     author: neucrack
@@ -177,4 +177,3 @@ Result:
 ## Modifying Parameters
 
 Refer to [Qwen Documentation](./llm_qwen.md)。
-

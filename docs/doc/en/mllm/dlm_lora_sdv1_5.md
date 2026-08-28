@@ -1,5 +1,5 @@
 ---
-title: Running the LCM-LoRA-SDv1-5 Model on MaixPy MaixCAM
+title: LCM-LoRA-SDv1-5 Image-Generation Model
 update:
   - date: 2025-12-03
     author: lxowalle
@@ -109,5 +109,4 @@ Parameter description:
 - `--seed`: Random seed, controls randomness during image generation
 - `-o`: Output image filename
 - `--prompt`: Description text; the model generates an image based on this description
-
 

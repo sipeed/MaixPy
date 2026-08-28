@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Using GPIO
+title: GPIO
 ---
 
 ## Introduction
@@ -107,4 +107,3 @@ See [MaixPy examples](https://github.com/sipeed/MaixPy/tree/main/examples/periph
 ## API Documentation
 
 For more API information, see the [GPIO API documentation](https://wiki.sipeed.com/maixpy/api/maix/peripheral/gpio.html).
-

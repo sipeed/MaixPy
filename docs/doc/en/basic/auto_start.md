@@ -1,5 +1,5 @@
 ---
-title: MaixPy/MaixCAM Application Auto-Start at Boot
+title: Auto start
 ---
 
 Packaged applications can be set to automatically start when the device boots up, bypassing the application menu and directly launching the specified application.

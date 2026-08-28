@@ -1,5 +1,5 @@
 ---
-title: Running Qwen LLM on MaixPy MaixCAM
+title: Qwen LLM
 update:
   - date: 2025-05-28
     author: neucrack

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 自学习检测跟踪器
+title: 自学习检测器
 update:
   - date: 2024-04-03
     author: neucrack
@@ -25,7 +25,7 @@ update:
 ## MaixPy 中使用自学习检测跟踪器
 
 在 MaixPy 目前提供了一种单目标学习检测跟踪算法，即开始框选目标物体，后面会一直跟踪这个物体。
-这里使用的算法是[NanoTrack](https://github.com/HonglinChu/SiamTrackers/tree/master/NanoTrack) 和 [MixFormerV2](https://github.com/MCG-NJU/MixFormerV2)，有兴趣了解原理的可以自行学习。
+这里使用 [NanoTrack](https://github.com/HonglinChu/SiamTrackers/tree/master/NanoTrack) 和 [MixFormerV2](https://github.com/MCG-NJU/MixFormerV2) 跟踪目标。日常使用不需要先理解算法原理，需要调试或移植时再查看对应项目。
 
 可以烧录最新的系统镜像后直接使用内置的自学习跟踪应用看效果。
 
@@ -67,7 +67,7 @@ pos = tracker.track(img, threshold=0.9)
 from maix import nn
 
 model_path = "/root/models/nanotrack.mud"
-tracker = nn.MixFormerV2(model_path, update_interval = 200, int lost_find_interval = 60)
+tracker = nn.MixFormerV2(model_path, update_interval=200, lost_find_interval=60)
 tracker.init(img, x, y, w, h)
 pos = tracker.track(img, threshold=0.5)
 ```
@@ -89,5 +89,3 @@ pos = tracker.track(img, threshold=0.5)
 ## 其它自学习跟踪算法和算法优化
 
 本文抛砖引玉，提供了几个算法，如果有更好的算法和优化，可以自行参考已有的 NanoTrack / MixFormerV2 实现方式进行实现，也欢迎讨论或者提交代码PR。
-
-

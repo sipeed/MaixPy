@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 部署在线语音识别环境
+title: 部署在线语音识别环境
 update:
   - date: 2024-12-23
     author: lxowalle
@@ -29,20 +29,20 @@ git clone https://github.com/k2-fsa/sherpa-onnx.git
 
 #### 安装依赖包
 
-```python
+```shell
 pip install numpy
 pip install websockets
 ```
 
 #### 安装sherpa-onnx包
 
-```python
+```shell
 pip install sherpa-onnx
 ```
 
 如果需要使用`GPU`， 则下载带`cuda`的包
 
-```python
+```shell
 pip install sherpa-onnx==1.10.16+cuda -f https://k2-fsa.github.io/sherpa/onnx/cuda.html
 
 # 中国用户可以使用
@@ -51,7 +51,7 @@ pip install sherpa-onnx==1.10.16+cuda -f https://k2-fsa.github.io/sherpa/onnx/cu
 
 如果找不到包或安装失败，可以选择从源码编译安装
 
-```python
+```shell
 cd sherpa-onnx
 export SHERPA_ONNX_CMAKE_ARGS="-DSHERPA_ONNX_ENABLE_GPU=ON"
 python3 setup.py install
@@ -61,7 +61,7 @@ python3 setup.py install
 
 #### 检查`sherpa-onnx`包是否安装成功
 
-```python
+```shell
 python3 -c "import sherpa_onnx; print(sherpa_onnx.__version__)"
 
 # 输出应该是
@@ -143,6 +143,6 @@ SERVER_PORT = 6006
 
 修改服务器地址和端口号后，再使用`maixvision`运行即可。如果你运行的是流式识别的代码，那么尝试跟`MaixCAM`开始对话吧～
 
-> 注：这里没有过多赘述客户端和服务器通信的协议的原因之一是因为它们通信很简单，基本是`websocket`连接后的数据裸收发，建议先上手体验后直接看代码来了解真正想知道的信息。
+> 客户端和服务器通过 WebSocket 直接收发音频与识别结果。本页先带你跑通部署；需要修改消息格式或加入业务逻辑时，再查看客户端和服务器源码中的收发部分。
 
 至此就部署完成了

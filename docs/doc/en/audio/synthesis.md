@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy speech synthesis
+title: Speech synthesis
 update:
   - date: 2025-08-15
     author: lxowalle

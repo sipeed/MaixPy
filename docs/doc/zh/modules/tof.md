@@ -1,5 +1,5 @@
 ---
-titile: MaixCAM MaixPy 使用 TOF 模块测距和地形检测
+title: TOF 测距
 ---
 
 ## 效果演示

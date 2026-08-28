@@ -1,5 +1,5 @@
 ---
-title: MaixPy 播放视频
+title: 播放视频
 update:
   - date: 2024-08-19
     author: lxowalle

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 录像
+title: 录像
 update:
   - date: 2024-05-20
     author: lxowalle
@@ -84,10 +84,10 @@ while not app.need_exit():
    start_ms = time.ticks_ms()
    while not app.need_exit():
        if time.ticks_ms() - start_ms > record_ms:
-       app.set_exit_flag(True)
+           app.set_exit_flag(True)
    ```
 
-   - 这里是定时退出的应用逻辑，自己看看吧
+   - 这段代码从开始录制时计时，达到 5 秒后通知应用退出。
 
 6. 完成
 
@@ -145,4 +145,3 @@ import os
 # /root/output.mp4  是mp4文件路径
 os.system('ffmpeg -loglevel quiet -i /root/output.h265 -c:v copy -c:a copy /root/output.mp4 -y')
 ```
-

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Self-Learning Classifier
+title: Self-learning classifier
 ---
 
 ## Introduction to MaixPy Self-Learning Classifier
@@ -75,4 +75,3 @@ labels = classifier.load("/root/my_classes.bin")
 ## dual_buff Dual Buffer Acceleration
 
 You may have noticed that the model initialization uses `dual_buff` (which defaults to `True`). Enabling the `dual_buff` parameter can improve running efficiency and increase the frame rate. For detailed principles and usage notes, see [dual_buff Introduction](./dual_buff.md).
-

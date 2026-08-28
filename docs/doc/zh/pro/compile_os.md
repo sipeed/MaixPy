@@ -1,5 +1,5 @@
 ---
-title: 为 MaixCAM 编译系统
+title: 编译系统
 ---
 
 ## 为什么需要定制系统
@@ -47,4 +47,3 @@ title: 为 MaixCAM 编译系统
 ```
 
 等待编译内置应用以及拷贝完成，在 `MaixPy/tools/os/tmp` 目录下机会有一个`maixcam-pro-2024-08-15-maixpy-v4.4.21.img.xz`系统镜像了。
-

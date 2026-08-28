@@ -1,5 +1,5 @@
 ---
-title: Using Key Events in MaixCAM MaixPy
+title: Key
 update:
   - date: 2025-01-08
     version: v1.0

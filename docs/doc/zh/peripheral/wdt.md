@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用看门狗定时器
+title: WDT 看门狗
 ---
 
 ## 简介
@@ -23,7 +23,6 @@ while not app.need_exit():
     time.sleep_ms(200)
 
 ```
-
 
 
 

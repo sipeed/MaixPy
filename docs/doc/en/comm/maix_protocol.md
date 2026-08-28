@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Maix Application Communication Protocol
+title: Maix APP communicate protocol
 ---
 
 
@@ -30,7 +30,7 @@ In a character protocol, sending the number `123` takes 4 bytes, and the receive
 uint8_t value = buff[1];
 ```
 
-This is just a simple explanation to help you understand the two protocols. In practice, each has its advantages depending on the specific use case, and other factors, such as checksum values, may also be considered. You can explore more and learn about it in the Maix Communication Protocol Practice section below.
+This example only shows the main difference. A real protocol must also consider readability, transfer efficiency, and error checking. The Maix Application Communication Protocol described below already handles these details, so a first-time user can start with its send and receive examples.
 
 ## Maix Application Communication Protocol
 
@@ -40,7 +40,7 @@ It defines how the two parties communicate and the format in which data is trans
 
 The complete protocol definition is available in the [Maix Application Communication Protocol Standard](https://wiki.sipeed.com/maixcdk/doc/convention/protocol.html) (included in the MaixCDK documentation because MaixCDK also uses this protocol).
 
-If you have no prior experience with communication protocols, it might seem a bit difficult, but by reviewing the examples below a few times, you should be able to understand it. In `MaixPy`, the API is already encapsulated, making it very simple to use. For other microcontrollers or chips, you may need to implement this protocol yourself, and you can refer to the appendix of the [Maix Application Communication Protocol Standard](https://wiki.sipeed.com/maixcdk/doc/convention/protocol.html) to check for any corresponding implementations.
+If communication protocols are new to you, skip the packet layout at first and run the sending example below. MaixPy already provides the send and receive API. For another microcontroller, use the [reference implementation in the protocol appendix](https://wiki.sipeed.com/maixcdk/doc/convention/protocol.html).
 
 For example, if we are performing object detection and want to send the detected object information (such as type and coordinates) via UART to another device (e.g., STM32 or Arduino microcontroller), here’s how it can be done.
 

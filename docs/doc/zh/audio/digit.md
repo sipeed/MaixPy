@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 连续中文数字识别
+title: 连续中文数字识别
 update:
   - date: 2024-10-08
     author: 916BGAI

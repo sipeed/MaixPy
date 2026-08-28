@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Upgrade and System Flashing
+title: Burning system
 ---
 
 ## Introduction to the System and MaixPy

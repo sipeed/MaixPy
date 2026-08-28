@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Read IMU Accelerometer and Gyroscope for Attitude Estimation
+title: IMU AHRS Attitude Estimation
 update:
   - date: 2025-07-08
     author: neucrack

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 应用开发和应用商店
+title: 应用开发和应用商店
 ---
 
 ## 哪里找应用
@@ -126,8 +126,6 @@ maix_backlight_value = 50
 maix_npu_ai_isp=0
 
 ```
-
-
 
 
 

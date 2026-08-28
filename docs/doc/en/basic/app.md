@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Application Development and App Store
+title: App Development and App Store
 ---
 
 ## Where to Find Applications

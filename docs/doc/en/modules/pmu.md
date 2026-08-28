@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Power Management Unit
+title: Power Management Unit
 update:
   - date: 2024-11-08
     author: 916BGAI

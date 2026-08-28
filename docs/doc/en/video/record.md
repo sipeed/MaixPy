@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Video Record
+title: Video recording
 update:
   - date: 2024-05-20
     author: lxowalle
@@ -83,10 +83,10 @@ while not app.need_exit():
    start_ms = time.ticks_ms()
    while not app.need_exit():
        if time.ticks_ms() - start_ms > record_ms:
-       app.set_exit_flag(True)
+           app.set_exit_flag(True)
    ```
 
-    - Here is the application logic for the timed exit, see the code for yourself
+   - This code starts a timer when recording begins and tells the app to exit after five seconds.
 
 6. Done
 
@@ -144,4 +144,3 @@ import os
 # /root/output.mp4 is the mp4 file path
 os.system('ffmpeg -loglevel quiet -i /root/output.h265 -c:v copy -c:a copy /root/output.mp4 -y')
 ```
-

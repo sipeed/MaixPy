@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM Memory Usage Guide
+title: Memory Usage
 ---
 
 ## Introduction to MaixPy MaixCAM Memory
@@ -85,4 +85,3 @@ Because CMM is typically designed by the CPU manufacturer, the modification meth
 ---
 
 If you need me to translate the content into a more formal technical document style or adapt it for a specific audience, let me know!
-

@@ -23,7 +23,7 @@ title: MaixCAM2 MaixPy Quick Start
     }
 </style>
 
-## Getting Started
+## From Power-On to Your First Program
 
 >! MaixCAM2 is available in versions with and without eMMC storage. The 32GB eMMC version normally boots from eMMC and does not require a TF card for daily use; the version without eMMC must use a TF card with a flashed system to boot. A TF card can also be used to boot from TF card, or to flash or recover the system to eMMC. For system upgrade or flashing, see [System Upgrade and Flashing](./basic/os.md).
 
@@ -33,7 +33,7 @@ title: MaixCAM2 MaixPy Quick Start
 
 ### Power On
 
-Use a `Type-C` data cable to connect the `MaixCAM` device and power it on. Wait for the device to boot up and enter the function selection interface.
+Power MaixCAM2 with a `Type-C` cable. Wait for it to start and show the function-selection screen.
 
 ![maixcam_font](../../static/image/maixcam_font.png)
 
@@ -44,8 +44,7 @@ If the screen does not display:
 
 ### Connect to the Network
 
-For the first run, you need to connect to the network, as you will need it later to activate the device and use the IDE.
-If you don't have a router, you can use your phone to open a hotspot.
+The first setup needs internet access to activate the device, install the runtime, and connect development tools. You can use a phone hotspot if no router is available.
 
 Click `Settings` on the device and select `WiFi`. There are two ways to connect to the `WiFi` hotspot:
 
@@ -58,25 +57,25 @@ Click `Settings` on the device and select `WiFi`. There are two ways to connect 
   * Enter the password and click the `Connect` button to connect.
 Then wait for the `IP` address to be obtained, which may take `10` to `30` seconds. If the interface does not refresh, you can exit the `WiFi` function and re-enter to view it, or you can also see the `IP` information in `Settings` -> `Device Information`.
 
-### Update the Runtime Libraries
+### Install the Latest Runtime
 
-**This step is very important!!!** If this step is not done properly, other applications and functions may not work (e.g., they may crash).
+The runtime provides basic features required by apps. Without the latest version, an app may fail to open or may close unexpectedly.
 
-* First, ensure that you have completed the previous step of connecting to WiFi and have obtained an IP address to access the internet.
+* Make sure the device is connected to WiFi, has an IP address, and can access the internet.
 * On the device, click `Settings`, and select `Install Runtime Libraries`.
 * After the installation is complete, you will see that it has been updated to the latest version. Then exit.
 
-If it shows `Request failed` or `请求失败` (Request failed), please first check if the network is connected. You need to be able to connect to the internet. If it still doesn't work, please take a photo and contact customer service for assistance.
+If `Request failed` appears, check whether the device can access the internet. If the network works but installation still fails, take a photo of the error and contact support.
 
 ### Use Built-in Applications
 
-Many applications are built-in, such as Find Blobs, AI Detector, Line Follower, etc. For example, Find Blobs:
+The device includes apps such as Find Blobs, AI Detector, and Line Follower. The following video shows self-learning detection:
 
 <video playsinline controls autoplay loop muted preload  class="pl-6 pb-4 self-end" src="/static/video/self_learn_tracker.mp4" type="video/mp4" style="width:100%">
 Classifier Result video
 </video>
 
-Please explore other applications on your own. More applications will be updated in the future. For usage documentation and application updates, please see the [MaixHub App Store](https://maixhub.com/app).
+Open other apps from the function-selection screen. Their descriptions and updates are available in the [MaixHub App Store](https://maixhub.com/app).
 
 **Note: The applications only include a part of the functionality that MaixPy can achieve. Using MaixPy, you can create even more features.**
 
@@ -86,26 +85,24 @@ If you need to log into the terminal, the default username for `MaixCAM2` is `ro
 
 ## Use as a Serial Module
 
-> If you want to use the device as the main controller (or if you don't understand what a serial module is), you can skip this step.
+> This section is optional. Read it only when you need to send detection results over UART to another controller such as Arduino or STM32.
 
 The built-in applications can be used directly as serial modules, such as `Find Blobs`, `Find Faces`, `Find QR Codes`, etc.
 Note that the serial port can only directly connect to other microcontrollers. **If you want to communicate with a computer via a serial port, you must provide a USB-to-serial module yourself.**
 
 Usage:
-* Hardware connection: You can connect the device to the `Type-C one-to-two mini board`(For MaixCAM-Pro is 6Pin interface), which allows you to connect the device via serial to your main controller, such as `Arduino`, `Raspberry Pi`, `STM32`, etc.
+* Hardware connection: Open the [MaixCAM2 pin diagram](https://wiki.sipeed.com/hardware/en/maixcam/maixcam2.html), choose an available UART, and connect its TX, RX, and GND pins to your controller. Normally, TX connects to the other device's RX, RX connects to TX, and both devices share GND. Avoid UART0 if you need communication immediately after startup because it is commonly used for system logs.
 * Open the application you want to use, such as QR code recognition. When the device scans a QR code, it will send the result to your main controller via serial.
 > The serial baud rate is `115200`, the data format is `8N1`, and the protocol follows the [Maix Serial Communication Protocol Standard](https://github.com/sipeed/MaixCDK/blob/master/docs/doc/convention/protocol.md). You can find the corresponding application introduction on the [MaixHub APP](https://maixhub.com/app) to view the protocol.
-> If APP no serial output, you can also do it by yourself, follow function examples and [UART usage doc](./peripheral/uart.md) to add function and serial output.
+> If an app does not send its result over UART, start from the matching MaixPy example and add output by following the [UART guide](./peripheral/uart.md).
 
 ## Preparing to Connect Computer and Device
 
-To enable communication between the computer (PC) and the device (MaixCAM), we need to ensure they are on the same local area network. There are two methods to achieve this:
+MaixVision connects to the device over a network. Choose either WiFi or USB; you only need one of them:
 
 * **Method 1 (Highly Recommended)**: Wireless Connection. Connect the device to the same router or Wi-Fi hotspot that the computer is connected to via Wi-Fi. Go to the device's `Settings -> WiFi Settings` and connect to your Wi-Fi. (If you experience **screen lag or high latency** with Wi-Fi, you can try Method 2 for a wired connection.)
 
-Here is the translation:
-
-* **Method Two**: Wired Connection. The device connects to the computer via a USB cable, and the device will emulate as a USB network adapter. This way, the device and the computer will be on the same local network through the USB connection. It is recommended to start with WiFi because although a wired connection offers stable transmission, it may encounter issues such as faulty cables, poor connection, or driver problems. If you encounter any issues, you can refer to the common problems in the [FAQ](./faq.md).
+* **Method 2**: Wired Connection. The device connects to the computer via a USB cable and appears as a USB network adapter. Wired transfer is stable, but a faulty cable, loose connection, or missing driver can prevent detection. See the [FAQ](./faq.md) if that happens.
 
 .. details::Method Two: Driver Installation on Different Computer Systems:
     :open: true
@@ -119,9 +116,9 @@ Here is the translation:
 
 ## Preparing the Development Environment
 
-* First, ensure that the computer and the device are on the same local network as per the previous step.
+* Make sure the computer and device are connected through WiFi or USB.
 * Download and install [MaixVision](https://wiki.sipeed.com/maixvision).
-* Connect the device and the computer using a Type-C cable. Open MaixVision, click the `“Connect”` button in the lower left corner, and it will automatically search for the device. Wait for a moment until the device appears, then click the connection button next to the device to connect.
+* Open MaixVision and click `Connect` in the lower-left corner. When the device appears, click its connect button.
 
  If **no device is detected**, you can also manually enter the device's IP address in the **device**'s `Settings -> Device Info`. You can also find solutions in the [FAQ](./faq.md).
 
@@ -149,7 +146,7 @@ Here is the translation:
  ```
  * `yolov5.py` will detect objects in the camera view, draw bounding boxes around them, and display them on the screen. It supports detection of 80 object types. For more details, please see [YOLOv5 Object Detection](./vision/yolov5.md).
 
- You can try other examples on your own.
+ After these examples work, choose other examples that match what you want to build.
 
 > If you encounter image display stuttering when using the camera examples, it may be due to poor network connectivity, or the quality of the USB cable or the host's USB being too poor. You can try changing the connection method or replacing the cable, host USB port, or computer.
 

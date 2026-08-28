@@ -1,5 +1,5 @@
 ---
-tite: 带旋转角度的目标检测(OBB, Oriented Bounding Box)
+title: 带旋转角度的检测(OBB)
 update:
     - date: 2024-12-20
       version: v1.0
@@ -66,4 +66,3 @@ plane, ship, storage tank, baseball diamond, tennis court, basketball court, gro
 ### 训练自己的 OBB 模型
 
 根据[YOLO11 官方训练文档](https://docs.ultralytics.com/datasets/obb/dota-v2/) 准备自己的数据集，然后进行训练即可。
-

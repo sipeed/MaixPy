@@ -1,5 +1,5 @@
 ---
-title: MaixCAM2 MaixPy 使用 YOLO26-depth 单目估计深度距离
+title: YOLO26-Depth 单目深度估计
 update:
   - date: 2026-08-08
     version: v1.0

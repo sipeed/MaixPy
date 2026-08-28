@@ -1,8 +1,11 @@
 ---
-title: MaixCAM MaixPy AI voice classify
+title: AI audio classification
 ---
 
 
-TODO: To be completed. If you need it urgently, you can first port the model yourself or process the audio into a spectrogram using FFT, and then train an AI classification model based on the image representation.
+This page does not yet provide a complete sound-classification training and deployment guide. Two advanced routes are currently available:
 
+- Use a classification model with audio input and follow [Port an Unsupported Model](../pro/customize_model.md) to add preprocessing and inference code.
+- Convert audio into spectrogram images, then train an image classifier. A spectrogram shows how the strength of each frequency changes over time.
 
+Both routes require your own training and data-processing code. If you only need to recognize a fixed command, start with [Keyword Recognition](./keyword.md).

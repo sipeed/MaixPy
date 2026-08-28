@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Facial Expression Recognition, Gender, Mask, Age, and More
+title: Face emotion
 update:
   - date: 2025-01-10
     version: v1.0
@@ -141,6 +141,5 @@ The default MaixPy model offers basic classification but can be optimized by:
 ## Recognizing Other Facial Features (Gender, Mask, Age, etc.)
 
 The same principles apply to features like gender or mask detection. For numerical outputs like age, consider using regression models. Research online for more advanced techniques.
-
 
 

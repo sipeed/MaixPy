@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 使用 MQTT 订阅发布消息
+title: MQTT 网络通信
 ---
 
 ## MQTT 简介
@@ -19,11 +19,9 @@ title: MaixPy MaixCAM 使用 MQTT 订阅发布消息
 
 ## MaixPy MaixCAM 中使用 MQTT
 
-使用 `paho-mqtt` 这个模块即可，具体用法可以自行搜索`paho-mqtt`的用法，也可以参考[MaixPy/examples](https://github.com/sipeed/MaixPy/tree/main/examples/network)中的例程。
+MaixPy 可以使用 `paho-mqtt` 模块。先从 [MaixPy MQTT 例程](https://github.com/sipeed/MaixPy/tree/main/examples/network)开始，需要更多连接、认证和订阅参数时，再查阅 [paho-mqtt 文档](https://eclipse.dev/paho/files/paho.mqtt.python/html/)。
 
 
 如果你使用了早期的系统，可能需要手动安装一下`paho-mqtt`这个包，安装方法见[添加额外的 Python 软件包](../basic/python_pkgs.md)。
-
-
 
 

@@ -1,13 +1,13 @@
 ---
-title: MaixPy MaixCAM 使用 websocket
+title: websocket 网络通信
 ---
 
 
 ## 简介
 
-类似 socket，使用 websocket 可以实现长链接通信，同时还支持和 web 页面通信。
+WebSocket 会在客户端和服务器之间保持一条连接，双方都可以主动发送消息。它常用于实时控制、状态更新，以及设备和网页之间的双向通信。
 
-因为 MaixPy 基于 Python，所以使用 Python 通用的 `websockets` 和 `asyncio` 模块即可，更多内容可以自行搜索学习。
+MaixPy 可以使用 Python 的 `websockets` 和 `asyncio` 模块。下面分别给出客户端和服务端示例，更多连接参数可以查阅 [`websockets` 文档](https://websockets.readthedocs.io/)。
 
 
 ## websocket 客户端

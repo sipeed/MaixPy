@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Using PWM
+title: PWM
 update:
   - date: 2025-08-08
     author: Neucrack
@@ -21,7 +21,7 @@ Using `PWM`, you can output a square wave from a pin. By setting an appropriate 
 * Controlling the rotation speed of a brushless motor.
 * Adjusting light brightness (PWM dimming).
 
-For more basic knowledge about PWM, there are many good tutorials online. This article will not go into detail—please search and learn on your own.
+This page focuses on using PWM with MaixPy. For a first project, remember that frequency controls how often the signal repeats, while duty cycle controls how long each level lasts within one cycle.
 
 
 ## Choosing the Right PWM to Use
@@ -127,4 +127,3 @@ See [MaixPy examples](https://github.com/sipeed/MaixPy/tree/main/examples/periph
 ## API Documentation
 
 For more APIs, see the [PWM API documentation](https://wiki.sipeed.com/maixpy/api/maix/peripheral/pwm.html)
-

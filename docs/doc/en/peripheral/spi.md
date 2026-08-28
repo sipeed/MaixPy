@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy SPI Serial Peripheral Interface Usage Guide
+title: SPI
 update:
   - date: 2024-06-11
     author: iawak9lkm
@@ -136,7 +136,7 @@ if res == b:
 else:
     print("loopback test failed")
     print(f"send:{b}\nread:{res}")
-````
+```
 
 ## More Examples
 
@@ -145,4 +145,3 @@ See [MaixPy examples](https://github.com/sipeed/MaixPy/tree/main/examples/periph
 ## API Documentation
 
 For more APIs, see the [SPI API documentation](https://wiki.sipeed.com/maixpy/api/maix/peripheral/spi.html)
-

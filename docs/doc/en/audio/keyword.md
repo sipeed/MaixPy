@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Keyword recognition
+title: Keyword recognition
 update:
   - date: 2024-10-08
     author: 916BGAI

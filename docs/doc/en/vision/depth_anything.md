@@ -1,5 +1,5 @@
 ---
-title: MaixCAM2 MaixPy Using Depth-Anything for Monocular Depth Estimation
+title: Depth-Anything Monocular Depth Estimation
 update:
   - date: 2025-06-09
     version: v1.0
@@ -62,4 +62,3 @@ Therefore, for videos or continuous image frames, the absolute depth value may f
 Due to the high computational demand of the model, the default resolution used is 448x336. If you wish to use other resolutions, you can download available models from the [MaixHub model library](https://maixhub.com/model/zoo?platform=maixcam2). If MaixHub does not have the resolution you need, you can convert the model yourself.
 
 For MaixCAM2, refer to the [model quantization documentation](../ai_model_converter/maixcam2.md) as well as [huggingface.co/AXERA-TECH/Depth-Anything-V2](https://huggingface.co/AXERA-TECH/Depth-Anything-V2/tree/main) and [github.com/AXERA-TECH/DepthAnythingV2.axera](https://github.com/AXERA-TECH/DepthAnythingV2.axera) for model conversion. (Note: The input in `config.json` in that project is BGR, it is recommended to change it to RGB which is the default in MaixPy.)
-

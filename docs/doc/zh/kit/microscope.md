@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 显微镜套件
+title: 显微镜套件
 ---
 
 ![maixcam microscope](../../assets/maixcam_microscope.png)
@@ -22,5 +22,4 @@ MaixCAM 显微套餐 适用于 细小元件放大焊接，生物标本观察，�
 ![](../../assets/maixcam_microscope_demo.png)
 
 ![](../../assets/maixcam_microscope_demo2.png)
-
 

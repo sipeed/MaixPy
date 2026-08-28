@@ -1,5 +1,5 @@
 ---
-title: Adding a C/C++ Module to MaixCAM MaixPy
+title: Write in C/C++
 ---
 
 ## Introduction
@@ -8,8 +8,7 @@ Sometimes you need to execute a function efficiently, and Python's speed is insu
 
 ## General Function Wrapping
 
-If the function you want to wrap does not depend on other features of MaixPy, you can directly use the general methods for adding modules to Python using C/C++. You can search for methods like `ffi` or `ctype` on the internet.
-> PRs are welcome to add more methods.
+If the function does not depend on MaixPy APIs, use a standard Python extension method such as `ctypes`, CFFI, or pybind11. Choose one method and follow its official build instructions for the target architecture.
 
 ## If Your Module Needs to Depend on Other MaixPy Basic APIs
 
@@ -23,7 +22,7 @@ Directly modify the MaixPy firmware and then compile it. Refer to [View MaixPy A
 * Once you have finished debugging and feel that the features you added are valuable, consider merging them into the official repository. You can learn how to do this by searching for keywords like "github submit PR" on search engines.
 
 Modifying the code:
-As described in [View MaixPy API Source Code](../basic/view_src_code.md), you can view and modify the source code, add C++ functions, and include comments. After compiling, you can call them in MaixPy. It's very simple.
+Follow [View MaixPy API Source Code](../basic/view_src_code.md) to add a C++ function and its interface comment. During compilation, the tool generates the matching Python interface from that comment.
 
 For example:
 ```cpp
@@ -58,7 +57,7 @@ Create a MaixPy module project based on an engineering template. This method is 
 * Once you have debugged your code, consider open-sourcing it on [github.com](https://github.com) and uploading it to [pypi.org](https://pypi.org). You can refer to the official documentation or search for tutorials on how to upload. Generally, you need to run `pip install twine` and then `twine upload dist/maix_xxx***.whl`. After completing this, feel free to share your achievements on [maixhub.com/share](https://maixhub.com/share)!
 
 Modifying the code:
-As described in [View MaixPy API Source Code](../basic/view_src_code.md), add source files in the `components/maix/include` and `components/maix/src` directories, add C++ functions, and include comments. After compiling, you can call them directly. It's very simple.
+Follow [View MaixPy API Source Code](../basic/view_src_code.md): add source files and C++ functions under `components/maix/include` and `components/maix/src`, then add interface comments to the matching `.hpp` file. The compiled module can then be called from Python. Do not modify the `main` file.
 
 For example:
 
@@ -77,5 +76,3 @@ namespace maix_xxx::test
 ```
 
 Yes, simply write a C++ function. Note the `@maix_xxx` comment. During compilation, a Python function will be automatically generated. It's that simple! Then you can call the function with `maix_xxx.test.add(1, 2)`.
-
-

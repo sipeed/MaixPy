@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy FAQ (Frequently Asked Questions)
+title: FAQ
 ---
 
 >! This page lists common questions and solutions related to MaixPy. If you encounter any issues, please search for answers here first.
@@ -51,19 +51,17 @@ In the future, Sipeed's Maix series of products will continue to be supported by
 
 ## Can I use a camera or screen other than the officially bundled ones?
 
-It is not recommended to use cameras or screens other than the officially bundled ones, unless you have sufficient software and hardware knowledge and experience. Otherwise, it may result in device damage.
+Do not replace them without checking compatibility. A mismatched interface, voltage, driver, or initialization sequence can prevent operation or damage the hardware.
 
-The officially bundled accessories have been fine-tuned for both software and hardware, ensuring the best performance and allowing for out-of-the-box usage. Other accessories may have different interfaces, drivers, and software, requiring you to calibrate them yourself, which is an extremely complex process.
-
-However, if you are an expert, we welcome you to submit a pull request!
+The official accessories already have matching hardware and drivers. Before using another camera or display, verify its interface, voltage, pins, driver, and initialization sequence. Contributions that add support for new hardware are welcome.
 
 ## Model running error: cvimodel built for xxxcv181x CANNOT run on platform cv181x.
 
 Failure to parse the model file is generally caused by file corruption. Ensure that your model file is not damaged. For example:
 * Editing a binary file with an editor caused the file to become corrupted. For example, opening a `cvimodel` file with MaixVision can corrupt the binary file due to MaixVision's auto-save feature. Therefore, do not open and save binary files with text editors like MaixVision (this issue will be fixed in a future update of MaixVision by removing the auto-save feature).
-* If it was downloaded from the internet, make sure the download was not corrupted. Typically, files on the internet provide sha256sum/md5 checksums. After downloading, you can compare these values; for specific methods, please search online or ask ChatGPT.
+* If the download page provides a SHA-256 or MD5 value, calculate the file checksum and compare it. On Linux or macOS, run `sha256sum filename`. In Windows PowerShell, run `Get-FileHash filename`.
 * If it comes from a compressed archive, ensure that the decompression process was error-free. You can decompress the archive again to make sure there were no errors in the process.
-* Ensure that the file was not damaged during the transfer to the device. You can compare the sha256sum values of the file on the device and on your computer; for specific methods, please search online or ask ChatGPT.
+* To check whether transfer damaged the file, calculate its SHA-256 value on both the computer and device. The two results must match exactly.
 
 
 ## Power-on Black Screen, No Display on the Screen
@@ -134,7 +132,7 @@ This error occurs because MaixVision's code hinting feature cannot find the `mai
 
 ## MaixVision how to import from another .py file
 
-Read documentation of [MaixVision](./basic/maixvision.md) carefully.
+Follow the **Open Folder** section in the [MaixVision documentation](./basic/maixvision.md) to organize and run a multi-file project.
 
 ## MaixCAM starts very slowly, even exceeding 1 minute, or the screen flickers
 
@@ -167,8 +165,6 @@ If you want to adjust the memory allocation, you would need to compile the syste
 * Contact customer service, providing the system version and device_key (which can be found after disconnecting from MaixVision or, if you have a screen, in `System Settings -> System Information`).
 
 
-Translation:
-
 ## Compile error: type not registered yet?
 
 ```
@@ -200,7 +196,7 @@ This is not an error message. It is a log message indicating that the multimedia
 
 ## Why can't show Chinese characters
 
-By default only supports English characters. If you want to show Chinese, you need to change the font. See [Custom fonts part of image basic operation](./vision/image_ops.html#Chinese-support-and-custom-fonts).
+The default font supports English characters only. To display Chinese, load a Chinese font as described in [Chinese Support and Custom Fonts](./vision/image_ops.md#Chinese-support-and-custom-fonts).
 
 ### Program Exit and Message: "app exit with code: 1, log in /maixapp/tmp/last_run.log"
 

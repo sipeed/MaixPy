@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 运行 VLM Qwen3-VL 视觉语言模型
+title: Qwen3-VL 视觉语言模型
 update:
   - date: 2025-11-27
     author: lxowalle

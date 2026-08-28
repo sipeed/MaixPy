@@ -1,5 +1,5 @@
 ---
-title: MaixCAM / MaixCAM2 使用 PicoClaw
+title: PicoClaw 使用
 ---
 
 ## PicoClaw 是什么

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 USB HID（作为设备）
+title: 作为 USB HID 设备
 ---
 
 ## 简介

@@ -1,4 +1,6 @@
-# Using Watchdog Timer in MaixCAM MaixPy
+---
+title: WDT watchdog
+---
 
 ## Introduction
 
@@ -21,4 +23,3 @@ while not app.need_exit():
 ```
 
 This code sets up a watchdog timer that requires feeding every 1000 ms. If the program fails to feed the watchdog within this period, the system will reset.
-

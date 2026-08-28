@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM Large Model User Guide
+title: Large Model User Guide
 update:
   - date: 2026-01-05
     author: lxowalle
@@ -83,8 +83,8 @@ For example, for the `lcm-lora-sdv1-5-maixcam2` model, download a file similar t
 
    Install the `huggingface_hub` package:
 
-   ```python
-   pip install huggingface_hub
+```shell
+pip install huggingface_hub
    ```
    Example for downloading the `lcm-lora-sdv1-5-maixcam2` model. To download other models, replace the `model_name` variable accordingly.
 
@@ -159,7 +159,7 @@ Using `lcm-lora-sdv1-5-maixcam2` as an example:
 
    > Notes:
    >
-   > 1. It is recommended to upload models via the USB network interface for higher transfer speed. For details on obtaining the USB network IP address, see [Wired Connection](../README_MaixCAM2.html#Preparing-to-Connect-Computer-and-Device)
+   > 1. Uploading models through the USB network connection is usually faster. See “Preparing to Connect the Computer and Device” in [MaixCAM2 Quick Start](../README_MaixCAM2.md) to find its IP address.
 
    ```shell
    scp -r lcm-lora-sdv1-5-maixcam2/lcm-lora-sdv1-5-maixcam2 root@192.168.10.100:/root/models

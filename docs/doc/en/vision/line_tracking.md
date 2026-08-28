@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Line Tracking
+title: Line tracking
 update:
   - date: 2024-05-09
     author: lxowalle
@@ -132,7 +132,7 @@ Here are a few ways to increase the speed of line tracking
 
    ```python
    # Example 1
-   cam = camera.Camera(320, 240， image.Format.FMT_GRAYSCALE)    	# Support after MaixPy v4.2.1
+   cam = camera.Camera(320, 240, image.Format.FMT_GRAYSCALE)     # Supported after MaixPy v4.2.1
    gray_img = cam.read()											# get gray scale image
    
    # Example 2

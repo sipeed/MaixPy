@@ -1,5 +1,5 @@
 ---
-title: MaixPy / MaixCAM Touchscreen Usage Guide
+title: Touch screen
 ---
 
 ## Introduction

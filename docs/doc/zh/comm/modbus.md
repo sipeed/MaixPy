@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 Modbus 协议
+title: Modbus 通信协议
 ---
 
 ## Modbus 简介
@@ -196,5 +196,4 @@ master_thread(None)
 ```
 
 可以看到这里用 串口1 作为主机从从机读取寄存器值。
-
 

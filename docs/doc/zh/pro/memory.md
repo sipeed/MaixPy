@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 内存使用说明
+title: 内存使用说明
 ---
 
 ## MaixPy MaixCAM 内存简介
@@ -72,7 +72,6 @@ print(f"内存使用率: {mem.percent}%")
 由于一般 CMM 是 CPU 厂商设计的，所以不同设备修改方法：
 * MaixCAM: MaixCAM 的 CMM 厂商实际叫作 ION 内存，修改比较麻烦，必须重新编译系统，参考[github 修改](https://github.com/sipeed/LicheeRV-Nano-Build/commit/713161599e1b590249b1cd8a9e7f2a7f68d8d52d)。
 * MaixCAM2: MaixCAM 的 CMM 厂商就叫作 CMM 内存，MaixCAM2 镜像做了优化，只需要修改 `/boot/configs` 中的 `maix_memory_cmm=2048` 修改为想要的大小就好了，单位是 MiB， 默认值是 -1 代表使用默认值。
-
 
 
 

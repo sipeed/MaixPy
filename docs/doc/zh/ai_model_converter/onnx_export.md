@@ -1,4 +1,3 @@
-
 ---
 title: 裁剪 ONNX 模型节点教程
 ---
@@ -54,5 +53,4 @@ python -c "import onnx,sys; onnx.utils.extract_model(sys.argv[1], sys.argv[2], [
 
 > MaixCAM / MaixCAM-Pro 模型转换请看[MaixCAM 模型转换文档](./maixcam.md)
 > MaixCAM2 模型转换请看[MaixCAM2 模型转换文档](./maixcam2.md)
-
 

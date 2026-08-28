@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 添加额外的 Python 软件包
+title: 添加额外的 Python 包
 ---
 
 ## 简介
@@ -10,7 +10,7 @@ MaixPy 基于 Python 语言，提供了大量方便嵌入式应用开发的功�
 
 ## 安装额外的 Python 包
 
-> 注意由于 MaixCAM 是 RISC-V 而且定制工具链， 可能不是所有 Python 包都支持，一般只支持纯 Python 包，不支持 C 扩展包， C 扩展包可能需要你手动在电脑交叉编译（比较复杂，这里就不介绍了）。
+> MaixCAM 使用 RISC-V 架构和定制工具链，因此并非所有 Python 包都有可直接安装的版本。纯 Python 包通常可以使用；带 C/C++ 扩展的包如果没有对应架构的安装包，就需要交叉编译，这属于进阶的源码构建工作。
 > 对于 MaixCAM2，是 AARCH64, 而且内置了 GCC，所以可以认为能安装所有包。
 
 ### 方法一： 使用 Python 代码来安装
@@ -71,5 +71,3 @@ pip config unset global.index-url
 * 方法一： 找到对应的包源码，在电脑上交叉编译成 whl 安装包，然后复制到设备里面使用`pip install xxxx.whl`安装。编译的工具链和[MaixCDK 使用的工具链相同](https://github.com/sipeed/MaixCDK/blob/main/platforms/maixcam.yaml)。
 * 方法二： 根据[编译系统](../pro/compile_os.md)中描述编译系统，编译前可以到`buildroot`目录下执行`make menuconfig`找找 Python 解释器 额外包中有没有你想要的软件包，勾选上再编译就能将改包编译进系统镜像。
 > 如果你通过方法二成功编译测试过了某个包并且觉得它十分有必要集成到系统中，欢迎通过[issues](https://github.com/sipeed/maixpy/issues) 提意见。
-
-

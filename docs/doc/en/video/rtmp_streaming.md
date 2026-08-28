@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Video Streaming RTMP Push Streaming
+title: RTMP streaming
 update:
   - date: 2024-05-31
     author: lxowalle

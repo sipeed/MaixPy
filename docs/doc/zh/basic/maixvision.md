@@ -1,5 +1,5 @@
 ---
-title: MaixVision -- MaixCAM MaixPy 编程 IDE + 图形化积木编程
+title: MaixVision 使用
 ---
 
 
@@ -20,9 +20,9 @@ title: MaixVision -- MaixCAM MaixPy 编程 IDE + 图形化积木编程
 
 使用 MaixVision 编程前，请先根据设备型号完成对应快速开始文档中的设备连接步骤：
 
-* [快速开始 MaixCAM2](../README_MaixCAM2.html#准备连接电脑和设备)
-* [快速开始 MaixCAM](../README_MaixCAM.html#准备连接电脑和设备)
-* [快速开始 MaixCAM 无屏幕版本](../README_no_screen.html#准备连接电脑和设备)
+* [快速开始 MaixCAM2](../README_MaixCAM2.md)
+* [快速开始 MaixCAM](../README_MaixCAM.md)
+* [快速开始 MaixCAM 无屏幕版本](../README_no_screen.md)
 
 设备连接完成后，即可使用 MaixVision 进行 MaixPy 编程和在线运行。
 
@@ -126,7 +126,7 @@ say_hello()
 
     使用 [WinSCP](https://winscp.net/eng/index.php) 或者 [FileZilla](https://filezilla-project.org/) 等工具连接设备，将文件传输到设备上，选择 `SFTP` 协议填写设备和账号信息连接即可。
 
-    具体不懂的可以自行搜索。
+    连接时选择 `SFTP`，端口填写 `22`，主机填写设备名或 IP，用户名和密码填写上面的设备账号。
 
     ### Linux 下
 

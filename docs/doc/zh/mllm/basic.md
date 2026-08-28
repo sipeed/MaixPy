@@ -1,5 +1,5 @@
 ---
-title: MaixPy MaixCAM 大模型使用说明
+title: 大模型使用说明
 update:
   - date: 2026-01-05
     author: lxowalle
@@ -81,8 +81,8 @@ update:
 
    安装`huggingface_hub`包
 
-   ```python
-   pip install huggingface_hub
+```shell
+pip install huggingface_hub
    ```
 
    从`HuggingFace`下载`lcm-lora-sdv1-5-maixcam2`模型的示例，如果需要下载其他模型， 则将`model_name`修改为需要下载的模型名称。
@@ -158,7 +158,7 @@ update:
 
    > 注：
    >
-   > 1. 建议通过USB网口上传模型， 速度更快。USB网口IP的获取方法见[有线连接](../README_MaixCAM2.html#准备连接电脑和设备)
+   > 1. 建议通过 USB 网口上传模型，速度更快。USB 网口 IP 的获取方法见 [MaixCAM2 快速开始](../README_MaixCAM2.md)中的“准备连接电脑和设备”。
 
    ```shell
    scp -r lcm-lora-sdv1-5-maixcam2/lcm-lora-sdv1-5-maixcam2 root@192.168.10.100:/root/models

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy AI 视觉基本知识
+title: AI 视觉基本知识
 update:
   - date: 2024-04-03
     author: neucrack
@@ -17,14 +17,10 @@ update:
 
 ## MaixPy 中使用视觉 AI
 
-在 MaixPy 中使用视觉 AI 很简单，默认提供了常用的 AI 模型，不需要自己训练模型就可以直接使用，在[MaixHub 模型库](https://maixhub.com/model/zoo) 中选择`maixcam` 就可以找到。
+MaixPy 已经封装了常见视觉模型的运行接口。第一次体验时，不需要训练模型：到 [MaixHub 模型库](https://maixhub.com/model/zoo)选择自己的板子，下载现成模型即可。
 
-并且在底层已经封装好的 API，只需要简单的调用就可以实现。
+如果现成模型不能识别你的目标，可以使用 [MaixHub 在线训练](./maixhub_train.md)，或者在电脑上训练。完整路线见[模型获取、上板和运行](../ai_model_converter/ai_model_deploy.md)。
 
-如果你想训练自己的模型，也可以先从[MaixHub 在线训练](https://maixhub.com/model/training/project) 开始，在线平台只需要点点点就能训练出模型，不需要购买昂贵的机器，不需要搭建复杂的开发环境，也不需要写代码，非常适合入门，也适合懒得翻代码的老手。
-
-一般训练得到了模型文件，直接传输到设备上，调用 MaixPy 的 API 就可以使用了，具体的调用方法看后文。
-
-
+模型准备好后，需要把完整模型包传到设备，再由对应的 MaixPy API 加载。后面的分类、检测和识别文档会给出具体代码。
 
 

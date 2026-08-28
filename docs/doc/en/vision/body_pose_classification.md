@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy YOLO11-based Pose Estimation and Preliminary Human Posture Classification
+title: Human pose classifier
 ---
 
 

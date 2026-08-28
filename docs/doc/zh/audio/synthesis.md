@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 语音合成
+title: 语音合成
 update:
   - date: 2025-08-15
     author: lxowalle

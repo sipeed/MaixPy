@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy 使用 OpenCV
+title: 使用 OpenCV
 ---
 
 ## 简介

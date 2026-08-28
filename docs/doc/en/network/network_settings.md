@@ -1,5 +1,5 @@
 ---
-title: Network Settings for MaixPy MaixCAM WiFi Configuration
+title: Network settings
 ---
 
 ## Introduction
@@ -46,4 +46,3 @@ Generally, there is no need to modify this file. If you encounter DNS resolution
 The actual configuration file used by the system is located at `/etc/resolv.conf`. This file is automatically copied from `/boot/resolv.conf` at startup. Therefore, the simplest solution after modification is to reboot.
 
 If you prefer not to reboot, you need to modify both files simultaneously.
-

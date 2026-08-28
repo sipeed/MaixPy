@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy How to Find the Source Code Corresponding to MaixPy API
+title: View API source code
 ---
 
 ## Introduction
@@ -51,7 +51,7 @@ Copy other APIs, write a function, and add complete comments. Include an extra `
 
 Refer to [MaixCDK/components/basic/includemaix_api_example.hpp](https://github.com/sipeed/MaixCDK/blob/master/components/basic/include/maix_api_example.hpp).
 
-API parameters and return values automatically convert from basic `C++` types to Python types, making it very simple. See the [pybind11 automatic type conversion list](https://pybind11.readthedocs.io/en/stable/advanced/cast/overview.html#conversion-table) for details.
+Basic C++ parameter and return types are converted to Python types automatically. See the [pybind11 type-conversion table](https://pybind11.readthedocs.io/en/stable/advanced/cast/overview.html#conversion-table) for the supported mappings.
 
 For example, to add `maix.my_module.my_func`, create a header file in the appropriate place in MaixCDK (preferably following the current folder classification) and add the code:
 ```cpp
@@ -81,4 +81,3 @@ Compile MaixPy to generate the `whl` file and install it on the device to use th
 ## How to Contribute Code
 
 If you find any unfinished APIs or bugs in MaixPy, feel free to submit a PR (Pull Request) to the MaixPy repository. For detailed submission methods, see [Contributing Documentation and Code](../source_code/contribute.md).
-

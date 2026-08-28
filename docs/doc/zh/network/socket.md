@@ -1,12 +1,12 @@
 ---
-title: MaixPy MaixCAM 使用 socket 进行 TCP/UDP 通信
+title: socket 网络通信
 ---
 
 ## socket 简介
 
-socket 就是 TCP/UDP 通信在软件上的封装，通过 socket 接口，我们可以进行 TCP/UDP 通信。
+`socket` 是程序使用 TCP 或 UDP 通信的接口。TCP 会建立连接并保证数据按顺序到达；UDP 不建立连接，开销更小，但数据可能丢失或乱序。
 
-MaixPy 由于基于 Python，我们可以直接使用内置的`socket`库进行通信，更多文档和使用教程可以自行搜索学习。
+MaixPy 可以直接使用 Python 内置的 `socket` 库。完整参数可以查阅 [Python socket 文档](https://docs.python.org/3/library/socket.html)。
 
 这里介绍简单的使用方法，通过这些示例代码，你可以在 MaixPy MaixCAM 上进行基本的 TCP 和 UDP 通信。
 记得根据实际情况修改 IP 地址和端口号。
@@ -129,5 +129,3 @@ def udp_receive(ip, port):
 # 调用函数
 udp_receive('0.0.0.0', 8080)
 ```
-
-

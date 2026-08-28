@@ -1,5 +1,5 @@
 ---
-title: MaixPy Playback Video
+title: Playing video
 update:
   - date: 2024-08-19
     author: lxowalle

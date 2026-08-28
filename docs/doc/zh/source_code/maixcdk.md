@@ -1,5 +1,5 @@
 ---
-title: MaixCAM 切换到 MaixCDK 使用 C/C++ 开发应用
+title: 使用 MaixCDK 开发
 ---
 
 除了使用 MaixPy 开发，还有对应的 C/C++ SDK 可以使用，项目名称为 [MaixCDK](https://github.com/sipeed/MaixCDK)。
@@ -13,6 +13,5 @@ MaixPy 基于 MaixCDK 构建，MaixPy 的大多数 API 都是基于 MaixCDK 的 
 ## MaixCDK 使用
 
 MaixCDK 代码仓库地址：[github.com/sipeed/MaixCDK](https://github.com/sipeed/MaixCDK), 你可以在这里找到 MaixCDK 的代码和文档。
-
 
 

@@ -1,5 +1,5 @@
 ---
-title: MaixCAM MaixPy Find Blobs
+title: Finding color blocks
 update:
   - date: 2024-04-03
     author: neucrack
@@ -168,4 +168,3 @@ Advantages of LAB for MaixPy:
 1. The color gamut of the LAB color space is larger than that of RGB, so it can completely replace RGB.
 2. In the LAB color space, since the L channel is the brightness channel, we often set it to a relatively large range (commonly [0, 80]), and when coding, we mainly focus on the A and B channels. This can save a lot of time spent struggling with how to select color thresholds.
 3. The color perception in the LAB color space is more uniform and easier to debug with code. For example, if you only need to find red color blobs, you can fix the values of the L and B channels and only adjust the value of the A channel (in cases where high color accuracy is not required). For RGB channels, you generally need to adjust all three R, G, and B channels simultaneously to find suitable thresholds.
-
