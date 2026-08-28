@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>YOLO26-Depth 单目深度估计 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2026-08-08", "update": [{"date": "2026-08-08", "version": "v1.0", "author": "Tao", "content": "增加 YOLO26-depth 代码和文档支持"}], "ts": 1786147200, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/vision/yolo26-depth.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/vision/yolo26-depth.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和应用商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/picoclaw.html"><span class="label">PicoClaw 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/depth_anything.html"><span class="label">Depth-Anything 单目深度估计</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/vision/yolo26-depth.html"><span class="label">YOLO26-Depth 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo_world.html"><span class="label">YOLO-World 检测任意物体</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 大模型</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/basic.html"><span class="label">大模型使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_qwen.html"><span class="label">Qwen 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_deepseek.html"><span class="label">DeepSeek 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_internvl.html"><span class="label">InternVL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 图像生成模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_smolvlm.html"><span class="label">SmolVLM 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_sensevoice.html"><span class="label">SenseVoice 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_whisper.html"><span class="label">Whisper 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/tts_melotts.html"><span class="label">MeloTTS 语音合成模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">训练、转换和部署</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/ai_model_deploy.html"><span class="label">模型获取、上板和运行</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">准备模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolo.html"><span class="label">在电脑训练 YOLO 检测模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/online_converter.html"><span class="label">网页转换 YOLO 模型</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">进阶操作</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">手动转换给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam2.html"><span class="label">手动转换给 MaixCAM2 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/onnx_export.html"><span class="label">裁剪 ONNX 模型节点教程</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/web_converter.html"><span class="label">私有部署图形化模型转换平台</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植 MaixPy 未支持的模型</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/webrtc_streaming.html"><span class="label">WebRTC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/ahrs.html"><span class="label">IMU AHRS 姿态检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/bluetooth.html"><span class="label">蓝牙</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战和应用</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">应用和项目汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/memory.html"><span class="label">内存使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>YOLO26-Depth 单目深度估计</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2026-08-08">
+                                    2026-08-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/vision/yolo26-depth.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2026-08-08</td>
+                                                    <td>v1.0</td>
+                                                    <td>Tao</td>
+                                                    <td>
+                                                    
+                                                        增加 YOLO26-depth 代码和文档支持
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E7%AE%80%E4%BB%8B">简介</h2>
+<p>YOLO26-depth 是 Ultralytics 推出的单目深度估计模型，可以从单张 RGB 图像预测逐像素深度图，每个像素输出以米为单位的估计距离。与 Depth-Anything-V2 相比，YOLO26-depth 在同样的分辨率下推理速度更快（YOLO26n-depth 在 T4 TensorRT fp16 下比 Depth-Anything V2 Small 快约 7.7 倍），适合需要实时深度估计的场景。具体介绍可以看官方开源仓库或者 Ultralytics 深度估计文档。</p>
+<p>模型采用 log-depth 头，输出无界深度（约 0.02~150m），并内置了跨域校准参数（<code>cal_a</code>/<code>cal_b</code>）将相对深度映射为绝对米数。</p>
+<h2 id="%E6%94%AF%E6%8C%81%E7%9A%84%E8%AE%BE%E5%A4%87">支持的设备</h2>
+<table>
+<thead>
+<tr>
+  <th>设备</th>
+  <th>是否支持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>MaixCAM2</td>
+  <td>✅</td>
+</tr>
+<tr>
+  <td>MaixCAM</td>
+  <td>❌</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%9C%A8-MaixCAM2-MaixPy-%E4%B8%8A%E4%BD%BF%E7%94%A8-YOLO26-depth">在 MaixCAM2 MaixPy 上使用 YOLO26-depth</h2>
+<p>将模型文件放到设备上后，直接运行代码即可：</p>
+
+<pre class="language-python"><code class="language-python">from maix import app, camera, display, image, nn
+
+cmap = image.CMap.JET
+# 可选校准参数: d_real = exp(cal_a * log(d_raw) + cal_b), 默认不校准(1.0, 0.0)
+CAL_A, CAL_B = 1.0,0.0
+model = nn.YOLO26Depth(model=&quot;/root/models/yolo26n_depth_640x480.mud&quot;, dual_buff=True)
+
+cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
+disp = display.Display()
+
+while not app.need_exit():
+    img = cam.read()
+    res = model.get_depth_image(img, image.Fit.FIT_CONTAIN, cmap, CAL_A, CAL_B)
+    if res:
+        disp.show(res)
+</code></pre>
+<p>这里通过 <code>get_depth_image</code> 直接获得一张伪彩色深度热力图，<code>cmap</code> 可以指定为彩色，支持的所有伪彩色可以看 <code>maix.image.CMap</code> API 文档，默认 JET（近处红/黄、远处蓝，对比鲜明）。</p>
+<p>如果你想要模型原始输出（float32 深度数据，单位米），也可以用 <code>get_depth</code> 方法：</p>
+
+<pre class="language-python"><code class="language-python">depth = model.get_depth(img, image.Fit.FIT_CONTAIN, CAL_A, CAL_B)
+# 转换为 numpy 使用
+import maix.tensor as mt
+depth_np = mt.tensor_to_numpy_float32(depth).reshape(model.output_height(), model.output_width())
+</code></pre>
+<h2 id="%E5%9C%A8%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E8%AF%BB%E5%8F%96%E8%B7%9D%E7%A6%BB">在指定位置读取距离</h2>
+<p><code>get_distance</code> 可以直接读取画面中某个坐标的估计距离（米），不需要自己解析深度张量：</p>
+
+<pre class="language-python"><code class="language-python">dist = model.get_distance(depth, x, y, img.width(), img.height(), image.Fit.FIT_CONTAIN)
+print(f&quot;({x},{y}) 处距离: {dist:.2f} m&quot;)
+</code></pre>
+<h2 id="%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</h2>
+<h3 id="%E6%B7%B1%E5%BA%A6%E5%B0%BA%E5%BA%A6%E6%A0%A1%E5%87%86">深度尺度校准</h3>
+<p>YOLO26-depth 输出的是相对对数深度，绝对米数依赖模型内置的全局校准参数。该全局校准按&quot;室内+室外混合域&quot;拟合，对特定摄像头或近距离场景（&lt;1m）可能不准：</p>
+<ul>
+<li>近距离（十几厘米）可能被放大显示为 1m+，且端测量精度受限</li>
+<li>若需要恢复特定摄像头/场景的绝对米数，可以采集若干已知距离点，拟合 <code>d_real = exp(a * log(d_raw) + b)</code> 得到 <code>a</code>、<code>b</code>，在调用 <code>get_depth</code>/<code>get_depth_image</code> 时传入即可</li>
+</ul>
+<h3 id="%E5%A6%82%E4%BD%95%E6%A0%A1%E5%87%86%EF%BC%88%E8%87%AA%E5%8A%A8%E9%87%87%E9%9B%86%E8%84%9A%E6%9C%AC%EF%BC%89">如何校准（自动采集脚本）</h3>
+<p>校准本质：采集&quot;真实距离 vs 模型输出&quot;的配对数据，用 log-log 线性回归拟合两个参数：</p>
+
+<pre class="language-none"><code class="language-none">log(d_real) = a * log(d_raw) + b      =&gt;   d_real = exp(a * log(d_raw) + b)
+</code></pre>
+<p>下面提供自动采集脚本,在设备上运行,自动输出中心点预测的距离,通过触摸屏逐点采集,自动拟合并输出 <code>cal_a</code>、<code>cal_b</code>。</p>
+<p><strong>① 脚本内容</strong>：</p>
+
+<pre class="language-python"><code class="language-python">&quot;&quot;&quot;YOLO26-depth 自动采集 + 校准拟合脚本
+操作:
+  屏幕显示目标距离与实时中心深度, 物体放到目标距离后点击屏幕记录
+  采完所有距离后自动拟合: d_real = exp(a * log(d_raw) + b)
+&quot;&quot;&quot;
+
+import math
+import numpy as np
+from maix import app, camera, display, image, nn, touchscreen, time
+
+MODEL = &quot;/root/models/yolo26n_depth_640x480.mud&quot;
+DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
+FRAMES_PER_SAMPLE = 10
+SETTLE_FRAMES = 5
+OUT_FILE = &quot;/root/calib_data.txt&quot;
+
+
+def main():
+    model = nn.YOLO26Depth(MODEL, dual_buff=False)
+    cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
+    disp = display.Display()
+    touch = touchscreen.TouchScreen()
+    cam_w, cam_h = cam.width(), cam.height()
+    cx, cy = cam_w // 2, cam_h // 2
+    print(f&quot;model {model.input_width()}x{model.input_height()}, camera {cam_w}x{cam_h}&quot;)
+
+    def center_dist(img):
+        &quot;&quot;&quot;返回画面中心距离(米), 无效返回 NaN。&quot;&quot;&quot;
+        d = model.get_depth(img, image.Fit.FIT_CONTAIN)
+        if d is None:
+            return float(&quot;nan&quot;)
+        v = model.get_distance(d, cx, cy, cam_w, cam_h, image.Fit.FIT_CONTAIN)
+        del d
+        return v
+
+    for _ in range(10):                      # 预热
+        img = cam.read()
+        if img is not None:
+            center_dist(img)
+
+    samples, idx, was_pressed = [], 0, False
+    print(f&quot;开始采集 {len(DISTANCES_M)} 个距离: {DISTANCES_M}, 放好物体后点击屏幕&quot;)
+
+    while idx &lt; len(DISTANCES_M) and not app.need_exit():
+        d_real = DISTANCES_M[idx]
+        img = cam.read()
+        if img is None:
+            continue
+        d_raw = center_dist(img)
+
+        show = img.copy()
+        show.draw_string(10, 10, f&quot;Target: {d_real:.2f} m ({idx+1}/{len(DISTANCES_M)})&quot;, image.COLOR_WHITE)
+        show.draw_string(10, 40, f&quot;Center depth: {d_raw:.3f} m&quot;, image.COLOR_WHITE)
+        show.draw_string(10, 70, &quot;Place object, tap to record&quot;, image.COLOR_WHITE)
+        show.draw_circle(cx, cy, 6, image.COLOR_RED, -1)
+        disp.show(show)
+        del show
+
+        try:
+            pressed = bool(touch.read()[2])
+        except Exception:
+            pressed = False
+        if was_pressed and not pressed:
+            vals = []
+            for _ in range(SETTLE_FRAMES):
+                cam.read()
+            for _ in range(FRAMES_PER_SAMPLE):
+                f = cam.read()
+                if f is None:
+                    continue
+                v = center_dist(f)
+                if not math.isnan(v):
+                    vals.append(v)
+            if vals:
+                samples.append((d_real, float(np.mean(vals))))
+                print(f&quot;[{len(samples)}/{len(DISTANCES_M)}] 真实={d_real:.3f}m 模型={np.mean(vals):.3f}m&quot;)
+                idx += 1
+        was_pressed = pressed
+        time.sleep_ms(10)
+
+    print(&quot;\n===== 采集完成 =====&quot;)
+    if len(samples) &lt; 3:
+        print(&quot;有效样本不足 3 组, 无法拟合&quot;)
+        return
+
+    d_real = np.array([s[0] for s in samples])
+    d_raw = np.array([s[1] for s in samples])
+    a, b = np.polyfit(np.log(d_raw), np.log(d_real), 1)
+    for r, w, c in zip(d_real, d_raw, np.exp(a * np.log(d_raw) + b)):
+        print(f&quot;  真实={r:.3f}m 模型={w:.3f}m 校准后={c:.3f}m 误差={abs(c-r)/r*100:.1f}%&quot;)
+    print(f&quot;\n&gt;&gt;&gt; cal_a = {a:.6f}\n&gt;&gt;&gt; cal_b = {b:.6f}&quot;)
+    with open(OUT_FILE, &quot;w&quot;) as f:
+        f.write(f&quot;cal_a = {a:.6f}\ncal_b = {b:.6f}\n&quot;)
+        for r, w in samples:
+            f.write(f&quot;{r:.3f} {w:.3f}\n&quot;)
+    print(f&quot;数据已保存到 {OUT_FILE}&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p><strong>② 校准步骤</strong>：</p>
+<ol>
+<li>在Maixvision运行脚本</li>
+<li>按需修改脚本顶部的距离列表 <code>DISTANCES_M</code>（覆盖你的使用范围，多采几组）：
+<pre class="language-python"><code class="language-python">DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
+</code></pre>
+</li>
+<li>屏幕显示 <code>Target: 0.15 m (1/8)</code> 与实时 <code>Center depth</code>：<ul>
+<li>拿一个有纹理的物体（手掌/纸盒/手机），放在镜头前正好 0.15m 处（用卷尺从镜头平面量到物体表面）</li>
+<li>点击屏幕 → 自动采集 10 帧取平均 → 进入下一组</li>
+<li>重复直到采完全部距离</li>
+</ul>
+</li>
+<li>脚本自动拟合并输出：
+<pre class="language-none"><code class="language-none">&gt;&gt;&gt; cal_a = 0.850000
+&gt;&gt;&gt; cal_b = 0.400000
+数据已保存到 /root/calib_data.txt
+</code></pre>
+</li>
+</ol>
+<p><strong>③ 应用校准参数</strong>：</p>
+<p>把输出的 <code>cal_a</code>/<code>cal_b</code> 传入推理 API 即可：</p>
+
+<pre class="language-python"><code class="language-python">CAL_A, CAL_B = 1.0, 0.0    # 替换成拟合结果
+res = model.get_depth_image(img, image.Fit.FIT_CONTAIN, cmap, CAL_A, CAL_B)
+# 或读取原始深度:
+depth = model.get_depth(img, image.Fit.FIT_CONTAIN, CAL_A, CAL_B)
+</code></pre>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>物体尽量大、覆盖画面中心（脚本取的是中心像素）</li>
+<li>真实距离从<strong>镜头平面</strong>量起，不是机身</li>
+<li>校准只能修正整体尺度偏移，无法恢复模型量化丢掉的分辨率</li>
+<li>换摄像头/换安装角度后需重新校准（<code>a</code>、<code>b</code> 与摄像头强相关）</li>
+</ul>
+<h3 id="%E8%BE%93%E5%87%BA%E4%B8%BA%E7%9B%B8%E5%AF%B9%E5%80%BC">输出为相对值</h3>
+<p>和 Depth-Anything 类似，若不做校准，模型输出的绝对值会随图像内容变化（比如场景深度范围大时数值跨度大），连续视频帧间深度会有轻微闪动。</p>
+<h3 id="%E8%BD%AC%E6%8D%A2%E4%B8%8D%E5%90%8C%E5%88%86%E8%BE%A8%E7%8E%87">转换不同分辨率</h3>
+<p>默认采用的分辨率为 680*480, 如果你期望使用其它分辨率，可以按照以下方法自行转换:</p>
+<p><strong>①下载原始pt模型:</strong></p>
+<p>访问<a href="https://docs.ultralytics.com/zh/tasks/depth"  target="_blank">Yolo26-Depth官网</a>下载不同精度的模型(默认768*768)</p>
+<p><strong>②导出所需分辨率的onnx模型:</strong></p>
+<p>这里提供一键导出脚本,用于导出所需的分辨率的onnx模型:</p>
+
+<pre class="language-python"><code class="language-python">&quot;&quot;&quot;YOLO26-depth.pt -&gt; 任意尺寸 ONNX。
+    # YOLO26 depth 模型需要 ultralytics&gt;=8.4.49
+
+用法:
+    python export_to_onnx.py yolo26n-depth.pt --imgsz 640          # 固定 640x640
+    python export_to_onnx.py yolo26s-depth.pt --imgsz 640x480      # 任意宽x高(自动对齐 stride)
+    python export_to_onnx.py yolo26n-depth.pt --imgsz 640 --dynamic  # 动态尺寸
+&quot;&quot;&quot;
+import argparse
+from ultralytics import YOLO
+
+a = argparse.ArgumentParser(description=&quot;导出任意尺寸 ONNX&quot;)
+a.add_argument(&quot;model&quot;, nargs=&quot;?&quot;, default=&quot;yolo26n-depth.pt&quot;)
+a.add_argument(&quot;--imgsz&quot;, default=&quot;768&quot;, help=&quot;任意尺寸: 768 或 640x480(宽x高)&quot;)
+a.add_argument(&quot;--dynamic&quot;, action=&quot;store_true&quot;, help=&quot;导出动态尺寸(H/W/batch 不固定)&quot;)
+a.add_argument(&quot;--batch&quot;, type=int, default=1)
+args = a.parse_args()
+
+imgsz = args.imgsz
+if &quot;x&quot; in imgsz:
+    w, h = imgsz.lower().split(&quot;x&quot;)
+    imgsz = (int(h), int(w))  # ultralytics 用 (H, W)
+else:
+    imgsz = int(imgsz)
+</code></pre>
+<p><strong>③编写转换配置:</strong></p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;input&quot;: &quot;./yolo26n_depth_640x480.onnx&quot;,
+  &quot;output_dir&quot;: &quot;./output&quot;,
+  &quot;output_name&quot;: &quot;yolo26n_depth_640x480_npu.axmodel&quot;,
+  &quot;model_type&quot;: &quot;ONNX&quot;,
+  &quot;target_hardware&quot;: &quot;AX620E&quot;,
+  &quot;npu_mode&quot;: &quot;NPU2&quot;,
+  &quot;onnx_opt&quot;: {
+    &quot;disable_onnx_optimization&quot;: false,
+    &quot;enable_onnxsim&quot;: true
+  },
+  &quot;quant&quot;: {
+    &quot;input_configs&quot;: [
+      {
+        &quot;tensor_name&quot;: &quot;images&quot;,
+        &quot;calibration_dataset&quot;: &quot;./calib_data.zip&quot;,
+        &quot;calibration_size&quot;: -1,
+        &quot;calibration_mean&quot;: [0, 0, 0],
+        &quot;calibration_std&quot;: [255, 255, 255]
+      }
+    ],
+    &quot;layer_configs&quot;: [
+      {
+        &quot;start_tensor_names&quot;: [&quot;DEFAULT&quot;],
+        &quot;end_tensor_names&quot;: [&quot;DEFAULT&quot;],
+        &quot;data_type&quot;: &quot;U8&quot;
+      }
+    ],
+    &quot;calibration_method&quot;: &quot;MinMax&quot;,
+    &quot;precision_analysis&quot;: true,
+    &quot;precision_analysis_method&quot;: &quot;EndToEnd&quot;,
+    &quot;precision_analysis_mode&quot;: &quot;Reference&quot;
+  },
+  &quot;input_processors&quot;: [
+    {
+      &quot;tensor_name&quot;: &quot;images&quot;,
+      &quot;tensor_layout&quot;: &quot;NCHW&quot;,
+      &quot;src_dtype&quot;: &quot;U8&quot;,
+      &quot;src_layout&quot;: &quot;NHWC&quot;
+    }
+  ],
+  &quot;compiler&quot;: {
+    &quot;check&quot;: 0
+  }
+}
+</code></pre>
+<p><strong>注意事项</strong>:</p>
+<ol>
+<li>量化数据集<code>calib_data.zip</code>可以放几张COCO数据集</li>
+<li><code>npu_mode</code>可以设置为<code>NPU1</code>, <code>output_name</code>添加<code>vnpu</code>后缀, 代表使用VNPU, 这时候模型速度会稍微慢些, 但是可以在设置中启动<code>AI-ISP</code>获取更好的摄像头画质</li>
+<li><code>npu_mode</code>也可以设置为<code>NPU2</code>, <code>output_name</code>添加<code>npu</code>后缀, 代表使用完整的NPU, 这时候模型速度最快, 但是必须在设置中关闭<code>AI-ISP</code>才能使用.</li>
+</ol>
+<p><strong>④开始转换:</strong></p>
+<p>在pulsar2容器内运行命令开始转换模型:</p>
+
+<pre class="language-bash"><code class="language-bash">pulsar2 build --config config.json
+</code></pre>
+<p>⑤编写MUD文件:</p>
+
+<pre class="language-mud"><code class="language-mud">[basic]
+type = axmodel
+model_npu = yolo26n_depth_640x480_npu.axmodel
+model_vnpu = yolo26n_depth_640x480_vnpu.axmodel
+
+[extra]
+model_type = yolo26_depth
+input_type = rgb
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+</code></pre>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/vision/depth_anything.html">
+                            <span class="icon"></span>
+                            <span class="label">Depth-Anything 单目深度估计</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/vision/yolo_world.html">
+                            <span class="label">YOLO-World 检测任意物体</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://x.com/SipeedLab">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>Monocular Depth Estimation with YOLO26-depth - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2026-08-08", "update": [{"date": "2026-08-08", "version": "v1.0", "author": "Tao", "content": "Add YOLO26-depth code and documentation support"}], "ts": 1786147200, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/vision/yolo26-depth.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/vision/yolo26-depth.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/upgrade.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App Development and App Store</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python Fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/picoclaw.html"><span class="label">PicoClaw usage</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_barcodes.html"><span class="label">Barcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">AI Vision</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_landmarks.html"><span class="label">Face multi landmarks detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_emotion.html"><span class="label">Face emotion</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/detect_obb.html"><span class="label">Detect with angle(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_landmarks.html"><span class="label">Hand landmarks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_pose_classification.html"><span class="label">Human pose classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_gesture_classification.html"><span class="label">Hand geature classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/depth_anything.html"><span class="label">Depth-Anything Monocular Depth Estimation</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/vision/yolo26-depth.html"><span class="label">Monocular Depth Estimation with YOLO26-depth</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolo_world.html"><span class="label">YOLO-World deten any object</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/ai_classify.html"><span class="label">AI audio classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/deploy_online_recognition.html"><span class="label">Deploy online speech recognition</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI LLM</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/basic.html"><span class="label">Large Model User Guide</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_qwen.html"><span class="label">Qwen LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_deepseek.html"><span class="label">DeepSeek LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_internvl.html"><span class="label">InternVL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 Image-Generation Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_smolvlm.html"><span class="label">SmolVLM Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_sensevoice.html"><span class="label">SenseVoice Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_whisper.html"><span class="label">Whisper Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/tts_melotts.html"><span class="label">MeloTTS Speech-Synthesis Model</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Train, Convert and Deploy</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/ai_model_deploy.html"><span class="label">Get, Upload and Run a Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/datasets.html"><span class="label">Prepare a Model and Dataset</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">Train Online with MaixHub</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolo.html"><span class="label">Train a YOLO Detection Model on a Computer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/online_converter.html"><span class="label">Convert a YOLO Model Online</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">Manually Convert for MaixCAM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam2.html"><span class="label">Manually Convert for MaixCAM2</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/onnx_export.html"><span class="label">Tutorial on Trimming Nodes from an ONNX Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/web_converter.html"><span class="label">Self-hosted Graphical Model Conversion Platform</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/customize_model.html"><span class="label">Port an Unsupported Model</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/uvc_streaming.html"><span class="label">UVC streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/webrtc_streaming.html"><span class="label">WebRTC streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Comm</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/maix_protocol.html"><span class="label">Maix APP communicate protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/modbus.html"><span class="label">Modbus communication</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/key.html"><span class="label">Key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/kit/microscope.html"><span class="label">Microscope kit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/ahrs.html"><span class="label">IMU AHRS Attitude Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/pmu.html"><span class="label">Power Management Unit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/fp5510.html"><span class="label">Voice Coil Motor FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/spilcd.html"><span class="label">SPI LCD Screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/bluetooth.html"><span class="label">Bluetooth</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Apps and Project Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/memory.html"><span class="label">Memory Usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>Monocular Depth Estimation with YOLO26-depth</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="Last modify date: 2026-08-08">
+                                    2026-08-08
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/vision/yolo26-depth.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>Update history</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Version</th>
+                                                <th>Author</th>
+                                                <th>Update content</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2026-08-08</td>
+                                                    <td>v1.0</td>
+                                                    <td>Tao</td>
+                                                    <td>
+                                                    
+                                                        Add YOLO26-depth code and documentation support
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="Introduction">Introduction</h2>
+<p>YOLO26-depth is a monocular depth estimation model released by Ultralytics. It predicts a per-pixel depth map from a single RGB image, where each pixel outputs an estimated distance in meters. Compared with Depth-Anything-V2, YOLO26-depth runs inference faster at the same resolution (YOLO26n-depth is about 7.7x faster than Depth-Anything V2 Small on T4 TensorRT fp16), making it suitable for real-time depth estimation scenarios. For details, see the official open-source repository or the Ultralytics depth estimation documentation.</p>
+<p>The model uses a log-depth head, outputs unbounded depth (about 0.02~150m), and has built-in cross-domain calibration parameters (<code>cal_a</code>/<code>cal_b</code>) that map relative depth to absolute meters.</p>
+<h2 id="Supported-Devices">Supported Devices</h2>
+<table>
+<thead>
+<tr>
+  <th>Device</th>
+  <th>Supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>MaixCAM2</td>
+  <td>✅</td>
+</tr>
+<tr>
+  <td>MaixCAM</td>
+  <td>❌</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Using-YOLO26-depth-on-MaixCAM2-MaixPy">Using YOLO26-depth on MaixCAM2 MaixPy</h2>
+<p>After putting the model files on the device, run the code directly:</p>
+
+<pre class="language-python"><code class="language-python">from maix import app, camera, display, image, nn
+
+cmap = image.CMap.JET
+# Optional calibration parameters: d_real = exp(cal_a * log(d_raw) + cal_b), no calibration by default (1.0, 0.0)
+CAL_A, CAL_B = 1.0,0.0
+model = nn.YOLO26Depth(model=&quot;/root/models/yolo26n_depth_640x480.mud&quot;, dual_buff=True)
+
+cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
+disp = display.Display()
+
+while not app.need_exit():
+    img = cam.read()
+    res = model.get_depth_image(img, image.Fit.FIT_CONTAIN, cmap, CAL_A, CAL_B)
+    if res:
+        disp.show(res)
+</code></pre>
+<p>Here <code>get_depth_image</code> directly returns a pseudo-color depth heatmap. <code>cmap</code> can be set to a colormap; all supported pseudo-colors can be found in the <code>maix.image.CMap</code> API documentation. Default is JET (red/yellow near, blue far, high contrast).</p>
+<p>If you want the raw model output (float32 depth data in meters), you can also use the <code>get_depth</code> method:</p>
+
+<pre class="language-python"><code class="language-python">depth = model.get_depth(img, image.Fit.FIT_CONTAIN, CAL_A, CAL_B)
+# Convert to numpy for use
+import maix.tensor as mt
+depth_np = mt.tensor_to_numpy_float32(depth).reshape(model.output_height(), model.output_width())
+</code></pre>
+<h2 id="Reading-Distance-at-a-Specified-Position">Reading Distance at a Specified Position</h2>
+<p><code>get_distance</code> can directly read the estimated distance (in meters) at a coordinate in the image, without parsing the depth tensor yourself:</p>
+
+<pre class="language-python"><code class="language-python">dist = model.get_distance(depth, x, y, img.width(), img.height(), image.Fit.FIT_CONTAIN)
+print(f&quot;distance at ({x},{y}): {dist:.2f} m&quot;)
+</code></pre>
+<h2 id="Notes">Notes</h2>
+<h3 id="Depth-Scale-Calibration">Depth Scale Calibration</h3>
+<p>YOLO26-depth outputs relative log depth; absolute meters depend on the global calibration parameters built into the model. This global calibration is fitted on a &quot;indoor + outdoor mixed domain&quot; and may be inaccurate for a specific camera or close-range scenes (&lt;1m):</p>
+<ul>
+<li>Close range (tens of centimeters) may be displayed magnified as 1m+, and near-end measurement accuracy is limited</li>
+<li>If you need to recover absolute meters for a specific camera/scene, you can collect several known-distance points, fit <code>d_real = exp(a * log(d_raw) + b)</code> to get <code>a</code> and <code>b</code>, and pass them when calling <code>get_depth</code>/<code>get_depth_image</code></li>
+</ul>
+<h3 id="How-to-Calibrate-%28Automatic-Collection-Script%29">How to Calibrate (Automatic Collection Script)</h3>
+<p>Calibration essence: collect paired data of &quot;real distance vs model output&quot; and fit two parameters with log-log linear regression:</p>
+
+<pre class="language-none"><code class="language-none">log(d_real) = a * log(d_raw) + b      =&gt;   d_real = exp(a * log(d_raw) + b)
+</code></pre>
+<p>An automatic collection script is provided below. Run it on the device; it automatically outputs the distance predicted at the center point, collects points one by one via the touchscreen, automatically fits, and outputs <code>cal_a</code> and <code>cal_b</code>.</p>
+<p><strong>① Script content</strong>:</p>
+
+<pre class="language-python"><code class="language-python">&quot;&quot;&quot;YOLO26-depth automatic collection + calibration fitting script
+Usage:
+  The screen shows the target distance and real-time center depth; place the object at the target distance and tap the screen to record
+  After collecting all distances, automatically fit: d_real = exp(a * log(d_raw) + b)
+&quot;&quot;&quot;
+
+import math
+import numpy as np
+from maix import app, camera, display, image, nn, touchscreen, time
+
+MODEL = &quot;/root/models/yolo26n_depth_640x480.mud&quot;
+DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
+FRAMES_PER_SAMPLE = 10
+SETTLE_FRAMES = 5
+OUT_FILE = &quot;/root/calib_data.txt&quot;
+
+
+def main():
+    model = nn.YOLO26Depth(MODEL, dual_buff=False)
+    cam = camera.Camera(model.input_width(), model.input_height(), model.input_format())
+    disp = display.Display()
+    touch = touchscreen.TouchScreen()
+    cam_w, cam_h = cam.width(), cam.height()
+    cx, cy = cam_w // 2, cam_h // 2
+    print(f&quot;model {model.input_width()}x{model.input_height()}, camera {cam_w}x{cam_h}&quot;)
+
+    def center_dist(img):
+        &quot;&quot;&quot;Return the center distance in meters, or NaN if invalid.&quot;&quot;&quot;
+        d = model.get_depth(img, image.Fit.FIT_CONTAIN)
+        if d is None:
+            return float(&quot;nan&quot;)
+        v = model.get_distance(d, cx, cy, cam_w, cam_h, image.Fit.FIT_CONTAIN)
+        del d
+        return v
+
+    for _ in range(10):                      # warmup
+        img = cam.read()
+        if img is not None:
+            center_dist(img)
+
+    samples, idx, was_pressed = [], 0, False
+    print(f&quot;start collecting {len(DISTANCES_M)} distances: {DISTANCES_M}, place the object and tap the screen&quot;)
+
+    while idx &lt; len(DISTANCES_M) and not app.need_exit():
+        d_real = DISTANCES_M[idx]
+        img = cam.read()
+        if img is None:
+            continue
+        d_raw = center_dist(img)
+
+        show = img.copy()
+        show.draw_string(10, 10, f&quot;Target: {d_real:.2f} m ({idx+1}/{len(DISTANCES_M)})&quot;, image.COLOR_WHITE)
+        show.draw_string(10, 40, f&quot;Center depth: {d_raw:.3f} m&quot;, image.COLOR_WHITE)
+        show.draw_string(10, 70, &quot;Place object, tap to record&quot;, image.COLOR_WHITE)
+        show.draw_circle(cx, cy, 6, image.COLOR_RED, -1)
+        disp.show(show)
+        del show
+
+        try:
+            pressed = bool(touch.read()[2])
+        except Exception:
+            pressed = False
+        if was_pressed and not pressed:
+            vals = []
+            for _ in range(SETTLE_FRAMES):
+                cam.read()
+            for _ in range(FRAMES_PER_SAMPLE):
+                f = cam.read()
+                if f is None:
+                    continue
+                v = center_dist(f)
+                if not math.isnan(v):
+                    vals.append(v)
+            if vals:
+                samples.append((d_real, float(np.mean(vals))))
+                print(f&quot;[{len(samples)}/{len(DISTANCES_M)}] real={d_real:.3f}m model={np.mean(vals):.3f}m&quot;)
+                idx += 1
+        was_pressed = pressed
+        time.sleep_ms(10)
+
+    print(&quot;\n===== collection done =====&quot;)
+    if len(samples) &lt; 3:
+        print(&quot;fewer than 3 valid samples, cannot fit&quot;)
+        return
+
+    d_real = np.array([s[0] for s in samples])
+    d_raw = np.array([s[1] for s in samples])
+    a, b = np.polyfit(np.log(d_raw), np.log(d_real), 1)
+    for r, w, c in zip(d_real, d_raw, np.exp(a * np.log(d_raw) + b)):
+        print(f&quot;  real={r:.3f}m model={w:.3f}m calibrated={c:.3f}m error={abs(c-r)/r*100:.1f}%&quot;)
+    print(f&quot;\n&gt;&gt;&gt; cal_a = {a:.6f}\n&gt;&gt;&gt; cal_b = {b:.6f}&quot;)
+    with open(OUT_FILE, &quot;w&quot;) as f:
+        f.write(f&quot;cal_a = {a:.6f}\ncal_b = {b:.6f}\n&quot;)
+        for r, w in samples:
+            f.write(f&quot;{r:.3f} {w:.3f}\n&quot;)
+    print(f&quot;data saved to {OUT_FILE}&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p><strong>② Calibration steps</strong>:</p>
+<ol>
+<li>Run the script in MaixVision</li>
+<li>Modify the distance list <code>DISTANCES_M</code> at the top of the script as needed (cover your usage range, collect more groups):
+<pre class="language-python"><code class="language-python">DISTANCES_M = [0.15, 0.25, 0.40, 0.60, 0.80, 1.00, 1.50, 2.00]
+</code></pre>
+</li>
+<li>The screen shows <code>Target: 0.15 m (1/8)</code> and the real-time <code>Center depth</code>:<ul>
+<li>Take a textured object (palm/cardboard box/phone), place it at exactly 0.15m in front of the lens (measure from the lens plane to the object surface with a tape measure)</li>
+<li>Tap the screen -&gt; automatically collect 10 frames and average -&gt; move to the next group</li>
+<li>Repeat until all distances are collected</li>
+</ul>
+</li>
+<li>The script automatically fits and outputs:
+<pre class="language-none"><code class="language-none">&gt;&gt;&gt; cal_a = 0.850000
+&gt;&gt;&gt; cal_b = 0.400000
+data saved to /root/calib_data.txt
+</code></pre>
+</li>
+</ol>
+<p><strong>③ Apply the calibration parameters</strong>:</p>
+<p>Pass the output <code>cal_a</code>/<code>cal_b</code> to the inference API:</p>
+
+<pre class="language-python"><code class="language-python">CAL_A, CAL_B = 1.0, 0.0    # replace with the fitting result
+res = model.get_depth_image(img, image.Fit.FIT_CONTAIN, cmap, CAL_A, CAL_B)
+# or read the raw depth:
+depth = model.get_depth(img, image.Fit.FIT_CONTAIN, CAL_A, CAL_B)
+</code></pre>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>The object should be as large as possible and cover the center of the image (the script uses the center pixel)</li>
+<li>Measure the real distance from the <strong>lens plane</strong>, not the device body</li>
+<li>Calibration only corrects overall scale offset; it cannot recover the resolution lost by model quantization</li>
+<li>Re-calibrate after changing the camera or mounting angle (<code>a</code>/<code>b</code> are strongly camera-dependent)</li>
+</ul>
+<h3 id="Output-Is-a-Relative-Value">Output Is a Relative Value</h3>
+<p>Similar to Depth-Anything, if no calibration is applied, the absolute value of the model output varies with the image content (e.g., the value range is larger when the scene depth span is large), and the depth will flicker slightly between consecutive video frames.</p>
+<h3 id="Converting-to-Different-Resolutions">Converting to Different Resolutions</h3>
+<p>The default resolution is 680*480. If you want to use another resolution, you can convert the model yourself as follows:</p>
+<p><strong>①Download the original pt model:</strong></p>
+<p>Visit the <a href="https://docs.ultralytics.com/zh/tasks/depth"  target="_blank">Yolo26-Depth official website</a> to download models of different precision (default 768*768)</p>
+<p><strong>②Export the onnx model at the desired resolution:</strong></p>
+<p>A one-click export script is provided here to export an ONNX model at the desired resolution:</p>
+
+<pre class="language-python"><code class="language-python">&quot;&quot;&quot;YOLO26-depth.pt -&gt; ONNX at any size.
+    # YOLO26 depth models require ultralytics&gt;=8.4.49
+
+Usage:
+    python export_to_onnx.py yolo26n-depth.pt --imgsz 640          # fixed 640x640
+    python export_to_onnx.py yolo26s-depth.pt --imgsz 640x480      # any widthxheight (stride-aligned automatically)
+    python export_to_onnx.py yolo26n-depth.pt --imgsz 640 --dynamic  # dynamic size
+&quot;&quot;&quot;
+import argparse
+from ultralytics import YOLO
+
+a = argparse.ArgumentParser(description=&quot;Export ONNX at any size&quot;)
+a.add_argument(&quot;model&quot;, nargs=&quot;?&quot;, default=&quot;yolo26n-depth.pt&quot;)
+a.add_argument(&quot;--imgsz&quot;, default=&quot;768&quot;, help=&quot;any size: 768 or 640x480 (widthxheight)&quot;)
+a.add_argument(&quot;--dynamic&quot;, action=&quot;store_true&quot;, help=&quot;export dynamic size (H/W/batch not fixed)&quot;)
+a.add_argument(&quot;--batch&quot;, type=int, default=1)
+args = a.parse_args()
+
+imgsz = args.imgsz
+if &quot;x&quot; in imgsz:
+    w, h = imgsz.lower().split(&quot;x&quot;)
+    imgsz = (int(h), int(w))  # ultralytics uses (H, W)
+else:
+    imgsz = int(imgsz)
+</code></pre>
+<p><strong>③Write the conversion config:</strong></p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;input&quot;: &quot;./yolo26n_depth_640x480.onnx&quot;,
+  &quot;output_dir&quot;: &quot;./output&quot;,
+  &quot;output_name&quot;: &quot;yolo26n_depth_640x480.axmodel&quot;,
+  &quot;model_type&quot;: &quot;ONNX&quot;,
+  &quot;target_hardware&quot;: &quot;AX620E&quot;,
+  &quot;npu_mode&quot;: &quot;NPU2&quot;,
+  &quot;onnx_opt&quot;: {
+    &quot;disable_onnx_optimization&quot;: false,
+    &quot;enable_onnxsim&quot;: true
+  },
+  &quot;quant&quot;: {
+    &quot;input_configs&quot;: [
+      {
+        &quot;tensor_name&quot;: &quot;images&quot;,
+        &quot;calibration_dataset&quot;: &quot;./calib_data.zip&quot;,
+        &quot;calibration_size&quot;: -1,
+        &quot;calibration_mean&quot;: [0, 0, 0],
+        &quot;calibration_std&quot;: [255, 255, 255]
+      }
+    ],
+    &quot;layer_configs&quot;: [
+      {
+        &quot;start_tensor_names&quot;: [&quot;DEFAULT&quot;],
+        &quot;end_tensor_names&quot;: [&quot;DEFAULT&quot;],
+        &quot;data_type&quot;: &quot;U8&quot;
+      }
+    ],
+    &quot;calibration_method&quot;: &quot;MinMax&quot;,
+    &quot;precision_analysis&quot;: true,
+    &quot;precision_analysis_method&quot;: &quot;EndToEnd&quot;,
+    &quot;precision_analysis_mode&quot;: &quot;Reference&quot;
+  },
+  &quot;input_processors&quot;: [
+    {
+      &quot;tensor_name&quot;: &quot;images&quot;,
+      &quot;tensor_layout&quot;: &quot;NCHW&quot;,
+      &quot;src_dtype&quot;: &quot;U8&quot;,
+      &quot;src_layout&quot;: &quot;NHWC&quot;
+    }
+  ],
+  &quot;compiler&quot;: {
+    &quot;check&quot;: 0
+  }
+}
+</code></pre>
+<p><strong>Notes</strong>:</p>
+<ol>
+<li>The quantization dataset calib_data.zip can contain a few COCO dataset images</li>
+<li>You can set <code>npu_mode</code> to <code>NPU1</code> and add the <code>vnpu</code> suffix to output_name — that means it's using the VNPU. The model will be a bit slower, but you can turn on <code>AI-ISP</code> in settings to get better camera quality.</li>
+<li>You can also set <code>npu_mode</code> to <code>NPU2</code> and add the <code>npu</code> suffix to output_name — that means it's using the full NPU. This gives you the fastest model speed, but you have to turn off <code>AI-ISP</code> in settings for it to work.</li>
+</ol>
+<p><strong>④Start conversion:</strong></p>
+<p>Run the command in the pulsar2 container to start model conversion:</p>
+
+<pre class="language-bash"><code class="language-bash">pulsar2 build --config config.json
+</code></pre>
+<p>⑤Write the MUD file:</p>
+
+<pre class="language-mud"><code class="language-mud">[basic]
+type = axmodel
+model_npu = yolo26n_depth_640x480_npu.axmodel
+model_vnpu = yolo26n_depth_640x480_vnpu.axmodel
+
+[extra]
+model_type = yolo26_depth
+input_type = rgb
+
+input_cache = true
+output_cache = true
+input_cache_flush = false
+output_cache_inval = true
+</code></pre>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/vision/depth_anything.html">
+                            <span class="icon"></span>
+                            <span class="label">Depth-Anything Monocular Depth Estimation</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/vision/yolo_world.html">
+                            <span class="label">YOLO-World deten any object</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://x.com/SipeedLab">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
