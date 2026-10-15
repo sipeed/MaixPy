@@ -8,17 +8,24 @@ title: 手动转换给 MaixCAM2 用
 
 ## 简介
 
-电脑上训练的模型不能直接给 MaixCAM2 使用，因为 MaixCAM2 的硬件性能有限，一般我们需要将模型进行`INT8`量化以减少计算量，并且转换为 MaixCAM2 支持的模型格式。
+电脑上训练的模型不能直接给 MaixCAM2 使用，一般需要将模型量化为 INT8，并转换为 MaixCAM2 支持的 `.axmodel` 格式。INT8 通常可以降低模型存储、内存带宽和运行开销，但最终速度与模型结构、输入尺寸和输出数据量也有关。
 
-本文介绍如何将 ONNX 模型转换为 MaixCAM2 能使用的模型（MUD模型）。
+本文面向会使用 Python、Docker，并能通过 Netron 查看 ONNX 输入输出的读者；完整示例仅针对 **标准 Ultralytics YOLO11 Detect**。
+
+注意：如果转换过程中遇到问题，需要在 QQ 群、论坛或 GitHub 提问，请不要只描述“为什么转换失败”并附一张报错截图。建议同时提供模型类型、输入尺寸、类别数量、ONNX 输入输出节点及 shape、完整转换命令或配置文件、转换工具和 MaixPy 版本，以及从开始转换到报错位置的完整日志，方便他人准确定位问题。
 
 ## MaixCAM2 支持的模型文件格式
 
 MUD（模型统一描述文件， model universal description file）是 MaixPy 支持的一种模型描述文件，用来统一不同平台的模型文件，方便 MaixPy 代码跨平台，本身是一个 `ini`格式的文本文件，可以使用文本编辑器编辑。
-一般 MUD 文件会伴随一个或者多个实际的模型文件，比如对于 MaixCAM2， 实际的模型文件是`.axmodel`格式， MUD 文件则是对它做了一些描述说明。
+一般 MUD 文件会伴随一个或者多个实际的模型文件，比如对于 MaixCAM2， 实际的模型文件是`.axmodel`格式， MUD 文件则是对它做了一些描述说明。本文最终会得到：
+
+```text
+yolo11n.mud
+yolo11n_npu.axmodel
+yolo11n_vnpu.axmodel
+```
+
 下面请按照步骤，将 ONNX 文件逐步转换成 MaixCAM2 能运行的 MUD 模型文件。
-
-
 
 ## 准备 ONNX 模型
 
@@ -62,7 +69,43 @@ MUD（模型统一描述文件， model universal description file）是 MaixPy 
 | YOLOv8 检测 | `/model.22/Concat_1_output_0`<br>`/model.22/Concat_2_output_0`<br>`/model.22/Concat_3_output_0` |
 | YOLO11 检测 | `/model.23/Concat_output_0`<br>`/model.23/Concat_1_output_0`<br>`/model.23/Concat_2_output_0` |
 
-如果你的节点名称和表格不完全一致，请用 Netron 找到位置相同、含义相同的输出节点，而不是机械复制。确定输入节点名和输出节点名后，先安装裁剪和简化 ONNX 需要的工具：
+如果你的节点名称和表格不完全一致，请用 Netron 找到位置相同、含义相同的输出节点，而不是机械复制。
+
+对于标准 YOLO11 / YOLOv8 Detect，MaixPy 的三输出模式要求每层通道数为：
+
+```text
+64 + C
+```
+
+其中 64 是默认 DFL 回归通道数，`C` 是类别数。输入为 `H×W` 时，应选择三个四维 NCHW 输出：
+
+```text
+[1, 64+C, H/8,  W/8]
+[1, 64+C, H/16, W/16]
+[1, 64+C, H/32, W/32]
+```
+
+例如本文使用 `640×480`、80 类模型，三个输出必须为：
+
+```text
+[1, 144, 60, 80]
+[1, 144, 30, 40]
+[1, 144, 15, 20]
+```
+
+常见导出版本中的节点名可能包含 `/model.23/Concat...`，但 Ultralytics 版本或导出方式变化后，相同名称可能代表完全不同的张量。因此不能机械复制节点名，必须同时满足上面的输出数量、rank 和 shape。
+
+例如下面这组聚合后的三维输出：
+
+```text
+[1, 64, N]
+[1, C, N]
+[1, 4, N]
+```
+
+很明显，不是本文需要的三层特征图，给这类三维输出使用四维 `dst_perm = [0,2,3,1]` 会造成维度错误；即使改成三维 permutation 让编译继续，MaixPy YOLO11 的三输出模式仍会因 shape 不符而失败。
+
+确定输入节点名和输出节点名后，先安装裁剪和简化 ONNX 需要的工具：
 
 ```bash
 pip install onnx onnxsim
@@ -330,6 +373,8 @@ detector = nn.YOLO11(model="/root/models/yolo11n.mud", dual_buff=True)
 5. 输入分辨率、`mean`、`scale`、RGB/BGR 顺序是否和训练、导出、转换时保持一致。
 6. ONNX 输出节点和 `config.json` 里的 `output_processors` 是否完全一致。
 7. 如果不确定是模型问题还是代码问题，先换 MaixHub 或系统内置模型测试；官方模型能跑通后，再调试自己的模型。
+
+提交问题时请提供 ONNX 导出命令、模型任务和类别数、输入输出名称及 shape、完整转换命令、工具版本、MUD、MaixPy / 系统版本和完整错误日志。
 
 确认这些基础项没有问题后，再继续查看对应模型文档或转换流程。如果是 MaixPy 尚未封装的新模型，继续阅读下一节。
 
