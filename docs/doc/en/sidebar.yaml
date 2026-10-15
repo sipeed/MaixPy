@@ -273,3 +273,5 @@ items:
         label: MaixCDK development
     -   file: pro/compile_os.md
         label: Build OS
+    -   file: pro/rvv.md
+        label: Using RVV Acceleration
