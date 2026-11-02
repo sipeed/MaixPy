@@ -79,9 +79,9 @@ ZIP 不能超过 100MB。图片数量不要少于 20，也不要多于 100。
 
 解压下载的文件。MaixCAM 和 MaixCAM Pro 应该有 `.mud` 和 `.cvimodel`；MaixCAM2 应该有 `.mud` 和一个或两个 `.axmodel`。
 
-同一个模型包里的文件要一起上传，不能只上传 `.mud`。接着按[把模型传到板子](./ai_model_deploy.md#把模型传到板子)和[运行模型](./ai_model_deploy.md#运行模型)完成测试。
+同一个模型包里的文件要一起上传，不能只上传 `.mud`。接着按[把模型传到板子](./ai_model_deploy.html#把模型传到板子)和[运行模型](./ai_model_deploy.html#运行模型)完成测试。
 
-摄像头画面出现正确标签和方框，就说明转换成功。到这里，转换和上板运行已经完成。如果愿意交流或提供模型下载，可以再选择[分享到 MaixHub](./ai_model_deploy.md#可选分享到-maixhub)。
+摄像头画面出现正确标签和方框，就说明转换成功。到这里，转换和上板运行已经完成。如果愿意交流或提供模型下载，可以再选择[分享到 MaixHub](./ai_model_deploy.html#可选：分享到-MaixHub)。
 
 ## 转换失败怎么办
 

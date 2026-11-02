@@ -79,9 +79,9 @@ The task may wait in a queue. Do not submit duplicate tasks while it is still ru
 
 Unzip the download. A MaixCAM or MaixCAM Pro package should contain `.mud` and `.cvimodel`. A MaixCAM2 package should contain `.mud` and one or two `.axmodel` files.
 
-Upload every file from the package, not only `.mud`. Then follow [Upload the model](./ai_model_deploy.md#upload-the-model) and [Run the model](./ai_model_deploy.md#run-the-model).
+Upload every file from the package, not only `.mud`. Then follow [Upload the model](./ai_model_deploy.html#Upload-the-model) and [Run the model](./ai_model_deploy.html#Run-the-model).
 
-If the camera shows the correct labels and boxes, conversion and board testing are complete. You may [share it on MaixHub](./ai_model_deploy.md#optional-share-on-maixhub), but sharing is optional.
+If the camera shows the correct labels and boxes, conversion and board testing are complete. You may [share it on MaixHub](./ai_model_deploy.html#Optional%3A-share-on-MaixHub), but sharing is optional.
 
 ## If conversion fails
 
