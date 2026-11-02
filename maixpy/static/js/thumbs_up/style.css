@@ -1,0 +1,66 @@
+#thumbs_up_container{
+    margin-top: 2em;
+    display: inline-flex;
+    border-top: 0.1em solid #f1f1f1;
+}
+
+#thumbs_up_container button {
+    padding: 1em;
+    border-radius: 0.6em;
+    background-color: #f1f1f1;
+    color: #606975;
+    border: none;
+    cursor: pointer;
+    margin: 0.5em 1em;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+}
+#thumbs_up_container button:hover {
+    scale: 1.2;
+}
+#thumbs_up_container button > img {
+    margin-right: 1em;
+    cursor: pointer;
+}
+.thumbs-down-icon {
+    transform: rotate(180deg);
+}
+.thumbs-up-count {
+    padding: 0 0.5em;
+    color: #26a69a;
+}
+.thumbs-message {
+    display: none;
+    position: fixed;
+    top: 3em;
+    right: 1em;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 0.6em;
+    align-items: center;
+    padding: 1em;
+    z-index: 999999;
+}
+.thumbs-message-content {
+    display: flex;
+    align-items: center;
+    height: 4em;
+    min-width: 6em;
+}
+
+/* dark mode */
+
+.dark #thumbs_up_container{
+    border-top: 0.1em solid #2d2d2d;
+}
+.dark #thumbs_up_container button {
+    background-color: #2d2d2d;
+    color: #a2a2a2;
+}
+
+@media print {
+    #thumbs_up_container {
+        display: none;
+    }
+}
