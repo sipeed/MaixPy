@@ -245,6 +245,14 @@ format_partitions() {
 
     sleep 1
 
+    # 有些环境(比如没有 udev 的容器)中分区设备节点会晚一点创建，这里最多等 10 秒
+    for i in $(seq 1 10); do
+        if [[ -b ${device}p1 && -b ${device}p2 ]]; then
+            break
+        fi
+        sleep 1
+    done
+
     # 格式化第一个分区为FAT32
     if [[ -b ${device}p1 ]]; then
         print_info "Formatting ${device}p1 to FAT32..."
