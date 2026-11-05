@@ -120,6 +120,13 @@ maix_comm_method=uart
 ## [backlight] Screeen backlight, from 0 to 100
 maix_backlight_value = 50
 
+### [light] Fill light, only for MaixCAM2(MaixCAM uses GPIO)
+# Fill light PWM frequency, unit: Hz
+maix_light_freq=10000
+# Fill light PWM duty, range: 0 ~ 100
+# 注意：duty > 70 会打印警告，长时间高功率运行可能导致灯珠快速老化
+maix_light_duty=50
+
 ### [npu]
 # for maixcam2, enable AI ISP(1) or not(0),
 # enalbe AI ISP will get better camera quality and occupy half of NPU.

@@ -132,6 +132,13 @@ maix_comm_method=uart
 ## [backlight] Screen backlight, from 0 to 100
 maix_backlight_value = 50
 
+### [light] Fill light, only for MaixCAM2(MaixCAM uses GPIO)
+# Fill light PWM frequency, unit: Hz
+maix_light_freq=10000
+# Fill light PWM duty, range: 0 ~ 100
+# NOTE: duty > 70 will print a warning, long time high power running may cause the LED to age quickly
+maix_light_duty=50
+
 ### [npu]
 # for MaixCAM2, enable AI ISP(1) or not(0)
 # AI ISP improves image quality but occupies half NPU
