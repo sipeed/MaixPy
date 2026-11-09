@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "private_functions": [
+    {
+      "name": "mp_lv_deinit_gc",
+      "reason": "Binding lifecycle helper; not part of the user-facing LVGL module API.",
+      "test": "tests/test_api_policy.py::test_private_runtime_helpers_are_not_public"
+    },
+    {
+      "name": "mp_lv_get_roots",
+      "reason": "Binding garbage-collector root helper; not part of the user-facing LVGL module API.",
+      "test": "tests/test_api_policy.py::test_private_runtime_helpers_are_not_public"
+    },
+    {
+      "name": "mp_lv_init_gc",
+      "reason": "Binding lifecycle helper; not part of the user-facing LVGL module API.",
+      "test": "tests/test_api_policy.py::test_private_runtime_helpers_are_not_public"
+    },
+    {
+      "name": "lv_global_default",
+      "reason": "Returns LVGL's private process-global state, whose implementation fields are deliberately not part of the Python API.",
+      "test": "tests/test_api_policy.py::test_private_global_accessor_is_not_public"
+    },
+    {
+      "name": "lv_tjpgd_deinit",
+      "reason": "LV_USE_TJPGD is 0 on every target: the JPEG decoder is jpegio's, registered through lv_image_decoder_create by displayif (MicroPython), lvgl-circuitpython (CircuitPython) and lvgl-python (CPython); one TJpgDec per build (displayif#23, lvgl-bindings#14, lvgl-python#23).",
+      "test": "tests/test_api_policy.py::test_tjpgd_is_private_on_every_target"
+    },
+    {
+      "name": "lv_tjpgd_init",
+      "reason": "LV_USE_TJPGD is 0 on every target: the JPEG decoder is jpegio's, registered through lv_image_decoder_create by displayif (MicroPython), lvgl-circuitpython (CircuitPython) and lvgl-python (CPython); one TJpgDec per build (displayif#23, lvgl-bindings#14, lvgl-python#23).",
+      "test": "tests/test_api_policy.py::test_tjpgd_is_private_on_every_target"
+    }
+  ],
+  "unsupported_functions": [
+    {
+      "name": "lv_animimg_get_src",
+      "reason": "Returns a pointer-to-pointer image source array without a length, so the binding cannot construct a bounded Python sequence safely.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_arclabel_set_text_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_buttonmatrix_get_map",
+      "reason": "Returns a pointer-to-pointer string map without a bounded Python ownership contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_keyboard_get_map_array",
+      "reason": "Returns a pointer-to-pointer string map without a bounded Python ownership contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_label_set_text_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_label_set_text_vfmt",
+      "reason": "C va_list values have no portable Python representation and cannot cross the binding boundary.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_msgbox_add_text_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_spangroup_set_span_text_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_table_set_cell_value_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_subject_snprintf",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_span_set_text_fmt",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_snprintf",
+      "reason": "A Python binding cannot safely forward a C ellipsis argument list without a declared conversion contract.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_vsnprintf",
+      "reason": "C va_list values have no portable Python representation and cannot cross the binding boundary.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    },
+    {
+      "name": "lv_text_set_text_vfmt",
+      "reason": "C va_list values have no portable Python representation and cannot cross the binding boundary.",
+      "test": "tests/test_api_policy.py::test_unsupported_functions_require_explicit_waivers"
+    }
+  ],
+  "private_structs": [
+    {
+      "name": "lv_global_t",
+      "reason": "Process-global LVGL state is an implementation detail, not a public struct wrapper.",
+      "test": "tests/test_api_policy.py::test_private_global_struct_is_not_public"
+    },
+    {
+      "name": "lv_obj_spec_attr_t",
+      "reason": "Private object storage reached only through LVGL's internal object implementation.",
+      "test": "tests/test_api_policy.py::test_private_object_storage_structs_are_not_public"
+    },
+    {
+      "name": "lv_obj_style_t",
+      "reason": "Private object style storage reached only through LVGL's internal object implementation.",
+      "test": "tests/test_api_policy.py::test_private_object_storage_structs_are_not_public"
+    }
+  ],
+  "private_enums": [
+    {
+      "name": "_lv_str_symbol_id_t",
+      "reason": "Internal identifier enum used to construct the public SYMBOL string namespace.",
+      "test": "tests/test_api_policy.py::test_symbol_identifier_enum_is_private"
+    }
+  ],
+  "private_variables": [
+    {
+      "name": "lv_text_encoded_conv_wc",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_encoded_get_byte_id",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_encoded_get_char_id",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_encoded_next",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_encoded_prev",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_encoded_size",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_get_encoded_length",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    },
+    {
+      "name": "lv_text_unicode_to_encoded",
+      "reason": "Internal text codec callback hook; the binding does not export callback globals.",
+      "test": "tests/test_api_policy.py::test_internal_callback_hooks_are_not_public"
+    }
+  ],
+  "target_exceptions": []
+}

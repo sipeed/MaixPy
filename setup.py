@@ -3,6 +3,7 @@ import sys
 import os
 import platform
 import shutil
+import subprocess
 
 ####################################################################
 # supported platforms
@@ -97,8 +98,34 @@ if board:
         if ret != 0:
             print("-- Build cpp modules failed!")
             sys.exit(1)
+
+        # Build the maix_lvgl sub-project (LVGL CPython bindings)
+        if board == "maixcam2":
+            print("-- Building maix_lvgl ...")
+            lvgl_cmd = [
+                sys.executable, "project.py", "build", "-p", board, release_str,
+                "--config-file", os.path.join("configs", "config_platform_%s.mk" % board),
+            ]
+            ret = subprocess.call(lvgl_cmd, cwd="maix_lvgl")
+            if ret != 0:
+                print("-- Build maix_lvgl failed!")
+                sys.exit(1)
     else:
         sys.argv.remove("--skip-build")
+
+# Stage maix_lvgl built files into its Python package (for the wheel)
+if board == "maixcam2":
+    lvgl_pkg = os.path.join("maix_lvgl", "maix_lvgl")
+    lvgl_so = os.path.join("maix_lvgl", "build", "lvgl_binding", "liblvgl_binding.so")
+    if os.path.exists(lvgl_so):
+        shutil.copy2(lvgl_so, os.path.join(lvgl_pkg, "lvgl.cpython-313-aarch64-linux-gnu.so"))
+        dl_src = os.path.join("maix_lvgl", "build", "dl_lib", "libdatachannel.so")
+        if os.path.exists(dl_src):
+            dl_dst = os.path.join(lvgl_pkg, "dl_lib")
+            os.makedirs(dl_dst, exist_ok=True)
+            shutil.copy2(dl_src, os.path.join(dl_dst, "libdatachannel.so"))
+    else:
+        print("-- WARNING: maix_lvgl extension not found, package will not include it")
 
 # check python version
 build_py_version = get_build_python_version()
@@ -147,6 +174,17 @@ ret = os.system(f"python -u components/maix/gen_api.py --doc docs/api --sdk_path
 if ret != 0:
     raise Exception("Generate doc file failed")
 
+if board == "maixcam2":
+    print("-- Merging maix_lvgl API documentation into docs/api ...")
+    doc_cmd = [
+        sys.executable, os.path.join("maix_lvgl", "tools", "gen_api_docs.py"),
+        "--pyi", os.path.join("maix_lvgl", "binding", "lvgl.pyi"),
+        "--out", "docs/api", "--merge",
+    ]
+    ret = subprocess.call(doc_cmd)
+    if ret != 0:
+        raise Exception("Generate maix_lvgl API doc failed")
+
 # requirement packages
 requirements = []
 
@@ -166,6 +204,9 @@ class BinaryDistribution(Distribution):
         return True
 
 pkgs = find_packages()
+pkgs = [p for p in pkgs if not p.startswith("maix_lvgl")]
+if os.path.isdir(os.path.join("maix_lvgl", "maix_lvgl")):
+    pkgs.append("maix_lvgl")
 print("-- found packages: {}".format(pkgs))
 
 print("\n=================================")
@@ -222,6 +263,7 @@ setup(
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     packages=pkgs,
+    package_dir={"maix_lvgl": "maix_lvgl/maix_lvgl"},
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
@@ -246,7 +288,8 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        'maix': ['*.so', "dl_lib/*.so*", "*.pyi", "**/*.pyi", "**/**/*.pyi"]
+        'maix': ['*.so', "dl_lib/*.so*", "*.pyi", "**/*.pyi", "**/**/*.pyi"],
+        'maix_lvgl': ['*.so', "dl_lib/*.so*"],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may

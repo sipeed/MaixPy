@@ -51,6 +51,11 @@ items:
     -   file: gui/i18n.md
         label: I18N (Multi language)
 
+-   label: LVGL GUI
+    items:
+    -   file: lvgl/lvgl.md
+        label: Using LVGL
+
 -   label: AI Vision
     items:
     -   file: vision/ai.md
