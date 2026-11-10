@@ -19,7 +19,7 @@ python_version = {
     "maixcam2": [3, 13]
 }
 platform_toolchain_id = {
-    "maixcam": "musl_t-hread"
+    "maixcam": "musl_t-head"
 }
 ####################################################################
 

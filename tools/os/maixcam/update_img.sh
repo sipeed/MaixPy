@@ -3,15 +3,26 @@
 set -e
 set -o pipefail
 
-source_dir=$1
+if [ "$#" -ne 3 ]; then
+    echo "usage: $0 new_rootfs_dir image_file delete_first_files"
+    exit 1
+fi
+source_dir=$(realpath "$1")
 img_file=$2
-delete_first_files=$3
-mount_root=img_root
+delete_first_files=$(realpath "$3")
+mount_root=$(mktemp -d "$(dirname "$(realpath "$0")")/img_root.XXXXXX")
+cleanup() {
+    if mountpoint -q "$mount_root"; then
+        fusermount -u "$mount_root" || return 1
+    fi
+    rmdir "$mount_root"
+}
+trap cleanup EXIT
 
 img_file=$(readlink -f "$img_file")
-THISDIR=$(dirname $(realpath $0))
+THISDIR=$(dirname $(realpath "$0"))
 
-if [ -z $img_file ]
+if [ -z "$img_file" ]
 then
 	echo "usage: $0 new_rootfs_dir image_file"
 fi
@@ -21,35 +32,37 @@ if [ ! -f "$delete_first_files" ]; then
     exit 1
 fi
 
-if [ ! -e $mount_root ]
+if [ ! -e "$mount_root" ]
 then
-	mkdir -pv $mount_root
+	mkdir -pv "$mount_root"
 fi
 
 set -eux
 
 PART=2
 
-PART_OFFSET=$(partx -s $img_file | head -n 3 | tail -n 1 | awk '{print $2}')
+PART_OFFSET=$(partx --noheadings --raw -o NR,START "$img_file" | awk '$1 == 2 {print $2}')
+[[ "$PART_OFFSET" =~ ^[0-9]+$ ]] || { echo "Root partition not found"; exit 1; }
 PART_OFFSET=$((PART_OFFSET * 512)) # sector size is 512
 
 echo "PART: $PART"
 echo "PART OFFSET: $PART_OFFSET"
 
 # some old version fuse2fs not support offset
-$THISDIR/fuse2fs -o fakeroot -o offset=$PART_OFFSET $img_file $mount_root
+"$THISDIR/fuse2fs" -o fakeroot -o "offset=$PART_OFFSET" "$img_file" "$mount_root"
+mountpoint -q "$mount_root" || { echo "Image mount failed"; exit 1; }
 
 echo "Deleting files in $delete_first_files"
 # delete first files
 while IFS= read -r line; do
-    if [ -z $line ]; then
+    if [ -z "$line" ]; then
         continue
     elif [ -d "$mount_root/$line" ]; then
         echo "Deleting directory $line"
-        rm -rf $mount_root/$line
+        rm -rf -- "$mount_root/$line"
     elif [ -f "$mount_root/$line" ]; then
         echo "Deleting file $line"
-        rm -f $mount_root/$line
+        rm -f -- "$mount_root/$line"
     else
         echo "File or directory $line not found, skip"
     fi
@@ -57,15 +70,14 @@ done < "$delete_first_files"
 
 # copy root files
 echo "copy root files now"
-find $source_dir -mindepth 1 -maxdepth 1 -type d ! -name "boot" | while read -r dir; do
+find "$source_dir" -mindepth 1 -maxdepth 1 -type d ! -name "boot" -print0 | while IFS= read -r -d "" dir; do
     cp -r "$dir" "$mount_root"
 done
 sync
 echo "copy root files done"
 
 # umount
-umount $mount_root
-rm -rf $mount_root
+fusermount -u "$mount_root"
 
 
 echo "copy boot files now"

@@ -11,6 +11,7 @@
 # 8. xz 压缩镜像
 
 set -e
+set -o pipefail
 set -x
 
 function usage() {
@@ -24,7 +25,7 @@ function usage() {
 }
 
 param_count=$#
-if [ "$param_count" -ne 3 ] && [ "$param_count" -ne 4 ] && [ "$param_count" -ne 5 ]; then
+if [ "$param_count" -lt 3 ] || [ "$param_count" -gt 6 ]; then
     usage
     exit 1
 fi
@@ -71,13 +72,13 @@ if [[ ! -e "$base_os_path" ]]; then
     exit 1
 fi
 
-if [ ! -f $whl_path ]; then
+if [ ! -f "$whl_path" ]; then
     echo "MaixPy wheel $whl_path not found!!!"
     usage
     exit 1
 fi
 
-if [ ! -e $builtin_files_dir_path ]; then
+if [ ! -d "$builtin_files_dir_path" ]; then
     echo "builtin_files_dir_path $builtin_files_dir_path not found!!!"
     usage
     exit 1
@@ -85,9 +86,34 @@ fi
 
 set -x
 
+# Accept the builtin repository or the payload directory.
+if [ ! -d "$builtin_files_dir_path/boot" ] && [ -d "$builtin_files_dir_path/maixcam_builtin_files/boot" ]; then
+    builtin_files_dir_path="$builtin_files_dir_path/maixcam_builtin_files"
+fi
+for required in boot maixapp usr; do
+    [ -d "$builtin_files_dir_path/$required" ] || { echo "Invalid builtin payload: missing $required"; exit 1; }
+done
+base_os_path=$(realpath "$base_os_path")
+whl_path=$(realpath "$whl_path")
+builtin_files_dir_path=$(realpath "$builtin_files_dir_path")
+if [ -n "$delete_first_files" ]; then
+    delete_first_files=$(realpath "$delete_first_files")
+fi
+cd "$(dirname "$(realpath "$0")")"
+python_bin=${MAIXPY_PYTHON:-python}
+"$python_bin" -c 'import yaml' || { echo "Install PyYAML for $python_bin"; exit 1; }
+
 # 设置输出的镜像名字 maixcam-2024-10-31-maixpy-v4.7.8
 date_now=$(date +"%Y-%m-%d")
-maixpy_version=$(echo "$whl_path" | grep -oP '(?<=MaixPy-)[^-]+')
+maixpy_version=$("$python_bin" - "$whl_path" <<'PYVERSION'
+import email
+import sys
+import zipfile
+with zipfile.ZipFile(sys.argv[1]) as wheel:
+    name = next(n for n in wheel.namelist() if n.endswith(".dist-info/METADATA"))
+    print(email.message_from_bytes(wheel.read(name))["Version"])
+PYVERSION
+)
 os_version_str=${board_name}-${date_now}-maixpy-v${maixpy_version}
 
 
@@ -101,6 +127,22 @@ if [ "$(basename $PWD)" != "maixcam" ] || [ "$(basename $(dirname $PWD))" != "os
     echo "Error: Script must be run from MaixPy/tools/os/maixcam directory."
     exit 1
 fi
+
+# Validate all inputs before clearing staging.
+[ -f "$MAIXCDK_PATH/components/maixcam_lib/lib_maixcam/libmaixcam_lib.so" ] || {
+    echo "MaixCDK libmaixcam_lib.so not found"; exit 1;
+}
+if [ "$skip_build_apps" = 1 ]; then
+    [ -d "../../../projects/maixcam_apps" ] || { echo "Build MaixPy apps first"; exit 1; }
+    [ -d "$MAIXCDK_PATH/projects/maixcam_apps" ] || { echo "Build MaixCDK apps first"; exit 1; }
+fi
+board_file=board.maixcam
+[ "$board_name" != maixcam-pro ] || board_file=board.maixcam_pro
+[ -f "$builtin_files_dir_path/boot/boards/$board_file" ] || {
+    echo "Board configuration not found: $board_file"; exit 1;
+}
+echo "Selected board configuration:"
+cat "$builtin_files_dir_path/boot/boards/$board_file"
 
 # 删除之前的缓存文件
 rm -rf tmp/maixpy_whl
@@ -117,12 +159,12 @@ if [ ! -e "$base_os_path" ]; then
 fi
 
 mkdir -p tmp
-cp -r "$builtin_files_dir_path" tmp/sys_builtin_files
+cp -a "$builtin_files_dir_path" tmp/sys_builtin_files
 
 if file "$base_os_path" | grep -q 'XZ compressed data'; then
     xz -dkc "$base_os_path" > "tmp/$os_version_str.img"
 else
-    cp "$base_os_path" "tmp/$os_version_str.img"
+    cp --reflink=auto --sparse=always "$base_os_path" "tmp/$os_version_str.img"
 fi
 
 # 2. 解压 MaixPy whl 包到临时目录 tmp，并拷贝解压后的所有文件和目录到 tmp/sys_builtin_files/usr/lib/python3.11/site-packages 目录
@@ -157,7 +199,7 @@ fi
 
 # 5. 生成 tmp/sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
 cp -f ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-python ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+"$python_bin" ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
 
 # 6. 写入 tmp/sys_builtin_files/boot/ver 版本号文件（使用参数 os_version_str）， 比如 maixcam-2024-05-13-maixpy-v4.1.0
 mkdir -p tmp/sys_builtin_files/boot
@@ -181,7 +223,7 @@ cp -r "tmp/sys_builtin_files/boot/boards" "tmp/sys_builtin_files/maixapp/"
 
 # 9. 生成需要删除的文件列表
 if [ -n "$delete_first_files" ]; then
-    echo "$delete_first_files" > tmp/delete_files.txt
+    cp "$delete_first_files" tmp/delete_files.txt
 elif [ -e "tmp/sys_builtin_files/delete_first.txt" ]; then
     mv "tmp/sys_builtin_files/delete_first.txt" tmp/delete_files.txt
 else
@@ -197,6 +239,6 @@ xz -zv -9 -T 0 "tmp/$os_version_str.img"
 
 mkdir -p images
 mv tmp/$os_version_str.img.xz images/$os_version_str.img.xz
-echo "Complete: os file: tmp/$os_version_str.img.xz"
+echo "Complete: os file: $(realpath "images/$os_version_str.img.xz")"
 
 

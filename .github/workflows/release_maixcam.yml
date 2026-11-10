@@ -44,6 +44,7 @@ jobs:
           echo "--------------------------------"
           sudo apt update -y
           sudo apt install -y libopencv-dev libopencv-contrib-dev libsdl2-dev cmake libfuse-dev mtools autoconf automake libtool git build-essential
+          python -m pip install "cmake==3.22.1"
           cmake --version
           python setup.py bdist_wheel linux
           echo "--------------------------------"
