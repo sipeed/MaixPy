@@ -1,0 +1,37 @@
+name: Set up pinned MaixPy build dependencies
+description: Install the supported toolchain and pinned MaixCDK with a recorded compatibility patch.
+inputs:
+  sdk_sha:
+    required: true
+    description: Full MaixCDK commit SHA
+runs:
+  using: composite
+  steps:
+  - name: Install system build dependencies
+    run: |-
+      sudo apt-get update
+      sudo apt-get install -y build-essential git libopencv-dev libopencv-contrib-dev libsdl2-dev libfuse-dev mtools autoconf automake libtool xz-utils curl zip fuse rsync
+    shell: bash
+  - name: Checkout pinned MaixCDK
+    run: |-
+      [[ "$SDK_SHA" =~ ^[0-9a-f]{40}$ ]]
+      sdk="$RUNNER_TEMP/MaixCDK"
+      git init "$sdk"
+      git -C "$sdk" remote add origin https://github.com/sipeed/MaixCDK.git
+      git -C "$sdk" fetch --depth=1 origin "$SDK_SHA"
+      git -C "$sdk" checkout --detach FETCH_HEAD
+      test "$(git -C "$sdk" rev-parse HEAD)" = "$SDK_SHA"
+      git -C "$sdk" apply --check "$GITHUB_WORKSPACE/_ci/.github/patches/maixcdk-yaml-cstdint.patch"
+      git -C "$sdk" apply "$GITHUB_WORKSPACE/_ci/.github/patches/maixcdk-yaml-cstdint.patch"
+      printf "MAIXCDK_PATH=%s\n" "$sdk" >> "$GITHUB_ENV"
+    shell: bash
+    env:
+      SDK_SHA: ${{ inputs.sdk_sha }}
+  - name: Install compatible Python build tools
+    run: |-
+      python -m pip install --upgrade pip
+      python -m pip install -r _ci/.github/requirements-build.txt
+      python -m pip check
+      cmake --version
+      python --version
+    shell: bash

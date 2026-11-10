@@ -1,0 +1,181 @@
+name: Release
+'on':
+  push:
+    tags:
+    - v*
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing stable tag to rebuild, for example v4.12.6
+        required: true
+        type: string
+      publish:
+        description: Publish GitHub Release after all checks (false builds artifacts only)
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    outputs:
+      tag: ${{ steps.prepare.outputs.tag }}
+      version: ${{ steps.prepare.outputs.version }}
+      source_sha: ${{ steps.prepare.outputs.source_sha }}
+      sdk_sha: ${{ steps.prepare.outputs.sdk_sha }}
+      ci_sha: ${{ steps.prepare.outputs.ci_sha }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Validate release tag and resolve immutable revisions
+      run: python .github/scripts/release_tools.py prepare --tag "$TAG" --config .github/release-config.json
+      id: prepare
+      env:
+        TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  linux:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        python:
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+        - '3.13'
+    uses: ./.github/workflows/release_other_linux.yml
+    with:
+      source_sha: ${{ needs.prepare.outputs.source_sha }}
+      ci_sha: ${{ needs.prepare.outputs.ci_sha }}
+      sdk_sha: ${{ needs.prepare.outputs.sdk_sha }}
+      python_version: ${{ matrix.python }}
+  maixcam:
+    needs: prepare
+    uses: ./.github/workflows/release_maixcam.yml
+    with:
+      source_sha: ${{ needs.prepare.outputs.source_sha }}
+      ci_sha: ${{ needs.prepare.outputs.ci_sha }}
+      sdk_sha: ${{ needs.prepare.outputs.sdk_sha }}
+      images: true
+  docs:
+    needs: prepare
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    env:
+      SOURCE_SHA: ${{ needs.prepare.outputs.source_sha }}
+      SDK_SHA: ${{ needs.prepare.outputs.sdk_sha }}
+      CI_SHA: ${{ needs.prepare.outputs.ci_sha }}
+      VERSION: ${{ needs.prepare.outputs.version }}
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.prepare.outputs.source_sha }}
+        persist-credentials: false
+    - name: Checkout CI tooling
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.prepare.outputs.ci_sha }}
+        path: _ci
+        persist-credentials: false
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Build documentation archive
+      run: |-
+        python -m pip install teedoc==1.37.9
+        (cd docs && teedoc install && teedoc build)
+        mkdir -p out "doc-package/maixpy_v${VERSION}_doc/html" "doc-package/maixpy_v${VERSION}_doc/source"
+        cp -a docs/out/. "doc-package/maixpy_v${VERSION}_doc/html/"
+        rsync -a --exclude out --exclude node_modules docs/ "doc-package/maixpy_v${VERSION}_doc/source/"
+        (cd doc-package && zip -qr "../out/maixpy_v${VERSION}_doc.zip" "maixpy_v${VERSION}_doc")
+        python _ci/.github/scripts/release_tools.py manifest out docs
+    - name: Store build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-docs
+        path: out/*
+        if-no-files-found: error
+        retention-days: 14
+        overwrite: true
+  assemble:
+    needs:
+    - prepare
+    - linux
+    - maixcam
+    - docs
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      VERSION: ${{ needs.prepare.outputs.version }}
+      SOURCE_SHA: ${{ needs.prepare.outputs.source_sha }}
+      SDK_SHA: ${{ needs.prepare.outputs.sdk_sha }}
+      CI_SHA: ${{ needs.prepare.outputs.ci_sha }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.prepare.outputs.ci_sha }}
+        persist-credentials: false
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Download complete build matrix
+      uses: actions/download-artifact@v4
+      with:
+        pattern: build-*
+        path: out
+        merge-multiple: true
+    - name: Validate artifacts and generate checksums
+      run: python .github/scripts/release_tools.py collect out --version "$VERSION" --source-sha "$SOURCE_SHA" --sdk-sha
+        "$SDK_SHA"
+    - name: Store complete release bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-bundle
+        path: out/*
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 14
+  publish:
+    needs:
+    - prepare
+    - assemble
+    if: ${{ github.event_name == 'push' || inputs.publish }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ needs.prepare.outputs.tag }}
+      VERSION: ${{ needs.prepare.outputs.version }}
+      SOURCE_SHA: ${{ needs.prepare.outputs.source_sha }}
+      SDK_SHA: ${{ needs.prepare.outputs.sdk_sha }}
+    steps:
+    - name: Download verified release bundle
+      uses: actions/download-artifact@v4
+      with:
+        name: release-bundle
+        path: out
+    - name: Upload to draft, then publish the complete release
+      run: |
+        if gh api "repos/$GH_REPO/releases/tags/$TAG" > "$RUNNER_TEMP/release.json" 2> "$RUNNER_TEMP/release-error.log"; then
+          jq -e '.draft == true' "$RUNNER_TEMP/release.json" > /dev/null || { echo "Published releases will not be overwritten"; exit 1; }
+        else
+          if ! grep -q "HTTP 404" "$RUNNER_TEMP/release-error.log"; then cat "$RUNNER_TEMP/release-error.log"; exit 1; fi
+          gh release create "$TAG" --target "$SOURCE_SHA" --draft --title "MaixPy $TAG" --generate-notes
+        fi
+        gh release upload "$TAG" out/* --clobber
+        gh release edit "$TAG" --draft=false
+        printf "Published: https://github.com/%s/releases/tag/%s\n" "$GH_REPO" "$TAG" >> "$GITHUB_STEP_SUMMARY"
