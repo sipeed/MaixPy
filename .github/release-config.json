@@ -1,0 +1,16 @@
+{
+  "sdk_sha": "83f8b8d456813932526601a40757bdafe452e718",
+  "cmake": "3.22.1",
+  "inputs": {
+    "base": {
+      "tag": "20251230",
+      "url": "https://github.com/sipeed/LicheeRV-Nano-Build/releases/download/20251230/2025-12-30-20-00-6073d5.img.xz",
+      "sha256": "aba5199e4a4d3577221476462a86d890e902a80182070998410965ac655b31a7"
+    },
+    "builtin": {
+      "tag": "v4.12.5",
+      "url": "https://github.com/sipeed/MaixPy/releases/download/v4.12.5/maixcam_builtin_files.tar.xz",
+      "sha256": "4f0f2d731c030e87a3b050aec89907bcf21e795f21942a24fce53d86b87a720e"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+name: Publish Linux wheels to PyPI
+'on':
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag, for example v4.12.7
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: pypi-${{ inputs.tag }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    environment: pypi
+    env:
+      TAG: ${{ inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Download and verify published Linux wheels
+      run: |-
+        python -c 'import os,sys;sys.path.insert(0,".github/scripts");import release_tools;release_tools.tag_version(os.environ["TAG"])'
+        gh api "repos/$GH_REPO/releases/tags/$TAG" > "$RUNNER_TEMP/release.json"
+        python -c 'import json,sys; r=json.load(open(sys.argv[1])); assert not r["draft"], "Release must be published first"' "$RUNNER_TEMP/release.json"
+        gh release download "$TAG" --pattern "*.whl" --pattern sha256sum_files.txt --dir downloads
+        python - <<'PY'
+        import os, shutil, sys
+        from pathlib import Path
+        sys.path.insert(0, ".github/scripts")
+        import release_tools as tools
+        expected = tools.tag_version(os.environ["TAG"])
+        sums = {}
+        for line in Path("downloads/sha256sum_files.txt").read_text().splitlines():
+            digest, name = line.split("  ", 1)
+            if Path(name).name != name:
+                raise ValueError("Unsafe checksum entry")
+            sums[name] = digest
+        target = Path("packages"); target.mkdir()
+        for wheel in Path("downloads").glob("*.whl"):
+            if tools.sha256(wheel) != sums.get(wheel.name):
+                raise ValueError("Wheel checksum mismatch: " + wheel.name)
+            info = tools.wheel_info(wheel, expected)
+            if info["machine"] == 62:
+                if "manylinux" not in wheel.name or "-py3-none-any" in wheel.name:
+                    raise ValueError("Linux wheel must have an explicit platform tag")
+                shutil.copy2(wheel, target)
+            elif info["machine"] != 243:
+                raise ValueError("Unexpected wheel architecture")
+        if len(list(target.glob("*.whl"))) != 6:
+            raise ValueError("Expected six platform-tagged Linux wheels")
+        PY
+    - name: Publish verified wheels
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}
+        packages-dir: packages/
+        skip-existing: true
+        attestations: false

@@ -1,0 +1,19 @@
+--- a/components/3rd_party/yaml/yaml-cpp/src/emitterutils.cpp
++++ b/components/3rd_party/yaml/yaml-cpp/src/emitterutils.cpp
+@@ -1,4 +1,5 @@
+ #include <algorithm>
++#include <cstdint>
+ #include <iomanip>
+ #include <sstream>
+ 
+@@ -218,8 +219,8 @@
+   });
+ }
+ 
+-std::pair<uint16_t, uint16_t> EncodeUTF16SurrogatePair(int codePoint) {
+-  const uint32_t leadOffset = 0xD800 - (0x10000 >> 10);
++std::pair<std::uint16_t, std::uint16_t> EncodeUTF16SurrogatePair(int codePoint) {
++  const std::uint32_t leadOffset = 0xD800 - (0x10000 >> 10);
+ 
+   return {
+     leadOffset | (codePoint >> 10),
