@@ -100,13 +100,13 @@ if [[ ! -e "$base_os_path" || "${base_os_path##*.}" != "axp" ]]; then
     exit 1
 fi
 
-if [ ! -f $whl_path ]; then
+if [ ! -f "$whl_path" ]; then
     echo "MaixPy wheel $whl_path not found!!!"
     usage
     exit 1
 fi
 
-if [ ! -e $builtin_files_dir_path ]; then
+if [ ! -e "$builtin_files_dir_path" ]; then
     echo "builtin_files_dir_path $builtin_files_dir_path not found!!!"
     usage
     exit 1
@@ -131,13 +131,17 @@ if [ "$(basename $PWD)" != "maixcam2" ] || [ "$(basename $(dirname $PWD))" != "o
     exit 1
 fi
 
+# A build owns the shared staging directories until its outputs are published.
+mkdir -p tmp
+exec 9<.
+flock -n 9 || { echo "Another MaixCAM2 build is using tmp/tmp2" >&2; exit 1; }
+
 # 删除之前的缓存文件
 rm -rf tmp/maixpy_whl
 rm -rf tmp/sys_builtin_files
 rm -rf tmp/*.img
 rm -rf tmp/$os_version_str.img.xz
 rm -rf tmp/delete_files.txt
-sync
 
 # get sudo permission for update_img.sh later
 echo -e "\n\n======================================\nFor MaixCDK/MaixPy maintainer:\n    DON'T forget to update APPs like launcher, settings, app_store in builtin_files !!\n\nNeed sudo permission for update_img.sh later, grant permission now\n======================================\n"
@@ -150,18 +154,44 @@ echo "copy builtin files"
 mkdir -p tmp
 # if builtin_files_dir_path is a xz or tar.xz file, unzip it to tmp/builtin_files_dir_path
 if [[ "$builtin_files_dir_path" == *.tar.xz ]]; then
-    echo "Unzipping $builtin_files_dir_path"
-    tar -Jxvf $builtin_files_dir_path -C tmp/
-    builtin_files_dir_path=$(basename "$builtin_files_dir_path" .tar.xz)
-elif [[ "$builtin_files_dir_path" == *.xz ]]; then
-    echo "Unzipping $builtin_files_dir_path"
-    unxz $builtin_files_dir_path -C tmp/
-    builtin_files_dir_path=$(basename "$builtin_files_dir_path" .xz)
+    archive_dir=tmp/builtin_archive
+    rm -rf -- "$archive_dir"
+    mkdir "$archive_dir"
+    tar -Jxf "$builtin_files_dir_path" -C "$archive_dir"
+    archive_name=$(basename -- "$builtin_files_dir_path" .tar.xz)
+    for layout in "$archive_dir/$archive_name" "$archive_dir/sys_builtin_files" "$archive_dir"; do
+        if [ -d "$layout/boot" ]; then
+            mv -- "$layout" tmp/sys_builtin_files
+            break
+        fi
+    done
 elif [ -d "$builtin_files_dir_path" ]; then
     mkdir tmp/sys_builtin_files
-    cp -r ${builtin_files_dir_path}/* tmp/sys_builtin_files
+    cp -a "$builtin_files_dir_path/." tmp/sys_builtin_files/
+    # Resolve shared build-host data without dereferencing links inside it.
+    for shared_path in usr root/models; do
+        source_path="$builtin_files_dir_path/$shared_path"
+        if [ -L "$source_path" ]; then
+            if [ ! -d "$source_path" ]; then
+                echo "Shared directory is missing: $source_path" >&2
+                exit 1
+            fi
+            rm -- "tmp/sys_builtin_files/$shared_path"
+            cp -a -- "$source_path/" "tmp/sys_builtin_files/$shared_path"
+        fi
+    done
+    # Copy per-model links to the shared build-host directory into the image.
+    for model_link in "$builtin_files_dir_path"/root/models/*; do
+        [ -L "$model_link" ] || continue
+        model_name=${model_link##*/}
+        [ "$(readlink -- "$model_link")" = "../../../models/$model_name" ] || continue
+        model_source=$(realpath -e -- "$model_link") || exit 1
+        staged_model="tmp/sys_builtin_files/root/models/$model_name"
+        rm -- "$staged_model" || exit 1
+        cp -a -- "$model_source" "$staged_model" || exit 1
+    done
 else
-    echo "builtin_files_dir_path is not a directory or xz/tar.xz file"
+    echo "builtin_files_dir_path must be a directory or .tar.xz archive"
     exit 1
 fi
 
@@ -201,8 +231,11 @@ if [ -d $MAIXCDK_PATH/projects/maixcam2_apps/ ]; then
 fi
 
 # 5. 生成 tmp/sys_builtin_files/maixapp/apps/app.info 文件，执行 python gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-cp -f ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
-python ../../gen_app_info.py tmp/sys_builtin_files/maixapp/apps
+app_dir=tmp/sys_builtin_files/maixapp/apps
+if [ ! -f "$app_dir/gen_app_info.py" ]; then
+    cp ../../gen_app_info.py "$app_dir/gen_app_info.py"
+fi
+python "$app_dir/gen_app_info.py" "$app_dir"
 
 # 6. 写入 tmp/sys_builtin_files/boot/ver 版本号文件（使用参数 os_version_str）， 比如 maixcam-2024-05-13-maixpy-v4.1.0
 mkdir -p tmp/sys_builtin_files/boot
@@ -217,7 +250,7 @@ cp "tmp/sys_builtin_files/boot/boards/board.maixcam2" "tmp/sys_builtin_files/boo
 
 # 9. 生成需要删除的文件列表
 if [ -n "$delete_first_files" ]; then
-    echo "$delete_first_files" > tmp/delete_files.txt
+    cp -- "$delete_first_files" tmp/delete_files.txt
 elif [ -e "tmp/sys_builtin_files/delete_first.txt" ]; then
     mv "tmp/sys_builtin_files/delete_first.txt" tmp/delete_files.txt
 else
@@ -227,7 +260,7 @@ delete_first_files=tmp/delete_files.txt
 
 # 9. 拷贝 tmp/sys_builtin_files 生成新镜像，通过 ./update_img.sh tmp/sys_builtin_files tmp/os_version_str.img
 echo "Now update system image, need sudo permition to mount rootfs:"
-sudo ./update_img.sh $base_os_path tmp/sys_builtin_files $delete_first_files
+sudo ./update_img.sh "$base_os_path" tmp/sys_builtin_files "$delete_first_files" "" --keep-raw-rootfs
 echo "Complete: os dir: tmp2/axp"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -235,40 +268,42 @@ mkdir -p images
 echo "Now convert to binary img file: images/${os_version_str}.img.${package_method}"
 sudo chmod 777 tmp2/axp
 # axp2img
-python ${SCRIPT_DIR}/axp-tools/axp_tools/axp2img.py -i tmp2/axp -o images/${os_version_str}.img.${package_method}
+python3 "${SCRIPT_DIR}/axp-tools/axp_tools/axp2img.py" -i tmp2/axp \
+    -o "images/${os_version_str}.img.${package_method}" --raw-rootfs tmp2/rootfs_new.ext4.raw \
+    --7z-level "${MAIXCAM2_7Z_LEVEL:-3}"
 rm -rf tmp2/axp/out tmp2/axp/temp
-sync
+rm -f -- tmp2/rootfs_new.ext4.raw
 echo "Complete convert to binary img file: images/${os_version_str}.img.${package_method}"
+
+# Place the partition manifest before large members so it has a 32-bit offset,
+# and verify that it can be read from the completed archive.
+package_axp() (
+    local source_dir="$1" output="$2"
+    cd "$source_dir"
+    local manifests=( *.xml )
+    if [ "${#manifests[@]}" -ne 1 ] || [ ! -s "${manifests[0]}" ]; then
+        echo "Expected one nonempty AXP XML manifest in $source_dir" >&2
+        return 1
+    fi
+    rm -f -- "$output"
+    zip -q "$output" "${manifests[0]}"
+    zip -qr "-${MAIXCAM2_ZIP_LEVEL:-1}" "$output" . -x "${manifests[0]}"
+    unzip -p "$output" "${manifests[0]}" | cmp "${manifests[0]}" -
+)
 
 echo "Now zip boot_parts axp file"
 mkdir -p tmp2/axp2
-rsync -av --exclude='ubuntu_rootfs_sparse.ext4' tmp2/axp/ tmp2/axp2/
+rsync -a --exclude='ubuntu_rootfs_sparse.ext4' tmp2/axp/ tmp2/axp2/
 dd if=/dev/zero of=tmp2/axp2/ubuntu_rootfs_sparse.ext4 bs=1M count=20
-out_path=tmp/boot_parts_${os_version_str}.axp
-parent_dir=$(dirname "$out_path")
-name=$(basename $out_path)
-out_path=$(realpath $parent_dir)/$name
-echo "Zipping axp file to $out_path"
-cd tmp2/axp2
-zip -r $out_path .
-cd -
-mv $out_path images/boot_parts_${os_version_str}.axp
-sync
-echo "Zip boot_parts axp file done"
+out_path="$(realpath tmp)/boot_parts_${os_version_str}.axp"
+package_axp tmp2/axp2 "$out_path"
+mv -- "$out_path" "images/boot_parts_${os_version_str}.axp"
 
-if [ $generate_axp_full == 1 ]; then
+if [ "$generate_axp_full" = 1 ]; then
     echo "Now zip axp whole system file"
-    out_path=tmp/${os_version_str}.axp
-    parent_dir=$(dirname "$out_path")
-    name=$(basename $out_path)
-    out_path=$(realpath $parent_dir)/$name
-    echo "Zipping axp file to $out_path"
-    cd tmp2/axp
-    zip -r $out_path .
-    cd -
-    mv $out_path images/${os_version_str}.axp
-    sync
-    echo "Zip axp file done"
+    out_path="$(realpath tmp)/${os_version_str}.axp"
+    package_axp tmp2/axp "$out_path"
+    mv -- "$out_path" "images/${os_version_str}.axp"
 else
     echo "generate_axp_full is 0, Skip generate full axp"
 fi

@@ -95,26 +95,16 @@ check_device() {
     fi
 }
 
-# Check device is mounted
+partition_device() {
+    local separator=""
+    if [[ $1 == *[0-9] ]]; then separator=p; fi
+    printf '%s%s%s\n' "$1" "$separator" "$2"
+}
+
 check_mounted() {
-    local device=$1
-
-    if mount | grep -q "^$device"; then
-        print_warning "Device $device is mounted, Try to unmount..."
-
-        # 卸载所有相关分区
-        for part in ${device}[0-9]*; do
-            if [[ -b $part ]] && mountpoint -q ${part}; then
-                umount $part 2>/dev/null && print_info "$part unmounted" || true
-            fi
-        done
-
-        # 再次检查
-        sleep 1
-        if mount | grep -q "^$device"; then
-            print_error "Can not mount device $device, please unmount manually"
-            exit 1
-        fi
+    if lsblk -nr -o MOUNTPOINT "$1" | grep '[^[:space:]]' >/dev/null; then
+        print_error "Device $1 has mounted filesystems. Unmount them before writing."
+        exit 1
     fi
 }
 
@@ -166,7 +156,6 @@ wipe_partition_table() {
 
     # Clear old MBR/GPT
     dd if=/dev/zero of=$device bs=1M count=1 2>/dev/null
-    sync
 
     print_success "Partition table cleared"
 }
@@ -236,40 +225,42 @@ EOF
 
 # 格式化分区
 format_partitions() {
-    local device=$1
+    local device=$1 boot_partition root_partition
+    boot_partition=$(partition_device "$device" 1)
+    root_partition=$(partition_device "$device" 2)
 
     print_info "格式化分区..."
 
     # 等待内核重新读取分区表
-    partprobe $device
+    partprobe "$device"
 
     sleep 1
 
     # 有些环境(比如没有 udev 的容器)中分区设备节点会晚一点创建，这里最多等 10 秒
     for i in $(seq 1 10); do
-        if [[ -b ${device}p1 && -b ${device}p2 ]]; then
+        if [[ -b "$boot_partition" && -b "$root_partition" ]]; then
             break
         fi
         sleep 1
     done
 
     # 格式化第一个分区为FAT32
-    if [[ -b ${device}p1 ]]; then
-        print_info "Formatting ${device}p1 to FAT32..."
-        mkfs.vfat -F 32 -n "BOOT" ${device}p1
+    if [[ -b "$boot_partition" ]]; then
+        print_info "Formatting $boot_partition to FAT32..."
+        mkfs.vfat -F 32 -n "BOOT" "$boot_partition"
         print_success "FAT32 formatting complete"
     else
-        print_error "${device}p1 is not exist"
+        print_error "$boot_partition does not exist"
         exit 1
     fi
 
     # 格式化第二个分区为ext4
-    if [[ -b ${device}p2 ]]; then
-        print_info "Formatting ${device}p1 to ext4..."
-        mkfs.ext4 -F -L "ROOTFS" ${device}p2
+    if [[ -b "$root_partition" ]]; then
+        print_info "Formatting $root_partition to ext4..."
+        mkfs.ext4 -F -m 0 -L "ROOTFS" "$root_partition"
         print_success "ext4 formatting complete"
     else
-        print_error "Partition ${device}p2 is not exist"
+        print_error "Partition $root_partition does not exist"
         exit 1
     fi
 }
@@ -319,7 +310,6 @@ main() {
     check_command "mkfs.ext4"
     check_command "wipefs"
     check_command "lsblk"
-    check_command "p7zip"
 
     # 解析命令行参数
     while [[ $# -gt 0 ]]; do
@@ -397,23 +387,21 @@ main() {
     check_exists "$BOOTFS_PATH"
     check_exists "$ROOTFS_PATH"
     check_root
-    umount tmp2/sd/sd_boot &> /dev/null || echo ""
-    umount tmp2/sd/sd_rootfs &> /dev/null || echo ""
-    umount tmp2/sd/ubuntu_rootfs &> /dev/null || echo ""
-    umount tmp2/sd/bootfs &> /dev/null || echo ""
-    print_info "Converting $ROOTFS_PATH to $ROOTFS_RAW_PATH..."
-    if [ $DISABLE_ROOTFS_SIMG2IMG -eq 1 ]; then
-        print_warning "Skip convert $ROOTFS_PATH to $ROOTFS_RAW_PATH..."
-    else
-        if [ -f $ROOTFS_RAW_PATH ]; then
-            rm $ROOTFS_RAW_PATH
-        fi
-        simg2img $ROOTFS_PATH $ROOTFS_RAW_PATH
+    mkdir -p tmp2
+    exec 9<.
+    flock -n 9 || { print_error "Another MaixCAM2 build is using tmp/tmp2"; exit 1; }
+    sd_work=$(mktemp -d tmp2/sd.XXXXXXXX)
+    sd_loop=""
+    trap cleanup_sd EXIT
+    if [ "$DISABLE_ROOTFS_SIMG2IMG" -eq 0 ]; then
+        ROOTFS_RAW_PATH="$sd_work/rootfs.raw"
+        simg2img "$ROOTFS_PATH" "$ROOTFS_RAW_PATH"
     fi
     check_exists "$ROOTFS_RAW_PATH"
 
-    BOOT_SIZE=$(stat -c %s $BOOTFS_PATH)
-    ROOTFS_SIZE=$(stat -c %s $ROOTFS_RAW_PATH)
+    local BOOT_SIZE ROOTFS_SIZE
+    BOOT_SIZE=$(stat -c %s "$BOOTFS_PATH")
+    ROOTFS_SIZE=$(stat -c %s "$ROOTFS_RAW_PATH")
     SECOND_SIZE=$((BOOT_SIZE + ROOTFS_SIZE))
     if [[ -z $DEVICE ]]; then
         datetime=$(date "+%Y-%m-%d")
@@ -423,12 +411,12 @@ main() {
             print_warning "Skip create image..."
         else
             mkdir -p images
-            rm -f $IMG_PATH
-            dd if=/dev/zero of=$IMG_PATH bs=1M count=$(((FIRST_SIZE+SECOND_SIZE)/1024/1024 + 128))
+            rm -f -- "$IMG_PATH"
+            truncate -s "$((FIRST_SIZE + SECOND_SIZE + 128 * 1024 * 1024))" "$IMG_PATH"
         fi
-        check_exists $IMG_PATH
-        losetup -d $IMG_PATH || echo 0
-        DEVICE="$(losetup -f --show $IMG_PATH)"
+        check_exists "$IMG_PATH"
+        sd_loop=$(losetup -f --show "$IMG_PATH")
+        DEVICE=$sd_loop
     fi
 
     check_device "$DEVICE"
@@ -447,42 +435,64 @@ main() {
     format_partitions "$DEVICE"
 
     print_info "Mounting partitions..."
-    mkdir -p tmp2/sd/sd_boot tmp2/sd/sd_rootfs
-    mount "${DEVICE}p1" tmp2/sd/sd_boot            # mount /dev/sdb1
-    mount "${DEVICE}p2" tmp2/sd/sd_rootfs          # mount /dev/sdb2
+    mkdir -p "$sd_work"/{sd_boot,sd_rootfs,ubuntu_rootfs,bootfs}
+    mount "$(partition_device "$DEVICE" 1)" "$sd_work/sd_boot"
+    mount "$(partition_device "$DEVICE" 2)" "$sd_work/sd_rootfs"
+    mount -o loop,ro "$BOOTFS_PATH" "$sd_work/bootfs"
+    mount -o loop,ro,noload "$ROOTFS_RAW_PATH" "$sd_work/ubuntu_rootfs"
 
-    print_info "Mounting loop devices..."
-    mkdir -p tmp2/sd/ubuntu_rootfs tmp2/sd/bootfs
-    mount -o loop $BOOTFS_PATH tmp2/sd/bootfs
-    mount -o loop $ROOTFS_RAW_PATH tmp2/sd/ubuntu_rootfs
+    print_info "Copying SD boot and rootfs files..."
+    cp -r "$SD_BOOT_PATH/." "$sd_work/sd_boot/"
+    cp -r "$sd_work/bootfs/." "$sd_work/sd_boot/"
+    cp -a "$sd_work/ubuntu_rootfs/." "$sd_work/sd_rootfs/"
 
-    print_info "Copying sd_boot_pack files..."
-    cp $SD_BOOT_PATH/* tmp2/sd/sd_boot
-
-    print_info "Copying bootfs files..."
-    cp -r tmp2/sd/bootfs/* tmp2/sd/sd_boot
-
-    print_info "Copying ubuntu_rootfs files..."
-    cp -r tmp2/sd/ubuntu_rootfs/* tmp2/sd/sd_rootfs
+    local available_bytes
+    available_bytes=$(df -B1 --output=avail "$sd_work/sd_rootfs" | tail -1)
+    if [ "$available_bytes" -lt $((64 * 1024 * 1024)) ]; then
+        print_error "SD rootfs has less than 64 MiB available"
+        exit 1
+    fi
+    print_info "SD rootfs available: $available_bytes bytes"
 
     print_info "Unmounting..."
-    sleep 2
-    umount tmp2/sd/sd_boot &> /dev/null || echo ""
-    umount tmp2/sd/sd_rootfs &> /dev/null || echo ""
-    umount tmp2/sd/ubuntu_rootfs &> /dev/null || echo ""
-    umount tmp2/sd/bootfs &> /dev/null || echo ""
-    losetup -d $DEVICE &> /dev/null || echo ""
+    umount "$sd_work/sd_rootfs" "$sd_work/sd_boot" "$sd_work/ubuntu_rootfs" "$sd_work/bootfs"
+    if [ -n "$sd_loop" ]; then
+        losetup -d "$sd_loop"
+        sd_loop=""
+    fi
 
-    print_info "Compressing sd.img..."
-    if [ $DISABLE_COMPRESS_IMAGE -eq 1 ]; then
-        print_warning "Skip compress image..."
-    else
-        7z a -v2g -mx9 $IMG_PATH.7z $IMG_PATH
+    if [ -n "$IMG_PATH" ] && [ "$DISABLE_COMPRESS_IMAGE" -eq 0 ]; then
+        print_info "Compressing sd.img..."
+        local stage
+        stage="$sd_work/${IMG_PATH##*/}.7z"
+        7z a -v2g "-mx${MAIXCAM2_7Z_LEVEL:-3}" "$stage" "$IMG_PATH"
+        rm -f -- "$IMG_PATH".7z.[0-9]*
+        mv -- "$stage".[0-9]* images/
     fi
 
     print_success "All done!"
 }
 
+cleanup_sd() {
+    local status=$? mount_name
+    for mount_name in sd_rootfs sd_boot ubuntu_rootfs bootfs; do
+        if mountpoint -q "$sd_work/$mount_name"; then
+            umount "$sd_work/$mount_name" || status=1
+        fi
+    done
+    if [ -n "$sd_loop" ]; then
+        losetup -d "$sd_loop" || status=1
+    fi
+    for mount_name in sd_rootfs sd_boot ubuntu_rootfs bootfs; do
+        if mountpoint -q "$sd_work/$mount_name"; then
+            exit 1
+        fi
+    done
+    rm -rf -- "$sd_work"
+    exit "$status"
+}
+
+trap 'exit 143' TERM
 # 捕获信号（Ctrl+C）
 trap 'echo -e "\n${YELLOW}[警告] 操作被用户中断${NC}"; exit 1' INT
 

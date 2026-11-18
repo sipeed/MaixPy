@@ -6,6 +6,8 @@ import shutil
 import subprocess
 import lzma
 import zipfile
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from tqdm import tqdm
 
 def parse_xml(xml_path):
@@ -123,13 +125,21 @@ def compress_to_xz_auto(src_path, dst_path, threads=0):
         with open(src_path, 'rb') as src, lzma.open(dst_path, 'wb') as dst:
             shutil.copyfileobj(src, dst)
 
-def compress_to_7z_auto(src_path, dst_path, threads=0):
-    if shutil.which("7z"):
-        print("Compress with system's 7z command")
-        cmd = ["7z", "a", "-v2g", "-mx9", f"-mmt{threads}", dst_path, src_path]
+def compress_to_7z_auto(src_path, dst_path, threads=0, level=9):
+    output = Path(dst_path)
+    with TemporaryDirectory(dir=output.parent) as directory:
+        staged = Path(directory) / output.name
+        cmd = ["7z", "a", "-v2g", f"-mx{level}", f"-mmt{threads}", str(staged), src_path]
         subprocess.run(cmd, check=True)
-    else:
-        print("7z command not found")
+        volumes = sorted(staged.parent.glob(staged.name + ".[0-9]*"))
+        if not volumes:
+            raise RuntimeError(f"7z produced no volumes for {output}")
+        for volume in volumes:
+            volume.replace(output.parent / volume.name)
+        published = {volume.name for volume in volumes}
+        for previous in output.parent.glob(output.name + ".[0-9]*"):
+            if previous.name not in published:
+                previous.unlink()
 
 def check_env():
     if not shutil.which("simg2img"):
@@ -139,7 +149,7 @@ def check_env():
         print("[WARNING] xz command not found, please install first")
     return True
 
-def axp2img(arg_input, arg_output):
+def axp2img(arg_input, arg_output, raw_rootfs=None, seven_zip_level=9):
     if not check_env():
         return -1
 
@@ -195,7 +205,10 @@ def axp2img(arg_input, arg_output):
     print("")
 
     for i, part in enumerate(info):
-        if part["file"] and "sparse" in part["file"]:
+        if raw_rootfs and part["id"] == "rootfs" and part["file"] == "ubuntu_rootfs_sparse.ext4":
+            part["file"] = os.path.abspath(raw_rootfs)
+            part["size"] = part["size"] or os.path.getsize(raw_rootfs)
+        elif part["file"] and "sparse" in part["file"]:
             print("recover sparse filesystem file ...")
             out_name = part["file"].replace("sparse", "raw")
             os.makedirs(temp_dir, exist_ok=True)
@@ -211,7 +224,7 @@ def axp2img(arg_input, arg_output):
                 print("simg2img command execute failed")
                 sys.exit(1)
             part["file"] = os.path.relpath(raw_path, arg_input)
-            part["size"] = os.path.getsize(raw_path)
+            part["size"] = part["size"] or os.path.getsize(raw_path)
             print(f"{part['file']} size: {bytes_human(part['size'])}")
 
     # generate bin file
@@ -226,6 +239,8 @@ def axp2img(arg_input, arg_output):
                 file = os.path.join(arg_input, part["file"])
                 file_size = os.path.getsize(file)
                 padding_size = part["size"] - file_size
+                if padding_size < 0:
+                    raise ValueError(f"{file} exceeds partition {part['id']} size")
                 pbar = tqdm(total=file_size, unit='B', unit_scale=True, unit_divisor=1024, desc=f"[{part['id']}] {part['file']}")
                 with open(file, "rb") as f2:
                     while True:
@@ -266,7 +281,7 @@ def axp2img(arg_input, arg_output):
         print("\nCompress to 7z format:")
         print("                   from:", out_img_path)
         print("                     to:", arg_output)
-        compress_to_7z_auto(out_img_path, arg_output)
+        compress_to_7z_auto(out_img_path, arg_output, level=seven_zip_level)
         print("7z compress complete, remove img file")
         os.remove(out_img_path)
         print("7z file saved to", arg_output)
@@ -277,9 +292,11 @@ def main():
     parser = argparse.ArgumentParser(description="convert axp file to image bin file")
     parser.add_argument("-i", "--input", type=str, default="", required=True, help="input axp file path")
     parser.add_argument("-o", "--output", type=str, default="", help="output file path, default same dir as axp file with .img.xz format")
+    parser.add_argument("--raw-rootfs", help="Raw eMMC rootfs generated alongside the sparse AXP member")
+    parser.add_argument("--7z-level", dest="seven_zip_level", type=int, choices=range(10), default=9)
     args = parser.parse_args()
 
-    sys.exit(axp2img(args.input, args.output))
+    sys.exit(axp2img(args.input, args.output, args.raw_rootfs, args.seven_zip_level))
 
 if __name__ == "__main__":
     main()

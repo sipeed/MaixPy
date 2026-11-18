@@ -57,39 +57,48 @@ if [ ! -f "$delete_first_files" ]; then
     exit 1
 fi
 
-if [ -f tmp2/rootfs ];then
-    echo "Umounting raw rootfs"
-    umount tmp2/rootfs
-    if [ $? -ne 0 ]; then
-        echo "Failed to unmount tmp2/rootfs"
-        exit 2
+for mount_dir in tmp2/rootfs tmp2/bootfs; do
+    if mountpoint -q "$mount_dir"; then
+        echo "Existing mount at $mount_dir; unmount it before retrying" >&2
+        exit 1
     fi
-fi
+done
+
+cleanup_mounts() {
+    local status=$?
+    for mount_dir in tmp2/bootfs tmp2/rootfs; do
+        if mountpoint -q "$mount_dir"; then
+            umount "$mount_dir" || status=1
+        fi
+    done
+    exit "$status"
+}
+trap cleanup_mounts EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 rm -rf tmp2/*
 mkdir -p tmp2
 chmod 777 tmp2
 
-# if builtin_files is a xz or tar.xz file, unzip it to tmp2/builtin_files
-if [[ "$builtin_files" == *.tar.xz ]]; then
-    echo "Unzipping $builtin_files"
-    tar -Jxvf $builtin_files -C tmp2/
-    builtin_files=$(basename "$builtin_files" .tar.xz)
-elif [[ "$builtin_files" == *.xz ]]; then
-    echo "Unzipping $builtin_files"
-    unxz $builtin_files -C tmp2/
-    builtin_files=$(basename "$builtin_files" .xz)
-elif [ -d "$builtin_files" ]; then
-    echo "good, builtin_files is a directory"
-else
-    echo "builtin_files is not a directory or xz/tar.xz file"
-    exit 1
+if [[ "$builtin_files" == *.tar.xz && ! -d "$builtin_files" ]]; then
+    archive_dir=tmp2/builtin_archive
+    mkdir "$archive_dir"
+    tar -Jxf "$builtin_files" -C "$archive_dir"
+    archive_name=$(basename -- "$builtin_files" .tar.xz)
+    if [ -d "$archive_dir/$archive_name" ]; then
+        builtin_files="$archive_dir/$archive_name"
+    elif [ -d "$archive_dir/sys_builtin_files" ]; then
+        builtin_files="$archive_dir/sys_builtin_files"
+    else
+        builtin_files="$archive_dir"
+    fi
 fi
 
 # unzip axp_file
 echo "Unzipping $axp_file"
 mkdir -p tmp2/axp
-unzip -q $axp_file -d tmp2/axp
+unzip -q "$axp_file" -d tmp2/axp
 if [ $? -ne 0 ]; then
     echo "Failed to unzip $axp_file"
     exit 1
@@ -113,41 +122,27 @@ fi
 mount -t ext4 tmp2/rootfs.ext4.raw tmp2/rootfs
 echo "Mounting raw image to tmp2/rootfs done"
 
-finish() {
-    if [[ -e tmp2/rootfs ]]; then
-        echo "Umounting raw rootfs"
-        umount tmp2/rootfs
-        echo "umount raw rootfs done"
-    fi
-    exit 1
-}
-trap finish ERR
-
 echo "Deleting files in $delete_first_files"
-# delete first files
-while IFS= read -r line; do
-    if [ -z $line ]; then
-        continue
-    elif [ -d "tmp2/rootfs/$line" ]; then
-        echo "Deleting directory $line"
-        rm -rf tmp2/rootfs/$line
-    elif [ -f "tmp2/rootfs/$line" ]; then
-        echo "Deleting file $line"
-        rm -f tmp2/rootfs/$line
-    else
-        echo "File or directory $line not found, skip"
-    fi
+root_mount=$(realpath tmp2/rootfs)
+while IFS= read -r line || [ -n "$line" ]; do
+    line=${line%$'\r'}
+    line=${line#/}
+    while [[ "$line" == */ ]]; do line=${line%/}; done
+    case "$line" in
+        ""|\#*) continue ;;
+    esac
+    target="$root_mount/$line"
+    parent=$(realpath -m -- "$(dirname -- "$target")")
+    case "/$line/" in
+        */../*|*/./*) echo "Invalid rootfs deletion path: $line" >&2; exit 1 ;;
+    esac
+    case "$parent/" in
+        "$root_mount/"*) ;;
+        *) echo "Rootfs deletion path escapes image: $line" >&2; exit 1 ;;
+    esac
+    echo "Deleting rootfs entry: $line"
+    rm -rf -- "${target%/}"
 done < "$delete_first_files"
-
-# check image size
-# get tmp2/rootfs + builtin_files size, if > rootfs_image_size, update rootfs_image_size -> rootfs_image_size + 100M
-rootfs_image_size0=$(du -s --block-size=1M tmp2/rootfs | cut -f1)
-rootfs_image_size0=$(($rootfs_image_size0 + $(du -s --block-size=1M $builtin_files | cut -f1)))
-rootfs_image_size=$(($rootfs_image_size0 + 300))
-echo "=============================="
-echo "rootfs_dir_size: $rootfs_image_size0 M"
-echo "final rootfs_image_size: $rootfs_image_size M"
-echo "=============================="
 
 # copy builtin_files rootfs
 echo "Copying files from directory $builtin_files"
@@ -158,9 +153,18 @@ mkdir tmp2/rootfs_new
 cp -rP tmp2/rootfs/* tmp2/rootfs_new/
 target_rootfs_path=tmp2/rootfs_new
 # copy rootfs files
-find $builtin_files -mindepth 1 -maxdepth 1 -type d ! -name "boot" | while read -r dir; do
+find "$builtin_files" -mindepth 1 -maxdepth 1 -type d ! -name "boot" | while read -r dir; do
     cp -rP "$dir" "$target_rootfs_path"
 done
+
+# Apply the optional builtin WiFi patch to the staged rootfs.
+wifi_patch="$builtin_files/opt/scripts/wifi_patch.py"
+if [ -f "$wifi_patch" ]; then
+    wifi_script="$target_rootfs_path/opt/scripts/wifi.sh"
+    md5sum "$wifi_script"
+    python3 "$wifi_patch" --script "$wifi_script"
+    md5sum "$wifi_script"
+fi
 
 # copy boot files
 if [[ -e ${builtin_files}/boot ]]; then
@@ -168,16 +172,62 @@ if [[ -e ${builtin_files}/boot ]]; then
     mkdir -p tmp2/bootfs
     mount -o loop,rw tmp2/axp/$bootfs_name tmp2/bootfs
     cp -rfP ${builtin_files}/boot/* tmp2/bootfs/
-    sync
+    # Ask initramfs to grow the regenerated ext4 filesystem on first eMMC boot.
+    touch tmp2/bootfs/check_resize2fs
     umount tmp2/bootfs
     echo "Copying boot files done"
 fi
 
-# convert raw image to ext4 sparse image
-echo "Making sparse rootfs ..."
-rm -f tmp2/axp/${rootfs_name}
-./make_ext4fs/make_ext4fs -s -l ${rootfs_image_size}M tmp2/axp/${rootfs_name} $target_rootfs_path
-sync
+# Verify space available to applications before converting to Android sparse format.
+minimum_free_mib=64
+mib=$((1024 * 1024))
+minimum_free_bytes=$((minimum_free_mib * mib))
+raw_rootfs=tmp2/rootfs_new.ext4.raw
+sparse_rootfs="tmp2/axp/$rootfs_name"
+
+# Size the merged tree once. Use logical sizes because make_ext4fs may
+# allocate blocks that were sparse or shared on the build host.
+du_result=$(du -s --apparent-size --count-links --block-size=1M "$target_rootfs_path")
+rootfs_data_mib=${du_result%%[[:space:]]*}
+# Allow for ext4 metadata, journal and block rounding in addition to free space.
+metadata_mib=$(((rootfs_data_mib + 19) / 20 + 32))
+rootfs_image_size=$((rootfs_data_mib + metadata_mib + minimum_free_mib))
+echo "Rootfs data: $rootfs_data_mib MiB, metadata allowance: $metadata_mib MiB, initial size: $rootfs_image_size MiB"
+
+for attempt in 1 2 3; do
+    rm -f -- "$raw_rootfs"
+    ./make_ext4fs/make_ext4fs -l "${rootfs_image_size}M" "$raw_rootfs" "$target_rootfs_path"
+    superblock=$(LC_ALL=C dumpe2fs -h "$raw_rootfs")
+    available_bytes=$(awk -F: '
+        $1 == "Free blocks" { free = $2 + 0 }
+        $1 == "Reserved block count" { reserved = $2 + 0 }
+        $1 == "Block size" { size = $2 + 0 }
+        END {
+            if (free == "" || reserved == "" || size <= 0) exit 1
+            printf "%.0f\n", (free > reserved ? free - reserved : 0) * size
+        }
+    ' <<< "$superblock")
+    echo "Rootfs available space: $available_bytes bytes (minimum: $minimum_free_bytes)"
+    if [ "$available_bytes" -ge "$minimum_free_bytes" ]; then
+        break
+    fi
+
+    # Round up the deficit and leave room for metadata added as ext4 grows.
+    growth_mib=$(((minimum_free_bytes - available_bytes + mib - 1) / mib + 16))
+    rootfs_image_size=$((rootfs_image_size + growth_mib))
+    echo "Increasing rootfs target to $rootfs_image_size MiB"
+done
+
+if [ "$available_bytes" -lt "$minimum_free_bytes" ]; then
+    echo "Rootfs has less than $minimum_free_mib MiB available after formatting" >&2
+    exit 1
+fi
+
+rm -f -- "$sparse_rootfs"
+./make_ext4fs/img2simg "$raw_rootfs" "$sparse_rootfs"
+if [ "${5:-}" != --keep-raw-rootfs ]; then
+    rm -f -- "$raw_rootfs"
+fi
 echo "Making sparse rootfs done"
 
 # unmount rootfs
@@ -206,7 +256,5 @@ else
     echo "not zip axp, files in tmp2/axp"
 fi
 
-echo "Syncing ..."
-sync
 echo "All OK"
 
