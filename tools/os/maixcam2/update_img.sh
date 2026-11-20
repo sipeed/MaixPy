@@ -185,8 +185,8 @@ minimum_free_bytes=$((minimum_free_mib * mib))
 raw_rootfs=tmp2/rootfs_new.ext4.raw
 sparse_rootfs="tmp2/axp/$rootfs_name"
 
-# Size the merged tree once. Use logical sizes because make_ext4fs may
-# allocate blocks that were sparse or shared on the build host.
+# Size the merged tree once. Use logical sizes to allow for files that
+# were sparse or shared on the build host.
 du_result=$(du -s --apparent-size --count-links --block-size=1M "$target_rootfs_path")
 rootfs_data_mib=${du_result%%[[:space:]]*}
 # Allow for ext4 metadata, journal and block rounding in addition to free space.
@@ -196,7 +196,10 @@ echo "Rootfs data: $rootfs_data_mib MiB, metadata allowance: $metadata_mib MiB, 
 
 for attempt in 1 2 3; do
     rm -f -- "$raw_rootfs"
-    ./make_ext4fs/make_ext4fs -l "${rootfs_image_size}M" "$raw_rootfs" "$target_rootfs_path"
+    # Keep the base image's ext4 feature set for the target kernel and tools.
+    mke2fs -q -t ext4 -F -b 4096 -I 256 -m 0 \
+        -O none,has_journal,ext_attr,resize_inode,filetype,extent,sparse_super,large_file,uninit_bg \
+        -d "$target_rootfs_path" "$raw_rootfs" "${rootfs_image_size}M"
     superblock=$(LC_ALL=C dumpe2fs -h "$raw_rootfs")
     available_bytes=$(awk -F: '
         $1 == "Free blocks" { free = $2 + 0 }

@@ -27,8 +27,24 @@ cp -r ~/maixcam2_builtin_files build
 
 5. 运行打包脚本
 ```shell
-/gen_os.sh maix_ax620e_sdk/build/out/AX630C_emmc_arm64_k419_sipeed_maixcam2_ubuntu_rootfs_V3.0.0_xxx_glibc.axp build/maixpy-xxx-cp313-cp313-manylinux2014_aarch64.whl build/maixcam2_builtin_files/maixcam2_builtin_files 1 maixcam2
+./gen_os.sh maix_ax620e_sdk/build/out/AX630C_emmc_arm64_k419_sipeed_maixcam2_ubuntu_rootfs_V3.0.0_xxx_glibc.axp build/maixpy-xxx-cp313-cp313-manylinux2014_aarch64.whl build/maixcam2_builtin_files/maixcam2_builtin_files 1 maixcam2
 ```
+
+默认使用 `--output all`，生成 7z 分卷和 `boot_parts` AXP。
+在构建命令后追加 `--output img` 可只生成未压缩 IMG，追加
+`--output img-7z` 可只生成 7z 分卷。位置参数 `maixcam2` 后可以接可选的删除列表文件。
+
+每次构建的产物和对应的 AXP 分区文件保存在 `images/builds/<构建ID>/`。
+`images/latest` 指向最近一次成功生成 IMG 并保存分区文件的构建；7z 分卷位于该构建的 `7z/` 子目录。
+
+```shell
+./gen_os.sh compress          # 压缩最近一次构建的 IMG，保留原 IMG
+./gen_os.sh axp               # 为最近一次构建生成 boot_parts AXP
+./gen_os.sh axp --full        # 同时生成 boot_parts AXP 和完整 AXP
+```
+
+两个子命令都支持 `--build <构建ID>` 选择历史构建，无需 sudo。
+`img-7z` 和 `all` 模式会在分卷校验通过后删除构建过程中的未压缩 IMG。
 
 ## 打包SD卡镜像
 
