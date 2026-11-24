@@ -19,6 +19,8 @@ items:
         label: Linux fundamentals
     -   file: basic/python_pkgs.md
         label: Add python packages
+    -   file: basic/python_lvgl.md
+        label: Python LVGL
     -   file: basic/auto_start.md
         label: Auto start
     -   file: basic/view_src_code.md

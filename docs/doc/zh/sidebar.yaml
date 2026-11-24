@@ -19,6 +19,8 @@ items:
         label: Linux 基础知识
     -   file: basic/python_pkgs.md
         label: 添加额外的 Python 包
+    -   file: basic/python_lvgl.md
+        label: Python LVGL 使用
     -   file: basic/auto_start.md
         label: 应用开机自启
     -   file: basic/view_src_code.md
