@@ -1,0 +1,9 @@
+cmake==3.22.1
+setuptools==75.3.2
+wheel==0.45.1
+packaging==24.2
+PyYAML==6.0.2
+requests==2.32.3
+progress==1.6
+maixtool==1.4.1
+pybind11-stubgen==2.5.5

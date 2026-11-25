@@ -1,0 +1,57 @@
+name: CI
+'on':
+  push:
+    branches:
+    - main
+    - dev
+  pull_request:
+    branches:
+    - main
+    - dev
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    outputs:
+      sdk_sha: ${{ steps.config.outputs.sdk_sha }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Validate release helpers and packaging scripts
+      run: |-
+        python -m unittest discover -s .github/tests -v
+        bash -n tools/os/maixcam/gen_os.sh tools/os/maixcam/update_img.sh
+    - name: Lint workflow syntax
+      run: |-
+        go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+        "$(go env GOPATH)/bin/actionlint" -shellcheck=
+    - name: Read pinned SDK revision
+      run: python -c 'import json,os,re; c=json.load(open(".github/release-config.json")); assert re.fullmatch("[0-9a-f]{40}",c["sdk_sha"]);
+        print("sdk_sha="+c["sdk_sha"],file=open(os.environ["GITHUB_OUTPUT"],"a"))'
+      id: config
+  linux:
+    needs: validate
+    uses: ./.github/workflows/release_other_linux.yml
+    with:
+      source_sha: ${{ github.sha }}
+      ci_sha: ${{ github.sha }}
+      sdk_sha: ${{ needs.validate.outputs.sdk_sha }}
+      python_version: '3.11'
+  maixcam:
+    needs: validate
+    uses: ./.github/workflows/release_maixcam.yml
+    with:
+      source_sha: ${{ github.sha }}
+      ci_sha: ${{ github.sha }}
+      sdk_sha: ${{ needs.validate.outputs.sdk_sha }}
+      images: false
