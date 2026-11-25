@@ -14,6 +14,8 @@ Build defaults: --output all, SKIP_BUILD_APPS=0.
   img-7z   Generate 7z volumes.
   all      Generate 7z volumes and a boot_parts AXP.
 The compress and axp commands default to the latest successful IMG build.
+Compression defaults to level 9 (override with MAIXCAM2_7Z_LEVEL), in 2 GiB volumes.
+Volumes are saved to images/builds/BUILD_ID/7z/; the IMG is removed after verification.
 Use --full to also package a full AXP.
 EOF
 }
@@ -35,16 +37,18 @@ compress_img() (
 
     if [ -d "$volumes" ]; then
         7z t -bsp0 "$volumes/$archive.001"
-        echo "Verified existing volumes: $volumes/$archive.*"
+        rm -f -- "$img"
+        echo "Verified existing volumes (compression skipped): $volumes/$archive.*"
         return
     fi
     [ -s "$img" ] || die "Missing IMG: $img"
 
     stage=$(mktemp -d "$build_dir/.compress.XXXXXXXX")
     trap 'rm -rf -- "$stage"' EXIT
-    (cd "$build_dir" && 7z a -bsp0 -v2g "-mx${MAIXCAM2_7Z_LEVEL:-3}" "$stage/$archive" "$version.img")
+    (cd "$build_dir" && 7z a -bsp0 -v2g "-mx${MAIXCAM2_7Z_LEVEL:-9}" "$stage/$archive" "$version.img")
     7z t -bsp0 "$stage/$archive.001"
     mv -T -- "$stage" "$volumes"
+    rm -- "$img"
     echo "7z volumes: $volumes/$archive.*"
 )
 
@@ -333,7 +337,6 @@ echo "Build $build_id ready: $img"
 
 if [ "$output" != img ]; then
     compress_img "$build_dir" "$os_version_str"
-    rm -- "$img"
 fi
 if [ "$output" = all ]; then
     package_build_axp "$build_dir" "$os_version_str" 0
