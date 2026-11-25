@@ -50,6 +50,8 @@ items:
         label: 使用 OpenCV
     -   file: gui/i18n.md
         label: I18N 国际化(多语言)
+    -   file: lvgl/lvgl.md
+        label: LVGL 图形界面
 
 -   label: AI 视觉
     items:

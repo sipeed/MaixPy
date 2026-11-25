@@ -50,6 +50,8 @@ items:
         label: OpenCV usage
     -   file: gui/i18n.md
         label: I18N (Multi language)
+    -   file: lvgl/lvgl.md
+        label: LVGL GUI
 
 -   label: AI Vision
     items:
