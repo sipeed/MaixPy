@@ -1,6 +1,10 @@
 ---
 title: LVGL GUI
 update:
+  - date: 2026-11-24
+    version: v0.1.1
+    author: Ariel Yu
+    content: Expand Python LVGL installation, quick-start examples, CJK font guidance, and desktop SDL debugging
   - date: 2026-11-10
     version: v0.1.0
     author: Tao
@@ -36,88 +40,89 @@ Highlights:
 
 ## Install
 
-Install from PyPI on the device; pip selects the wheel for the platform:
+`maix_lvgl` is a standalone Python package. Install `maix-lvgl` from PyPI and
+import it as `maix_lvgl`. The platform status below comes from the
+[v0.1.1 release notes](https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1).
+
+| Platform | Architecture | Python version | Status |
+| --- | --- | --- | --- |
+| MaixCAM2 | aarch64 | 3.13 | Verified on hardware |
+| MaixCAM / MaixCAM-Pro | RISC-V 64 | 3.11 | Wheel provided, not verified on hardware |
+| Desktop Linux (SDL window) | x86_64 | 3.13 | Verified on WSL |
+| Windows (SDL window) | x86_64 | 3.13 | Cross-compiled, not runtime-tested |
+
+### Online installation
 
 ```bash
-python3 -m pip install maix-lvgl
+python3 -m pip install maix-lvgl==0.1.1
 ```
 
-Supported platforms:
+### Offline installation
 
-| Device | Python | wheel tag |
-| --- | --- | --- |
-| MaixCAM2 | 3.13 | `cp313-cp313-manylinux2014_aarch64` |
-| MaixCAM | 3.11 | `cp311-musllinux_1_2_riscv64` |
+Download the matching wheel from [the v0.1.1 release](https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1). For a board,
+use the MaixVision file manager to upload the wheel to `/root`. For example,
+run this in the MaixCAM2 terminal:
 
-Prebuilt wheels are also available on GitHub Releases:
-
-<https://github.com/Taoxuan-168/Maix_LVGL/releases>
-
-Verify the installation:
-
-```python
-import maix_lvgl as lv
-print(lv.__version__)
+```bash
+python3 -m pip install /root/maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
 ```
 
-> Stop the launcher or enter development mode before running an LVGL program:
-> only one program can use `maix.display.Display` at a time.
+For MaixCAM / MaixCAM-Pro, select the `cp311-cp311-musllinux_1_2_riscv64` wheel.
+Desktop x86_64 uses Python 3.13. Select the `manylinux` wheel on Linux or the
+`win_amd64` wheel on Windows.
+
+Verify the installed version in a terminal:
+
+```bash
+python3 -c "import maix_lvgl as lv; print(lv.__version__)"
+```
+
+Before running on a board, close the app using the display or enter developer
+mode through MaixVision.
 
 ## Quick start
 
-A complete example: create a screen, a button and a label, handle a click,
-then run the LVGL loop.
+Create a `main.py` and run the following code in MaixVision:
 
 ```python
 import time
-
 from maix import app, display, touchscreen
-
 import maix_lvgl as lv
 
+disp = display.Display()
+ts = touchscreen.TouchScreen()
 
-def main():
-    disp = display.Display()
-    ts = touchscreen.TouchScreen()
+try:
+    lv.init(disp, ts)               # hand MaixPy's display and touchscreen to LVGL
 
-    try:
-        lv.init(disp, ts)
+    scr = lv.screen_active()        # the currently active screen
+    btn = lv.button(scr)            # create a button on the screen
+    btn.set_size(240, 120)          # a bigger button is easier to tap
+    btn.center()
 
-        scr = lv.screen_active()
-        scr.set_style_bg_color(lv.color_hex(0x101018), 0)
-        scr.set_style_bg_opa(lv.OPA.COVER, 0)
+    label = lv.label(btn)           # put a label on the button
+    label.set_text("Click me")      # the default font has no CJK glyphs, see "CJK text" below
+    label.center()
 
-        btn = lv.button(scr)
-        btn.set_size(240, 120)
-        btn.center()
-        btn.set_style_bg_color(lv.color_hex(0x2563EB), 0)
-        btn.set_style_radius(16, 0)
+    count = [0]
 
-        label = lv.label(btn)
-        label.set_text("Hello MaixCAM2")
-        label.center()
-        label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    def on_clicked(event):
+        count[0] += 1
+        label.set_text("Clicked %d" % count[0])
+        print("clicked", count[0])
 
-        def on_clicked(event):
-            print("clicked")
+    btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)   # register the click event
 
-        btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)
-
-        while not app.need_exit():
-            lv.timer_handler()
-            time.sleep(0.005)
-
-    finally:
-        lv.deinit()
-        ts.close()
-        disp.close()
-
-
-if __name__ == "__main__":
-    main()
+    while not app.need_exit():
+        lv.timer_handler()          # run LVGL timers and refresh the UI, required
+        time.sleep(0.005)           # yield the CPU
+finally:
+    lv.deinit()                     # release LVGL
+    ts.close()
+    disp.close()
 ```
 
-Key points:
+After running, a button with a label appears in the middle of the screen. Tap it and the label shows the click count, while the terminal prints `clicked 1`, `clicked 2`, ...
 
 - `lv.init(disp, ts)` creates the LVGL display and pointer input device.
   Pass `False` as `ts` to run without touch.
@@ -126,6 +131,36 @@ Key points:
   `lvgl.timer_handler()` directly.
 - `lv.deinit()` releases LVGL and the drivers it created.
 - `time.sleep(0.005)` yields the CPU; redraws are driven by `timer_handler()`.
+
+## Debug the UI on a PC (optional)
+
+On desktop Linux / Windows the same package uses LVGL's SDL window instead of MaixPy's display, so you can tune the UI on your PC before running it on the device:
+
+```python
+import time
+import maix_lvgl as lv
+
+lv.init(800, 600)          # SDL window size
+
+scr = lv.screen_active()
+label = lv.label(scr)
+label.set_text("Hello LVGL")
+label.center()
+
+try:
+    while True:
+        lv.timer_handler()
+        time.sleep(0.01)
+except KeyboardInterrupt:
+    pass
+finally:
+    lv.deinit()
+```
+
+`maix_lvgl` detects the environment automatically: if `maix` can be imported (on the device) it uses MaixPy's display and touchscreen, otherwise it creates an SDL window with mouse and keyboard input.
+
+On Linux, use the manylinux wheel from PyPI. The GitHub Release
+`linux_x86_64` wheel requires the system SDL2 library.
 
 ## Core concepts
 
@@ -508,36 +543,58 @@ ring.set_style_arc_width(10, lv.PART.INDICATOR)
 
 ### Chinese text with FreeType
 
-The built-in Montserrat fonts only contain Latin glyphs. Load a system font at
-runtime with FreeType:
+Run this example on MaixCAM2. The v0.1.1 Linux desktop wheel on PyPI does
+not expose the FreeType font-loading API.
+
+LVGL's built-in fonts only cover Latin characters. To display Chinese (or other CJK text) you have to load a font. FreeType support is enabled in the `maix_lvgl` build, so you can load a font file from the device directly, for example the built-in `SourceHanSansCN-Regular.otf`:
 
 ```python
+import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
 FONT = "/maixapp/share/font/SourceHanSansCN-Regular.otf"
 
-font = lv.freetype_font_create(FONT, 0, 24, 0)
-if font is None:
-    raise RuntimeError("cannot load " + FONT)
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+font = None
+label = None
 
-label = lv.label(scr)
-label.set_text("你好，MaixCAM2！")
-label.set_style_text_font(font, 0)
-label.set_pos(20, 20)
+try:
+    lv.init(disp, ts)
+    scr = lv.screen_active()
+    scr.set_style_bg_color(lv.color_hex(0x101018), 0)
 
-# Delete widgets that use the font before deleting the font itself.
-label.delete()
-font.freetype_font_delete()
+    font = lv.freetype_font_create(FONT, 0, 24, 0)   # font, render mode, pixel size, style
+    if font is None:
+        raise RuntimeError("cannot load " + FONT)
+
+    label = lv.label(scr)
+    label.set_text("你好，MaixCAM2！")
+    label.set_style_text_font(font, 0)
+    label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    label.set_pos(20, 20)
+
+    while not app.need_exit():
+        lv.timer_handler()
+        time.sleep(0.005)
+finally:
+    if label is not None:
+        label.delete()
+    if font is not None:
+        font.freetype_font_delete()
+    lv.deinit()
+    ts.close()
+    disp.close()
 ```
 
-![Chinese FreeType rendering](../../assets/lvgl_cjk.png)
+![CJK text rendered with FreeType](../../assets/lvgl_cjk.png)
 
 Notes:
 
-- `lv.init()` already initializes FreeType and `lv.deinit()` cleans it up.
-  Do not call `lv.freetype_init()` / `lv.freetype_uninit()` manually, or
-  cleanup may run twice and hang.
-- Delete widgets using the font first, then call `font.freetype_font_delete()`.
-- The Source Han font is about 8 MB; create it on demand. The glyph cache is
-  controlled by `LV_FREETYPE_CACHE_SIZE`.
+* `lv.init()` already initializes FreeType and `lv.deinit()` cleans it up. Do **not** call `lv.freetype_init()` / `lv.freetype_uninit()` manually, otherwise the cleanup runs twice and may hang.
+* Delete the widgets that use the font before calling `font.freetype_font_delete()`, otherwise you access a freed font.
+* The Source Han Sans font file is about 8 MB, so create it on demand and delete it when you are done.
 
 ### Images
 
@@ -567,6 +624,8 @@ img.set_src(dsc)
 networking. A typical loop:
 
 ```python
+import time
+
 from maix import app, camera, display, touchscreen
 import maix_lvgl as lv
 
@@ -589,9 +648,10 @@ another thread.
 
 ## Performance and notes
 
-- **Full-screen buffer**: `DisplayDriver` uses a full-screen
-  `width * height * 4` byte buffer (about 1.2 MB at 640×480) with `FULL`
-  render mode and pushes the whole frame on flush.
+- **Full-screen buffer**: v0.1.1 defaults to ARGB8888 (4 bytes per pixel) on
+  MaixCAM2 and RGB888 (3 bytes per pixel) on MaixCAM / MaixCAM-Pro. Each flush
+  pushes the full frame.
+- **JPEG images**: v0.1.1 has no built-in JPEG decoder.
 - **Main loop**: call `lv.timer_handler()` then `sleep(0.005)`. LVGL only
   redraws when something changes.
 - **Object lifetime**: keep callbacks, animations, timers and canvas buffers
@@ -637,12 +697,12 @@ Requirements: MaixCDK, the matching host Python (3.13 or 3.11), `pycparser`,
 `cmake` and the target cross toolchain. Artifacts land in `dist/`:
 
 ```text
-maix_lvgl-0.1.0-cp313-cp313-manylinux2014_aarch64.whl
-maix_lvgl-0.1.0-cp311-cp311-musllinux_1_2_riscv64.whl
+maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+maix_lvgl-0.1.1-cp311-cp311-musllinux_1_2_riscv64.whl
 ```
 
-See `README.md` and `docs/PUBLISHING.md` in the repository for the full build,
-binding-regeneration and release instructions.
+See the [upstream build guide](https://github.com/Taoxuan-168/Maix_LVGL/blob/v0.1.1/README.md#building)
+for the full build and binding regeneration steps.
 
 ## Examples and repository
 
@@ -656,6 +716,9 @@ Repository: <https://github.com/Taoxuan-168/Maix_LVGL>
 | `examples/neon_dashboard.py` | Neon instrument panel |
 | `examples/music_player.py` | Music player with spectrum |
 | `examples/watchface.py` | Round watchface |
+| `examples/threshold_editor.py` | Camera threshold editor |
+| `examples/multi_color_threshold.py` | Multi-color LAB threshold editor |
+| `examples/drawing_board.py` | Drawing board with PNG export |
 | `tests/suite_*.py` | On-device API test suites |
 
 ### UI examples
@@ -670,8 +733,12 @@ Repository: <https://github.com/Taoxuan-168/Maix_LVGL>
 
 Run an example on the device:
 
+Copy the full [v0.1.1 examples directory](https://github.com/Taoxuan-168/Maix_LVGL/tree/v0.1.1/examples)
+to `/root/examples` on the device so the shared `_common.py` is available.
+
 ```bash
-python examples/showcase.py
+cd /root/examples
+python3 showcase.py
 ```
 
 Use the on-screen **Exit** button to quit.

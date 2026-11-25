@@ -1,6 +1,10 @@
 ---
 title: LVGL 图形界面
 update:
+  - date: 2026-11-24
+    version: v0.1.1
+    author: Ariel Yu
+    content: 补充 Python LVGL 安装、入门示例、中文字体和桌面 SDL 调试说明
   - date: 2026-11-10
     version: v0.1.0
     author: Tao
@@ -34,88 +38,86 @@ MaixCAM / MaixCAM2 上不需要额外的显示驱动代码。
 
 ## 安装
 
-在设备上直接通过 PyPI 安装，`pip` 会自动选择匹配平台的 wheel：
+`maix_lvgl` 是独立的 Python 包。PyPI 包名为 `maix-lvgl`，导入名为 `maix_lvgl`。
+下表的验证状态来自 [v0.1.1 发布说明](https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1)。
+
+| 平台 | 架构 | Python 版本 | 状态 |
+| --- | --- | --- | --- |
+| MaixCAM2 | aarch64 | 3.13 | 已实机验证 |
+| MaixCAM / MaixCAM-Pro | RISC-V 64 | 3.11 | 已提供 wheel，未实机验证 |
+| 桌面 Linux（SDL 窗口） | x86_64 | 3.13 | 已在 WSL 验证 |
+| Windows（SDL 窗口） | x86_64 | 3.13 | 已交叉编译，未实机验证 |
+
+### 在线安装
 
 ```bash
-python3 -m pip install maix-lvgl
+python3 -m pip install maix-lvgl==0.1.1
 ```
 
-支持平台：
+### 离线安装
 
-| 设备 | Python | wheel 标签 |
-| --- | --- | --- |
-| MaixCAM2 | 3.13 | `cp313-cp313-manylinux2014_aarch64` |
-| MaixCAM | 3.11 | `cp311-musllinux_1_2_riscv64` |
+从 [v0.1.1 发布页](https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1) 下载匹配的 wheel。设备端可用 MaixVision 文件管理把
+文件上传到 `/root`。例如，在 MaixCAM2 的终端运行：
 
-也可以从 GitHub Release 下载 wheel 手动安装：
-
-<https://github.com/Taoxuan-168/Maix_LVGL/releases>
-
-验证安装：
-
-```python
-import maix_lvgl as lv
-print(lv.__version__)
+```bash
+python3 -m pip install /root/maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
 ```
 
-> 运行 LVGL 程序前需要停止 launcher 或进入开发模式，因为同一时间只能有一个
-> 程序占用 `maix.display.Display`。
+MaixCAM / MaixCAM-Pro 使用 `cp311-cp311-musllinux_1_2_riscv64`。
+桌面 x86_64 使用 Python 3.13，Linux 下载带 `manylinux` 标签的 wheel，Windows 下载
+带 `win_amd64` 标签的 wheel。
+
+安装后在终端确认版本：
+
+```bash
+python3 -c "import maix_lvgl as lv; print(lv.__version__)"
+```
+
+在设备上运行前，请关闭占用屏幕的应用，或通过 MaixVision 进入开发模式。
 
 ## 快速开始
 
-下面是一个完整的可运行示例：创建屏幕、按钮和标签，处理点击事件，然后进入
-LVGL 主循环。
+新建一个 `main.py`，在 MaixVision 中运行下面的代码：
 
 ```python
 import time
-
 from maix import app, display, touchscreen
-
 import maix_lvgl as lv
 
+disp = display.Display()
+ts = touchscreen.TouchScreen()
 
-def main():
-    disp = display.Display()
-    ts = touchscreen.TouchScreen()
+try:
+    lv.init(disp, ts)               # 把 MaixPy 的屏幕和触摸屏交给 LVGL
 
-    try:
-        lv.init(disp, ts)
+    scr = lv.screen_active()        # 当前的活动屏幕
+    btn = lv.button(scr)            # 在屏幕上创建一个按钮
+    btn.set_size(240, 120)          # 按钮大一点，方便点击
+    btn.center()
 
-        scr = lv.screen_active()
-        scr.set_style_bg_color(lv.color_hex(0x101018), 0)
-        scr.set_style_bg_opa(lv.OPA.COVER, 0)
+    label = lv.label(btn)           # 按钮上放一个标签
+    label.set_text("Click me")      # 注意：默认字体没有中文字形，中文见下文「显示中文」
+    label.center()
 
-        btn = lv.button(scr)
-        btn.set_size(240, 120)
-        btn.center()
-        btn.set_style_bg_color(lv.color_hex(0x2563EB), 0)
-        btn.set_style_radius(16, 0)
+    count = [0]
 
-        label = lv.label(btn)
-        label.set_text("Hello MaixCAM2")
-        label.center()
-        label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    def on_clicked(event):
+        count[0] += 1
+        label.set_text("Clicked %d" % count[0])
+        print("clicked", count[0])
 
-        def on_clicked(event):
-            print("clicked")
+    btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)   # 注册点击事件
 
-        btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)
-
-        while not app.need_exit():
-            lv.timer_handler()
-            time.sleep(0.005)
-
-    finally:
-        lv.deinit()
-        ts.close()
-        disp.close()
-
-
-if __name__ == "__main__":
-    main()
+    while not app.need_exit():
+        lv.timer_handler()          # 处理 LVGL 的定时器和界面刷新，必须调用
+        time.sleep(0.005)           # 让出 CPU
+finally:
+    lv.deinit()                     # 释放 LVGL
+    ts.close()
+    disp.close()
 ```
 
-要点：
+运行后屏幕中间会出现一个按钮和一个标签，点击按钮，标签上的文字会变成点击次数，同时终端会打印 `clicked 1`、`clicked 2`……
 
 - `lv.init(disp, ts)` 创建 LVGL 显示和触摸输入设备；传 `False` 可以关闭触摸。
 - `lv.timer_handler()` 每次推进 LVGL tick 并处理定时器、输入和重绘。它已经
@@ -123,6 +125,36 @@ if __name__ == "__main__":
 - `lv.deinit()` 释放 LVGL 和它创建的驱动资源。
 - 主循环中 `time.sleep(0.005)` 只是让出 CPU，LVGL 的实际刷新由
   `timer_handler()` 驱动。
+
+## 在电脑上调试界面（可选）
+
+同一个包在桌面 Linux / Windows 上会自动使用 LVGL 的 SDL 窗口，而不是 MaixPy 的屏幕，所以可以先在电脑上把界面调好，再上板运行：
+
+```python
+import time
+import maix_lvgl as lv
+
+lv.init(800, 600)          # SDL 窗口大小
+
+scr = lv.screen_active()
+label = lv.label(scr)
+label.set_text("Hello LVGL")
+label.center()
+
+try:
+    while True:
+        lv.timer_handler()
+        time.sleep(0.01)
+except KeyboardInterrupt:
+    pass
+finally:
+    lv.deinit()
+```
+
+`maix_lvgl` 会自动判断当前环境：能导入 `maix`（在设备上）就用 MaixPy 的屏幕和触摸屏，否则创建一个 SDL 窗口并用鼠标、键盘输入。
+
+在 Linux 上优先使用 PyPI 的 manylinux wheel。使用 GitHub Release 中的
+`linux_x86_64` wheel 时，需要系统安装 SDL2。
 
 ## 核心概念
 
@@ -175,7 +207,7 @@ canvas = lv.canvas(scr)
 
 ```python
 label = lv.label(scr)
-label.set_text("温度: 25.3 °C")
+label.set_text("Temperature: 25.3 °C")
 label.set_pos(20, 20)
 label.set_style_text_color(lv.color_hex(0xE5E7EB), 0)
 label.set_style_text_font(lv.font_montserrat_16, 0)
@@ -499,35 +531,57 @@ ring.set_style_arc_width(10, lv.PART.INDICATOR)
 
 ### 中文文字（FreeType）
 
-内置 Montserrat 字体只有拉丁字符。要显示中文，使用 FreeType 在运行时加载
-系统字体：
+以下示例在 MaixCAM2 上运行。v0.1.1 的 PyPI Linux 桌面 wheel 没有导出 FreeType 字体加载 API。
+
+LVGL 内置的字体只覆盖拉丁字符，要显示中文需要自己加载字体。`maix_lvgl` 编译时已经打开了 FreeType 支持，可以直接加载设备里的字体文件，比如系统自带的 `SourceHanSansCN-Regular.otf`：
 
 ```python
+import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
 FONT = "/maixapp/share/font/SourceHanSansCN-Regular.otf"
 
-font = lv.freetype_font_create(FONT, 0, 24, 0)
-if font is None:
-    raise RuntimeError("cannot load " + FONT)
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+font = None
+label = None
 
-label = lv.label(scr)
-label.set_text("你好，MaixCAM2！")
-label.set_style_text_font(font, 0)
-label.set_pos(20, 20)
+try:
+    lv.init(disp, ts)
+    scr = lv.screen_active()
+    scr.set_style_bg_color(lv.color_hex(0x101018), 0)
 
-# 先删除使用该字体的控件，再删除字体
-label.delete()
-font.freetype_font_delete()
+    font = lv.freetype_font_create(FONT, 0, 24, 0)   # 字体, 渲染模式, 像素大小, 样式
+    if font is None:
+        raise RuntimeError("cannot load " + FONT)
+
+    label = lv.label(scr)
+    label.set_text("你好，MaixCAM2！")
+    label.set_style_text_font(font, 0)
+    label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    label.set_pos(20, 20)
+
+    while not app.need_exit():
+        lv.timer_handler()
+        time.sleep(0.005)
+finally:
+    if label is not None:
+        label.delete()
+    if font is not None:
+        font.freetype_font_delete()
+    lv.deinit()
+    ts.close()
+    disp.close()
 ```
 
-![中文 FreeType 渲染](../../assets/lvgl_cjk.png)
+![使用 FreeType 显示中文](../../assets/lvgl_cjk.png)
 
 注意事项：
 
-- `lv.init()` 已经初始化 FreeType，`lv.deinit()` 会清理；不要手动调用
-  `lv.freetype_init()` / `lv.freetype_uninit()`，否则可能重复清理导致卡死。
-- 删除控件顺序：先删除所有使用字体的控件，再调用
-  `font.freetype_font_delete()`。
-- 字体文件约 8 MB，按需创建；字形缓存由 `LV_FREETYPE_CACHE_SIZE` 控制。
+* `lv.init()` 已经初始化了 FreeType，`lv.deinit()` 会自动清理，**不要**再手动调用 `lv.freetype_init()` / `lv.freetype_uninit()`，否则会重复清理导致挂起。
+* 要先删除使用该字体的控件，再调用 `font.freetype_font_delete()`，顺序反了会访问已经释放的字体。
+* 思源黑体字体文件约 8MB，建议用的时候再创建，用完及时删除。
 
 ### 图片
 
@@ -557,6 +611,8 @@ img.set_src(dsc)
 组合方式：
 
 ```python
+import time
+
 from maix import app, camera, display, touchscreen
 import maix_lvgl as lv
 
@@ -578,8 +634,9 @@ UI 线程和摄像头读取都在主循环中串行执行，避免多线程同�
 
 ## 性能与注意事项
 
-- **全屏缓冲区**：`DisplayDriver` 使用 `width * height * 4` 字节的整屏
-  buffer（640×480 约 1.2 MB），`FULL` 渲染模式，flush 时整帧推送。
+- **全屏缓冲区**：v0.1.1 默认在 MaixCAM2 上使用 ARGB8888（每像素 4 字节），
+  在 MaixCAM / MaixCAM-Pro 上使用 RGB888（每像素 3 字节）。刷新时推送整帧。
+- **JPEG 图片**：v0.1.1 未内置 JPEG 解码。
 - **主循环**：建议 `lv.timer_handler()` 后 `sleep(0.005)`；LVGL 只在有变化时
   重绘。
 - **对象生命周期**：回调、动画、timer、canvas buffer 必须保持 Python 引用。
@@ -618,12 +675,11 @@ python3.11 setup.py bdist_wheel --board maixcam
 交叉工具链。生成物在 `dist/` 下：
 
 ```text
-maix_lvgl-0.1.0-cp313-cp313-manylinux2014_aarch64.whl
-maix_lvgl-0.1.0-cp311-cp311-musllinux_1_2_riscv64.whl
+maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+maix_lvgl-0.1.1-cp311-cp311-musllinux_1_2_riscv64.whl
 ```
 
-完整的构建、绑定再生成和发布说明见仓库 `README.md` 与
-`docs/PUBLISHING.md`。
+构建和绑定再生成步骤见[上游构建文档](https://github.com/Taoxuan-168/Maix_LVGL/blob/v0.1.1/README.md#building)。
 
 ## 示例与仓库
 
@@ -637,6 +693,9 @@ maix_lvgl-0.1.0-cp311-cp311-musllinux_1_2_riscv64.whl
 | `examples/neon_dashboard.py` | 霓虹风格仪表盘 |
 | `examples/music_player.py` | 音乐播放器、频谱 |
 | `examples/watchface.py` | 圆形表盘 |
+| `examples/threshold_editor.py` | 摄像头二值化阈值调节 |
+| `examples/multi_color_threshold.py` | 多颜色 LAB 阈值调节 |
+| `examples/drawing_board.py` | 可保存 PNG 的画板 |
 | `tests/suite_*.py` | 设备端 API 测试套件 |
 
 ### 界面示例
@@ -649,10 +708,11 @@ maix_lvgl-0.1.0-cp311-cp311-musllinux_1_2_riscv64.whl
 
 ![ZSWatch 表盘](../../assets/lvgl_ui_watch.png)
 
-在设备上运行示例：
+从 [v0.1.1 源码](https://github.com/Taoxuan-168/Maix_LVGL/tree/v0.1.1/examples) 将整个 `examples` 目录复制到设备的 `/root/examples`，以保留共用的 `_common.py`。运行：
 
 ```bash
-python examples/showcase.py
+cd /root/examples
+python3 showcase.py
 ```
 
 使用 on-screen 的 **Exit** 按钮退出。
