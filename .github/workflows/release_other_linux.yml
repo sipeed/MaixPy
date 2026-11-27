@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.12", "3.13"] # 3.11  released by release_maixcam
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-24.04"] # GCC 15 on ubuntu-26.04 can not build MaixCDK yet
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
