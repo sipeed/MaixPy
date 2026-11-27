@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.11"] # must use str, not int, or 3.10 will be recognized as 3.1
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-24.04"] # GCC 15 on ubuntu-26.04 can not build MaixCDK yet
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
