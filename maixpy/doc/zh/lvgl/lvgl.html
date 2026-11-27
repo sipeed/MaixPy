@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+<html lang="zh"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>LVGL 图形界面 - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "有帮助", "label_down": "待改进", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "您已经投过票了", "msg_thanks": "感谢您的反馈", "msg_down_prompt": "感谢反馈，请告诉我们可以改进什么地方?（最少 10 个字）", "msg_down_prompt_error": "消息最少需要 10 个字， 最多 256 个字", "msg_error": "请求点赞服务器出现错误!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2026-11-24", "update": [{"date": "2026-11-24", "version": "v0.1.1", "author": "Ariel Yu", "content": "补充 Python LVGL 安装、入门示例、中文字体和桌面 SDL 调试说明"}, {"date": "2026-11-10", "version": "v0.1.0", "author": "Tao", "content": "增加 LVGL 图形界面代码和文档支持"}], "ts": 1795478400, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/index.html">文档</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/zh/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;中文</a><ul><li class=""><a  href="/maixpy/doc/en/lvgl/lvgl.html">English</a></li>
+<li class="active"><a  href="/maixpy/doc/zh/lvgl/lvgl.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">搜索</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">输入关键词，多关键词空格隔开</span>
+                                <span id="search_loading_hint">正在加载，请稍候。。。</span>
+                                <span id="search_download_err_hint">下载文件失败，请刷新重试或检查网络</span>
+                                <span id="search_other_docs_result_hint">来自其它文档的结果</span>
+                                <span id="search_curr_doc_result_hint">当前文档搜索结果</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/index.html"><span class="label">快速开始</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/faq.html"><span class="label">FAQ 常见问题</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">基础</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/upgrade.html"><span class="label">升级和烧录系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/app.html"><span class="label">应用开发和应用商店</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/maixvision.html"><span class="label">MaixVision 使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python.html"><span class="label">Python 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/linux_basic.html"><span class="label">Linux 基础知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/python_pkgs.html"><span class="label">添加额外的 Python 包</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/auto_start.html"><span class="label">应用开机自启</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/view_src_code.html"><span class="label">查看 API 对应源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/basic/picoclaw.html"><span class="label">PicoClaw 使用</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">基础图像和算法</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/display.html"><span class="label">屏幕使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/camera.html"><span class="label">摄像头使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/image_ops.html"><span class="label">基本图像操作</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/touchscreen.html"><span class="label">触摸屏使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_blobs.html"><span class="label">寻找色块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/line_tracking.html"><span class="label">寻找直线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/qrcode.html"><span class="label">二维码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/find_barcodes.html"><span class="label">条形码识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/apriltag.html"><span class="label">AprilTag 识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/opencv.html"><span class="label">使用 OpenCV</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/gui/i18n.html"><span class="label">I18N 国际化(多语言)</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/zh/lvgl/lvgl.html"><span class="label">LVGL 图形界面</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 视觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ai.html"><span class="label">AI 视觉基本知识</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/classify.html"><span class="label">AI 物体分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolov5.html"><span class="label">YOLO 物体检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_detection.html"><span class="label">人脸及关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_landmarks.html"><span class="label">人脸多关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_recognition.html"><span class="label">人脸识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/face_emotion.html"><span class="label">人脸表情情绪识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_key_points.html"><span class="label">人体关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/segmentation.html"><span class="label">图像语义分割</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_classifier.html"><span class="label">自学习分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/self_learn_detector.html"><span class="label">自学习检测器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/object_track.html"><span class="label">物体轨迹跟踪和计数</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/ocr.html"><span class="label">OCR 文字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/detect_obb.html"><span class="label">带旋转角度的检测(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_landmarks.html"><span class="label">手部关键点检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/body_pose_classification.html"><span class="label">人体姿态分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/hand_gesture_classification.html"><span class="label">手势分类器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/depth_anything.html"><span class="label">Depth-Anything 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo26-depth.html"><span class="label">YOLO26-Depth 单目深度估计</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/yolo_world.html"><span class="label">YOLO-World 检测任意物体</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 听觉</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/record.html"><span class="label">录入音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/play.html"><span class="label">播放音频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/recognize.html"><span class="label">语音实时识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/digit.html"><span class="label">连续中文数字识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/keyword.html"><span class="label">关键词识别</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/synthesis.html"><span class="label">语音合成</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/ai_classify.html"><span class="label">AI 声音分类</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/audio/deploy_online_recognition.html"><span class="label">部署在线语音识别环境</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI 大模型</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/basic.html"><span class="label">大模型使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_qwen.html"><span class="label">Qwen 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/llm_deepseek.html"><span class="label">DeepSeek 大语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_internvl.html"><span class="label">InternVL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 图像生成模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/vlm_smolvlm.html"><span class="label">SmolVLM 视觉语言模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_sensevoice.html"><span class="label">SenseVoice 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/asr_whisper.html"><span class="label">Whisper 语音识别模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/mllm/tts_melotts.html"><span class="label">MeloTTS 语音合成模型</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">训练、转换和部署</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/ai_model_deploy.html"><span class="label">模型获取、上板和运行</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/datasets.html"><span class="label">准备模型和数据集</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/maixhub_train.html"><span class="label">MaixHub 在线训练模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/vision/customize_model_yolo.html"><span class="label">在电脑训练 YOLO 检测模型</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/online_converter.html"><span class="label">网页转换 YOLO 模型</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">进阶操作</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam.html"><span class="label">手动转换给 MaixCAM 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/maixcam2.html"><span class="label">手动转换给 MaixCAM2 用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/onnx_export.html"><span class="label">裁剪 ONNX 模型节点教程</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/ai_model_converter/web_converter.html"><span class="label">私有部署图形化模型转换平台</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/customize_model.html"><span class="label">移植 MaixPy 未支持的模型</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">视频</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/record.html"><span class="label">录像</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/play.html"><span class="label">播放视频</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/jpeg_streaming.html"><span class="label">JPEG 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtsp_streaming.html"><span class="label">RTSP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/rtmp_streaming.html"><span class="label">RTMP 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/uvc_streaming.html"><span class="label">UVC 串流</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/video/webrtc_streaming.html"><span class="label">WebRTC 串流</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">网络通信</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/network_settings.html"><span class="label">网络设置</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/http.html"><span class="label">http 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/socket.html"><span class="label">socket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/mqtt.html"><span class="label">MQTT 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/websocket.html"><span class="label">websocket 网络通信</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/network/flask.html"><span class="label">Flask Web 服务器</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">通信协议</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/maix_protocol.html"><span class="label">Maix 应用通信协议</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/comm/modbus.html"><span class="label">Modbus 通信协议</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片上外设</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pinmap.html"><span class="label">PINMAP IO 功能映射</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/gpio.html"><span class="label">GPIO 和 点灯</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/key.html"><span class="label">Key 按键事件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/uart.html"><span class="label">UART 串口</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/wdt.html"><span class="label">WDT 看门狗</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/adc.html"><span class="label">ADC 模数转换</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/peripheral/hid.html"><span class="label">作为 USB HID 设备</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">片外模块</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/kit/microscope.html"><span class="label">显微镜套件</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/ahrs.html"><span class="label">IMU AHRS 姿态检测</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/temp_humi.html"><span class="label">温湿度传感器</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/rtc.html"><span class="label">RTC 时钟模块使用</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tmc2209.html"><span class="label">步进电机 TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/tof.html"><span class="label">TOF 测距</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/thermal_cam.html"><span class="label">热成像摄像头</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/pmu.html"><span class="label">电源管理单元</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/fp5510.html"><span class="label">音圈电机 FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/spilcd.html"><span class="label">SPI LCD 屏幕</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/modules/bluetooth.html"><span class="label">蓝牙</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">项目实战和应用</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/index.html"><span class="label">应用和项目汇总</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/line_tracking_robot.html"><span class="label">小车巡线</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/projects/face_tracking.html"><span class="label">人脸追踪2轴云台</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">进阶</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/memory.html"><span class="label">内存使用说明</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/contribute.html"><span class="label">贡献文档和代码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/build.html"><span class="label">构建 MaixPy 源码</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/faq.html"><span class="label">MaixPy 源码 FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/add_c_module.html"><span class="label">使用 C/C++ 写一个模块</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/source_code/maixcdk.html"><span class="label">使用 MaixCDK 开发</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/compile_os.html"><span class="label">编译系统</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/zh/pro/rvv.html"><span class="label">使用RVV加速</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>LVGL 图形界面</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="最后修改日期： 2026-11-24">
+                                    2026-11-24
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/zh/lvgl/lvgl.md" target="_blank">
+                                    <span id='editPage'>编辑本页</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>更新历史</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>版本</th>
+                                                <th>作者</th>
+                                                <th>更新内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2026-11-24</td>
+                                                    <td>v0.1.1</td>
+                                                    <td>Ariel Yu</td>
+                                                    <td>
+                                                    
+                                                        补充 Python LVGL 安装、入门示例、中文字体和桌面 SDL 调试说明
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2026-11-10</td>
+                                                    <td>v0.1.0</td>
+                                                    <td>Tao</td>
+                                                    <td>
+                                                    
+                                                        增加 LVGL 图形界面代码和文档支持
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-maix_lvgl">什么是 maix_lvgl</h2>
+<p><code>maix_lvgl</code> 为 MaixPy 提供 <a href="https://lvgl.io/"  target="_blank">LVGL 9.1</a> 的 Python 绑定，API 与<br />
+MicroPython 的 <code>lvgl</code> 模块保持一致，可以直接用 <code>import maix_lvgl as lv</code> 编写界面。</p>
+<p>它把 LVGL 渲染结果通过 <code>maix.display.Display</code> 显示到屏幕，并把<br />
+<code>maix.touchscreen.TouchScreen</code> 的触摸事件接入 LVGL 的指针输入设备，因此在<br />
+MaixCAM / MaixCAM2 上不需要额外的显示驱动代码。</p>
+<p><img src="../../assets/lvgl_showcase_controls.png" alt="LVGL 控件示例" /></p>
+<p>主要特性：</p>
+<ul>
+<li>完整的 LVGL 9.1 控件：按钮、标签、滑块、开关、下拉框、图表、画布、键盘等</li>
+<li>样式系统：颜色、圆角、边框、阴影、渐变、字体</li>
+<li>布局：绝对定位、对齐、Flex、Grid</li>
+<li>事件、定时器、动画</li>
+<li>Canvas 逐像素绘制、Chart 实时曲线</li>
+<li>FreeType 运行时字体，可显示中文</li>
+<li>纯 Python 主循环，易于和 MaixPy 的摄像头、AI、网络功能组合</li>
+</ul>
+<blockquote>
+<p>仓库：<a href="https://github.com/Taoxuan-168/Maix_LVGL"  target="_blank">https://github.com/Taoxuan-168/Maix_LVGL</a></p>
+<p>PyPI：<a href="https://pypi.org/project/maix-lvgl/"  target="_blank">https://pypi.org/project/maix-lvgl/</a></p>
+</blockquote>
+<h2 id="%E5%AE%89%E8%A3%85">安装</h2>
+<p><code>maix_lvgl</code> 是独立的 Python 包。PyPI 包名为 <code>maix-lvgl</code>，导入名为 <code>maix_lvgl</code>。<br />
+下表的验证状态来自 <a href="https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1"  target="_blank">v0.1.1 发布说明</a>。</p>
+<table>
+<thead>
+<tr>
+  <th>平台</th>
+  <th>架构</th>
+  <th>Python 版本</th>
+  <th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>MaixCAM2</td>
+  <td>aarch64</td>
+  <td>3.13</td>
+  <td>已实机验证</td>
+</tr>
+<tr>
+  <td>MaixCAM / MaixCAM-Pro</td>
+  <td>RISC-V 64</td>
+  <td>3.11</td>
+  <td>已提供 wheel，未实机验证</td>
+</tr>
+<tr>
+  <td>桌面 Linux（SDL 窗口）</td>
+  <td>x86_64</td>
+  <td>3.13</td>
+  <td>已在 WSL 验证</td>
+</tr>
+<tr>
+  <td>Windows（SDL 窗口）</td>
+  <td>x86_64</td>
+  <td>3.13</td>
+  <td>已交叉编译，未实机验证</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85">在线安装</h3>
+
+<pre class="language-bash"><code class="language-bash">python3 -m pip install maix-lvgl==0.1.1
+</code></pre>
+<h3 id="%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85">离线安装</h3>
+<p>从 <a href="https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1"  target="_blank">v0.1.1 发布页</a> 下载匹配的 wheel。设备端可用 MaixVision 文件管理把<br />
+文件上传到 <code>/root</code>。例如，在 MaixCAM2 的终端运行：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 -m pip install /root/maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+</code></pre>
+<p>MaixCAM / MaixCAM-Pro 使用 <code>cp311-cp311-musllinux_1_2_riscv64</code>。<br />
+桌面 x86_64 使用 Python 3.13，Linux 下载带 <code>manylinux</code> 标签的 wheel，Windows 下载<br />
+带 <code>win_amd64</code> 标签的 wheel。</p>
+<p>安装后在终端确认版本：</p>
+
+<pre class="language-bash"><code class="language-bash">python3 -c &quot;import maix_lvgl as lv; print(lv.__version__)&quot;
+</code></pre>
+<p>在设备上运行前，请关闭占用屏幕的应用，或通过 MaixVision 进入开发模式。</p>
+<h2 id="%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B">快速开始</h2>
+<p>新建一个 <code>main.py</code>，在 MaixVision 中运行下面的代码：</p>
+
+<pre class="language-python"><code class="language-python">import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+
+try:
+    lv.init(disp, ts)               # 把 MaixPy 的屏幕和触摸屏交给 LVGL
+
+    scr = lv.screen_active()        # 当前的活动屏幕
+    btn = lv.button(scr)            # 在屏幕上创建一个按钮
+    btn.set_size(240, 120)          # 按钮大一点，方便点击
+    btn.center()
+
+    label = lv.label(btn)           # 按钮上放一个标签
+    label.set_text(&quot;Click me&quot;)      # 注意：默认字体没有中文字形，中文见下文「显示中文」
+    label.center()
+
+    count = [0]
+
+    def on_clicked(event):
+        count[0] += 1
+        label.set_text(&quot;Clicked %d&quot; % count[0])
+        print(&quot;clicked&quot;, count[0])
+
+    btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)   # 注册点击事件
+
+    while not app.need_exit():
+        lv.timer_handler()          # 处理 LVGL 的定时器和界面刷新，必须调用
+        time.sleep(0.005)           # 让出 CPU
+finally:
+    lv.deinit()                     # 释放 LVGL
+    ts.close()
+    disp.close()
+</code></pre>
+<p>运行后屏幕中间会出现一个按钮和一个标签，点击按钮，标签上的文字会变成点击次数，同时终端会打印 <code>clicked 1</code>、<code>clicked 2</code>……</p>
+<ul>
+<li><code>lv.init(disp, ts)</code> 创建 LVGL 显示和触摸输入设备；传 <code>False</code> 可以关闭触摸。</li>
+<li><code>lv.timer_handler()</code> 每次推进 LVGL tick 并处理定时器、输入和重绘。它已经<br />
+代替了 <code>lv_tick_inc()</code>，不要直接调用原始 <code>lvgl.timer_handler()</code>。</li>
+<li><code>lv.deinit()</code> 释放 LVGL 和它创建的驱动资源。</li>
+<li>主循环中 <code>time.sleep(0.005)</code> 只是让出 CPU，LVGL 的实际刷新由<br />
+<code>timer_handler()</code> 驱动。</li>
+</ul>
+<h2 id="%E5%9C%A8%E7%94%B5%E8%84%91%E4%B8%8A%E8%B0%83%E8%AF%95%E7%95%8C%E9%9D%A2%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89">在电脑上调试界面（可选）</h2>
+<p>同一个包在桌面 Linux / Windows 上会自动使用 LVGL 的 SDL 窗口，而不是 MaixPy 的屏幕，所以可以先在电脑上把界面调好，再上板运行：</p>
+
+<pre class="language-python"><code class="language-python">import time
+import maix_lvgl as lv
+
+lv.init(800, 600)          # SDL 窗口大小
+
+scr = lv.screen_active()
+label = lv.label(scr)
+label.set_text(&quot;Hello LVGL&quot;)
+label.center()
+
+try:
+    while True:
+        lv.timer_handler()
+        time.sleep(0.01)
+except KeyboardInterrupt:
+    pass
+finally:
+    lv.deinit()
+</code></pre>
+<p><code>maix_lvgl</code> 会自动判断当前环境：能导入 <code>maix</code>（在设备上）就用 MaixPy 的屏幕和触摸屏，否则创建一个 SDL 窗口并用鼠标、键盘输入。</p>
+<p>在 Linux 上优先使用 PyPI 的 manylinux wheel。使用 GitHub Release 中的<br />
+<code>linux_x86_64</code> wheel 时，需要系统安装 SDL2。</p>
+<h2 id="%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5">核心概念</h2>
+<table>
+<thead>
+<tr>
+  <th>概念</th>
+  <th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>display</td>
+  <td>LVGL 的显示设备，由 <code>lv.init()</code> 根据 MaixPy display 创建</td>
+</tr>
+<tr>
+  <td>screen</td>
+  <td>根对象，用 <code>lv.screen_active()</code> 获取，所有控件都挂在它下面</td>
+</tr>
+<tr>
+  <td>widget / obj</td>
+  <td>控件，如 <code>lv.button</code>、<code>lv.label</code>、<code>lv.slider</code>，第一个参数是父对象</td>
+</tr>
+<tr>
+  <td>style</td>
+  <td>样式属性，通过 <code>set_style_*</code> 设置，第二个参数是状态选择器</td>
+</tr>
+<tr>
+  <td>event</td>
+  <td>事件，通过 <code>add_event_cb()</code> 注册回调</td>
+</tr>
+<tr>
+  <td>timer</td>
+  <td>LVGL 定时器，用 <code>lv.timer_create()</code> 创建</td>
+</tr>
+<tr>
+  <td>anim</td>
+  <td>动画，用 <code>lv.anim_t()</code> 创建并 <code>start()</code></td>
+</tr>
+</tbody>
+</table>
+<p>LVGL 采用父子对象树：父对象删除时会自动删除子对象。Python 变量只是底层<br />
+LVGL 对象的包装，短期变量不会阻止控件显示；但回调函数、动画、Canvas 缓冲区<br />
+等需要保持 Python 引用，否则可能被垃圾回收。</p>
+<h2 id="%E5%88%9B%E5%BB%BA%E6%8E%A7%E4%BB%B6">创建控件</h2>
+<p>所有控件都以父对象为第一个参数：</p>
+
+<pre class="language-python"><code class="language-python">scr = lv.screen_active()
+
+label = lv.label(scr)
+button = lv.button(scr)
+slider = lv.slider(scr)
+switch = lv.switch(scr)
+chart = lv.chart(scr)
+canvas = lv.canvas(scr)
+</code></pre>
+<p>常用控件：</p>
+<table>
+<thead>
+<tr>
+  <th>控件</th>
+  <th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>lv.label</code></td>
+  <td>文本</td>
+</tr>
+<tr>
+  <td><code>lv.button</code></td>
+  <td>按钮</td>
+</tr>
+<tr>
+  <td><code>lv.switch</code> / <code>lv.checkbox</code></td>
+  <td>开关 / 复选框</td>
+</tr>
+<tr>
+  <td><code>lv.slider</code> / <code>lv.bar</code> / <code>lv.arc</code></td>
+  <td>滑块 / 进度条 / 圆弧</td>
+</tr>
+<tr>
+  <td><code>lv.dropdown</code> / <code>lv.roller</code></td>
+  <td>下拉框 / 滚轮选择</td>
+</tr>
+<tr>
+  <td><code>lv.textarea</code> / <code>lv.keyboard</code></td>
+  <td>文本输入 / 屏幕键盘</td>
+</tr>
+<tr>
+  <td><code>lv.chart</code></td>
+  <td>折线图、柱状图、散点图</td>
+</tr>
+<tr>
+  <td><code>lv.table</code> / <code>lv.calendar</code></td>
+  <td>表格 / 日历</td>
+</tr>
+<tr>
+  <td><code>lv.canvas</code></td>
+  <td>逐像素绘制</td>
+</tr>
+<tr>
+  <td><code>lv.list</code> / <code>lv.msgbox</code></td>
+  <td>列表 / 消息框</td>
+</tr>
+<tr>
+  <td><code>lv.spinner</code> / <code>lv.led</code></td>
+  <td>加载动画 / LED 指示灯</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E6%8E%A7%E4%BB%B6%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C">控件常用操作</h3>
+
+<pre class="language-python"><code class="language-python">label = lv.label(scr)
+label.set_text(&quot;Temperature: 25.3 °C&quot;)
+label.set_pos(20, 20)
+label.set_style_text_color(lv.color_hex(0xE5E7EB), 0)
+label.set_style_text_font(lv.font_montserrat_16, 0)
+
+slider = lv.slider(scr)
+slider.set_pos(20, 60)
+slider.set_size(220, 16)
+slider.set_range(0, 100)
+slider.set_value(50, lv.ANIM_ENABLE.OFF)
+
+bar = lv.bar(scr)
+bar.set_pos(20, 100)
+bar.set_size(220, 12)
+bar.set_range(0, 100)
+bar.set_value(65, lv.ANIM_ENABLE.OFF)
+
+switch = lv.switch(scr)
+switch.set_pos(20, 130)
+switch.add_state(lv.STATE.CHECKED)
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_input.png" alt="文本输入与列表" /></p>
+<p><code>set_value()</code> 的第二个参数传入 <code>lv.ANIM_ENABLE.OFF</code> 可以立即生效；传入<br />
+<code>lv.ANIM_ENABLE.ON</code> 会使用默认动画过渡。</p>
+<h2 id="%E6%A0%B7%E5%BC%8F">样式</h2>
+<p>LVGL 的样式通过 <code>set_style_*</code> 方法直接设置在对象上。第二个参数是选择器：</p>
+<ul>
+<li><code>0</code>：主部件（<code>LV_PART_MAIN</code>）的默认状态</li>
+<li><code>lv.STATE.PRESSED</code>：按下状态</li>
+<li><code>lv.STATE.CHECKED</code>：选中状态</li>
+</ul>
+<h3 id="%E9%A2%9C%E8%89%B2%E4%B8%8E%E9%80%8F%E6%98%8E%E5%BA%A6">颜色与透明度</h3>
+
+<pre class="language-python"><code class="language-python">color = lv.color_hex(0x3B82F6)          # RGB
+scr.set_style_bg_color(color, 0)
+scr.set_style_bg_opa(lv.OPA.COVER, 0)   # 完全不透明
+
+panel.set_style_bg_opa(lv.OPA._70, 0)   # 70% 不透明度
+</code></pre>
+<p><code>lv.OPA</code> 提供 <code>TRANSP</code>、<code>_10</code> 到 <code>_90</code>、<code>COVER</code> 等常用值。</p>
+<h3 id="%E5%9C%86%E8%A7%92%E3%80%81%E8%BE%B9%E6%A1%86%E3%80%81%E9%98%B4%E5%BD%B1">圆角、边框、阴影</h3>
+
+<pre class="language-python"><code class="language-python">card = lv.obj(scr)
+card.set_size(220, 120)
+card.set_style_bg_color(lv.color_hex(0x1E293B), 0)
+card.set_style_bg_opa(lv.OPA.COVER, 0)
+card.set_style_radius(14, 0)
+card.set_style_border_width(1, 0)
+card.set_style_border_color(lv.color_hex(0x334155), 0)
+card.set_style_shadow_width(18, 0)
+card.set_style_shadow_color(lv.color_hex(0x3B82F6), 0)
+card.set_style_shadow_opa(lv.OPA._50, 0)
+card.set_style_pad_all(12, 0)
+</code></pre>
+<h3 id="%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF">渐变背景</h3>
+
+<pre class="language-python"><code class="language-python">card.set_style_bg_color(lv.color_hex(0x0F172A), 0)
+card.set_style_bg_grad_color(lv.color_hex(0x1E3A8A), 0)
+card.set_style_bg_grad_dir(lv.GRAD_DIR.VER, 0)
+</code></pre>
+<h3 id="%E6%96%87%E6%9C%AC%E6%A0%B7%E5%BC%8F">文本样式</h3>
+
+<pre class="language-python"><code class="language-python">label.set_style_text_color(lv.color_hex(0xF8FAFC), 0)
+label.set_style_text_font(lv.font_montserrat_20, 0)
+label.set_style_text_letter_space(2, 0)
+</code></pre>
+<p>内置 Montserrat 字体只覆盖拉丁字符；中文需要 FreeType，见下文。</p>
+<h3 id="%E7%8A%B6%E6%80%81%E6%A0%B7%E5%BC%8F">状态样式</h3>
+<p>同一个对象可以为不同状态设置不同样式：</p>
+
+<pre class="language-python"><code class="language-python">btn.set_style_bg_color(lv.color_hex(0x2563EB), 0)
+btn.set_style_bg_color(lv.color_hex(0x1D4ED8), lv.STATE.PRESSED)
+</code></pre>
+<h2 id="%E5%B8%83%E5%B1%80%E4%B8%8E%E5%AF%B9%E9%BD%90">布局与对齐</h2>
+<h3 id="%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D">绝对定位</h3>
+
+<pre class="language-python"><code class="language-python">obj.set_pos(x, y)
+obj.set_x(x)
+obj.set_y(y)
+obj.set_size(width, height)
+</code></pre>
+<h3 id="%E5%AF%B9%E9%BD%90">对齐</h3>
+
+<pre class="language-python"><code class="language-python">obj.align(lv.ALIGN.CENTER, 0, 0)
+obj.align(lv.ALIGN.TOP_RIGHT, -10, 10)
+obj.center()
+</code></pre>
+<p><code>lv.ALIGN</code> 包含 <code>TOP_LEFT</code>、<code>TOP_MID</code>、<code>CENTER</code>、<code>BOTTOM_RIGHT</code> 等 20 多种<br />
+对齐方式；后两个参数是相对目标位置的偏移。</p>
+<h3 id="Flex-%E5%B8%83%E5%B1%80">Flex 布局</h3>
+<p>Flex 适合做一行或一列自动排列的控件：</p>
+
+<pre class="language-python"><code class="language-python">row = lv.obj(scr)
+row.set_size(400, 80)
+row.set_flex_flow(lv.FLEX_FLOW.ROW)
+row.set_flex_align(
+    lv.FLEX_ALIGN.SPACE_EVENLY,
+    lv.FLEX_ALIGN.CENTER,
+    lv.FLEX_ALIGN.CENTER,
+)
+
+for text in (&quot;A&quot;, &quot;B&quot;, &quot;C&quot;):
+    btn = lv.button(row)
+    btn.set_size(80, 48)
+    lv.label(btn).set_text(text)
+</code></pre>
+<h3 id="Grid-%E5%B8%83%E5%B1%80">Grid 布局</h3>
+<p>Grid 适合表格状布局。<code>set_grid_dsc_array()</code> 接受列和行的尺寸数组，数组末尾<br />
+需要 <code>LV_GRID_TEMPLATE_LAST</code> 结束标记（当前绑定没有导出这个常量，LVGL 9.1<br />
+中它的值是 <code>0x1FFFFFFF</code>）：</p>
+
+<pre class="language-python"><code class="language-python">GRID_LAST = 0x1FFFFFFF  # LV_GRID_TEMPLATE_LAST
+
+grid = lv.obj(scr)
+grid.set_size(300, 200)
+grid.set_grid_dsc_array(
+    [lv.grid_fr(1), lv.grid_fr(1), GRID_LAST],
+    [lv.grid_fr(1), lv.grid_fr(1), GRID_LAST],
+)
+
+item = lv.obj(grid)
+item.set_grid_cell(lv.GRID_ALIGN.STRETCH, 0, 1, lv.GRID_ALIGN.STRETCH, 0, 1)
+</code></pre>
+<h2 id="%E4%BA%8B%E4%BB%B6">事件</h2>
+<p>事件回调的签名是 <code>callback(event)</code>，<code>event</code> 是 <code>event_t</code>：</p>
+
+<pre class="language-python"><code class="language-python">def on_clicked(event):
+    target = event.get_target_obj()
+    print(&quot;clicked&quot;, target)
+
+btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)
+</code></pre>
+<p>常用事件：</p>
+<table>
+<thead>
+<tr>
+  <th>事件</th>
+  <th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>lv.EVENT.CLICKED</code></td>
+  <td>点击</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.PRESSED</code> / <code>RELEASED</code></td>
+  <td>按下 / 松开</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.VALUE_CHANGED</code></td>
+  <td>值变化（滑块、开关、下拉框）</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.READY</code></td>
+  <td>操作完成（键盘、消息框）</td>
+</tr>
+</tbody>
+</table>
+<p>滑块和开关示例：</p>
+
+<pre class="language-python"><code class="language-python">def on_value_changed(event):
+    print(&quot;value:&quot;, slider.get_value())
+
+slider.add_event_cb(on_value_changed, lv.EVENT.VALUE_CHANGED, None)
+
+
+def on_switch_changed(event):
+    print(&quot;switch:&quot;, switch.has_state(lv.STATE.CHECKED))
+
+switch.add_event_cb(on_switch_changed, lv.EVENT.VALUE_CHANGED, None)
+</code></pre>
+<blockquote>
+<p>回调函数要保持在 Python 作用域内（模块级、闭包或列表），不要用临时<br />
+lambda 后立即丢弃。<code>add_event_cb</code> 的第三个参数是 user_data，可以传任意<br />
+Python 对象，回调中通过 <code>event.get_user_data()</code> 获取。</p>
+</blockquote>
+<p>移除回调：</p>
+
+<pre class="language-python"><code class="language-python">btn.remove_event_cb(on_clicked)
+</code></pre>
+<h2 id="%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8E%E5%8A%A8%E7%94%BB">定时器与动画</h2>
+<h3 id="%E5%AE%9A%E6%97%B6%E5%99%A8">定时器</h3>
+
+<pre class="language-python"><code class="language-python">def on_tick(timer):
+    label.set_text(time.strftime(&quot;%H:%M:%S&quot;))
+
+timer = lv.timer_create(on_tick, 1000, None)  # 每 1000 ms
+</code></pre>
+<p><code>lv.timer_create(callback, period_ms, user_data)</code> 创建后自动运行。回调函数和<br />
+<code>timer</code> 对象都要保持引用；不再需要时调用 <code>timer.delete()</code>。</p>
+<h3 id="%E5%8A%A8%E7%94%BB">动画</h3>
+
+<pre class="language-python"><code class="language-python">box = lv.obj(scr)
+box.set_size(80, 80)
+box.set_style_bg_color(lv.color_hex(0xF59E0B), 0)
+box.set_style_bg_opa(lv.OPA.COVER, 0)
+box.set_style_radius(16, 0)
+
+def exec_anim(anim, value):
+    box.set_x(value)
+
+anim = lv.anim_t()
+anim.init()
+anim.set_values(0, 240)
+anim.set_time(1200)
+anim.set_playback_time(1200)
+anim.set_repeat_count(0xFFFF)   # 无限循环
+anim.set_custom_exec_cb(exec_anim)
+anim.start()
+</code></pre>
+<p><code>set_values(start, end)</code> 设置起止值，<code>set_time()</code> 是正程时间，<br />
+<code>set_playback_time()</code> 是回程时间。<code>anim</code> 对象必须保持引用。</p>
+<p>也可以使用 <code>maix_lvgl</code> 提供的 <code>lv.anim_set_exec_cb(anim, cb)</code> 辅助函数。</p>
+<h2 id="%E7%BB%98%E5%88%B6">绘制</h2>
+<h3 id="Canvas-%E9%80%90%E5%83%8F%E7%B4%A0%E7%BB%98%E5%88%B6">Canvas 逐像素绘制</h3>
+<p><code>lv.canvas</code> 允许直接操作像素，适合波形、仪表盘、自定义图形：</p>
+
+<pre class="language-python"><code class="language-python">import math
+
+WIDTH, HEIGHT = 320, 180
+buffer = bytearray(WIDTH * HEIGHT * 4)   # ARGB8888
+
+canvas = lv.canvas(scr)
+canvas.set_size(WIDTH, HEIGHT)
+canvas.set_buffer(buffer, WIDTH, HEIGHT, lv.COLOR_FORMAT.ARGB8888)
+canvas.fill_bg(lv.color_hex(0x0E0E16), lv.OPA.COVER)
+
+grid_color = lv.color_hex(0x1F2937)
+for x in range(0, WIDTH, 40):
+    for y in range(HEIGHT):
+        canvas.set_px(x, y, grid_color, lv.OPA.COVER)
+
+wave_color = lv.color_hex(0x3B82F6)
+for x in range(WIDTH):
+    y = int(HEIGHT / 2 + 55 * math.sin(x / 24.0))
+    if 0 &lt;= y &lt; HEIGHT:
+        canvas.set_px(x, y, wave_color, lv.OPA.COVER)
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_canvas.png" alt="Canvas 绘制" /></p>
+<p>要点：</p>
+<ul>
+<li><code>set_buffer()</code> 的缓冲区必须是 <code>bytearray</code>，像素格式为 <code>ARGB8888</code>。</li>
+<li><strong>缓冲区必须保持 Python 引用</strong>（例如模块级变量或列表），否则被回收后<br />
+canvas 会显示花屏或崩溃。</li>
+<li>缓冲区大小按 <code>width * height * 4</code> 计算。</li>
+<li>修改像素后 LVGL 会在下一次重绘时刷新。</li>
+</ul>
+<h3 id="Chart-%E5%AE%9E%E6%97%B6%E6%9B%B2%E7%BA%BF">Chart 实时曲线</h3>
+
+<pre class="language-python"><code class="language-python">import math
+
+chart = lv.chart(scr)
+chart.set_size(360, 200)
+chart.set_type(lv.chart.TYPE.LINE)
+chart.set_point_count(40)
+chart.set_range(lv.chart.AXIS.PRIMARY_Y, -100, 100)
+chart.set_div_line_count(4, 6)
+chart.set_update_mode(lv.chart.UPDATE_MODE.SHIFT)
+
+series = chart.add_series(lv.color_hex(0x22C55E), lv.chart.AXIS.PRIMARY_Y)
+
+for i in range(40):
+    chart.set_next_value(series, int(80 * math.sin(i / 5.0)))
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_data.png" alt="Chart 曲线" /></p>
+<p><code>set_update_mode(lv.chart.UPDATE_MODE.SHIFT)</code> 让新数据从左侧移入，适合实时<br />
+显示。也可以使用 <code>lv.chart.TYPE.BAR</code> 绘制柱状图。</p>
+<h3 id="%E6%A0%B7%E5%BC%8F%E7%BB%98%E5%88%B6">样式绘制</h3>
+<p>很多“绘制”效果可以直接用样式完成，不需要 Canvas：</p>
+<ul>
+<li>边框：<code>set_style_border_width()</code> + <code>set_style_border_color()</code></li>
+<li>圆角：<code>set_style_radius()</code></li>
+<li>阴影/发光：<code>set_style_shadow_width()</code> + <code>set_style_shadow_color()</code> +<br />
+<code>set_style_shadow_opa()</code></li>
+<li>渐变：<code>set_style_bg_grad_color()</code> + <code>set_style_bg_grad_dir()</code></li>
+<li>圆弧/进度：<code>lv.arc</code>、<code>lv.bar</code></li>
+</ul>
+
+<pre class="language-python"><code class="language-python">ring = lv.arc(scr)
+ring.set_size(120, 120)
+ring.set_bg_angles(0, 360)
+ring.set_angles(0, 270)
+ring.set_style_arc_color(lv.color_hex(0x22C55E), lv.PART.INDICATOR)
+ring.set_style_arc_width(10, lv.PART.INDICATOR)
+</code></pre>
+<h3 id="%E4%B8%AD%E6%96%87%E6%96%87%E5%AD%97%EF%BC%88FreeType%EF%BC%89">中文文字（FreeType）</h3>
+<p>以下示例在 MaixCAM2 上运行。v0.1.1 的 PyPI Linux 桌面 wheel 没有导出 FreeType 字体加载 API。</p>
+<p>LVGL 内置的字体只覆盖拉丁字符，要显示中文需要自己加载字体。<code>maix_lvgl</code> 编译时已经打开了 FreeType 支持，可以直接加载设备里的字体文件，比如系统自带的 <code>SourceHanSansCN-Regular.otf</code>：</p>
+
+<pre class="language-python"><code class="language-python">import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
+FONT = &quot;/maixapp/share/font/SourceHanSansCN-Regular.otf&quot;
+
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+font = None
+label = None
+
+try:
+    lv.init(disp, ts)
+    scr = lv.screen_active()
+    scr.set_style_bg_color(lv.color_hex(0x101018), 0)
+
+    font = lv.freetype_font_create(FONT, 0, 24, 0)   # 字体, 渲染模式, 像素大小, 样式
+    if font is None:
+        raise RuntimeError(&quot;cannot load &quot; + FONT)
+
+    label = lv.label(scr)
+    label.set_text(&quot;你好，MaixCAM2！&quot;)
+    label.set_style_text_font(font, 0)
+    label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    label.set_pos(20, 20)
+
+    while not app.need_exit():
+        lv.timer_handler()
+        time.sleep(0.005)
+finally:
+    if label is not None:
+        label.delete()
+    if font is not None:
+        font.freetype_font_delete()
+    lv.deinit()
+    ts.close()
+    disp.close()
+</code></pre>
+<p><img src="../../assets/lvgl_cjk.png" alt="使用 FreeType 显示中文" /></p>
+<p>注意事项：</p>
+<ul>
+<li><code>lv.init()</code> 已经初始化了 FreeType，<code>lv.deinit()</code> 会自动清理，<strong>不要</strong>再手动调用 <code>lv.freetype_init()</code> / <code>lv.freetype_uninit()</code>，否则会重复清理导致挂起。</li>
+<li>要先删除使用该字体的控件，再调用 <code>font.freetype_font_delete()</code>，顺序反了会访问已经释放的字体。</li>
+<li>思源黑体字体文件约 8MB，建议用的时候再创建，用完及时删除。</li>
+</ul>
+<h3 id="%E5%9B%BE%E7%89%87">图片</h3>
+<p>LVGL 用 <code>lv.image</code> 控件显示图片，<code>set_src()</code> 接受图片描述符或路径。显示<br />
+MaixPy 摄像头图像时，通常把图像转换为 <code>ARGB8888</code>/<code>BGRA8888</code> 缓冲区，再用<br />
+<code>lv.image_dsc_t</code> 包装：</p>
+
+<pre class="language-python"><code class="language-python">dsc = lv.image_dsc_t()
+dsc.header.w = width
+dsc.header.h = height
+dsc.header.cf = lv.COLOR_FORMAT.ARGB8888
+dsc.data_size = len(buffer)
+dsc.data = buffer
+
+img = lv.image(scr)
+img.set_src(dsc)
+</code></pre>
+<blockquote>
+<p><code>image_dsc_t</code> 的 <code>data</code> 缓冲区必须保持引用；如果使用 MaixPy 的 <code>image</code><br />
+对象，先转换为 BGRA8888 再取字节。完整示例见仓库<br />
+<code>examples/showcase.py</code> 和 <code>examples/music_player.py</code>。</p>
+</blockquote>
+<h2 id="%E4%B8%8E-MaixPy-%E7%BB%84%E5%90%88">与 MaixPy 组合</h2>
+<p><code>maix_lvgl</code> 只负责 UI，摄像头、AI、网络等继续使用 MaixPy 的模块。常见的<br />
+组合方式：</p>
+
+<pre class="language-python"><code class="language-python">import time
+
+from maix import app, camera, display, touchscreen
+import maix_lvgl as lv
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+
+lv.init(disp, ts)
+# ... 创建 UI ...
+
+while not app.need_exit():
+    img = cam.read()
+    # 把 img 传给 AI 或网络模块，结果更新到 LVGL 控件
+    lv.timer_handler()
+    time.sleep(0.005)
+</code></pre>
+<p>UI 线程和摄像头读取都在主循环中串行执行，避免多线程同时操作 LVGL。</p>
+<h2 id="%E6%80%A7%E8%83%BD%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">性能与注意事项</h2>
+<ul>
+<li><strong>全屏缓冲区</strong>：v0.1.1 默认在 MaixCAM2 上使用 ARGB8888（每像素 4 字节），<br />
+在 MaixCAM / MaixCAM-Pro 上使用 RGB888（每像素 3 字节）。刷新时推送整帧。</li>
+<li><strong>JPEG 图片</strong>：v0.1.1 未内置 JPEG 解码。</li>
+<li><strong>主循环</strong>：建议 <code>lv.timer_handler()</code> 后 <code>sleep(0.005)</code>；LVGL 只在有变化时<br />
+重绘。</li>
+<li><strong>对象生命周期</strong>：回调、动画、timer、canvas buffer 必须保持 Python 引用。</li>
+<li><strong>触摸区域</strong>：触摸事件按控件实际区域命中，控件需要覆盖用户点击的位置。</li>
+<li><strong>单一 display</strong>：同一时间只能有一个程序使用 <code>maix.display.Display</code>；运行<br />
+前停止 launcher。</li>
+<li><strong>字体缓存</strong>：FreeType 字形缓存有限，频繁切换大字号时注意内存。</li>
+</ul>
+<h2 id="%E4%BB%8E%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-maix_lvgl%EF%BC%88%E7%AE%80%E8%A6%81%EF%BC%89">从源码编译 maix_lvgl（简要）</h2>
+<p><code>maix_lvgl</code> 是一个标准 MaixCDK 项目，LVGL 源码不随仓库分发，由 MaixCDK 按<br />
+其 Kconfig 固定版本下载并编译。</p>
+<p>流程：</p>
+<ol>
+<li>MaixCDK 下载并编译 LVGL 9.1.0（含 FreeType、rlottie 等依赖）。</li>
+<li><code>tools/regenerate_binding.py</code> 用内置的 omnipython-lvgl 生成器，从 MaixCDK<br />
+的 LVGL 头文件生成 <code>binding/lvgl_python.c</code> 和 <code>binding/lvgl.pyi</code>。</li>
+<li><code>components/lvgl_binding</code> 把生成代码和 <code>runtime/lvpy_runtime.c</code> 编译成<br />
+<code>liblvgl_binding.so</code>，链接 MaixCDK 的 LVGL 和 Python。</li>
+<li><code>setup.py</code> 把扩展、Python 后端和依赖打包成目标平台的 wheel。</li>
+</ol>
+<p>构建命令：</p>
+
+<pre class="language-bash"><code class="language-bash">export MAIXCDK_PATH=/path/to/MaixCDK
+
+# MaixCAM2：aarch64 / Python 3.13
+python3.13 setup.py bdist_wheel --board maixcam2
+
+# MaixCAM：RISC-V / Python 3.11
+python3.11 setup.py bdist_wheel --board maixcam
+</code></pre>
+<p>依赖：MaixCDK、对应 host Python（3.13 或 3.11）、<code>pycparser</code>、<code>cmake</code>、目标<br />
+交叉工具链。生成物在 <code>dist/</code> 下：</p>
+
+<pre class="language-text"><code class="language-text">maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+maix_lvgl-0.1.1-cp311-cp311-musllinux_1_2_riscv64.whl
+</code></pre>
+<p>构建和绑定再生成步骤见<a href="https://github.com/Taoxuan-168/Maix_LVGL/blob/v0.1.1/README.md#building"  target="_blank">上游构建文档</a>。</p>
+<h2 id="%E7%A4%BA%E4%BE%8B%E4%B8%8E%E4%BB%93%E5%BA%93">示例与仓库</h2>
+<p>仓库：<a href="https://github.com/Taoxuan-168/Maix_LVGL"  target="_blank">https://github.com/Taoxuan-168/Maix_LVGL</a></p>
+<table>
+<thead>
+<tr>
+  <th>示例</th>
+  <th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>examples/demo.py</code></td>
+  <td>最小按钮示例</td>
+</tr>
+<tr>
+  <td><code>examples/showcase.py</code></td>
+  <td>四页控件、图表、输入、Canvas 演示</td>
+</tr>
+<tr>
+  <td><code>examples/tile_dashboard.py</code></td>
+  <td>智能家居卡片面板</td>
+</tr>
+<tr>
+  <td><code>examples/neon_dashboard.py</code></td>
+  <td>霓虹风格仪表盘</td>
+</tr>
+<tr>
+  <td><code>examples/music_player.py</code></td>
+  <td>音乐播放器、频谱</td>
+</tr>
+<tr>
+  <td><code>examples/watchface.py</code></td>
+  <td>圆形表盘</td>
+</tr>
+<tr>
+  <td><code>examples/threshold_editor.py</code></td>
+  <td>摄像头二值化阈值调节</td>
+</tr>
+<tr>
+  <td><code>examples/multi_color_threshold.py</code></td>
+  <td>多颜色 LAB 阈值调节</td>
+</tr>
+<tr>
+  <td><code>examples/drawing_board.py</code></td>
+  <td>可保存 PNG 的画板</td>
+</tr>
+<tr>
+  <td><code>tests/suite_*.py</code></td>
+  <td>设备端 API 测试套件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B">界面示例</h3>
+<p><img src="../../assets/lvgl_ui_tiles.png" alt="HomeTiles 卡片面板" /></p>
+<p><img src="../../assets/lvgl_ui_aura.png" alt="Aura 霓虹仪表盘" /></p>
+<p><img src="../../assets/lvgl_ui_music.png" alt="音乐播放器" /></p>
+<p><img src="../../assets/lvgl_ui_watch.png" alt="ZSWatch 表盘" /></p>
+<p>从 <a href="https://github.com/Taoxuan-168/Maix_LVGL/tree/v0.1.1/examples"  target="_blank">v0.1.1 源码</a> 将整个 <code>examples</code> 目录复制到设备的 <code>/root/examples</code>，以保留共用的 <code>_common.py</code>。运行：</p>
+
+<pre class="language-bash"><code class="language-bash">cd /root/examples
+python3 showcase.py
+</code></pre>
+<p>使用 on-screen 的 <strong>Exit</strong> 按钮退出。</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/zh/gui/i18n.html">
+                            <span class="icon"></span>
+                            <span class="label">I18N 国际化(多语言)</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/zh/vision/ai.html">
+                            <span class="label">AI 视觉基本知识</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>相关链接</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed 官网</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">网站地图</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">网站使用 teedoc 生成</a></li>
+</ul>
+</li>
+<li><a>源码</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki 源码</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">开源项目</a></li>
+</ul>
+</li>
+<li><a>关注我们</a><ul><li><a target="_blank" href="https://x.com/SipeedLab">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">淘宝</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>微信公众号</a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>联系我们</a><ul><li><a>电话: +86 0755-27808509</a>
+</li>
+<li><a>商业支持: support@sipeed.com</a>
+</li>
+<li><a>地址: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">加入我们</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+
+<html lang="en"  class="">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="keywords" content="">
+    
+    
+    <meta name="description" content="">
+    
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+        
+        <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+        
+        <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+        
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/pre_main.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/prism.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/viewer.min.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/dark.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/theme_default/light.css" type="text/css"/>
+        
+        <script src="/maixpy/static/js/theme_default/jquery.min.js"></script>
+        
+        <script src="/maixpy/static/js/theme_default/split.js"></script>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/search/style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="/maixpy/static/css/custom.css" type="text/css"/>
+        
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9cb07365544a53067c56c346c838181a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+        
+        <link rel="stylesheet" href="/maixpy/static/js/thumbs_up/style.css" type="text/css"/>
+        
+    
+    
+    <title>LVGL GUI - MaixPy</title>
+    
+    <script type="text/javascript">js_vars = {"teedoc-plugin-thumbs-up": {"label_up": "Helpful", "label_down": "Not Helpful", "icon": "/static/images/thumbs_up/up.svg", "icon_clicked": "/static/images/thumbs_up/upped.svg", "url": "https://thumbs-up.sipeed.com", "show_up_count": true, "show_down_count": false, "msg_already_voted": "You have already voted", "msg_thanks": "Thanks for your vote", "msg_down_prompt": "Thanks to tell us where we can improve?(At least 10 characters)", "msg_down_prompt_error": "Message should be at least 10 characters and less than 256 characters", "msg_error": "Request server failed!"}}</script>
+    <script type="text/javascript">metadata = {"tags": [], "date": "2026-11-24", "update": [{"date": "2026-11-24", "version": "v0.1.1", "author": "Ariel Yu", "content": "Expand Python LVGL installation, quick-start examples, CJK font guidance, and desktop SDL debugging"}, {"date": "2026-11-10", "version": "v0.1.0", "author": "Tao", "content": "Add LVGL GUI code and documentation support"}], "ts": 1795478400, "author": "", "brief": "", "cover": ""}</script>
+</head>
+
+
+<body class="type_doc">
+    
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/maixpy/en/">
+                
+                
+                    <h2>MaixPy</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li class="active"><a  href="/maixpy/doc/en/index.html">Documentation</a></li>
+<li class=""><a  href="/maixpy/api/index.html">API</a></li>
+<li class=""><a  href="/maixpy/doc/en/faq.html">FAQ</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+<li class=""><a target="_blank" href="https://github.com/sipeed/maixpy"><img src='/maixpy/static/image/github-fill.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;</a></li>
+<li class="sub_items "><a  ><img src='/maixpy/static/image/language.svg' style='height: 1.5em;vertical-align: middle;'>&nbsp;English</a><ul><li class="active"><a  href="/maixpy/doc/en/lvgl/lvgl.html">English</a></li>
+<li class=""><a  href="/maixpy/doc/zh/lvgl/lvgl.html">中文</a></li>
+</ul></li>
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/index.html"><span class="label">Quick Start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/faq.html"><span class="label">FAQ</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Base</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/upgrade.html"><span class="label">Burning system</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/app.html"><span class="label">App Development and App Store</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/maixvision.html"><span class="label">MaixVision usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python.html"><span class="label">Python Fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/linux_basic.html"><span class="label">Linux fundamentals</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/python_pkgs.html"><span class="label">Add python packages</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/auto_start.html"><span class="label">Auto start</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/view_src_code.html"><span class="label">View API source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/basic/picoclaw.html"><span class="label">PicoClaw usage</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="active_parent no_link"><a><span class="label">Basic images and algorithms</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/display.html"><span class="label">Screen usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/camera.html"><span class="label">Camera usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/image_ops.html"><span class="label">Image control</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/touchscreen.html"><span class="label">Touch screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_blobs.html"><span class="label">Finding color blocks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/line_tracking.html"><span class="label">Line tracking</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/qrcode.html"><span class="label">QRcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/find_barcodes.html"><span class="label">Barcode identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/apriltag.html"><span class="label">AprilTag identity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/opencv.html"><span class="label">OpenCV usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/gui/i18n.html"><span class="label">I18N (Multi language)</span><span class=""></span></a></li>
+<li class="active with_link"><a href="/maixpy/doc/en/lvgl/lvgl.html"><span class="label">LVGL GUI</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI Vision</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ai.html"><span class="label">AI vision knowledge</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/classify.html"><span class="label">AI object classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolov5.html"><span class="label">YOLO object detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_detection.html"><span class="label">Face and keypoints detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_landmarks.html"><span class="label">Face multi landmarks detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_recognition.html"><span class="label">Face recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/face_emotion.html"><span class="label">Face emotion</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_key_points.html"><span class="label">Human critical point detection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/segmentation.html"><span class="label">Image semantic segmentation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_classifier.html"><span class="label">Self-learning classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/self_learn_detector.html"><span class="label">Self-learning detector</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/object_track.html"><span class="label">Object tracking and counting</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/ocr.html"><span class="label">OCR</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/detect_obb.html"><span class="label">Detect with angle(OBB)</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_landmarks.html"><span class="label">Hand landmarks</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/body_pose_classification.html"><span class="label">Human pose classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/hand_gesture_classification.html"><span class="label">Hand geature classifier</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/depth_anything.html"><span class="label">Depth-Anything Monocular Depth Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolo26-depth.html"><span class="label">Monocular Depth Estimation with YOLO26-depth</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/yolo_world.html"><span class="label">YOLO-World deten any object</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI audio</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/record.html"><span class="label">Audio recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/play.html"><span class="label">Playing audio</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/recognize.html"><span class="label">Real-time voice recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/digit.html"><span class="label">Continuous Chinese digit recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/keyword.html"><span class="label">Keyword recognition</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/synthesis.html"><span class="label">Speech synthesis</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/ai_classify.html"><span class="label">AI audio classification</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/audio/deploy_online_recognition.html"><span class="label">Deploy online speech recognition</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">AI LLM</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/basic.html"><span class="label">Large Model User Guide</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_qwen.html"><span class="label">Qwen LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/llm_deepseek.html"><span class="label">DeepSeek LLM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_internvl.html"><span class="label">InternVL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_qwen3.html"><span class="label">Qwen3-VL Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/dlm_lora_sdv1_5.html"><span class="label">LCM-LoRA-SDv1-5 Image-Generation Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/vlm_smolvlm.html"><span class="label">SmolVLM Vision-Language Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_sensevoice.html"><span class="label">SenseVoice Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/asr_whisper.html"><span class="label">Whisper Speech-Recognition Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/mllm/tts_melotts.html"><span class="label">MeloTTS Speech-Synthesis Model</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Train, Convert and Deploy</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/ai_model_deploy.html"><span class="label">Get, Upload and Run a Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/datasets.html"><span class="label">Prepare a Model and Dataset</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/maixhub_train.html"><span class="label">Train Online with MaixHub</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/vision/customize_model_yolo.html"><span class="label">Train a YOLO Detection Model on a Computer</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/online_converter.html"><span class="label">Convert a YOLO Model Online</span><span class=""></span></a></li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam.html"><span class="label">Manually Convert for MaixCAM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/maixcam2.html"><span class="label">Manually Convert for MaixCAM2</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/onnx_export.html"><span class="label">Tutorial on Trimming Nodes from an ONNX Model</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/ai_model_converter/web_converter.html"><span class="label">Self-hosted Graphical Model Conversion Platform</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/customize_model.html"><span class="label">Port an Unsupported Model</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Video</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/record.html"><span class="label">Video recording</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/play.html"><span class="label">Playing video</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/jpeg_streaming.html"><span class="label">JPEG streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtsp_streaming.html"><span class="label">RTSP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/rtmp_streaming.html"><span class="label">RTMP streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/uvc_streaming.html"><span class="label">UVC streaming</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/video/webrtc_streaming.html"><span class="label">WebRTC streaming</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Network</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/network_settings.html"><span class="label">Network settings</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/http.html"><span class="label">http communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/socket.html"><span class="label">socket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/mqtt.html"><span class="label">MQTT communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/websocket.html"><span class="label">websocket communication</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/network/flask.html"><span class="label">Flask Web server</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Comm</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/maix_protocol.html"><span class="label">Maix APP communicate protocol</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/comm/modbus.html"><span class="label">Modbus communication</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">On-chip peripherals</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pinmap.html"><span class="label">PINMAP</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/gpio.html"><span class="label">GPIO</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/key.html"><span class="label">Key</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/uart.html"><span class="label">UART</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/i2c.html"><span class="label">I2C</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/pwm.html"><span class="label">PWM</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/spi.html"><span class="label">SPI</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/wdt.html"><span class="label">WDT watchdog</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/adc.html"><span class="label">ADC</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/peripheral/hid.html"><span class="label">HID</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Off-chip modules</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/kit/microscope.html"><span class="label">Microscope kit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/ahrs.html"><span class="label">IMU AHRS Attitude Estimation</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/temp_humi.html"><span class="label">Temperature and humidity</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/rtc.html"><span class="label">RTC usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tmc2209.html"><span class="label">Stepper motor TMC2209</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/tof.html"><span class="label">TOF</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/thermal_cam.html"><span class="label">Thermal imaging</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/pmu.html"><span class="label">Power Management Unit</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/fp5510.html"><span class="label">Voice Coil Motor FP5510</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/spilcd.html"><span class="label">SPI LCD Screen</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/modules/bluetooth.html"><span class="label">Bluetooth</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Projects</span><span class="sub_indicator sub_indicator_collapsed"></span></a><ul class="">
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/index.html"><span class="label">Apps and Project Collection</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/line_tracking_robot.html"><span class="label">Line tracking robot</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/projects/face_tracking.html"><span class="label">Face tracking 2-axis gimbal</span><span class=""></span></a></li>
+</ul>
+</li>
+<li class="not_active no_link"><a><span class="label">Advanced</span><span class="sub_indicator"></span></a><ul class="show">
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/memory.html"><span class="label">Memory Usage</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/contribute.html"><span class="label">Contribute</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/build.html"><span class="label">Build source code</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/faq.html"><span class="label">MaixPy Source FAQ</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/add_c_module.html"><span class="label">Write in C/C++</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/source_code/maixcdk.html"><span class="label">MaixCDK development</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/compile_os.html"><span class="label">Build OS</span><span class=""></span></a></li>
+<li class="not_active with_link"><a href="/maixpy/doc/en/pro/rvv.html"><span class="label">Using RVV Acceleration</span><span class=""></span></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            
+                            <h1>LVGL GUI</h1>
+                            
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            
+                                <span class="article_date" title="Last modify date: 2026-11-24">
+                                    2026-11-24
+                                </span>
+                            
+                        </div>
+                        <div id="article_info_right">
+                            
+                            <div id="source_link">
+                                <a href="https://github.com/sipeed/MaixPy/blob/main/docs/doc/en/lvgl/lvgl.md" target="_blank">
+                                    Edit this page
+                                </a>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_tools">
+                        <span></span>
+                        <span id="toc_btn"></span>
+                    </div>
+                    <div id="update_history">
+                        
+                        
+                        <details open>
+                        
+                            <summary>Update history</summary>
+                            <div>
+                                <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Version</th>
+                                                <th>Author</th>
+                                                <th>Update content</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                                <tr>
+                                                    <td>2026-11-24</td>
+                                                    <td>v0.1.1</td>
+                                                    <td>Ariel Yu</td>
+                                                    <td>
+                                                    
+                                                        Expand Python LVGL installation, quick-start examples, CJK font guidance, and desktop SDL debugging
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <td>2026-11-10</td>
+                                                    <td>v0.1.0</td>
+                                                    <td>Tao</td>
+                                                    <td>
+                                                    
+                                                        Add LVGL GUI code and documentation support
+                                                    
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                </table>
+                            </div>
+                        </details>
+                        
+                    </div>
+                    <div id="article_content">
+                        
+                            <h2 id="What-is-maix_lvgl">What is maix_lvgl</h2>
+<p><code>maix_lvgl</code> provides Python bindings for <a href="https://lvgl.io/"  target="_blank">LVGL 9.1</a> on MaixPy.<br />
+The API matches MicroPython's <code>lvgl</code> module, so existing examples work with<br />
+<code>import maix_lvgl as lv</code>.</p>
+<p>It renders LVGL into a MaixPy <code>display.Display</code> and feeds<br />
+<code>touchscreen.TouchScreen</code> events into an LVGL pointer input device, so no<br />
+extra display driver code is needed on MaixCAM / MaixCAM2.</p>
+<p><img src="../../assets/lvgl_showcase_controls.png" alt="LVGL widget showcase" /></p>
+<p>Highlights:</p>
+<ul>
+<li>Full LVGL 9.1 widget set: buttons, labels, sliders, switches, dropdowns,<br />
+charts, canvas, keyboard, and more</li>
+<li>Styling: colors, radius, borders, shadows, gradients, fonts</li>
+<li>Layout: absolute positioning, alignment, Flex, Grid</li>
+<li>Events, timers, animations</li>
+<li>Per-pixel Canvas drawing and live Chart curves</li>
+<li>Runtime FreeType fonts, including Chinese text</li>
+<li>Plain Python main loop that composes with MaixPy camera, AI and networking</li>
+</ul>
+<blockquote>
+<p>Repository: <a href="https://github.com/Taoxuan-168/Maix_LVGL"  target="_blank">https://github.com/Taoxuan-168/Maix_LVGL</a></p>
+<p>PyPI: <a href="https://pypi.org/project/maix-lvgl/"  target="_blank">https://pypi.org/project/maix-lvgl/</a></p>
+</blockquote>
+<h2 id="Install">Install</h2>
+<p><code>maix_lvgl</code> is a standalone Python package. Install <code>maix-lvgl</code> from PyPI and<br />
+import it as <code>maix_lvgl</code>. The platform status below comes from the<br />
+<a href="https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1"  target="_blank">v0.1.1 release notes</a>.</p>
+<table>
+<thead>
+<tr>
+  <th>Platform</th>
+  <th>Architecture</th>
+  <th>Python version</th>
+  <th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>MaixCAM2</td>
+  <td>aarch64</td>
+  <td>3.13</td>
+  <td>Verified on hardware</td>
+</tr>
+<tr>
+  <td>MaixCAM / MaixCAM-Pro</td>
+  <td>RISC-V 64</td>
+  <td>3.11</td>
+  <td>Wheel provided, not verified on hardware</td>
+</tr>
+<tr>
+  <td>Desktop Linux (SDL window)</td>
+  <td>x86_64</td>
+  <td>3.13</td>
+  <td>Verified on WSL</td>
+</tr>
+<tr>
+  <td>Windows (SDL window)</td>
+  <td>x86_64</td>
+  <td>3.13</td>
+  <td>Cross-compiled, not runtime-tested</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Online-installation">Online installation</h3>
+
+<pre class="language-bash"><code class="language-bash">python3 -m pip install maix-lvgl==0.1.1
+</code></pre>
+<h3 id="Offline-installation">Offline installation</h3>
+<p>Download the matching wheel from <a href="https://github.com/Taoxuan-168/Maix_LVGL/releases/tag/v0.1.1"  target="_blank">the v0.1.1 release</a>. For a board,<br />
+use the MaixVision file manager to upload the wheel to <code>/root</code>. For example,<br />
+run this in the MaixCAM2 terminal:</p>
+
+<pre class="language-bash"><code class="language-bash">python3 -m pip install /root/maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+</code></pre>
+<p>For MaixCAM / MaixCAM-Pro, select the <code>cp311-cp311-musllinux_1_2_riscv64</code> wheel.<br />
+Desktop x86_64 uses Python 3.13. Select the <code>manylinux</code> wheel on Linux or the<br />
+<code>win_amd64</code> wheel on Windows.</p>
+<p>Verify the installed version in a terminal:</p>
+
+<pre class="language-bash"><code class="language-bash">python3 -c &quot;import maix_lvgl as lv; print(lv.__version__)&quot;
+</code></pre>
+<p>Before running on a board, close the app using the display or enter developer<br />
+mode through MaixVision.</p>
+<h2 id="Quick-start">Quick start</h2>
+<p>Create a <code>main.py</code> and run the following code in MaixVision:</p>
+
+<pre class="language-python"><code class="language-python">import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+
+try:
+    lv.init(disp, ts)               # hand MaixPy's display and touchscreen to LVGL
+
+    scr = lv.screen_active()        # the currently active screen
+    btn = lv.button(scr)            # create a button on the screen
+    btn.set_size(240, 120)          # a bigger button is easier to tap
+    btn.center()
+
+    label = lv.label(btn)           # put a label on the button
+    label.set_text(&quot;Click me&quot;)      # the default font has no CJK glyphs, see &quot;CJK text&quot; below
+    label.center()
+
+    count = [0]
+
+    def on_clicked(event):
+        count[0] += 1
+        label.set_text(&quot;Clicked %d&quot; % count[0])
+        print(&quot;clicked&quot;, count[0])
+
+    btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)   # register the click event
+
+    while not app.need_exit():
+        lv.timer_handler()          # run LVGL timers and refresh the UI, required
+        time.sleep(0.005)           # yield the CPU
+finally:
+    lv.deinit()                     # release LVGL
+    ts.close()
+    disp.close()
+</code></pre>
+<p>After running, a button with a label appears in the middle of the screen. Tap it and the label shows the click count, while the terminal prints <code>clicked 1</code>, <code>clicked 2</code>, ...</p>
+<ul>
+<li><code>lv.init(disp, ts)</code> creates the LVGL display and pointer input device.<br />
+Pass <code>False</code> as <code>ts</code> to run without touch.</li>
+<li><code>lv.timer_handler()</code> advances the LVGL tick and processes timers, input and<br />
+redraws. It replaces <code>lv_tick_inc()</code>; do not call the raw<br />
+<code>lvgl.timer_handler()</code> directly.</li>
+<li><code>lv.deinit()</code> releases LVGL and the drivers it created.</li>
+<li><code>time.sleep(0.005)</code> yields the CPU; redraws are driven by <code>timer_handler()</code>.</li>
+</ul>
+<h2 id="Debug-the-UI-on-a-PC-%28optional%29">Debug the UI on a PC (optional)</h2>
+<p>On desktop Linux / Windows the same package uses LVGL's SDL window instead of MaixPy's display, so you can tune the UI on your PC before running it on the device:</p>
+
+<pre class="language-python"><code class="language-python">import time
+import maix_lvgl as lv
+
+lv.init(800, 600)          # SDL window size
+
+scr = lv.screen_active()
+label = lv.label(scr)
+label.set_text(&quot;Hello LVGL&quot;)
+label.center()
+
+try:
+    while True:
+        lv.timer_handler()
+        time.sleep(0.01)
+except KeyboardInterrupt:
+    pass
+finally:
+    lv.deinit()
+</code></pre>
+<p><code>maix_lvgl</code> detects the environment automatically: if <code>maix</code> can be imported (on the device) it uses MaixPy's display and touchscreen, otherwise it creates an SDL window with mouse and keyboard input.</p>
+<p>On Linux, use the manylinux wheel from PyPI. The GitHub Release<br />
+<code>linux_x86_64</code> wheel requires the system SDL2 library.</p>
+<h2 id="Core-concepts">Core concepts</h2>
+<table>
+<thead>
+<tr>
+  <th>Concept</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>display</td>
+  <td>LVGL display device, created by <code>lv.init()</code> from the MaixPy display</td>
+</tr>
+<tr>
+  <td>screen</td>
+  <td>Root object, obtained with <code>lv.screen_active()</code></td>
+</tr>
+<tr>
+  <td>widget / obj</td>
+  <td>A control such as <code>lv.button</code> or <code>lv.label</code>; first argument is its parent</td>
+</tr>
+<tr>
+  <td>style</td>
+  <td>Style properties set with <code>set_style_*</code>; second argument is a state selector</td>
+</tr>
+<tr>
+  <td>event</td>
+  <td>Callbacks registered with <code>add_event_cb()</code></td>
+</tr>
+<tr>
+  <td>timer</td>
+  <td>LVGL timer created with <code>lv.timer_create()</code></td>
+</tr>
+<tr>
+  <td>anim</td>
+  <td>Animation created with <code>lv.anim_t()</code> and started with <code>start()</code></td>
+</tr>
+</tbody>
+</table>
+<p>LVGL uses a parent/child object tree: deleting a parent deletes its children.<br />
+Python variables are wrappers around native LVGL objects. Short-lived wrapper<br />
+variables do not stop a widget from being shown, but callbacks, animations,<br />
+timers and Canvas buffers must be kept alive from Python.</p>
+<h2 id="Creating-widgets">Creating widgets</h2>
+<p>Every widget takes its parent as the first argument:</p>
+
+<pre class="language-python"><code class="language-python">scr = lv.screen_active()
+
+label = lv.label(scr)
+button = lv.button(scr)
+slider = lv.slider(scr)
+switch = lv.switch(scr)
+chart = lv.chart(scr)
+canvas = lv.canvas(scr)
+</code></pre>
+<p>Common widgets:</p>
+<table>
+<thead>
+<tr>
+  <th>Widget</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>lv.label</code></td>
+  <td>Text</td>
+</tr>
+<tr>
+  <td><code>lv.button</code></td>
+  <td>Button</td>
+</tr>
+<tr>
+  <td><code>lv.switch</code> / <code>lv.checkbox</code></td>
+  <td>Switch / checkbox</td>
+</tr>
+<tr>
+  <td><code>lv.slider</code> / <code>lv.bar</code> / <code>lv.arc</code></td>
+  <td>Slider / progress bar / arc</td>
+</tr>
+<tr>
+  <td><code>lv.dropdown</code> / <code>lv.roller</code></td>
+  <td>Dropdown / roller</td>
+</tr>
+<tr>
+  <td><code>lv.textarea</code> / <code>lv.keyboard</code></td>
+  <td>Text input / on-screen keyboard</td>
+</tr>
+<tr>
+  <td><code>lv.chart</code></td>
+  <td>Line, bar and scatter charts</td>
+</tr>
+<tr>
+  <td><code>lv.table</code> / <code>lv.calendar</code></td>
+  <td>Table / calendar</td>
+</tr>
+<tr>
+  <td><code>lv.canvas</code></td>
+  <td>Per-pixel drawing</td>
+</tr>
+<tr>
+  <td><code>lv.list</code> / <code>lv.msgbox</code></td>
+  <td>List / message box</td>
+</tr>
+<tr>
+  <td><code>lv.spinner</code> / <code>lv.led</code></td>
+  <td>Spinner / LED indicator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Common-widget-operations">Common widget operations</h3>
+
+<pre class="language-python"><code class="language-python">label = lv.label(scr)
+label.set_text(&quot;Temperature: 25.3 °C&quot;)
+label.set_pos(20, 20)
+label.set_style_text_color(lv.color_hex(0xE5E7EB), 0)
+label.set_style_text_font(lv.font_montserrat_16, 0)
+
+slider = lv.slider(scr)
+slider.set_pos(20, 60)
+slider.set_size(220, 16)
+slider.set_range(0, 100)
+slider.set_value(50, lv.ANIM_ENABLE.OFF)
+
+bar = lv.bar(scr)
+bar.set_pos(20, 100)
+bar.set_size(220, 12)
+bar.set_range(0, 100)
+bar.set_value(65, lv.ANIM_ENABLE.OFF)
+
+switch = lv.switch(scr)
+switch.set_pos(20, 130)
+switch.add_state(lv.STATE.CHECKED)
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_input.png" alt="Text input and list" /></p>
+<p>Pass <code>lv.ANIM_ENABLE.OFF</code> as the second <code>set_value()</code> argument to apply the<br />
+value immediately; <code>lv.ANIM_ENABLE.ON</code> animates the transition.</p>
+<h2 id="Styles">Styles</h2>
+<p>Styles are applied directly to an object with <code>set_style_*</code> methods. The<br />
+second argument is the selector:</p>
+<ul>
+<li><code>0</code>: main part (<code>LV_PART_MAIN</code>) in its default state</li>
+<li><code>lv.STATE.PRESSED</code>: pressed state</li>
+<li><code>lv.STATE.CHECKED</code>: checked state</li>
+</ul>
+<h3 id="Color-and-opacity">Color and opacity</h3>
+
+<pre class="language-python"><code class="language-python">color = lv.color_hex(0x3B82F6)          # RGB
+scr.set_style_bg_color(color, 0)
+scr.set_style_bg_opa(lv.OPA.COVER, 0)   # fully opaque
+
+panel.set_style_bg_opa(lv.OPA._70, 0)   # 70% opacity
+</code></pre>
+<p><code>lv.OPA</code> provides <code>TRANSP</code>, <code>_10</code> through <code>_90</code>, and <code>COVER</code>.</p>
+<h3 id="Radius%2C-border-and-shadow">Radius, border and shadow</h3>
+
+<pre class="language-python"><code class="language-python">card = lv.obj(scr)
+card.set_size(220, 120)
+card.set_style_bg_color(lv.color_hex(0x1E293B), 0)
+card.set_style_bg_opa(lv.OPA.COVER, 0)
+card.set_style_radius(14, 0)
+card.set_style_border_width(1, 0)
+card.set_style_border_color(lv.color_hex(0x334155), 0)
+card.set_style_shadow_width(18, 0)
+card.set_style_shadow_color(lv.color_hex(0x3B82F6), 0)
+card.set_style_shadow_opa(lv.OPA._50, 0)
+card.set_style_pad_all(12, 0)
+</code></pre>
+<h3 id="Gradient-background">Gradient background</h3>
+
+<pre class="language-python"><code class="language-python">card.set_style_bg_color(lv.color_hex(0x0F172A), 0)
+card.set_style_bg_grad_color(lv.color_hex(0x1E3A8A), 0)
+card.set_style_bg_grad_dir(lv.GRAD_DIR.VER, 0)
+</code></pre>
+<h3 id="Text-style">Text style</h3>
+
+<pre class="language-python"><code class="language-python">label.set_style_text_color(lv.color_hex(0xF8FAFC), 0)
+label.set_style_text_font(lv.font_montserrat_20, 0)
+label.set_style_text_letter_space(2, 0)
+</code></pre>
+<p>The built-in Montserrat fonts only cover Latin characters. Use FreeType for<br />
+Chinese text (see below).</p>
+<h3 id="State-specific-styles">State-specific styles</h3>
+<p>The same object can have different styles per state:</p>
+
+<pre class="language-python"><code class="language-python">btn.set_style_bg_color(lv.color_hex(0x2563EB), 0)
+btn.set_style_bg_color(lv.color_hex(0x1D4ED8), lv.STATE.PRESSED)
+</code></pre>
+<h2 id="Layout-and-alignment">Layout and alignment</h2>
+<h3 id="Absolute-positioning">Absolute positioning</h3>
+
+<pre class="language-python"><code class="language-python">obj.set_pos(x, y)
+obj.set_x(x)
+obj.set_y(y)
+obj.set_size(width, height)
+</code></pre>
+<h3 id="Alignment">Alignment</h3>
+
+<pre class="language-python"><code class="language-python">obj.align(lv.ALIGN.CENTER, 0, 0)
+obj.align(lv.ALIGN.TOP_RIGHT, -10, 10)
+obj.center()
+</code></pre>
+<p><code>lv.ALIGN</code> includes <code>TOP_LEFT</code>, <code>TOP_MID</code>, <code>CENTER</code>, <code>BOTTOM_RIGHT</code> and more.<br />
+The last two arguments are offsets from the aligned position.</p>
+<h3 id="Flex-layout">Flex layout</h3>
+<p>Flex arranges children in a row or column:</p>
+
+<pre class="language-python"><code class="language-python">row = lv.obj(scr)
+row.set_size(400, 80)
+row.set_flex_flow(lv.FLEX_FLOW.ROW)
+row.set_flex_align(
+    lv.FLEX_ALIGN.SPACE_EVENLY,
+    lv.FLEX_ALIGN.CENTER,
+    lv.FLEX_ALIGN.CENTER,
+)
+
+for text in (&quot;A&quot;, &quot;B&quot;, &quot;C&quot;):
+    btn = lv.button(row)
+    btn.set_size(80, 48)
+    lv.label(btn).set_text(text)
+</code></pre>
+<h3 id="Grid-layout">Grid layout</h3>
+<p>Grid suits table-like layouts. <code>set_grid_dsc_array()</code> takes column and row<br />
+sizes; the arrays must end with <code>LV_GRID_TEMPLATE_LAST</code> (not exported by the<br />
+binding; its value in LVGL 9.1 is <code>0x1FFFFFFF</code>):</p>
+
+<pre class="language-python"><code class="language-python">GRID_LAST = 0x1FFFFFFF  # LV_GRID_TEMPLATE_LAST
+
+grid = lv.obj(scr)
+grid.set_size(300, 200)
+grid.set_grid_dsc_array(
+    [lv.grid_fr(1), lv.grid_fr(1), GRID_LAST],
+    [lv.grid_fr(1), lv.grid_fr(1), GRID_LAST],
+)
+
+item = lv.obj(grid)
+item.set_grid_cell(lv.GRID_ALIGN.STRETCH, 0, 1, lv.GRID_ALIGN.STRETCH, 0, 1)
+</code></pre>
+<h2 id="Events">Events</h2>
+<p>Event callbacks receive an <code>event_t</code>:</p>
+
+<pre class="language-python"><code class="language-python">def on_clicked(event):
+    target = event.get_target_obj()
+    print(&quot;clicked&quot;, target)
+
+btn.add_event_cb(on_clicked, lv.EVENT.CLICKED, None)
+</code></pre>
+<p>Common events:</p>
+<table>
+<thead>
+<tr>
+  <th>Event</th>
+  <th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>lv.EVENT.CLICKED</code></td>
+  <td>Click</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.PRESSED</code> / <code>RELEASED</code></td>
+  <td>Press / release</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.VALUE_CHANGED</code></td>
+  <td>Value changed (slider, switch, dropdown)</td>
+</tr>
+<tr>
+  <td><code>lv.EVENT.READY</code></td>
+  <td>Action completed (keyboard, message box)</td>
+</tr>
+</tbody>
+</table>
+<p>Slider and switch:</p>
+
+<pre class="language-python"><code class="language-python">def on_value_changed(event):
+    print(&quot;value:&quot;, slider.get_value())
+
+slider.add_event_cb(on_value_changed, lv.EVENT.VALUE_CHANGED, None)
+
+
+def on_switch_changed(event):
+    print(&quot;switch:&quot;, switch.has_state(lv.STATE.CHECKED))
+
+switch.add_event_cb(on_switch_changed, lv.EVENT.VALUE_CHANGED, None)
+</code></pre>
+<blockquote>
+<p>Keep callback functions alive (module level, closure, or a list). Do not use<br />
+a temporary lambda that is immediately discarded. The third argument to<br />
+<code>add_event_cb</code> is user data; retrieve it with <code>event.get_user_data()</code>.</p>
+</blockquote>
+<p>Remove a callback:</p>
+
+<pre class="language-python"><code class="language-python">btn.remove_event_cb(on_clicked)
+</code></pre>
+<h2 id="Timers-and-animations">Timers and animations</h2>
+<h3 id="Timers">Timers</h3>
+
+<pre class="language-python"><code class="language-python">def on_tick(timer):
+    label.set_text(time.strftime(&quot;%H:%M:%S&quot;))
+
+timer = lv.timer_create(on_tick, 1000, None)  # every 1000 ms
+</code></pre>
+<p><code>lv.timer_create(callback, period_ms, user_data)</code> starts the timer<br />
+automatically. Keep both the callback and the timer object referenced; call<br />
+<code>timer.delete()</code> when it is no longer needed.</p>
+<h3 id="Animations">Animations</h3>
+
+<pre class="language-python"><code class="language-python">box = lv.obj(scr)
+box.set_size(80, 80)
+box.set_style_bg_color(lv.color_hex(0xF59E0B), 0)
+box.set_style_bg_opa(lv.OPA.COVER, 0)
+box.set_style_radius(16, 0)
+
+def exec_anim(anim, value):
+    box.set_x(value)
+
+anim = lv.anim_t()
+anim.init()
+anim.set_values(0, 240)
+anim.set_time(1200)
+anim.set_playback_time(1200)
+anim.set_repeat_count(0xFFFF)   # loop forever
+anim.set_custom_exec_cb(exec_anim)
+anim.start()
+</code></pre>
+<p><code>set_values(start, end)</code> sets the range, <code>set_time()</code> the forward duration and<br />
+<code>set_playback_time()</code> the reverse duration. Keep the <code>anim</code> object alive.</p>
+<p><code>maix_lvgl</code> also provides <code>lv.anim_set_exec_cb(anim, cb)</code> as a convenience<br />
+wrapper.</p>
+<h2 id="Drawing">Drawing</h2>
+<h3 id="Canvas%3A-per-pixel-drawing">Canvas: per-pixel drawing</h3>
+<p><code>lv.canvas</code> gives direct access to pixels, useful for waveforms, gauges and<br />
+custom graphics:</p>
+
+<pre class="language-python"><code class="language-python">import math
+
+WIDTH, HEIGHT = 320, 180
+buffer = bytearray(WIDTH * HEIGHT * 4)   # ARGB8888
+
+canvas = lv.canvas(scr)
+canvas.set_size(WIDTH, HEIGHT)
+canvas.set_buffer(buffer, WIDTH, HEIGHT, lv.COLOR_FORMAT.ARGB8888)
+canvas.fill_bg(lv.color_hex(0x0E0E16), lv.OPA.COVER)
+
+grid_color = lv.color_hex(0x1F2937)
+for x in range(0, WIDTH, 40):
+    for y in range(HEIGHT):
+        canvas.set_px(x, y, grid_color, lv.OPA.COVER)
+
+wave_color = lv.color_hex(0x3B82F6)
+for x in range(WIDTH):
+    y = int(HEIGHT / 2 + 55 * math.sin(x / 24.0))
+    if 0 &lt;= y &lt; HEIGHT:
+        canvas.set_px(x, y, wave_color, lv.OPA.COVER)
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_canvas.png" alt="Canvas drawing" /></p>
+<p>Notes:</p>
+<ul>
+<li>The buffer must be a <code>bytearray</code> with <code>ARGB8888</code> pixels.</li>
+<li><strong>Keep a Python reference to the buffer</strong> (module-level variable or a list);<br />
+otherwise it may be collected and the canvas shows garbage or crashes.</li>
+<li>Buffer size is <code>width * height * 4</code>.</li>
+<li>LVGL refreshes the canvas on the next redraw.</li>
+</ul>
+<h3 id="Chart%3A-live-curves">Chart: live curves</h3>
+
+<pre class="language-python"><code class="language-python">import math
+
+chart = lv.chart(scr)
+chart.set_size(360, 200)
+chart.set_type(lv.chart.TYPE.LINE)
+chart.set_point_count(40)
+chart.set_range(lv.chart.AXIS.PRIMARY_Y, -100, 100)
+chart.set_div_line_count(4, 6)
+chart.set_update_mode(lv.chart.UPDATE_MODE.SHIFT)
+
+series = chart.add_series(lv.color_hex(0x22C55E), lv.chart.AXIS.PRIMARY_Y)
+
+for i in range(40):
+    chart.set_next_value(series, int(80 * math.sin(i / 5.0)))
+</code></pre>
+<p><img src="../../assets/lvgl_showcase_data.png" alt="Chart curves" /></p>
+<p><code>set_update_mode(lv.chart.UPDATE_MODE.SHIFT)</code> shifts old points out as new<br />
+ones arrive, which suits live data. Use <code>lv.chart.TYPE.BAR</code> for bar charts.</p>
+<h3 id="Drawing-with-styles">Drawing with styles</h3>
+<p>Many visual effects do not need Canvas at all:</p>
+<ul>
+<li>Borders: <code>set_style_border_width()</code> + <code>set_style_border_color()</code></li>
+<li>Rounded corners: <code>set_style_radius()</code></li>
+<li>Shadows/glow: <code>set_style_shadow_width()</code> + <code>set_style_shadow_color()</code> +<br />
+<code>set_style_shadow_opa()</code></li>
+<li>Gradients: <code>set_style_bg_grad_color()</code> + <code>set_style_bg_grad_dir()</code></li>
+<li>Arcs and progress: <code>lv.arc</code>, <code>lv.bar</code></li>
+</ul>
+
+<pre class="language-python"><code class="language-python">ring = lv.arc(scr)
+ring.set_size(120, 120)
+ring.set_bg_angles(0, 360)
+ring.set_angles(0, 270)
+ring.set_style_arc_color(lv.color_hex(0x22C55E), lv.PART.INDICATOR)
+ring.set_style_arc_width(10, lv.PART.INDICATOR)
+</code></pre>
+<h3 id="Chinese-text-with-FreeType">Chinese text with FreeType</h3>
+<p>Run this example on MaixCAM2. The v0.1.1 Linux desktop wheel on PyPI does<br />
+not expose the FreeType font-loading API.</p>
+<p>LVGL's built-in fonts only cover Latin characters. To display Chinese (or other CJK text) you have to load a font. FreeType support is enabled in the <code>maix_lvgl</code> build, so you can load a font file from the device directly, for example the built-in <code>SourceHanSansCN-Regular.otf</code>:</p>
+
+<pre class="language-python"><code class="language-python">import time
+from maix import app, display, touchscreen
+import maix_lvgl as lv
+
+FONT = &quot;/maixapp/share/font/SourceHanSansCN-Regular.otf&quot;
+
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+font = None
+label = None
+
+try:
+    lv.init(disp, ts)
+    scr = lv.screen_active()
+    scr.set_style_bg_color(lv.color_hex(0x101018), 0)
+
+    font = lv.freetype_font_create(FONT, 0, 24, 0)   # font, render mode, pixel size, style
+    if font is None:
+        raise RuntimeError(&quot;cannot load &quot; + FONT)
+
+    label = lv.label(scr)
+    label.set_text(&quot;你好，MaixCAM2！&quot;)
+    label.set_style_text_font(font, 0)
+    label.set_style_text_color(lv.color_hex(0xFFFFFF), 0)
+    label.set_pos(20, 20)
+
+    while not app.need_exit():
+        lv.timer_handler()
+        time.sleep(0.005)
+finally:
+    if label is not None:
+        label.delete()
+    if font is not None:
+        font.freetype_font_delete()
+    lv.deinit()
+    ts.close()
+    disp.close()
+</code></pre>
+<p><img src="../../assets/lvgl_cjk.png" alt="CJK text rendered with FreeType" /></p>
+<p>Notes:</p>
+<ul>
+<li><code>lv.init()</code> already initializes FreeType and <code>lv.deinit()</code> cleans it up. Do <strong>not</strong> call <code>lv.freetype_init()</code> / <code>lv.freetype_uninit()</code> manually, otherwise the cleanup runs twice and may hang.</li>
+<li>Delete the widgets that use the font before calling <code>font.freetype_font_delete()</code>, otherwise you access a freed font.</li>
+<li>The Source Han Sans font file is about 8 MB, so create it on demand and delete it when you are done.</li>
+</ul>
+<h3 id="Images">Images</h3>
+<p><code>lv.image</code> displays images; <code>set_src()</code> accepts an image descriptor or a path.<br />
+For MaixPy camera frames, wrap an <code>ARGB8888</code>/<code>BGRA8888</code> buffer in an<br />
+<code>lv_image_dsc_t</code>:</p>
+
+<pre class="language-python"><code class="language-python">dsc = lv.image_dsc_t()
+dsc.header.w = width
+dsc.header.h = height
+dsc.header.cf = lv.COLOR_FORMAT.ARGB8888
+dsc.data_size = len(buffer)
+dsc.data = buffer
+
+img = lv.image(scr)
+img.set_src(dsc)
+</code></pre>
+<blockquote>
+<p>Keep the <code>data</code> buffer alive. If you start from a MaixPy <code>image</code>, convert it<br />
+to BGRA8888 first and keep the resulting bytes. See<br />
+<code>examples/showcase.py</code> and <code>examples/music_player.py</code> for complete examples.</p>
+</blockquote>
+<h2 id="Combining-with-MaixPy">Combining with MaixPy</h2>
+<p><code>maix_lvgl</code> only handles the UI; use MaixPy modules for camera, AI and<br />
+networking. A typical loop:</p>
+
+<pre class="language-python"><code class="language-python">import time
+
+from maix import app, camera, display, touchscreen
+import maix_lvgl as lv
+
+cam = camera.Camera(320, 240)
+disp = display.Display()
+ts = touchscreen.TouchScreen()
+
+lv.init(disp, ts)
+# ... build the UI ...
+
+while not app.need_exit():
+    img = cam.read()
+    # pass img to AI or networking, then update LVGL widgets with the result
+    lv.timer_handler()
+    time.sleep(0.005)
+</code></pre>
+<p>Camera reads and LVGL run serially on the main loop; avoid touching LVGL from<br />
+another thread.</p>
+<h2 id="Performance-and-notes">Performance and notes</h2>
+<ul>
+<li><strong>Full-screen buffer</strong>: v0.1.1 defaults to ARGB8888 (4 bytes per pixel) on<br />
+MaixCAM2 and RGB888 (3 bytes per pixel) on MaixCAM / MaixCAM-Pro. Each flush<br />
+pushes the full frame.</li>
+<li><strong>JPEG images</strong>: v0.1.1 has no built-in JPEG decoder.</li>
+<li><strong>Main loop</strong>: call <code>lv.timer_handler()</code> then <code>sleep(0.005)</code>. LVGL only<br />
+redraws when something changes.</li>
+<li><strong>Object lifetime</strong>: keep callbacks, animations, timers and canvas buffers<br />
+referenced from Python.</li>
+<li><strong>Touch targets</strong>: hit testing uses the widget's actual area; widgets must<br />
+cover the touched region.</li>
+<li><strong>Single display</strong>: only one program can use <code>maix.display.Display</code> at a<br />
+time; stop the launcher before running.</li>
+<li><strong>Font cache</strong>: the FreeType glyph cache is limited; switching many large<br />
+sizes can increase memory use.</li>
+</ul>
+<h2 id="Building-maix_lvgl-from-source-%28brief%29">Building maix_lvgl from source (brief)</h2>
+<p><code>maix_lvgl</code> is a standard MaixCDK project. LVGL source is not vendored; MaixCDK<br />
+downloads and builds the version pinned by its Kconfig.</p>
+<p>Flow:</p>
+<ol>
+<li>MaixCDK downloads and builds LVGL 9.1.0 with its dependencies (FreeType,<br />
+rlottie, ...).</li>
+<li><code>tools/regenerate_binding.py</code> runs the bundled omnipython-lvgl generator<br />
+against MaixCDK's LVGL headers to produce <code>binding/lvgl_python.c</code> and<br />
+<code>binding/lvgl.pyi</code>.</li>
+<li><code>components/lvgl_binding</code> compiles the generated code plus<br />
+<code>runtime/lvpy_runtime.c</code> into <code>liblvgl_binding.so</code>, linked against MaixCDK's<br />
+LVGL and Python.</li>
+<li><code>setup.py</code> packages the extension, the Python backend and dependencies into<br />
+a platform wheel.</li>
+</ol>
+<p>Build commands:</p>
+
+<pre class="language-bash"><code class="language-bash">export MAIXCDK_PATH=/path/to/MaixCDK
+
+# MaixCAM2: aarch64 / Python 3.13
+python3.13 setup.py bdist_wheel --board maixcam2
+
+# MaixCAM: RISC-V / Python 3.11
+python3.11 setup.py bdist_wheel --board maixcam
+</code></pre>
+<p>Requirements: MaixCDK, the matching host Python (3.13 or 3.11), <code>pycparser</code>,<br />
+<code>cmake</code> and the target cross toolchain. Artifacts land in <code>dist/</code>:</p>
+
+<pre class="language-text"><code class="language-text">maix_lvgl-0.1.1-cp313-cp313-manylinux2014_aarch64.whl
+maix_lvgl-0.1.1-cp311-cp311-musllinux_1_2_riscv64.whl
+</code></pre>
+<p>See the <a href="https://github.com/Taoxuan-168/Maix_LVGL/blob/v0.1.1/README.md#building"  target="_blank">upstream build guide</a><br />
+for the full build and binding regeneration steps.</p>
+<h2 id="Examples-and-repository">Examples and repository</h2>
+<p>Repository: <a href="https://github.com/Taoxuan-168/Maix_LVGL"  target="_blank">https://github.com/Taoxuan-168/Maix_LVGL</a></p>
+<table>
+<thead>
+<tr>
+  <th>Example</th>
+  <th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>examples/demo.py</code></td>
+  <td>Minimal button demo</td>
+</tr>
+<tr>
+  <td><code>examples/showcase.py</code></td>
+  <td>Four pages: controls, charts, input, Canvas</td>
+</tr>
+<tr>
+  <td><code>examples/tile_dashboard.py</code></td>
+  <td>Smart-home tile dashboard</td>
+</tr>
+<tr>
+  <td><code>examples/neon_dashboard.py</code></td>
+  <td>Neon instrument panel</td>
+</tr>
+<tr>
+  <td><code>examples/music_player.py</code></td>
+  <td>Music player with spectrum</td>
+</tr>
+<tr>
+  <td><code>examples/watchface.py</code></td>
+  <td>Round watchface</td>
+</tr>
+<tr>
+  <td><code>examples/threshold_editor.py</code></td>
+  <td>Camera threshold editor</td>
+</tr>
+<tr>
+  <td><code>examples/multi_color_threshold.py</code></td>
+  <td>Multi-color LAB threshold editor</td>
+</tr>
+<tr>
+  <td><code>examples/drawing_board.py</code></td>
+  <td>Drawing board with PNG export</td>
+</tr>
+<tr>
+  <td><code>tests/suite_*.py</code></td>
+  <td>On-device API test suites</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UI-examples">UI examples</h3>
+<p><img src="../../assets/lvgl_ui_tiles.png" alt="HomeTiles dashboard" /></p>
+<p><img src="../../assets/lvgl_ui_aura.png" alt="Aura neon dashboard" /></p>
+<p><img src="../../assets/lvgl_ui_music.png" alt="Music player" /></p>
+<p><img src="../../assets/lvgl_ui_watch.png" alt="ZSWatch watchface" /></p>
+<p>Run an example on the device:</p>
+<p>Copy the full <a href="https://github.com/Taoxuan-168/Maix_LVGL/tree/v0.1.1/examples"  target="_blank">v0.1.1 examples directory</a><br />
+to <code>/root/examples</code> on the device so the shared <code>_common.py</code> is available.</p>
+
+<pre class="language-bash"><code class="language-bash">cd /root/examples
+python3 showcase.py
+</code></pre>
+<p>Use the on-screen <strong>Exit</strong> button to quit.</p>
+
+                        
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                        <a href="/maixpy/doc/en/gui/i18n.html">
+                            <span class="icon"></span>
+                            <span class="label">I18N (Multi language)</span>
+                        </a>
+                        
+                    </div>
+                    <div id="next">
+                        
+                        <a href="/maixpy/doc/en/vision/ai.html">
+                            <span class="label">AI vision knowledge</span>
+                            <span class="icon"></span>
+                        </a>
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc_wrapper">
+                <div id="toc">
+                    <div id="toc_content">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a>Links</a><ul><li><a target="_blank" href="https://wiki.sipeed.com">Sipeed Wiki</a></li>
+<li><a target="_blank" href="https://www.sipeed.com">Sipeed Official</a></li>
+<li><a target="_blank" href="https://maixhub.com/">MaixHub</a></li>
+<li><a  href="/maixpy/sitemap.xml">Site map</a></li>
+<li><a target="_blank" href="https://github.com/neutree/teedoc">Generated by teedoc</a></li>
+</ul>
+</li>
+<li><a>Source code</a><ul><li><a target="_blank" href="https://github.com/sipeed/maixpy">MaixPy source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/MaixCDK">MaixCDK source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed/sipeed_wiki">Wiki source code</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">Open source projects</a></li>
+</ul>
+</li>
+<li><a>Follow us</a><ul><li><a target="_blank" href="https://x.com/SipeedLab">twitter</a></li>
+<li><a target="_blank" href="https://sipeed.taobao.com/">Taobao</a></li>
+<li><a target="_blank" href="https://www.aliexpress.com/store/911876460">AliExpress</a></li>
+<li><a target="_blank" href="https://github.com/sipeed">github</a></li>
+<li><a><a>Wechat </a><img src='/maixpy/static/image/wechat.png'></a>
+</li>
+</ul>
+</li>
+<li><a>Contact us</a><ul><li><a>Tel: +86 0755-27808509</a>
+</li>
+<li><a>Bussiness: support@sipeed.com</a>
+</li>
+<li><a>Addr: 深圳市宝安区新湖路4008号蘅芳科技办公大厦A座-2101C</a>
+</li>
+<li><a  href="https://wiki.sipeed.com/join_us.html">Join us</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="https://www.sipeed.com">©2018-2023 深圳矽速科技有限公司</a></li>
+<li><a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备19015433号</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/maixpy/teedoc-plugin-markdown-parser/mermaid.min.js"></script>
+    
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+        <script src="/maixpy/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/main.js"></script>
+    
+        <script src="/maixpy/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/maixpy/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/maixpy/static/js/search/search_main.js"></script>
+    
+        <script src="/maixpy/static/js/custom.js"></script>
+    
+        <script src="/maixpy/static/js/thumbs_up/main.js"></script>
+    
+</body>
+
+</html>
